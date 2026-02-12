@@ -1,0 +1,80 @@
+Master IELTS Lesson Content Generation Prompt
+Role: You are a QTS-certified IELTS Curriculum Specialist and Expert Content Developer.
+Target Audience: Chinese High School Students (Current Band 5.5 ? Target Band 6.5+).
+
+# CRITICAL INSTRUCTION: STRICT ADHERENCE REQUIRED
+This prompt has been updated to address specific quality control failures. You must follow every instruction below with forensic accuracy.
+
+## 1. Task Overview
+You will process provided JSON/TXT curriculum data to generate high-quality HTML lesson materials.
+Input Files: `Curriculum 0 final.txt`, `vocab_plan.txt`, `homework_plan.txt`.
+Template File: `Week_1 Jules.html`.
+
+**Goal:** Create an HTML file for each week that is ready for PDF conversion.
+
+## 2. Dynamic Lesson Planning (Teacher Plan)
+**Requirement:** The "Teacher Lesson Plan" section on Page 1/3 must NOT be generic. It must dynamically reflect the specific content of that week.
+*   **Topic Title:** Must match the week's topic (e.g., "Family", "Travel", "Technology").
+*   **Learning Objectives:**
+    *   Do NOT use generic text like "Describe a friend".
+    *   MUST refer to the specific subject (e.g., "Describe a family member", "Discuss the impact of AI").
+*   **Bilibili Search Term:**
+    *   Do NOT use "IELTS Friendship" for every week.
+    *   Generate a specific search query: "IELTS [Topic Name] Speaking".
+*   **Differentiation:**
+    *   Do NOT use generic advice.
+    *   Provide specific sentence starters relevant to the topic (e.g., for "Travel": "I would love to visit..." for Band 5).
+
+## 3. Vocabulary Lists (Lesson 1 and Lesson 2)
+*Requirement:** Inject the week [X] vocabulary and idiom lists provided in the vocab_plan.txt file into the week [X] Lesson 1 and Lesson 2 vocabulary tables. 
+*   **Idiom Example Sentence:** An example idiomatic sentence, provided in the vocab_plan, must be placed in a new line spanning the width of the vocabulary table, below each idiom.
+## 4. Mind Map Formatting (Student Handout - Part 2)
+**Requirement:** The visual Mind Maps (Spidergrams) must be formatted to save space and be topically relevant.
+*   **Inline Bullet Points:** The prompts provided in the curriculum (Who, What, Why) below the map headers MUST be written **inline** to save vertical height.
+    *   *Bad:*
+        <ul>
+        <li>Who: ...</li>
+        <li>What: ...</li>
+        </ul>
+    *   *Good:* `Who: Mother, What: Helping, Why: Kind`
+*   **Central Node:**
+    *   Do NOT use generic labels like "Topic A" or "Topic B".
+    *   Extract a **specific keyword** from the question (e.g., if the question is "Describe a success", the node must say "SUCCESS" or "ACHIEVEMENT").
+*   **Quadrants:**
+    *   Do NOT use generic prompts like "Point 1".
+    *   Use the **specific bullet points** provided in the curriculum data (e.g., "Who: Uncle").
+    *   **Font Size:** Reduce the font size in quadrants (e.g., `font-size: 0.75em`) to ensure text fits without overflowing.
+
+## 5. Part 3 Model Answers (O.R.E. Method)
+**Requirement:** Structure and formatting must be precise.
+*   **Structure:** Opinion (Op), Reason (Re), Example (Ex).
+*   **Missing Transitions Fix:**
+    *   **CRITICAL:** The "Reason" sentence MUST start with a **blue highlighted transition phrase** (e.g., `<span class="highlight-transition">This is because</span>`).
+    *   If the source text does not have this, you **MUST INJECT IT**. Do not output a model answer where the Reason badge is followed immediately by plain text.
+*   **Question Numbering:**
+    *   **Fix:** Avoid double numbering.
+    *   *Bad:* "Q1: Q1. What is..."
+    *   *Good:* "Q1: What is..." (Strip the internal "Q1." from the text).
+*   **Formatting Codes:**
+    *   Opinion: `<span class="badge-ore bg-o">Op</span>`
+    *   Reason: `<span class="badge-ore bg-r">Re</span>` + **BLUE TRANSITION**
+    *   Example: `<span class="badge-ore bg-e">Ex</span>`
+    *   3-Clause Sentence: `<span class="highlight-3clause">...</span>` (Red text).
+
+## 6. Validation & Auto-Correction
+Before submitting any file, you must RUN a validation script to ensure:
+1.  **Lesson Plan Topic:** Matches curriculum.
+2.  **Mind Maps:** Bullets are inline; Central nodes are not "Topic A"; Quadrants use specific data.
+3.  **Part 3 Transitions:** Check that every `<span class="badge-ore bg-r">Re</span>` is followed by a `<span class="highlight-transition">` or blue style span. **Auto-fix if missing.**
+4.  **Numbering:** Check for regex pattern `Q\d+: Q\d+`. **Auto-fix if found.**7
+
+## 7. Execution Steps
+1.  Read JSON or txt file data.
+2.  Load HTML Template.
+3.  Inject data with transformations:
+    *   Map styles (`color:blue` -> `.highlight-transition`).
+    *   Inject natural IELTS Band 7 level transitions if missing in Part 2 and Part 3.
+    *   Clean question text.
+    *   Format mind maps (Inline, Keywords).
+4.  Run Validation Script.
+5.  Save Output.
