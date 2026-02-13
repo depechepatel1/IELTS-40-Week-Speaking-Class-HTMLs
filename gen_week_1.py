@@ -33,28 +33,19 @@ def replace_text(source, old, new):
     return source.replace(old, new)
 
 def replace_inner_html(source, start_marker, new_content):
-    """
-    Robustly replaces content inside a container div, handling nested divs.
-    Finds start_marker, then finds the next '>', then tracks balanced <div> tags.
-    """
     start_pos = source.find(start_marker)
     if start_pos == -1:
         print(f"WARNING: Could not find start marker '{start_marker}'")
         return source
 
-    # Find end of opening tag
     tag_end = source.find('>', start_pos) + 1
-
-    # Track balanced divs to find the matching closing tag
     depth = 1
     current_pos = tag_end
 
     while depth > 0 and current_pos < len(source):
-        # Find next tag opening or closing
         next_open = source.find('<div', current_pos)
         next_close = source.find('</div>', current_pos)
 
-        # If no more tags found
         if next_close == -1:
             break
 
@@ -66,8 +57,6 @@ def replace_inner_html(source, start_marker, new_content):
             current_pos = next_close + 6
 
     if depth == 0:
-        # Found the matching closing div at next_close
-        # Replace content between tag_end and next_close
         return source[:tag_end] + new_content + source[next_close:]
     else:
         print(f"WARNING: Could not find matching closing div for '{start_marker}'")
@@ -152,6 +141,25 @@ def format_model_answer(text, use_short_badges=False):
 
     return text
 
+# --- Step 0: Inject Compact CSS ---
+print("Injecting Compact CSS...")
+compact_css = """
+    /* Compact overrides for Teacher Plans to fit A4 */
+    .compact-plan .card { padding: 6px 10px !important; margin-bottom: 8px !important; }
+    .compact-plan h2 { margin-bottom: 4px !important; font-size: 0.95em !important; }
+    .compact-plan .lp-table td { padding: 3px 6px !important; font-size: 0.75em !important; }
+    .compact-plan li { margin-bottom: 0 !important; }
+"""
+html = html.replace('</style>', f'{compact_css}\n</style>')
+
+# Apply class to Teacher Plan pages
+# Note: The template uses class="page l1" for multiple pages. We need to target the Teacher Plan one.
+# Teacher Plan is the first "page l1".
+html = html.replace('<div class="page l1">', '<div class="page l1 compact-plan">', 1)
+# Also L2 Teacher Plan (Page 4).
+html = html.replace('<div class="page l2">', '<div class="page l2 compact-plan">', 1)
+
+
 # --- Step 1: Teacher Plan (Page 3) ---
 print("Processing Teacher Plan...")
 
@@ -159,7 +167,7 @@ html = replace_text(html, "Week 1 • Lesson 1 • Friendship", "Week 1 • Less
 html = replace_text(html, "Search: IELTS Friendship", "Search: IELTS Family Speaking")
 
 new_objectives = """
-<li><strong>Speaking:</strong> Describe a family member using adjectives of personality and emotion.</li>
+<li><strong>Speaking:</strong> Describe a family member using adjectives of personality.</li>
 <li><strong>Vocab:</strong> Use 7 target words (e.g., <em>Diligent, Selfless</em>) in context.</li>
 <li><strong>Grammar:</strong> Use relative clauses ("who is...", "which is...") to describe people.</li>
 """
@@ -168,13 +176,13 @@ html = re.sub(r'(<h2>🎯 Learning Objectives</h2>\s*<ul.*?>)(.*?)(</ul>)', r'\1
 diff_content = """
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;">
     <strong>📉 Band 5.0 (Support)</strong><br>
-    • Starters: "I want to talk about my..."<br>
-    • Focus: "He is [Adjective] because..."
+    • "I want to talk about my..."<br>
+    • "He is [Adjective] because..."
 </div>
 <div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;">
     <strong>📈 Band 6.0+ (Stretch)</strong><br>
-    • Starters: "The relative I hold in high regard is..."<br>
-    • Focus: "Not only is he..., but also..."
+    • "The relative I hold in high regard is..."<br>
+    • "Not only is he..., but also..."
 </div>
 """
 html = re.sub(r'(<h2>🧩 Differentiation</h2>\s*<div style="display:flex; gap:10px; font-size:0.8em;">)(.*?)(</div>\s*</div>)', r'\1' + diff_content + r'\3', html, flags=re.DOTALL)
