@@ -1,215 +1,80 @@
-4. audit_vocab.py
-import json
 import re
+from bs4 import BeautifulSoup
+import sys
 
-def load_data(filename):
-    with open(f"ielts_content_generation/{filename}", "r", encoding="utf-8") as f:
-        return json.load(f)
+def validate_and_fix(html_file):
+    with open(html_file, "r", encoding="utf-8") as f:
+        html = f.read()
 
-def audit_word_families(vocab_list, lesson_name):
-    print(f"\n--- Auditing {lesson_name} ---")
-    issues_found = False
-    
-    for item in vocab_list:
-        word = item["word"]
-        forms = item["Word Forms"]
-        pos = re.search(r'\((.*?)\)', word)
-        pos_tag = pos.group(1) if pos else "Unknown"
+    soup = BeautifulSoup(html, "html.parser")
+    fixed = False
 
-        # Check for Adjective families
-        if "Adj" in pos_tag:
-            # Expect Noun (N) or Adverb (Adv) or Verb (V)
-            # This is a heuristic. Not all adjectives have adverbs, but most do.
-            if "(Adv)" not in forms and "ly" not in word: # Skip if word itself ends in ly like 'friendly'
-                 # Some adjectives don't have common adverbs (e.g. 'Difficult' -> 'Difficultly' is rare/awkward).
-                 # But for 'Generous', 'Generously' is required.
-                 pass 
+    # 1. Check Mind Map Central Nodes (Generic "Topic A")
+    # Finding divs with class spider-center
+    spider_centers = soup.find_all("div", class_="spider-center")
+    for center in spider_centers:
+        text = center.get_text(separator=" ").strip()
+        if "TOPIC A" in text.upper() or "TOPIC B" in text.upper():
+            print(f"❌ Found Generic Mind Map Node: '{text}'")
+            # In a real pipeline, we'd need the source data to fix this accurately.
+            # Here we just flag it. The generation script should have handled it.
+        else:
+             print(f"✅ Mind Map Node: '{text}'")
 
-            if "(N)" not in forms and "ness" not in forms and "ity" not in forms:
-                 # Check if the word itself is Noun/Adj usage?
-                 pass
+    # 2. Check Part 3 Transitions (Reason Badge followed by Highlight)
+    # Finding spans with badge-ore bg-r
+    reasons = soup.find_all("span", class_="badge-ore bg-r")
+    for i, r in enumerate(reasons):
+        # SKIP BANNER: If the badge text is just "R", it's the legend banner.
+        if r.get_text().strip() == "R":
+            continue
 
-        # STRICT CHECK: Check for empty or very short word forms
-        if len(forms) < 5:
-            print(f"❌ {word}: Word Forms list is suspiciously short: '{forms}'")
-            issues_found = True
-            
-        # Check specific known missing forms (Hardcoded based on user feedback)
-        if "Generous" in word and "Generously" not in forms:
-             print(f"❌ {word}: Missing Adverb form 'Generously'")
-             issues_found = True
-        
-        if "Inspiring" in word and "Inspiration" not in forms:
-             print(f"❌ {word}: Missing Noun form 'Inspiration'")
-             issues_found = True
+        # The next sibling should be a highlight-transition span, or text then span?
+        # Model: <span ...>Re</span> <span class="highlight-transition">...</span>
+        # Or whitespace/text then span.
 
-    if not issues_found:
-        print("✅ Word families look reasonably complete.")
+        next_tag = r.find_next_sibling("span")
+        has_transition = False
 
-def audit_idiom_examples(idiom_list, lesson_name):
-    print(f"\n--- Auditing {lesson_name} Idioms ---")
-    issues = False
-    for item in idiom_list:
-        if "example" not in item or len(item["example"]) < 10:
-            print(f"❌ {item['idiom']}: Missing or too short example sentence.")
-            issues = True
-    
-    if not issues:
-        print("✅ All idioms have example sentences.")
+        if next_tag and "highlight-transition" in next_tag.get("class", []):
+            has_transition = True
+        else:
+            # Maybe inside the next text node? No, requirement is blue highlight.
+            # Check if next_tag has style="color: blue" (if not converted)
+            if next_tag and next_tag.has_attr("style") and "color: blue" in next_tag["style"]:
+                has_transition = True
 
-def main():
-    data = load_data("vocab_plan.txt")
-    week1 = [w for w in data if w["week"] == 1][0]
-    
-    audit_word_families(week1["l1_vocab"], "Week 1 Lesson 1 Vocab")
-    audit_idiom_examples(week1["l1_idioms"], "Week 1 Lesson 1 Idioms")
-    
-    audit_word_families(week1["l2_vocab"], "Week 1 Lesson 2 Vocab")
-    audit_idiom_examples(week1["l2_idioms"], "Week 1 Lesson 2 Idioms")
+        if has_transition:
+            print(f"✅ Part 3 Reason (index {i}): Transition found.")
+        else:
+            print(f"❌ Part 3 Reason (index {i}): Missing Blue Transition! -> Attempting Auto-Fix...")
+            # Auto-Fix: Inject a generic transition if missing (this is a fallback)
+            # In production, we'd want context-aware transitions.
+            new_span = soup.new_tag("span", attrs={"class": "highlight-transition"})
+            new_span.string = " This is because "
+            r.insert_after(new_span)
+            fixed = True
+
+    # 3. Check Double Numbering "Q1: Q1."
+    # Find h3 tags
+    h3s = soup.find_all("h3")
+    for h3 in h3s:
+        text = h3.get_text()
+        if re.search(r'Q\d+:\s*Q\d+\.', text):
+            print(f"❌ Double Numbering found: '{text}' -> Fixing...")
+            new_text = re.sub(r'(Q\d+):\s*Q\d+\.\s*', r'\1: ', text)
+            h3.string = new_text
+            fixed = True
+
+    if fixed:
+        print("💾 Saving fixed HTML...")
+        with open(html_file, "w", encoding="utf-8") as f:
+            f.write(str(soup))
+    else:
+        print("🎉 Validation Complete. No auto-fixes needed.")
 
 if __name__ == "__main__":
-    main()
-Displayed audit_vocab.py.
-
-5. vocab_plan.txt (Week 1 Snippet)
-(Full file is long, showing the Week 1 structure which includes the new example fields and updated word forms)
-
-[
-  {
-    "week": 1,
-    "l1_vocab": [
-      {
-        "word": "Diligent (Adj)",
-        "Word Forms": "Diligence (N) - Diligently (Adv)",
-        "meaning": "勤奋的",
-        "recycled": false
-      },
-      {
-        "word": "Inspiring (Adj)",
-        "Word Forms": "Inspire (V1) - Inspired (V2/V3) - Inspiration (N) - Inspiringly (Adv)",
-        "meaning": "鼓舞人心的",
-        "recycled": false
-      },
-      {
-        "word": "Selfless (Adj)",
-        "Word Forms": "Selflessly (Adv) - Selflessness (N)",
-        "meaning": "无私的",
-        "recycled": false
-      },
-      {
-        "word": "Accomplished (Adj)",
-        "Word Forms": "Accomplish (V1) - Accomplished (V2/V3) - Accomplishment (N)",
-        "meaning": "有造诣的 / 成功的",
-        "recycled": false
-      },
-      {
-        "word": "Considerate (Adj)",
-        "Word Forms": "Consider (V1) - Considered (V2/V3) - Consideration (N) - Considerately (Adv)",
-        "meaning": "体贴的",
-        "recycled": false
-      },
-      {
-        "word": "Generous (Adj)",
-        "Word Forms": "Generosity (N) - Generously (Adv)",
-        "meaning": "慷慨的",
-        "recycled": true
-      },
-      {
-        "word": "Devoted (Adj)",
-        "Word Forms": "Devote (V1) - Devoted (V2/V3) - Devotion (N) - Devotedly (Adv)",
-        "meaning": "挚爱的 / 忠诚的",
-        "recycled": true
-      }
-    ],
-    "l1_idioms": [
-      {
-        "idiom": "Go the extra mile",
-        "usage": "Go (V1) - Went (V2) - Gone (V3)",
-        "meaning": "加倍努力",
-        "cn_idiom": "再接再厉",
-        "example": "To get a high band score, I am willing to go the extra mile in my studies."
-      },
-      {
-        "idiom": "Look up to",
-        "usage": "Look (V1) - Looked (V2/V3)",
-        "meaning": "敬仰",
-        "cn_idiom": "仰视",
-        "example": "I really look up to my father because he works so hard for our family."
-      },
-      {
-        "idiom": "A heart of gold",
-        "usage": "Fixed Phrase",
-        "meaning": "心地善良",
-        "cn_idiom": "菩萨心肠",
-        "example": "My grandmother has a heart of gold; she always helps everyone in the village."
-      }
-    ],
-    "l2_vocab": [
-      {
-        "word": "Generation gap (N)",
-        "Word Forms": "Generational (Adj)",
-        "meaning": "代沟",
-        "recycled": false
-      },
-      {
-        "word": "Instill (V)",
-        "Word Forms": "Instill (V1) - Instilled (V2/V3) - Instillation (N)",
-        "meaning": "灌输 (价值观)",
-        "recycled": false
-      },
-      {
-        "word": "Perspective (N)",
-        "Word Forms": "Perspectives (Pl)",
-        "meaning": "观点 / 视角",
-        "recycled": false
-      },
-      {
-        "word": "Breadwinner (N)",
-        "Word Forms": "Breadwinners (Pl)",
-        "meaning": "养家糊口的人",
-        "recycled": false
-      },
-      {
-        "word": "Harmony (N)",
-        "Word Forms": "Harmonious (Adj) - Harmoniously (Adv)",
-        "meaning": "和谐",
-        "recycled": false
-      },
-      {
-        "word": "Appreciate (V)",
-        "Word Forms": "Appreciate (V1) - Appreciated (V2/V3) - Appreciation (N) - Appreciative (Adj)",
-        "meaning": "感激 / 欣赏",
-        "recycled": true
-      },
-      {
-        "word": "Guidance (N)",
-        "Word Forms": "Guide (V1) - Guided (V2/V3)",
-        "meaning": "指导",
-        "recycled": true
-      }
-    ],
-    "l2_idioms": [
-      {
-        "idiom": "Follow in someone's footsteps",
-        "usage": "Follow (V1) - Followed (V2/V3)",
-        "meaning": "继承衣钵 / 效法",
-        "cn_idiom": "步人后尘 (neutral sense)",
-        "example": "I plan to follow in my father's footsteps and become a doctor."
-      },
-      {
-        "idiom": "The apple doesn't fall far from the tree",
-        "usage": "Proverb",
-        "meaning": "有其父必有其子",
-        "cn_idiom": "有其父必有其子",
-        "example": "He is just as stubborn as his dad; the apple doesn't fall far from the tree."
-      },
-      {
-        "idiom": "Flesh and blood",
-        "usage": "Noun Phrase",
-        "meaning": "骨肉 / 亲人",
-        "cn_idiom": "骨肉至亲",
-        "example": "I must help him because he is my own flesh and blood."
-      }
-    ]
-  }
-]
+    if len(sys.argv) > 1:
+        validate_and_fix(sys.argv[1])
+    else:
+        validate_and_fix("Week_1_Generated.html")

@@ -1,0 +1,299 @@
+{
+  "curriculum": {
+    "week": 1,
+    "topic": "People (A Family Member You Are Proud Of)",
+    "part2": [
+      {
+        "question": "Q1. Describe a family member who you are proud of.",
+        "model_answer": "<span style=\"color: blue;\"><b>To commence,</b></span> I wish to describe my father, who is undoubtedly the most <b>Diligent [勤奋的]</b> and <b>Accomplished [成功的]</b> person I know. He works incredibly hard every day to support my studies and future, which is truly <b>Inspiring [鼓舞人心的]</b> to me. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> he is deeply <b>Devoted [忠诚的]</b> to our family, he is always <b>Considerate [体贴的]</b> of my feelings, <b>although</b> he can be quite strict about my school grades.</b></span> He is <b>Selfless [无私的]</b> in his actions and truly has <b>A heart of gold [心地善良]</b>. He is <b>Generous [慷慨的]</b> with his limited free time and is always willing to <b>Go the extra mile [加倍努力]</b> to help me with difficult math problems. I <b>Look up to [敬仰]</b> him greatly.",
+        "bullet_points": [
+          "Who: Mother / Grandfather",
+          "When: Last year / Childhood",
+          "What: Helping / Working",
+          "Why: Kind / Strong"
+        ],
+        "id": "Q1"
+      },
+      {
+        "question": "Q2. Describe a family member who has achieved something great.",
+        "model_answer": "<span style=\"color: blue;\"><b>I have chosen to discuss</b></span> my cousin, who is a highly <b>Accomplished [成功的]</b> pianist in our city. Her <b>Diligent [勤奋的]</b> daily practice routine is very <b>Inspiring [鼓舞人心的]</b> to me as a student. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Even though</b></span> she is extremely busy with concerts, she is <b>Generous [慷慨的]</b> enough to teach me piano, <b>which</b> clearly shows she has <b>A heart of gold [心地善良]</b>.</b></span> She is <b>Devoted [忠诚的]</b> to her art but always remains <b>Considerate [体贴的]</b> of her neighbors' need for quiet. She is <b>Selfless [无私的]</b> in sharing her success with others. I <b>Look up to [敬仰]</b> her ability to <b>Go the extra mile [加倍努力]</b> for musical perfection.",
+        "bullet_points": [
+          "Who: Uncle / Sister",
+          "What: Sport / Business",
+          "How: Practice / Study",
+          "Impact: Happy / Rich"
+        ],
+        "id": "Q2"
+      },
+      {
+        "question": "Q3. Describe a family member you admire for their personality.",
+        "model_answer": "<span style=\"color: blue;\"><b>I wish to describe</b></span> my grandmother, who is an incredibly <b>Considerate [体贴的]</b> and <b>Selfless [无私的]</b> woman. She is completely <b>Devoted [忠诚的]</b> to taking care of us every single day. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Because</b></span> she has <b>A heart of gold [心地善良]</b>, she is always <b>Generous [慷慨的]</b> with her delicious food, <b>whereas</b> others might save it for themselves.</b></span> Her life story is <b>Inspiring [鼓舞人心的]</b> because she was <b>Diligent [勤奋的]</b> and became <b>Accomplished [成功的]</b> despite growing up in extreme poverty. I <b>Look up to [敬仰]</b> her inner strength. She always tries to <b>Go the extra mile [加倍努力]</b> to make sure I am happy and full.",
+        "bullet_points": [
+          "Who: Father / Cousin",
+          "Personality: Funny / Calm",
+          "Treatment: Nice / Fair",
+          "Why: Love / Respect"
+        ],
+        "id": "Q3"
+      }
+    ],
+    "part3": [
+      {
+        "question": "Q1. What would children do to make their parents proud?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>It is my firm belief that</b></span> children can make their parents proud by becoming independent and accepting their parents' <b>Guidance [指导]</b>. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Parents spend years trying to <b>Instill [灌输]</b> good values and morals in us, so seeing us succeed on our own is their greatest reward. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> we show respect for their efforts by living responsibly, we cannot maintain lasting family peace or make them truly happy.</b></span>",
+        "bullet_points": [
+          "(Op) Get good grades",
+          "(Re) Shows hard work",
+          "(Ex) High test scores"
+        ],
+        "id": "Q1"
+      },
+      {
+        "question": "Q2. What did you do to make your parents proud when you were young?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Personally, I strove to</b></span> keep <b>Harmony [和谐]</b> at home by being responsible and studying hard. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> My father was the main <b>Breadwinner [养家糊口的人]</b> and worked very long hours for us, so I didn't want to cause him any extra stress. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> he was often tired, I did chores to help him relax and feel proud of my maturity.</b></span>",
+        "bullet_points": [
+          "(Op) Won a prize",
+          "(Re) Showed talent",
+          "(Ex) Sports medal"
+        ],
+        "id": "Q2"
+      },
+      {
+        "question": "Q3. What advantages of yours make you proud?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>I take great pride in</b></span> my unique <b>Perspective [观点/视角]</b> on life and my optimism. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> I tend to <b>Appreciate [感激/欣赏]</b> small things that other people might miss, which helps me stay happy during difficult times. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> I am still young, I think deeply about the world around me and try to find the positive side of every situation.</b></span>",
+        "bullet_points": [
+          "(Op) Cooking skills",
+          "(Re) Make people happy",
+          "(Ex) Family dinner"
+        ],
+        "id": "Q3"
+      },
+      {
+        "question": "Q4. When was the last time that you felt proud of yourself?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>A moment of immense pride occurred when</b></span> I successfully bridged a <b>Generation gap [代沟]</b> with my grandma. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> We disagreed on gaming, but I explained it patiently to her until she understood my hobby. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> we communicate openly, we can understand each other's different views and maintain a loving relationship despite our age difference.</b></span>",
+        "bullet_points": [
+          "(Op) Fixed a car",
+          "(Re) Saved money",
+          "(Ex) Changing oil"
+        ],
+        "id": "Q4"
+      },
+      {
+        "question": "Q5. How does family pride contribute to the stability of a society?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Inherently, family pride</b></span> ensures people act responsibly and care for their reputation in public. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> As they say, <b>The apple doesn't fall far from the tree [有其父必有其子]</b>, meaning children reflect their parents' behavior. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>When</b></span> parents set a good example, children usually follow suit in society, which reduces crime and increases overall stability.</b></span>",
+        "bullet_points": [
+          "(Op) Reduces crime",
+          "(Re) Fear of shame",
+          "(Ex) Obeying laws"
+        ],
+        "id": "Q5"
+      },
+      {
+        "question": "Q6. Do you think the definition of \"success\" within families has changed between the past and the present?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Unquestionably, in contemporary society</b></span> success is about happiness, not just money or status. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> We want our <b>Flesh and blood [骨肉/亲人]</b> to be mentally healthy and safe rather than just rich. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> in the past parents wanted us to <b>Follow in someone's footsteps [继承衣钵]</b>, now they let us choose our own path.</b></span>",
+        "bullet_points": [
+          "(Op) Focus on health",
+          "(Re) Less stress",
+          "(Ex) Mental happiness"
+        ],
+        "id": "Q6"
+      }
+    ]
+  },
+  "vocab": {
+    "week": 1,
+    "l1_vocab": [
+      {
+        "word": "Diligent (Adj)",
+        "Word Forms": "Diligence (N) - Diligently (Adv)",
+        "meaning": "勤奋的",
+        "recycled": false
+      },
+      {
+        "word": "Inspiring (Adj)",
+        "Word Forms": "Inspire (V1) - Inspired (V2/V3) - Inspiration (N)",
+        "meaning": "鼓舞人心的",
+        "recycled": false
+      },
+      {
+        "word": "Selfless (Adj)",
+        "Word Forms": "Selflessly (Adv) - Selflessness (N)",
+        "meaning": "无私的",
+        "recycled": false
+      },
+      {
+        "word": "Accomplished (Adj)",
+        "Word Forms": "Accomplish (V1) - Accomplished (V2/V3) - Accomplishment (N)",
+        "meaning": "有造诣的 / 成功的",
+        "recycled": false
+      },
+      {
+        "word": "Considerate (Adj)",
+        "Word Forms": "Consider (V1) - Considered (V2/V3) - Consideration (N)",
+        "meaning": "体贴的",
+        "recycled": false
+      },
+      {
+        "word": "Generous (Adj)",
+        "Word Forms": "Generosity (N)",
+        "meaning": "慷慨的",
+        "recycled": true
+      },
+      {
+        "word": "Devoted (Adj)",
+        "Word Forms": "Devote (V1) - Devoted (V2/V3) - Devotion (N)",
+        "meaning": "挚爱的 / 忠诚的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Go the extra mile",
+        "usage": "Go (V1) - Went (V2) - Gone (V3)",
+        "meaning": "加倍努力",
+        "cn_idiom": "再接再厉",
+        "example_sentence": "She is a great employee because she is always willing to go the extra mile."
+      },
+      {
+        "idiom": "Look up to",
+        "usage": "Look (V1) - Looked (V2/V3)",
+        "meaning": "敬仰",
+        "cn_idiom": "仰视",
+        "example_sentence": "I really look up to my father because he works very hard for our family."
+      },
+      {
+        "idiom": "A heart of gold",
+        "usage": "Fixed Phrase",
+        "meaning": "心地善良",
+        "cn_idiom": "菩萨心肠",
+        "example_sentence": "My grandmother helps everyone in the neighborhood; she truly has a heart of gold."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Generation gap (N)",
+        "Word Forms": "Generational (Adj)",
+        "meaning": "代沟",
+        "recycled": false
+      },
+      {
+        "word": "Instill (V)",
+        "Word Forms": "Instill (V1) - Instilled (V2/V3) - Instillation (N)",
+        "meaning": "灌输 (价值观)",
+        "recycled": false
+      },
+      {
+        "word": "Perspective (N)",
+        "Word Forms": "Perspectives (Pl)",
+        "meaning": "观点 / 视角",
+        "recycled": false
+      },
+      {
+        "word": "Breadwinner (N)",
+        "Word Forms": "Breadwinners (Pl)",
+        "meaning": "养家糊口的人",
+        "recycled": false
+      },
+      {
+        "word": "Harmony (N)",
+        "Word Forms": "Harmonious (Adj)",
+        "meaning": "和谐",
+        "recycled": false
+      },
+      {
+        "word": "Appreciate (V)",
+        "Word Forms": "Appreciate (V1) - Appreciated (V2/V3) - Appreciation (N)",
+        "meaning": "感激 / 欣赏",
+        "recycled": true
+      },
+      {
+        "word": "Guidance (N)",
+        "Word Forms": "Guide (V1) - Guided (V2/V3)",
+        "meaning": "指导",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Follow in someone's footsteps",
+        "usage": "Follow (V1) - Followed (V2/V3)",
+        "meaning": "继承衣钵 / 效法",
+        "cn_idiom": "步人后尘 (neutral sense)",
+        "example_sentence": "He decided to follow in his father's footsteps and become a doctor."
+      },
+      {
+        "idiom": "The apple doesn't fall far from the tree",
+        "usage": "Proverb",
+        "meaning": "有其父必有其子",
+        "cn_idiom": "有其父必有其子",
+        "example_sentence": "She is just as talented as her mother; the apple doesn't fall far from the tree."
+      },
+      {
+        "idiom": "Flesh and blood",
+        "usage": "Noun Phrase",
+        "meaning": "骨肉 / 亲人",
+        "cn_idiom": "骨肉至亲",
+        "example_sentence": "We must help him because he is our own flesh and blood."
+      }
+    ]
+  },
+  "homework": {
+    "week": 1,
+    "vocab_review": [
+      {
+        "word": "Diligent",
+        "synonym": "Hard-working",
+        "option": "A"
+      },
+      {
+        "word": "Inspiring",
+        "synonym": "Encouraging",
+        "option": "B"
+      },
+      {
+        "word": "Selfless",
+        "synonym": "Altruistic",
+        "option": "C"
+      },
+      {
+        "word": "Accomplished",
+        "synonym": "Successful",
+        "option": "D"
+      },
+      {
+        "word": "Considerate",
+        "synonym": "Thoughtful",
+        "option": "E"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "She is very diligent person.",
+        "correction": "She is a very diligent person.",
+        "key": "She is a very..."
+      },
+      {
+        "error": "I am admire him very much.",
+        "correction": "I admire him very much.",
+        "key": "I admire..."
+      },
+      {
+        "error": "He has a heart of golding.",
+        "correction": "He has a heart of gold.",
+        "key": "heart of gold"
+      },
+      {
+        "error": "We are friends since 10 years.",
+        "correction": "We have been friends for 10 years.",
+        "key": "have been friends..."
+      },
+      {
+        "error": "He encourage me to study hard.",
+        "correction": "He encourages me to study hard.",
+        "key": "encourages me..."
+      }
+    ],
+    "writing_task": "Describe a time your family member helped you. (Write 50 words)",
+    "answer_key": "Key: 1. Diligent-A, 2. Inspiring-B, 3. Selfless-C, 4. Accomplished-D, 5. Considerate-E | 1. a very... 2. admire... 3. gold... 4. have been... 5. encourages..."
+  }
+}
