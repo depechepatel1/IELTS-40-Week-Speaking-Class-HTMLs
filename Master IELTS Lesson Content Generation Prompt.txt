@@ -29,6 +29,7 @@ Template File: `Week_1 Jules.html`.
 *Requirement:** Inject the week [X] vocabulary and idiom lists provided in the vocab_plan.txt file into the week [X] Lesson 1 and Lesson 2 vocabulary tables. 
 *   **Idiom Example Sentence:** An example idiomatic sentence, which is provided in the vocab_plan.txt, must be placed in a new line spanning the width of the vocabulary table, below each idiom.
   * Do NOT add a new line below vocabulary words in the vocabulary tables. 
+
 ## 4. Mind Map Formatting (Student Handout - Part 2)
 **Requirement:** The visual Mind Maps (Spidergrams) must be formatted using the same code as in Week_1 Jules.html.
 *  Change format to: **Inline Bullet Points:** The prompts provided in the first brainstorming map are presented stacked in Week_1 Jules.html as below: 
@@ -45,6 +46,7 @@ Change format to: **Inline Bullet Points:** (e.g.: You should say: Who the perso
     *   *Good:* `You should say: Who the person is..., What their personality is like..., How they influenced/helped you..., and explain why they are important to you.`
 *   **Central Node:**
     *   Do NOT use generic labels like "Topic A" or "Topic B".
+    *   Extract Topics for all 3 Mind Maps from Week [X} in file 'Curriculum 0 Final.txt' 
     *   Extract a **specific keyword** from the question (e.g., if the question is "Describe a success", the node must say "SUCCESS" or "ACHIEVEMENT").
 *   **Quadrants:**
     *   Do NOT use generic prompts like "Point 1".
@@ -98,3 +100,4 @@ Before submitting any file, you must RUN a validation script to ensure:
 4.  Run Validation Script.
 
 5.  Save Output.
+
