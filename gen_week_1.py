@@ -32,6 +32,47 @@ def replace_text(source, old, new):
         print(f"WARNING: Could not find '{old}' to replace.")
     return source.replace(old, new)
 
+def replace_inner_html(source, start_marker, new_content):
+    """
+    Robustly replaces content inside a container div, handling nested divs.
+    Finds start_marker, then finds the next '>', then tracks balanced <div> tags.
+    """
+    start_pos = source.find(start_marker)
+    if start_pos == -1:
+        print(f"WARNING: Could not find start marker '{start_marker}'")
+        return source
+
+    # Find end of opening tag
+    tag_end = source.find('>', start_pos) + 1
+
+    # Track balanced divs to find the matching closing tag
+    depth = 1
+    current_pos = tag_end
+
+    while depth > 0 and current_pos < len(source):
+        # Find next tag opening or closing
+        next_open = source.find('<div', current_pos)
+        next_close = source.find('</div>', current_pos)
+
+        # If no more tags found
+        if next_close == -1:
+            break
+
+        if next_open != -1 and next_open < next_close:
+            depth += 1
+            current_pos = next_open + 4
+        else:
+            depth -= 1
+            current_pos = next_close + 6
+
+    if depth == 0:
+        # Found the matching closing div at next_close
+        # Replace content between tag_end and next_close
+        return source[:tag_end] + new_content + source[next_close:]
+    else:
+        print(f"WARNING: Could not find matching closing div for '{start_marker}'")
+        return source
+
 def generate_vocab_rows(vocab_list, is_idiom=False):
     rows = ""
     for item in vocab_list:
@@ -87,51 +128,26 @@ def generate_mind_map_legs(bullet_points):
     return legs_html
 
 def format_model_answer(text, use_short_badges=False):
-    # 1. Remove source inline styles for Opinion/Reason/Example
-    # Pattern: <span style="..."><b>Opinion</b></span> -> remove style, keep text for logic
-
-    # We want to replace these spans with the correct badge class
-    # Logic:
-    # Opinion -> <span class="badge-ore bg-o">Opinion</span> (or Op)
-    # Reason -> <span class="badge-ore bg-r">Reason</span> (or Re)
-    # Example -> <span class="badge-ore bg-e">Example</span> (or Ex)
-
     label_map = {
         "Opinion": "Op" if use_short_badges else "Opinion",
         "Reason": "Re" if use_short_badges else "Reason",
         "Example": "Ex" if use_short_badges else "Example"
     }
 
-    # Regex to find the badge spans from JSON
-    # e.g. <span style="background-color: #e0f7fa; ..."><b>Opinion</b></span>
     def badge_replacer(match):
-        label_content = match.group(2) # "Opinion", "Reason", etc.
-        # Clean tags inside label like <b>
+        label_content = match.group(2)
         clean_label = re.sub(r'<[^>]+>', '', label_content).strip()
 
         if clean_label in label_map:
             new_label = label_map[clean_label]
             cls = "bg-o" if "Op" in clean_label else "bg-r" if "Re" in clean_label else "bg-e"
             return f'<span class="badge-ore {cls}">{new_label}</span>'
-        return match.group(0) # No change if unknown
+        return match.group(0)
 
-    # Match span with style, then bold, then text
     text = re.sub(r'(<span style="[^"]+">)(.*?)(</span>)', badge_replacer, text)
-
-    # 2. Fix Transitions (Blue Text)
-    # JSON has: <span style="color: blue;"><b>Text</b></span> or similar
-    # We want: <span class="highlight-transition">Text</span>
     text = text.replace('style="color: blue;"', 'class="highlight-transition"')
-
-    # 3. Fix 3-Clause Sentence (Yellow Background)
-    # JSON has: <span style="background-color: yellow;">...</span>
-    # We want: <span class="highlight-3clause">...</span>
     text = re.sub(r'<span style="background-color: yellow;">(.*?)</span>', r'<span class="highlight-3clause">\1</span>', text)
-
-    # 4. Clean formatting
     text = text.replace('<b>', '<strong>').replace('</b>', '</strong>')
-
-    # 5. Fix double bolding inside spans if any
     text = text.replace('<strong><span', '<span').replace('</span></strong>', '</span>')
 
     return text
@@ -199,8 +215,9 @@ print("Processing Lesson 1 Practice...")
 html = replace_text(html, '<div class="spider-center">MY<br>FRIEND</div>', '<div class="spider-center">MY<br>FAMILY</div>')
 
 legs_html = generate_mind_map_legs(q1_data['bullet_points'])
-# Careful replacement of legs content
-html = re.sub(r'(<div class="spider-legs">)(.*?)(</div>)', r'\1' + legs_html + r'\3', html, count=1, flags=re.DOTALL)
+# Use robust replacement logic for spider-legs to avoid artifacts
+# The regex previously failed because spider-legs contains nested divs.
+html = replace_inner_html(html, '<div class="spider-legs">', legs_html)
 
 q2_data = curriculum['part2'][1]
 html = replace_text(html, "Topic A: A Helpful Neighbor", f"Topic A: {clean_question_text(q2_data['question'])}")
