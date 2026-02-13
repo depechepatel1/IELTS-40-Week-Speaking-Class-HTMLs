@@ -312,20 +312,56 @@ def generate_html(week_num, curr, vocab, hw):
 
     # PRACTICE CIRCUIT (Page 5)
     page_circuit = soup.find_all('div', class_='page l1')[2]
-    center_node = page_circuit.find('div', class_='spider-center')
-    keyword_node = process_mind_map_node(curr['part2'][0]['question'])
-    if " " in keyword_node: keyword_html = keyword_node.replace(" ", "<br>")
-    else: keyword_html = keyword_node
-    center_node.clear()
-    center_node.append(BeautifulSoup(keyword_html, 'html.parser'))
 
+    # 1. BRAINSTORMING MAP (First Card)
+    # Find the first card with spider-container
     practice_cards = [div for div in page_circuit.find_all('div', class_='card') if div.find('div', class_='spider-container')]
+
+    # Update First Map (Q1)
+    if len(practice_cards) >= 1:
+        card_1 = practice_cards[0]
+        q1_data = curr['part2'][0]
+
+        # Update Text Block: Question + Hints
+        bullets_1 = q1_data.get('bullet_points') or q1_data.get('bullets', [])
+        hint_text = "You should say: " + ", ".join(bullets_1) if bullets_1 else ""
+        text_div = card_1.find('div', style=lambda s: s and 'font-size:0.9em' in s)
+        if text_div:
+            text_div.clear()
+            text_div.append(BeautifulSoup(f"<strong>{clean_text(q1_data['question'])}</strong><br>{hint_text}", 'html.parser'))
+
+        # Update Center Node
+        center_node = card_1.find('div', class_='spider-center')
+        if center_node:
+            keyword_node = process_mind_map_node(q1_data['question'])
+            keyword_html = keyword_node.replace(" ", "<br>") if " " in keyword_node else keyword_node
+            center_node.clear()
+            center_node.append(BeautifulSoup(keyword_html, 'html.parser'))
+
+        # Update Legs (Quadrants)
+        legs = card_1.find_all('div', class_='spider-leg')
+        for idx, leg in enumerate(legs):
+            if idx < len(bullets_1):
+                bp_text = bullets_1[idx]
+                parts = bp_text.split(":")
+                label = parts[0].strip()
+                sug = parts[1].strip() if len(parts) > 1 else ""
+                leg.clear()
+                leg.append(BeautifulSoup(f"<strong>{label}</strong><br><span style='color:#777; font-size:0.9em'>{sug}</span><div class='lines'></div>", 'html.parser'))
+
     if len(practice_cards) >= 3:
         q2 = curr['part2'][1]
         card_a = practice_cards[1]
         card_a.find('h3').string = f"Topic A: {extract_topic_keyword(q2['question'])}"
-        card_a.find('div', style=lambda s: s and 'font-size:0.85em' in s).string = q2['question']
-        # Also update center node for Topic A and B! (It was missing in original script, keeping "DREAM" or "FAMILY")
+
+        bullets_a = q2.get('bullet_points') or q2.get('bullets', [])
+        hint_text_a = "You should say: " + ", ".join(bullets_a) if bullets_a else ""
+
+        text_div_a = card_a.find('div', style=lambda s: s and 'font-size:0.85em' in s)
+        if text_div_a:
+            text_div_a.clear()
+            text_div_a.append(BeautifulSoup(f"{q2['question']}<br><span style='color:#555;'>{hint_text_a}</span>", 'html.parser'))
+
         # Topic A Center
         center_a = card_a.find('div', class_='spider-center')
         if center_a:
@@ -334,7 +370,6 @@ def generate_html(week_num, curr, vocab, hw):
             center_a.append(BeautifulSoup(ka.replace(" ", "<br>"), 'html.parser'))
 
         legs = card_a.find_all('div', class_='spider-leg')
-        bullets_a = q2.get('bullet_points') or q2.get('bullets', [])
         for idx, leg in enumerate(legs):
             if idx < len(bullets_a):
                 bp_text = bullets_a[idx]
@@ -347,7 +382,14 @@ def generate_html(week_num, curr, vocab, hw):
         q3 = curr['part2'][2]
         card_b = practice_cards[2]
         card_b.find('h3').string = f"Topic B: {extract_topic_keyword(q3['question'])}"
-        card_b.find('div', style=lambda s: s and 'font-size:0.85em' in s).string = q3['question']
+
+        bullets_b = q3.get('bullet_points') or q3.get('bullets', [])
+        hint_text_b = "You should say: " + ", ".join(bullets_b) if bullets_b else ""
+
+        text_div_b = card_b.find('div', style=lambda s: s and 'font-size:0.85em' in s)
+        if text_div_b:
+            text_div_b.clear()
+            text_div_b.append(BeautifulSoup(f"{q3['question']}<br><span style='color:#555;'>{hint_text_b}</span>", 'html.parser'))
 
         # Topic B Center
         center_b = card_b.find('div', class_='spider-center')
@@ -357,7 +399,6 @@ def generate_html(week_num, curr, vocab, hw):
             center_b.append(BeautifulSoup(kb.replace(" ", "<br>"), 'html.parser'))
 
         legs = card_b.find_all('div', class_='spider-leg')
-        bullets_b = q3.get('bullet_points') or q3.get('bullets', [])
         for idx, leg in enumerate(legs):
             if idx < len(bullets_b):
                 bp_text = bullets_b[idx]
