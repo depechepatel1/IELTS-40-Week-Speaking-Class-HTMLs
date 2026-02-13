@@ -459,6 +459,9 @@ def generate_html(week_num, curr, vocab, hw):
     # Task 3: Writing Task (Flex Grow)
     writing_card = page_hw.find_all('div', class_='card')[2]
     writing_card.find('h3').string = f"3. Writing Task: {hw['writing_task']} (17 mins)"
+    # IMPORTANT: Make the Card itself a flex container so children can grow
+    writing_card['style'] += "; display: flex; flex-direction: column;"
+
     container = writing_card.find('div', style=lambda s: s and 'flex-direction:column' in s)
     container['style'] += "; flex-grow: 1;"
     for box in container.find_all('div', style=lambda s: s and 'border:1px solid' in s):
