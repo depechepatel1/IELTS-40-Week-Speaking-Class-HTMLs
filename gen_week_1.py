@@ -86,6 +86,56 @@ def generate_mind_map_legs(bullet_points):
         """
     return legs_html
 
+def format_model_answer(text, use_short_badges=False):
+    # 1. Remove source inline styles for Opinion/Reason/Example
+    # Pattern: <span style="..."><b>Opinion</b></span> -> remove style, keep text for logic
+
+    # We want to replace these spans with the correct badge class
+    # Logic:
+    # Opinion -> <span class="badge-ore bg-o">Opinion</span> (or Op)
+    # Reason -> <span class="badge-ore bg-r">Reason</span> (or Re)
+    # Example -> <span class="badge-ore bg-e">Example</span> (or Ex)
+
+    label_map = {
+        "Opinion": "Op" if use_short_badges else "Opinion",
+        "Reason": "Re" if use_short_badges else "Reason",
+        "Example": "Ex" if use_short_badges else "Example"
+    }
+
+    # Regex to find the badge spans from JSON
+    # e.g. <span style="background-color: #e0f7fa; ..."><b>Opinion</b></span>
+    def badge_replacer(match):
+        label_content = match.group(2) # "Opinion", "Reason", etc.
+        # Clean tags inside label like <b>
+        clean_label = re.sub(r'<[^>]+>', '', label_content).strip()
+
+        if clean_label in label_map:
+            new_label = label_map[clean_label]
+            cls = "bg-o" if "Op" in clean_label else "bg-r" if "Re" in clean_label else "bg-e"
+            return f'<span class="badge-ore {cls}">{new_label}</span>'
+        return match.group(0) # No change if unknown
+
+    # Match span with style, then bold, then text
+    text = re.sub(r'(<span style="[^"]+">)(.*?)(</span>)', badge_replacer, text)
+
+    # 2. Fix Transitions (Blue Text)
+    # JSON has: <span style="color: blue;"><b>Text</b></span> or similar
+    # We want: <span class="highlight-transition">Text</span>
+    text = text.replace('style="color: blue;"', 'class="highlight-transition"')
+
+    # 3. Fix 3-Clause Sentence (Yellow Background)
+    # JSON has: <span style="background-color: yellow;">...</span>
+    # We want: <span class="highlight-3clause">...</span>
+    text = re.sub(r'<span style="background-color: yellow;">(.*?)</span>', r'<span class="highlight-3clause">\1</span>', text)
+
+    # 4. Clean formatting
+    text = text.replace('<b>', '<strong>').replace('</b>', '</strong>')
+
+    # 5. Fix double bolding inside spans if any
+    text = text.replace('<strong><span', '<span').replace('</span></strong>', '</span>')
+
+    return text
+
 # --- Step 1: Teacher Plan (Page 3) ---
 print("Processing Teacher Plan...")
 
@@ -127,12 +177,12 @@ cue_card_html = f"""
     You should say: <strong>Who</strong> this person is, <strong>What</strong> they are like, <strong>How</strong> they help you, and <strong>Why</strong> you are proud of them.
 </div>
 """
+# Use strict string replacement for Cue Card content to preserve div
 html = re.sub(r'(<div class="card" style="background:#fffde7; border-left:5px solid #fbc02d;">)(.*?)(</div>)', r'\1' + cue_card_html + r'\3', html, flags=re.DOTALL)
 
+# Part 2 Model doesn't use ORE badges, just highlights
 model_text = q1_data['model_answer']
-model_text = model_text.replace('style="color: blue;"', 'class="highlight-transition"')
-model_text = model_text.replace('<b>', '<strong>').replace('</b>', '</strong>')
-model_text = re.sub(r'<span style="background-color: yellow;">(.*?)</span>', r'<span class="highlight-3clause">\1</span>', model_text)
+model_text = format_model_answer(model_text) # Reuses the logic for blue/yellow spans
 
 html = re.sub(r'(<h2>🏆 Band 6.5 Model Answer</h2>\s*<div class="model-box">)(.*?)(</div>)', r'\1' + model_text + r'\3', html, flags=re.DOTALL)
 
@@ -149,6 +199,7 @@ print("Processing Lesson 1 Practice...")
 html = replace_text(html, '<div class="spider-center">MY<br>FRIEND</div>', '<div class="spider-center">MY<br>FAMILY</div>')
 
 legs_html = generate_mind_map_legs(q1_data['bullet_points'])
+# Careful replacement of legs content
 html = re.sub(r'(<div class="spider-legs">)(.*?)(</div>)', r'\1' + legs_html + r'\3', html, count=1, flags=re.DOTALL)
 
 q2_data = curriculum['part2'][1]
@@ -172,24 +223,15 @@ l2_objectives = """
 <li><strong>Speaking:</strong> Discuss Family Pride & Society.</li>
 """
 
-# ROBUST REPLACEMENT LOGIC
 l2_header_pos = html.find(l2_title_new)
 if l2_header_pos == -1:
-    print("CRITICAL ERROR: L2 Header not found! Duplication logic aborted.")
+    print("CRITICAL ERROR: L2 Header not found!")
     sys.exit(1)
 
-# Fix: find "<ul" not "<ul>" because of potential attributes
 start_ul = html.find("<ul", l2_header_pos)
 end_ul = html.find("</ul>", start_ul) + 5
-
-if start_ul == -1 or end_ul == 4: # -1 + 5 = 4
-    print("CRITICAL ERROR: L2 UL block not found.")
-    sys.exit(1)
-
-# We need to find the '>' of the opening <ul...> tag to insert content properly
 ul_tag_end = html.find(">", start_ul) + 1
-# Replace content BETWEEN <ul> and </ul>
-html = html[:ul_tag_end] + l2_objectives + html[end_ul-5:] # end_ul-5 is start of </ul>
+html = html[:ul_tag_end] + l2_objectives + html[end_ul-5:]
 
 
 # --- Step 5: Student Lesson 2 Input ---
@@ -206,11 +248,10 @@ table_start = html.find("<tbody>", vocab_header_pos)
 table_end = html.find("</tbody>", table_start) + 8
 html = html[:table_start] + "<tbody>" + l2_vocab_rows + "</tbody>" + html[table_end:]
 
+# Q1 (Long Form ORE)
 q1_p3 = curriculum['part3'][0]
 html = replace_text(html, "Q1: Is it important to have many friends?", f"{q1_p3['question']}")
-model_q1 = q1_p3['model_answer']
-model_q1 = model_q1.replace('style="color: blue;"', 'class="highlight-transition"')
-model_q1 = re.sub(r'<span style="background-color: yellow;">(.*?)</span>', r'<span class="highlight-3clause">\1</span>', model_q1)
+model_q1 = format_model_answer(q1_p3['model_answer'], use_short_badges=False) # Long form for Q1
 
 p5_q1_pos = html.find('id="p5-q1"')
 box_start = html.find('<div class="model-box">', p5_q1_pos)
@@ -221,41 +262,44 @@ html = html[:box_start] + f'<div class="model-box">{model_q1}</div>' + html[box_
 # --- Step 6: Deep Dive ---
 print("Processing Lesson 2 Deep Dive...")
 
+# Q2 (Long Form ORE)
 q2_p3 = curriculum['part3'][1]
 html = replace_text(html, "Q2: What causes arguments between friends?", f"{q2_p3['question']}")
-model_q2 = q2_p3['model_answer'].replace('style="color: blue;"', 'class="highlight-transition"').replace('style="background-color: yellow;"', 'class="highlight-3clause"')
+model_q2 = format_model_answer(q2_p3['model_answer'], use_short_badges=False)
 
 p6_q2_pos = html.find('id="p6-q2"')
 box_start = html.find('<div class="model-box">', p6_q2_pos)
 box_end = html.find('</div>', box_start) + 6
 html = html[:box_start] + f'<div class="model-box">{model_q2}</div>' + html[box_end:]
 
+# Q3 (Short Form Op/Re/Ex) - Matched to Template
 q3_p3 = curriculum['part3'][2]
 html = replace_text(html, "Q3: Do you think friends are more important than family?", f"{q3_p3['question']}")
-model_q3 = q3_p3['model_answer'].replace('style="color: blue;"', 'class="highlight-transition"').replace('style="background-color: yellow;"', 'class="highlight-3clause"')
+model_q3 = format_model_answer(q3_p3['model_answer'], use_short_badges=True)
 
 p6_q3_pos = html.find('id="p6-q3"')
-box_start = html.find('<div class="model-box"', p6_q3_pos)
+box_start = html.find('<div class="model-box"', p6_q3_pos) # Capture style attr
 box_end = html.find('</div>', box_start) + 6
+# Regex to preserve the opening div tag attributes
 html = re.sub(r'(<div id="p6-q3".*?<div class="model-box".*?>)(.*?)(</div>)', r'\1' + model_q3 + r'\3', html, flags=re.DOTALL, count=1)
 
 
-# --- Step 7: Rapid Fire ---
+# --- Step 7: Rapid Fire (Short Form) ---
 print("Processing Lesson 2 Rapid Fire...")
 
 q4_p3 = curriculum['part3'][3]
 html = replace_text(html, "Q4: Does social media help us make friends?", f"{q4_p3['question']}")
-model_q4 = q4_p3['model_answer'].replace('style="color: blue;"', 'class="highlight-transition"')
+model_q4 = format_model_answer(q4_p3['model_answer'], use_short_badges=True)
 html = re.sub(r'(<h3>Q4.*?</h3>\s*<div class="model-box">)(.*?)(</div>)', r'\1' + model_q4 + r'\3', html, flags=re.DOTALL, count=1)
 
 q5_p3 = curriculum['part3'][4]
 html = replace_text(html, "Q5: Is it possible to be real friends with colleagues?", f"{q5_p3['question']}")
-model_q5 = q5_p3['model_answer'].replace('style="color: blue;"', 'class="highlight-transition"')
+model_q5 = format_model_answer(q5_p3['model_answer'], use_short_badges=True)
 html = re.sub(r'(<h3>Q5.*?</h3>\s*<div class="model-box">)(.*?)(</div>)', r'\1' + model_q5 + r'\3', html, flags=re.DOTALL, count=1)
 
 q6_p3 = curriculum['part3'][5]
 html = replace_text(html, "Q6: Why is it harder to make friends as an adult?", f"{q6_p3['question']}")
-model_q6 = q6_p3['model_answer'].replace('style="color: blue;"', 'class="highlight-transition"')
+model_q6 = format_model_answer(q6_p3['model_answer'], use_short_badges=True)
 html = re.sub(r'(<h3>Q6.*?</h3>\s*<div class="model-box">)(.*?)(</div>)', r'\1' + model_q6 + r'\3', html, flags=re.DOTALL, count=1)
 
 
