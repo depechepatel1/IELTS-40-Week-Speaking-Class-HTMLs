@@ -70,10 +70,31 @@ def extract_topic_keyword(topic_str):
     return topic_str.split(" ")[0]
 
 def generate_differentiation(topic_keyword):
-    # PGCE QTS strategies
+    # PGCE QTS strategies - Contextualized
+    # Very simple keyword mapping for starters
+    starter = "I really admire my..." # Default
+    grammar = "Use 'who' relative clauses."
+
+    t = topic_keyword.lower()
+    if "place" in t or "country" in t or "city" in t or "park" in t:
+        starter = "I would love to visit... because..."
+        grammar = "Use 'where' relative clauses."
+    elif "object" in t or "item" in t or "toy" in t or "gift" in t or "app" in t:
+        starter = "This item is useful because..."
+        grammar = "Use Passive Voice (It was made...)."
+    elif "event" in t or "party" in t or "time" in t or "memory" in t:
+        starter = "It was a memorable time when..."
+        grammar = "Use Past Perfect (I had gone...)."
+    elif "person" in t or "people" in t or "friend" in t or "family" in t:
+        starter = "I really admire my... because..."
+        grammar = "Use 'who' relative clauses."
+    elif "activity" in t or "sport" in t or "hobby" in t:
+        starter = "I enjoy doing this because..."
+        grammar = "Use Gerunds (Swimming is...)."
+
     return {
         "band5": f"Use template: 'In my opinion... This is because...'",
-        "band6": f"Sentence Starter: 'I really admire my... because...'<br>Complex Grammar: Use 'who' relative clauses."
+        "band6": f"Sentence Starter: '{starter}'<br>Complex Grammar: {grammar}"
     }
 
 def process_mind_map_node(question_text):
@@ -151,8 +172,8 @@ def process_ore_part3(html_content):
 # ==========================================
 
 def generate_html(week_num, curr, vocab, hw):
-    # Load Template
-    with open('Week_2_Lesson_Plan.html', 'r', encoding='utf-8') as f:
+    # Load Template (Using Week 1 as Master Template)
+    with open('Week_1_Lesson_Plan.html', 'r', encoding='utf-8') as f:
         template_html = f.read()
 
     soup = BeautifulSoup(template_html, 'html.parser')
@@ -192,20 +213,17 @@ def generate_html(week_num, curr, vocab, hw):
                 boxes = flex_container.find_all('div', style=lambda s: s and 'flex:1' in s)
                 if len(boxes) >= 2:
                     # Band 5 Box
-                    # Find text node to replace (last child usually)
-                    if boxes[0].contents:
-                        boxes[0].contents[-1].replace_with(diff_strategies['band5'])
-                    else:
-                        boxes[0].append(diff_strategies['band5'])
+                    # Find and Keep ONLY the header strong tag, replace the rest
+                    header_b5 = boxes[0].find('strong')
+                    boxes[0].clear()
+                    if header_b5: boxes[0].append(header_b5)
+                    boxes[0].append(BeautifulSoup("<br/>" + diff_strategies['band5'], 'html.parser'))
 
-                    # Band 6 Box (Inject sentence starter here)
-                    content_html = diff_strategies['band6']
-                    # Using BS to parse HTML in string (for <br>)
-                    new_tag = BeautifulSoup(content_html, 'html.parser')
-                    if boxes[1].contents:
-                        boxes[1].contents[-1].replace_with(new_tag)
-                    else:
-                        boxes[1].append(new_tag)
+                    # Band 6 Box
+                    header_b6 = boxes[1].find('strong')
+                    boxes[1].clear()
+                    if header_b6: boxes[1].append(header_b6)
+                    boxes[1].append(BeautifulSoup("<br/>" + diff_strategies['band6'], 'html.parser'))
 
     # Lesson Procedure (Task 5)
     bili_search = f"IELTS {topic_keyword} Speaking"
@@ -215,10 +233,12 @@ def generate_html(week_num, curr, vocab, hw):
         if rows:
             # Row 1: Lead-in
             lead_in_cell = rows[0].find_all('td')[1]
-            # Replace text inside contents (avoid wiping strong tag)
+            # Robust replacement for Search Term and Question
             for child in lead_in_cell.contents:
                 if isinstance(child, str):
-                    new_text = child.replace("IELTS Hometown", bili_search)
+                    # Replace regex "IELTS ... Speaking" with new term
+                    new_text = re.sub(r"IELTS .*? Speaking", bili_search, child)
+                    # Replace Ask question
                     new_text = re.sub(r"Ask: '.*?'", f"Ask: 'Tell me about your {topic_keyword.lower()}.'", new_text)
                     child.replace_with(new_text)
 
@@ -242,7 +262,8 @@ def generate_html(week_num, curr, vocab, hw):
     if cue_card_box:
         part2_q = curr['part2'][0]['question']
         cue_card_box.find('h3').string = f"📌 CUE CARD: {clean_text(part2_q)}"
-        bullets = curr['part2'][0].get('bullet_points', [])
+        # Handle 'bullet_points' or 'bullets'
+        bullets = curr['part2'][0].get('bullet_points') or curr['part2'][0].get('bullets', [])
         if bullets:
             bullet_text = "You should say: " + ", ".join(bullets)
             cue_card_box.find('div').string = bullet_text
@@ -304,10 +325,19 @@ def generate_html(week_num, curr, vocab, hw):
         card_a = practice_cards[1]
         card_a.find('h3').string = f"Topic A: {extract_topic_keyword(q2['question'])}"
         card_a.find('div', style=lambda s: s and 'font-size:0.85em' in s).string = q2['question']
+        # Also update center node for Topic A and B! (It was missing in original script, keeping "DREAM" or "FAMILY")
+        # Topic A Center
+        center_a = card_a.find('div', class_='spider-center')
+        if center_a:
+            ka = process_mind_map_node(q2['question'])
+            center_a.clear()
+            center_a.append(BeautifulSoup(ka.replace(" ", "<br>"), 'html.parser'))
+
         legs = card_a.find_all('div', class_='spider-leg')
+        bullets_a = q2.get('bullet_points') or q2.get('bullets', [])
         for idx, leg in enumerate(legs):
-            if idx < len(q2['bullet_points']):
-                bp_text = q2['bullet_points'][idx]
+            if idx < len(bullets_a):
+                bp_text = bullets_a[idx]
                 parts = bp_text.split(":")
                 label = parts[0].strip()
                 sug = parts[1].strip() if len(parts) > 1 else ""
@@ -318,10 +348,19 @@ def generate_html(week_num, curr, vocab, hw):
         card_b = practice_cards[2]
         card_b.find('h3').string = f"Topic B: {extract_topic_keyword(q3['question'])}"
         card_b.find('div', style=lambda s: s and 'font-size:0.85em' in s).string = q3['question']
+
+        # Topic B Center
+        center_b = card_b.find('div', class_='spider-center')
+        if center_b:
+            kb = process_mind_map_node(q3['question'])
+            center_b.clear()
+            center_b.append(BeautifulSoup(kb.replace(" ", "<br>"), 'html.parser'))
+
         legs = card_b.find_all('div', class_='spider-leg')
+        bullets_b = q3.get('bullet_points') or q3.get('bullets', [])
         for idx, leg in enumerate(legs):
-            if idx < len(q3['bullet_points']):
-                bp_text = q3['bullet_points'][idx]
+            if idx < len(bullets_b):
+                bp_text = bullets_b[idx]
                 parts = bp_text.split(":")
                 label = parts[0].strip()
                 sug = parts[1].strip() if len(parts) > 1 else ""
@@ -369,7 +408,8 @@ def generate_html(week_num, curr, vocab, hw):
         scaffold = q1_card.find('ul', class_='scaffold-text')
         if scaffold:
             scaffold.clear()
-            for bp in q1_data['bullet_points']:
+            bps = q1_data.get('bullet_points') or q1_data.get('bullets', [])
+            for bp in bps:
                 scaffold.append(BeautifulSoup(f"<li>{bp}</li>", 'html.parser'))
 
     page_p3_deep = soup.find('div', id='page6')
@@ -383,7 +423,8 @@ def generate_html(week_num, curr, vocab, hw):
         scaffold = q2_card.find('ul', class_='scaffold-text')
         if scaffold:
             scaffold.clear()
-            for bp in q2_data['bullet_points']:
+            bps = q2_data.get('bullet_points') or q2_data.get('bullets', [])
+            for bp in bps:
                 scaffold.append(BeautifulSoup(f"<li>{bp}</li>", 'html.parser'))
 
     q3_card = page_p3_deep.find('div', id='p6-q3')
@@ -396,7 +437,8 @@ def generate_html(week_num, curr, vocab, hw):
         scaffold = q3_card.find('ul', class_='scaffold-text')
         if scaffold:
             scaffold.clear()
-            for bp in q3_data['bullet_points']:
+            bps = q3_data.get('bullet_points') or q3_data.get('bullets', [])
+            for bp in bps:
                 scaffold.append(BeautifulSoup(f"<li>{bp}</li>", 'html.parser'))
 
     page_p3_rapid = soup.find_all('div', class_='page l2')[3]
@@ -411,7 +453,8 @@ def generate_html(week_num, curr, vocab, hw):
         scaffold = q_cards[0].find('ul', class_='scaffold-text')
         if scaffold:
             scaffold.clear()
-            for bp in q4_data['bullet_points']:
+            bps = q4_data.get('bullet_points') or q4_data.get('bullets', [])
+            for bp in bps:
                 scaffold.append(BeautifulSoup(f"<li>{bp}</li>", 'html.parser'))
 
     if len(q_cards) >= 2:
@@ -423,7 +466,8 @@ def generate_html(week_num, curr, vocab, hw):
         scaffold = q_cards[1].find('ul', class_='scaffold-text')
         if scaffold:
             scaffold.clear()
-            for bp in q5_data['bullet_points']:
+            bps = q5_data.get('bullet_points') or q5_data.get('bullets', [])
+            for bp in bps:
                 scaffold.append(BeautifulSoup(f"<li>{bp}</li>", 'html.parser'))
 
     if len(q_cards) >= 3:
@@ -435,7 +479,8 @@ def generate_html(week_num, curr, vocab, hw):
         scaffold = q_cards[2].find('ul', class_='scaffold-text')
         if scaffold:
             scaffold.clear()
-            for bp in q6_data['bullet_points']:
+            bps = q6_data.get('bullet_points') or q6_data.get('bullets', [])
+            for bp in bps:
                 scaffold.append(BeautifulSoup(f"<li>{bp}</li>", 'html.parser'))
 
     # HOMEWORK (Page 8)
