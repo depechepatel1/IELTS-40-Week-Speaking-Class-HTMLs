@@ -8,7 +8,7 @@ This prompt has been updated to address specific quality control failures. You m
 ## 1. Task Overview
 You will process provided JSON/TXT curriculum data to generate high-quality HTML lesson materials.
 Input Files: `Curriculum 0 final.txt`, `vocab_plan.txt`, `homework_plan.txt`.
-Template File: `Week_1 Jules.html`.
+Template File: `Week_2_Lesson_Plan.html`.
 
 **Goal:** Create an HTML file for each week that is ready for PDF conversion.
 
@@ -31,19 +31,8 @@ Template File: `Week_1 Jules.html`.
   * Do NOT add a new line below vocabulary words in the vocabulary tables. 
 
 ## 4. Mind Map Formatting (Student Handout - Part 2)
-**Requirement:** The visual Mind Maps (Spidergrams) must be formatted using the same code as in Week_1 Jules.html.
-*  Change format to: **Inline Bullet Points:** The prompts provided in the first brainstorming map are presented stacked in Week_1 Jules.html as below: 
-You should say: Who the person is...
-What their personality is like...
-How they influenced/helped you...
-And explain why they are important to you.
-Change format to: **Inline Bullet Points:** (e.g.: You should say: Who the person is..., What their personality is like..., How they influenced/helped you..., and explain why they are important to you.) 
-    *   *Bad:*
-        <ul>
-        <li>Who: ...</li>
-        <li>What: ...</li>
-        </ul>
-    *   *Good:* `You should say: Who the person is..., What their personality is like..., How they influenced/helped you..., and explain why they are important to you.`
+**Requirement:** The visual Mind Maps (Spidergrams) must be formatted using the same code as in 'Week_2_Lesson_Plan.html'.
+
 *   **Central Node:**
     *   Do NOT use generic labels like "Topic A" or "Topic B".
     *   Extract Topics for all 3 Mind Maps from Week [X} in file 'Curriculum 0 Final.txt' 
@@ -70,8 +59,8 @@ For all injected new text not in the Curriculum 0 final.txt model answers, rewri
 8 The first 'Example' sentence must be preceded by the (Ex) badge `<span class="badge-ore bg-e">Ex</span>`
 
 *   **Missing Transitions Fix:**
-    *   **CRITICAL:** All sentences MUST start with a **blue highlighted transition phrase** (e.g., `<span class="highlight-transition">This is because</span>`).
-    *   If the source text does not have this, you **MUST INJECT a natural IELTS Band 7 level transitions using your AI capabilities**. Do not output a model answer where the (Op), (Re) or (Ex) badge is followed immediately by plain text.
+    *   **CRITICAL:** All sentences inn All model answers MUST start with a **blue transition phrase** (e.g., `<span class="highlight-transition">This is because</span>`).
+    *   If the source text does not have this, you **MUST INJECT a natural IELTS Band 7 level transitions using your AI capabilities**. Do not output a model answer where the (Op), (Re) or (Ex) badge is followed immediately by black text.
 *   **Question Numbering:**
     *   **Fix:** Avoid double numbering.
     *   *Bad:* "Q1: Q1. What is..."
@@ -83,11 +72,7 @@ For all injected new text not in the Curriculum 0 final.txt model answers, rewri
     *   3-Clause Sentence: `<span class="highlight-3clause">...</span>` (Red text).
 
 ## 7. Validation & Auto-Correction
-Before submitting any file, you must RUN a validation script to ensure:
-1.  **Lesson Plan Topic:** Matches curriculum.
-2.  **Mind Maps:** Bullets are inline; Central nodes are not "Topic A"; Quadrants use specific data.
-3.  **Part 3 Transitions:** Check that every `<span class="badge-ore bg-r">Re</span>` is followed by a `<span class="highlight-transition">` or blue style span. **Auto-fix if missing.**
-4.  **Numbering:** Check for regex pattern `Q\d+: Q\d+`. **Auto-fix if found.**7
+Before submitting any file, you must RUN a validation script
 
 ## 8. Execution Steps
 1.  Read JSON or txt file data.
@@ -100,4 +85,5 @@ Before submitting any file, you must RUN a validation script to ensure:
 4.  Run Validation Script.
 
 5.  Save Output.
+
 
