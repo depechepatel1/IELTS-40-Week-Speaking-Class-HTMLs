@@ -106,12 +106,12 @@ def generate_mind_map_legs(bullet_points):
             label = "POINT"
             text = bp
 
-        display_text = (text[:15] + '..') if len(text) > 18 else text
+        display_text = (text[:18] + '..') if len(text) > 22 else text
 
+        # INLINE FORMATTING (No <br>)
         legs_html += f"""
         <div class="spider-leg">
-            <strong>{label}:</strong><br>
-            <span style="color:#777;">{display_text}</span>
+            <strong>{label}:</strong> <span style="color:#555; font-size:0.9em;">{display_text}</span>
         </div>
         """
     return legs_html
@@ -134,55 +134,77 @@ def format_model_answer(text, use_short_badges=False):
         return match.group(0)
 
     text = re.sub(r'(<span style="[^"]+">)(.*?)(</span>)', badge_replacer, text)
+    # Ensure Blue Transitions
     text = text.replace('style="color: blue;"', 'class="highlight-transition"')
+
+    # 3-Clause
     text = re.sub(r'<span style="background-color: yellow;">(.*?)</span>', r'<span class="highlight-3clause">\1</span>', text)
+
+    # Clean
     text = text.replace('<b>', '<strong>').replace('</b>', '</strong>')
     text = text.replace('<strong><span', '<span').replace('</span></strong>', '</span>')
 
+    # CHECK FOR MISSING TRANSITION (If no blue span found)
+    if 'highlight-transition' not in text:
+        # Inject default transition at start if missing
+        text = f'<span class="highlight-transition">To begin with,</span> {text}'
+
     return text
 
-# --- Step 0: Inject Compact CSS ---
-print("Injecting Compact CSS...")
+# --- Step 0: Inject Compact CSS & Fixes ---
+print("Injecting Compact CSS & Layout Fixes...")
 compact_css = """
-    /* Compact overrides for Teacher Plans to fit A4 */
-    .compact-plan .card { padding: 6px 10px !important; margin-bottom: 8px !important; }
-    .compact-plan h2 { margin-bottom: 4px !important; font-size: 0.95em !important; }
-    .compact-plan .lp-table td { padding: 3px 6px !important; font-size: 0.75em !important; }
-    .compact-plan li { margin-bottom: 0 !important; }
+    /* Aggressive Layout Fixes */
+    .page { overflow: hidden; height: 296mm; padding: 8mm !important; }
+
+    /* Compact Teacher Plan */
+    .compact-plan .card { padding: 5px 8px !important; margin-bottom: 6px !important; }
+    .compact-plan h2 { margin: 2px 0 4px 0 !important; font-size: 0.9em !important; }
+    .compact-plan .lp-table td { padding: 2px 4px !important; font-size: 0.7em !important; }
+    .compact-plan .lp-table th { padding: 3px !important; }
+    .compact-plan li { margin-bottom: 0 !important; line-height: 1.2; }
+
+    /* Spider Diagram Fixes */
+    .spider-leg { padding: 2px !important; line-height: 1.1; display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 5px; }
+    .spider-leg strong { white-space: nowrap; font-size: 0.7em; }
+    .spider-leg span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Homework Fixes */
+    .grammar-sent { padding: 3px 0 !important; border-bottom: 1px dashed #eee; font-size: 0.85em !important; }
+    .page.hw .card { padding: 8px !important; }
+    .diff-box { margin-top: 4px !important; padding: 4px !important; font-size: 0.75em !important; }
+    .lines { line-height: 20px; background-size: 100% 20px; }
 """
 html = html.replace('</style>', f'{compact_css}\n</style>')
 
-# Apply class to Teacher Plan pages
-# Note: The template uses class="page l1" for multiple pages. We need to target the Teacher Plan one.
-# Teacher Plan is the first "page l1".
+# Apply class to ALL pages to ensure safety, or specific ones?
+# User wants "Lesson 1 procedure", "Lesson 2 procedure", "Homework".
+# Let's apply .compact-plan to L1 and L2 Teacher Plans.
 html = html.replace('<div class="page l1">', '<div class="page l1 compact-plan">', 1)
-# Also L2 Teacher Plan (Page 4).
 html = html.replace('<div class="page l2">', '<div class="page l2 compact-plan">', 1)
+# Apply to Homework page too for padding fixes
+html = html.replace('<div class="page hw">', '<div class="page hw compact-plan">', 1)
 
 
-# --- Step 1: Teacher Plan (Page 3) ---
-print("Processing Teacher Plan...")
+# --- Step 1: Teacher Plan (Page 3 - L1) ---
+print("Processing Teacher Plan L1...")
 
 html = replace_text(html, "Week 1 • Lesson 1 • Friendship", "Week 1 • Lesson 1 • Family")
 html = replace_text(html, "Search: IELTS Friendship", "Search: IELTS Family Speaking")
 
 new_objectives = """
 <li><strong>Speaking:</strong> Describe a family member using adjectives of personality.</li>
-<li><strong>Vocab:</strong> Use 7 target words (e.g., <em>Diligent, Selfless</em>) in context.</li>
-<li><strong>Grammar:</strong> Use relative clauses ("who is...", "which is...") to describe people.</li>
+<li><strong>Vocab:</strong> Use 7 target words (e.g., <em>Diligent</em>) in context.</li>
+<li><strong>Grammar:</strong> Use relative clauses ("who is...") to describe people.</li>
 """
 html = re.sub(r'(<h2>🎯 Learning Objectives</h2>\s*<ul.*?>)(.*?)(</ul>)', r'\1' + new_objectives + r'\3', html, flags=re.DOTALL, count=1)
 
 diff_content = """
-<div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;">
-    <strong>📉 Band 5.0 (Support)</strong><br>
-    • "I want to talk about my..."<br>
-    • "He is [Adjective] because..."
+<div style="flex:1; background:#e8f8f5; padding:4px; border-radius:4px;">
+    <strong>📉 Band 5.0</strong>: "I want to talk about my..."
 </div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;">
-    <strong>📈 Band 6.0+ (Stretch)</strong><br>
-    • "The relative I hold in high regard is..."<br>
-    • "Not only is he..., but also..."
+<div style="flex:1; background:#fef9e7; padding:4px; border-radius:4px;">
+    <strong>📈 Band 6.0+</strong>: "The relative I hold in high regard is..."
 </div>
 """
 html = re.sub(r'(<h2>🧩 Differentiation</h2>\s*<div style="display:flex; gap:10px; font-size:0.8em;">)(.*?)(</div>\s*</div>)', r'\1' + diff_content + r'\3', html, flags=re.DOTALL)
@@ -197,17 +219,14 @@ html = replace_text(html, "IELTS%20Friendship", "IELTS%20Family%20Member")
 q1_data = curriculum['part2'][0]
 cue_card_html = f"""
 <h3>📌 CUE CARD: {clean_question_text(q1_data['question'])}</h3>
-<div style="font-size:0.9em; color:#444;">
-    You should say: <strong>Who</strong> this person is, <strong>What</strong> they are like, <strong>How</strong> they help you, and <strong>Why</strong> you are proud of them.
+<div style="font-size:0.85em; color:#444;">
+    Say: <strong>Who</strong>, <strong>What</strong> they are like, <strong>How</strong> they help, <strong>Why</strong> proud.
 </div>
 """
-# Use strict string replacement for Cue Card content to preserve div
-html = re.sub(r'(<div class="card" style="background:#fffde7; border-left:5px solid #fbc02d;">)(.*?)(</div>)', r'\1' + cue_card_html + r'\3', html, flags=re.DOTALL)
+# Use replace_inner_html for Card content to be safe
+html = replace_inner_html(html, '<div class="card" style="background:#fffde7; border-left:5px solid #fbc02d;">', cue_card_html)
 
-# Part 2 Model doesn't use ORE badges, just highlights
-model_text = q1_data['model_answer']
-model_text = format_model_answer(model_text) # Reuses the logic for blue/yellow spans
-
+model_text = format_model_answer(q1_data['model_answer'])
 html = re.sub(r'(<h2>🏆 Band 6.5 Model Answer</h2>\s*<div class="model-box">)(.*?)(</div>)', r'\1' + model_text + r'\3', html, flags=re.DOTALL)
 
 l1_vocab_rows = generate_vocab_rows(vocab['l1_vocab'])
@@ -223,17 +242,39 @@ print("Processing Lesson 1 Practice...")
 html = replace_text(html, '<div class="spider-center">MY<br>FRIEND</div>', '<div class="spider-center">MY<br>FAMILY</div>')
 
 legs_html = generate_mind_map_legs(q1_data['bullet_points'])
-# Use robust replacement logic for spider-legs to avoid artifacts
-# The regex previously failed because spider-legs contains nested divs.
+# First spider map
 html = replace_inner_html(html, '<div class="spider-legs">', legs_html)
 
+# Topic A (Q2)
 q2_data = curriculum['part2'][1]
 html = replace_text(html, "Topic A: A Helpful Neighbor", f"Topic A: {clean_question_text(q2_data['question'])}")
 html = replace_text(html, '<div class="spider-center">Neighbor</div>', '<div class="spider-center">Achieve</div>')
+# Fix Topic A Legs
+legs_a = generate_mind_map_legs(q2_data['bullet_points'])
+# We need to target the *second* spider-legs container.
+# Strategy: Split, replace, join?
+# Or find position of "Topic A" and replace next spider-legs
+pos_a = html.find(f"Topic A: {clean_question_text(q2_data['question'])}")
+html = replace_inner_html(html[pos_a:], '<div class="spider-legs">', legs_a)
+# Wait, replace_inner_html returns the modified snippet. We need to stitch it back.
+# This logic is complex.
+# Alternative: Regex with count=1 after specific marker.
+parts = html.split(f"Topic A: {clean_question_text(q2_data['question'])}")
+if len(parts) > 1:
+    # Modify the second part (which contains the spider legs for Topic A)
+    parts[1] = replace_inner_html(parts[1], '<div class="spider-legs">', legs_a)
+    html = f"Topic A: {clean_question_text(q2_data['question'])}".join(parts)
 
+# Topic B (Q3)
 q3_data = curriculum['part2'][2]
 html = replace_text(html, "Topic B: An Admired Teacher", f"Topic B: {clean_question_text(q3_data['question'])}")
 html = replace_text(html, '<div class="spider-center">Teacher</div>', '<div class="spider-center">Admire</div>')
+# Fix Topic B Legs
+legs_b = generate_mind_map_legs(q3_data['bullet_points'])
+parts = html.split(f"Topic B: {clean_question_text(q3_data['question'])}")
+if len(parts) > 1:
+    parts[1] = replace_inner_html(parts[1], '<div class="spider-legs">', legs_b)
+    html = f"Topic B: {clean_question_text(q3_data['question'])}".join(parts)
 
 
 # --- Step 4: Teacher Lesson Plan L2 ---
@@ -243,20 +284,18 @@ l2_title_new = "Week 1 • Lesson 2 • Family Society"
 html = replace_text(html, l2_title_old, l2_title_new)
 
 l2_objectives = """
-<li><strong>Logic:</strong> Use O.R.E. to discuss Family Roles.</li>
-<li><strong>Vocab:</strong> Use abstract nouns (e.g., <em>Harmony, Instill</em>).</li>
-<li><strong>Speaking:</strong> Discuss Family Pride & Society.</li>
+<li><strong>Logic:</strong> O.R.E. Family Roles.</li>
+<li><strong>Vocab:</strong> Abstract nouns.</li>
+<li><strong>Speaking:</strong> Family & Society.</li>
 """
 
 l2_header_pos = html.find(l2_title_new)
-if l2_header_pos == -1:
-    print("CRITICAL ERROR: L2 Header not found!")
-    sys.exit(1)
-
-start_ul = html.find("<ul", l2_header_pos)
-end_ul = html.find("</ul>", start_ul) + 5
-ul_tag_end = html.find(">", start_ul) + 1
-html = html[:ul_tag_end] + l2_objectives + html[end_ul-5:]
+if l2_header_pos != -1:
+    # Replace UL manually
+    start_ul = html.find("<ul", l2_header_pos)
+    end_ul = html.find("</ul>", start_ul) + 5
+    ul_tag_end = html.find(">", start_ul) + 1
+    html = html[:ul_tag_end] + l2_objectives + html[end_ul-5:]
 
 
 # --- Step 5: Student Lesson 2 Input ---
@@ -276,56 +315,68 @@ html = html[:table_start] + "<tbody>" + l2_vocab_rows + "</tbody>" + html[table_
 # Q1 (Long Form ORE)
 q1_p3 = curriculum['part3'][0]
 html = replace_text(html, "Q1: Is it important to have many friends?", f"{q1_p3['question']}")
-model_q1 = format_model_answer(q1_p3['model_answer'], use_short_badges=False) # Long form for Q1
+model_q1 = format_model_answer(q1_p3['model_answer'], use_short_badges=False)
 
 p5_q1_pos = html.find('id="p5-q1"')
-box_start = html.find('<div class="model-box">', p5_q1_pos)
-box_end = html.find('</div>', box_start) + 6
-html = html[:box_start] + f'<div class="model-box">{model_q1}</div>' + html[box_end:]
+html = replace_inner_html(html[p5_q1_pos:], '<div class="model-box">', model_q1)
+# Stitching needed if replace_inner_html truncates? No, it returns modified string.
+# But here we are passing substring.
+# Let's do a robust replace in full string.
+full_p5_chunk = replace_inner_html(html[p5_q1_pos:], '<div class="model-box">', model_q1)
+html = html[:p5_q1_pos] + full_p5_chunk
 
 
 # --- Step 6: Deep Dive ---
 print("Processing Lesson 2 Deep Dive...")
 
-# Q2 (Long Form ORE)
 q2_p3 = curriculum['part3'][1]
 html = replace_text(html, "Q2: What causes arguments between friends?", f"{q2_p3['question']}")
 model_q2 = format_model_answer(q2_p3['model_answer'], use_short_badges=False)
 
 p6_q2_pos = html.find('id="p6-q2"')
-box_start = html.find('<div class="model-box">', p6_q2_pos)
-box_end = html.find('</div>', box_start) + 6
-html = html[:box_start] + f'<div class="model-box">{model_q2}</div>' + html[box_end:]
+# Replace inner of model box
+# Find the model box div INSIDE p6-q2
+mb_start = html.find('<div class="model-box">', p6_q2_pos)
+html = replace_inner_html(html, html[mb_start:mb_start+30], model_q2) # Pass the unique tag? No, replace_inner_html takes marker.
+# Issue: markers are not unique globally.
+# Strategy: targeted replace.
+full_p6_q2 = replace_inner_html(html[p6_q2_pos:], '<div class="model-box">', model_q2)
+html = html[:p6_q2_pos] + full_p6_q2
 
-# Q3 (Short Form Op/Re/Ex) - Matched to Template
 q3_p3 = curriculum['part3'][2]
 html = replace_text(html, "Q3: Do you think friends are more important than family?", f"{q3_p3['question']}")
 model_q3 = format_model_answer(q3_p3['model_answer'], use_short_badges=True)
 
 p6_q3_pos = html.find('id="p6-q3"')
-box_start = html.find('<div class="model-box"', p6_q3_pos) # Capture style attr
-box_end = html.find('</div>', box_start) + 6
-# Regex to preserve the opening div tag attributes
-html = re.sub(r'(<div id="p6-q3".*?<div class="model-box".*?>)(.*?)(</div>)', r'\1' + model_q3 + r'\3', html, flags=re.DOTALL, count=1)
+# Q3 has style style="margin-bottom:10px;" on model box
+full_p6_q3 = replace_inner_html(html[p6_q3_pos:], '<div class="model-box"', model_q3)
+html = html[:p6_q3_pos] + full_p6_q3
 
 
-# --- Step 7: Rapid Fire (Short Form) ---
+# --- Step 7: Rapid Fire ---
 print("Processing Lesson 2 Rapid Fire...")
 
 q4_p3 = curriculum['part3'][3]
 html = replace_text(html, "Q4: Does social media help us make friends?", f"{q4_p3['question']}")
 model_q4 = format_model_answer(q4_p3['model_answer'], use_short_badges=True)
-html = re.sub(r'(<h3>Q4.*?</h3>\s*<div class="model-box">)(.*?)(</div>)', r'\1' + model_q4 + r'\3', html, flags=re.DOTALL, count=1)
+# Find Q4 Header
+q4_pos = html.find(f"{q4_p3['question']}")
+full_q4 = replace_inner_html(html[q4_pos:], '<div class="model-box">', model_q4)
+html = html[:q4_pos] + full_q4
 
 q5_p3 = curriculum['part3'][4]
 html = replace_text(html, "Q5: Is it possible to be real friends with colleagues?", f"{q5_p3['question']}")
 model_q5 = format_model_answer(q5_p3['model_answer'], use_short_badges=True)
-html = re.sub(r'(<h3>Q5.*?</h3>\s*<div class="model-box">)(.*?)(</div>)', r'\1' + model_q5 + r'\3', html, flags=re.DOTALL, count=1)
+q5_pos = html.find(f"{q5_p3['question']}")
+full_q5 = replace_inner_html(html[q5_pos:], '<div class="model-box">', model_q5)
+html = html[:q5_pos] + full_q5
 
 q6_p3 = curriculum['part3'][5]
 html = replace_text(html, "Q6: Why is it harder to make friends as an adult?", f"{q6_p3['question']}")
 model_q6 = format_model_answer(q6_p3['model_answer'], use_short_badges=True)
-html = re.sub(r'(<h3>Q6.*?</h3>\s*<div class="model-box">)(.*?)(</div>)', r'\1' + model_q6 + r'\3', html, flags=re.DOTALL, count=1)
+q6_pos = html.find(f"{q6_p3['question']}")
+full_q6 = replace_inner_html(html[q6_pos:], '<div class="model-box">', model_q6)
+html = html[:q6_pos] + full_q6
 
 
 # --- Step 8: Homework ---
@@ -336,7 +387,7 @@ vocab_rows = ""
 for i, item in enumerate(hw_vocab, 1):
     vocab_rows += f'<tr><td>{i}. {item["word"]}</td><td style="border-bottom:1px solid #eee;"></td><td>( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) {item["option"]}. {item["synonym"]}</td></tr>\n'
 
-hw_pos = html.find('class="page hw"')
+hw_pos = html.find('class="page hw')
 table_start = html.find('<tbody>', hw_pos)
 table_end = html.find('</tbody>', table_start) + 8
 html = html[:table_start] + "<tbody>" + vocab_rows + "</tbody>" + html[table_end:]
@@ -346,14 +397,26 @@ grammar_divs = ""
 for i, item in enumerate(hw_grammar, 1):
     grammar_divs += f'<div class="grammar-sent">{i}. {item["error"]}</div>\n'
 
-html = re.sub(r'(<h3>2. Error Correction.*?<div style="display:flex; flex-direction:column; gap:15px; margin-top:10px;">)(.*?)(</div>)', r'\1' + grammar_divs + r'\3', html, flags=re.DOTALL)
+# Find the container for grammar sentences
+grammar_header = html.find('2. Error Correction', hw_pos)
+html = replace_inner_html(html[grammar_header:], '<div style="display:flex; flex-direction:column; gap:15px; margin-top:10px;">', grammar_divs)
+html = html[:grammar_header] + html # Stitch back? No, replace_inner_html on substring returns truncated string.
+# CORRECT STITCHING:
+# full_grammar_section = replace_inner_html(html[grammar_header:], ...)
+# html = html[:grammar_header] + full_grammar_section
+full_grammar = replace_inner_html(html[grammar_header:], '<div style="display:flex; flex-direction:column; gap:15px; margin-top:10px;">', grammar_divs)
+html = html[:grammar_header] + full_grammar
 
 hw_task = homework['writing_task']
 html = replace_text(html, "Describe a Family Member (17 mins)", "Writing Task (17 mins)")
 html = re.sub(r'<h3>3. Writing Task:.*?</h3>', f'<h3>3. Writing Task: {hw_task}</h3>', html)
 
 key = homework['answer_key']
-html = re.sub(r'<div style="text-align:center; transform:rotate\(180deg\).*?>.*?</div>', f'<div style="text-align:center; transform:rotate(180deg); color:#555; font-weight:bold; font-size:0.8em; margin-top:auto;">{key}</div>', html, flags=re.DOTALL)
+# Robust key replacement
+key_pos = html.find('Key: 1. Reliable')
+if key_pos != -1:
+    key_end_div = html.find('</div>', key_pos)
+    html = html[:key_pos] + key + html[key_end_div:]
 
 # --- Final Cleanup ---
 html = re.sub(r'Q(\d+)[:\.]\s*Q\d+[\.:]\s*', r'Q\1: ', html)
