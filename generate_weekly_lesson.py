@@ -106,66 +106,20 @@ def process_mind_map_node(question_text):
     return words[0].upper()
 
 def inject_transitions(html_content, type='informal'):
+    # Only perform formatting standardization, DO NOT inject new words.
     str_content = html_content
     str_content = re.sub(r'<span style="color: blue;"><b>(.*?)</b></span>', r'<span class="highlight-transition">\1</span>', str_content)
     str_content = re.sub(r'<span style="color: blue;">(.*?)</span>', r'<span class="highlight-transition">\1</span>', str_content)
-
-    parts = re.split(r'(\.\s+)', str_content)
-    new_parts = []
-    t_list = TRANSITIONS_INFORMAL if type == 'informal' else TRANSITIONS_FORMAL
-
-    for i, part in enumerate(parts):
-        if re.match(r'\.\s+', part):
-            new_parts.append(part)
-            continue
-        if not part.strip():
-            new_parts.append(part)
-            continue
-
-        has_trans = '<span class="highlight-transition">' in part[:100]
-
-        if not has_trans and not part.strip().startswith('<'):
-            if len(part.strip()) > 2:
-                t = random.choice(t_list)
-                part = f'<span class="highlight-transition">{t}</span> {part}'
-
-        new_parts.append(part)
-
-    return "".join(new_parts)
+    return str_content
 
 def process_ore_part3(html_content):
+    # Only perform formatting standardization, DO NOT inject new words.
     str_content = html_content
     str_content = re.sub(r'<span style="background-color: #e0f7fa[^>]*><b>Opinion</b></span>', r'<span class="badge-ore bg-o">Op</span>', str_content)
     str_content = re.sub(r'<span style="background-color: #fff3e0[^>]*><b>Reason</b></span>', r'<span class="badge-ore bg-r">Re</span>', str_content)
     str_content = re.sub(r'<span style="background-color: #f1f8e9[^>]*><b>Example</b></span>', r'<span class="badge-ore bg-e">Ex</span>', str_content)
     str_content = re.sub(r'<span style="color: blue;"><b>(.*?)</b></span>', r'<span class="highlight-transition">\1</span>', str_content)
-
-    pattern = r'(<span class="badge-ore [^>]+>[^<]+</span>)'
-    parts = re.split(pattern, str_content)
-
-    result = []
-    for i, part in enumerate(parts):
-        if re.match(pattern, part):
-            result.append(part)
-            continue
-
-        if i > 0 and re.match(pattern, parts[i-1]):
-            stripped = part.strip()
-            has_transition = False
-            if stripped.startswith('<span class="highlight-transition">'):
-                has_transition = True
-            elif stripped.startswith('<span style="background') and '<span class="highlight-transition">' in part[:150]:
-                has_transition = True
-
-            if not has_transition and len(stripped) > 1:
-                t = random.choice(TRANSITIONS_FORMAL)
-                leading_space = part[:len(part)-len(part.lstrip())]
-                rest = part.lstrip()
-                part = f'{leading_space}<span class="highlight-transition">{t}</span> {rest}'
-
-        result.append(part)
-
-    return "".join(result)
+    return str_content
 
 # ==========================================
 # 3. HTML GENERATION
