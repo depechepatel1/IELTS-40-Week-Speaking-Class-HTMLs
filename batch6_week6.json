@@ -1,0 +1,73 @@
+[
+  {
+    "week": 6,
+    "topic": "Places (A Place with Trees / Nature)",
+    "l1_part2_questions": [
+      {
+        "id": "Q1",
+        "question": "Describe a place with a lot of trees or nature that you have visited. You should say:\nWhere it is\nWhen you visited it\nWhat you did there\nAnd explain why you liked it.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to describe</b></span> a beautiful national park I visited last summer, which was incredibly <b>Tranquil [宁静的]</b>. It is located [位于] in the mountains, far from the city. I went there with my family for a weekend trip to find some <b>Peace and quiet [宁静]</b>. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> the scenery [风景] was <b>Breathtaking [惊人的]</b>, we spent hours hiking [徒步旅行] through the <b>Lush [郁郁葱葱的]</b> forests.</b></span> We also had a picnic by a small, <b>Isolated [偏远的]</b> lake. I loved it because it felt very <b>Eco-friendly [环保的]</b> and <b>Sustainable [可持续的]</b>. It was a perfect way to <b>Get away from it all [远离尘嚣]</b>, and the <b>Picturesque [如画的]</b> views were totally <b>Off the beaten track [人迹罕至]</b>.<br><br><b>Brainstorming Ideas:</b><br>- Where: Canada / Park<br>- Know: TV / Book<br>- Like: Green / Fresh<br>- Feeling: Calm / Happy"
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a park or garden you enjoyed visiting. You should say:\nWhere it is\nWho you went with\nWhat it looked like\nAnd explain why you felt happy there.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'm going to talk about</b></span> a botanical garden in my city that is very <b>Picturesque [如画的]</b>. I went there with my best friend to take photos and enjoy some <b>Peace and quiet [宁静]</b>. The garden was filled with <b>Lush [郁郁葱葱的]</b> plants and colorful flowers. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> it is in the city center, it felt <b>Isolated [偏远的]</b> and peaceful, like a hidden gem <b>Off the beaten track [人迹罕至]</b>.</b></span> The atmosphere [气氛] was <b>Tranquil [宁静的]</b> and perfect for walking. I felt happy because it is a <b>Sustainable [可持续的]</b> and <b>Eco-friendly [环保的]</b> green space. The <b>Breathtaking [惊人的]</b> beauty really helps you <b>Get away from it all [远离尘嚣]</b>.<br><br><b>Brainstorming Ideas:</b><br>- Where: City center / Near home<br>- Who: Friend / Family<br>- Look: Flowers / Lake<br>- Why: Relax / Play"
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a quiet place you like to go to. You should say:\nWhere it is\nHow often you go there\nWhat you do there\nAnd explain why you like this place.",
+        "model_answer": "<span style=\"color: blue;\"><b>I wish to describe</b></span> a small forest path near my home, which is my favorite <b>Isolated [偏远的]</b> spot. I go there almost every Sunday morning to seek <b>Peace and quiet [宁静]</b>. I usually read a book or just sit and enjoy the <b>Tranquil [宁静的]</b> environment. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Because</b></span> it is an <b>Eco-friendly [环保的]</b> area, the air is fresh and the trees remain <b>Lush [郁郁葱葱的]</b> and <b>Breathtaking [惊人的]</b> all year round.</b></span> I like it because the views are <b>Picturesque [如画的]</b>. It helps me <b>Get away from it all [远离尘嚣]</b> and find calm <b>Off the beaten track [人迹罕至]</b> in a <b>Sustainable [可持续的]</b> way.<br><br><b>Brainstorming Ideas:</b><br>- Where: Library / Room<br>- Frequency: Weekly / Daily<br>- Activity: Read / Sleep<br>- Why: Quiet / Safe"
+      }
+    ],
+    "l2_part3_questions": [
+      {
+        "id": "Q1",
+        "question": "Why is it important to preserve nature?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>From my perspective [观点/视角], it is crucial [至关重要的]</b></span> for our survival. <b>[Reason]</b> Nature provides clean air and water, which are essential [基本的/必要的] for life. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> we focus on <b>Preservation [保护]</b>, <b>Deforestation [森林砍伐]</b> will destroy the <b>Habitat [栖息地]</b> of countless [无数的] animals.</b></span> We must protect <b>Biodiversity [生物多样性]</b>. Our future depends on it. We must act now to save our planet.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Mental health. <b>Reason:</b> Nature reduces stress. <b>Example:</b> Walking in a park feels good."
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "What are the effects of urbanization on the environment?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Unfortunately, the effects are</b></span> mostly negative. <b>[Reason]</b> <b>Urbanization [城市化]</b> creates a massive <b>Concrete jungle [水泥丛林]</b> that replaces forests. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> cities create more <b>Pollution [污染]</b>, the natural <b>Habitat [栖息地]</b> of local wildlife is often lost forever.</b></span> We lose valuable green spaces rapidly. It is sad to see trees disappear so fast. We must plant more.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Heat islands. <b>Reason:</b> Concrete traps heat. <b>Example:</b> Cities are hotter than villages."
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Does nature have a positive impact on mental health?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Unquestionably, yes.</b></span> Being in nature is very <b>Therapeutic [有疗效的]</b>. <b>[Reason]</b> It provides a <b>Breath of fresh air [新鲜空气/令人耳目一新]</b> that reduces stress and anxiety significantly. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>When</b></span> people spend time in green spaces, they feel calmer and happier than in a busy city.</b></span> It heals the mind effectively. It is great for reducing depression.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Reduces depression. <b>Reason:</b> Fresh air boosts mood. <b>Example:</b> Doctors prescribing nature walks."
+        ]
+      },
+      {
+        "id": "Q4",
+        "question": "How can we balance development and environmental protection?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>I believe the key lies in</b></span> sustainable [可持续的] planning. <b>[Reason]</b> We cannot stop building, but we can build smarter to get <b>Back to nature [回归自然]</b>. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> we prioritize [优先考虑] <b>Preservation [保护]</b>, we can have both modern cities and healthy <b>Biodiversity [生物多样性]</b>.</b></span> Green roofs are a good start to this balance. We need stricter laws too.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Strict laws. <b>Reason:</b> Punish polluters. <b>Example:</b> Fines for dumping waste."
+        ]
+      },
+      {
+        "id": "Q5",
+        "question": "What causes deforestation?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>The main cause is undoubtedly [毫无疑问地]</b></span> human greed for land and timber [木材]. <b>[Reason]</b> Farmers need space for crops and cattle to feed the growing <b>Concrete jungle [水泥丛林]</b>. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> wood is useful, <b>Deforestation [森林砍伐]</b> destroys the <b>Habitat [栖息地]</b> of many species and increases <b>Pollution [污染]</b>.</b></span> It is a global tragedy we must stop immediately to save Earth.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Logging. <b>Reason:</b> Demand for furniture. <b>Example:</b> Cutting rainforests for wood."
+        ]
+      },
+      {
+        "id": "Q6",
+        "question": "Why do some people prefer living in the countryside?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>It seems to me that</b></span> they prefer a quiet, <b>Therapeutic [有疗效的]</b> lifestyle. <b>[Reason]</b> They want to get <b>Back to nature [回归自然]</b> and escape the noise. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> <b>Urbanization [城市化]</b> offers jobs, the countryside offers peace and less <b>Pollution [污染]</b>.</b></span> It is healthier for families to live there. The air is much cleaner. I would love to live there.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Cheaper housing. <b>Reason:</b> Land costs less. <b>Example:</b> Buying a big house with a garden."
+        ]
+      }
+    ]
+  }
+]
