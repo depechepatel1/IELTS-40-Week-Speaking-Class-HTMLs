@@ -1,0 +1,56 @@
+[
+  {
+    "week": 2,
+    "theme": "Places",
+    "topic": "Working Abroad / Foreign Country",
+    "l1_part2_questions": [
+      {
+        "id": "Q1",
+        "question": "Describe a foreign country where you'd like to work for a short time.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to talk about</b></span> Japan, specifically Tokyo, which is a very <b>Cosmopolitan [世界性的]</b> city. I hope to find a <b>Lucrative [利润丰厚的]</b> job in the tech industry there. I want to fully <b>Immerse [沉浸]</b> myself in Japanese culture, although I know the language might be a <b>Barrier [障碍]</b> at first. Being <b>Adaptable [适应性强的]</b> will help me overcome any initial <b>Culture shock [水土不服]</b>. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> I am a very <b>Diligent [勤奋的]</b> worker, I believe I can succeed even if I have to <b>Start from scratch [白手起家]</b>.</b></span> This experience would definitely help to <b>Broaden one's horizons [开阔眼界]</b> and give me a new <b>Perspective [视角]</b> on my career."
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a city you would like to live in for work purposes.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'm going to describe</b></span> New York City, which is arguably the most <b>Cosmopolitan [世界性的]</b> place on Earth. Working there in finance would be extremely <b>Lucrative [利润丰厚的]</b>. I want to <b>Immerse [沉浸]</b> myself in the fast-paced lifestyle. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> the competition is a <b>Barrier [障碍]</b> to entry, I am <b>Adaptable [适应性强的]</b> and ready for the challenge.</b></span> I am <b>Diligent [勤奋的]</b> enough to <b>Start from scratch [白手起家]</b> if necessary. Living there is the best way to <b>Broaden one's horizons [开阔眼界]</b> and gain experience. From my <b>Perspective [视角]</b>, overcoming the initial <b>Culture shock [水土不服]</b> would be worth it for the long-term career growth."
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a place you visited that you think would be a good place to work.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to talk about</b></span> Singapore, a truly <b>Cosmopolitan [世界性的]</b> city-state I visited last year. It offers many <b>Lucrative [利润丰厚的]</b> opportunities for expatriates. I could easily <b>Immerse [沉浸]</b> myself in the local culture because English is widely spoken, removing the language <b>Barrier [障碍]</b>. The people are <b>Diligent [勤奋的]</b> and efficient. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> I am <b>Adaptable [适应性强的]</b> enough to fit in well, I might struggle.</b></span> Even though I would have to <b>Start from scratch [白手起家]</b> building a network, it would <b>Broaden one's horizons [开阔眼界]</b>. From a professional <b>Perspective [视角]</b>, the minimal <b>Culture shock [水土不服]</b> makes it an ideal destination."
+      }
+    ],
+    "l2_part3_questions": [
+      {
+        "id": "Q1",
+        "question": "What kind of job is easy to get in a foreign country?",
+        "model_answer": "<span style=\"color: blue;\"><b>It is generally agreed that</b></span> language teaching or service jobs are easiest to find. Because of <b>Globalization [全球化]</b>, there is high demand for English teachers. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>However</b></span>, without overcoming the <b>Language barrier [语言障碍]</b>, <b>Integration [融合]</b> into more professional roles can be difficult.</b></span> In <b>Prosperous [繁荣的]</b> countries, these jobs are often available to foreigners who are willing to work hard."
+      },
+      {
+        "id": "Q2",
+        "question": "Should young people work abroad?",
+        "model_answer": "<span style=\"color: blue;\"><b>Personally, I believe that</b></span> working abroad is very <b>Inspiring [鼓舞人心的]</b> for young people. It exposes them to different cultures in what is often called <b>A melting pot [大熔炉]</b>. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> they might face <b>Discrimination [歧视]</b> initially, learning to live in <b>Harmony [和谐]</b> with others is valuable.</b></span> They must learn to adapt, following the saying \"<b>When in Rome, do as the Romans do [入乡随俗]</b>\"."
+      },
+      {
+        "id": "Q3",
+        "question": "Do Chinese parents encourage their children to work abroad?",
+        "model_answer": "<span style=\"color: blue;\"><b>It seems to me that</b></span> many parents do encourage this for the educational value. They want their children to have a <b>Prosperous [繁荣的]</b> future. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Even if</b></span> they worry about the <b>Language barrier [语言障碍]</b>, they know that <b>Globalization [全球化]</b> makes international experience essential.</b></span> However, some fear <b>Discrimination [歧视]</b> might affect their children's mental well-being abroad."
+      },
+      {
+        "id": "Q4",
+        "question": "Why do some people not want to work overseas?",
+        "model_answer": "<span style=\"color: blue;\"><b>I suspect that</b></span> many people fear the challenges of <b>Integration [融合]</b> and loneliness. Leaving one's family can be difficult, disrupting family <b>Harmony [和谐]</b>. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> they are very adventurous, the <b>Language barrier [语言障碍]</b> can seem insurmountable.</b></span> Additionally, they might worry about facing <b>Discrimination [歧视]</b> in a foreign workplace and prefer the comfort of home."
+      },
+      {
+        "id": "Q5",
+        "question": "What are the benefits of working abroad?",
+        "model_answer": "<span style=\"color: blue;\"><b>The most obvious benefit is</b></span> the chance to live in a <b>Prosperous [繁荣的]</b> economy and earn more money. It is also an <b>Inspiring [鼓舞人心的]</b> life experience. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> one adopts the attitude \"<b>When in Rome, do as the Romans do [入乡随俗]</b>\", they can thrive in <b>A melting pot [大熔炉]</b> of cultures.</b></span> This exposure helps personal growth."
+      },
+      {
+        "id": "Q6",
+        "question": "How does brain drain affect the economy of the country they leave?",
+        "model_answer": "<span style=\"color: blue;\"><b>Undoubtedly,</b></span> <b>Brain drain [人才流失]</b> negatively impacts the home country's rapid development. When skilled workers leave for more <b>Prosperous [繁荣的]</b> nations, the local economy suffers significantly and loses potential leaders. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> <b>Globalization [全球化]</b> encourages movement, it creates deep inequality between nations.</b></span> The home country loses its best talent, which hinders innovation and <b>Integration [融合]</b> into the global market."
+      }
+    ]
+  }
+]
