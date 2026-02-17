@@ -150,6 +150,8 @@ def inject_gloss(text):
     for word_key in SORTED_KEYS:
         gloss = GLOSS_DICT[word_key]
         # Regex to match word not followed by existing gloss
+        # Also avoid double glossing if word is part of a phrase already glossed (simple heuristic)
+        # We look for word boundary, word, boundary, NOT followed by optional space then '['
         pattern = r'\b' + re.escape(word_key) + r'\b(?!\s*\[)'
 
         def replacer(match):
@@ -205,10 +207,10 @@ def process_file(filepath):
 
 if __name__ == "__main__":
     files = [
-        'batch6_week6.json',
-        'batch7_week7.json',
-        'batch8_week8.json',
-        'batch9_week9.json'
+        'batch10_week10.json',
+        'batch11_week11.json',
+        'batch12_week12.json',
+        'batch13_week13.json'
     ]
     for f in files:
         process_file(f)
