@@ -12,7 +12,6 @@ def load_json_concatenated(filepath):
         pos = 0
         content = content.strip()
         while pos < len(content):
-            # Skip whitespace
             while pos < len(content) and content[pos].isspace():
                 pos += 1
             if pos >= len(content):
@@ -23,10 +22,8 @@ def load_json_concatenated(filepath):
                 objects.append(obj)
                 pos += idx
             except json.JSONDecodeError:
-                # If fail, try to skip one char (could be delimiter)
                 pos += 1
 
-        # Flatten
         flat_list = []
         for o in objects:
             if isinstance(o, list):
@@ -43,6 +40,10 @@ def load_json(filepath):
         return json.load(f)
 
 def clean_text(text):
+    # Remove the Brainstorming Ideas section if present
+    if 'Brainstorming Ideas:' in text:
+        text = text.split('Brainstorming Ideas:')[0]
+
     text = re.sub(r'<[^>]+>', '', text)
     text = re.sub(r'\[.*?\]', '', text)
     return text.strip()
@@ -52,19 +53,34 @@ def count_words(text):
 
 def check_highlighting(text):
     errors = []
-    if '<span style="color: blue;">' not in text:
+    # Only check main body, not appended notes
+    main_body = text.split('Brainstorming Ideas:')[0] if 'Brainstorming Ideas:' in text else text
+
+    if '<span style="color: blue;">' not in main_body:
         errors.append("Missing Blue Sentence Starter")
-    if '<b>' not in text:
+    if '<b>' not in main_body:
         errors.append("Missing Bold Vocab")
-    if '<span style="background-color: yellow;">' not in text:
+    if '<span style="background-color: yellow;">' not in main_body:
         errors.append("Missing Yellow Complex Sentence")
+    return errors
+
+def check_ore_structure(text):
+    errors = []
+    if '<b>[Opinion]</b>' not in text:
+        errors.append("Missing [Opinion] tag")
+    if '<b>[Reason]</b>' not in text:
+        errors.append("Missing [Reason] tag")
+    if '<b>[Example]</b>' not in text:
+        errors.append("Missing [Example] tag")
     return errors
 
 def check_vocab_presence(text, vocab_list):
     missing = []
-    text_lower = text.lower()
+    # Check only main body
+    main_body = text.split('Brainstorming Ideas:')[0] if 'Brainstorming Ideas:' in text else text
+    text_lower = main_body.lower()
+
     for v in vocab_list:
-        # Extract core word/phrase before first '('
         core_word = v.split('(')[0].strip()
         if core_word.lower() not in text_lower:
             missing.append(core_word)
@@ -85,13 +101,11 @@ def main():
         print(f"Error loading files: {e}")
         return
 
-    # Find vocab for the week
     week_vocab = next((w for w in vocab_data if w.get('week') == week_num), None)
     if not week_vocab:
         print(f"Week {week_num} vocab not found in vocab_plan.txt.")
         return
 
-    # Prepare vocab lists
     l1_words = [v['word'] for v in week_vocab.get('l1_vocab', [])]
     l1_idioms = [v['idiom'] for v in week_vocab.get('l1_idioms', [])]
     all_l1_vocab = l1_words + l1_idioms
@@ -102,7 +116,6 @@ def main():
 
     print(f"Validating Week {week_num} from {json_file}...")
 
-    # Assuming the json file is a list of weeks, find the matching week object
     week_content = next((item for item in content if item.get('week') == week_num), None)
     if not week_content:
         print(f"Week {week_num} content not found in {json_file}")
@@ -129,6 +142,10 @@ def main():
         else:
              print("  [PASS] All vocab present.")
 
+        # Check if prompts and bullets are present (basic check)
+        if 'Brainstorming Ideas:' not in ans:
+             print("  [FAIL] Missing appended Brainstorming Ideas")
+
     # --- L2 Validation ---
     print("\n--- L2 Part 3 Validation ---")
     l2_combined_text = ""
@@ -145,6 +162,15 @@ def main():
         hl_errors = check_highlighting(ans)
         if hl_errors:
             print(f"  [FAIL] Highlighting: {hl_errors}")
+
+        ore_errors = check_ore_structure(ans)
+        if ore_errors:
+            print(f"  [FAIL] O-R-E Structure: {ore_errors}")
+        else:
+            print("  [PASS] O-R-E Structure valid.")
+
+        if 'idea_suggestions' not in q or len(q['idea_suggestions']) != 3:
+            print(f"  [FAIL] Missing or incorrect idea_suggestions (found {len(q.get('idea_suggestions', []))})")
 
     print("\nChecking L2 Vocab Coverage (Set)...")
     missing_l2 = check_vocab_presence(l2_combined_text, all_l2_vocab)
