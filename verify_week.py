@@ -169,7 +169,7 @@ def main():
         else:
             print("  [PASS] O-R-E Structure valid.")
 
-        if 'idea_suggestions' not in q or len(q['idea_suggestions']) != 3:
+        if 'idea_suggestions' not in q or len(q['idea_suggestions']) != 1:
             print(f"  [FAIL] Missing or incorrect idea_suggestions (found {len(q.get('idea_suggestions', []))})")
 
     print("\nChecking L2 Vocab Coverage (Set)...")

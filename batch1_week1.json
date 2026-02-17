@@ -25,9 +25,7 @@
         "question": "What would children do to make their parents proud?",
         "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>It is my firm belief that</b></span> children can make their parents proud by becoming independent and accepting their parents' <b>Guidance [指导]</b>. <b>[Reason]</b> Parents spend years trying to <b>Instill [灌输]</b> good values and morals in us, so seeing us succeed on our own is their greatest reward. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> we show respect for their efforts by living responsibly, we cannot maintain lasting family peace or make them truly happy.</b></span>",
         "idea_suggestions": [
-          "<b>Opinion:</b> Focus on education. <b>Reason:</b> Good grades lead to better opportunities. <b>Example:</b> Getting into a top university.",
-          "<b>Opinion:</b> Help with household duties. <b>Reason:</b> Shows responsibility and care. <b>Example:</b> Cooking dinner or cleaning without being asked.",
-          "<b>Opinion:</b> Display good manners. <b>Reason:</b> Reflects well on upbringing. <b>Example:</b> Being polite to neighbors and elders."
+          "<b>Opinion:</b> Focus on education. <b>Reason:</b> Good grades lead to better opportunities. <b>Example:</b> Getting into a top university."
         ]
       },
       {
@@ -35,9 +33,7 @@
         "question": "What did you do to make your parents proud when you were young?",
         "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Personally, I strove to</b></span> keep <b>Harmony [和谐]</b> at home by being responsible and studying hard. <b>[Reason]</b> My father was the main <b>Breadwinner [养家糊口的人]</b> and worked very long hours for us, so I didn't want to cause him any extra stress. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> he was often tired, I did chores to help him relax and feel proud of my maturity.</b></span>",
         "idea_suggestions": [
-          "<b>Opinion:</b> Won a competition. <b>Reason:</b> Validated their support and investment. <b>Example:</b> First prize in a school art contest.",
-          "<b>Opinion:</b> Saved pocket money. <b>Reason:</b> Demonstrated financial maturity. <b>Example:</b> Bought them a small anniversary gift.",
-          "<b>Opinion:</b> Learned a new skill. <b>Reason:</b> Showed dedication and talent. <b>Example:</b> Playing a song on the piano for guests."
+          "<b>Opinion:</b> Won a competition. <b>Reason:</b> Validated their support and investment. <b>Example:</b> First prize in a school art contest."
         ]
       },
       {
@@ -45,9 +41,7 @@
         "question": "What advantages of yours make you proud?",
         "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>I take great pride in</b></span> my unique <b>Perspective [观点/视角]</b> on life and my optimism. <b>[Reason]</b> I tend to <b>Appreciate [感激/欣赏]</b> small things that other people might miss, which helps me stay happy during difficult times. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> I am still young, I think deeply about the world around me and try to find the positive side of every situation.</b></span>",
         "idea_suggestions": [
-          "<b>Opinion:</b> Patience. <b>Reason:</b> Helps resolve conflicts calmly. <b>Example:</b> Teaching a younger sibling with homework.",
-          "<b>Opinion:</b> Creativity. <b>Reason:</b> Allows for unique problem solving. <b>Example:</b> Finding a new way to organize a messy room.",
-          "<b>Opinion:</b> Empathy. <b>Reason:</b> Builds strong relationships. <b>Example:</b> Listening to a friend who is sad."
+          "<b>Opinion:</b> Patience. <b>Reason:</b> Helps resolve conflicts calmly. <b>Example:</b> Teaching a younger sibling with homework."
         ]
       },
       {
@@ -55,9 +49,7 @@
         "question": "When was the last time that you felt proud of yourself?",
         "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>A moment of immense pride occurred when</b></span> I successfully bridged a <b>Generation gap [代沟]</b> with my grandma. <b>[Reason]</b> We disagreed on gaming, but I explained it patiently to her until she understood my hobby. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> we communicate openly, we can understand each other's different views and maintain a loving relationship despite our age difference.</b></span>",
         "idea_suggestions": [
-          "<b>Opinion:</b> Finished a difficult project. <b>Reason:</b> Overcame procrastination and doubt. <b>Example:</b> Completing a 5000-word essay on time.",
-          "<b>Opinion:</b> Helped a stranger. <b>Reason:</b> Acted with kindness without reward. <b>Example:</b> Helping a tourist find their way.",
-          "<b>Opinion:</b> Faced a fear. <b>Reason:</b> Stepped out of comfort zone. <b>Example:</b> Giving a speech in front of the class."
+          "<b>Opinion:</b> Finished a difficult project. <b>Reason:</b> Overcame procrastination and doubt. <b>Example:</b> Completing a 5000-word essay on time."
         ]
       },
       {
@@ -65,9 +57,7 @@
         "question": "How does family pride contribute to the stability of a society?",
         "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Inherently, family pride</b></span> ensures people act responsibly and care for their reputation in public. <b>[Reason]</b> As they say, <b>The apple doesn't fall far from the tree [有其父必有其子]</b>, meaning children reflect their parents' behavior. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>When</b></span> parents set a good example, children usually follow suit in society, which reduces crime and increases overall stability.</b></span>",
         "idea_suggestions": [
-          "<b>Opinion:</b> Promotes law-abiding behavior. <b>Reason:</b> Fear of shaming the family name. <b>Example:</b> Lower juvenile delinquency rates.",
-          "<b>Opinion:</b> Creates support networks. <b>Reason:</b> Less reliance on state welfare. <b>Example:</b> Families caring for their own elderly.",
-          "<b>Opinion:</b> Transmits moral values. <b>Reason:</b> Creates better citizens. <b>Example:</b> Teaching honesty and respect at home."
+          "<b>Opinion:</b> Promotes law-abiding behavior. <b>Reason:</b> Fear of shaming the family name. <b>Example:</b> Lower juvenile delinquency rates."
         ]
       },
       {
@@ -75,9 +65,7 @@
         "question": "Do you think the definition of \"success\" within families has changed between the past and the present?",
         "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Unquestionably, in contemporary society</b></span> success is about happiness, not just money or status. <b>[Reason]</b> We want our <b>Flesh and blood [骨肉/亲人]</b> to be mentally healthy and safe rather than just rich. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> in the past parents wanted us to <b>Follow in someone's footsteps [继承衣钵]</b>, now they let us choose our own path.</b></span>",
         "idea_suggestions": [
-          "<b>Opinion:</b> Shift from wealth to well-being. <b>Reason:</b> Mental health is prioritized more now. <b>Example:</b> Parents accepting lower-paying but happier jobs for kids.",
-          "<b>Opinion:</b> Focus on individual choice. <b>Reason:</b> Less pressure to follow tradition. <b>Example:</b> Choosing art over law or medicine.",
-          "<b>Opinion:</b> Smaller family success. <b>Reason:</b> Quality of life over number of children. <b>Example:</b> Investing more in one child's education."
+          "<b>Opinion:</b> Shift from wealth to well-being. <b>Reason:</b> Mental health is prioritized more now. <b>Example:</b> Parents accepting lower-paying but happier jobs for kids."
         ]
       }
     ]
