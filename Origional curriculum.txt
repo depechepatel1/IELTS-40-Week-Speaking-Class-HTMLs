@@ -367,7 +367,12 @@
       {
         "id": "Q1",
         "question": "Describe a child who enjoys drawing/painting. You should say:\nHow you know this child\nHow often he/she draws\nWhat he/she likes to draw or paint\nAnd explain why you think he/she likes drawing/painting.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Who: Niece / Neighbor",
+          "What: Animals / Landscapes",
+          "How often: Every day / Weekends",
+          "Why: Talent / Fun"
+        ]
       },
       {
         "id": "Q2",
@@ -382,7 +387,12 @@
       {
         "id": "Q3",
         "question": "Describe a young person who has a natural talent. You should say:\nWho they are\nWhat their talent is (music, art, sports, etc.)\nHow you discovered their talent\nAnd explain what you think the future holds for them.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Who: Cousin / Student",
+          "Talent: Piano / Math",
+          "When: Age 5 / Recently",
+          "Future: Professional / Famous"
+        ]
       }
     ],
     "l2_part3_questions": [
@@ -467,7 +477,12 @@
       {
         "id": "Q3",
         "question": "Describe an invention that has changed the world significantly. You should say:\nWhat the invention is\nWhen it was created\nHow it affects our daily lives\nAnd explain whether you think the change is positive or negative.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "What: Internet / Smartphone",
+          "When: 1990s / 2000s",
+          "Impact: Connection / Speed",
+          "Opinion: Good / Bad"
+        ]
       }
     ],
     "l2_part3_questions": [
@@ -552,7 +567,12 @@
       {
         "id": "Q3",
         "question": "Describe a famous person from your country who is known internationally. You should say:\nWho they are\nWhat they are famous for (e.g., politics, arts, science)\nHow they represent your country\nAnd explain if you are proud of them.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Who: Jackie Chan / Yao Ming",
+          "Field: Acting / Sports",
+          "Why famous: Movies / NBA",
+          "Pride: Yes / Very"
+        ]
       }
     ],
     "l2_part3_questions": [
@@ -662,7 +682,12 @@
       {
         "id": "Q1",
         "question": "Describe an occasion when many people laughed together. You should say:\nWhen it happened\nWhere it happened\nWho you were with\nAnd explain why many people were laughing (or smiling) together.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "When: Party / Class",
+          "Where: School / Home",
+          "Why: Joke / Accident",
+          "Feeling: Happy / Relaxed"
+        ]
       },
       {
         "id": "Q2",
@@ -677,7 +702,12 @@
       {
         "id": "Q3",
         "question": "Describe a comedy movie or live performance that made you laugh. You should say:\nWhat it was\nWho the actors were\nWhat the funniest part was\nAnd explain why it was memorable.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Name: Mr. Bean / Friends",
+          "Actors: Rowan Atkinson / Cast",
+          "Scene: Turkey / Cafe",
+          "Why: Silly / Witty"
+        ]
       }
     ],
     "l2_part3_questions": [
@@ -707,12 +737,22 @@
       {
         "id": "Q2",
         "question": "Describe a friend who has played an important role in your life. You should say:\nWho they are\nHow they helped or influenced you\nWhat you admire about them\nAnd explain why they are important to you.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Who: Best friend / Mentor",
+          "Help: Study / Advice",
+          "Trait: Kind / Smart",
+          "Importance: Guide / Support"
+        ]
       },
       {
         "id": "Q3",
         "question": "Describe a friend who is talented at music or singing. You should say:\nWho they are\nWhat instrument they play or how they sing\nWhen you listen to them\nAnd explain how you feel when you hear them perform.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Who: Classmate / Neighbor",
+          "Instrument: Guitar / Voice",
+          "When: Concert / Party",
+          "Feeling: Impressed / Moved"
+        ]
       }
     ],
     "l2_part3_questions": [
@@ -732,7 +772,12 @@
       {
         "id": "Q1",
         "question": "Describe your favorite place in your house where you can relax. You should say:\nWhere it is\nWhat it is like\nWhat you enjoy doing there\nAnd explain why you feel relaxed at this place.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Where: Bedroom / Balcony",
+          "What: Sofa / Bed",
+          "Do: Read / Sleep",
+          "Why: Quiet / Cozy"
+        ]
       },
       {
         "id": "Q2",
@@ -827,7 +872,12 @@
       {
         "id": "Q2",
         "question": "Describe a bicycle, motorcycle, or car trip you would like to go on. You should say:\nWho you would like to go with\nWhere you would like to go\nWhich vehicle you would choose\nAnd explain why you would like to travel this way.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Vehicle: Car / Bike",
+          "Where: Coast / Mountains",
+          "Who: Friends / Alone",
+          "Why: Freedom / View"
+        ]
       },
       {
         "id": "Q3",
@@ -902,7 +952,12 @@
       {
         "id": "Q1",
         "question": "Describe a person you know who works in a family business. (Examiner Note: Focus your description on the business place itself) You should say:\nWho he/she is\nWhat the business is (e.g., store/restaurant)\nWhat products it sells\nAnd explain what you have learned from observing this business.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Who: Uncle / Friend",
+          "Business: Restaurant / Shop",
+          "Sells: Food / Clothes",
+          "Learned: Hard work / Service"
+        ]
       },
       {
         "id": "Q2",
@@ -962,7 +1017,12 @@
       {
         "id": "Q3",
         "question": "Describe a toy or game that is popular with children today. You should say:\nWhat it is\nWhy it is popular\nWhether you think it is good for children\nAnd explain how it compares to toys from your childhood.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "What: Lego / iPad",
+          "Why: Creative / Fun",
+          "Good: Yes / No",
+          "Compare: Better / Worse"
+        ]
       }
     ],
     "l2_part3_questions": [
@@ -982,12 +1042,22 @@
       {
         "id": "Q1",
         "question": "Describe a time when the electricity suddenly went off where you live. You should say:\nWhen it happened\nHow long it lasted\nWhat you did during that time\nAnd explain how you felt about it.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "When: Night / Storm",
+          "Duration: Hour / Day",
+          "Did: Candles / Talk",
+          "Felt: Scared / Annoyed"
+        ]
       },
       {
         "id": "Q2",
         "question": "Describe an occasion when an important piece of equipment stopped working. You should say:\nWhat the equipment was\nWhen it happened\nHow it affected you\nAnd explain how you solved the problem.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Item: Laptop / Phone",
+          "When: Exam / Trip",
+          "Effect: Panic / Delay",
+          "Fix: Repair / Buy new"
+        ]
       },
       {
         "id": "Q3",
@@ -1017,7 +1087,12 @@
       {
         "id": "Q1",
         "question": "Describe a time when you encouraged someone to do something that he/she didn't want to do. You should say:\nWho he or she is\nWhat you encouraged him/her to do\nHow he/she reacted\nAnd explain why you encouraged him/her to do it.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Who: Brother / Friend",
+          "What: Study / Exercise",
+          "Reaction: Angry / Happy",
+          "Why: Health / Future"
+        ]
       },
       {
         "id": "Q2",
@@ -1077,7 +1152,12 @@
       {
         "id": "Q3",
         "question": "Describe a newly opened shop or facility in your area. You should say:\nWhere it is\nWhat it sells or offers\nWho goes there\nAnd explain if you think it will be successful.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "What: Mall / Gym",
+          "Where: Center / Street",
+          "Offers: Clothes / Sport",
+          "Success: Popular / Busy"
+        ]
       }
     ],
     "l2_part3_questions": [
@@ -1107,7 +1187,12 @@
       {
         "id": "Q2",
         "question": "Describe something interesting you saw on social media. You should say:\nWhat platform you were using\nWhat the content was (video, article, post)\nWhy it caught your attention\nAnd explain why you felt it was interesting.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Platform: TikTok / Weibo",
+          "Content: Video / News",
+          "Why: Funny / Shocking",
+          "Share: Friends / Family"
+        ]
       },
       {
         "id": "Q3",
@@ -1147,7 +1232,12 @@
       {
         "id": "Q2",
         "question": "Describe an event you attended (e.g., concert or party) that you didn't enjoy. You should say:\nWhat the event was\nWho you went with\nWhy you went there\nAnd explain why you didn't enjoy it.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Event: Wedding / Dinner",
+          "Who: Family / Boss",
+          "Why: Boring / Loud",
+          "Left: Early / Late"
+        ]
       },
       {
         "id": "Q3",
@@ -1187,7 +1277,12 @@
       {
         "id": "Q2",
         "question": "Describe a time when you told your friend an important truth. You should say:\nWho your friend is\nWhat the truth was\nWhat your friend's reaction was\nAnd explain why you think it was important to be honest.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Who: Best friend / Roommate",
+          "Truth: Mistake / Habit",
+          "Reaction: Sad / Thankful",
+          "Why: Honesty / Help"
+        ]
       },
       {
         "id": "Q3",
@@ -1262,17 +1357,32 @@
       {
         "id": "Q1",
         "question": "Describe an area of science (physics, biology, psychology, etc.) that interests you. You should say:\nWhat it is\nWhen you knew about it\nHow you learnt it\nAnd explain why you are interested.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Area: Space / Mind",
+          "When: School / TV",
+          "Why: Mystery / Useful",
+          "Future: Study / Job"
+        ]
       },
       {
         "id": "Q2",
         "question": "Describe a time when you needed to use your imagination. You should say:\nWhen it was\nWhy you needed to use your imagination\nHow you used it\nAnd explain how you felt about the result.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "When: Art class / Game",
+          "Why: Create / Solve",
+          "How: Draw / Think",
+          "Result: Good / Fun"
+        ]
       },
       {
         "id": "Q3",
         "question": "Describe a scientific invention that you think is very important. You should say:\nWhat it is\nWho invented it (if you know)\nHow it helps people\nAnd explain why the world would be different without it.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Item: Vaccine / AI",
+          "Who: Scientists / Doctors",
+          "Help: Save lives / Work",
+          "World: Safer / Faster"
+        ]
       }
     ],
     "l2_part3_questions": [
@@ -1292,12 +1402,22 @@
       {
         "id": "Q1",
         "question": "Describe a new activity that you tried for the first time and felt excited about. You should say:\nWhat it was\nWhen you tried it\nWho you did it with\nAnd explain why you felt excited.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "What: Skiing / Cooking",
+          "When: Holiday / Weekend",
+          "Who: Coach / Mom",
+          "Feeling: Thrilled / Proud"
+        ]
       },
       {
         "id": "Q2",
         "question": "Describe the first time you used a foreign language to communicate. You should say:\nWho you talked to\nWhere it happened\nWhat you talked about\nAnd explain how you felt about your language skills.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Language: English / French",
+          "Who: Tourist / Teacher",
+          "Where: Street / Class",
+          "Feeling: Nervous / Happy"
+        ]
       },
       {
         "id": "Q3",
@@ -1327,12 +1447,22 @@
       {
         "id": "Q1",
         "question": "Describe a good habit your friend has and you want to develop. You should say:\nWho your friend is\nWhat habit he/she has\nWhen you noticed this habit\nAnd explain why you want to develop this habit.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Who: John / Mary",
+          "Habit: Reading / Running",
+          "When: Daily / Morning",
+          "Why: Smart / Fit"
+        ]
       },
       {
         "id": "Q2",
         "question": "Describe a bad habit you successfully got rid of. You should say:\nWhat the habit was\nHow long you had it\nHow you stopped it\nAnd explain how your life improved afterwards.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Habit: Smoking / Biting nails",
+          "How long: Years / Months",
+          "Stop: Willpower / Help",
+          "Life: Better / Healthy"
+        ]
       },
       {
         "id": "Q3",
@@ -1362,17 +1492,32 @@
       {
         "id": "Q1",
         "question": "Describe an occasion when you were not allowed to use your mobile phone. (Examiner Note: Focus your description on the place/setting where this rule applied) You should say:\nWhen it was\nWhere it happened\nWhy you were not allowed to use your phone\nAnd explain how you felt about it.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Where: Cinema / Plane",
+          "When: Movie / Flight",
+          "Why: Rule / Safety",
+          "Felt: Bored / Relaxed"
+        ]
       },
       {
         "id": "Q2",
         "question": "Describe a public place where people must be quiet (e.g., Library, Hospital). You should say:\nWhere it is\nHow often you go there\nWhy silence is important there\nAnd explain how you behave when you are there.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Place: Library / Museum",
+          "Go: Study / Look",
+          "Why: Respect / Focus",
+          "Behavior: Whisper / Read"
+        ]
       },
       {
         "id": "Q3",
         "question": "Describe a place you visited where there were strict rules. You should say:\nWhere it was\nWhat the rules were\nWhy the rules existed\nAnd explain if you agreed with the rules.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Place: Temple / School",
+          "Rules: No photos / Uniform",
+          "Why: Tradition / Order",
+          "Agree: Yes / No"
+        ]
       }
     ],
     "l2_part3_questions": [
@@ -1437,7 +1582,12 @@
       {
         "id": "Q1",
         "question": "Describe a competition (e.g., TV, school, or sports) that you took part in. You should say:\nWhat the competition was\nWhen it took place\nWhat you had to do\nAnd explain how you felt about participating in it.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "What: Debate / Race",
+          "When: Last year / School",
+          "Did: Speak / Run",
+          "Felt: Nervous / Excited"
+        ]
       },
       {
         "id": "Q2",
@@ -1477,12 +1627,22 @@
       {
         "id": "Q1",
         "question": "Describe a neighbor you have who is interesting or helpful. You should say:\nWho this person is\nHow long you have known them\nHow often you see them\nAnd explain why you think they are interesting/helpful.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Who: Old man / Teacher",
+          "Known: Years / Months",
+          "See: Daily / Weekly",
+          "Why: Stories / Help"
+        ]
       },
       {
         "id": "Q2",
         "question": "Describe a person who contributes a lot to your local community. You should say:\nWho the person is\nWhat they do for the community\nWhy they do it\nAnd explain how their actions affect the neighborhood.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Who: Volunteer / Doctor",
+          "What: Clean up / Cure",
+          "Why: Kind / Duty",
+          "Effect: Better / Safe"
+        ]
       },
       {
         "id": "Q3",
@@ -1532,7 +1692,12 @@
       {
         "id": "Q3",
         "question": "Describe a place in your country that is famous for its natural beauty. You should say:\nWhere it is\nWhat it looks like\nWhy it is famous\nAnd explain if you think it is a good place for tourists.",
-        "Spider Diagram \"bullet_points\"": []
+        "Spider Diagram \"bullet_points\"": [
+          "Place: Guilin / Tibet",
+          "Looks: Mountains / Lake",
+          "Famous: Scenery / Air",
+          "Tourist: Yes / Crowded"
+        ]
       }
     ],
     "l2_part3_questions": [
