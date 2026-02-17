@@ -1,0 +1,73 @@
+[
+  {
+    "week": 3,
+    "topic": "Work and Jobs",
+    "l1_part2_questions": [
+      {
+        "id": "Q1",
+        "question": "Describe your perfect job. You should say:\nWhat it is\nWhere you heard about it\nWhat you need to learn to get the job\nAnd explain why you think it is your perfect job.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to describe</b></span> my dream of becoming a university professor, which I believe is a very <b>Prestigious [有声望的]</b> and <b>Fulfilling [令人满足的]</b> career. I first learned about this role from my own teachers, who seemed to have found their <b>Dream job [理想工作]</b>. To get this job, one must be highly <b>Qualified [有资格的]</b>, usually requiring a PhD. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> the work is intellectually [智力上地] <b>Challenging [充满挑战的]</b>, it requires one to be <b>Adaptable [适应性强的]</b> to new research methods.</b></span> Although it is <b>Demanding [要求高的]</b>, it is a great way to <b>Make a living [谋生]</b> and can be quite <b>Lucrative [利润丰厚的]</b> at the top level. I think it is perfect because I want to <b>Climb the career ladder [在职业阶梯上攀升]</b> in academia [学术界].<br><br><b>Brainstorming Ideas:</b><br>- Job: Teacher / Doctor<br>- Where: School / Hospital<br>- Learn: Books / Science<br>- Why: Help / Respect"
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a job you would like to have in the future. You should say:\nWhat the job is\nWhat qualifications are required\nWhether it is a popular job\nAnd explain why this job appeals to you.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'm going to talk about</b></span> becoming a software engineer, which is definitely my <b>Dream job [理想工作]</b>. This role is increasingly <b>Prestigious [有声望的]</b> in the tech world. To be <b>Qualified [有资格的]</b>, I need to study computer science. It is a very popular and <b>Lucrative [利润丰厚的]</b> way to <b>Make a living [谋生]</b> right now. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Even though</b></span> the coding work can be <b>Demanding [要求高的]</b>, I find solving problems to be deeply <b>Fulfilling [令人满足的]</b>.</b></span> The industry changes fast, so I must be <b>Adaptable [适应性强的]</b>. I love it because it is <b>Challenging [充满挑战的]</b> and offers a chance to <b>Climb the career ladder [在职业阶梯上攀升]</b> quickly.<br><br><b>Brainstorming Ideas:</b><br>- Job: Designer / Chef<br>- Need: Art / Cooking<br>- Popular: Yes / No<br>- Why: Fun / Creative"
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a well-paid job that you would be good at. You should say:\nWhat the job is\nWhat skills you have that match this job\nHow you would find this job\nAnd explain why you think you would succeed in this role.",
+        "model_answer": "<span style=\"color: blue;\"><b>I wish to describe</b></span> the role of a project manager, which is often very <b>Lucrative [利润丰厚的]</b>. I am <b>Qualified [有资格的]</b> because I am organized and <b>Adaptable [适应性强的]</b> in <b>Challenging [充满挑战的]</b> situations. I would find this <b>Prestigious [有声望的]</b> job through networking [社交/建立人脉] to <b>Make a living [谋生]</b>. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Because</b></span> I enjoy leading teams, I would find the <b>Demanding [要求高的]</b> nature of the work <b>Fulfilling [令人满足的]</b> rather than stressful.</b></span> It is not just a <b>Dream job [理想工作]</b> but a real opportunity to <b>Climb the career ladder [在职业阶梯上攀升]</b> based on my skills, leading to great success in the future. I am ready to start.<br><br><b>Brainstorming Ideas:</b><br>- Job: Lawyer / Manager<br>- Skills: Talking / Leading<br>- Find: Internet / Friends<br>- Success: Hard work"
+      }
+    ],
+    "l2_part3_questions": [
+      {
+        "id": "Q1",
+        "question": "What jobs do children want to do when they grow up?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Generally speaking, children often</b></span> desire visible roles like astronauts or doctors. <b>[Reason]</b> They are influenced by media and desire <b>Prosperous [繁荣的]</b> lives, hoping to <b>Bring home the bacon [养家糊口]</b> successfully without worrying about money. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> they understand the <b>Work-life balance [工作与生活的平衡]</b> required, they might not realize the <b>Motivation [动力]</b> needed for such careers.</b></span> They need guidance [指导].",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Creative jobs. <b>Reason:</b> Fun and freedom. <b>Example:</b> YouTuber or Artist."
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "What should people consider when choosing jobs?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>I strongly believe that</b></span> one should weigh <b>Job security [工作保障]</b> against passion to avoid a <b>Dead-end job [没前途的工作]</b> later in life. <b>[Reason]</b> High <b>Unemployment [失业]</b> rates make stability [稳定性] crucial in today's unpredictable economy, so we must be careful. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> the salary is decent, a secure job offers better mental peace than a risky venture [冒险/风险项目].</b></span> Stability [稳定性] is key.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Personal interest. <b>Reason:</b> Long-term satisfaction. <b>Example:</b> Choosing charity work over banking."
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Is salary the main reason people choose a certain job?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>It seems to me that</b></span> while money matters, <b>Work-life balance [工作与生活的平衡]</b> is increasingly important for happiness. <b>[Reason]</b> A <b>Prosperous [繁荣的]</b> life isn't just about cash or trying to <b>Bring home the bacon [养家糊口]</b>. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> a high salary provides <b>Motivation [动力]</b>, many people quit high-paying jobs to avoid burnout [职业倦怠] and stress.</b></span> Health comes first.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Career growth. <b>Reason:</b> Future potential. <b>Example:</b> Taking a lower starting salary for better training."
+        ]
+      },
+      {
+        "id": "Q4",
+        "question": "What kind of jobs are well-paid?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Undoubtedly [毫无疑问地], jobs requiring</b></span> specialized skills are the most <b>Prosperous [繁荣的]</b> and respected. <b>[Reason]</b> Roles in tech and medicine have high barriers to entry and require you to <b>Think outside the box [跳出框框思考]</b> daily to solve complex problems. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> <b>Automation [自动化]</b> cannot replace surgeons easily, their <b>Job security [工作保障]</b> and pay remain very high.</b></span> Expertise is valued.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Management roles. <b>Reason:</b> High responsibility. <b>Example:</b> CEOs of large companies."
+        ]
+      },
+      {
+        "id": "Q5",
+        "question": "Do people's ideal jobs change as they grow up?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Unquestionably [毫无疑问地], yes.</b></span> As we age, our <b>Motivation [动力]</b> shifts from seeking fame to seeking stability [稳定性] and peace. <b>[Reason]</b> We realize the importance of <b>Job security [工作保障]</b> and avoid ending up in a <b>Dead-end job [没前途的工作]</b>. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>When</b></span> reality hits, dreams of being a rock star often fade into more practical career choices.</b></span> We become realistic.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Yes, due to reality. <b>Reason:</b> Discovering true skills. <b>Example:</b> Realizing you aren't good at sports."
+        ]
+      },
+      {
+        "id": "Q6",
+        "question": "To what extent does technology (such as AI) threaten traditional job roles in modern society?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>I am convinced that</b></span> <b>Automation [自动化]</b> poses a significant threat to routine jobs globally. <b>[Reason]</b> It causes <b>Unemployment [失业]</b> and contributes to <b>Brain drain [人才流失]</b> as skilled workers leave for better hubs. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> it improves efficiency, it forces workers to retrain and <b>Think outside the box [跳出框框思考]</b> to maintain their <b>Job security [工作保障]</b>.</b></span> We must adapt.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Creates new jobs. <b>Reason:</b> Tech needs maintenance. <b>Example:</b> AI trainers and robot repair technicians."
+        ]
+      }
+    ]
+  }
+]

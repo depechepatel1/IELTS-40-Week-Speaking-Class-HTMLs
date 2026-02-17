@@ -17,7 +17,7 @@
       {
         "id": "Q3",
         "question": "Describe a place you visited that you think would be a good place to work. You should say:\nWhere the place is\nWhen you visited it\nWhat the lifestyle is like there\nAnd explain why you think working there would be enjoyable.",
-        "model_answer": "<span style=\"color: blue;\"><b>I'd like to talk about</b></span> Singapore, a truly <b>Cosmopolitan [世界性的]</b> city-state I visited last year. It offers many <b>Lucrative [利润丰厚的]</b> opportunities for expatriates. I could easily <b>Immerse [沉浸]</b> myself in the local culture because English is widely spoken, removing the language <b>Barrier [障碍]</b>. The people are <b>Diligent [勤奋的]</b> and efficient. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> I am <b>Adaptable [适应性强的]</b> enough to fit in well, I might struggle.</b></span> Even though I would have to <b>Start from scratch [白手起家]</b> building a network, it would <b>Broaden one's horizons [开阔眼界]</b>. From a professional <b>Perspective [视角]</b>, the minimal <b>Culture shock [水土不服]</b> makes it an ideal destination.<br><br><b>Brainstorming Ideas:</b><br>- Place: Shanghai / Sydney<br>- Vibe: Busy / Relaxed<br>- People: Nice / Smart<br>- Future: Move there"
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to talk about</b></span> Singapore, a truly <b>Cosmopolitan [世界性的]</b> city-state I visited last year. It offers many <b>Lucrative [利润丰厚的]</b> opportunities for expatriates [外籍人士]. I could easily <b>Immerse [沉浸]</b> myself in the local culture because English is widely spoken, removing the language <b>Barrier [障碍]</b>. The people are <b>Diligent [勤奋的]</b> and efficient. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> I am <b>Adaptable [适应性强的]</b> enough to fit in well, I might struggle.</b></span> Even though I would have to <b>Start from scratch [白手起家]</b> building a network, it would <b>Broaden one's horizons [开阔眼界]</b>. From a professional <b>Perspective [视角]</b>, the minimal <b>Culture shock [水土不服]</b> makes it an ideal destination.<br><br><b>Brainstorming Ideas:</b><br>- Place: Shanghai / Sydney<br>- Vibe: Busy / Relaxed<br>- People: Nice / Smart<br>- Future: Move there"
       }
     ],
     "l2_part3_questions": [
@@ -26,7 +26,7 @@
         "question": "What kind of job is easy to get in a foreign country?",
         "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>It is generally agreed that</b></span> language teaching or service jobs are easiest to find. <b>[Reason]</b> Because of <b>Globalization [全球化]</b>, there is high demand for English teachers. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>However</b></span>, without overcoming the <b>Language barrier [语言障碍]</b>, <b>Integration [融合]</b> into more professional roles can be difficult.</b></span> In <b>Prosperous [繁荣的]</b> countries, these jobs are often available to foreigners who are willing to work hard.",
         "idea_suggestions": [
-          "<b>Opinion:</b> Service industry jobs. <b>Reason:</b> High turnover and demand. <b>Example:</b> Working in a restaurant or hotel."
+          "<b>Opinion:</b> Service industry jobs. <b>Reason:</b> High turnover [人员流动率] and demand. <b>Example:</b> Working in a restaurant or hotel."
         ]
       },
       {
@@ -42,15 +42,15 @@
         "question": "Do Chinese parents encourage their children to work abroad?",
         "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>It seems to me that</b></span> many parents do encourage this for the educational value. <b>[Reason]</b> They want their children to have a <b>Prosperous [繁荣的]</b> future. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Even if</b></span> they worry about the <b>Language barrier [语言障碍]</b>, they know that <b>Globalization [全球化]</b> makes international experience essential.</b></span> However, some fear <b>Discrimination [歧视]</b> might affect their children's mental well-being abroad.",
         "idea_suggestions": [
-          "<b>Opinion:</b> Yes, for prestige. <b>Reason:</b> Seen as a sign of success. <b>Example:</b> Bragging to relatives about child working in London."
+          "<b>Opinion:</b> Yes, for prestige [声望]. <b>Reason:</b> Seen as a sign of success. <b>Example:</b> Bragging to relatives about child working in London."
         ]
       },
       {
         "id": "Q4",
         "question": "Why do some people not want to work overseas?",
-        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>I suspect that</b></span> many people fear the challenges of <b>Integration [融合]</b> and loneliness. <b>[Reason]</b> Leaving one's family can be difficult, disrupting family <b>Harmony [和谐]</b>. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> they are very adventurous, the <b>Language barrier [语言障碍]</b> can seem insurmountable.</b></span> Additionally, they might worry about facing <b>Discrimination [歧视]</b> in a foreign workplace and prefer the comfort of home.",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>I suspect that</b></span> many people fear the challenges of <b>Integration [融合]</b> and loneliness. <b>[Reason]</b> Leaving one's family can be difficult, disrupting family <b>Harmony [和谐]</b>. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> they are very adventurous [喜欢冒险的], the <b>Language barrier [语言障碍]</b> can seem insurmountable [难以克服的].</b></span> Additionally, they might worry about facing <b>Discrimination [歧视]</b> in a foreign workplace and prefer the comfort of home.",
         "idea_suggestions": [
-          "<b>Opinion:</b> Prefer familiar food. <b>Reason:</b> Hard to adapt to foreign diet. <b>Example:</b> Missing authentic local cuisine."
+          "<b>Opinion:</b> Prefer familiar food. <b>Reason:</b> Hard to adapt to foreign diet. <b>Example:</b> Missing authentic local cuisine [菜肴]."
         ]
       },
       {
@@ -64,9 +64,9 @@
       {
         "id": "Q6",
         "question": "How does brain drain affect the economy of the country they leave?",
-        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Undoubtedly,</b></span> <b>Brain drain [人才流失]</b> negatively impacts the home country's rapid development. <b>[Reason]</b> When skilled workers leave for more <b>Prosperous [繁荣的]</b> nations, the local economy suffers significantly and loses potential leaders. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> <b>Globalization [全球化]</b> encourages movement, it creates deep inequality between nations.</b></span> The home country loses its best talent, which hinders innovation and <b>Integration [融合]</b> into the global market.",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Undoubtedly [毫无疑问地],</b></span> <b>Brain drain [人才流失]</b> negatively impacts the home country's rapid development. <b>[Reason]</b> When skilled workers leave for more <b>Prosperous [繁荣的]</b> nations, the local economy suffers significantly and loses potential leaders. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> <b>Globalization [全球化]</b> encourages movement, it creates deep inequality between nations.</b></span> The home country loses its best talent, which hinders innovation [创新] and <b>Integration [融合]</b> into the global market.",
         "idea_suggestions": [
-          "<b>Opinion:</b> Loss of innovation. <b>Reason:</b> Brightest minds leave. <b>Example:</b> Fewer tech startups in home country."
+          "<b>Opinion:</b> Loss of innovation [创新]. <b>Reason:</b> Brightest minds leave. <b>Example:</b> Fewer tech startups in home country."
         ]
       }
     ]

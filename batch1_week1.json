@@ -6,7 +6,7 @@
       {
         "id": "Q1",
         "question": "Describe a family member who you are proud of. You should say:\nWho this person is\nWhen this happened\nWhat this person did\nAnd explain why you felt proud.",
-        "model_answer": "<span style=\"color: blue;\"><b>To commence,</b></span> I wish to describe my father, who is undoubtedly the most <b>Diligent [勤奋的]</b> and <b>Accomplished [成功的]</b> person I know. He works incredibly hard every day to support my studies and future, which is truly <b>Inspiring [鼓舞人心的]</b> to me. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> he is deeply <b>Devoted [忠诚的]</b> to our family, he is always <b>Considerate [体贴的]</b> of my feelings, <b>although</b> he can be quite strict about my school grades.</b></span> He is <b>Selfless [无私的]</b> in his actions and truly has <b>A heart of gold [心地善良]</b>. He is <b>Generous [慷慨的]</b> with his limited free time and is always willing to <b>Go the extra mile [加倍努力]</b> to help me with difficult math problems. I <b>Look up to [敬仰]</b> him greatly.<br><br><b>Brainstorming Ideas:</b><br>- Who: Mother / Grandfather<br>- When: Last year / Childhood<br>- What: Helping / Working<br>- Why: Kind / Strong"
+        "model_answer": "<span style=\"color: blue;\"><b>To commence [开始],</b></span> I wish to describe my father, who is undoubtedly [毫无疑问地] the most <b>Diligent [勤奋的]</b> and <b>Accomplished [成功的]</b> person I know. He works incredibly hard every day to support my studies and future, which is truly <b>Inspiring [鼓舞人心的]</b> to me. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> he is deeply <b>Devoted [忠诚的]</b> to our family, he is always <b>Considerate [体贴的]</b> of my feelings, <b>although</b> he can be quite strict about my school grades.</b></span> He is <b>Selfless [无私的]</b> in his actions and truly has <b>A heart of gold [心地善良]</b>. He is <b>Generous [慷慨的]</b> with his limited free time and is always willing to <b>Go the extra mile [加倍努力]</b> to help me with difficult math problems. I <b>Look up to [敬仰]</b> him greatly.<br><br><b>Brainstorming Ideas:</b><br>- Who: Mother / Grandfather<br>- When: Last year / Childhood<br>- What: Helping / Working<br>- Why: Kind / Strong"
       },
       {
         "id": "Q2",
@@ -31,7 +31,7 @@
       {
         "id": "Q2",
         "question": "What did you do to make your parents proud when you were young?",
-        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Personally, I strove to</b></span> keep <b>Harmony [和谐]</b> at home by being responsible and studying hard. <b>[Reason]</b> My father was the main <b>Breadwinner [养家糊口的人]</b> and worked very long hours for us, so I didn't want to cause him any extra stress. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> he was often tired, I did chores to help him relax and feel proud of my maturity.</b></span>",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Personally, I strove [努力 (strive的过去式)] to</b></span> keep <b>Harmony [和谐]</b> at home by being responsible and studying hard. <b>[Reason]</b> My father was the main <b>Breadwinner [养家糊口的人]</b> and worked very long hours for us, so I didn't want to cause him any extra stress. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> he was often tired, I did chores to help him relax and feel proud of my maturity.</b></span>",
         "idea_suggestions": [
           "<b>Opinion:</b> Won a competition. <b>Reason:</b> Validated their support and investment. <b>Example:</b> First prize in a school art contest."
         ]
@@ -39,7 +39,7 @@
       {
         "id": "Q3",
         "question": "What advantages of yours make you proud?",
-        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>I take great pride in</b></span> my unique <b>Perspective [观点/视角]</b> on life and my optimism. <b>[Reason]</b> I tend to <b>Appreciate [感激/欣赏]</b> small things that other people might miss, which helps me stay happy during difficult times. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> I am still young, I think deeply about the world around me and try to find the positive side of every situation.</b></span>",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>I take great pride in</b></span> my unique <b>Perspective [观点/视角]</b> on life and my optimism [乐观主义]. <b>[Reason]</b> I tend to <b>Appreciate [感激/欣赏]</b> small things that other people might miss, which helps me stay happy during difficult times. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> I am still young, I think deeply about the world around me and try to find the positive side of every situation.</b></span>",
         "idea_suggestions": [
           "<b>Opinion:</b> Patience. <b>Reason:</b> Helps resolve conflicts calmly. <b>Example:</b> Teaching a younger sibling with homework."
         ]
@@ -47,23 +47,23 @@
       {
         "id": "Q4",
         "question": "When was the last time that you felt proud of yourself?",
-        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>A moment of immense pride occurred when</b></span> I successfully bridged a <b>Generation gap [代沟]</b> with my grandma. <b>[Reason]</b> We disagreed on gaming, but I explained it patiently to her until she understood my hobby. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> we communicate openly, we can understand each other's different views and maintain a loving relationship despite our age difference.</b></span>",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>A moment of immense pride occurred when</b></span> I successfully bridged [弥合/消除] a <b>Generation gap [代沟]</b> with my grandma. <b>[Reason]</b> We disagreed on gaming, but I explained it patiently to her until she understood my hobby. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> we communicate openly, we can understand each other's different views and maintain a loving relationship despite our age difference.</b></span>",
         "idea_suggestions": [
-          "<b>Opinion:</b> Finished a difficult project. <b>Reason:</b> Overcame procrastination and doubt. <b>Example:</b> Completing a 5000-word essay on time."
+          "<b>Opinion:</b> Finished a difficult project. <b>Reason:</b> Overcame procrastination [拖延症] and doubt. <b>Example:</b> Completing a 5000-word essay on time."
         ]
       },
       {
         "id": "Q5",
         "question": "How does family pride contribute to the stability of a society?",
-        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Inherently, family pride</b></span> ensures people act responsibly and care for their reputation in public. <b>[Reason]</b> As they say, <b>The apple doesn't fall far from the tree [有其父必有其子]</b>, meaning children reflect their parents' behavior. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>When</b></span> parents set a good example, children usually follow suit in society, which reduces crime and increases overall stability.</b></span>",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Inherently [天生地/固有地], family pride</b></span> ensures people act responsibly and care for their reputation [名声] in public. <b>[Reason]</b> As they say, <b>The apple doesn't fall far from the tree [有其父必有其子]</b>, meaning children reflect their parents' behavior. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>When</b></span> parents set a good example, children usually follow suit in society, which reduces crime and increases overall stability [稳定性].</b></span>",
         "idea_suggestions": [
-          "<b>Opinion:</b> Promotes law-abiding behavior. <b>Reason:</b> Fear of shaming the family name. <b>Example:</b> Lower juvenile delinquency rates."
+          "<b>Opinion:</b> Promotes law-abiding behavior. <b>Reason:</b> Fear of shaming the family name. <b>Example:</b> Lower juvenile [青少年的] delinquency [犯罪行为] rates."
         ]
       },
       {
         "id": "Q6",
         "question": "Do you think the definition of \"success\" within families has changed between the past and the present?",
-        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Unquestionably, in contemporary society</b></span> success is about happiness, not just money or status. <b>[Reason]</b> We want our <b>Flesh and blood [骨肉/亲人]</b> to be mentally healthy and safe rather than just rich. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> in the past parents wanted us to <b>Follow in someone's footsteps [继承衣钵]</b>, now they let us choose our own path.</b></span>",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Unquestionably [毫无疑问地], in contemporary [当代的] society</b></span> success is about happiness, not just money or status [地位]. <b>[Reason]</b> We want our <b>Flesh and blood [骨肉/亲人]</b> to be mentally healthy and safe rather than just rich. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> in the past parents wanted us to <b>Follow in someone's footsteps [继承衣钵]</b>, now they let us choose our own path.</b></span>",
         "idea_suggestions": [
           "<b>Opinion:</b> Shift from wealth to well-being. <b>Reason:</b> Mental health is prioritized more now. <b>Example:</b> Parents accepting lower-paying but happier jobs for kids."
         ]
