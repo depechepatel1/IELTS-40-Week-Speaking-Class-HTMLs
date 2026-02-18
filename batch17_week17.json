@@ -5,7 +5,7 @@
     "part2": [
       {
         "id": "Q1",
-        "question": "Describe a friend you have known for a long time.",
+        "question": "Describe a friend you have known for a long time. You should say:\nWhere you met this friend\nWhen you met this friend\nWhat he/she is like\nAnd explain why you have remained friends for so long.",
         "model_answer": "<span style=\"color: blue;\"><b>I want to introduce</b></span> my best friend, Li, who has been my classmate for five years. He is incredibly funny and loyal. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> we share the same sense of humor, we never run out of things to talk about, <b>although</b> he is sometimes late.</b></span> He always offers me <b>Supportive [支持的]</b> advice when I am stressed. We have a strong bond of <b>Intimacy [亲密]</b>. He is the most <b>Considerate [体贴的]</b> person I know. We enjoy playing video games together. He is like a brother to me. I value his <b>Companionship [陪伴]</b> deeply. I hope we stay <b>Inseparable [形影不离的]</b> forever. He is a major part of my <b>Childhood [童年]</b>.",
         "bullet_points": [
           "Childhood friend",
@@ -16,7 +16,7 @@
       },
       {
         "id": "Q2",
-        "question": "Describe a friend who has played an important role in your life.",
+        "question": "Describe a friend who has played an important role in your life. You should say:\nWho they are\nHow they helped or influenced you\nWhat you admire about them\nAnd explain why they are important to you.",
         "model_answer": "<span style=\"color: blue;\"><b>I clearly remember</b></span> my friend Sarah, who helped me through a tough time. She was very <b>Supportive [支持的]</b> when I failed my exams. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Because</b></span> she stuck by me <b>Through thick and thin [风雨同舟]</b>, I realized she was a true friend, <b>which</b> gave me courage.</b></span> We <b>Hit it off [一见如故]</b> immediately when we met. She is very <b>Considerate [体贴的]</b> of my feelings. Our <b>Companionship [陪伴]</b> means the world to me. She taught me to be strong. I am lucky to have such an <b>Intimate [亲密的]</b> friend. She is my role model and always gives me joy. Her advice is always spot on and very helpful.",
         "bullet_points": [
           "Helping study",
@@ -27,7 +27,7 @@
       },
       {
         "id": "Q3",
-        "question": "Describe a friend who is talented at music or singing.",
+        "question": "Describe a friend who is talented at music or singing. You should say:\nWho they are\nWhat instrument they play or how they sing\nWhen you listen to them\nAnd explain how you feel when you hear them perform.",
         "model_answer": "<span style=\"color: blue;\"><b>I have a friend called</b></span> Tom who plays the guitar beautifully. He is very talented and <b>Hilarious [极滑稽的]</b> when he performs. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> he is shy, he comes alive on stage, <b>because</b> music is his passion.</b></span> We often sing together, which is <b>Joyful [快乐的]</b>. He is never <b>Superficial [肤浅的]</b> about his fame. We have been <b>Inseparable [形影不离的]</b> since <b>Childhood [童年]</b>. His music brings people together. I admire his dedication. He is a <b>Considerate [体贴的]</b> bandmate. His songs are very popular at school. He might <b>Drift apart [逐渐疏远]</b> if he becomes famous, but I hope not. It is a pleasure to know him and hear his music.",
         "bullet_points": [
           "Funny and loyal",

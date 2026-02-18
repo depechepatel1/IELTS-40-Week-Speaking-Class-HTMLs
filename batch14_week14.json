@@ -5,7 +5,7 @@
     "part2": [
       {
         "id": "Q1",
-        "question": "Describe a shopping mall you often visit.",
+        "question": "Describe a shopping mall you often visit. You should say:\nWhere it is\nWho you usually go with\nWhat you do there\nAnd explain why you like going to this mall so often.",
         "model_answer": "<span style=\"color: blue;\"><b>I frequently visit</b></span> the Grand Plaza Mall, which is the most <b>Bustling [熙熙攘攘的]</b> shopping center in my city. It has hundreds of stores that are very <b>Trendy [时髦的]</b> and popular with young people. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> the prices are usually <b>Affordable [负担得起的]</b> during sales, I often go there to <b>Shop till you drop [疯狂购物]</b> on weekends.</b></span> It is extremely <b>Convenient [方便的]</b> because it is connected to the subway station. However, it can get <b>Overcrowded [拥挤的]</b> on holidays. I sometimes just go <b>Window shopping [只逛不买]</b> when I have no money. It is a great place to hang out with friends. I am a <b>Bargain hunter [专门买便宜货的人]</b> there.",
         "bullet_points": [
           "Downtown mall",
@@ -16,7 +16,7 @@
       },
       {
         "id": "Q2",
-        "question": "Describe a traditional street market you enjoy visiting.",
+        "question": "Describe a traditional street market you enjoy visiting. You should say:\nWhere it is located\nWhat kinds of things they sell\nHow the atmosphere differs from a mall\nAnd explain why you like shopping there.",
         "model_answer": "<span style=\"color: blue;\"><b>I really enjoy going to</b></span> the Old Town Night Market, which is famous for its lively atmosphere [气氛]. It is always <b>Bustling [熙熙攘攘的]</b> with tourists and locals looking for snacks. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> it is <b>Overcrowded [拥挤的]</b>, I love it <b>because</b> the street food is delicious and <b>Affordable [负担得起的]</b> for students.</b></span> You can find many <b>Trendy [时髦的]</b> accessories there too. It is more interesting than just <b>Window shopping [只逛不买]</b> in a mall. I am a <b>Bargain hunter [专门买便宜货的人]</b> and often haggle for lower prices. It is a <b>Convenient [方便的]</b> place to eat dinner after class. The vendors are very friendly and energetic. It is a unique cultural experience that represents our city's spirit.",
         "bullet_points": [
           "Downtown mall",
@@ -27,7 +27,7 @@
       },
       {
         "id": "Q3",
-        "question": "Describe a shop that you recently recommended to a friend.",
+        "question": "Describe a shop that you recently recommended to a friend. You should say:\nWhat the shop sells\nWhere it is\nWhy you recommended it\nAnd explain what makes this shop special.",
         "model_answer": "<span style=\"color: blue;\"><b>I recently recommended</b></span> a vintage clothing store called 'Retro Style' to my best friend. It sells unique clothes that are very <b>Trendy [时髦的]</b> right now. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> you are a <b>Bargain hunter [专门买便宜货的人]</b>, you can find amazing deals that are highly <b>Affordable [负担得起的]</b>.</b></span> The shop assistant is very <b>Charismatic [有魅力的]</b> and helpful. It is never <b>Overcrowded [拥挤的]</b>, so shopping there is relaxing. It is a <b>Convenient [方便的]</b> location near our university. We went there to <b>Shop till you drop [疯狂购物]</b> last Saturday. The brand is becoming very <b>Influential [有影响力的]</b> locally. It was a great find because the quality is excellent and the style is perfect for her.",
         "bullet_points": [
           "High-end laptop",

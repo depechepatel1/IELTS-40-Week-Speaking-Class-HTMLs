@@ -5,7 +5,7 @@
     "part2": [
       {
         "id": "Q1",
-        "question": "Describe a book you read that you found useful.",
+        "question": "Describe a book you read that you found useful. You should say:\nWhat it is\nWhen you read it\nWhy you think it is useful\nAnd explain how you felt about it.",
         "model_answer": "<span style=\"color: blue;\"><b>I recently finished reading</b></span> a self-help book called 'Atomic Habits', which was incredibly <b>Educational [有教育意义的]</b>. It taught me how to build better routines. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> it was such a <b>Page-turner [引人入胜的书]</b>, I finished it in two days, <b>although</b> I am usually a slow reader.</b></span> The advice was <b>Thought-provoking [发人深省的]</b> and practical. I found the examples very <b>Captivating [迷人的]</b>. It is a <b>Classic [经典的]</b> in the personal development genre [类型]. It was a <b>Memorable [难忘的]</b> read that changed my life. I didn't <b>Lose oneself in [沉迷于...]</b> a fantasy world, but I improved my reality. I highly recommend [推荐] it.",
         "bullet_points": [
           "Self-help book",
@@ -16,7 +16,7 @@
       },
       {
         "id": "Q2",
-        "question": "Describe a story you read or heard recently.",
+        "question": "Describe a story you read or heard recently. You should say:\nWhat the story was about\nWhere you read or heard it\nWho the main characters were\nAnd explain why this story stayed in your memory.",
         "model_answer": "<span style=\"color: blue;\"><b>I want to share</b></span> a science fiction story I read online that was truly <b>Captivating [迷人的]</b>. It was about a future where robots have feelings. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Because</b></span> the plot was so <b>Thought-provoking [发人深省的]</b>, I couldn't stop thinking about it, <b>which</b> made it very <b>Memorable [难忘的]</b> for me.</b></span> It wasn't a <b>Classic [经典的]</b> novel, but a modern short story. I tend to <b>Lose oneself in [沉迷于...]</b> these kinds of tales. It was definitely a <b>Page-turner [引人入胜的书]</b>. The ending was surprising and <b>Educational [有教育意义的]</b> about human nature. I realized you can't <b>Judge a book by its cover [以貌取人]</b> or a story by its length. It was fantastic.",
         "bullet_points": [
           "Sci-fi story",
@@ -27,7 +27,7 @@
       },
       {
         "id": "Q3",
-        "question": "Describe a traditional story from your country.",
+        "question": "Describe a traditional story from your country. You should say:\nWhat the story is\nWhen you first heard it\nWhat moral lesson it teaches\nAnd explain why it is still popular today.",
         "model_answer": "<span style=\"color: blue;\"><b>I would like to tell you about</b></span> the Legend of the White Snake, which is a <b>Classic [经典的]</b> Chinese folktale. It is a very <b>Memorable [难忘的]</b> love story between a human and a snake spirit. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> it is an ancient myth, the themes are still <b>Thought-provoking [发人深省的]</b> today, <b>because</b> true love faces many obstacles.</b></span> It is <b>Educational [有教育意义的]</b> regarding our cultural values. The story is so <b>Captivating [迷人的]</b> that it has been made into many TV shows. You can easily <b>Lose oneself in [沉迷于...]</b> the magical world it describes. It is a real <b>Page-turner [引人入胜的书]</b> if you read the novel version. It represents our history and romantic spirit perfectly.",
         "bullet_points": [
           "White Snake legend",
