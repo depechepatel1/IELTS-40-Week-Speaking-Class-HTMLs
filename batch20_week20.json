@@ -1,0 +1,79 @@
+[
+  {
+    "week": 20,
+    "topic": "Journeys & Travel",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a long journey you want to enjoy again. You should say:\nWhen you took the journey\nWhere you went\nWho you were with\nAnd explain why you want to go again.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to describe</b></span> a memorable road trip I took with my family last summer, which I would love to experience again someday. <span style=\"color: blue;\"><b>We went</b></span> to the Rocky Mountains, driving for nearly a week through breathtaking landscapes. <span style=\"color: blue;\"><b>I was with</b></span> my parents and my younger brother, sharing laughter and stories. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>We enjoyed</b></span> the <b>Scenic [风景优美的]</b> views and the fresh mountain air, stopping frequently to take photos and explore.</b></span> <span style=\"color: blue;\"><b>I want to go again</b></span> because it was a truly <b>Adventurous [爱冒险的]</b> journey that brought us closer together as a family, despite a few <b>Bumpy rides</b> along the rough roads.",
+        "bullet_points": [
+          "Family road trip",
+          "Mountain views",
+          "Flat tire incident",
+          "Safe arrival"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a bicycle, motorcycle, or car trip you would like to go on. You should say:\nWho you would like to go with\nWhere you would like to go\nWhich vehicle you would choose\nAnd explain why you would like to travel this way.",
+        "model_answer": "I would absolutely love to go on a motorcycle trip along the beautiful coast with my best friend. We would ride from the northern beaches down to the southern cliffs, stopping at small towns. I choose a motorcycle because it feels more Spontaneous [随性的] and exciting than driving a car. It would allow us to really feel the wind and smell the salty ocean air as we travel. Riding a motorcycle gives a unique perspective of the scenery that you miss inside a car, making the journey much more memorable and vivid.",
+        "bullet_points": [
+          "Subway system",
+          "Daily commute",
+          "Speed vs Crowds",
+          "Cost effective"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a time your travel plans were delayed or changed. You should say:\nWhere you were going\nWhat caused the delay\nWhat you did while waiting\nAnd explain how you felt about the change in plans.",
+        "model_answer": "I was once traveling to my cousin's wedding when my flight was severely Delayed [延误的] due to a massive storm. I was stuck at the airport for over six hours with hundreds of other passengers. While waiting, I read a book and chatted with other stranded travelers to pass the time. I felt frustrated and anxious at first, but eventually accepted that it was out of my control and tried to stay calm and positive. It was a valuable [宝贵的] lesson in patience that taught me to handle unexpected travel disruptions better.",
+        "bullet_points": [
+          "Missed train",
+          "Signal failure",
+          "Bus alternative",
+          "Learning patience"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Who prefers long journeys, young people or old people?",
+        "model_answer": "<b>[Opinion]</b> Young people often seek out the <b>Hustle and bustle [熙熙攘攘]</b> of exciting new places. <b>[Reason]</b> They have the energy and curiosity for long, tiring journeys to explore the unknown. <b>[Example]</b> Older people generally prefer quiet, comfortable trips closer to home. <b>[Extension]</b> Age definitely influences travel preferences and physical endurance for difficult travel plans. Age is a factor.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q2",
+        "question": "What do people prepare before a journey?",
+        "model_answer": "<b>[Opinion]</b> Thorough <b>Preparation [准备]</b> is absolutely key for any successful trip abroad. <b>[Reason]</b> Checking documents, booking hotels, and packing correctly prevents stressful disasters. <b>[Example]</b> Forgetting a passport or visa can ruin a holiday before it even starts. <b>[Extension]</b> A well-prepared traveler can handle unexpected issues calmly. It ensures a smooth and enjoyable journey for everyone involved.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q3",
+        "question": "Why do people prefer traveling in their own countries rather than foreign countries?",
+        "model_answer": "<b>[Opinion]</b> Traveling locally is better for <b>Sustainability</b> as it reduces one's <b>Carbon footprint [碳足迹]</b>. <b>[Reason]</b> Long-haul flights produce massive amounts of CO2 emissions that harm the climate. <b>[Example]</b> A train trip to a nearby city is much greener than flying across the ocean. <b>[Extension]</b> It is a responsible way to explore and protect nature.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q4",
+        "question": "Do you think air pollution comes mostly from mobile vehicles?",
+        "model_answer": "<b>[Opinion]</b> Vehicles are a major source of <b>Emission [排放]</b> pollution, especially during the daily <b>Commute [通勤]</b>. <b>[Reason]</b> Sitting in traffic creates massive <b>Congestion [拥堵]</b> in cities, releasing harmful fumes. <b>[Example]</b> The air quality is often worst during <b>Rush hour [高峰期]</b> when everyone is driving home. <b>[Extension]</b> We need cleaner alternatives like electric buses and high-speed trains to reduce smog.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q5",
+        "question": "Do you think people need to change the way of transportation drastically to protect the environment?",
+        "model_answer": "<b>[Opinion]</b> We need to change transportation to protect nature, perhaps through promoting <b>Eco-tourism [生态旅游]</b>. <b>[Reason]</b> Traditional mass tourism can damage fragile environments and local ecosystems. <b>[Example]</b> Respectful travel practices help preserve destinations for future visitors to enjoy. <b>[Extension]</b> We must prioritize the planet over convenience. We must act now to save our beautiful natural world.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q6",
+        "question": "Has the ability to travel cheaply (budget airlines) changed how people view the world?",
+        "model_answer": "<b>[Opinion]</b> Budget airlines allow more people to travel and <b>Accumulate</b> valuable [宝贵的] life experiences. <b>[Reason]</b> Low costs remove financial barriers for students and families with lower incomes. <b>[Example]</b> Young people can now afford weekend trips abroad to learn about new cultures. <b>[Extension]</b> This cultural exchange is very positive for fostering global understanding and peace among different nations.",
+        "bullet_points": []
+      }
+    ]
+  }
+]

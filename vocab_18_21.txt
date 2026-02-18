@@ -1,0 +1,317 @@
+    "week": 18,
+    "l1_vocab": [
+      {
+        "word": "Cozy (Adj)",
+        "Word Forms": "Coziness (N)",
+        "meaning": "舒适的 / 温馨的",
+        "recycled": false
+      },
+      {
+        "word": "Spacious (Adj)",
+        "Word Forms": "Space (N)",
+        "meaning": "宽敞的",
+        "recycled": false
+      },
+      {
+        "word": "Decorated (Adj)",
+        "Word Forms": "Decorate (V1) - Decorated (V2/V3) - Decoration (N)",
+        "meaning": "装饰过的",
+        "recycled": false
+      },
+      {
+        "word": "Modern (Adj)",
+        "Word Forms": "Modernize (V1) - Modernized (V2/V3)",
+        "meaning": "现代的",
+        "recycled": false
+      },
+      {
+        "word": "Messy (Adj)",
+        "Word Forms": "Mess (N)",
+        "meaning": "凌乱的",
+        "recycled": false
+      },
+      {
+        "word": "Supportive (Adj)",
+        "Word Forms": "Support (V1/N) - Supported (V2/V3)",
+        "meaning": "支持的 (environment)",
+        "recycled": true
+      },
+      {
+        "word": "Intimate (Adj)",
+        "Word Forms": "Intimacy (N)",
+        "meaning": "私密的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Home sweet home",
+        "usage": "Phrase",
+        "meaning": "温馨的家",
+        "cn_idiom": "金窝银窝不如自己的狗窝",
+        "example_sentence": "After a long trip, it is always nice to say 'home sweet home'."
+      },
+      {
+        "idiom": "Make oneself at home",
+        "usage": "Make (V1) - Made (V2/V3)",
+        "meaning": "不拘束 / 像在自己家一样",
+        "cn_idiom": "宾至如归",
+        "example_sentence": "Please take off your coat and make yourself at home."
+      },
+      {
+        "idiom": "Peace and quiet",
+        "usage": "Noun Phrase",
+        "meaning": "宁静",
+        "cn_idiom": "清静",
+        "example_sentence": "I moved to the countryside to enjoy some peace and quiet."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Affordability (N)",
+        "Word Forms": "Afford (V1) - Afforded (V2/V3) - Affordable (Adj)",
+        "meaning": "可负担性",
+        "recycled": false
+      },
+      {
+        "word": "Urban (Adj)",
+        "Word Forms": "Urbanization (N)",
+        "meaning": "城市的",
+        "recycled": false
+      },
+      {
+        "word": "Shortage (N)",
+        "Word Forms": "Short (Adj)",
+        "meaning": "短缺",
+        "recycled": false
+      },
+      {
+        "word": "Investment (N)",
+        "Word Forms": "Invest (V1) - Invested (V2/V3)",
+        "meaning": "投资",
+        "recycled": false
+      },
+      {
+        "word": "Regulation (N)",
+        "Word Forms": "Regulate (V1) - Regulated (V2/V3)",
+        "meaning": "法规 / 管制",
+        "recycled": false
+      },
+      {
+        "word": "Lifelong (Adj)",
+        "Word Forms": "Adj",
+        "meaning": "终身的 (mortgage)",
+        "recycled": true
+      },
+      {
+        "word": "Superficial (Adj)",
+        "Word Forms": "Adj",
+        "meaning": "表面的 (decoration)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Get on the property ladder",
+        "usage": "Get (V1) - Got (V2) - Gotten (V3)",
+        "meaning": "买第一套房",
+        "cn_idiom": "置业",
+        "example_sentence": "It is difficult for young people to get on the property ladder today."
+      },
+      {
+        "idiom": "Go through the roof",
+        "usage": "Go (V1) - Went (V2) - Gone (V3)",
+        "meaning": "飞涨 (价格)",
+        "cn_idiom": "飞涨",
+        "example_sentence": "House prices in the city have gone through the roof recently."
+      },
+      {
+        "idiom": "A roof over one's head",
+        "usage": "Noun Phrase",
+        "meaning": "栖身之处",
+        "cn_idiom": "栖身之处",
+        "example_sentence": "Even if your apartment is small, you should be thankful to have a roof over your head."
+      }
+    ]
+  },
+  {
+    "week": 19,
+    "l1_vocab": [
+      {
+        "word": "Sentimental (Adj)",
+        "Word Forms": "Sentiment (N)",
+        "meaning": "情感的 / 怀旧的",
+        "recycled": false
+      },
+      {
+        "word": "Valuable (Adj)",
+        "Word Forms": "Value (N/V)",
+        "meaning": "宝贵的",
+        "recycled": false
+      },
+      {
+        "word": "Antique (N/Adj)",
+        "Word Forms": "Noun / Adj",
+        "meaning": "古董 / 古老的",
+        "recycled": false
+      },
+      {
+        "word": "Irreplaceable (Adj)",
+        "Word Forms": "Replace (V1) - Replaced (V2/V3)",
+        "meaning": "不可替代的",
+        "recycled": false
+      },
+      {
+        "word": "Fragile (Adj)",
+        "Word Forms": "Fragility (N)",
+        "meaning": "易碎的",
+        "recycled": false
+      },
+      {
+        "word": "Cozy (Adj)",
+        "Word Forms": "Coziness (N)",
+        "meaning": "温馨的",
+        "recycled": true
+      },
+      {
+        "word": "Decorated (Adj)",
+        "Word Forms": "Decorate (V1) - Decorated (V2/V3)",
+        "meaning": "装饰的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Blast from the past",
+        "usage": "Noun Phrase",
+        "meaning": "勾起往事的事物",
+        "cn_idiom": "往事重现",
+        "example_sentence": "Hearing that old song on the radio was a real blast from the past."
+      },
+      {
+        "idiom": "Hold dear",
+        "usage": "Hold (V1) - Held (V2/V3)",
+        "meaning": "珍视",
+        "cn_idiom": "珍视",
+        "example_sentence": "I hold dear the memories of my childhood holidays."
+      },
+      {
+        "idiom": "Pass down",
+        "usage": "Pass (V1) - Passed (V2/V3)",
+        "meaning": "传下来",
+        "cn_idiom": "传承",
+        "example_sentence": "This gold ring was passed down from my grandmother."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Consumerism (N)",
+        "Word Forms": "Consume (V1) - Consumed (V2/V3)",
+        "meaning": "消费主义",
+        "recycled": false
+      },
+      {
+        "word": "Materialistic (Adj)",
+        "Word Forms": "Materialism (N)",
+        "meaning": "物质主义的",
+        "recycled": false
+      },
+      {
+        "word": "Nostalgia (N)",
+        "Word Forms": "Nostalgic (Adj)",
+        "meaning": "怀旧",
+        "recycled": false
+      },
+      {
+        "word": "Sustainability (N)",
+        "Word Forms": "Sustain (V1) - Sustained (V2/V3)",
+        "meaning": "可持续性",
+        "recycled": false
+      },
+      {
+        "word": "Accumulate (V)",
+        "Word Forms": "Accumulate (V1) - Accumulated (V2/V3) - Accumulation (N)",
+        "meaning": "积累",
+        "recycled": false
+      },
+      {
+        "word": "Investment (N)",
+        "Word Forms": "Invest (V1) - Invested (V2/V3)",
+        "meaning": "投资",
+        "recycled": true
+      },
+      {
+        "word": "Affordability (N)",
+        "Word Forms": "Afford (V1) - Afforded (V2/V3)",
+        "meaning": "购买力",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "One man's trash is another man's treasure",
+        "usage": "Proverb",
+        "meaning": "变废为宝",
+        "cn_idiom": "彼之砒霜吾之蜜糖",
+        "example_sentence": "I bought this old desk at a market; one man's trash is another man's treasure."
+      },
+      {
+        "idiom": "Hoarder",
+        "usage": "Noun",
+        "meaning": "囤积狂",
+        "cn_idiom": "松鼠症 / 囤积狂",
+        "example_sentence": "My uncle is a hoarder who keeps old newspapers in his garage."
+      },
+      {
+        "idiom": "Throwaway society",
+        "usage": "Noun Phrase",
+        "meaning": "用完即弃的社会",
+        "cn_idiom": "一次性消费社会",
+        "example_sentence": "We live in a throwaway society where people throw away things quickly."
+      }
+    ]
+  },
+  {
+    "week": 20,
+    "l1_vocab": [
+      {
+        "word": "Exhausting (Adj)",
+        "Word Forms": "Exhaust (V1) - Exhausted (V2/V3) - Exhausted (Adj)",
+        "meaning": "筋疲力尽的",
+        "recycled": false
+      },
+      {
+        "word": "Scenic (Adj)",
+        "Word Forms": "Scenery (N)",
+        "meaning": "风景优美的",
+        "recycled": false
+      },
+      {
+        "word": "Adventurous (Adj)",
+        "Word Forms": "Adventure (N)",
+        "meaning": "爱冒险的",
+        "recycled": false
+      },
+      {
+        "word": "Spontaneous (Adj)",
+        "Word Forms": "Spontaneity (N)",
+        "meaning": "自发的 / 随性的",
+        "recycled": false
+      },
+      {
+        "word": "Delayed (Adj)",
+        "Word Forms": "Delay (N/V1) - Delayed (V2/V3)",
+        "meaning": "延误的",
+        "recycled": false
+      },
+      {
+        "word": "Sentimental (Adj)",
+        "Word Forms": "Sentiment (N)",
+        "meaning": "情感的 (journey)",
+        "recycled": true
+      },
+      {
+        "word": "Valuable (Adj)",
+        "Word Forms": "Value (N)",
+        "meaning": "宝贵的 (experience)",
+        "recycled": true

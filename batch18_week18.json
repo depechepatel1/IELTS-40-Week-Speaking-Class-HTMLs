@@ -1,0 +1,79 @@
+[
+  {
+    "week": 18,
+    "topic": "Housing & Accommodation",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe your favorite place in your house where you can relax. You should say:\nWhere it is\nWhat it is like\nWhat you enjoy doing there\nAnd explain why you feel relaxed at this place.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to describe</b></span> my bedroom, which is undoubtedly my favorite place to relax after a long, stressful day. <span style=\"color: blue;\"><b>It is located</b></span> on the second floor of my parents' house, overlooking the peaceful backyard garden. The room is incredibly <b>Spacious [宽敞的]</b> and painted in a soft, calming blue, which makes it feel warm and <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Cozy [舒适的]</b></span>. <span style=\"color: blue;\"><b>What I enjoy doing there</b></span> most is simply lying on my comfortable bed and reading a good book or listening to soothing music.</b></span> It offers me much-needed <b>Peace and quiet [宁静]</b> away from the noise of the household. <span style=\"color: blue;\"><b>I feel relaxed</b></span> because it is my private sanctuary where I can truly be myself, reflect on my thoughts, and <span style=\"color: blue;\"><b>Make myself at home</b></span> without any disturbances.",
+        "bullet_points": [
+          "Central library",
+          "Quiet haven",
+          "Mix of styles",
+          "Good for study"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a house or apartment you would like to live in. You should say:\nWhere it would be located\nHow big it would be\nHow you would decorate it\nAnd explain why this is your dream home.",
+        "model_answer": "I would absolutely love to live in a Modern [现代的] apartment in the vibrant city center. It would be located near a large park so I could have a nice view but still be close to shops and cafes. I imagine it being quite large, with floor-to-ceiling windows to let in plenty of natural light. I would decorate it in a minimalist style, keeping it clean and definitely not Messy [凌乱的]. I would create a Supportive [支持的] environment for my work and hobbies. This is my dream home because it offers both urban [城市的] convenience and a comfortable, stylish living space where I can entertain friends and enjoy life.",
+        "bullet_points": [
+          "Dream destination",
+          "Eiffel Tower",
+          "Beautiful skyline",
+          "Art and culture"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a home you visited that you liked. You should say:\nWhose home it was\nWhere it was located\nWhat the decoration was like\nAnd explain what made it impressive.",
+        "model_answer": "I once visited my uncle's new house in the countryside, which I found very impressive. It was a beautiful, traditional cottage surrounded by tall trees and flowers. The decoration inside was very rustic, with lots of wooden furniture and warm colors, making it feel very Intimate [私密的] and welcoming. Everything was carefully Decorated [装饰过的] with local art. I was impressed because it felt so different from my city apartment; it had a sense of history and charm that many modern [现代的] buildings lack. It was the perfect example of a Home sweet home [温馨的家] where anyone would feel happy to live.",
+        "bullet_points": [
+          "Tall skyscraper",
+          "Glass design",
+          "City symbol",
+          "Modern hub"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Why is it difficult for some people to relax?",
+        "model_answer": "<b>[Opinion]</b> In our modern [现代的] <b>Urban [城市的]</b> lives, it is very hard to switch off completely. <b>[Reason]</b> We are constantly surrounded by <b>Superficial [表面的]</b> distractions like social media and work emails that demand our attention. <b>[Example]</b> Even when we try to rest, our minds are still active processing information from the day. <b>[Extension]</b> This lack of downtime affects our ability to truly relax and find peace.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q2",
+        "question": "Which is more important, mental relaxation or physical relaxation?",
+        "model_answer": "<b>[Opinion]</b> I believe mental relaxation is a <b>Lifelong [终身的]</b> necessity for happiness. <b>[Reason]</b> Physical tiredness can usually be cured by a good night's sleep, but mental stress accumulates over time. <b>[Example]</b> A person can be physically fit but suffer from burnout if they don't care for their mind. <b>[Extension]</b> Therefore, mental well-being should be prioritized above all else.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q3",
+        "question": "Why do people prefer to live in new houses?",
+        "model_answer": "<b>[Opinion]</b> New houses are often seen as a better <b>Investment [投资]</b> for the future. <b>[Reason]</b> They usually come with warranties and require less maintenance than older properties, which saves money. <b>[Example]</b> Also, their energy efficiency improves <b>Affordability [可负担性]</b> in terms of monthly utility bills. <b>[Extension]</b> This makes them incredibly attractive to first-time buyers looking for excellent value.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q4",
+        "question": "How has the \"Work From Home\" trend changed the way people design their houses?",
+        "model_answer": "<b>[Opinion]</b> The WFH trend has shifted design priorities towards functionality and workspace. <b>[Reason]</b> People now need dedicated offices within their homes to separate work from leisure. <b>[Example]</b> Architects are including home offices even in small apartments to meet this demand. <b>[Extension]</b> However, <b>Regulation [法规]</b> on building standards may need to update to reflect these new needs.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q5",
+        "question": "What are the social consequences of housing shortages in major cities?",
+        "model_answer": "<b>[Opinion]</b> The <b>Shortage [短缺]</b> of housing causes prices to <b>Go through the roof [价格飞涨]</b> rapidly. <b>[Reason]</b> This makes it incredibly difficult for young people to <b>Get on the property ladder [买第一套房]</b> and build wealth. <b>[Example]</b> Many are forced to rent for years instead of buying their own home. <b>[Extension]</b> Everyone deserves <b>A roof over one's head [栖身之所]</b>, so this is a serious social issue.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q6",
+        "question": "Should the government regulate housing prices to ensure everyone has a place to live?",
+        "model_answer": "<b>[Opinion]</b> Yes, <b>Regulation [法规]</b> is necessary to control the market and ensure fairness. <b>[Reason]</b> Without it, developers might focus only on luxury homes, ignoring the need for affordable housing. <b>[Example]</b> Government policies can ensure a balance between profit and social responsibility. <b>[Extension]</b> This helps maintain a fair society where housing is accessible to all citizens.",
+        "bullet_points": []
+      }
+    ]
+  }
+]

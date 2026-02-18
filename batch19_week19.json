@@ -1,0 +1,79 @@
+[
+  {
+    "week": 19,
+    "topic": "Important Objects",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe something that you can't live without (not a computer/phone). You should say:\nWhat it is\nWhat you do with it\nHow it helps you in your life\nAnd explain why you can't live without it.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to talk about</b></span> my headphones, which are something I absolutely <span style=\"color: blue;\"><b>Can't live without [不能没有]</b></span> in my daily life. <span style=\"color: blue;\"><b>They are</b></span> a pair of high-quality noise-canceling headphones I received as a birthday gift last year. <span style=\"color: blue;\"><b>I use them</b></span> every single day when I commute, study, or just want to relax. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>They help me</b></span> focus by blocking out annoying distractions and letting me enjoy my favorite music deeply.</b></span> <span style=\"color: blue;\"><b>I can't live without [不能没有] them</b></span> because they provide me with a sense of personal space and calm in a chaotic, busy, noisy modern world.",
+        "bullet_points": [
+          "Headphones",
+          "Birthday gift",
+          "Thoughtful parents",
+          "Daily use"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe an old object that your family has kept for a long time. You should say:\nWhat the object is\nHow long your family has had it\nWho it belonged to originally\nAnd explain why it is important to your family history.",
+        "model_answer": "My family has a very old sewing machine that belonged to my great-grandmother. We have had it for over eighty years, passing it down through generations. It is made of heavy black metal with intricate gold designs and still works perfectly. This object is incredibly important to our family history because it represents the hard work and skill of our ancestors, and it brings back a lot of Nostalgia [怀旧] whenever we look at it. It is more than just a tool; it is a cherished symbol of our family heritage.",
+        "bullet_points": [
+          "Handmade album",
+          "Best friend",
+          "Sentimental value",
+          "Token of friendship"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a gift you received that you treasure. You should say:\nWhat the gift is\nWho gave it to you\nOn what occasion you received it\nAnd explain why it is special to you.",
+        "model_answer": "I treasure a watch that my father gave me for my university graduation. It was a complete surprise, presented to me at a celebratory family dinner. It is a simple but elegant timepiece with a classic leather strap. It is special not because of its price, but because it symbolizes his immense pride in my achievement and marks a significant milestone in my life. Every time I wear it, I feel motivated to work hard. I sincerely hope to pass it on to my own children one day to keep the memory alive.",
+        "bullet_points": [
+          "Ugly sweater",
+          "Wrong size",
+          "Awkward feeling",
+          "Polite acceptance"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Why do some grown-ups hate to throw out old things?",
+        "model_answer": "<b>[Opinion]</b> Many people hold onto old things due to deep <b>Nostalgia [怀旧]</b>. <b>[Reason]</b> They <b>Accumulate [积累]</b> items that remind them of their past, even if they are useless now. <b>[Example]</b> Sometimes, this behavior can become extreme, turning someone into a messy <b>Hoarder [囤积狂]</b>. <b>[Extension]</b> It is difficult for them to let go of the memories attached to these physical objects.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q2",
+        "question": "What do you think influences people to buy new things?",
+        "model_answer": "<b>[Opinion]</b> The culture of mass <b>Consumerism [消费主义]</b> heavily influences our buying habits. <b>[Reason]</b> People are driven by <b>Materialistic [物质主义的]</b> desires to own the latest products to impress others. <b>[Example]</b> Advertisements constantly tell us that buying more will make us happier and more successful. <b>[Extension]</b> This creates a cycle of endless purchasing and deep dissatisfaction with life.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q3",
+        "question": "Do young people appreciate antiques and old things as much as older people?",
+        "model_answer": "<b>[Opinion]</b> Young people often don't appreciate antiques, proving that <b>One man's trash is another man's treasure [变废为宝]</b>. <b>[Reason]</b> They might see old items as junk, while collectors see them as a valuable <b>Investment [投资]</b>. <b>[Example]</b> However, vintage fashion is becoming trendy again among youth, showing changing tastes. <b>[Extension]</b> Taste in old objects is very subjective and generational.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q4",
+        "question": "Why do people like to go to museums to see old objects?",
+        "model_answer": "<b>[Opinion]</b> Museums allow people to see objects they could never own due to lack of <b>Affordability [购买力]</b>. <b>[Reason]</b> Rare historical artifacts are priceless and are kept in public collections for everyone. <b>[Example]</b> Seeing the Rosetta Stone in person is a unique experience that connects us to history. <b>[Extension]</b> Museums democratize access to our shared cultural heritage.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q5",
+        "question": "Is the culture of consumerism (buying things for pleasure) sustainable for the planet?",
+        "model_answer": "<b>[Opinion]</b> Our current <b>Throwaway society [用完即弃的社会]</b> is definitely not good for long-term <b>Sustainability [可持续性]</b>. <b>[Reason]</b> We discard items too quickly, filling up landfills with plastic and waste. <b>[Example]</b> Single-use packaging is a major environmental problem that pollutes our oceans. <b>[Extension]</b> We must shift towards reusing and recycling to protect the planet for generations to come. It is our duty.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q6",
+        "question": "Does the \"planned obsolescence\" of products (products designed to break) harm society?",
+        "model_answer": "<b>[Opinion]</b> Planned obsolescence is harmful because it forces repeated purchases unnecessarily. <b>[Reason]</b> Companies design products to break quickly, which is unfair to loyal consumers. <b>[Example]</b> This practice increases corporate profits but hurts the environment and our wallets. <b>[Extension]</b> It is a key driver of waste and should be strictly regulated by the government immediately.",
+        "bullet_points": []
+      }
+    ]
+  }
+]

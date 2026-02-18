@@ -1,0 +1,79 @@
+[
+  {
+    "week": 21,
+    "topic": "Talent & Intelligence",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a creative person whose work you admire (e.g., artist or musician). You should say:\nWho this person is\nHow you knew him/her\nWhat creative work he/she does\nAnd explain why you admire him/her.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to talk about</b></span> a creative person I greatly admire, who is a famous landscape painter from my hometown. <span style=\"color: blue;\"><b>I first knew about him</b></span> when I visited a local art gallery during a high school trip. <span style=\"color: blue;\"><b>He creates</b></span> breathtaking oil paintings that capture the natural beauty and <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Spirit</b></span> of our region perfectly. <span style=\"color: blue;\"><b>I admire him</b></span> because his work is truly <b>Visionary [有远见的]</b> and <b>Exceptional [杰出的]</b>, showing a deep connection to nature.</b></span> He is incredibly <b>Dedicated [专注的]</b> to his craft, spending hours outdoors in all weather to get the perfect light. His <b>Innovative [创新的]</b> techniques inspire me to be more creative.",
+        "bullet_points": [
+          "Landscape painting",
+          "Peaceful scene",
+          "Cultural appreciation",
+          "Relaxing effect"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a person who has a natural talent (e.g., for sports, music, or math). You should say:\nWho the person is\nWhat talent they possess\nWhen you discovered this talent\nAnd explain whether you think they use this talent well.",
+        "model_answer": "My cousin is someone who has a natural [天生好手] talent for playing the piano beautifully. I discovered this amazing ability when she sat down at a piano at a party and played a complex classical piece perfectly without ever having taken a single lesson. She is definitely A natural [天生好手] musician. I think she uses this talent well because she now teaches music to young children, sharing her gift with others and bringing joy to the community. She is also very Versatile [多才多艺的] and can play jazz and pop songs with ease too.",
+        "bullet_points": [
+          "Talented friend",
+          "Abstract drawings",
+          "Daily practice",
+          "Future fame"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a person who solved a problem in a clever way. You should say:\nWho the person is\nWhat the problem was\nHow they solved it\nAnd explain why you think their solution was intelligent.",
+        "model_answer": "A friend of mine solved a difficult math problem in a very clever way during our final exam. The problem seemed impossible to solve with standard formulas, but he used a simple logical trick instead. He realized that the answer could be found by looking at the pattern of numbers. I think his solution was intelligent because it showed he could Think on his feet and find a creative shortcut. His Spontaneous [自发的] thinking saved him a lot of time and effort during the stressful exam. It was a brilliant moment of insight that I will never forget.",
+        "bullet_points": [
+          "Clay pot",
+          "Hands-on fun",
+          "School display",
+          "Sense of pride"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "How can we know if a child has talent or not?",
+        "model_answer": "<b>[Opinion]</b> A child's <b>Potential [潜力]</b> can often be seen early if they have an <b>Innate [天生的]</b> interest in something. <b>[Reason]</b> Some children naturally gravitate towards music, art, or sports without prompting. <b>[Example]</b> A toddler banging on pots in rhythm might have musical talent waiting to be developed. <b>[Extension]</b> Observing their free play is key to discovery.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q2",
+        "question": "Is it a waste of time if people don't use their talents?",
+        "model_answer": "<b>[Opinion]</b> Not using one's <b>Ingenuity [独创性]</b> is unfortunate for both the individual and society. <b>[Reason]</b> Creative problem solving can help in many areas of life, not just art. <b>[Example]</b> Even in simple daily tasks, a clever approach saves time and effort for everyone. <b>[Extension]</b> Society benefits when people use their unique creative skills fully and effectively.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q3",
+        "question": "Are children born smart, or do they become smart through learning?",
+        "model_answer": "<b>[Opinion]</b> I believe <b>Nurture [培养]</b> is more important than nature because <b>Practice makes perfect [熟能生巧]</b>. <b>[Reason]</b> Even a genius needs training and discipline to succeed in the long run. <b>[Example]</b> Top athletes train for hours daily regardless of their natural physical ability. <b>[Extension]</b> Hard work beats talent when talent doesn't work hard enough to succeed.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q4",
+        "question": "Is being intelligent always a good thing? Are there limitations?",
+        "model_answer": "<b>[Opinion]</b> Being <b>Brainy [聪明的]</b> or having high <b>Intelligence [智力]</b> is generally good but has social limits. <b>[Reason]</b> Smart people sometimes lack social skills or empathy for others' feelings. <b>[Example]</b> A genius might solve equations easily but fail to make friends or connect emotionally. <b>[Extension]</b> A balance of IQ and EQ is best for a successful life.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q5",
+        "question": "Do you think the education system stifles creativity by focusing too much on academic scores?",
+        "model_answer": "<b>[Opinion]</b> The <b>Academic [学术的]</b> system often focuses too much on standardized testing and <b>Preparation [准备]</b> for exams. <b>[Reason]</b> This leaves little room for creative thinking or original ideas in the classroom. <b>[Example]</b> Students learn to memorize facts rather than explore complex concepts deeply. <b>[Extension]</b> Education needs to value diversity of creative thought much more than it currently does.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q6",
+        "question": "Can creativity be learned, or is it an innate quality?",
+        "model_answer": "<b>[Opinion]</b> Creativity can be learned; one doesn't have to be a <b>Jack of all trades [万金油]</b> to be creative. <b>[Reason]</b> Specific creative skills can be taught and improved with practice. <b>[Example]</b> Anyone can learn to draw or write with the right teacher and dedication. <b>[Extension]</b> It is about unlocking one's inner creative potential [潜力] fully through constant effort.",
+        "bullet_points": []
+      }
+    ]
+  }
+]
