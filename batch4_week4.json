@@ -1,0 +1,73 @@
+[
+  {
+    "week": 4,
+    "topic": "A Disappointed Movie",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a movie you watched recently that you felt disappointed about. You should say:\nWhat it was\nWhy you decided to watch it\nWhen you watched it\nAnd explain why you felt disappointed about it.",
+        "model_answer": "<span style=\"color: blue;\"><b>To be honest, I recently sat through</b></span> a sci-fi movie that was a huge <b>A let-down [令人失望的事]</b> for me personally last night. It was heavily <b>Hype up [炒作]</b> in ads but turned out to be completely <b>Mediocre [平庸的]</b>. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> the plot was <b>Confusing [令人困惑的]</b> and completely <b>Predictable [老套的]</b>, it felt like a total <b>Waste of time [浪费时间]</b>, <b>although</b> I had <b>Anticipated [期待]</b> it greatly for months.</b></span> It was <b>Overrated [被高估的]</b> by critics and not <b>Fulfilling [令人满足的]</b> at all as a story. Watching it was surprisingly <b>Demanding [费力的]</b> because it was so boring and long, making me deeply regret buying the expensive ticket.",
+        "bullet_points": [
+          "Movie: Action / Comedy",
+          "Why watch: Friend said / Ad",
+          "When: Weekend / Night",
+          "Why bad: Boring / Long"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a film that did not meet your expectations. You should say:\nWhat the film was called\nWhat you expected to see\nWhat actually happened in the film\nAnd explain why it failed to meet your expectations.",
+        "model_answer": "A short while ago, I viewed a comedy film that was a complete Waste of time [浪费时间] for my friends and me recently. It was Overrated [被高估的] despite all the positive Hype up [炒作] online from enthusiastic fans and serious movie critics. Because it was Mediocre [平庸的] and the jokes were Predictable [老套的], it was A let-down [令人失望的事], even though I had Anticipated [期待] it to be funny. It was Confusing [令人困惑的] and Demanding [费力的] to watch due to bad editing. It wasn't Fulfilling [令人满足的] as entertainment, and I nearly fell asleep in the cinema because it was so incredibly dull and boring.",
+        "bullet_points": [
+          "Film: Romance / Horror",
+          "Expect: Cry / Scream",
+          "Reality: Silly / Not scary",
+          "Why: Bad acting"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a time you regretted watching a specific movie or show. You should say:\nWhere you watched it\nWho you watched it with\nWhy you chose it\nAnd explain what made the experience negative.",
+        "model_answer": "Looking back, I deeply regret watching this Mediocre [平庸的] horror movie last week with my best friends at home. It was Confusing [令人困惑的] and a complete Waste of time [浪费时间] for everyone involved that night. Although it was Hype up [炒作] online, it was Overrated [被高估的] and Predictable [老套的], which made it A let-down [令人失望的事] for me personally. I Anticipated [期待] it to be scary and Fulfilling [令人满足的] as a thriller. Instead, it was Demanding [费力的] and not frightening at all, just very loud, annoying, and extremely poorly acted by the main cast involved in the production of the film which cost a lot.",
+        "bullet_points": [
+          "Where: Home / Bed",
+          "Who: Alone / Sister",
+          "Choice: Cover / Title",
+          "Bad: Violent / Sad"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Do you believe movie reviews?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Not necessarily, as critics often possess</b></span> different <b>Motivation [动机]</b> than normal fans who just want fun and entertainment. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> They dislike fun movies and prefer serious, artistic drama that wins awards but is boring to watch. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> they hate a <b>Blockbuster [大片]</b>, regular fans usually love it for the action and effects.</b></span>"
+      },
+      {
+        "id": "Q2",
+        "question": "What are the different types of films in your country?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>In my country, we boast</b></span> many movie <b>Genre [类型]</b> options in our cinemas today for everyone to enjoy together. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Comedy and history are the most popular ones among families and young people in China right now. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> they have <b>Influence [影响]</b>, people often copy the styles they see onscreen in their lives.</b></span>"
+      },
+      {
+        "id": "Q3",
+        "question": "Are historical films popular in your country? Why?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Unquestionably, this is largely due to</b></span> the beautiful and realistic <b>Cinematography [摄影]</b> that captures visual details perfectly on the big screen. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> It looks real and teaches us about the past effectively through visual storytelling and accurate costumes. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> it is good, we learn history while enjoying the story and characters.</b></span>"
+      },
+      {
+        "id": "Q4",
+        "question": "Do you think films with famous actors or actresses are more likely to become successful?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Without a doubt, a</b></span> <b>Star-studded cast [全明星阵容]</b> helps sell millions of tickets globally every single year consistently. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Fans buy tickets just to see their favorite idols perform on the big screen in person. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> it is terrible, it usually becomes a <b>Box office hit [票房大卖]</b> regardless of the actual script quality.</b></span>"
+      },
+      {
+        "id": "Q5",
+        "question": "Why are Japanese animated films so popular?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Typically, they tend to utilize</b></span> less <b>Automation [自动化]</b> and computer effects than us in the West for animation films. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> It feels more handmade, artistic, and emotional to watch for the audience who loves true art. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> watching, you are often <b>On the edge of one's seat [扣人心弦]</b> with excitement and joy.</b></span>"
+      },
+      {
+        "id": "Q6",
+        "question": "Should directors pay a lot of money to famous actors?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>I would argue against that; instead, we should invest</b></span> on visual effects, not just famous stars' salaries which are huge and wasteful. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Quality stories matter more than famous faces in the end for lasting success and global fame. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> <b>Censorship [审查]</b> limits themes, good stories always win audience love and high ratings globally.</b></span>"
+      }
+    ]
+  }
+]

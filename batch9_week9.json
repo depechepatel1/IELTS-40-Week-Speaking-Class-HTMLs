@@ -1,0 +1,73 @@
+[
+  {
+    "week": 9,
+    "topic": "A Child Who Enjoys Art",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a child who enjoys drawing/painting. You should say:\nHow you know this child\nHow often he/she draws\nWhat he/she likes to draw or paint\nAnd explain why you think he/she likes drawing/painting.",
+        "model_answer": "<span style=\"color: blue;\"><b>As a matter of fact, I cannot imagine</b></span> my life without my smartphone, which is the most <b>Vital [至关重要的]</b> device I own. It is incredibly <b>Versatile [多功能的]</b> because I use it for studying, gaming, and chatting with friends. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> it is so <b>User-friendly [用户友好的]</b>, I spend hours on it, <b>although</b> I know this can be <b>Addictive [令人上瘾的]</b> sometimes.</b></span> It allows me to stay <b>Connected [连通的]</b> with the world instantly. However, it can be a <b>Distraction [分心事物]</b> when I need to focus on homework. It is truly <b>Cutting-edge [尖端的]</b> technology. I rely on it to be <b>Productive [高效的]</b> in my daily tasks. It is an <b>Indispensable [不可或缺的]</b> tool for modern students like me.",
+        "bullet_points": [
+          "Communication tool",
+          "Study aid",
+          "Entertainment source",
+          "Daily organizer"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a creative child you know. You should say:\nWho the child is\nWhat creative activity they do (e.g., crafts, building)\nHow they show their creativity\nAnd explain why you think creativity is important for their development.",
+        "model_answer": "I frequently utilize WeChat, which is a Versatile [多功能的] super-app that everyone in China uses daily. It is Indispensable [不可或缺的] for messaging, payments, and sharing life updates. Because it keeps me Connected [连通的] with my family, I check it constantly, whereas other apps are less useful. It is extremely User-friendly [用户友好的] for people of all ages. However, scrolling through moments can be a huge Distraction [分心事物] from my studies. It is so Addictive [令人上瘾的] that I sometimes lose track of time. It is a Vital [至关重要的] part of my social life. It feels Cutting-edge [尖端的] and makes me feel Productive [高效的].",
+        "bullet_points": [
+          "Messaging features",
+          "Social feed",
+          "Mobile payments",
+          "Mini-programs"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a young person who has a natural talent. You should say:\nWho they are\nWhat their talent is (music, art, sports, etc.)\nHow you discovered their talent\nAnd explain what you think the future holds for them.",
+        "model_answer": "I vividly recall when my laptop crashed right before a deadline, which was a nightmare. It is a Vital [至关重要的] tool for my schoolwork, so I was panicked. Although it is usually Reliable [可靠的], it froze completely, which made me feel helpless and frustrated. It was a major Distraction [分心事物] from my revision schedule. I realized how Indispensable [不可或缺的] it is for being Productive [高效的]. I had to get it fixed by a Cutting-edge [尖端的] technician. I am now less Addictive [令人上瘾的] to it and back up my files. It is Versatile [多功能的] but fragile. I need to stay Connected [连通的] to avoid this again.",
+        "bullet_points": [
+          "System crash",
+          "Lost work",
+          "Repair process",
+          "Backup lesson"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Why do people choose to visit galleries and museums in person instead of viewing art online?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>From my perspective [视角]</b></span>, it can make us physically inactive but mentally active. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> We rely on <b>Automation [自动化]</b> for chores, yet we process more information daily than ever before. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> robots clean our floors, we use that time to learn <b>Digital literacy [数字素养]</b> online efficiently.</b></span> Thus, we are shifting our energy, not losing it entirely."
+      },
+      {
+        "id": "Q2",
+        "question": "Should galleries and museums be free of charge to the public?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Unquestionably</b></span>, it has made communication instant but less personal in many ways. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> We value speed over the depth of real <b>Interaction [互动]</b> with our close friends. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> we have many <b>Virtual [虚拟的]</b> friends online, we rarely meet them face-to-face for real talk.</b></span> This leads to a feeling of loneliness despite being connected."
+      },
+      {
+        "id": "Q3",
+        "question": "Why do some people find life inspiration from visiting these places?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>It is my firm belief that</b></span> <b>Privacy [隐私]</b> is essential for safety online. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Without it, we are vulnerable to malicious <b>Cybercrime [网络犯罪]</b> and dangerous identity theft attacks. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> we protect our <b>Data [数据]</b> with passwords, hackers can steal our money and personal information easily.</b></span> Therefore, we must be vigilant about sharing personal details."
+      },
+      {
+        "id": "Q4",
+        "question": "Why do most children draw more often than adults do?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>I am convinced that</b></span> AI will assist but never replace human teachers completely. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Students need emotional support and moral <b>Guidance [指导]</b> that machines simply cannot provide. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Even if</b></span> AI has superior <b>Algorithms [算法]</b>, it lacks the empathy to understand a student's feelings.</b></span> Education is about human connection, not just facts and data."
+      },
+      {
+        "id": "Q5",
+        "question": "Is art education in schools as important as science or mathematics?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Generally speaking</b></span>, it offers flexibility and access to vast resources globally. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Students can learn at their own pace using <b>Innovation [创新]</b> in education technology. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> materials are available on <b>Platform [平台]</b> apps, we can study anywhere and anytime effectively without stress.</b></span> This makes education accessible to people in remote areas too."
+      },
+      {
+        "id": "Q6",
+        "question": "How does engaging in artistic activities contribute to the cognitive development of a society?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>In my view</b></span>, they should only have them under strict supervision from parents. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> The internet contains harmful content and <b>Hardware [硬件]</b> can be <b>Addictive [令人上瘾的]</b> for kids. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> parents use <b>Software [软件]</b> controls, phones can be safe tools for learning and safety.</b></span> However, unlimited access is definitely dangerous for their young minds."
+      }
+    ]
+  }
+]

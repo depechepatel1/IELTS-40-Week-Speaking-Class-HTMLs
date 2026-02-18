@@ -1,0 +1,73 @@
+[
+  {
+    "week": 8,
+    "topic": "Giving Advice",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a time when you gave advice to others. You should say:\nWhen it was\nTo whom you gave the advice\nWhat the advice was\nAnd explain why you gave the advice.",
+        "model_answer": "<span style=\"color: blue;\"><b>I vividly recall</b></span> a time when my cousin was <b>Reluctant [不情愿的]</b> to choose a university major. I gave him some <b>Constructive [建设性的]</b> advice about following his passion rather than just money. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> we were <b>In the same boat [处境相同]</b> a few years ago, I completely understood his confusion and fear.</b></span> I shared a <b>Word of wisdom [至理名言]</b> my father told me: \"Choose a job you love, and you will never work a day in your life.\" He was very <b>Grateful [感激的]</b> for my help and chose Art History. I felt it was a <b>Sensible [明智的]</b> thing to do because he was so lost. He was <b>Hesitant [犹豫的]</b> at first but listened.",
+        "bullet_points": [
+          "Who: Friend / Sister",
+          "Advice: Break up / Dating",
+          "Reaction: Happy / Crying",
+          "Feeling: Useful / Good"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a time you received useful advice from someone. You should say:\nWho gave you the advice\nWhat the situation was\nHow you applied the advice\nAnd explain how this advice helped you.",
+        "model_answer": "I was extremely Hesitant [犹豫的] about quitting my part-time job last year to focus on study. My best friend gave me some advice that I really Take it to heart [铭记在心]. Although I was worried about money, she told me my mental health was Indispensable [不可或缺的] and grades were more important. Her advice was Efficient [高效的] in helping me decide quickly. I am Grateful [感激的] because she helped me see the situation clearly without emotion. As a result, my grades improved significantly. It was a Sensible [明智的] decision. She was Reluctant [不情愿的] to tell me at first.",
+        "bullet_points": [
+          "Who: Teacher / Coach",
+          "Topic: Study / Sport",
+          "What: Work hard / Relax",
+          "Result: Passed / Won"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a situation where you had to make a difficult decision. You should say:\nWhat the decision was\nWho you consulted for help\nWhat the outcome was\nAnd explain how you felt after making the decision.",
+        "model_answer": "I had to decide whether to study abroad or stay home for university. I was Reluctant [不情愿的] to leave my family because we are close. Provided that I got a scholarship, I knew it was the Sensible [明智的] choice to go for my future career. My teacher gave me a Word of wisdom [至理名言] about taking risks while I am young. In the end, I made a Constructive [建设性的] plan for my future and applied. It was hard, but I don't regret it. I was Hesitant [犹豫的] but my parents were Grateful [感激的] for my ambition. I learned to Take it to heart [铭记在心].",
+        "bullet_points": [
+          "Situation: Buy phone / Save",
+          "Problem: No money / Want",
+          "Help: Mom / Dad",
+          "Choice: Saved / Happy"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Should people prepare before giving advice?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Yes, they should</b></span> be prepared and <b>Objective [客观的]</b> before offering their thoughts or guidance to others. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Giving wrong advice can hurt people or make the situation much worse than before for everyone. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> you know the full story, giving advice is like <b>The blind leading the blind [问道于盲]</b> which helps no one.</b></span>"
+      },
+      {
+        "id": "Q2",
+        "question": "Is it good to ask for advice from strangers online?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>It is usually</b></span> not a good idea due to significant <b>Privacy [隐私]</b> risks involved in sharing data. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Strangers don't care about your specific <b>Dilemma [进退两难的困境]</b> or personal feelings like your friends do. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> you might get a quick answer, you might <b>Learn the hard way [吃一堑长一智]</b> that their advice is bad or harmful.</b></span>"
+      },
+      {
+        "id": "Q3",
+        "question": "What are the personalities of people whose job is to give advice to others?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>They usually have</b></span> a lot of <b>Wisdom [智慧]</b> and patience when dealing with other people's problems. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Jobs like <b>Counseling [咨询]</b> require deep empathy to understand others' pain and complex life problems. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> they deal with sensitive issues, they must be calm and kind at all times to be effective.</b></span>"
+      },
+      {
+        "id": "Q4",
+        "question": "What are the problems if you ask too many people for advice?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>You might become</b></span> confused and unable to make a clear decision for yourself due to the noise. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>When</b></span> you hear too many conflicting opinions, you might just <b>Sit on the fence [保持中立/观望]</b> and do nothing.</b></span> <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> Excessive input hinders clear <b>Intervention [干预]</b> in your own problems and causes unnecessary mental stress."
+      },
+      {
+        "id": "Q5",
+        "question": "Is the advice given by older generations still relevant to the problems young people face today?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Sometimes</b></span> their <b>Wisdom [智慧]</b> is timeless, but not always relevant to modern problems we face today. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> The modern world has changed, especially regarding technology and <b>Privacy [隐私]</b> norms in society and workplaces. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> their life values are good, their career advice might be outdated for the digital age we live in.</b></span>"
+      },
+      {
+        "id": "Q6",
+        "question": "To what extent does professional counseling differ from advice given by friends or family?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Counseling [咨询]</b></span> is professional and <b>Objective [客观的]</b>, unlike friendly advice which is often biased and emotional. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Friends might be biased because of their personal relationship with you and your shared history together, leading to Subjective [主观的] advice. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> a friend gives emotional support, a counselor provides structured <b>Intervention [干预]</b> strategies for solutions.</b></span>"
+      }
+    ]
+  }
+]

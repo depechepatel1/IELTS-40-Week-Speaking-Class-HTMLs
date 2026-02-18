@@ -1,0 +1,73 @@
+[
+  {
+    "week": 5,
+    "topic": "Protecting Nature",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a person who encouraged you to protect nature. You should say:\nWho this person is\nHow you knew this person\nWhat he/she said or did to encourage you\nAnd explain how you felt about it.",
+        "model_answer": "<span style=\"color: blue;\"><b>I would like to commence by describing</b></span> my high school biology teacher, Mr. Chen, who was an incredibly <b>Conscientious [尽责的]</b> and <b>Passionate [热情的]</b> man. He was a true <b>Advocate [提倡者]</b> for the environment who inspired us daily. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Even though</b></span> he was extremely busy with grading papers, he would spend his weekends organizing community clean-ups because he believed we must <b>Practice what you preach [言行一致]</b>.</b></span> He taught us how to be <b>Eco-friendly [环保的]</b> in our daily lives by reducing plastic usage. His dedication was truly <b>Inspiring [鼓舞人心的]</b> to everyone in my class. <span style=\"color: blue;\"><b>As a result</b></span>, I became a <b>Nature lover [热爱大自然的人]</b> myself. I learned that living a <b>Sustainable [可持续的]</b> lifestyle is a necessary responsibility for our future.",
+        "bullet_points": [
+          "Who: Father / Friend",
+          "How: Talk / Show",
+          "Action: Reuse / Plant",
+          "Feeling: Good / Proud"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a person who is very interested in the environment. You should say:\nWho they are\nWhat they do to help the environment\nHow they influence others\nAnd explain what you have learned from them.",
+        "model_answer": "I have chosen to talk about my neighbor, Sarah, who is a committed Nature lover [热爱大自然的人] in our community. Since she wants to live a completely Sustainable [可持续的] life, she grows her own organic vegetables and avoids all single-use plastics to reduce waste. She is very Conscientious [尽责的] about her carbon footprint. In fact, she always tries to Do one's bit [尽自己的一份力] by recycling food waste in her garden. Her behavior is quite Predictable [可预测的] because she never changes from her principles. She is a tireless Advocate [提倡者] for green living. She is Passionate [热情的] about being Eco-friendly [环保的] and keeping the air clean.",
+        "bullet_points": [
+          "Who: Aunt / Teacher",
+          "Habit: No car / Walk",
+          "Why: Save earth / Care",
+          "Result: Clean air"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe an environmental activist or leader you admire. You should say:\nWho this person is\nWhat cause they fight for\nHow they spread their message\nAnd explain why you respect their efforts.",
+        "model_answer": "I deeply admire Greta Thunberg, who is a young but fierce Advocate [提倡者] for climate action globally. She is Passionate [热情的] about saving the planet and is not afraid to speak truth to power. Although some people find her methods intense, she always manages to Practice what you preach [言行一致] by traveling via Eco-friendly [环保的] transport methods like trains. Her speeches are Inspiring [鼓舞人心的] and have educated a generation to the crisis. She reminds us daily that we must Do one's bit [尽自己的一份力] before it is too late. She is Conscientious [尽责的] about her Sustainable [可持续的] choices. I am a Nature lover [热爱大自然的人] because of her work.",
+        "bullet_points": [
+          "Who: Celebrity / Star",
+          "Topic: Ocean / Trees",
+          "Action: Donate / Speak",
+          "Effect: Change laws"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "How do people protect the environment?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Typically, individuals protect nature</b></span> by reducing waste and conserving energy in their homes everyday. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Small, consistent actions in daily life accumulate to make a massive positive difference over time. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> we stop using plastic bags, <b>Pollution [污染]</b> will continue to damage the <b>Biodiversity [生物多样性]</b> of our oceans forever without any hope.</b></span>"
+      },
+      {
+        "id": "Q2",
+        "question": "Do you think it's important to protect wild animals/nature?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Yes, it is absolutely</b></span> vital to protect global <b>Biodiversity [生物多样性]</b> for our own long-term survival. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Every animal plays a specific and crucial role in the ecosystem, and losing them causes collapse. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> human activity can <b>Wreak havoc [造成严重破坏]</b> on delicate food chains, we must prioritize <b>Conservation [保护]</b> efforts immediately to save them.</b></span>"
+      },
+      {
+        "id": "Q3",
+        "question": "What are the main environmental problems in your country?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>The most pressing issue</b></span> is severe air <b>Pollution [污染]</b> caused by countless factories and heavy traffic. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Rapid industrialization has led to poor air quality in many major cities. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> the government is trying to fix it, the visible smog is just the <b>Tip of the iceberg [冰山一角]</b> regarding health.</b></span>"
+      },
+      {
+        "id": "Q4",
+        "question": "Do you think we should use more renewable energy? Why?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Unquestionably, we must</b></span> switch to <b>Renewable [可再生的]</b> energy sources like solar and wind power immediately. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Fossil fuels are running out quickly and are the primary cause of global warming today. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> oil causes <b>Pollution [污染]</b>, solar power is clean, infinite, and completely Sustainable [可持续的] for the future planet we inhabit.</b></span>"
+      },
+      {
+        "id": "Q5",
+        "question": "Should schools teach students about environmental protection?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Yes, schools play</b></span> a key role in preventing the mass <b>Extinction [灭绝]</b> of endangered species globally. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Children are the future leaders, and they need to understand their impact early on in life. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> students learn about <b>Conservation [保护]</b> in primary school, they will grow up to be responsible citizens.</b></span>"
+      },
+      {
+        "id": "Q6",
+        "question": "[New] How effective is international cooperation in solving global environmental crises?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>It is essential</b></span>, though sometimes individual country efforts feel like <b>A drop in the ocean [沧海一粟]</b>. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Environmental issues like climate change do not respect national borders or boundaries in any way. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whenever</b></span> countries work together, they can have an <b>Influential [有影响力的]</b> effect on reducing global carbon emissions together.</b></span>"
+      }
+    ]
+  }
+]

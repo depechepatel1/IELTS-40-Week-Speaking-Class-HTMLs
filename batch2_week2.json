@@ -1,0 +1,73 @@
+[
+  {
+    "week": 2,
+    "topic": "Working Abroad / Foreign Country",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a foreign country where you'd like to work for a short time. You should say:\nWhere you would like to go\nWhat kind of work you want to do\nWhen you would like to go\nAnd explain why you want to work in that place.",
+        "model_answer": "<span style=\"color: blue;\"><b>Ideally, I would seize the opportunity to work</b></span> in London, which is a truly <b>Cosmopolitan [国际化的]</b> city with great diversity. It offers many <b>Lucrative [利润丰厚的]</b> jobs and a completely new <b>Perspective [视角]</b> on the world. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> there might be a significant language <b>Barrier [障碍]</b>, I am <b>Adaptable [适应性强的]</b> and <b>Diligent [勤奋的]</b> enough to succeed there, <b>because</b> I learn quickly.</b></span> I want to <b>Immerse [沉浸]</b> myself in the local culture to <b>Broaden one's horizons [开阔眼界]</b>. Even if I experience some <b>Culture shock [文化冲击]</b> at first, I am ready to <b>Start from scratch [白手起家]</b> and build a new life full of exciting challenges and opportunities.",
+        "bullet_points": [
+          "Where: Japan / London",
+          "Work: Teaching / IT",
+          "Why: Culture / Money",
+          "Challenge: Language"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a city you would like to live in for work purposes. You should say:\nWhich city it is\nWhat industry is popular there\nHow you know about this place\nAnd explain why this place is good for your career.",
+        "model_answer": "I have always fantasized about residing in New York, which is truly a Cosmopolitan [国际化的] metropolis. Finding a Lucrative [利润丰厚的] job there would drastically change my Perspective [视角] on life and career. Since I am extremely Diligent [勤奋的], I can overcome any Barrier [障碍] I face, even if I have to Start from scratch [白手起家] in a tiny apartment with nothing but my suitcase. I really want to Immerse [沉浸] myself in the famous arts scene. Being Adaptable [适应性强的] helps with Culture shock [文化冲击]. It is the best place to Broaden one's horizons [开阔眼界] and meet people from all over the globe who share my ambitions and dreams.",
+        "bullet_points": [
+          "City: New York / Paris",
+          "Industry: Fashion / Art",
+          "Benefit: Network / Learn",
+          "Hope: Success / Fun"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a place you visited that you think would be a good place to work. You should say:\nWhere the place is\nWhen you visited it\nWhat the lifestyle is like there\nAnd explain why you think working there would be enjoyable.",
+        "model_answer": "During a recent trip, I visited Tokyo, a Cosmopolitan [国际化的] hub that amazed me with its order. The tech industry there is Lucrative [利润丰厚的] and offers a unique Perspective [视角] on innovation and future living. Provided that I am Adaptable [适应性强的], I could break the language Barrier [障碍] and Immerse [沉浸] in the lifestyle, which would be fascinating and educational. I am Diligent [勤奋的], so I wouldn't mind if I had to Start from scratch [白手起家]. The Culture shock [文化冲击] would only serve to Broaden one's horizons [开阔眼界] further as I navigate a completely different society and learn new ways of working.",
+        "bullet_points": [
+          "Place: Shanghai / Sydney",
+          "Vibe: Busy / Relaxed",
+          "People: Nice / Smart",
+          "Future: Move there"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "What kind of job is easy to get in a foreign country?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Typically, entry-level service roles</b></span> like waiters or cleaners are usually the easiest to find for newcomers in any country. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Locals often avoid them due to low pay or long hours, creating gaps that foreigners can fill. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> you have a severe <b>Language barrier [语言障碍]</b>, you can work in a restaurant and earn money immediately upon arrival.</b></span>"
+      },
+      {
+        "id": "Q2",
+        "question": "Should young people work abroad?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>I am convinced that it is</b></span> very <b>Inspiring [鼓舞人心的]</b> and educational for their personal development and emotional maturity. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> It teaches them about social <b>Integration [融合]</b> and independence away from their parents' constant protection. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>When</b></span> they live abroad alone, they become much more mature and capable of handling life's difficult problems without help.</b></span>"
+      },
+      {
+        "id": "Q3",
+        "question": "Do Chinese parents encourage their children to work abroad?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>For the most part, parents desire</b></span> a <b>Prosperous [繁荣的]</b> and secure future for us above all else in life. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Global experience is valuable for finding high-paying jobs later in life and securing a good career. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> they miss us dearly, they support our career growth because they know it leads to long-term success.</b></span>"
+      },
+      {
+        "id": "Q4",
+        "question": "Why do some people not want to work overseas?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Commonly, their apprehension stems from</b></span> racial <b>Discrimination [歧视]</b> and isolation in a strange land far from home. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Being a foreigner can be lonely and difficult without a support network of friends and family. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> society is a welcoming <b>Melting pot [大熔炉]</b>, they might feel excluded and unhappy with their choice to move.</b></span>"
+      },
+      {
+        "id": "Q5",
+        "question": "What are the benefits of working abroad?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Fundamentally, it fosters</b></span> greater social <b>Harmony [和谐]</b> and understanding between different groups of people. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> We learn from others' traditions and ways of thinking, which reduces conflict and ignorance. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>As they say</b></span>, <b>When in Rome, do as the Romans do [入乡随俗]</b>, meaning we should respect local customs to fit in.</b></span>"
+      },
+      {
+        "id": "Q6",
+        "question": "How does the migration of skilled workers (brain drain) affect the economy of the country they leave?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>I think</b></span> <b>Brain drain [人才流失]</b> is very bad for the developing economy of any struggling nation. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Smart people leave home, reducing local innovation and progress significantly in key sectors like technology. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Because</b></span> of rapid <b>Globalization [全球化]</b>, talent moves to richer countries, leaving their homeland behind without skilled leaders.</b></span>"
+      }
+    ]
+  }
+]

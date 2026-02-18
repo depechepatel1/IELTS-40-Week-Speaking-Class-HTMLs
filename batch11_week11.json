@@ -1,0 +1,73 @@
+[
+  {
+    "week": 11,
+    "topic": "Desired Technology",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a technology product you would like to own. You should say:\nWhat it is\nHow much it costs\nWhat you will use it for\nAnd explain why you would like to own it.",
+        "model_answer": "<span style=\"color: blue;\"><b>I really love to eat</b></span> a homemade chicken salad, which is both <b>Nutritious [有营养的]</b> and delicious. It contains many fresh vegetables that are good for my <b>Diet [饮食]</b>. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> I am trying to stay <b>Fit [健美的]</b>, I avoid oily food, <b>although</b> I sometimes crave junk food like burgers.</b></span> This meal boosts my <b>Immunity [免疫力]</b> because of the vitamins. It is a part of my healthy <b>Lifestyle [生活方式]</b>. I often check the <b>Recipe [食谱]</b> to make sure the <b>Ingredients [食材]</b> are fresh. It is a <b>Balanced [均衡的]</b> meal. It helps me avoid <b>Obesity [肥胖]</b> and stay energetic for school.",
+        "bullet_points": [
+          "Chicken salad",
+          "Fresh veggies",
+          "Avoiding oil",
+          "Energy boost"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a piece of modern technology that saves you time. You should say:\nWhat the device is\nHow often you use it\nHow it works\nAnd explain why it is efficient.",
+        "model_answer": "My favorite spot is a local vegetarian restaurant that serves Nutritious [有营养的] dishes near my school. The chef uses organic Ingredients [食材] that are safe, fresh, and incredibly tasty. Because the menu is Balanced [均衡的], I can eat a lot without gaining any weight, which helps me stay Fit [健美的]. It supports my healthy Lifestyle [生活方式] goals perfectly every week. They have a secret Recipe [食谱] for spicy tofu that I absolutely love. It is good for Immunity [免疫力] too. I think a good Diet [饮食] is key to preventing Obesity [肥胖] in the long run. I go there often with my family to relax.",
+        "bullet_points": [
+          "Vegetarian place",
+          "Organic food",
+          "Weight control",
+          "Family visits"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe an invention that has changed the world significantly. You should say:\nWhat the invention is\nWhen it was created\nHow it affects our daily lives\nAnd explain whether you think the change is positive or negative.",
+        "model_answer": "I make it a rule to drink green smoothies every morning, which is a great start to the day. It is a Nutritious [有营养的] habit that gives me energy for my classes. Although the taste is bitter, I drink it because it improves my Immunity [免疫力] and makes my skin glow. It keeps me Fit [健美的] and slim throughout the year. I found the Recipe [食谱] online recently. I buy fresh Ingredients [食材] like spinach weekly. It is a vital part of my Lifestyle [生活方式]. A proper Diet [饮食] is better than pills. It helps fight Obesity [肥胖] effectively and keeps me happy.",
+        "bullet_points": [
+          "Green smoothies",
+          "Morning routine",
+          "Energy boost",
+          "Skin benefits"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "What tech products are your friends using these days?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Undoubtedly</b></span>, it is extremely popular among young people and students. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> It is convenient and tasty, despite being notoriously high in <b>Calorie [卡路里]</b> content. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Even though</b></span> we know it lacks <b>Vitamin [维生素]</b> value, we still buy burgers for a quick meal.</b></span> It is hard to resist the delicious taste and low price."
+      },
+      {
+        "id": "Q2",
+        "question": "Why do people love using tech products?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Absolutely</b></span>, it is crucial for student development and comprehensive health education. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Children need to understand proper <b>Nutrition [营养]</b> to grow strong bodies and minds. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>If</b></span> they learn about <b>Protein [蛋白质]</b> early, they can make healthier food choices later in life.</b></span> Schools play a key role in forming these lifelong habits for the next generation."
+      },
+      {
+        "id": "Q3",
+        "question": "What are the differences between chatting online and chatting face-to-face?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>As far as I know</b></span>, people choose it for health or ethical reasons. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> They want to reduce harm to animals or improve their <b>Digestion [消化]</b> naturally. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> meat provides iron, a plant-based diet can lower <b>Cholesterol [胆固醇]</b> levels significantly for adults.</b></span> It is a personal choice that benefits the planet as well."
+      },
+      {
+        "id": "Q4",
+        "question": "Has technology widened the economic gap between the rich and the poor?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>In general</b></span>, traditional food is often healthier and more natural for us. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Modern processed food contains many artificial <b>Preservative [防腐剂]</b> chemicals to last longer. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> modern food is faster to cook, homemade dumplings are better for our <b>Metabolism [新陈代谢]</b>.</b></span> We should try to cook fresh meals whenever we have time."
+      },
+      {
+        "id": "Q5",
+        "question": "Do you think people are losing their ability to communicate effectively due to screens?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>I believe that</b></span> making food look fun is the key for parents. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Children are visual eaters and dislike boring <b>Fiber [纤维]</b> sources like plain spinach. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> parents arrange veggies creatively, kids will eat them to gain <b>Energy [能量]</b>.</b></span> Making it a game is the best way to succeed."
+      },
+      {
+        "id": "Q6",
+        "question": "To what extent should governments regulate the development of Artificial Intelligence?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Unfortunately</b></span>, organic food is often pricier than junk food in stores. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> High-quality fresh produce requires more effort to grow without <b>Additives [添加剂]</b>. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> fast food is mass-produced, it is cheaper than a salad full of <b>Mineral [矿物质]</b> nutrients.</b></span> This price gap makes it hard for poor families to eat well."
+      }
+    ]
+  }
+]

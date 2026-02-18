@@ -1,0 +1,73 @@
+[
+  {
+    "week": 12,
+    "topic": "Losing Your Way",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe an occasion when you lost your way. You should say:\nWhere you were\nWhat happened\nHow you felt\nAnd explain how you found your way.",
+        "model_answer": "<span style=\"color: blue;\"><b>I am a huge fan of</b></span> basketball, which is a thrilling and fast-paced game. It requires great <b>Stamina [耐力]</b> and skill from the players. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> I play it at school, I know how hard it is, <b>although</b> pros make it look easy.</b></span> Watching a match gives me an <b>Adrenaline [肾上腺素]</b> rush. I admire the <b>Agility [敏捷]</b> of the athletes on the court. It is a <b>Competitive [竞争的]</b> sport that teaches <b>Teamwork [团队合作]</b>. I often do a <b>Workout [锻炼]</b> to improve my own skills. It requires <b>Endurance [忍耐力]</b> to run for the whole game. It is a great <b>Recreation [娱乐]</b> for students.",
+        "bullet_points": [
+          "Basketball fan",
+          "Fast-paced action",
+          "Admiring skills",
+          "Learning teamwork"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a time you arrived late for an important event. You should say:\nWhat the event was\nWhy you were late\nWhat the consequences were\nAnd explain how you felt about the situation.",
+        "model_answer": "I make an effort to go jogging every evening in the park near my home. It builds my Stamina [耐力] and clears my mind after a long day of study. Even though I sometimes feel lazy, I force myself to run because it improves my Endurance [忍耐力] significantly. It is a simple Workout [锻炼] that needs no expensive equipment. I enjoy the fresh air and Recreation [娱乐] time alone. It helps maintain my Agility [敏捷] and overall health. It is not very Competitive [竞争的], just personal. I get an Adrenaline [肾上腺素] boost when I sprint at the end. Teamwork [团队合作] is not needed here, just focus.",
+        "bullet_points": [
+          "Evening jogging",
+          "Mental clarity",
+          "No equipment",
+          "Personal goal"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a time you helped someone who was lost. You should say:\nWhere this happened\nWho the person was\nHow you helped them\nAnd explain how you felt after helping them.",
+        "model_answer": "I will never forget watching a school football final last year, which was incredibly intense to witness. Both teams showed amazing Teamwork [团队合作] and spirit to win the cup. Although our team lost, they played with heart, which made the game very Competitive [竞争的] until the very end. The players had incredible Stamina [耐力] to run for ninety minutes without stopping. The crowd felt the Adrenaline [肾上腺素] of every goal scored. It was great Recreation [娱乐] for the whole school body. The strikers showed great Agility [敏捷] on the field. It was a tough Workout [锻炼] for them. Their Endurance [忍耐力] was inspiring to see.",
+        "bullet_points": [
+          "School final",
+          "Intense atmosphere",
+          "Team spirit",
+          "Inspiring effort"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Why do some people get lost more easily than others?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Unquestionably</b></span>, it keeps both the body and mind healthy for study. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Sitting all day causes stiffness, so movement improves <b>Flexibility [柔韧性]</b> and blood flow. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>If</b></span> students play sports, they release stress and improve their <b>Coordination [协调性]</b> for better focus.</b></span> A healthy body leads to a sharper mind in the classroom."
+      },
+      {
+        "id": "Q2",
+        "question": "Do you think it is important to do some preparation before you travel to new places?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>I strongly believe</b></span> that they should be compulsory for everyone at school. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Without them, many students would get no <b>Aerobic [有氧的]</b> exercise at all. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> schools enforce it, students will focus only on books and neglect their <b>Physique [体格]</b>.</b></span> It is the school's duty to ensure students are physically fit."
+      },
+      {
+        "id": "Q3",
+        "question": "How can people find their way when they are lost?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Without a doubt</b></span>, Table Tennis is the national sport of China. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> It requires speed and <b>Reflex [反射]</b> rather than pure strength or height. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> tables are everywhere, people of all ages play it to stay <b>Athletic [运动的]</b>.</b></span> You can see people playing in almost every park in the city."
+      },
+      {
+        "id": "Q4",
+        "question": "Is a paper map still necessary?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Personally</b></span>, I prefer team sports like basketball or football over solo activities. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> They teach us <b>Strategy [策略]</b> and how to work with others effectively. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> individual sports build <b>Muscle [肌肉]</b>, team sports build friendships and social skills.</b></span> I enjoy the feeling of winning together with my best friends on the court."
+      },
+      {
+        "id": "Q5",
+        "question": "Has the reliance on GPS technology reduced our natural ability to navigate?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>It is evident that</b></span> they create a sense of national unity and pride. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Fans cheer for the same goal, acting as a huge <b>Spectator [观众]</b> community. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>When</b></span> our team wins a <b>Tournament [锦标赛]</b>, everyone celebrates together on the streets.</b></span> Sports have a unique power to unite strangers through shared passion."
+      },
+      {
+        "id": "Q6",
+        "question": "How does getting \"lost\" (metaphorically) in a new culture help a person grow?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>To be honest</b></span>, they carry significant risks of severe injury for participants. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Without proper <b>Coach [教练]</b> supervision, accidents happen easily for beginners who are inexperienced. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> skydiving is exciting, a failure in equipment can cause severe <b>Injury [受伤]</b> or death.</b></span> Therefore, safety precautions must always be the top priority to stay alive."
+      }
+    ]
+  }
+]

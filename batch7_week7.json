@@ -1,0 +1,73 @@
+[
+  {
+    "week": 7,
+    "topic": "A Mobile App",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe an application (app) you usually use on your phone or computer. You should say:\nWhat it is\nWhen you use it\nWhy you use it often\nAnd explain how you feel about it.",
+        "model_answer": "<span style=\"color: blue;\"><b>To be honest, the app I utilize</b></span> most is WeChat, which is <b>Indispensable [不可或缺的]</b> for my daily life in China. It is incredibly <b>User-friendly [用户友好的]</b> and allows me to do everything from chatting to paying bills. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> it puts everything <b>At your fingertips [触手可及]</b>, I often find myself <b>Glued to the screen [盯着屏幕看]</b> for hours without realizing it.</b></span> It is highly <b>Efficient [高效的]</b> for work communication too, as everyone uses it. <span style=\"color: blue;\"><b>However</b></span>, it can be a bit <b>Addictive [令人上瘾的]</b> because there is so much content to consume. It is also very <b>Innovative [创新的]</b> with its mini-programs. I hope I can reduce my screen time in the future.",
+        "bullet_points": [
+          "App: TikTok / Maps",
+          "When: Morning / Night",
+          "Use: Video / Travel",
+          "Feeling: Fun / Easy"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a mobile app that has made your daily life easier. You should say:\nWhat the app is\nHow it functions\nWhat specific problem it solves for you\nAnd explain why you would recommend it to others.",
+        "model_answer": "I want to highlight a food delivery app that is very Innovative [创新的] and helpful. It is Efficient [高效的] because it saves me a lot of time cooking after a long day at school. Although some people say these apps make us lazy, I think the convenience is Breathtaking [惊人的]. With this app, delicious food from hundreds of restaurants is always At your fingertips [触手可及]. Sometimes, I Lose track of time [忘记时间] scrolling through all the delicious options available. It prevents me from feeling Isolated [孤立的] when I eat alone. It is definitely User-friendly [用户友好的] and rarely crashes. But it can be Addictive [令人上瘾的] to order snacks.",
+        "bullet_points": [
+          "App: Uber / Alipay",
+          "Function: Taxi / Pay",
+          "Problem: Late / Cash",
+          "Recommend: Fast / Safe"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe an app you use for learning or self-improvement. You should say:\nWhat the app teaches\nHow often you use it\nHow effective it is\nAnd explain why you prefer using an app over traditional methods.",
+        "model_answer": "I regularly use a vocabulary app that is User-friendly [用户友好的] and makes learning English fun. It prevents me from feeling bored or Isolated [孤立的] in my studies because I can compete with friends. Provided that I use it every day for ten minutes, my progress is quite fast and steady. It is Indispensable [不可或缺的] for my IELTS preparation. Unlike boring textbooks, this app keeps me engaged so I don't feel like I am studying. It is Innovative [创新的] in how it uses games to teach. It is highly Efficient [高效的] for memorizing words. I never get Addictive [令人上瘾的], but I enjoy it.",
+        "bullet_points": [
+          "App: Duolingo / Keep",
+          "Topic: Language / Sport",
+          "Use: Daily / Weekly",
+          "Effect: Smart / Fit"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "What is the difference between how young and old people use apps?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Young people primarily</b></span> use apps for social <b>Interaction [互动]</b> and constant daily entertainment on the go. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Older people tend to use them for practical reasons like reading news, messaging family, or checking the weather. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> teens are <b>Social butterflies [交际花]</b> online all day, seniors prioritize <b>Privacy [隐私]</b> and safety above all else.</b></span>"
+      },
+      {
+        "id": "Q2",
+        "question": "Why do some people dislike using apps?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>They dislike them</b></span> mainly due to serious <b>Cybersecurity [网络安全]</b> concerns and fear of identity theft. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> They are afraid their personal data or money will be stolen by bad hackers if they use mobile banking. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> an app guarantees 100% safety, these people refuse to join the trend of <b>Digitalization [数字化]</b>.</b></span>"
+      },
+      {
+        "id": "Q3",
+        "question": "What is the most popular app in your country?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Social media apps</b></span> like WeChat are definitely the most popular among everyone in my country today. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> They allow constant <b>Interaction [互动]</b> between friends and provide endless entertainment throughout the day for users. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> these apps can cause <b>Information overload [信息过载]</b>, people are always checking their phones for updates constantly.</b></span>"
+      },
+      {
+        "id": "Q4",
+        "question": "Are people becoming too dependent on mobile apps?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Yes, there is</b></span> a strong <b>Dependency [依赖]</b> on apps in modern society for almost everything we do. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> People cannot navigate streets or pay for food without them anymore, losing basic skills rapidly. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> they are helpful, technology is a <b>Double-edged sword [双刃剑]</b> that weakens our basic survival skills over time.</b></span>"
+      },
+      {
+        "id": "Q5",
+        "question": "To what extent do mobile applications compromise user privacy and data security?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>I believe that</b></span> apps often compromise <b>Privacy [隐私]</b> by collecting too much personal user data without permission. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Many apps track your location and spending habits to sell to advertisers for a huge profit. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whenever</b></span> you download a \"free\" app, you are usually paying with your personal information unknowingly.</b></span>"
+      },
+      {
+        "id": "Q6",
+        "question": "Will digital tools eventually replace traditional face-to-face services entirely?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>I don't think</b></span> they will replace the human touch completely in essential services like medicine or care. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Some services, like <b>Therapeutic [有治疗作用的]</b> counseling or nursing, need human empathy and genuine care to work effectively. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Even though</b></span> <b>Urbanization [城市化]</b> promotes digital efficiency, people still crave real connection in difficult times of life.</b></span>"
+      }
+    ]
+  }
+]

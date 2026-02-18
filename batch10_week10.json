@@ -1,0 +1,73 @@
+[
+  {
+    "week": 10,
+    "topic": "An Interesting Building",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe an interesting building you'd like to visit. You should say:\nWhere it is\nHow you knew about it\nWhat you know about it\nAnd explain how you will feel if you go there.",
+        "model_answer": "<span style=\"color: blue;\"><b>I vividly remember</b></span> a road trip to the mountains which was incredibly <b>Memorable [难忘的]</b> for my whole family. We drove on a <b>Scenic [风景优美的]</b> highway that offered amazing views. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> the journey was <b>Exhausting [令人筋疲力尽的]</b> due to the distance, it was totally <b>Worthwhile [值得的]</b>, <b>because</b> the destination was beautiful.</b></span> We had a <b>Puncture [爆胎]</b> halfway, which caused a <b>Delay [延误]</b> in our schedule. However, we managed to <b>Commute [通勤]</b> to the hotel before dark. It was a <b>Hassle [麻烦]</b> to fix the tire. But the trip was <b>Convenient [方便的]</b> overall. I prefer to use <b>Public transport [公共交通]</b> usually to avoid traffic.",
+        "bullet_points": [
+          "Family road trip",
+          "Mountain views",
+          "Flat tire incident",
+          "Safe arrival"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a historical building in your country. You should say:\nWhere it is located\nWhen it was built\nWhat it is used for today\nAnd explain why it is important to your country's heritage.",
+        "model_answer": "Normally, I tend to use the subway, which is the most Convenient [方便的] way to get around my city. It is very Reliable [可靠的] and faster than driving a car in traffic. Since I have to Commute [通勤] to school daily, I rely on Public transport [公共交通], although it is crowded. Sometimes there is a Delay [延误], but it is rare. It saves me the Hassle [麻烦] of finding parking. The ride is not always Scenic [风景优美的] underground. But it is Worthwhile [值得的] for the low cost. It is a Memorable [难忘的] part of my daily student life routine.",
+        "bullet_points": [
+          "Subway system",
+          "Daily commute",
+          "Speed vs Crowds",
+          "Cost effective"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a modern building that impressed you. You should say:\nWhere it is\nWhat it looks like\nWhat function it serves\nAnd explain why you admire its architecture.",
+        "model_answer": "I recall a situation when I missed my train, which was a huge Hassle [麻烦] for me and my friends during our holiday. The Delay [延误] was caused by a sudden mechanical signal failure at the station. Because the Public transport [公共交通] system stopped working completely, we had to wait for three hours, which was extremely Exhausting [令人筋疲力尽的]. It wasn't Convenient [方便的] at all to sit on the cold floor. We tried to Commute [通勤] by bus instead. The bus route was actually quite Scenic [风景优美的] with views of the countryside. In the end, it was a Memorable [难忘的] adventure for us. It was Worthwhile [值得的] because we learned to be patient during travel problems.",
+        "bullet_points": [
+          "Missed train",
+          "Signal failure",
+          "Bus alternative",
+          "Learning patience"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Should all museums and historical buildings sell tickets?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>To my mind</b></span>, improving the subway system is the best solution for cities. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> People will drive less if they have a fast <b>Infrastructure [基础设施]</b> alternative available. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>If</b></span> the government lowers <b>Fare [票价]</b> costs significantly, more commuters will leave their cars at home.</b></span> This would immediately reduce the number of vehicles on the road."
+      },
+      {
+        "id": "Q2",
+        "question": "Which kind of building do people prefer, villas or apartments?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Statistically speaking</b></span>, it is the safest mode of transport in the world. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Strict safety checks and advanced <b>Aviation [航空]</b> technology prevent accidents effectively. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> people fear <b>Turbulence [颠簸]</b> during flights, crashes are extremely rare compared to car accidents.</b></span> We should trust the engineering and pilots who are highly trained."
+      },
+      {
+        "id": "Q3",
+        "question": "Why do people prefer to live in new houses?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>I suppose that</b></span> they want to experience different cultures and foods. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> It broadens their minds and creates a unique <b>Itinerary [行程]</b> of memories to cherish. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>When</b></span> tourists see famous <b>Landmark [地标]</b> sites, they gain a new <b>Perspective [视角]</b> on history.</b></span> Traveling is the best way to learn about the world firsthand."
+      },
+      {
+        "id": "Q4",
+        "question": "Which do people prefer, modern buildings or traditional buildings?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>From my standpoint</b></span>, it should be subsidized but not completely free for all. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> The system needs revenue for maintenance and regular <b>Efficiency [效率]</b> upgrades. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> passengers pay a small <b>Ticket [票]</b> price, the service quality will drop significantly.</b></span> A small fee ensures that the buses run on time and are clean."
+      },
+      {
+        "id": "Q5",
+        "question": "How does the architecture of a city influence the cultural identity of its residents?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>It is likely that</b></span> we will see more autonomous vehicles on roads. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Technology is moving towards driverless cars to reduce <b>Congestion [拥堵]</b> in cities. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Once</b></span> <b>Electric vehicle [电动汽车]</b> adoption spreads widely, cities will become quieter and cleaner places.</b></span> This transformation will make our daily commute much safer and faster."
+      },
+      {
+        "id": "Q6",
+        "question": "Is it necessary to preserve old buildings even if they impede modern urban development?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Increasingly</b></span>, young people are choosing green travel options for their annual holidays. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> They are more aware of their carbon footprint and global <b>Pollution [污染]</b> issues. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> older generations preferred luxury, youth prefer <b>Sustainable [可持续的]</b> hiking trips in nature.</b></span> This positive trend demonstrates a significant shift in our environmental consciousness over recent years."
+      }
+    ]
+  }
+]

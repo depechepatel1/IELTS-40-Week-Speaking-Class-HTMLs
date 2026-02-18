@@ -1,0 +1,73 @@
+[
+  {
+    "week": 6,
+    "topic": "A Place with Trees / Nature",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a place with a lot of trees that you would like to visit (e.g., a forest, oasis). You should say:\nWhere it is\nHow you knew this place\nWhat it is like\nAnd explain why you would like to visit it.",
+        "model_answer": "<span style=\"color: blue;\"><b>Actually, I have always dreamt of visiting</b></span> the Amazon Rainforest, which is famous for its <b>Lush [郁郁葱葱的]</b> vegetation. It is a <b>Tranquil [宁静的]</b> place far away from the noisy city life. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> I live in a busy concrete jungle, I am desperate to <b>Get away from it all [远离尘嚣]</b> and be surrounded by pure nature.</b></span> The views there are supposedly <b>Breathtaking [惊人的]</b> and <b>Picturesque [风景如画的]</b>, like something from a movie. I want to enjoy the <b>Peace and quiet [宁静]</b> that you can only find in such an <b>Isolated [偏远的]</b> location. It would be a dream to see such a vast <b>Eco-friendly [环保的]</b> ecosystem untouched by humans.",
+        "bullet_points": [
+          "Where: Canada / Park",
+          "Know: TV / Book",
+          "Like: Green / Fresh",
+          "Why: Relax / Walk"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a park or garden in your city that you enjoy visiting. You should say:\nWhere it is located\nHow often you go there\nWhat you do there\nAnd explain why you find this place relaxing.",
+        "model_answer": "There is a magnificent botanical garden near my house that is incredibly Picturesque [风景如画的] in the spring. Whenever I feel stressed from studying for exams, I go there to find some Peace and quiet [宁静] among the flowers. Although it is in the city center, it feels surprisingly Isolated [偏远的] from the noise of traffic. The scenery is Breathtaking [惊人的] when the cherry blossoms bloom. I think it is important to have Sustainable [可持续的] green spaces like this in urban areas. It really allows me to Get away from it all [远离尘嚣] for a few hours without leaving the city.",
+        "bullet_points": [
+          "Where: Center / Lake",
+          "Go: Sunday / Evening",
+          "Do: Run / Read",
+          "Why: Calm / Birds"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a natural environment (such as a forest or mountain) that impressed you. You should say:\nWhere this place is\nWhen you went there\nWho you went with\nAnd explain why this place was memorable.",
+        "model_answer": "I was deeply impressed by a valley I visited last summer which was completely Off the beaten track [人迹罕至的]. It was a Tranquil [宁静的] spot with a crystal clear blue river running through it. Even though the hike up the mountain was difficult, the Lush [郁郁葱葱的] forest at the top made it worthwhile. The environment was clean and Eco-friendly [环保的], with no trash anywhere. Consequently, I felt completely relaxed there, far from my phone. It was the perfect place to enjoy Peace and quiet [宁静] with my friends. The view was Breathtaking [惊人的] and Picturesque [风景如画的].",
+        "bullet_points": [
+          "Place: Beach / Cave",
+          "When: Holiday / Summer",
+          "Who: Family / Class",
+          "Why: Pretty / Unique"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Why do people like visiting places with trees or forests?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>I believe that</b></span> people visit forests because they have a <b>Therapeutic [有治疗作用的]</b> effect on the mind. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> The fresh air and green colors reduce stress and lower blood pressure naturally. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> modern life is stressful, people need a <b>Breath of fresh air [令人耳目一新的人或事]</b> to recharge their batteries completely and feel alive.</b></span>"
+      },
+      {
+        "id": "Q2",
+        "question": "Are natural views better than city views?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>From my Perspective [视角],</b></span> natural views are superior because they connect us <b>Back to nature [回归自然]</b>. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> They remind us of our origins and offer a sense of calm that buildings cannot. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> a <b>Concrete jungle [钢筋水泥森林]</b> feels cold and hard, a mountain view feels alive and welcoming to everyone.</b></span>"
+      },
+      {
+        "id": "Q3",
+        "question": "Do all people need some nature?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Yes, access to nature</b></span> is essential for basic mental health for every human being today. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Without it, people can feel trapped and disconnected from the real, living world around them. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> people spend time in a natural <b>Habitat [栖息地]</b> occasionally, they may suffer from anxiety or severe depression.</b></span>"
+      },
+      {
+        "id": "Q4",
+        "question": "Are people hard-wired to protect the environment?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Not necessarily, as</b></span> history shows we often cause <b>Deforestation [森林砍伐]</b> for profit and quick economic growth. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> However, environmental education is slowly changing this selfish instinct in younger generations everywhere in the world today. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> we used to destroy nature without thought, we now understand the importance of <b>Preservation [保护]</b> for our own long-term survival.</b></span>"
+      },
+      {
+        "id": "Q5",
+        "question": "How does rapid urbanization impact the mental health of city dwellers?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>I think that</b></span> <b>Urbanization [城市化]</b> creates high levels of stress and loneliness for urban residents. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> The noise, traffic, and crowding can be overwhelming for the human brain on a daily basis. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whenever</b></span> cities expand without green spaces, residents feel like they are living in a <b>Concrete jungle [钢筋水泥森林]</b> forever.</b></span>"
+      },
+      {
+        "id": "Q6",
+        "question": "Should governments prioritize economic development over the preservation of natural green spaces?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>No, definitely not</b></span>; <b>Preservation [保护]</b> should be the absolute top priority for the government right now. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Once <b>Biodiversity [生物多样性]</b> is lost, it cannot be replaced by any amount of money or expensive modern buildings. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> governments plan carefully and wisely, they can achieve Sustainable [可持续的] development without destroying nature forever.</b></span>"
+      }
+    ]
+  }
+]

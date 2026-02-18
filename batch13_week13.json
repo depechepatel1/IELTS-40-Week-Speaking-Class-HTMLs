@@ -1,0 +1,73 @@
+[
+  {
+    "week": 13,
+    "topic": "A Famous Person",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a famous person you would like to meet. You should say:\nWho he/she is\nHow you know about him/her\nHow/where you would like to meet him/her\nAnd explain why you would like to meet him/her.",
+        "model_answer": "<span style=\"color: blue;\"><b>I vividly recall</b></span> a funny TV commercial for a soft drink that aired last summer. It was incredibly <b>Catchy [朗朗上口的]</b> because of the song they used. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> I usually find ads annoying, this one was <b>Entertaining [有趣的]</b>, <b>which</b> made me watch it until the end.</b></span> The <b>Slogan [口号]</b> was very memorable and short. It was clearly targeted at a young <b>Audience [受众]</b> like me. It used bright colors to grab attention. It was a very effective <b>Promotion [促销]</b> for the brand. I actually bought the drink later. It influenced my <b>Consumer [消费者]</b> choice. It was a clever piece of marketing.",
+        "bullet_points": [
+          "Funny TV ad",
+          "Catchy song",
+          "Target audience",
+          "Buying the product"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a famous sportsperson you admire. You should say:\nWho this person is\nWhat sport they play\nWhat achievements they have made\nAnd explain why you admire them more than other athletes.",
+        "model_answer": "I admit that I purchased a pair of sneakers after seeing them on social media. The Promotion [促销] showed a famous basketball player wearing them. Since the ad was so Persuasive [有说服力的], I felt I needed them, even though they were quite expensive. The Slogan [口号] promised they would improve my game. I was the perfect target Audience [受众] for this campaign. The video was visually Entertaining [有趣的] and cool. As a Consumer [消费者], I am easily influenced by trends. The ad was certainly Catchy [朗朗上口的] enough to work. I wear them every day now.",
+        "bullet_points": [
+          "Sneakers purchase",
+          "Social media ad",
+          "Famous endorsement",
+          "Daily use"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a famous person from your country who is known internationally. You should say:\nWho they are\nWhat they are famous for (e.g., politics, arts, science)\nHow they represent your country\nAnd explain if you are proud of them.",
+        "model_answer": "It is obvious that ads create a desire for things we don't really need. Companies use Persuasive [有说服力的] language to manipulate us daily to spend money. Provided that the Promotion [促销] is exciting, people will buy the product, whereas boring ads are ignored. They target a specific Audience [受众] to maximize sales. A good Slogan [口号] sticks in your mind forever. TV ads are designed to be Entertaining [有趣的] to hold attention. Every Consumer [消费者] wants to be cool. Catchy [朗朗上口的] jingles make us remember brands. It is a powerful psychological tool that shapes our buying habits.",
+        "bullet_points": [
+          "Creating desire",
+          "Manipulation",
+          "Targeting groups",
+          "Psychological tool"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "What are the advantages and disadvantages of being a famous child?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>In my view</b></span>, it is a double-edged sword for us. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> It informs us about new products, but it also creates false needs through <b>Commercial [商业广告]</b> pressure. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> ads help businesses grow, they also make people feel unsatisfied with what they have.</b></span> This leads to overspending and waste of resources."
+      },
+      {
+        "id": "Q2",
+        "question": "What can today's children do to become famous?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Unquestionably</b></span>, strict regulations should be in place for kids. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Children cannot distinguish between entertainment and <b>Marketing [营销]</b> tricks. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>If</b></span> toy companies target kids aggressively, parents are forced to buy expensive items.</b></span> It is unfair to exploit their innocence for corporate profit and gain without explicit parent permission at all."
+      },
+      {
+        "id": "Q3",
+        "question": "Do people become famous because of their talent?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>It is evident that</b></span> their <b>Endorsement [代言]</b> boosts sales significantly. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Fans trust their idols and want to copy their lifestyle choices. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>When</b></span> a famous singer wears a specific <b>Brand [品牌]</b>, it sells out immediately in stores.</b></span> This demonstrates the immense and undeniable power of celebrity culture in modern society."
+      },
+      {
+        "id": "Q4",
+        "question": "Should students have physical education and do sports at school?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>Without a doubt</b></span>, it is the most effective form today. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> It uses data to show relevant ads to the right people at the right time. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> you use an ad-blocker, you will see <b>Popup [弹出窗口]</b> ads for things you recently searched.</b></span> It is targeted and unavoidable for internet users."
+      },
+      {
+        "id": "Q5",
+        "question": "To what extent do celebrities sacrifice their privacy for their career?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>To be honest</b></span>, they present a highly idealized version of reality. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> They hide flaws and exaggerate benefits to attract customers to buy more. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> families in ads look perfect, real life is much more messy and complicated.</b></span> They sell a <b>Trend [趋势]</b> and a fantasy, not the truth."
+      },
+      {
+        "id": "Q6",
+        "question": "Do famous people have a moral responsibility to be good role models for society?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>Opinion</b></span> <span style=\"color: blue;\"><b>I suppose that</b></span> they want massive global exposure for their products. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>Reason</b></span> Events like the Olympics have millions of viewers worldwide every day. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>Example</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> logos are everywhere in the stadium, the <b>Sponsor [赞助商]</b> gains huge brand awareness.</b></span> It is an expensive but powerful and effective marketing strategy to reach fans."
+      }
+    ]
+  }
+]
