@@ -17,7 +17,7 @@
       {
         "id": "Q2",
         "question": "Describe a friend who has played an important role in your life. You should say:\nWho they are\nHow they helped or influenced you\nWhat you admire about them\nAnd explain why they are important to you.",
-        "model_answer": "<span style=\"color: blue;\"><b>I clearly remember</b></span> my friend Sarah, who helped me through a tough time. She was very <b>Supportive [支持的]</b> when I failed my exams. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Because</b></span> she stuck by me <b>Through thick and thin [风雨同舟]</b>, I realized she was a true friend, <b>which</b> gave me courage.</b></span> We <b>Hit it off [一见如故]</b> immediately when we met. She is very <b>Considerate [体贴的]</b> of my feelings. Our <b>Companionship [陪伴]</b> means the world to me. She taught me to be strong. I am lucky to have such an <b>Intimate [亲密的]</b> friend. She is my role model and always gives me joy. Her advice is always spot on and very helpful.",
+        "model_answer": "I clearly remember my friend Sarah, who helped me through a tough time. She was very Supportive [支持的] when I failed my exams. Because she stuck by me Through thick and thin [风雨同舟], I realized she was a true friend, which gave me courage. We Hit it off [一见如故] immediately when we met. She is very Considerate [体贴的] of my feelings. Our Companionship [陪伴] means the world to me. She taught me to be strong. I am lucky to have such an Intimate [亲密的] friend. She is my role model and always gives me joy. Her advice is always spot on and very helpful.",
         "bullet_points": [
           "Helping study",
           "Math test",
@@ -28,7 +28,7 @@
       {
         "id": "Q3",
         "question": "Describe a friend who is talented at music or singing. You should say:\nWho they are\nWhat instrument they play or how they sing\nWhen you listen to them\nAnd explain how you feel when you hear them perform.",
-        "model_answer": "<span style=\"color: blue;\"><b>I have a friend called</b></span> Tom who plays the guitar beautifully. He is very talented and <b>Hilarious [极滑稽的]</b> when he performs. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> he is shy, he comes alive on stage, <b>because</b> music is his passion.</b></span> We often sing together, which is <b>Joyful [快乐的]</b>. He is never <b>Superficial [肤浅的]</b> about his fame. We have been <b>Inseparable [形影不离的]</b> since <b>Childhood [童年]</b>. His music brings people together. I admire his dedication. He is a <b>Considerate [体贴的]</b> bandmate. His songs are very popular at school. He might <b>Drift apart [逐渐疏远]</b> if he becomes famous, but I hope not. It is a pleasure to know him and hear his music.",
+        "model_answer": "I have a friend called Tom who plays the guitar beautifully. He is very talented and Hilarious [极滑稽的] when he performs. Although he is shy, he comes alive on stage, because music is his passion. We often sing together, which is Joyful [快乐的]. He is never Superficial [肤浅的] about his fame. We have been Inseparable [形影不离的] since Childhood [童年]. His music brings people together. I admire his dedication. He is a Considerate [体贴的] bandmate. His songs are very popular at school. He might Drift apart [逐渐疏远] if he becomes famous, but I hope not. It is a pleasure to know him and hear his music.",
         "bullet_points": [
           "Funny and loyal",
           "Shared humor",

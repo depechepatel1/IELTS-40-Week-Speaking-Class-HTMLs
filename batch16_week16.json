@@ -17,7 +17,7 @@
       {
         "id": "Q2",
         "question": "Describe a time you saw someone show their feelings very openly. You should say:\nWho this person was\nWhat happened to make them emotional\nHow they expressed their feelings (laughing, crying, etc.)\nAnd explain how you felt witnessing this.",
-        "model_answer": "<span style=\"color: blue;\"><b>I remember seeing</b></span> my best friend cry with joy when she won a competition. She was incredibly <b>Expressive [表现力丰富的]</b> and couldn't hide her emotions. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Because</b></span> she tends to be open, everyone knew exactly how happy she was, <b>which</b> was touching to see.</b></span> It wasn't <b>Awkward [尴尬的]</b>, but beautiful. Her happiness was <b>Contagious [有感染力的]</b> to the crowd. She didn't care about <b>Suppression [压抑]</b> of her tears. It was a <b>Captivating [迷人的]</b> moment of truth. She is usually very <b>Amusing [有趣的]</b> too. It showed her human side. It was a special day for her. I was very proud of her achievement.",
+        "model_answer": "I remember seeing my best friend cry with joy when she won a competition. She was incredibly Expressive [表现力丰富的] and couldn't hide her emotions. Because she tends to be open, everyone knew exactly how happy she was, which was touching to see. It wasn't Awkward [尴尬的], but beautiful. Her happiness was Contagious [有感染力的] to the crowd. She didn't care about Suppression [压抑] of her tears. It was a Captivating [迷人的] moment of truth. She is usually very Amusing [有趣的] too. It showed her human side. It was a special day for her. I was very proud of her achievement.",
         "bullet_points": [
           "Mr. Bean",
           "Physical comedy",
@@ -28,7 +28,7 @@
       {
         "id": "Q3",
         "question": "Describe a comedy movie or live performance that made you laugh. You should say:\nWhat it was\nWho the actors were\nWhat the funniest part was\nAnd explain why it was memorable.",
-        "model_answer": "<span style=\"color: blue;\"><b>I really enjoyed watching</b></span> a stand-up comedy show by a local comedian who is known for being <b>Hilarious [极滑稽的]</b>. He knew how to <b>Crack a joke [讲笑话]</b> about everyday life perfectly. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> some jokes were silly, I couldn't stop laughing, <b>because</b> his delivery was so good.</b></span> It was the most <b>Amusing [有趣的]</b> hour I have spent in a long time. His <b>Sense of humor [幽默感]</b> is unique. The show was <b>Captivating [迷人的]</b> from start to finish. I <b>Burst into laughter [突然大笑]</b> many times. It was a <b>Joyful [快乐的]</b> evening. <b>Laughter is the best medicine [笑是最好的良药]</b> indeed for stress relief.",
+        "model_answer": "I really enjoyed watching a stand-up comedy show by a local comedian who is known for being Hilarious [极滑稽的]. He knew how to Crack a joke [讲笑话] about everyday life perfectly. Although some jokes were silly, I couldn't stop laughing, because his delivery was so good. It was the most Amusing [有趣的] hour I have spent in a long time. His Sense of humor [幽默感] is unique. The show was Captivating [迷人的] from start to finish. I Burst into laughter [突然大笑] many times. It was a Joyful [快乐的] evening. Laughter is the best medicine [笑是最好的良药] indeed for stress relief.",
         "bullet_points": [
           "Friends sitcom",
           "Lovable characters",
