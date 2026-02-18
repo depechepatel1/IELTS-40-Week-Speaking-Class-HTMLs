@@ -1,0 +1,73 @@
+[
+  {
+    "week": 7,
+    "topic": "Technology (A Website or App)",
+    "l1_part2_questions": [
+      {
+        "id": "Q1",
+        "question": "Describe a website or app you use often. You should say:\nWhat it is\nHow often you use it\nWhat you use it for\nAnd explain why you like it.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to talk about</b></span> Instagram, which has become <b>Indispensable [不可或缺的]</b> in my daily life. It is very <b>User-friendly [用户友好的]</b> and <b>Innovative [创新的]</b>. I use it every day to see <b>Breathtaking [惊人的]</b> photos. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> it is so <b>Efficient [高效的]</b> for staying connected, I often feel <b>Isolated [孤立的]</b> without it.</b></span> However, it is quite <b>Addictive [令人上瘾的]</b>. I often find myself <b>Glued to the screen [粘在屏幕上]</b> with the world <b>At your fingertips [触手可及]</b>. It is easy to <b>Lose track of time [忘记时间]</b> while scrolling through endless feeds of content. I honestly cannot imagine my daily routine without checking this app first thing in the morning.<br><br><b>Brainstorming Ideas:</b><br>- App: Instagram / WeChat<br>- Use: Chat / Photos<br>- Like: Fast / Fun<br>- Bad: Wastes time"
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a piece of technology you find difficult to use. You should say:\nWhat it is\nWhy you bought it\nWhat makes it difficult\nAnd explain how you deal with it.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'm going to describe</b></span> a professional camera I bought, which is definitely not <b>User-friendly [用户友好的]</b>. I bought it to take <b>Breathtaking [惊人的]</b> photos, hoping it would be <b>Efficient [高效的]</b>. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> it has <b>Innovative [创新的]</b> features, the complex menu makes me feel <b>Isolated [孤立的]</b> and confused.</b></span> I thought having settings <b>At your fingertips [触手可及]</b> would be great, but it is just hard. I often get <b>Glued to the screen [粘在屏幕上]</b> trying to fix it and <b>Lose track of time [忘记时间]</b>. It is not <b>Addictive [令人上瘾的]</b> at all, but learning it is <b>Indispensable [不可或缺的]</b> for my hobby. I hope that with more practice, I will eventually master it completely.<br><br><b>Brainstorming Ideas:</b><br>- Tech: Camera / Drone<br>- Hard: Buttons / Menu<br>- Deal: Study / Ask<br>- Result: Good photos"
+      },
+      {
+        "id": "Q3",
+        "question": "Describe an app or website that helps you learn something. You should say:\nWhat it is\nHow you found out about it\nWhat you learn from it\nAnd explain how it helps you.",
+        "model_answer": "<span style=\"color: blue;\"><b>I wish to talk about</b></span> Duolingo, an <b>Innovative [创新的]</b> app that makes learning languages <b>User-friendly [用户友好的]</b>. It puts education <b>At your fingertips [触手可及]</b>, so you never feel <b>Isolated [孤立的]</b>. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Because</b></span> the lessons are short and <b>Efficient [高效的]</b>, it is easy to become <b>Addictive [令人上瘾的]</b> and study daily.</b></span> I often get <b>Glued to the screen [粘在屏幕上]</b> and <b>Lose track of time [忘记时间]</b> while practicing. It has become <b>Indispensable [不可或缺的]</b> for my progress. The results I have achieved are simply <b>Breathtaking [惊人的]</b> and motivating. I plan to continue using it until I am completely fluent in Spanish. It is truly helpful.<br><br><b>Brainstorming Ideas:</b><br>- App: Duolingo / Khan<br>- Learn: Language / Math<br>- Help: Fun / Easy<br>- Future: Fluent / Smart"
+      }
+    ],
+    "l2_part3_questions": [
+      {
+        "id": "Q1",
+        "question": "How has the internet changed the way we communicate?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>From my perspective [观点/视角], it has revolutionized [彻底改变]</b></span> our daily <b>Interaction [互动]</b>. <b>[Reason]</b> We can now contact anyone instantly, regardless of distance, which reduces feelings of being alone. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> in the past we waited weeks for letters, now <b>Digitalization [数字化]</b> allows us to be a <b>Social butterfly [交际花]</b> online every day.</b></span> However, this creates a heavy <b>Dependency [依赖]</b> on our devices to function socially. It has truly changed everything about how we connect.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Faster. <b>Reason:</b> Email. <b>Example:</b> Business is quicker."
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Is technology always a good thing?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Unfortunately, I don't think so.</b></span> It is clearly a <b>Double-edged sword [双刃剑]</b>. <b>[Reason]</b> While it connects us to the world, it also threatens our <b>Privacy [隐私]</b> significantly. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Even though</b></span> <b>Cybersecurity [网络安全]</b> exists, hackers [黑客] can still steal personal data easily if we are not careful.</b></span> We must be vigilant not to share too much personal information online. Safety should always come first.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Health. <b>Reason:</b> Eyes. <b>Example:</b> Too much screen time."
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Will robots replace humans in the future?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>It is highly likely that</b></span> they will replace many manual jobs. <b>[Reason]</b> <b>Urbanization [城市化]</b> demands more efficiency and speed than humans can provide. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> <b>Digitalization [数字化]</b> continues to advance, robots will handle repetitive tasks in factories and homes.</b></span> However, they lack the human touch needed for <b>Therapeutic [有治疗作用的]</b> roles like nursing. Humans will always be needed for care.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Factory jobs. <b>Reason:</b> Stronger. <b>Example:</b> Car building."
+        ]
+      },
+      {
+        "id": "Q4",
+        "question": "How can we stay safe online?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>I believe the best way is</b></span> to prioritize [优先考虑] strong <b>Cybersecurity [网络安全]</b> measures. <b>[Reason]</b> We face constant threats from scammers and viruses that target our data. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> we protect our <b>Privacy [隐私]</b> with complex passwords, we risk serious identity theft.</b></span> We should also avoid <b>Information overload [信息过载]</b> by trusting only verifiable and safe sources. Being cautious is the only way to stay safe.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Passwords. <b>Reason:</b> Hard to guess. <b>Example:</b> Using numbers and symbols."
+        ]
+      },
+      {
+        "id": "Q5",
+        "question": "What is the impact of technology on education?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Unquestionably, the impact is</b></span> huge and transformative. <b>[Reason]</b> It enhances learning through better <b>Interaction [互动]</b> with digital materials and videos. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> <b>Digitalization [数字化]</b> brings books to our screens, students can learn anywhere and at any time.</b></span> However, relying on it too much creates a problematic <b>Dependency [依赖]</b> on gadgets. Balance is key to effective learning.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Remote learning. <b>Reason:</b> COVID-19. <b>Example:</b> Zoom classes."
+        ]
+      },
+      {
+        "id": "Q6",
+        "question": "Do people rely on technology too much?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>It seems to me that</b></span> we definitely do. <b>[Reason]</b> Our <b>Dependency [依赖]</b> on smartphones for simple tasks is alarming. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> apps can be <b>Therapeutic [有治疗作用的]</b> for stress, they also cause <b>Information overload [信息过载]</b> and anxiety.</b></span> We are forgetting how to live without them, which is a serious issue for society. We need to disconnect sometimes.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Maps. <b>Reason:</b> Can't navigate [导航]. <b>Example:</b> Getting lost without GPS."
+        ]
+      }
+    ]
+  }
+]

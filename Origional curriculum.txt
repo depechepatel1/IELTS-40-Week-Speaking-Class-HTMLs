@@ -413,30 +413,30 @@
         "id": "Q1",
         "question": "Describe an interesting building you'd like to visit. You should say:\nWhere it is\nHow you knew about it\nWhat you know about it\nAnd explain how you will feel if you go there.",
         "Spider Diagram \"bullet_points\"": [
-          "Vegetarian place",
-          "Organic food",
-          "Weight control",
-          "Family visits"
+          "Where: Sydney / Harbor",
+          "Look: Sails / White",
+          "Use: Music / Opera",
+          "Why: Unique / Famous"
         ]
       },
       {
         "id": "Q2",
         "question": "Describe a historical building in your country. You should say:\nWhere it is located\nWhen it was built\nWhat it is used for today\nAnd explain why it is important to your country's heritage.",
         "Spider Diagram \"bullet_points\"": [
-          "Tall skyscraper",
-          "Glass design",
-          "City symbol",
-          "Modern hub"
+          "Place: Castle / Temple",
+          "Use: Museum / Park",
+          "Look: Old / Stone",
+          "Like: History / View"
         ]
       },
       {
         "id": "Q3",
         "question": "Describe a modern building that impressed you. You should say:\nWhere it is\nWhat it looks like\nWhat function it serves\nAnd explain why you admire its architecture.",
         "Spider Diagram \"bullet_points\"": [
-          "Place: Beach / Cave",
-          "When: Holiday / Summer",
-          "Who: Family / Class",
-          "Why: Pretty / Unique"
+          "Building: Library / Office",
+          "Look: Glass / Steel",
+          "Use: Read / Work",
+          "Like: Clean / Light"
         ]
       }
     ],
@@ -458,20 +458,20 @@
         "id": "Q1",
         "question": "Describe a technology product you would like to own. You should say:\nWhat it is\nHow much it costs\nWhat you will use it for\nAnd explain why you would like to own it.",
         "Spider Diagram \"bullet_points\"": [
-          "Dream destination",
-          "Eiffel Tower",
-          "Beautiful skyline",
-          "Art and culture"
+          "Tech: Laptop / Phone",
+          "Cost: Expensive / High",
+          "Do: Work / Play",
+          "Why: Fast / New"
         ]
       },
       {
         "id": "Q2",
         "question": "Describe a piece of modern technology that saves you time. You should say:\nWhat the device is\nHow often you use it\nHow it works\nAnd explain why it is efficient.",
         "Spider Diagram \"bullet_points\"": [
-          "Communication tool",
-          "Study aid",
-          "Entertainment source",
-          "Daily organizer"
+          "Device: Robot vacuum / Dishwasher",
+          "Use: Daily / Weekly",
+          "Works: Automatic / Sensors",
+          "Why: Saves chores"
         ]
       },
       {
@@ -503,30 +503,30 @@
         "id": "Q1",
         "question": "Describe an occasion when you lost your way. You should say:\nWhere you were\nWhat happened\nHow you felt\nAnd explain how you found your way.",
         "Spider Diagram \"bullet_points\"": [
-          "Social media apps",
-          "Fast updates",
-          "Checking headlines",
-          "Public opinion"
+          "Place: Tokyo / Forest",
+          "Happened: Wrong turn / No map",
+          "Felt: Scared / Tired",
+          "Found: Asked local / Police"
         ]
       },
       {
         "id": "Q2",
         "question": "Describe a time you arrived late for an important event. You should say:\nWhat the event was\nWhy you were late\nWhat the consequences were\nAnd explain how you felt about the situation.",
         "Spider Diagram \"bullet_points\"": [
-          "Cousin's wedding",
-          "Tailored suit",
-          "Feeling grown-up",
-          "Special occasion"
+          "Event: Exam / Wedding",
+          "Why: Traffic / Overslept",
+          "Result: Missed start / Scolded",
+          "Felt: Stress / Regret"
         ]
       },
       {
         "id": "Q3",
         "question": "Describe a time you helped someone who was lost. You should say:\nWhere this happened\nWho the person was\nHow you helped them\nAnd explain how you felt after helping them.",
         "Spider Diagram \"bullet_points\"": [
-          "Helping neighbor",
-          "Carrying groceries",
-          "Simple kindness",
-          "Feeling good"
+          "Where: Street / Station",
+          "Who: Tourist / Old lady",
+          "Action: Showed map / Guided",
+          "Felt: Helpful / Kind"
         ]
       }
     ],
@@ -548,20 +548,20 @@
         "id": "Q1",
         "question": "Describe a famous person you would like to meet. You should say:\nWho he/she is\nHow you know about him/her\nHow/where you would like to meet him/her\nAnd explain why you would like to meet him/her.",
         "Spider Diagram \"bullet_points\"": [
-          "Spanish language",
-          "Useful for travel",
-          "Complex grammar",
-          "Watch movies"
+          "Who: Elon Musk / Taylor Swift",
+          "Know: News / Music",
+          "Meet: Coffee / Backstage",
+          "Why: Inspiration / Fan"
         ]
       },
       {
         "id": "Q2",
         "question": "Describe a famous sportsperson you admire. You should say:\nWho this person is\nWhat sport they play\nWhat achievements they have made\nAnd explain why you admire them more than other athletes.",
         "Spider Diagram \"bullet_points\"": [
-          "Confucius",
-          "Ancient philosopher",
-          "Moral teachings",
-          "Enduring wisdom"
+          "Who: Messi / Ronaldo",
+          "Sport: Football / Soccer",
+          "Achievements: Goals / Cups",
+          "Admire: Skill / Hard work"
         ]
       },
       {

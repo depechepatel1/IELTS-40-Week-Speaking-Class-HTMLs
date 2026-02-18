@@ -1,0 +1,73 @@
+[
+  {
+    "week": 13,
+    "topic": "People (Famous Person)",
+    "l1_part2_questions": [
+      {
+        "id": "Q1",
+        "question": "Describe a famous person you would like to meet. You should say:\nWho they are\nWhy they are famous\nWhat you would talk about\nAnd explain why you want to meet them.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to describe</b></span> a famous actor who is incredibly <b>Charismatic [有魅力的]</b>. He is known globally for his <b>Talented [有才华的]</b> acting in many blockbuster movies. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> he is so <b>Influential [有影响力的]</b>, I would love to ask him about his career path.</b></span> Despite his huge fame, he seems very <b>Humble [谦逊的]</b> and <b>Down to earth [务实的/接地气的]</b> in interviews. Meeting him would make me feel <b>Relieved [如释重负的]</b> that good people exist in Hollywood. He is truly <b>Legendary [传奇的]</b> in the film industry. I think his advice would be very <b>Helpful [有帮助的]</b> for any aspiring actor who wants to succeed.<br><br><b>Brainstorming Ideas:</b><br>- Person: Actor / Singer<br>- Why: Movies / Songs<br>- Talk: Life / Art<br>- Why: Inspire / Learn"
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a person who has influenced you. You should say:\nWho the person is\nHow you know them\nWhat they did\nAnd explain how they influenced you.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'm going to talk about</b></span> my grandmother, who is a <b>Legendary [传奇的]</b> figure in our family history. I have known her all my life since childhood. She was always <b>Helpful [有帮助的]</b> and kind to everyone she met. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> she was never <b>In the limelight [处于聚光灯下]</b>, she was the most <b>Influential [有影响力的]</b> person to me.</b></span> She taught me to be <b>Humble [谦逊的]</b> and work hard. She is my <b>Role model [榜样]</b> for life. I am <b>Relieved [如释重负的]</b> that I had her guidance growing up. She was a <b>Talented [有才华的]</b> cook and a <b>Charismatic [有魅力的]</b> storyteller who told amazing tales.<br><br><b>Brainstorming Ideas:</b><br>- Who: Mom / Teacher<br>- Know: Family / School<br>- Did: Taught / Loved<br>- Influence: Values / Job"
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a talented person you know. You should say:\nWho they are\nWhat their talent is\nHow they developed it\nAnd explain why you admire them.",
+        "model_answer": "<span style=\"color: blue;\"><b>I wish to talk about</b></span> my best friend who is a highly <b>Talented [有才华的]</b> musician. He plays the guitar beautifully and writes songs. He is very <b>Humble [谦逊的]</b> about his incredible skills. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Because</b></span> he practiced daily, he became very <b>Charismatic [有魅力的]</b> on stage.</b></span> He is now quite <b>Influential [有影响力的]</b> in the local music scene. He is a <b>Role model [榜样]</b> for dedication and passion. Even when he is <b>In the limelight [受人关注]</b>, he stays <b>Down to earth [接地气的]</b>. His music is <b>Legendary [传奇的]</b> among our friends. He is always <b>Helpful [有帮助的]</b> to beginners learning to play. I really admire his work ethic.<br><br><b>Brainstorming Ideas:</b><br>- Friend: Musician / Artist<br>- Talent: Music / Paint<br>- How: Practice / Study<br>- Admire: Hard work"
+      }
+    ],
+    "l2_part3_questions": [
+      {
+        "id": "Q1",
+        "question": "Why are some people interested in the lives of celebrities?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>From my perspective, it is because</b></span> they seek an escape from reality. <b>[Reason]</b> People admire the glamour and wealth of a <b>Household name [家喻户晓的名字]</b>. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> they focus on their own lives, they become obsessed with the <b>Reputation [名誉]</b> of others.</b></span> Curiosity about <b>Scandal [丑闻]</b> is also common in society. It is a form of easy entertainment.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Boredom. <b>Reason:</b> Fun to watch. <b>Example:</b> Reality TV shows."
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Do celebrities deserve privacy?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>It seems to me that</b></span> everyone deserves basic <b>Privacy [隐私]</b>. <b>[Reason]</b> Just because they are famous doesn't mean they should <b>Live in a fishbowl [毫无隐私的生活]</b> 24/7. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> the <b>Price of fame [成名的代价]</b> is high, aggressive <b>Paparazzi [狗仔队]</b> can be dangerous.</b></span> They are humans too, not just products. We should respect their personal boundaries and safety.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Yes. <b>Reason:</b> Human rights. <b>Example:</b> Photos of children."
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "How do celebrities influence young people?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>I believe they have a</b></span> massive impact on youth. <b>[Reason]</b> Young people look up to them for fashion trends and behavior <b>Orientation [方向/定位]</b>. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> fans develop a strong <b>Reliance [依赖]</b> on their idols, a celebrity's positive <b>Contribution [贡献]</b> can inspire good deeds.</b></span> However, bad behavior can also be copied easily. It is a big responsibility for stars.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Trends. <b>Reason:</b> Copying. <b>Example:</b> Clothing styles."
+        ]
+      },
+      {
+        "id": "Q4",
+        "question": "What are the disadvantages of being famous?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Unfortunately, the main issue is</b></span> the total loss of freedom. <b>[Reason]</b> You cannot go anywhere without being recognized or photographed. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Even though</b></span> you have money, the risk of <b>Scandal [丑闻]</b> can ruin your <b>Reputation [名誉]</b> instantly.</b></span> It is stressful to always be watched by the public. The <b>Price of fame [成名的代价]</b> is often loneliness.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Fake friends. <b>Reason:</b> Money. <b>Example:</b> People using you."
+        ]
+      },
+      {
+        "id": "Q5",
+        "question": "Should famous people use their status to help others?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>Unquestionably, yes.</b></span> They have the power to make a real change. <b>[Reason]</b> Their significant <b>Contribution [贡献]</b> to charity can raise millions of dollars. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> they are sincere, using their status as a <b>Household name [家喻户晓的名字]</b> helps society greatly.</b></span> It sets a good example for fans. Many actors do this very well and help the world.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Awareness. <b>Reason:</b> Voice. <b>Example:</b> Speaking on climate."
+        ]
+      },
+      {
+        "id": "Q6",
+        "question": "Why do some celebrities behave badly?",
+        "model_answer": "<b>[Opinion]</b> <span style=\"color: blue;\"><b>I think it is because</b></span> of immense pressure. <b>[Reason]</b> Living under constant watch can eventually break anyone's spirit. <b>[Example]</b> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> normal people have <b>Privacy [隐私]</b>, stars <b>Live in a fishbowl [毫无隐私的生活]</b>, often leading to public <b>Scandal [丑闻]</b>.</b></span> They might also be immature and young. Sudden wealth can confuse people easily and lead to mistakes.",
+        "idea_suggestions": [
+          "<b>Opinion:</b> Young age. <b>Reason:</b> Immature. <b>Example:</b> Child stars going wild."
+        ]
+      }
+    ]
+  }
+]
