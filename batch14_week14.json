@@ -1,0 +1,109 @@
+[
+  {
+    "week": 14,
+    "topic": "Places (Shopping Mall)",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a shopping mall you often visit.",
+        "model_answer": "<span style=\"color: blue;\"><b>I frequently visit</b></span> the Grand Plaza Mall, which is the most <b>Bustling [熙熙攘攘的]</b> shopping center in my city. It has hundreds of stores that are very <b>Trendy [时髦的]</b> and popular with young people. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> the prices are usually <b>Affordable [负担得起的]</b> during sales, I often go there to <b>Shop till you drop [疯狂购物]</b> on weekends.</b></span> It is extremely <b>Convenient [方便的]</b> because it is connected to the subway station. However, it can get <b>Overcrowded [拥挤的]</b> on holidays. I sometimes just go <b>Window shopping [只逛不买]</b> when I have no money. It is a great place to hang out with friends. I am a <b>Bargain hunter [专门买便宜货的人]</b> there.",
+        "bullet_points": [
+          "Downtown mall",
+          "Finding bargains",
+          "Strict budget",
+          "Comparing prices"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a traditional street market you enjoy visiting.",
+        "model_answer": "<span style=\"color: blue;\"><b>I really enjoy going to</b></span> the Old Town Night Market, which is famous for its lively atmosphere [气氛]. It is always <b>Bustling [熙熙攘攘的]</b> with tourists and locals looking for snacks. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> it is <b>Overcrowded [拥挤的]</b>, I love it <b>because</b> the street food is delicious and <b>Affordable [负担得起的]</b> for students.</b></span> You can find many <b>Trendy [时髦的]</b> accessories there too. It is more interesting than just <b>Window shopping [只逛不买]</b> in a mall. I am a <b>Bargain hunter [专门买便宜货的人]</b> and often haggle for lower prices. It is a <b>Convenient [方便的]</b> place to eat dinner after class. The vendors are very friendly and energetic. It is a unique cultural experience that represents our city's spirit.",
+        "bullet_points": [
+          "Downtown mall",
+          "Finding bargains",
+          "Strict budget",
+          "Comparing prices"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a shop that you recently recommended to a friend.",
+        "model_answer": "<span style=\"color: blue;\"><b>I recently recommended</b></span> a vintage clothing store called 'Retro Style' to my best friend. It sells unique clothes that are very <b>Trendy [时髦的]</b> right now. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> you are a <b>Bargain hunter [专门买便宜货的人]</b>, you can find amazing deals that are highly <b>Affordable [负担得起的]</b>.</b></span> The shop assistant is very <b>Charismatic [有魅力的]</b> and helpful. It is never <b>Overcrowded [拥挤的]</b>, so shopping there is relaxing. It is a <b>Convenient [方便的]</b> location near our university. We went there to <b>Shop till you drop [疯狂购物]</b> last Saturday. The brand is becoming very <b>Influential [有影响力的]</b> locally. It was a great find because the quality is excellent and the style is perfect for her.",
+        "bullet_points": [
+          "High-end laptop",
+          "Tight budget",
+          "Saving up",
+          "Education investment"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Some people believe building shopping malls isn't a good thing, what do you think?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>From my perspective [视角]</b></span>, malls promote excessive <b>Consumerism [消费主义]</b> which can be harmful to our local communities. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> They encourage people to buy things they don't really need, leading to significant waste and financial debt for many families. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> they create jobs, they also destroy small local businesses by dominating the <b>Retail [零售]</b> market completely.</b></span> For example, many mom-and-pop shops have closed because they cannot compete with the big mall.",
+        "bullet_points": [
+          "Promotes consumerism",
+          "Encourages waste",
+          "Hurts small shops",
+          "Creates jobs though"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Why do people enjoy going to malls?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>It is obvious that</b></span> malls offer convenience and entertainment in one comfortable place for families. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> People can shop, eat, and watch movies without leaving the building, which is perfect for weekends or rainy days. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> <b>Retail therapy [购物疗法]</b> makes people happy, they go to malls to relax and spend money freely.</b></span> Many people find walking around the clean, bright halls very relaxing after a long week of work.",
+        "bullet_points": [
+          "Convenience factor",
+          "Entertainment hub",
+          "Retail therapy",
+          "Comfortable environment"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "How did people pay in the past, and how do they pay now?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>Historically</b></span>, people used physical cash or gold coins for every single <b>Transaction [交易]</b> they made in daily life. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> Now, digital payments via smartphones are replacing paper notes rapidly because they are much more efficient and hygienic for everyone. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> cash is slow, scanning a code is instant and secure for the modern <b>E-commerce [电子商务]</b> user.</b></span> For instance, in China, almost no one carries a wallet anymore because WeChat Pay is ubiquitous.",
+        "bullet_points": [
+          "Cash vs Digital",
+          "Phone payments",
+          "Instant speed",
+          "Replacing notes"
+        ]
+      },
+      {
+        "id": "Q4",
+        "question": "What are the downsides of mobile payments?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>To be honest</b></span>, they pose a significant risk to user <b>Privacy [隐私]</b> and financial security if not managed well. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> If your phone is hacked or stolen, thieves can access your funds immediately without needing a physical card or PIN. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> you have strong passwords, <b>Impulsive [冲动的]</b> hackers [黑客] can empty your bank account and make you <b>Break the bank [倾家荡产]</b>.</b></span> Also, companies track your spending habits to sell your data to advertisers.",
+        "bullet_points": [
+          "Security risk",
+          "Hacking danger",
+          "Privacy loss",
+          "Tech dependency"
+        ]
+      },
+      {
+        "id": "Q5",
+        "question": "Has the rise of e-commerce caused the death of local small businesses?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>Regrettably</b></span>, yes, the dominance of online <b>Retail [零售]</b> is slowly killing small mom-and-pop shops in our neighborhoods. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> They simply cannot compete with the <b>Reputation [声誉]</b>, huge inventory, and low prices of global giants like Amazon or Alibaba. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>If</b></span> we don't support them intentionally, traditional stores will vanish from our streets forever, leaving ghost towns.</b></span> It is sad to see empty storefronts where vibrant businesses used to be.",
+        "bullet_points": [
+          "Cannot compete",
+          "Lower prices online",
+          "Shops closing",
+          "Loss of community"
+        ]
+      },
+      {
+        "id": "Q6",
+        "question": "Is consumerism beneficial or harmful to society?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>In my view</b></span>, it is largely harmful because it fuels <b>Impulsive [冲动的]</b> desires for material goods we don't need. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> People start to judge others by their <b>Transaction [交易]</b> history rather than their character or kindness, which creates social division. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> shopping feels good briefly, true happiness does not come from material items that <b>Catch one's eye [吸引眼球]</b> in a store.</b></span> We should value experiences and relationships more than possessions.",
+        "bullet_points": [
+          "Encourages waste",
+          "Financial debt",
+          "False happiness",
+          "Environmental damage"
+        ]
+      }
+    ]
+  }
+]

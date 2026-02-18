@@ -1,0 +1,109 @@
+[
+  {
+    "week": 16,
+    "topic": "Events (Laughter & Emotions)",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe an occasion when many people laughed together.",
+        "model_answer": "<span style=\"color: blue;\"><b>I vividly recall</b></span> a school talent show last year where a student told some <b>Hilarious [极滑稽的]</b> jokes. The whole auditorium was filled with laughter. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> his performance was so <b>Amusing [有趣的]</b>, everyone <b>Burst into laughter [突然大笑]</b> at the same time, <b>although</b> the teachers tried to stay serious.</b></span> It was a <b>Joyful [快乐的]</b> moment that brought us all together. The laughter was truly <b>Contagious [有感染力的]</b>. Even the shy students were smiling. It was a <b>Memorable [难忘的]</b> event. I didn't feel <b>Awkward [尴尬的]</b> at all. It was a great way to relieve stress. I will never forget that day.",
+        "bullet_points": [
+          "Lunch break joke",
+          "Spilled drink",
+          "Embarrassing fun",
+          "Stress relief"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a time you saw someone show their feelings very openly.",
+        "model_answer": "<span style=\"color: blue;\"><b>I remember seeing</b></span> my best friend cry with joy when she won a competition. She was incredibly <b>Expressive [表现力丰富的]</b> and couldn't hide her emotions. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Because</b></span> she tends to be open, everyone knew exactly how happy she was, <b>which</b> was touching to see.</b></span> It wasn't <b>Awkward [尴尬的]</b>, but beautiful. Her happiness was <b>Contagious [有感染力的]</b> to the crowd. She didn't care about <b>Suppression [压抑]</b> of her tears. It was a <b>Captivating [迷人的]</b> moment of truth. She is usually very <b>Amusing [有趣的]</b> too. It showed her human side. It was a special day for her. I was very proud of her achievement.",
+        "bullet_points": [
+          "Mr. Bean",
+          "Physical comedy",
+          "Hilarious expressions",
+          "Family entertainment"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a comedy movie or live performance that made you laugh.",
+        "model_answer": "<span style=\"color: blue;\"><b>I really enjoyed watching</b></span> a stand-up comedy show by a local comedian who is known for being <b>Hilarious [极滑稽的]</b>. He knew how to <b>Crack a joke [讲笑话]</b> about everyday life perfectly. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> some jokes were silly, I couldn't stop laughing, <b>because</b> his delivery was so good.</b></span> It was the most <b>Amusing [有趣的]</b> hour I have spent in a long time. His <b>Sense of humor [幽默感]</b> is unique. The show was <b>Captivating [迷人的]</b> from start to finish. I <b>Burst into laughter [突然大笑]</b> many times. It was a <b>Joyful [快乐的]</b> evening. <b>Laughter is the best medicine [笑是最好的良药]</b> indeed for stress relief.",
+        "bullet_points": [
+          "Friends sitcom",
+          "Lovable characters",
+          "Witty dialogue",
+          "Learning English"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Why do people laugh in their daily lives?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>To be honest</b></span>, it is a natural stress reliever for most people. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> As the saying goes, laughter helps us cope with difficulties and bad days effectively by releasing endorphins. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>When</b></span> we laugh, we release tension and feel <b>Joyful [快乐的]</b> instantly.</b></span> It is vital for <b>Psychological [心理的]</b> health and <b>Bonding [建立纽带]</b> with our close friends and family members.",
+        "bullet_points": [
+          "Stress relief",
+          "Best medicine",
+          "Coping mechanism",
+          "Release tension"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Why do people smile when they take photos? Is it a genuine smile or a fake one?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>Often</b></span>, it is a social expectation rather than real feeling. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> People want to look happy in pictures, leading to <b>Suppression [压抑]</b> of true sadness or boredom for the sake of the image. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> they are truly having fun, the smile is just a mask for the camera.</b></span> It is hard to <b>Keep a straight face [板着脸]</b> if you are sad.",
+        "bullet_points": [
+          "Social expectation",
+          "Look happy",
+          "Masking sadness",
+          "Not always genuine"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Should we express our emotions immediately or hide them?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>In my view</b></span>, balance is the key to healthy relationships. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> While being <b>Expressive [表现力丰富的]</b> is healthy, sometimes we must control ourselves in public spaces to avoid unnecessary conflict. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>If</b></span> you <b>Wear one's heart on one's sleeve [情感外露]</b> too much at work, it might be unprofessional.</b></span> We need <b>Literacy [素养]</b> in emotions to handle conflict appropriately.",
+        "bullet_points": [
+          "Balance needed",
+          "Healthy expression",
+          "Public control",
+          "Professionalism"
+        ]
+      },
+      {
+        "id": "Q4",
+        "question": "Regarding showing emotions, are there any differences between women and men?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>Generally speaking</b></span>, women are encouraged to be more open socially. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> Society often tells men to practice <b>Suppression [压抑]</b> of tears to look strong and manly, which can be harmful emotionally. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> women share feelings, men might hide them deep inside.</b></span> However, this <b>Universal [普遍的]</b> stereotype is changing slowly in modern times because men are becoming more open.",
+        "bullet_points": [
+          "Societal norms",
+          "Women open",
+          "Men suppress",
+          "Changing slowly"
+        ]
+      },
+      {
+        "id": "Q5",
+        "question": "Is humor an essential tool for effective leadership in the workplace?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>Absolutely [绝对地]</b></span>, it builds <b>Bonding [建立纽带]</b> within the team effectively. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> A leader with a <b>Sense of humor [幽默感]</b> makes the environment less stressful for employees to work in, fostering better collaboration. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> the jokes are appropriate, it improves morale significantly.</b></span> It improves <b>Accessibility [可接近性]</b> for everyone in the office and makes the manager seem more human.",
+        "bullet_points": [
+          "Builds bonds",
+          "Reduces stress",
+          "Improves morale",
+          "Approachable leader"
+        ]
+      },
+      {
+        "id": "Q6",
+        "question": "How does cultural background influence what people find funny?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>It is evident that</b></span> humor is not always <b>Universal [普遍的]</b>. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> Jokes often depend on language play or local history that foreigners miss completely, leading to awkward silence instead of laughter. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> slapstick works everywhere, wordplay requires native <b>Literacy [素养]</b> levels.</b></span> It is complex to translate jokes across different languages and cultures successfully.",
+        "bullet_points": [
+          "Not universal",
+          "Language barrier",
+          "Local context",
+          "Slapstick works"
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,109 @@
+[
+  {
+    "week": 17,
+    "topic": "People (Friendship)",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a friend you have known for a long time.",
+        "model_answer": "<span style=\"color: blue;\"><b>I want to introduce</b></span> my best friend, Li, who has been my classmate for five years. He is incredibly funny and loyal. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> we share the same sense of humor, we never run out of things to talk about, <b>although</b> he is sometimes late.</b></span> He always offers me <b>Supportive [支持的]</b> advice when I am stressed. We have a strong bond of <b>Intimacy [亲密]</b>. He is the most <b>Considerate [体贴的]</b> person I know. We enjoy playing video games together. He is like a brother to me. I value his <b>Companionship [陪伴]</b> deeply. I hope we stay <b>Inseparable [形影不离的]</b> forever. He is a major part of my <b>Childhood [童年]</b>.",
+        "bullet_points": [
+          "Childhood friend",
+          "Moved away",
+          "Miss hanging out",
+          "Hope for reunion"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a friend who has played an important role in your life.",
+        "model_answer": "<span style=\"color: blue;\"><b>I clearly remember</b></span> my friend Sarah, who helped me through a tough time. She was very <b>Supportive [支持的]</b> when I failed my exams. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Because</b></span> she stuck by me <b>Through thick and thin [风雨同舟]</b>, I realized she was a true friend, <b>which</b> gave me courage.</b></span> We <b>Hit it off [一见如故]</b> immediately when we met. She is very <b>Considerate [体贴的]</b> of my feelings. Our <b>Companionship [陪伴]</b> means the world to me. She taught me to be strong. I am lucky to have such an <b>Intimate [亲密的]</b> friend. She is my role model and always gives me joy. Her advice is always spot on and very helpful.",
+        "bullet_points": [
+          "Helping study",
+          "Math test",
+          "Act of friendship",
+          "Strengthened connection"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a friend who is talented at music or singing.",
+        "model_answer": "<span style=\"color: blue;\"><b>I have a friend called</b></span> Tom who plays the guitar beautifully. He is very talented and <b>Hilarious [极滑稽的]</b> when he performs. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> he is shy, he comes alive on stage, <b>because</b> music is his passion.</b></span> We often sing together, which is <b>Joyful [快乐的]</b>. He is never <b>Superficial [肤浅的]</b> about his fame. We have been <b>Inseparable [形影不离的]</b> since <b>Childhood [童年]</b>. His music brings people together. I admire his dedication. He is a <b>Considerate [体贴的]</b> bandmate. His songs are very popular at school. He might <b>Drift apart [逐渐疏远]</b> if he becomes famous, but I hope not. It is a pleasure to know him and hear his music.",
+        "bullet_points": [
+          "Funny and loyal",
+          "Shared humor",
+          "Strong bond",
+          "Like a brother"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "What is the difference between friendships at work and those outside of work?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>Usually</b></span>, work friends are more formal and distant. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> Relationships with a <b>Colleague [同事]</b> can be <b>Superficial [肤浅的]</b> because you compete for promotions or salary raises in the same company. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> you meet outside the office, the <b>Interaction [互动]</b> remains professional only.</b></span> True <b>Companionship [陪伴]</b> is deeper outside work because you can be yourself fully without worrying about your job.",
+        "bullet_points": [
+          "More formal",
+          "Superficial bonds",
+          "Competition risk",
+          "Professional limits"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "At what age do you think people start to have friendships?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>I suppose that</b></span> it starts in early <b>Childhood [童年]</b>. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> Toddlers begin to play together, forming the first <b>Universal [普遍的]</b> social bonds of their lives, which are simple and pure. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> they are <b>Inseparable [形影不离的]</b> at the park, they learn sharing and trust.</b></span> It is instinct for them to seek connection with peers early on.",
+        "bullet_points": [
+          "Early childhood",
+          "Toddler play",
+          "First bonds",
+          "Learning trust"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Do you think music is beneficial for children at school?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>Unquestionably</b></span>, it aids <b>Psychological [心理的]</b> development. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> Music is a <b>Universal [普遍的]</b> language that helps kids express feelings they cannot say clearly or easily in words. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>When</b></span> they sing together, it promotes unity and happiness in class.</b></span> It helps them find friends and build confidence in their abilities to communicate. Therefore, it is an essential [基本的/必要的] part of the curriculum.",
+        "bullet_points": [
+          "Psychological growth",
+          "Universal language",
+          "Expressing feelings",
+          "Promotes unity"
+        ]
+      },
+      {
+        "id": "Q4",
+        "question": "Do you think a child's relationship with friends can be replaced by that with parents?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>In my view</b></span>, no, they are fundamentally different. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> Friends offer equality and fun, while parents offer guidance [指导] and safety to them during their growth years. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> parents are <b>Supportive [支持的]</b>, a <b>Fair-weather friend [酒肉朋友]</b> teaches you resilience.</b></span> You need both in life to be fully well-rounded [全面发展的] and socially capable. They serve distinct but equally important functions for a child.",
+        "bullet_points": [
+          "Different roles",
+          "Equality vs Guidance",
+          "Fun vs Safety",
+          "Cannot replace"
+        ]
+      },
+      {
+        "id": "Q5",
+        "question": "Has social media changed the definition of \"friendship\" in modern society?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>Regrettably</b></span>, it has made connections more <b>Superficial [肤浅的]</b>. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> We call strangers \"friends\" online without knowing them at all or meeting them in person ever. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> we meet offline, we cannot build a <b>Lifelong [终身的]</b> bond of trust.</b></span> <b>A friend in need is a friend indeed [患难见真情]</b>, not just a like button.",
+        "bullet_points": [
+          "More superficial",
+          "Strangers as friends",
+          "Lack of depth",
+          "Online vs Offline"
+        ]
+      },
+      {
+        "id": "Q6",
+        "question": "Is it possible to maintain a lifelong friendship despite living in different countries?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>Absolutely [绝对地]</b></span>, if both sides make a real effort. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> True friends stay connected <b>Through thick and thin [风雨同舟]</b> via frequent video calls and messaging apps daily. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Even if</b></span> they <b>Drift apart [逐渐疏远]</b> briefly, they can <b>See eye to eye [看法一致]</b> instantly when they meet.</b></span> Distance is just a number for true friends who love each other.",
+        "bullet_points": [
+          "Effort needed",
+          "Video calls help",
+          "True connection",
+          "Distance no barrier"
+        ]
+      }
+    ]
+  }
+]

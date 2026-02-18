@@ -170,16 +170,16 @@ def process_file(filepath):
         updated = False
 
         for item in data:
-            if 'l1_part2_questions' in item:
-                for q in item['l1_part2_questions']:
+            if 'part2' in item:
+                for q in item['part2']:
                     if 'model_answer' in q:
                         new_ans = inject_gloss(q['model_answer'])
                         if new_ans != q['model_answer']:
                             q['model_answer'] = new_ans
                             updated = True
 
-            if 'l2_part3_questions' in item:
-                for q in item['l2_part3_questions']:
+            if 'part3' in item:
+                for q in item['part3']:
                     if 'model_answer' in q:
                         new_ans = inject_gloss(q['model_answer'])
                         if new_ans != q['model_answer']:
@@ -207,10 +207,10 @@ def process_file(filepath):
 
 if __name__ == "__main__":
     files = [
-        'batch10_week10.json',
-        'batch11_week11.json',
-        'batch12_week12.json',
-        'batch13_week13.json'
+        'batch14_week14.json',
+        'batch15_week15.json',
+        'batch16_week16.json',
+        'batch17_week17.json'
     ]
     for f in files:
         process_file(f)

@@ -132,7 +132,7 @@ def main():
 
     # --- L1 Validation ---
     print("\n--- L1 Part 2 Validation ---")
-    l1_questions = week_content.get('l1_part2_questions', [])
+    l1_questions = week_content.get('l1_part2_questions', week_content.get('part2', []))
     for q in l1_questions:
         ans = q.get('model_answer', '')
         w_count = count_words(ans)
@@ -172,7 +172,7 @@ def main():
     # --- L2 Validation ---
     print("\n--- L2 Part 3 Validation ---")
     l2_combined_text = ""
-    l2_questions = week_content.get('l2_part3_questions', [])
+    l2_questions = week_content.get('l2_part3_questions', week_content.get('part3', []))
     for q in l2_questions:
         ans = q.get('model_answer', '')
         w_count = count_words(ans)

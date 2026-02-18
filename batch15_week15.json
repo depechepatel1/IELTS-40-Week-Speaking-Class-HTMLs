@@ -1,0 +1,109 @@
+[
+  {
+    "week": 15,
+    "topic": "Items (Books and Stories)",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a book you read that you found useful.",
+        "model_answer": "<span style=\"color: blue;\"><b>I recently finished reading</b></span> a self-help book called 'Atomic Habits', which was incredibly <b>Educational [有教育意义的]</b>. It taught me how to build better routines. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Since</b></span> it was such a <b>Page-turner [引人入胜的书]</b>, I finished it in two days, <b>although</b> I am usually a slow reader.</b></span> The advice was <b>Thought-provoking [发人深省的]</b> and practical. I found the examples very <b>Captivating [迷人的]</b>. It is a <b>Classic [经典的]</b> in the personal development genre [类型]. It was a <b>Memorable [难忘的]</b> read that changed my life. I didn't <b>Lose oneself in [沉迷于...]</b> a fantasy world, but I improved my reality. I highly recommend [推荐] it.",
+        "bullet_points": [
+          "Self-help book",
+          "Atomic Habits",
+          "Building routines",
+          "Life changing"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a story you read or heard recently.",
+        "model_answer": "<span style=\"color: blue;\"><b>I want to share</b></span> a science fiction story I read online that was truly <b>Captivating [迷人的]</b>. It was about a future where robots have feelings. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Because</b></span> the plot was so <b>Thought-provoking [发人深省的]</b>, I couldn't stop thinking about it, <b>which</b> made it very <b>Memorable [难忘的]</b> for me.</b></span> It wasn't a <b>Classic [经典的]</b> novel, but a modern short story. I tend to <b>Lose oneself in [沉迷于...]</b> these kinds of tales. It was definitely a <b>Page-turner [引人入胜的书]</b>. The ending was surprising and <b>Educational [有教育意义的]</b> about human nature. I realized you can't <b>Judge a book by its cover [以貌取人]</b> or a story by its length. It was fantastic.",
+        "bullet_points": [
+          "Sci-fi story",
+          "Robots with feelings",
+          "Surprising ending",
+          "Human nature"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a traditional story from your country.",
+        "model_answer": "<span style=\"color: blue;\"><b>I would like to tell you about</b></span> the Legend of the White Snake, which is a <b>Classic [经典的]</b> Chinese folktale. It is a very <b>Memorable [难忘的]</b> love story between a human and a snake spirit. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Although</b></span> it is an ancient myth, the themes are still <b>Thought-provoking [发人深省的]</b> today, <b>because</b> true love faces many obstacles.</b></span> It is <b>Educational [有教育意义的]</b> regarding our cultural values. The story is so <b>Captivating [迷人的]</b> that it has been made into many TV shows. You can easily <b>Lose oneself in [沉迷于...]</b> the magical world it describes. It is a real <b>Page-turner [引人入胜的书]</b> if you read the novel version. It represents our history and romantic spirit perfectly.",
+        "bullet_points": [
+          "White Snake legend",
+          "Love story",
+          "Cultural values",
+          "Magical world"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "What should the government do to make libraries better?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>I believe that</b></span> they should improve <b>Accessibility [可访问性]</b> for everyone in the city. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> Libraries need modern computers and longer opening hours to serve the community better than they currently do. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>If</b></span> they offer free digital resources, they can boost <b>Literacy [读写能力]</b> rates significantly among poorer students.</b></span> Investing in public knowledge is always a good strategy for the future growth of society.",
+        "bullet_points": [
+          "Improve accessibility",
+          "Modern computers",
+          "Longer hours",
+          "Boost literacy"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Which one is better, paper books or e-books?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>From my perspective [视角]</b></span>, paper books are better for deep reading and retention. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> They allow you to focus without digital distractions like notifications, thus improving your <b>Attention span [注意力持续时间]</b>. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Whereas</b></span> screens hurt your eyes, paper is gentle and helps <b>Imagination [想象力]</b> grow without physical strain.</b></span> I always prefer the tactile feeling of turning real pages when reading a novel.",
+        "bullet_points": [
+          "Deep reading",
+          "Less distraction",
+          "Eye health",
+          "Better focus"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Why should children listen to bedtime stories?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>It is crucial [至关重要的] because</b></span> it develops their <b>Imagination [想象力]</b> and vocabulary early in life. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> Stories transport them to magical worlds and teach moral lessons gently before they go to sleep. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Unless</b></span> they hear stories, they might struggle with <b>Literacy [读写能力]</b> later in school classes.</b></span> It also creates a strong emotional bond between the parent and the child.",
+        "bullet_points": [
+          "Develops vocabulary",
+          "Magical worlds",
+          "Moral lessons",
+          "School preparation"
+        ]
+      },
+      {
+        "id": "Q4",
+        "question": "Do Chinese children prefer ancient stories or fairy tales?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>Generally speaking</b></span>, they enjoy both, but modern fairy tales are very popular right now. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> Disney movies have influenced their taste heavily, although parents value <b>Preservation [保存]</b> of traditional culture. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>While</b></span> they watch cartoons, they must also <b>Hit the books [用功读书]</b> to learn ancient myths.</b></span> It is a mix of global entertainment and local heritage [遗产] education for them.",
+        "bullet_points": [
+          "Modern fairy tales",
+          "Disney influence",
+          "Cultural preservation",
+          "Mix of both"
+        ]
+      },
+      {
+        "id": "Q5",
+        "question": "Has the internet reduced the attention span required to read long novels?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>Undoubtedly [毫无疑问地]</b></span>, social media has shortened our <b>Attention span [注意力持续时间]</b> significantly in recent years. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> People are used to quick videos and cannot focus on long texts or deep narratives anymore. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>If</b></span> you are a <b>Bookworm [书呆子]</b>, you are rare in today's world of <b>Impulsive [冲动的]</b> clicks and <b>Consumerism [消费主义]</b>.</b></span> We need to retrain our brains to enjoy slow reading again.",
+        "bullet_points": [
+          "Shortened focus",
+          "Quick videos",
+          "Hard to read",
+          "Digital habit"
+        ]
+      },
+      {
+        "id": "Q6",
+        "question": "Is storytelling an essential part of preserving a culture's history?",
+        "model_answer": "<span style=\"background-color: #e0f7fa; color: #006064; padding: 2px 5px; border-radius: 4px;\"><b>[Opinion]</b></span> <span style=\"color: blue;\"><b>Absolutely [绝对地]</b></span>, it ensures the <b>Preservation [保存]</b> of traditions and core values for the future. <span style=\"background-color: #fff3e0; color: #e65100; padding: 2px 5px; border-radius: 4px;\"><b>[Reason]</b></span> Oral history passes down wisdom that you must <b>Read between the lines [读懂言外之意]</b> to understand fully. <span style=\"background-color: #f1f8e9; color: #33691e; padding: 2px 5px; border-radius: 4px;\"><b>[Example]</b></span> <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>Provided that</b></span> elders tell stories, the younger generation maintains <b>Accessibility [可访问性]</b> to their heritage [遗产] roots.</b></span> Without stories, we would lose our identity and connection to our ancestors [祖先].",
+        "bullet_points": [
+          "Preserving traditions",
+          "Oral history",
+          "Passing wisdom",
+          "Connecting generations"
+        ]
+      }
+    ]
+  }
+]
