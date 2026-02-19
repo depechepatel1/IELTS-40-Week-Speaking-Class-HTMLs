@@ -1,0 +1,79 @@
+[
+  {
+    "week": 24,
+    "topic": "Technical Mishaps",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a time when the electricity suddenly went off where you live. You should say:\nWhen it happened\nHow long it lasted\nWhat you did during that time\nAnd explain how you felt about it.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to describe</b></span> a time when the power suddenly went out in my apartment complex. <span style=\"color: blue;\"><b>It happened</b></span> last summer during a massive thunderstorm that shook the windows. <span style=\"color: blue;\"><b>It lasted</b></span> for about four hours, leaving us completely <b>In the dark [蒙在鼓里]</b> without any air conditioning. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>I felt</b></span> extremely <b>Frustrated [沮丧的]</b> and <b>Helpless [无助的]</b> because I had an <b>Urgent [紧急的]</b> assignment due the next morning that I hadn't finished.</b></span> Without electricity, I couldn't use my computer or charge my phone, which was incredibly <b>Inconvenient [不便的]</b>. I ended up lighting some scented candles and reading a textbook by flickering candlelight until the power finally came back on late at night.",
+        "bullet_points": [
+          "Summer storm",
+          "Blackout 4 hours",
+          "Urgent homework",
+          "Candle reading"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe an occasion when an important piece of equipment stopped working. You should say:\nWhat the equipment was\nWhen it happened\nHow it affected you\nAnd explain how you solved the problem.",
+        "model_answer": "My laptop suddenly broke down right before a major presentation at school. It was an Unexpected [意想不到的] failure that happened last Monday morning when I tried to turn it on. I was panicked because all my slides and notes were stored on it. It affected me badly as I couldn't access my work or practice. To solve the problem, I borrowed a friend's computer and luckily managed to download a backup from the cloud just in time. My friend really helped Save the day [挽救局面] for me by lending me his device and helping me set it up quickly before class started.",
+        "bullet_points": [
+          "Broken laptop",
+          "Monday panic",
+          "Cloud backup",
+          "Friend helped"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a time when you broke something by accident. You should say:\nWhat the item was\nHow the accident happened\nHow you felt immediately after\nAnd explain what you did to fix the situation.",
+        "model_answer": "I accidentally broke my mother's favorite porcelain vase while cleaning the living room. I was dusting the top shelf and clumsily knocked it over with my elbow. It shattered into small, sharp pieces on the wooden floor. I felt terrible and guilty immediately because I knew how much she loved that antique. To fix the situation, I carefully cleaned up the mess and then went to the store to buy a new one that looked similar, though nothing could truly replace the original Precious [宝贵的 (time)] item she cherished for so many years.",
+        "bullet_points": [
+          "Mom's vase",
+          "Cleaning accident",
+          "Guilty feeling",
+          "Replacement bought"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "When will equipment break normally? Why?",
+        "model_answer": "<b>[Opinion]</b> Equipment usually breaks due to normal <b>Wear and tear [磨损]</b> over an extended period of time. <b>[Reason]</b> Nothing lasts forever, and moving parts eventually degrade with constant use, friction, and heat. <b>[Example]</b> A car engine, for instance, needs regular maintenance or it will surely fail one day unexpectedly. <b>[Extension]</b> Proper care and servicing can extend the lifespan of any machine significantly, saving money.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q2",
+        "question": "Do people buy a new one when something is broken, or repair it?",
+        "model_answer": "<b>[Opinion]</b> Nowadays, people tend to buy new things due to the pervasive <b>Throwaway culture [用完即弃的文化]</b> we live in. <b>[Reason]</b> It is often cheaper and easier to replace an item than to pay for expensive repairs. <b>[Example]</b> Fixing a smartphone screen can cost almost as much as buying a brand new phone. <b>[Extension]</b> This behavior is unfortunately bad for environmental <b>Sustainability [可持续性]</b> and global resource use.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q3",
+        "question": "Which do you think is better for production: using machines or making things by hand?",
+        "model_answer": "<b>[Opinion]</b> Machines are better for mass <b>Manufacturing [制造业]</b> because of their incredible speed and consistency. <b>[Reason]</b> They can produce thousands of identical items quickly without getting tired or making human errors. <b>[Example]</b> Cars are built by robots on assembly lines for maximum efficiency and safety standards. <b>[Extension]</b> However, handmade goods have a unique <b>Creativity [创造力 (solving problems)]</b> and soul that machines cannot replicate easily.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q4",
+        "question": "Does the place where you live often experience power cuts?",
+        "model_answer": "<b>[Opinion]</b> Fortunately, power cuts are very rare where I live thanks to high grid <b>Reliability [可靠性]</b>. <b>[Reason]</b> The infrastructure is well-maintained and modern, ensuring a steady supply for everyone in the city. <b>[Example]</b> We only experience outages during extreme weather events like typhoons or severe floods. <b>[Extension]</b> Constant electricity is essential for our daily lives and continuous economic <b>Development [发展]</b>.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q5",
+        "question": "Are modern societies too dependent on electricity and technology?",
+        "model_answer": "<b>[Opinion]</b> Yes, our <b>Dependency [依赖]</b> on technology is dangerously high in almost every aspect of modern life. <b>[Reason]</b> We rely on it for everything from communication to banking and transport daily. <b>[Example]</b> If the internet goes down, businesses stop and people panic immediately because they can't function. <b>[Extension]</b> We should remember the old saying, \"<b>Don't fix what isn't broken [没坏就别修 (多一事不如少一事)]</b>,\" but also be prepared for failures.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q6",
+        "question": "Is the \"throwaway culture\" (buying new instead of repairing) sustainable for the environment?",
+        "model_answer": "<b>[Opinion]</b> No, the <b>Throwaway culture [用完即弃的文化]</b> is extremely harmful to the global environment in the long term. <b>[Reason]</b> It generates massive amounts of electronic waste that pollutes the earth and water sources. <b>[Example]</b> Planned <b>Obsolescence [废弃]</b> forces consumers to discard working devices prematurely for corporate profit. <b>[Extension]</b> We need to focus more on repair, reuse, and recycling urgently to save our planet.",
+        "bullet_points": []
+      }
+    ]
+  }
+]

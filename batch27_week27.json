@@ -1,0 +1,79 @@
+[
+  {
+    "week": 27,
+    "topic": "Digital Media",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe an online TV program. You should say:\nWhat the program is\nWhen and where you watched it\nWhat it was about\nAnd explain why you liked/disliked this program.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to describe</b></span> a popular online TV program called \"Planet Earth\". <span style=\"color: blue;\"><b>I watched it</b></span> last month on a streaming platform at home with my family during our weekend movie night. <span style=\"color: blue;\"><b>It was about</b></span> the amazing wildlife and natural landscapes of our world, from dense jungles to arid deserts. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>I liked it</b></span> because the visuals were absolutely <b>Impeccable [完美的]</b> and the narration was highly <b>Informative [信息量大的]</b> and <b>Engaging [引人入胜的]</b> throughout the series.</b></span> It was so <b>Entertaining [有趣的]</b> that I couldn't stop watching and ended up deciding to <b>Binge-watch [刷剧]</b> the entire season in one single weekend. I learned so much about nature that I never knew before.",
+        "bullet_points": [
+          "Planet Earth series",
+          "Last month",
+          "Wildlife doc",
+          "Stunning visuals"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe something interesting you saw on social media. You should say:\nWhat platform you were using\nWhat the content was (video, article, post)\nWhy it caught your attention\nAnd explain why you felt it was interesting.",
+        "model_answer": "I was Scrolling through TikTok when I saw a funny video about a dancing cat wearing sunglasses. It caught my attention instantly because the music was catchy and the cat's moves were hilarious and perfectly timed. I felt it was interesting because it was so unexpected and made me laugh out loud after a long, stressful day. The video started to Blow up [突然爆红] within hours, gaining millions of views worldwide. It was a perfect example of how short, Entertaining [有趣的] content can become extremely popular online very quickly and bring joy to many people.",
+        "bullet_points": [
+          "TikTok app",
+          "Funny cat dance",
+          "Catchy music",
+          "Instant mood lift"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a website or platform you use to get information. You should say:\nWhat the website is\nHow often you visit it\nWhat kind of information it provides\nAnd explain why you trust it.",
+        "model_answer": "I frequently visit Wikipedia to get quick information on various topics for my school projects and essays. I visit it almost every day for my studies or just out of general curiosity about the world. It provides comprehensive articles on history, science, and culture in many different languages. I trust it generally because the community is very Attentive [专注的] to errors and corrects Misinformation [错误信息] quickly and transparently. It is a Mainstream [主流的] source of knowledge that is free and accessible to everyone. Although one must be careful, it is usually a good starting point for research due to its massive Connectivity [连接性].",
+        "bullet_points": [
+          "Wikipedia site",
+          "Daily use",
+          "General knowledge",
+          "Community edit"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "What do you think are the benefits of watching TV programs?",
+        "model_answer": "<b>[Opinion]</b> TV programs can be both educational and relaxing for viewers of all ages. <b>[Reason]</b> Documentaries provide valuable knowledge about the world, science, and history in a fun way. <b>[Example]</b> Watching news keeps people informed about current events and politics happening globally. <b>[Extension]</b> It is a convenient way to access <b>Mainstream [主流的]</b> culture and share ideas with friends.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q2",
+        "question": "Why don't young people pay much attention to local news?",
+        "model_answer": "<b>[Opinion]</b> Young people find local news boring compared to global trends online. <b>[Reason]</b> They are more interested in content that might <b>Go viral [疯传]</b> on social media that moves fast. <b>[Example]</b> A local council meeting is less exciting than a celebrity scandal online or a meme. <b>[Extension]</b> Their world is digital and borderless due to high <b>Connectivity [连接性]</b> and internet speed.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q3",
+        "question": "Do you think some people waste too much time on social media?",
+        "model_answer": "<b>[Opinion]</b> Yes, social media is designed to be highly <b>Addictive [令人上瘾的]</b> by nature for everyone. <b>[Reason]</b> The <b>Algorithm [算法]</b> keeps showing content to keep users engaged for hours on end without stopping. <b>[Example]</b> Many people spend hours just <b>Scrolling through</b> feeds mindlessly instead of working or studying. <b>[Extension]</b> This can turn anyone into a lazy <b>Couch potato [电视迷 (懒惰的人)]</b> if they aren't careful.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q4",
+        "question": "What do you think are the drawbacks of social media?",
+        "model_answer": "<b>[Opinion]</b> A major drawback is the rapid spread of <b>Misinformation [错误信息]</b> and hate speech online. <b>[Reason]</b> False stories can spread faster than the truth due to bots and <b>Automation [自动化]</b> tools. <b>[Example]</b> <b>Fake news [假新闻]</b> can cause panic or influence elections unfairly around the world. <b>[Extension]</b> It also encourages toxic comparison, leading to poor mental health and anxiety for teenagers.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q5",
+        "question": "Has the rise of streaming services (like Netflix) destroyed traditional television?",
+        "model_answer": "<b>[Opinion]</b> Streaming has certainly challenged traditional TV dominance significantly in recent years. <b>[Reason]</b> People prefer on-demand <b>Consumption [消费 (media)]</b> over scheduled programming with annoying commercials interrupting. <b>[Example]</b> Being able to <b>Binge-watch [刷剧]</b> a series is more convenient for busy modern lives today. <b>[Extension]</b> Traditional TV must adapt to this new reality or face total obsolescence soon. It forces channels to improve their content quality.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q6",
+        "question": "Do you think governments should censor content on the internet?",
+        "model_answer": "<b>[Opinion]</b> Some <b>Censorship [审查]</b> is necessary to protect children and society from harmful material. <b>[Reason]</b> Harmful content like violence or hate speech should be restricted legally to ensure safety. <b>[Example]</b> However, blocking political opinions is a controversial issue in many democratic countries. <b>[Extension]</b> Balancing freedom of speech and safety is a difficult but necessary task for governments.",
+        "bullet_points": []
+      }
+    ]
+  }
+]

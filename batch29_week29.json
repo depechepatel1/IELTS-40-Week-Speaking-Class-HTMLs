@@ -1,0 +1,79 @@
+[
+  {
+    "week": 29,
+    "topic": "Ethics & Interactions",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a person who apologized to you. You should say:\nWho the person was\nWhen it was\nWhy this person apologized\nAnd explain how you felt about it.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to describe</b></span> my good friend, Tom, who apologized to me last week. <span style=\"color: blue;\"><b>He apologized because</b></span> he had accidentally revealed a secret I told him in confidence to others. <span style=\"color: blue;\"><b>He seemed very</b></span> <b>Regretful [后悔的]</b> and <b>Sincere [真诚的]</b> when he came to me to admit his fault. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>I felt</b></span> relieved that he was <b>Honest [诚实的]</b> enough to admit his mistake and <b>Clear the air [消除误会]</b> instead of hiding it from me.</b></span> It was <b>Courageous [勇敢的]</b> of him to <b>Swallow his pride</b> and say sorry directly to my face. I valued his friendship more than the mistake, so I forgave him immediately without hesitation.",
+        "bullet_points": [
+          "Friend Tom",
+          "Last week",
+          "Revealed secret",
+          "Relief"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a time when you told your friend an important truth. You should say:\nWho your friend is\nWhat the truth was\nWhat your friend's reaction was\nAnd explain why you think it was important to be honest.",
+        "model_answer": "I told my friend Sarah that her new haircut didn't suit her very well at all. It was an Awkward [尴尬的] conversation because I didn't want to hurt her feelings. However, she asked for my Honest [诚实的] opinion, so I decided to tell her the absolute truth. Her reaction was surprisingly positive; she appreciated my candor and trusted me more for it. I think it was important to be honest [诚实的] because true friendship relies on trust. I needed to Get something off my chest rather than let her go out looking bad. It strengthened our bond in the end.",
+        "bullet_points": [
+          "Friend Sarah",
+          "Bad haircut",
+          "Awkward truth",
+          "Built trust"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a person you admire for their honesty. You should say:\nWho this person is\nHow they showed their honesty\nWhat the result of their honesty was\nAnd explain why you respect them.",
+        "model_answer": "I admire my grandfather for his unwavering honesty and Integrity [正直] throughout his life. He once found a wallet full of cash on the street and immediately turned it into the police station. The result was that the owner, a poor student, got his money back and was extremely grateful. I respect him because he showed true Integrity [正直] even when no one was watching him do it. He taught me that being Forgiving [宽容的] and honest [诚实的] makes you a better person and earns respect from everyone around you. His example has guided me in my own life choices many times.",
+        "bullet_points": [
+          "Grandfather",
+          "Lost wallet",
+          "Returned cash",
+          "Role model"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "In what situations should we apologize immediately?",
+        "model_answer": "<b>[Opinion]</b> We should apologize immediately when we accidentally hurt someone or break trust. <b>[Reason]</b> A quick apology shows that you value the relationship and take responsibility for your actions. <b>[Example]</b> If you step on someone's foot or bump into them, you say sorry instantly. <b>[Extension]</b> It is basic social <b>Etiquette [礼节]</b> and demonstrates good character and <b>Morality [道德]</b>.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q2",
+        "question": "Do you think accepting apologies is always the correct thing to do?",
+        "model_answer": "<b>[Opinion]</b> Generally, yes, forgiveness helps resolve <b>Conflict [冲突]</b> peacefully and restores harmony in relationships. <b>[Reason]</b> Holding a grudge only hurts yourself in the long run and damages relationships unnecessarily. <b>[Example]</b> Choosing to <b>Bury the hatchet [言归于好]</b> allows everyone to move forward positively. <b>[Extension]</b> However, trust may take a long time to rebuild fully after a serious betrayal.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q3",
+        "question": "Do you agree that sometimes people should tell lies (white lies)?",
+        "model_answer": "<b>[Opinion]</b> Yes, sometimes a small <b>White lie [善意的谎言]</b> is necessary to be polite and kind. <b>[Reason]</b> Total honesty can be brutal and unnecessary in sensitive social situations. <b>[Example]</b> Telling someone they look nice when they are tired is a kind gesture. <b>[Extension]</b> It protects feelings without causing real harm or malicious <b>Deception [欺骗]</b>. Social harmony often depends on these small, harmless untruths.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q4",
+        "question": "Do you think we should tell the truth at all times?",
+        "model_answer": "<b>[Opinion]</b> While <b>Honesty is the best policy [诚实是上策]</b> usually, there are definitely exceptions in real life. <b>[Reason]</b> As mentioned, kindness sometimes outweighs strict truth-telling to prevent hurt feelings unnecessarily. <b>[Example]</b> We shouldn't reveal secrets that aren't ours to tell to others ever. <b>[Extension]</b> Finding the balance between truth and compassion is key to good relationships.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q5",
+        "question": "Is \"honesty\" still valued as a primary virtue in modern business?",
+        "model_answer": "<b>[Opinion]</b> Yes, <b>Integrity [正直]</b> is crucial for long-term business success and reputation globally. <b>[Reason]</b> Customers and partners need to trust the company they deal with implicitly. <b>[Example]</b> A company caught in a scandal loses money and trust very fast. <b>[Extension]</b> <b>Deception [欺骗]</b> might work briefly, but honesty is the foundation of commerce and <b>Morality [道德]</b> in the market.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q6",
+        "question": "How does a culture of forgiveness contribute to social harmony?",
+        "model_answer": "<b>[Opinion]</b> Forgiveness promotes healing and reduces the destructive cycle of revenge in society. <b>[Reason]</b> When a <b>Community [社区]</b> values <b>Resolution [解决]</b> over punishment, it becomes more peaceful. <b>[Example]</b> South Africa's Truth and Reconciliation Commission is a famous historical example. <b>[Extension]</b> It allows society to move past historical trauma and build a future together in peace for the benefit of all citizens.",
+        "bullet_points": []
+      }
+    ]
+  }
+]

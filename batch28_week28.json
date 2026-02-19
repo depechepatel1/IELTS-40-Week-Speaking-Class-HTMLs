@@ -1,0 +1,79 @@
+[
+  {
+    "week": 28,
+    "topic": "Social Outings",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a time when you had dinner together with your friend. You should say:\nWhen it was\nWhat you ate\nWhat you talked about\nAnd explain how you felt about it.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to describe</b></span> a time I had dinner with my best friend, Li. <span style=\"color: blue;\"><b>It was</b></span> last Friday night at a popular hotpot restaurant in the city center. <span style=\"color: blue;\"><b>We ate</b></span> a huge meal with <b>Delicious [美味的]</b> spicy broth and fresh vegetables and meats. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>We talked about</b></span> our future plans and shared funny stories to <b>Break the ice [打破僵局]</b> after not seeing each other for a long while.</b></span> I felt extremely happy and relaxed because it was a <b>Memorable [难忘的]</b> evening where we could just enjoy each other's company without any work stress. It reminded me how important true friendship really is.",
+        "bullet_points": [
+          "Friday night",
+          "Hotpot dinner",
+          "Catching up",
+          "Relaxed vibe"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe an event you attended (e.g., concert or party) that you didn't enjoy. You should say:\nWhat the event was\nWho you went with\nWhy you went there\nAnd explain why you didn't enjoy it.",
+        "model_answer": "I attended a karaoke party last month that I really didn't enjoy at all. I went with some classmates to celebrate the end of our final exams together. I went because I wanted to be Sociable [善于交际的] and not miss out on the fun event. However, the music was too loud and the atmosphere felt Awkward [尴尬的] for me personally as I am shy. I am not the Life of the party [聚会的灵魂人物], so I felt out of place. It wasn't Entertaining [有趣的] at all, just exhausting and noisy, and I wished I had stayed home.",
+        "bullet_points": [
+          "Karaoke night",
+          "Classmates celebration",
+          "Too loud",
+          "Felt awkward"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a celebration you attended recently. You should say:\nWhat the celebration was for\nWhere it was held\nWho was there\nAnd explain how you felt during the event.",
+        "model_answer": "I recently attended a wedding Celebration [庆祝] for my cousin, which was a huge event. It was held in a large hotel ballroom in the city center. All my relatives and many friends were there, making it a Lively [热闹的] and happy gathering. I felt joyful and moved by the beautiful ceremony and vows. It was a wonderful Tradition [传统] that brought the whole family together in harmony. We Had a blast dancing and eating until late. The feeling of Community [社区] and love was very strong that day, making it unforgettable for me.",
+        "bullet_points": [
+          "Cousin's wedding",
+          "Hotel ballroom",
+          "Family reunion",
+          "Joyful atmosphere"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Why are people nowadays less willing to have meals with their families?",
+        "model_answer": "<b>[Opinion]</b> People are busier with work and digital distractions than in the past. <b>[Reason]</b> Modern life is fast-paced, leaving little time for traditional sit-down meals together daily. <b>[Example]</b> Many teenagers prefer to eat in their rooms while gaming or chatting online alone. <b>[Extension]</b> This leads to social <b>Isolation [孤立]</b> within the home, weakening family bonds significantly.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q2",
+        "question": "What are the differences in food for different occasions?",
+        "model_answer": "<b>[Opinion]</b> Food choices depend heavily on the type of <b>Celebration [庆祝]</b> and cultural norms. <b>[Reason]</b> Formal events require elaborate dishes, while casual parties have snacks and drinks. <b>[Example]</b> A wedding banquet is very different from a birthday pizza party with friends in terms of menu. <b>[Extension]</b> Food is central to cultural <b>Tradition [传统]</b> and ritual in every society globally.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q3",
+        "question": "What kind of music events do people like today?",
+        "model_answer": "<b>[Opinion]</b> People love live concerts that are highly <b>Entertaining [有趣的]</b> and energetic experiences. <b>[Reason]</b> The atmosphere of a live show is unique where people can <b>Let one's hair down [放松]</b>. <b>[Example]</b> Music festivals are very popular for the shared experience and vibrant crowd interaction. <b>[Extension]</b> <b>The more the merrier [人越多越好]</b> applies perfectly to these massive, joyful music crowds.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q4",
+        "question": "Do you think children should receive some musical education?",
+        "model_answer": "<b>[Opinion]</b> Yes, music education is vital for a child's holistic development and creativity. <b>[Reason]</b> It teaches discipline, creativity, and cultural appreciation from a very young age. <b>[Example]</b> Learning an instrument can also improve mathematical skills and concentration significantly for students. <b>[Extension]</b> It is a wonderful way to connect with others and express complex emotions.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q5",
+        "question": "Is it important for communities to have public festivals and celebrations?",
+        "model_answer": "<b>[Opinion]</b> Absolutely, festivals strengthen the sense of <b>Community [社区]</b> belonging and local identity. <b>[Reason]</b> They bring neighbors together to spend <b>Quality time [珍贵的相处时光]</b> celebrating shared heritage. <b>[Example]</b> Local parades or food fairs encourage social interaction among diverse groups of people. <b>[Extension]</b> Without them, cities would lack soul and <b>Mainstream [主流的]</b> cultural connection and vibrancy. They are essential for happiness.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q6",
+        "question": "How has the definition of \"socializing\" changed with the introduction of smartphones?",
+        "model_answer": "<b>[Opinion]</b> Socializing has moved from face-to-face to digital <b>Connectivity [联系]</b> largely today. <b>[Reason]</b> People now chat online more often than they meet in person for coffee. <b>[Example]</b> A group chat is the new town square for friends to gather and talk daily. <b>[Extension]</b> Basic social <b>Etiquette [礼节]</b> is changing rapidly as online interaction becomes the norm.",
+        "bullet_points": []
+      }
+    ]
+  }
+]

@@ -1,0 +1,79 @@
+[
+  {
+    "week": 22,
+    "topic": "Family Business & Shops",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a person you know who works in a family business. (Examiner Note: Focus your description on the business place itself) You should say:\nWho he/she is\nWhat the business is (e.g., store/restaurant)\nWhat products it sells\nAnd explain what you have learned from observing this business.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to describe</b></span> my neighbor, Mr. Chen, who runs a small grocery store that has been in his family for generations. <span style=\"color: blue;\"><b>He is</b></span> a very hardworking man who took over the business from his father. The store is a classic <b>Mom and pop store [夫妻店]</b> located on the corner of my street, selling fresh produce and daily necessities. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>I have learned</b></span> that being <b>Diligent [勤奋的]</b> and <b>Authentic [正宗的]</b> is crucial for success, as he treats every customer like family.</b></span> Seeing his <b>Dedicated [敬业的]</b> effort every day has taught me that running a business requires immense patience and a strong <b>Entrepreneurial [有创业精神的]</b> spirit. It is not just about making money, but serving the community with heart and consistency. I admire how he knows everyone's name and preferences, making the shop feel like a second home for the neighborhood.",
+        "bullet_points": [
+          "Neighbor Mr. Chen",
+          "Corner grocery store",
+          "Fresh produce",
+          "Hard work pays off"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a successful small shop or business in your hometown. You should say:\nWhere it is located\nWhat it sells\nWho goes there\nAnd explain why it is successful.",
+        "model_answer": "There is a very successful bakery called \"Sweet Home\" located near the central square of my hometown. It sells traditional pastries and modern cakes that are famous locally. Everyone from students to elderly people goes there because the quality is consistently Exceptional [杰出的 (service)]. It is successful because it has built a Reputable [声誉好的] brand over the years by using only the best ingredients available. Even facing Competition [竞争] from big chains, it remains Prosperous [繁荣的] because the owner knows how to Run the show [掌管] effectively and keep customers happy. Its success proves that quality always wins over quantity in the long run for small businesses. The smell of fresh bread every morning draws people in from blocks away, creating a wonderful atmosphere.",
+        "bullet_points": [
+          "Sweet Home Bakery",
+          "Central square",
+          "Tasty pastries",
+          "Quality first"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a business or company you would like to work for. You should say:\nWhere it is located\nWhat the environment is like\nWhat the company does\nAnd explain why you want to work there.",
+        "model_answer": "I would really like to work for a tech Startup [初创公司] located in the high-tech park of Shenzhen. The environment is fast-paced and innovative, full of young people with big ideas. The company develops educational software for children using artificial intelligence. I want to work there because I believe it has huge <b>Potential [潜力]</b> to grow in the future. Although the industry is Cut-throat [残酷的 (竞争)], I want to challenge myself and learn from the best minds. I think my creative skills would fit well in such a dynamic Corporation [大公司] where innovation is valued above all else and hard work is rewarded. It would be a dream come true to contribute to something that helps the next generation learn better.",
+        "bullet_points": [
+          "Shenzhen Tech Park",
+          "Innovative vibe",
+          "Ed-tech software",
+          "Growth potential"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Would you like to start a family business?",
+        "model_answer": "<b>[Opinion]</b> Yes, I would love to start a family business one day because it offers independence. <b>[Reason]</b> It allows family members to work together towards a common goal and build a legacy for the future. <b>[Example]</b> I can imagine opening a small restaurant with my parents where we can <b>Pass the torch [薪火相传]</b> to the next generation. <b>[Extension]</b> It strengthens family bonds while creating financial stability and pride for everyone involved.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q2",
+        "question": "What are the advantages and disadvantages of family businesses?",
+        "model_answer": "<b>[Opinion]</b> The main advantage is trust, but the disadvantage is potential [潜力] conflict between relatives. <b>[Reason]</b> Family members are usually more <b>Dedicated [敬业的]</b> and loyal than regular employees because they own the business. <b>[Example]</b> However, if there is a disagreement about money, it can ruin personal relationships at home forever. <b>[Extension]</b> Balancing professional duties and personal life is always a difficult challenge that requires patience.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q3",
+        "question": "Why do young people start their own business?",
+        "model_answer": "<b>[Opinion]</b> Young people often have a strong <b>Entrepreneurial [有创业精神的]</b> spirit and want creative freedom. <b>[Reason]</b> They prefer to be their own boss rather than follow orders in a large, impersonal company. <b>[Example]</b> With the internet, it is easier than ever to launch a <b>Startup [初创公司]</b> with low costs and high <b>Potential [潜力]</b>. <b>[Extension]</b> They are willing to take <b>Innate [固有的 (risk)]</b> risks to pursue their unique dreams and ideas.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q4",
+        "question": "How do large international corporations impact local family-owned businesses?",
+        "model_answer": "<b>[Opinion]</b> Large corporations often threaten the survival of small local shops by dominating the market. <b>[Reason]</b> They have more resources to lower prices, creating a near <b>Monopoly [垄断]</b> in the local area. <b>[Example]</b> When a big supermarket opens, many nearby <b>Mom and pop stores</b> often <b>Go out of business [破产]</b> rapidly. <b>[Extension]</b> It is a classic case of <b>Big fish eat little fish [大鱼吃小鱼]</b> in a <b>Cut-throat [残酷的 (竞争)]</b> economic world.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q5",
+        "question": "Is it better for a city's economy to have many small shops or a few large shopping malls?",
+        "model_answer": "<b>[Opinion]</b> I think a mix is best, but small shops add more character to the local <b>Economy [经济]</b>. <b>[Reason]</b> Small shops keep money within the local community and offer unique products you can't find elsewhere. <b>[Example]</b> Large malls are convenient but often look the same everywhere, lacking local flavor and charm. <b>[Extension]</b> Supporting small businesses helps maintain a diverse and vibrant city culture for everyone to enjoy.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q6",
+        "question": "How has the rise of online shopping changed the physical landscape of city centers?",
+        "model_answer": "<b>[Opinion]</b> Online shopping has forced many physical stores to close due to stiff global <b>Competition [竞争]</b>. <b>[Reason]</b> People prefer the convenience of buying from home, so high street shops are struggling to survive. <b>[Example]</b> Many city centers now have more cafes and restaurants than retail stores to attract visitors socially. <b>[Extension]</b> The landscape is shifting from shopping to social experiences and entertainment venues mostly.",
+        "bullet_points": []
+      }
+    ]
+  }
+]

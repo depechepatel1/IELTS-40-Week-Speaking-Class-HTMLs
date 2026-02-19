@@ -1,0 +1,79 @@
+[
+  {
+    "week": 26,
+    "topic": "Shopping & Service",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a time you received good service from a staff member in a shop/company. (Examiner Note: Focus your description on the place where this happened) You should say:\nWhere the shop/company is\nWhen you received the good service\nWhat service you received\nAnd explain how you felt about the service.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to describe</b></span> a time I received excellent service at a high-end electronics store in the city center. <span style=\"color: blue;\"><b>It happened</b></span> last month when I was looking for a new laptop for university. <span style=\"color: blue;\"><b>The service I received</b></span> was from a young salesman who was incredibly <b>Attentive [体贴的]</b> and knowledgeable about all the products. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>I felt</b></span> extremely <b>Satisfied [满意的]</b> because he didn't just try to sell me the most expensive model; instead, he was <b>Efficient [高效的]</b> and <b>Courteous [礼貌的]</b>, helping me find the best value.</b></span> He really <b>Went above and beyond</b> to explain all the technical details clearly and patiently to me.",
+        "bullet_points": [
+          "Electronics store",
+          "Last month",
+          "Knowledgeable staff",
+          "Honest advice"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a shop where you bought something expensive. You should say:\nWhat the shop was\nWhere it is located\nWhat you bought there\nAnd explain why you chose that specific place.",
+        "model_answer": "I bought an expensive watch from a luxury boutique located inside a famous department store downtown. I bought it as a special graduation gift for myself after saving money for a year. I chose that specific place because their reputation for Impeccable [无懈可击的] service is well-known in the city. The staff Treat you like royalty from the moment you walk in the door. Although the prices were high, I felt comfortable making such a large Transaction [交易] there. The sales assistant was very Persuasive [有说服力的 (sales)] but polite, offering expert advice throughout the process, always serving With a smile [面带微笑].",
+        "bullet_points": [
+          "Luxury watch boutique",
+          "Famous department store",
+          "Graduation gift",
+          "Impeccable reputation"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a newly opened shop or facility in your area. You should say:\nWhere it is\nWhat it sells or offers\nWho goes there\nAnd explain if you think it will be successful.",
+        "model_answer": "A new coffee shop just opened on the corner of my street, replacing an old bookstore that closed down. It offers specialty coffee and homemade pastries that are absolutely delicious. Many students and young professionals go there to work on their laptops or relax with friends. I think it will be very successful because the atmosphere is cozy and the staff are always friendly and welcoming. I am very Appreciative [感激的] of having such a nice place nearby. The owner clearly understands the importance of Hospitality [好客] and offering good quality products to attract loyal customers.",
+        "bullet_points": [
+          "New coffee corner",
+          "Specialty drinks",
+          "Student crowd",
+          "Friendly vibe"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Do you think expensive services are necessarily good services?",
+        "model_answer": "<b>[Opinion]</b> Not necessarily, because a high price does not always guarantee high quality service. <b>[Reason]</b> Sometimes you simply pay extra for the brand name rather than the actual service itself. <b>[Example]</b> A small family restaurant can offer better, warmer <b>Hospitality [好客]</b> than a fancy hotel. <b>[Extension]</b> True service quality depends on the staff's attitude and care, not the price tag.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q2",
+        "question": "Which one is better, face-to-face service or online service?",
+        "model_answer": "<b>[Opinion]</b> Face-to-face service offers a personal <b>Human touch [人情味]</b> that online service completely lacks. <b>[Reason]</b> You can ask complex questions and get immediate <b>Guidance [指导]</b> from a real person. <b>[Example]</b> However, online service is often much more <b>Efficient [高效的]</b> for simple tasks like booking tickets. <b>[Extension]</b> It really depends on the complexity of the <b>Transaction [交易]</b> required at the moment.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q3",
+        "question": "Why do people buy things that they clearly don't need?",
+        "model_answer": "<b>[Opinion]</b> People often buy things due to <b>Persuasive [有说服力的 (sales)]</b> advertising and strong emotional impulse. <b>[Reason]</b> Clever marketing creates a false sense of need or desire for status and happiness. <b>[Example]</b> Sales and discounts trigger psychological <b>Motivation [动机 (to buy)]</b> to buy more than is necessary. <b>[Extension]</b> Excessive <b>Consumption [消费]</b> is a major social issue in modern society that needs addressing.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q4",
+        "question": "Do you often go over your budget when you go shopping?",
+        "model_answer": "<b>[Opinion]</b> Occasionally, yes, especially during big holiday sales events like Black Friday. <b>[Reason]</b> It is very hard to resist getting the best <b>Bang for your buck [物超所值]</b> when you see one in front of you. <b>[Example]</b> Without strict <b>Budgeting [预算]</b>, it is easy to overspend on clothes and gadgets we like. <b>[Extension]</b> Self-discipline is key to managing money well and avoiding unnecessary debt.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q5",
+        "question": "How does poor customer service affect a company's reputation in the age of social media?",
+        "model_answer": "<b>[Opinion]</b> Poor service can destroy a company's image instantly in the online world. <b>[Reason]</b> Angry customers share their bad experiences on social platforms for everyone to see globally. <b>[Example]</b> A viral complaint can reach millions and deter potential buyers from visiting the shop. <b>[Extension]</b> Companies must remember that <b>The customer is always right [顾客就是上帝]</b> to protect their brand.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q6",
+        "question": "Is the trend of automation (e.g., self-checkout) killing the \"human touch\" in shopping?",
+        "model_answer": "<b>[Opinion]</b> Yes, <b>Automation [自动化]</b> is definitely making shopping colder and less personal for everyone. <b>[Reason]</b> Machines are fast but cannot offer a warm greeting or expert advice like a human. <b>[Example]</b> Self-checkouts are convenient but lack the friendly <b>Hospitality [好客]</b> of a real smiling cashier. <b>[Extension]</b> We are losing valuable social interactions in our daily lives due to this.",
+        "bullet_points": []
+      }
+    ]
+  }
+]

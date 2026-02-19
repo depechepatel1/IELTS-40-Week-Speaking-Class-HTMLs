@@ -1,0 +1,79 @@
+[
+  {
+    "week": 25,
+    "topic": "Mentorship & Support",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a time when you encouraged someone to do something that he/she didn't want to do. You should say:\nWho he or she is\nWhat you encouraged him/her to do\nHow he/she reacted\nAnd explain why you encouraged him/her to do it.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to describe</b></span> a time when I encouraged my younger sister to join the school debate team. <span style=\"color: blue;\"><b>She is</b></span> usually very shy and was <b>Reluctant [不情愿的]</b> to speak in public in front of strangers. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>I managed to</b></span> <b>Talk her into it</b> by being <b>Persuasive [有说服力的]</b> and <b>Supportive [支持的]</b>, telling her she should just <b>Give it a shot [试一试]</b>.</b></span> Initially, she was nervous and unsure, but she eventually agreed to try one meeting. I encouraged her because I knew she had great ideas and needed a push to build her confidence. I felt very proud when she finally stood up on stage and spoke clearly, realizing she could do it.",
+        "bullet_points": [
+          "Shy sister",
+          "Debate club",
+          "Encouragement",
+          "Proud moment"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe an important decision you made with the help of others. You should say:\nWhat the decision was\nWho helped you make it\nWhy you needed their help\nAnd explain how you felt about the result.",
+        "model_answer": "I had to decide which university major to choose last year, which was a huge decision for my future. My parents and my favorite teacher helped me make this Wise [明智的] choice together. I needed their Guidance [指导] because I was Frustrated [沮丧的] and unsure about my future career path options. They offered valuable Mentorship [导师制度] and helped me weigh the pros and cons carefully. I felt very Appreciative [感激的] of their support and patience during that stressful time. The result was excellent, and I am now happily studying computer science, a field I truly enjoy every day and see a great future in.",
+        "bullet_points": [
+          "Uni major",
+          "Parents teacher",
+          "Wise advice",
+          "Computer Science"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a person you know who loves to learn from others. You should say:\nWho this person is\nHow they learn (asking questions, observing)\nWhat they have learned\nAnd explain why you think this is a good quality.",
+        "model_answer": "My best friend, Tom, loves to learn from everyone he meets, no matter who they are or what they do. He is always asking questions and observing how people do things effectively to improve himself. He has learned many skills, from cooking to coding, just by being curious and open-minded. I think this is a good quality because it shows humility and a desire for self-improvement. He believes that Two heads are better than one [三个臭皮匠顶个诸葛亮] and seeks advice constantly to grow and avoid mistakes. His attitude inspires everyone around him to be better learners too.",
+        "bullet_points": [
+          "Curious Tom",
+          "Always asking",
+          "Many skills",
+          "Humility"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "How can leaders encourage their employees?",
+        "model_answer": "<b>[Opinion]</b> Leaders can encourage employees by offering positive <b>Motivation [动力]</b> and public recognition for hard work. <b>[Reason]</b> People work harder when they feel valued and appreciated by their bosses. <b>[Example]</b> A simple \"thank you\" or a financial bonus can boost morale significantly. <b>[Extension]</b> Good <b>Leadership [领导力]</b> is about inspiring others to do their best work every single day.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q2",
+        "question": "When should parents encourage their children?",
+        "model_answer": "<b>[Opinion]</b> Parents should encourage children whenever they face difficult challenges or failure. <b>[Reason]</b> This helps build resilience and self-belief in young minds during tough times. <b>[Example]</b> If a child fails a test, <b>Supportive [支持的]</b> words are better than harsh <b>Criticism [批评]</b>. <b>[Extension]</b> Encouragement helps them try again without fear of judgment or rejection, fostering long-term success.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q3",
+        "question": "Why do some people like to ask others for advice?",
+        "model_answer": "<b>[Opinion]</b> Some people seek advice because they lack confidence in their own judgment or knowledge. <b>[Reason]</b> They want reassurance or a second opinion before acting on big decisions. <b>[Example]</b> Asking a mentor for <b>Guidance [指导]</b> can prevent costly mistakes in life or career. <b>[Extension]</b> It is a sign of wisdom, not weakness, to ask for help from others.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q4",
+        "question": "What important decisions should be made by teenagers themselves?",
+        "model_answer": "<b>[Opinion]</b> Teenagers should decide on their hobbies and personal interests independently to grow. <b>[Reason]</b> This fosters independence and self-discovery, reducing <b>Dependency [依赖]</b> on parents over time. <b>[Example]</b> Choosing which sport to play or instrument to learn should be their choice alone. <b>[Extension]</b> However, big life decisions still need parental <b>Mentorship [导师制度]</b> and oversight to avoid disaster.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q5",
+        "question": "Is positive reinforcement (encouragement) more effective than criticism?",
+        "model_answer": "<b>[Opinion]</b> Yes, positive reinforcement is generally more effective than negative <b>Criticism [批评]</b> in the long run. <b>[Reason]</b> It motivates people by focusing on their strengths rather than their weaknesses. <b>[Example]</b> Praising effort encourages more effort in the future, building trust and <b>Reliability [可靠性]</b>. <b>[Extension]</b> <b>Constructive criticism [建设性批评]</b> has its place, but encouragement builds confidence and better relationships.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q6",
+        "question": "How does peer pressure differ from positive encouragement?",
+        "model_answer": "<b>[Opinion]</b> <b>Peer pressure [同伴压力]</b> is usually negative and forceful, unlike gentle support from friends. <b>[Reason]</b> It pushes people to do things they don't want to do just to fit in. <b>[Example]</b> Friends might pressure someone to smoke, which is harmful and wrong. <b>[Extension]</b> Good friends <b>Lead by example [以身作则]</b> and offer encouragement for positive choices instead of negative ones.",
+        "bullet_points": []
+      }
+    ]
+  }
+]

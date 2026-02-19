@@ -1,0 +1,79 @@
+[
+  {
+    "week": 30,
+    "topic": "Wild Animals & Habitats",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a wild animal that you want to know more about. (Examiner Note: You may focus on where this animal lives) You should say:\nWhat it is\nWhere you saw it (or where it lives)\nWhy you are interested in it\nAnd explain why you want to know more about it.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to talk about</b></span> the giant panda, which is a truly <b>Unique [独特的]</b> animal native to my country. <span style=\"color: blue;\"><b>I saw it</b></span> in the Chengdu Research Base when I was a child. <span style=\"color: blue;\"><b>I am interested in it</b></span> because it is so <b>Fascinating [迷人的]</b> yet sadly <b>Endangered [濒危的]</b>. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>I want to know more about</b></span> how it survives <b>In the wild [在野外]</b> given its strict diet of bamboo.</b></span> Seeing them <b>Face to face [面对面]</b> made me realize how <b>Majestic [雄伟的]</b> and gentle they really are, and I want to understand how we can protect them better for future generations.",
+        "bullet_points": [
+          "Giant Panda",
+          "Chengdu Base",
+          "Bamboo eater",
+          "Majestic bear"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a place where you saw wild animals (e.g., Zoo, National Park). You should say:\nWhere the place was\nWhat animals you saw\nHow the animals were treated\nAnd explain how you felt visiting this place.",
+        "model_answer": "I visited a famous safari park in Africa a few years ago during a family holiday. It was a huge reserve where animals roamed freely without fences. I saw lions, the King of the jungle [丛林之王 (狮子)], and many majestic [雄伟的] elephants walking in herds. The animals were treated with respect and lived in their natural habitat, not in small cages. I felt amazed and Sincere [真诚的 (interest)] gratitude for the chance to see nature untouched. It was a Fascinating [迷人的] experience that changed my view on wildlife conservation [保护] forever. The open space was breathtaking and unforgettable for me.",
+        "bullet_points": [
+          "African Safari",
+          "Lions roaming",
+          "Natural habitat",
+          "Amazing view"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a natural habitat you would like to visit to see wildlife. You should say:\nWhere it is located\nWhat kind of ecosystem it is\nWhat animals live there\nAnd explain why you want to go there.",
+        "model_answer": "I would love to visit the Amazon Rainforest in Brazil one day. It is the largest tropical Ecosystem [生态系统] in the world, full of incredible Biodiversity [生物多样性]. I want to see colorful birds, monkeys, and maybe even a jaguar if I am Courageous [勇敢的 (to approach)] enough. I want to go there because it is disappearing fast due to deforestation. It is a Wild [野生的] and mysterious place that holds so many secrets of nature that I want to explore before they are gone forever. It is vital for the health of our planet and all humanity.",
+        "bullet_points": [
+          "Amazon Rainforest",
+          "Biodiversity hotpsot",
+          "Monkeys and birds",
+          "Disappearing wonder"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Why are some people more willing to protect wild animals than others?",
+        "model_answer": "<b>[Opinion]</b> Some people have a stronger sense of <b>Morality [道德]</b> towards nature and life. <b>[Reason]</b> They understand that every species plays a vital role in the global <b>Ecosystem [生态系统]</b>. <b>[Example]</b> Others might prioritize economic gain over animal welfare, showing <b>Crocodile tears [鳄鱼的眼泪 (假慈悲)]</b> when species die. <b>[Extension]</b> Education plays a key role in fostering true compassion for wildlife.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q2",
+        "question": "Do you think it's important to take children to the zoo to see animals?",
+        "model_answer": "<b>[Opinion]</b> Yes, seeing animals <b>Face to face [面对面]</b> inspires deep wonder in young children. <b>[Reason]</b> It helps them learn about <b>Biodiversity [生物多样性]</b> and the importance of nature practically. <b>[Example]</b> However, modern zoos must focus on <b>Conservation [保护]</b> and education, not just entertainment. <b>[Extension]</b> Modern zoos play a vital role in breeding programs for <b>Endangered [濒危的]</b> species survival globally.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q3",
+        "question": "Does tourism have a positive or negative impact on animals?",
+        "model_answer": "<b>[Opinion]</b> It can be both, causing a <b>Conflict [冲突 (human-animal)]</b> between profit and animal protection. <b>[Reason]</b> Responsible eco-tourism funds vital <b>Conservation [保护]</b> efforts and park rangers. <b>[Example]</b> But irresponsible tourists can disturb animals <b>In the wild [在野外]</b> and damage habitats severely. <b>[Extension]</b> We should <b>Let sleeping dogs lie [莫惹是非]</b> and respect nature from a safe distance for everyone's sake.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q4",
+        "question": "Should animals be kept in captivity for entertainment purposes?",
+        "model_answer": "<b>[Opinion]</b> No, keeping animals in <b>Captivity [圈养]</b> solely for fun is cruel and outdated. <b>[Reason]</b> Wild [野生的] animals, especially the <b>King of the jungle [丛林之王 (狮子)]</b>, need vast space to roam freely. <b>[Example]</b> Circuses that use animals for tricks are thankfully becoming less popular globally now. <b>[Extension]</b> <b>Conservation [保护]</b> centers are different because they aim to release animals back to the wild [野生的] eventually.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q5",
+        "question": "How does the extinction of a single species affect the wider environment?",
+        "model_answer": "<b>[Opinion]</b> <b>Extinction [灭绝]</b> can cause a devastating domino effect in the food chain. <b>[Reason]</b> Losing a key predator or prey disrupts the delicate balance of <b>Survival of the fittest [适者生存]</b>. <b>[Example]</b> If bees disappear, pollination stops, affecting plants and humans who rely on crops. <b>[Extension]</b> Everything in nature is interconnected, so one loss affects all life on earth.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q6",
+        "question": "Is it the responsibility of rich nations to help poor nations protect their wildlife?",
+        "model_answer": "<b>[Opinion]</b> Yes, preserving <b>Biodiversity [生物多样性]</b> is a global responsibility shared by all nations. <b>[Reason]</b> Rich nations have the financial resources to fund <b>Conservation [保护]</b> projects worldwide. <b>[Example]</b> Protecting the Amazon rainforest benefits the climate for everyone, not just Brazil. <b>[Extension]</b> We share one planet, so we must share the cost of saving it together immediately for our children.",
+        "bullet_points": []
+      }
+    ]
+  }
+]

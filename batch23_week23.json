@@ -1,0 +1,79 @@
+[
+  {
+    "week": 23,
+    "topic": "Childhood Toys",
+    "part2": [
+      {
+        "id": "Q1",
+        "question": "Describe a toy that you loved in your childhood. You should say:\nWhat the toy was\nWho gave it to you\nHow often you played with it\nAnd explain why it was so special to you.",
+        "model_answer": "<span style=\"color: blue;\"><b>I'd like to describe</b></span> a toy that I absolutely loved when I was a child. <span style=\"color: blue;\"><b>It was</b></span> a remote-controlled car that my father gave me for my sixth birthday. <span style=\"color: blue;\"><b>I played with it</b></span> almost every day after school in our small garden, racing it around obstacles I built. <span style=\"background-color: yellow;\"><b><span style=\"color: blue;\"><b>It was special</b></span> because it was my <b>Pride and joy [掌上明珠]</b>, and playing with it allowed me to be very <b>Imaginative [富于想象的]</b> creating complex race tracks and scenarios.</b></span> Even now, simply thinking about it takes me on a pleasant <b>Trip down memory lane [追忆往昔]</b> and makes me feel quite <b>Nostalgic [怀旧的]</b> for those simple, carefree days of my youth.",
+        "bullet_points": [
+          "Remote car",
+          "Dad's gift",
+          "Daily racing",
+          "Precious memory"
+        ]
+      },
+      {
+        "id": "Q2",
+        "question": "Describe a game (indoor or outdoor) you played when you were a child. You should say:\nWhat the game was\nWho you played it with\nWhere you played it\nAnd explain why you enjoyed it.",
+        "model_answer": "I vividly remember playing hide-and-seek with my cousins during long summer holidays. We played it in my grandmother's large backyard, which had plenty of great hiding spots like trees and bushes. It was a simple game, but we loved the thrill of Interaction [互动] and the friendly fun to find the best place where no one could see us. We had to be clever and quiet. I enjoyed it deeply because it was pure fun and allowed us to be creative with our strategies. Those moments are some of my most Precious [珍贵的] memories of childhood innocence.",
+        "bullet_points": [
+          "Hide and seek",
+          "Cousins fun",
+          "Grandma's yard",
+          "Strategic hiding"
+        ]
+      },
+      {
+        "id": "Q3",
+        "question": "Describe a toy or game that is popular with children today. You should say:\nWhat it is\nWhy it is popular\nWhether you think it is good for children\nAnd explain how it compares to toys from your childhood.",
+        "model_answer": "LEGO sets are incredibly popular with children today all over the world. They are popular because they encourage Creativity [创造力] and allow kids to build anything they can imagine, from castles to spaceships. I think they are excellent Educational [有教育意义的] toys because they help with Cognitive [认知的] Development [发展] and complex problem-solving skills effectively. Compared to my simple wooden blocks from the past, modern LEGOs are much more detailed and colorful. However, both serve the same purpose of sparking a child's imagination and are Durable [耐用的] enough to last for years of active play. They are truly timeless.",
+        "bullet_points": [
+          "LEGO bricks",
+          "Creative building",
+          "Problem solving",
+          "Complex designs"
+        ]
+      }
+    ],
+    "part3": [
+      {
+        "id": "Q1",
+        "question": "Do boys and girls prefer different kinds of toys?",
+        "model_answer": "<b>[Opinion]</b> Generally, yes, but gender stereotypes regarding toys are changing rapidly in modern society. <b>[Reason]</b> Traditionally, boys liked cars and action figures while girls preferred dolls and cooking sets. <b>[Example]</b> However, nowadays, many girls enjoy building sets and boys play with kitchen toys freely without judgment. <b>[Extension]</b> It is important to let children choose what they enjoy without forcing roles or rules.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q2",
+        "question": "How do toys that were popular in the past compare with toys that are popular now?",
+        "model_answer": "<b>[Opinion]</b> Past toys were simpler and more <b>Durable [耐用的]</b>, often made of wood or metal. <b>[Reason]</b> Modern toys are often electronic and plastic, focusing heavily on screens and flashing lights. <b>[Example]</b> While old toys encouraged physical play, new ones might be more <b>Educational [有教育意义的]</b> but sedentary in nature. <b>[Extension]</b> Both have their merits in fostering healthy <b>Child's play [小儿科]</b> habits.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q3",
+        "question": "What should people consider when choosing a toy for a child?",
+        "model_answer": "<b>[Opinion]</b> Safety and <b>Educational [有教育意义的]</b> value are the most important factors to consider for parents. <b>[Reason]</b> A toy should be age-appropriate and not have small parts that are dangerous to swallow. <b>[Example]</b> Parents should also consider if it encourages <b>Socialization [社会化]</b> and positive <b>Interaction [互动]</b> with other kids. <b>[Extension]</b> A good toy stimulates the mind and body simultaneously.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q4",
+        "question": "Should kids be permitted to pick their own toys at a toy store?",
+        "model_answer": "<b>[Opinion]</b> Yes, within reason, as it teaches decision-making and responsibility early on. <b>[Reason]</b> Letting them choose gives them a sense of autonomy and ownership over their play items. <b>[Example]</b> However, parents should guide them to avoid buying something just because it's expensive or trendy. <b>[Extension]</b> We shouldn't raise a <b>Spoiled brat [被宠坏的孩子]</b> who refuses to <b>Play by the rules [遵守规则]</b>.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q5",
+        "question": "Do educational toys really help children become smarter?",
+        "model_answer": "<b>[Opinion]</b> Yes, they can significantly aid <b>Cognitive [认知的]</b> <b>Development [发展]</b> and foster <b>Creativity [创造力]</b>. <b>[Reason]</b> Toys that require problem-solving or logic puzzles exercise the brain effectively like a muscle. <b>[Example]</b> Building blocks help with spatial awareness and math skills from a very young age. <b>[Extension]</b> They make learning fun rather than a boring chore for the child through healthy <b>Competition [竞争]</b>.",
+        "bullet_points": []
+      },
+      {
+        "id": "Q6",
+        "question": "Is it harmful for children to own too many toys?",
+        "model_answer": "<b>[Opinion]</b> Owning too many toys can make children less <b>Imaginative [富于想象的]</b> and grateful for what they have. <b>[Reason]</b> When they have everything, they don't need to invent games or be creative with resources. <b>[Example]</b> A child with fewer toys often plays more deeply with each one they cherish. <b>[Extension]</b> We should not <b>Wrap someone in cotton wool [过分保护]</b> with excessive gifts that hurt the family <b>Economy [经济 (cost of toys)]</b>.",
+        "bullet_points": []
+      }
+    ]
+  }
+]
