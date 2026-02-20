@@ -269,6 +269,49 @@ def process_vocabulary(soup, week_number, vocab_data):
                 tr2.append(BeautifulSoup(row2_html, 'html.parser'))
                 tbody.append(tr2)
 
+def format_bullet_text(html_content):
+    """Formats 'You should say:' bullets: bold first word, inline, comma separated."""
+    # 1. Parse content to handle <br>
+    soup = BeautifulSoup(html_content, 'html.parser')
+    # Get inner HTML string to preserve <br> for splitting
+    # If it's a tag, decode_contents. If string, use directly.
+    raw_str = soup.decode_contents() if soup.name else str(soup)
+
+    # Split by <br> or <br/>
+    parts = re.split(r'<br\s*/?>', raw_str)
+
+    # First part might be "You should say:" or main question.
+    # We assume this function handles just the bullets part or we handle the split before calling.
+    # Actually, let's make this function handle the whole paragraph structure:
+    # "Question. You should say:<br>Bullet 1<br>Bullet 2..."
+
+    formatted_parts = []
+    main_text = ""
+
+    if "You should say" in parts[0]:
+        # Split main question and "You should say" if they are in the first part
+        # But usually "You should say:" is the end of the first line.
+        main_text = parts[0].strip()
+        bullet_lines = parts[1:]
+    else:
+        # Unexpected format, return as is
+        return html_content
+
+    # Process bullets
+    formatted_bullets = []
+    for line in bullet_lines:
+        clean_line = BeautifulSoup(line, 'html.parser').get_text().strip()
+        if not clean_line: continue
+
+        words = clean_line.split(' ', 1)
+        if len(words) > 0:
+            first = words[0]
+            rest = " " + words[1] if len(words) > 1 else ""
+            formatted_bullets.append(f"<strong>{first}</strong>{rest}")
+
+    # Reassemble: Main Text + formatted bullets joined by comma
+    return f"{main_text} {', '.join(formatted_bullets)}"
+
 def process_student_l1(soup, week_data):
     """Updates Student Lesson 1 (Page 2) content."""
     print("Processing Student L1...")
@@ -287,29 +330,49 @@ def process_student_l1(soup, week_data):
     cue_card_div = soup.find('div', style=lambda x: x and 'border-left:5px solid #fbc02d' in x)
     if cue_card_div:
         h3 = cue_card_div.find('h3')
-        # Extract question text from Q1 HTML
         q1_html = q1_data.get('html', '')
         q1_soup = BeautifulSoup(q1_html, 'html.parser')
-
-        # The first paragraph usually contains the prompt
         prompt_p = q1_soup.find('p')
+
         if prompt_p:
-            prompt_text = prompt_p.get_text()
-            # Split "You should say"
-            if "You should say" in prompt_text:
-                main_q = prompt_text.split("You should say")[0].strip()
-                bullets = prompt_text.split("You should say:")[1].strip() if ":" in prompt_text else ""
-            else:
-                main_q = prompt_text
-                bullets = ""
+            # We need to manually separate the Question title from the "You should say..." bullets
+            # because the H3 takes the question, and the div takes the bullets.
 
-            if h3:
-                h3.string = f"📌 CUE CARD: {main_q}"
+            # Get raw HTML string of the P tag content
+            p_content = prompt_p.decode_contents()
 
-            # Update bullets div
-            bullets_div = cue_card_div.find('div', style=lambda x: x and 'color:#444' in x)
-            if bullets_div and bullets:
-                bullets_div.string = "You should say: " + bullets.replace("<br>", ", ").replace("\n", ", ")
+            # Split at "You should say:"
+            if "You should say:" in p_content:
+                parts = p_content.split("You should say:")
+                question_text = BeautifulSoup(parts[0], 'html.parser').get_text().strip()
+
+                # The bullets part starts with <br> usually
+                bullets_raw = parts[1]
+
+                if h3:
+                    h3.string = f"📌 CUE CARD: {question_text}"
+
+                # Format bullets
+                # Create a dummy "You should say:<br>..." string to use the helper, or just parse bullets
+                # Let's simplify: split bullets_raw by <br>
+                bullet_lines = re.split(r'<br\s*/?>', bullets_raw)
+                fmt_bullets = []
+                for line in bullet_lines:
+                    txt = BeautifulSoup(line, 'html.parser').get_text().strip()
+                    if not txt: continue
+                    words = txt.split(' ', 1)
+                    if len(words) > 0:
+                        first = words[0]
+                        rest = " " + words[1] if len(words) > 1 else ""
+                        fmt_bullets.append(f"<strong>{first}</strong>{rest}")
+
+                final_bullets_html = "You should say: " + ", ".join(fmt_bullets)
+
+                # Update bullets div
+                bullets_div = cue_card_div.find('div', style=lambda x: x and 'color:#444' in x)
+                if bullets_div:
+                    bullets_div.clear()
+                    bullets_div.append(BeautifulSoup(final_bullets_html, 'html.parser'))
 
     # Update Model Answer
     # Look for "Band 6.5 Model Answer"
@@ -397,12 +460,13 @@ def format_mind_maps(soup, week_data):
         if brainstorm_card:
             prompt_div = brainstorm_card.find('div', style=lambda x: x and 'color:#444' in x)
             if prompt_div:
-                # Use full prompt text from Q1 (HTML preserved)
                 q1_prompt_p = q1_soup.find('p')
                 if q1_prompt_p:
-                    # Inject inner HTML (includes <br>)
+                    # Format using the helper logic (Question + You should say + Bold Bullets)
+                    # format_bullet_text expects the full inner HTML
+                    fmt_html = format_bullet_text(q1_prompt_p.decode_contents())
                     prompt_div.clear()
-                    prompt_div.append(BeautifulSoup(str(q1_prompt_p).replace('<p>', '').replace('</p>', ''), 'html.parser'))
+                    prompt_div.append(BeautifulSoup(fmt_html, 'html.parser'))
 
     # Update Legs (Hints)
     hints = q1.get('spider_diagram_hints', ["", "", "", ""])
@@ -426,11 +490,12 @@ def format_mind_maps(soup, week_data):
 
         prompt_div = topic_a_card.find_next_sibling('div')
         if prompt_div:
-            # Use inner HTML to preserve <br> for consistency with Q1
+            # Use formatted text
             q2_prompt_p = q2_soup.find('p')
             if q2_prompt_p:
+                fmt_html = format_bullet_text(q2_prompt_p.decode_contents())
                 prompt_div.clear()
-                prompt_div.append(BeautifulSoup(str(q2_prompt_p).replace('<p>', '').replace('</p>', ''), 'html.parser'))
+                prompt_div.append(BeautifulSoup(fmt_html, 'html.parser'))
 
         spider_container = topic_a_card.find_next_sibling('div', class_='spider-container')
         if spider_container:
@@ -458,11 +523,12 @@ def format_mind_maps(soup, week_data):
 
         prompt_div = topic_b_card.find_next_sibling('div')
         if prompt_div:
-            # Use inner HTML to preserve <br>
+            # Use formatted text
             q3_prompt_p = q3_soup.find('p')
             if q3_prompt_p:
+                fmt_html = format_bullet_text(q3_prompt_p.decode_contents())
                 prompt_div.clear()
-                prompt_div.append(BeautifulSoup(str(q3_prompt_p).replace('<p>', '').replace('</p>', ''), 'html.parser'))
+                prompt_div.append(BeautifulSoup(fmt_html, 'html.parser'))
 
         spider_container = topic_b_card.find_next_sibling('div', class_='spider-container')
         if spider_container:
