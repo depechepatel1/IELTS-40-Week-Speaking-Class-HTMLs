@@ -592,12 +592,18 @@ def process_student_l2(soup, week_data):
                 # Writing container is the div with background var(--bg-pastel-green)
                 write_container = card.find('div', style=lambda x: x and 'bg-pastel-green' in x)
                 if write_container:
-                    write_container['style'] += "; flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden;"
+                    # Added position:relative for absolute positioning of prompt
+                    write_container['style'] += "; flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;"
 
                     # Make the lines grow
                     lines = write_container.find('div', class_='lines')
                     if lines:
                         lines['style'] = "height:100%;" # remove fixed height if any
+
+                    # Move 'Your Bullet Point Notes:' to top right
+                    prompt = write_container.find('span', class_='write-prompt')
+                    if prompt:
+                        prompt['style'] = "position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;"
 
             update_q(4, 'q4', container_elem=compact_cards[0])
             update_q(5, 'q5', container_elem=compact_cards[1])
@@ -616,6 +622,7 @@ def process_student_l2(soup, week_data):
             if h3: q_text = h3.get_text()
 
         # Reverse lookup key from text for Week 1
+        q_key = None # Default
         if "What would children do" in q_text: q_key = "q1"
         elif "What did you do" in q_text: q_key = "q2"
         elif "What advantages of yours" in q_text: q_key = "q3"
@@ -627,15 +634,16 @@ def process_student_l2(soup, week_data):
         generic_q = get_generic_peer_question(q_text)
         specific_q = get_specific_peer_question(q_key)
 
-        # Create Container for Peer Qs
-        peer_container = soup.new_tag('div', attrs={'style': 'margin-top:4px; border-top:1px dotted #ccc; padding-top:2px;'})
+        # Create Container for Peer Qs (Compact Style)
+        # Reduced margin/padding, added line-height
+        peer_container = soup.new_tag('div', attrs={'style': 'margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;'})
 
-        # Band 5 Question
-        b5_div = soup.new_tag('div', attrs={'style': 'font-size:0.75em; color:#7f8c8d; margin-bottom:1px;'})
+        # Band 5 Question (Smaller font)
+        b5_div = soup.new_tag('div', attrs={'style': 'font-size:0.7em; color:#7f8c8d; margin-bottom:0;'})
         b5_div.append(BeautifulSoup(f"📉 <strong>Band 5 Peer Check:</strong> Ask: '{generic_q}'", 'html.parser'))
 
-        # Band 6 Question
-        b6_div = soup.new_tag('div', attrs={'style': 'font-size:0.75em; color:#3498db;'})
+        # Band 6 Question (Unified Style: same color/size as Band 5)
+        b6_div = soup.new_tag('div', attrs={'style': 'font-size:0.7em; color:#7f8c8d; margin-bottom:0;'})
         b6_div.append(BeautifulSoup(f"📈 <strong>Band 6 Peer Check:</strong> Ask: '{specific_q}'", 'html.parser'))
 
         peer_container.append(b5_div)
