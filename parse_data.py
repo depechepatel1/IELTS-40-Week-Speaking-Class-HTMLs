@@ -107,19 +107,6 @@ def process_teacher_plan(soup, week_number, week_data):
         btn['href'] = bilibili_url
 
     # Lead-in Question
-    # In template: Ask: "Ask: 'Do you prefer big cities or small villages?'"
-    # We need to change this.
-    # Looking for the table cell containing "Lead-in:"
-
-    lead_in_cells = soup.find_all('td', string=re.compile(r'Lead-in:'))
-    # BeautifulSoup text matching can be tricky if there are tags inside.
-    # Let's search for the row.
-
-    # L1 Teacher Plan Table
-    l1_page = soup.find('div', class_='page l1') # This might find Student Handout too if not careful.
-    # The teacher plan is the one with "Teacher Lesson Plan" in header.
-
-    # A better way is to look for the table with "Lesson Procedure"
     tables = soup.find_all('table', class_='lp-table')
     if tables:
         # Assuming first table is L1
@@ -128,11 +115,6 @@ def process_teacher_plan(soup, week_number, week_data):
         for row in rows:
             cells = row.find_all('td')
             if len(cells) > 1 and "Lead-in" in cells[1].get_text():
-                # Update the text content while keeping bold tag if possible, or just replace text
-                # Template: <strong>Lead-in:</strong> Click Bilibili icon... (Search: IELTS Hometown). Ask: "Ask: 'Do you prefer big cities or small villages?'"
-                # New: ... (Search: IELTS [Topic]). Ask: 'What do you think about [Topic]?' (Generic fallback or specific if I can derive it)
-
-                # Let's construct a simple lead-in question based on topic
                 question = f"Do you like {topic}?"
                 if "Family" in topic:
                     question = "Do you spend much time with your family?"
@@ -140,6 +122,23 @@ def process_teacher_plan(soup, week_number, week_data):
                 new_html = f"<strong>Lead-in:</strong> Click Bilibili icon on Student Handout (Banner) to show 5-min warmup video (Search: IELTS {topic}). Ask: '{question}'"
                 cells[1].clear()
                 cells[1].append(BeautifulSoup(new_html, 'html.parser'))
+
+    # Dynamic Differentiation (All Differentiation Boxes)
+    diff_cards = soup.find_all('div', class_='card')
+    for card in diff_cards:
+        h2 = card.find('h2')
+        if h2 and "Differentiation" in h2.get_text():
+            # Found a differentiation card. Update content.
+            # L1 Strategy (Sentence Starter)
+            band5_div = card.find('div', style=lambda x: x and 'background:#e8f8f5' in x)
+            if band5_div:
+                # Dynamic sentence starter
+                starter = f"I enjoy {topic} because..."
+                if "Family" in topic: starter = "My family is important because..."
+                elif "Place" in topic or "Country" in topic: starter = "I would love to visit..."
+
+                band5_div.clear()
+                band5_div.append(BeautifulSoup(f"<strong>📉 Band 5.0 (Support)</strong><br>• Sentence Starter: '{starter}'", 'html.parser'))
 
 def process_vocabulary(soup, week_number, vocab_data):
     """Injects vocabulary into L1 and L2 tables."""
@@ -269,6 +268,12 @@ def process_student_l1(soup, week_data):
     l1_data = week_data.get('lesson_1_part_2', {})
     q1_data = l1_data.get('q1', {})
 
+    # Update Banner Title (Part 2: Theme)
+    banner_title = soup.find('span', class_='header-title', string=re.compile(r'Part 2:'))
+    if banner_title:
+        theme = week_data.get('theme', 'General')
+        banner_title.string = f"Part 2: {theme}"
+
     # Update Cue Card
     # Look for "CUE CARD: Describe..."
     cue_card_div = soup.find('div', style=lambda x: x and 'border-left:5px solid #fbc02d' in x)
@@ -333,6 +338,16 @@ def process_student_l1(soup, week_data):
             model_div.clear()
             model_div.append(BeautifulSoup(new_content, 'html.parser'))
 
+def extract_keyword(text):
+    """Extracts a central keyword from the question text."""
+    # Simple heuristic: Look for noun phrase after 'Describe a/an'
+    match = re.search(r'Describe (?:a|an) ([A-Za-z\s]+)(?:who|that|which|where|\.)', text, re.IGNORECASE)
+    if match:
+        # Take first 2 words max
+        words = match.group(1).split()
+        return "<br>".join(words[:2]).upper()
+    return "TOPIC"
+
 def format_mind_maps(soup, week_data):
     """Updates Mind Maps on Page 3."""
     print("Processing Mind Maps...")
@@ -343,39 +358,21 @@ def format_mind_maps(soup, week_data):
     q3 = l1_data.get('q3', {})
 
     # 1. Main Brainstorming Map (Top of Page 3)
-    # Central Node: Keyword from Q1
-    # Hints: spider_diagram_hints from Q1
 
     # Extract Keyword from Q1 Question
-    # "Describe a family member who you are proud of." -> FAMILY MEMBER
     q1_html = q1.get('html', '')
     q1_soup = BeautifulSoup(q1_html, 'html.parser')
     q1_text = q1_soup.get_text()
 
-    # Simple keyword extraction (Heuristic: Noun phrase after "Describe")
-    # Or just use the Topic text from week_data
-    # Topic: "A Family Member You Are Proud Of" -> FAMILY MEMBER
-    # Let's try to be smart.
+    # Keyword Logic
     topic = week_data.get('topic', 'Topic')
-    # Try to shorten it. "A Family Member..." -> "FAMILY MEMBER"
-    # "Working Abroad..." -> "ABROAD"
-    # "Your Perfect Job" -> "JOB"
+    central_text = extract_keyword(q1_text)
+    if central_text == "TOPIC" and topic:
+        central_text = topic.split()[0].upper()
 
-    central_text = "TOPIC"
+    # Special overrides for known topics
     if "Family Member" in topic: central_text = "FAMILY<br>MEMBER"
     elif "Job" in topic: central_text = "PERFECT<br>JOB"
-    elif "Movie" in topic: central_text = "MOVIE"
-    elif "Protect" in topic: central_text = "NATURE"
-    elif "Trees" in topic: central_text = "NATURE"
-    elif "App" in topic: central_text = "APP"
-    elif "Advice" in topic: central_text = "ADVICE"
-    elif "Art" in topic: central_text = "ART"
-    elif "Building" in topic: central_text = "BUILDING"
-    elif "Tech" in topic: central_text = "TECH"
-    elif "Lost" in topic: central_text = "LOST"
-    elif "Famous" in topic: central_text = "FAMOUS"
-    elif "Shopping" in topic: central_text = "SHOPPING"
-    else: central_text = topic.split()[0].upper()
 
     # Update Center
     spider_centers = soup.find_all('div', class_='spider-center')
@@ -390,60 +387,46 @@ def format_mind_maps(soup, week_data):
         legs = spider_legs[0].find_all('div', class_='spider-leg')
         for i, leg in enumerate(legs):
             if i < len(hints):
-                # Format: <strong>1. WHO:</strong><br><span style="color:#777;">Hint</span>
-                # We need to preserve the label (WHO, TRAITS etc) or just replace content?
-                # The hints in JSON are just strings like "Older sister", "Last month".
-                # The template legs have labels.
-                # Let's keep the label and replace the span content.
                 span = leg.find('span')
                 if span:
                     span.string = hints[i]
 
-    # 2. Topic A (Q2) & Topic B (Q3)
-    # Update Headers and Central Nodes
-
-    # Topic A
+    # 2. Topic A (Q2) -> Part 2: Q2
     topic_a_card = soup.find('h3', string=re.compile(r'Topic A:'))
     if topic_a_card:
-        # Update Title
-        # Extract title from Q2 question
         q2_html = q2.get('html', '')
         q2_soup = BeautifulSoup(q2_html, 'html.parser')
-        q2_prompt = q2_soup.find('p').get_text().split('You should say')[0].strip()
-        topic_a_card.string = f"Topic A: {q2_prompt}"
+        q2_text = q2_soup.get_text()
 
-        # Update Prompt Text (Below H3)
+        topic_a_card.string = "Part 2: Q2"
+
         prompt_div = topic_a_card.find_next_sibling('div')
         if prompt_div:
-            # We want the full prompt with bullets
-            prompt_div.string = q2_soup.find('p').get_text()
+            prompt_div.string = q2_soup.find('p').get_text() # Full prompt
 
-        # Update Central Node
         spider_container = topic_a_card.find_next_sibling('div', class_='spider-container')
         if spider_container:
             center = spider_container.find('div', class_='spider-center')
             if center:
-                # Heuristic for center text
-                center.string = "Q2" # Or extraction
+                center_text = extract_keyword(q2_text)
+                center.clear()
+                center.append(BeautifulSoup(center_text, 'html.parser'))
 
-            # Update Legs (Hints) - Q2 hints
             q2_hints = q2.get('spider_diagram_hints', [])
             legs = spider_container.find_all('div', class_='spider-leg')
             for i, leg in enumerate(legs):
                 if i < len(q2_hints):
-                    leg.contents[0].replace_with(q2_hints[i]) # Replace first text node?
-                    # Actually structure is "Text<div class=lines>"
-                    # Just setting text might remove lines.
-                    # leg.contents[0] is the text.
-                    leg.contents[0].replace_with(q2_hints[i])
+                    if len(leg.contents) > 0:
+                        leg.contents[0].replace_with(q2_hints[i])
 
-    # Topic B
+    # 3. Topic B (Q3) -> Part 2: Q3
     topic_b_card = soup.find('h3', string=re.compile(r'Topic B:'))
     if topic_b_card:
         q3_html = q3.get('html', '')
         q3_soup = BeautifulSoup(q3_html, 'html.parser')
-        q3_prompt = q3_soup.find('p').get_text().split('You should say')[0].strip()
-        topic_b_card.string = f"Topic B: {q3_prompt}"
+        q3_text = q3_soup.get_text()
+
+        topic_b_card.string = "Part 2: Q3"
 
         prompt_div = topic_b_card.find_next_sibling('div')
         if prompt_div:
@@ -453,13 +436,30 @@ def format_mind_maps(soup, week_data):
         if spider_container:
             center = spider_container.find('div', class_='spider-center')
             if center:
-                center.string = "Q3"
+                center_text = extract_keyword(q3_text)
+                center.clear()
+                center.append(BeautifulSoup(center_text, 'html.parser'))
 
             q3_hints = q3.get('spider_diagram_hints', [])
             legs = spider_container.find_all('div', class_='spider-leg')
             for i, leg in enumerate(legs):
                 if i < len(q3_hints):
-                    leg.contents[0].replace_with(q3_hints[i])
+                    if len(leg.contents) > 0:
+                        leg.contents[0].replace_with(q3_hints[i])
+
+def generate_peer_question(q_text):
+    """Generates a dynamic peer-led follow-up question."""
+    q_text = q_text.lower()
+    if "why" in q_text:
+        return "👥 Peer Check: Ask your partner 'Do you agree with this reason?'"
+    elif "do you think" in q_text or "opinion" in q_text:
+        return "👥 Peer Check: Ask your partner 'Can you give an example to support this?'"
+    elif "how" in q_text:
+        return "👥 Peer Check: Ask your partner 'Is this the only way?'"
+    elif "difference" in q_text or "compare" in q_text:
+        return "👥 Peer Check: Ask your partner 'Which one do you prefer?'"
+    else:
+        return "👥 Peer Check: Ask your partner 'Why do you think that?'"
 
 def process_student_l2(soup, week_data):
     """Updates Student Lesson 2 (Part 3) Q1-Q6."""
@@ -523,15 +523,6 @@ def process_student_l2(soup, week_data):
     update_q(3, 'q3', container_id='p6-q3')
 
     # Q4, Q5, Q6 (Page 7 - Rapid Fire)
-    # These are in compact cards.
-    # Find Page 7
-    # Page 7 is the third 'page l2' div?
-    # Page 4 is Teacher L2 (page l2)
-    # Page 5 is Student L2 (page l2)
-    # Page 6 is Deep Dive (page l2)
-    # Page 7 is Rapid Fire (page l2)
-
-    # Let's identify by content
     l2_pages = soup.find_all('div', class_='l2')
     if len(l2_pages) >= 4:
         page7 = l2_pages[3]
@@ -540,6 +531,22 @@ def process_student_l2(soup, week_data):
             update_q(4, 'q4', container_elem=compact_cards[0])
             update_q(5, 'q5', container_elem=compact_cards[1])
             update_q(6, 'q6', container_elem=compact_cards[2])
+
+    # Inject Peer-Led Follow-up Questions (Differentiation)
+    # Add to bottom of writing spaces (scaffold-text container)
+    scaffold_uls = soup.find_all('ul', class_='scaffold-text')
+    for ul in scaffold_uls:
+        # Find the question text associated with this scaffold
+        # The scaffold is inside a card. The card has an h3 with the question.
+        card = ul.find_parent('div', class_='card')
+        q_text = ""
+        if card:
+            h3 = card.find('h3')
+            if h3: q_text = h3.get_text()
+
+        peer_q_div = soup.new_tag('div', attrs={'style': 'font-size:0.8em; color:#3498db; margin-top:5px; font-style:italic;'})
+        peer_q_div.string = generate_peer_question(q_text)
+        ul.parent.append(peer_q_div)
 
 def process_homework(soup, week_number, homework_data):
     """Updates Homework page."""
@@ -585,9 +592,44 @@ def process_homework(soup, week_number, homework_data):
     writing_task = homework_data.get('writing_task', '')
     writing_card = hw_page.find('h3', string=re.compile(r'Writing Task'))
     if writing_card:
-        writing_card.string = f"3. Writing Task: {writing_task} (17 mins)"
+        writing_card.string = f"3. Writing Task: {writing_task} (10 minutes)"
 
-    # 4. Answer Key
+    # Resize Writing Spaces
+    # 1. Make the Writing Task Card a flex container
+    if writing_card:
+        # Writing card is inside a div with flex-grow:1. We need to find the card div itself.
+        # writing_card is the H3 element.
+        card_div = writing_card.parent
+        card_div['style'] += "; display:flex; flex-direction:column;"
+
+        # 2. Make the wrapper div (containing the two boxes) flex-grow
+        # The wrapper is the div with margin-top:10px
+        wrapper_div = card_div.find('div', style=lambda x: x and 'margin-top:10px' in x)
+        if wrapper_div:
+            wrapper_div['style'] += "; flex-grow:1; display:flex; flex-direction:column;"
+
+    # 3. Update the Draft/Rewrite boxes
+    writing_spaces = hw_page.find_all('div', class_='lines')
+    for space in writing_spaces:
+        # Only target the writing task spaces (usually larger ones in homework)
+        if space.parent.find('strong'): # Draft/Polished Rewrite boxes
+             space.parent['style'] = "border:1px solid #eee; padding:10px; border-radius:6px; background:var(--bg-pastel-green); flex:1; display:flex; flex-direction:column;"
+             space['style'] = "flex-grow:1; height:auto;"
+
+    # 4. Recording Challenge
+    rec_card = hw_page.find('h3', string=re.compile(r'Recording Challenge')).parent
+    if rec_card:
+        h3 = rec_card.find('h3')
+        if h3: h3.string = "🎙️ 4. Recording Challenge (<18 Mins)"
+
+        details_div = rec_card.find('div', style=lambda x: x and 'display:flex' in x)
+        if details_div:
+            details_div.clear()
+            span = soup.new_tag('span')
+            span.string = "Record 3 x Part 2 (6 mins) and 6 x Part 3 Questions (12 mins)."
+            details_div.append(span)
+
+    # 5. Answer Key
     answer_key = homework_data.get('answer_key', '')
     key_div = hw_page.find('div', style=lambda x: x and 'transform:rotate(180deg)' in x)
     if key_div:

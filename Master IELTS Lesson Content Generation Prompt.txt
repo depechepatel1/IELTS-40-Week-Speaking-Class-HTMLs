@@ -11,6 +11,7 @@
       "topic_title": "Extract and match the exact topic for the specific week.",
       "learning_objectives": "Write specific objectives based on the topic (e.g., 'Describe a family member', NOT a generic 'Describe a friend').",
       "bilibili_search_term": "Format strictly as 'IELTS [Topic Name] Speaking'.",
+      "student_handout_banner": "The Part 2 theme in the Student Handout banner must be dynamically changed each week to match that week's topic (e.g., 'Part 2: People' instead of 'Part 2: Describing Places').",
       "differentiation": "Provide topic-specific sentence starters for Band 5 students (e.g., for 'Travel', use 'I would love to visit...')."
     },
     "vocabulary_and_idiom_logic": {
