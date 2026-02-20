@@ -138,7 +138,7 @@ def process_teacher_plan(soup, week_number, week_data):
                 elif "Place" in topic or "Country" in topic: starter = "I would love to visit..."
 
                 band5_div.clear()
-                band5_div.append(BeautifulSoup(f"<strong>📉 Band 5.0 (Support)</strong><br>• Sentence Starter: '{starter}'", 'html.parser'))
+                band5_div.append(BeautifulSoup(f"<strong>📉 Band 5.0 (Support)</strong><br>• Sentence Starter: '{starter}'<br>• Peer-led follow-up questions provided.", 'html.parser'))
 
 def process_vocabulary(soup, week_number, vocab_data):
     """Injects vocabulary into L1 and L2 tables."""
@@ -447,8 +447,21 @@ def format_mind_maps(soup, week_data):
                     if len(leg.contents) > 0:
                         leg.contents[0].replace_with(q3_hints[i])
 
-def generate_peer_question(q_text):
+WEEK_1_FOLLOW_UPS = {
+    "q1": "Do you think parents are harder to please today compared to the past?",
+    "q2": "Do you think you would do the same thing today?",
+    "q3": "Have these advantages ever helped you in a difficult situation?",
+    "q4": "Did you tell anyone else about this achievement?",
+    "q5": "Can too much family pride ever lead to problems in society?",
+    "q6": "What do you think success will look like for the next generation?"
+}
+
+def generate_peer_question(q_text, q_key=None):
     """Generates a dynamic peer-led follow-up question."""
+    # Check for specific Week 1 mapping first
+    if q_key and q_key in WEEK_1_FOLLOW_UPS:
+        return f"👥 Peer Check: Ask your partner '{WEEK_1_FOLLOW_UPS[q_key]}'"
+
     q_text = q_text.lower()
     if "why" in q_text:
         return "👥 Peer Check: Ask your partner 'Do you agree with this reason?'"
@@ -545,7 +558,38 @@ def process_student_l2(soup, week_data):
             if h3: q_text = h3.get_text()
 
         peer_q_div = soup.new_tag('div', attrs={'style': 'font-size:0.8em; color:#3498db; margin-top:5px; font-style:italic;'})
-        peer_q_div.string = generate_peer_question(q_text)
+        # Infer q_key from text or context?
+        # We need to know if this is q1, q2, etc.
+        # The update_q function processes them. But here we are iterating uls.
+        # Better to iterate uls and find which Q they belong to.
+        # But uls don't have IDs. The containers do (p5-q1, etc).
+
+        q_key = None
+        if card:
+            cid = card.get('id', '')
+            if 'q1' in cid: q_key = 'q1'
+            elif 'q2' in cid: q_key = 'q2'
+            elif 'q3' in cid: q_key = 'q3'
+            else:
+                # For Q4-Q6, they are in compact cards without clear IDs.
+                # Assuming order q4, q5, q6 based on document order.
+                # We can't easily rely on document order here without a counter.
+                # Let's rely on text matching or passed logic?
+                # Actually, generate_peer_question logic with q_text is safer if we don't have keys.
+                # But we defined keys for q1-q6.
+                # Let's try to match the question text to the known Week 1 questions to find the key.
+                pass
+
+        # Reverse lookup key from text for Week 1?
+        # Week 1 Q1 text starts with "What would children do..."
+        if "What would children do" in q_text: q_key = "q1"
+        elif "What did you do" in q_text: q_key = "q2"
+        elif "What advantages of yours" in q_text: q_key = "q3"
+        elif "When was the last time" in q_text: q_key = "q4"
+        elif "How does family pride" in q_text: q_key = "q5"
+        elif "definition of \"success\"" in q_text: q_key = "q6"
+
+        peer_q_div.string = generate_peer_question(q_text, q_key)
         ul.parent.append(peer_q_div)
 
 def process_homework(soup, week_number, homework_data):
