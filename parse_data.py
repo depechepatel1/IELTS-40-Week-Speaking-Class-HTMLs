@@ -129,16 +129,24 @@ def process_teacher_plan(soup, week_number, week_data):
         h2 = card.find('h2')
         if h2 and "Differentiation" in h2.get_text():
             # Found a differentiation card. Update content.
-            # L1 Strategy (Sentence Starter)
+
+            # L1 & L2 Strategy Update
+            # Band 5 Box (Support)
             band5_div = card.find('div', style=lambda x: x and 'background:#e8f8f5' in x)
             if band5_div:
-                # Dynamic sentence starter
+                # Dynamic sentence starter logic
                 starter = f"I enjoy {topic} because..."
                 if "Family" in topic: starter = "My family is important because..."
                 elif "Place" in topic or "Country" in topic: starter = "I would love to visit..."
 
                 band5_div.clear()
-                band5_div.append(BeautifulSoup(f"<strong>📉 Band 5.0 (Support)</strong><br>• Sentence Starter: '{starter}'<br>• Peer-led follow-up questions provided.", 'html.parser'))
+                band5_div.append(BeautifulSoup(f"<strong>📉 Band 5.0 (Support)</strong><br>• Sentence Starter: '{starter}'<br>• Peer Check: Simple generic prompts (e.g., 'Why?').", 'html.parser'))
+
+            # Band 6 Box (Stretch)
+            band6_div = card.find('div', style=lambda x: x and 'background:#fef9e7' in x)
+            if band6_div:
+                band6_div.clear()
+                band6_div.append(BeautifulSoup(f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: 'Admittedly...', 'Conversely...'<br>• Peer Check: Topic-specific extension questions.", 'html.parser'))
 
 def process_vocabulary(soup, week_number, vocab_data):
     """Injects vocabulary into L1 and L2 tables."""
@@ -456,23 +464,25 @@ WEEK_1_FOLLOW_UPS = {
     "q6": "What do you think success will look like for the next generation?"
 }
 
-def generate_peer_question(q_text, q_key=None):
-    """Generates a dynamic peer-led follow-up question."""
-    # Check for specific Week 1 mapping first
-    if q_key and q_key in WEEK_1_FOLLOW_UPS:
-        return f"👥 Peer Check: Ask your partner '{WEEK_1_FOLLOW_UPS[q_key]}'"
-
+def get_generic_peer_question(q_text):
+    """Generates a generic peer-led question for Band 5."""
     q_text = q_text.lower()
     if "why" in q_text:
-        return "👥 Peer Check: Ask your partner 'Do you agree with this reason?'"
+        return "Why do you think that?"
     elif "do you think" in q_text or "opinion" in q_text:
-        return "👥 Peer Check: Ask your partner 'Can you give an example to support this?'"
+        return "Can you give an example?"
     elif "how" in q_text:
-        return "👥 Peer Check: Ask your partner 'Is this the only way?'"
+        return "Is this the only way?"
     elif "difference" in q_text or "compare" in q_text:
-        return "👥 Peer Check: Ask your partner 'Which one do you prefer?'"
+        return "Which one is better?"
     else:
-        return "👥 Peer Check: Ask your partner 'Why do you think that?'"
+        return "Why?"
+
+def get_specific_peer_question(q_key):
+    """Generates a specific peer-led question for Band 6+."""
+    if q_key and q_key in WEEK_1_FOLLOW_UPS:
+        return WEEK_1_FOLLOW_UPS[q_key]
+    return "What other examples can you think of?"
 
 def process_student_l2(soup, week_data):
     """Updates Student Lesson 2 (Part 3) Q1-Q6."""
@@ -557,31 +567,7 @@ def process_student_l2(soup, week_data):
             h3 = card.find('h3')
             if h3: q_text = h3.get_text()
 
-        peer_q_div = soup.new_tag('div', attrs={'style': 'font-size:0.8em; color:#3498db; margin-top:5px; font-style:italic;'})
-        # Infer q_key from text or context?
-        # We need to know if this is q1, q2, etc.
-        # The update_q function processes them. But here we are iterating uls.
-        # Better to iterate uls and find which Q they belong to.
-        # But uls don't have IDs. The containers do (p5-q1, etc).
-
-        q_key = None
-        if card:
-            cid = card.get('id', '')
-            if 'q1' in cid: q_key = 'q1'
-            elif 'q2' in cid: q_key = 'q2'
-            elif 'q3' in cid: q_key = 'q3'
-            else:
-                # For Q4-Q6, they are in compact cards without clear IDs.
-                # Assuming order q4, q5, q6 based on document order.
-                # We can't easily rely on document order here without a counter.
-                # Let's rely on text matching or passed logic?
-                # Actually, generate_peer_question logic with q_text is safer if we don't have keys.
-                # But we defined keys for q1-q6.
-                # Let's try to match the question text to the known Week 1 questions to find the key.
-                pass
-
-        # Reverse lookup key from text for Week 1?
-        # Week 1 Q1 text starts with "What would children do..."
+        # Reverse lookup key from text for Week 1
         if "What would children do" in q_text: q_key = "q1"
         elif "What did you do" in q_text: q_key = "q2"
         elif "What advantages of yours" in q_text: q_key = "q3"
@@ -589,8 +575,25 @@ def process_student_l2(soup, week_data):
         elif "How does family pride" in q_text: q_key = "q5"
         elif "definition of \"success\"" in q_text: q_key = "q6"
 
-        peer_q_div.string = generate_peer_question(q_text, q_key)
-        ul.parent.append(peer_q_div)
+        # Generate Two Questions
+        generic_q = get_generic_peer_question(q_text)
+        specific_q = get_specific_peer_question(q_key)
+
+        # Create Container for Peer Qs
+        peer_container = soup.new_tag('div', attrs={'style': 'margin-top:4px; border-top:1px dotted #ccc; padding-top:2px;'})
+
+        # Band 5 Question
+        b5_div = soup.new_tag('div', attrs={'style': 'font-size:0.75em; color:#7f8c8d; margin-bottom:1px;'})
+        b5_div.append(BeautifulSoup(f"📉 <strong>Band 5 Peer Check:</strong> Ask: '{generic_q}'", 'html.parser'))
+
+        # Band 6 Question
+        b6_div = soup.new_tag('div', attrs={'style': 'font-size:0.75em; color:#3498db;'})
+        b6_div.append(BeautifulSoup(f"📈 <strong>Band 6 Peer Check:</strong> Ask: '{specific_q}'", 'html.parser'))
+
+        peer_container.append(b5_div)
+        peer_container.append(b6_div)
+
+        ul.parent.append(peer_container)
 
 def process_homework(soup, week_number, homework_data):
     """Updates Homework page."""
