@@ -388,6 +388,22 @@ def format_mind_maps(soup, week_data):
         spider_centers[0].clear()
         spider_centers[0].append(BeautifulSoup(central_text, 'html.parser'))
 
+    # Update Q1 Prompt (Above the map)
+    # The map is usually inside a card. We need the div with "You should say:" text above it.
+    # Page 3, first card.
+    l1_practice_page = soup.find_all('div', class_='l1')[2] # Index 2 is Student Practice page
+    if l1_practice_page:
+        brainstorm_card = l1_practice_page.find('div', class_='card') # First card
+        if brainstorm_card:
+            prompt_div = brainstorm_card.find('div', style=lambda x: x and 'color:#444' in x)
+            if prompt_div:
+                # Use full prompt text from Q1 (HTML preserved)
+                q1_prompt_p = q1_soup.find('p')
+                if q1_prompt_p:
+                    # Inject inner HTML (includes <br>)
+                    prompt_div.clear()
+                    prompt_div.append(BeautifulSoup(str(q1_prompt_p).replace('<p>', '').replace('</p>', ''), 'html.parser'))
+
     # Update Legs (Hints)
     hints = q1.get('spider_diagram_hints', ["", "", "", ""])
     spider_legs = soup.find_all('div', class_='spider-legs')
@@ -410,7 +426,11 @@ def format_mind_maps(soup, week_data):
 
         prompt_div = topic_a_card.find_next_sibling('div')
         if prompt_div:
-            prompt_div.string = q2_soup.find('p').get_text() # Full prompt
+            # Use inner HTML to preserve <br> for consistency with Q1
+            q2_prompt_p = q2_soup.find('p')
+            if q2_prompt_p:
+                prompt_div.clear()
+                prompt_div.append(BeautifulSoup(str(q2_prompt_p).replace('<p>', '').replace('</p>', ''), 'html.parser'))
 
         spider_container = topic_a_card.find_next_sibling('div', class_='spider-container')
         if spider_container:
@@ -438,7 +458,11 @@ def format_mind_maps(soup, week_data):
 
         prompt_div = topic_b_card.find_next_sibling('div')
         if prompt_div:
-            prompt_div.string = q3_soup.find('p').get_text()
+            # Use inner HTML to preserve <br>
+            q3_prompt_p = q3_soup.find('p')
+            if q3_prompt_p:
+                prompt_div.clear()
+                prompt_div.append(BeautifulSoup(str(q3_prompt_p).replace('<p>', '').replace('</p>', ''), 'html.parser'))
 
         spider_container = topic_b_card.find_next_sibling('div', class_='spider-container')
         if spider_container:
@@ -549,8 +573,32 @@ def process_student_l2(soup, week_data):
     l2_pages = soup.find_all('div', class_='l2')
     if len(l2_pages) >= 4:
         page7 = l2_pages[3]
+
+        # Apply Flex Layout to the Page Container (exclude header)
+        # We need to find the container div that wraps the cards.
+        # In template: <div style="display:flex; flex-direction:column; gap:8px; flex-grow:1;">
+        content_container = page7.find('div', style=lambda x: x and 'flex-direction:column' in x and 'gap:8px' in x)
+        if content_container:
+            # Force height 100% and hidden overflow to stay within page
+            content_container['style'] += "; height:100%; overflow:hidden;"
+
         compact_cards = page7.find_all('div', class_='card compact')
         if len(compact_cards) >= 3:
+            for card in compact_cards:
+                # Force cards to share space equally
+                card['style'] += "; flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:5px; overflow:hidden;"
+
+                # Make the writing container flex grow
+                # Writing container is the div with background var(--bg-pastel-green)
+                write_container = card.find('div', style=lambda x: x and 'bg-pastel-green' in x)
+                if write_container:
+                    write_container['style'] += "; flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden;"
+
+                    # Make the lines grow
+                    lines = write_container.find('div', class_='lines')
+                    if lines:
+                        lines['style'] = "height:100%;" # remove fixed height if any
+
             update_q(4, 'q4', container_elem=compact_cards[0])
             update_q(5, 'q5', container_elem=compact_cards[1])
             update_q(6, 'q6', container_elem=compact_cards[2])
