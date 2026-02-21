@@ -64,13 +64,14 @@ def process_cover_page(soup, week_number, week_data):
     css_overrides = """
     /* OVERRIDES FOR COVER PAGE (Page 1) */
     @page:first {
-        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-image: url('Textbook_Cover.jpg');
         background-size: cover;
         background-position: center;
         margin: 0;
     }
     .cover-page {
-        background: none !important; /* Override gradient */
+        background: url('Textbook_Cover.jpg') no-repeat center center !important;
+        background-size: cover !important;
         position: relative;
         width: 210mm; /* A4 Width */
         height: 296mm; /* A4 Height */
