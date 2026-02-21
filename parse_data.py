@@ -206,11 +206,12 @@ def process_cover_page(soup, week_number, week_data):
         footer_div.string = "© Jinhua New Oriental Academy English Department Curriculum"
         cover_div.append(footer_div)
 
-def process_teacher_plan(soup, week_number, week_data):
+def process_teacher_plan(soup, week_number, week_data, week_vocab):
     """Updates Teacher Lesson Plan pages."""
     print("Processing Teacher Plan...")
 
     topic = week_data.get('topic', '')
+    theme = week_data.get('theme', 'General')
 
     # Update Header Bars (Teacher L1, Student L1, Student Practice, Teacher L2, Student L2, Deep Dive, Rapid Fire)
     headers = soup.find_all('span', class_='week-tag')
@@ -223,9 +224,58 @@ def process_teacher_plan(soup, week_number, week_data):
             header.string = f"Week {week_number} • Self-Study"
 
     # Update Learning Objectives (Page 3)
-    # Target specific LOs based on topic
-    # Find the L1 Teacher Plan section
-    # We look for "Teacher Lesson Plan" and then the LO card
+    # L1 Learning Objectives (Page 1)
+    l1_page = soup.find('div', class_='l1')
+    if l1_page:
+        lo_card = l1_page.find('h2', string=re.compile(r'Learning Objectives')).parent
+        if lo_card:
+            ul = lo_card.find('ul')
+            if ul:
+                ul.clear()
+                # Dynamic LOs
+                sample_word = "Target Word"
+                if week_vocab and 'l1_vocab' in week_vocab and len(week_vocab['l1_vocab']) > 0:
+                    first_word = week_vocab['l1_vocab'][0].get('word', '').split('(')[0].strip()
+                    sample_word = first_word
+
+                ul.append(BeautifulSoup(f"<li><strong>Speaking:</strong> Speak fluently about {topic} using Part 2 structure.</li>", 'html.parser'))
+                ul.append(BeautifulSoup(f"<li><strong>Vocab:</strong> Use 7 target words (e.g., <em>{sample_word}</em>) in context.</li>", 'html.parser'))
+                ul.append(BeautifulSoup(f"<li><strong>Grammar:</strong> Use narrative tenses or relevant grammar for {theme}.</li>", 'html.parser'))
+
+        # L1 Criteria
+        criteria_h2 = l1_page.find('h2', string=re.compile(r'Criteria'))
+        if criteria_h2:
+            criteria_div = criteria_h2.find_next_sibling('div')
+            if criteria_div:
+                criteria_div.clear()
+                criteria_div.append(BeautifulSoup(f"\"I can speak for 2 mins about {topic} using 2 idioms.\"", 'html.parser'))
+
+    # L2 Learning Objectives (Page 4)
+    l2_pages = soup.find_all('div', class_='l2')
+    if l2_pages:
+        l2_teacher_page = l2_pages[0] # Assuming first is Teacher Plan
+        lo_card = l2_teacher_page.find('h2', string=re.compile(r'Learning Objectives')).parent
+        if lo_card:
+            ul = lo_card.find('ul')
+            if ul:
+                ul.clear()
+                # Dynamic LOs
+                sample_word_l2 = "Abstract Noun"
+                if week_vocab and 'l2_vocab' in week_vocab and len(week_vocab['l2_vocab']) > 0:
+                    first_word = week_vocab['l2_vocab'][0].get('word', '').split('(')[0].strip()
+                    sample_word_l2 = first_word
+
+                ul.append(BeautifulSoup(f"<li><strong>Logic:</strong> Use O.R.E. logic to answer Part 3 questions.</li>", 'html.parser'))
+                ul.append(BeautifulSoup(f"<li><strong>Vocab:</strong> Use Abstract Nouns (e.g., <em>{sample_word_l2}</em>).</li>", 'html.parser'))
+                ul.append(BeautifulSoup(f"<li><strong>Speaking:</strong> Discuss abstract ideas about {topic}.</li>", 'html.parser'))
+
+        # L2 Criteria
+        criteria_h2 = l2_teacher_page.find('h2', string=re.compile(r'Criteria'))
+        if criteria_h2:
+            criteria_div = criteria_h2.find_next_sibling('div')
+            if criteria_div:
+                criteria_div.clear()
+                criteria_div.append(BeautifulSoup(f"\"I can answer 3 abstract questions about {topic} using O.R.E.\"", 'html.parser'))
 
     # Bilibili Link
     bilibili_search = f"IELTS {topic} Speaking"
@@ -769,11 +819,10 @@ def process_student_l2(soup, week_data):
     if len(l2_pages) >= 4:
         page7 = l2_pages[3]
 
-        # Reduce spacing for Instruction
+        # Remove Instruction Div (Task 1)
         instruction_div = page7.find('div', style=lambda x: x and 'color:#7f8c8d' in x and 'margin-bottom' in x)
         if instruction_div and "Instruction:" in instruction_div.decode_contents():
-            # Reduce margin-bottom to pull next element closer (counteracting parent gap)
-            instruction_div['style'] = instruction_div['style'].replace('margin-bottom: 5px', 'margin-bottom: -5px')
+            instruction_div.decompose()
 
         # Apply Flex Layout to the Page Container (exclude header)
         # We need to find the container div that wraps the cards.
@@ -956,7 +1005,7 @@ def main(week_number):
 
     # 3. Process Content
     process_cover_page(soup, week_number, week_curriculum)
-    process_teacher_plan(soup, week_number, week_curriculum)
+    process_teacher_plan(soup, week_number, week_curriculum, week_vocab)
     process_vocabulary(soup, week_number, week_vocab)
     process_student_l1(soup, week_curriculum)
     format_mind_maps(soup, week_curriculum)
