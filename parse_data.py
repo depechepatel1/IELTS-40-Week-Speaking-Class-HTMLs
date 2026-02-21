@@ -160,14 +160,17 @@ def process_cover_page(soup, week_number, week_data):
     .cover-box { display: none; }
     """
 
-    existing_style = soup.find('style', id='cover-overrides')
-    if existing_style:
-        existing_style.string = css_overrides
-    else:
-        style_tag = soup.new_tag('style', id='cover-overrides')
-        style_tag.string = css_overrides
-        if soup.head:
-            soup.head.append(style_tag)
+    # Clean up ANY existing cover overrides (duplicates or old versions)
+    if soup.head:
+        for tag in soup.head.find_all('style'):
+            if tag.string and "OVERRIDES FOR COVER PAGE" in tag.string:
+                tag.decompose()
+
+    # Add fresh style tag
+    style_tag = soup.new_tag('style', id='cover-overrides')
+    style_tag.string = css_overrides
+    if soup.head:
+        soup.head.append(style_tag)
 
     # REBUILD COVER PAGE HTML
     cover_div = soup.find('div', class_='cover-page')
@@ -828,22 +831,32 @@ def process_student_l2(soup, week_data):
         # We need to find the container div that wraps the cards.
         # In template: <div style="display:flex; flex-direction:column; gap:8px; flex-grow:1;">
         content_container = page7.find('div', style=lambda x: x and 'flex-direction:column' in x and 'gap:8px' in x)
+
+        # Task 2: No padding between top of page banner and Q4 floating window
+        # We remove the gap from the page itself
+        page7['style'] = "gap:0 !important; padding-top:0 !important;"
+
         if content_container:
             # Force height 100% and hidden overflow to stay within page
-            content_container['style'] += "; height:100%; overflow:hidden;"
+            # Task 1: Reapply drop shadows (add padding to container to prevent clipping)
+            # Reset style to avoid duplication
+            # Task 2: Padding top 0 (to meet "No padding at all" request)
+            content_container['style'] = "display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;"
 
         compact_cards = page7.find_all('div', class_='card compact')
         if len(compact_cards) >= 3:
             for card in compact_cards:
                 # Force cards to share space equally
-                card['style'] += "; flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:5px; overflow:hidden;"
+                # Reset style to avoid duplication
+                card['style'] = "flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;"
 
                 # Make the writing container flex grow
                 # Writing container is the div with background var(--bg-pastel-green)
                 write_container = card.find('div', style=lambda x: x and 'bg-pastel-green' in x)
                 if write_container:
                     # Added position:relative for absolute positioning of prompt
-                    write_container['style'] += "; flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;"
+                    # Reset style to avoid duplication. Restoring original dashed border style.
+                    write_container['style'] = "margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;"
 
                     # Make the lines grow
                     lines = write_container.find('div', class_='lines')
