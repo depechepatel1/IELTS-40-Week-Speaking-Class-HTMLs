@@ -160,10 +160,14 @@ def process_cover_page(soup, week_number, week_data):
     .cover-box { display: none; }
     """
 
-    style_tag = soup.new_tag('style')
-    style_tag.string = css_overrides
-    if soup.head:
-        soup.head.append(style_tag)
+    existing_style = soup.find('style', id='cover-overrides')
+    if existing_style:
+        existing_style.string = css_overrides
+    else:
+        style_tag = soup.new_tag('style', id='cover-overrides')
+        style_tag.string = css_overrides
+        if soup.head:
+            soup.head.append(style_tag)
 
     # REBUILD COVER PAGE HTML
     cover_div = soup.find('div', class_='cover-page')
@@ -765,6 +769,12 @@ def process_student_l2(soup, week_data):
     if len(l2_pages) >= 4:
         page7 = l2_pages[3]
 
+        # Reduce spacing for Instruction
+        instruction_div = page7.find('div', style=lambda x: x and 'color:#7f8c8d' in x and 'margin-bottom' in x)
+        if instruction_div and "Instruction:" in instruction_div.decode_contents():
+            # Reduce margin-bottom to pull next element closer (counteracting parent gap)
+            instruction_div['style'] = instruction_div['style'].replace('margin-bottom: 5px', 'margin-bottom: -5px')
+
         # Apply Flex Layout to the Page Container (exclude header)
         # We need to find the container div that wraps the cards.
         # In template: <div style="display:flex; flex-direction:column; gap:8px; flex-grow:1;">
@@ -824,6 +834,11 @@ def process_student_l2(soup, week_data):
         # Generate Two Questions
         generic_q = get_generic_peer_question(q_text)
         specific_q = get_specific_peer_question(q_key)
+
+        # Remove existing peer checks to avoid duplication
+        existing_checks = ul.parent.find_all('div', style=lambda x: x and 'border-top:1px dotted #ccc' in x)
+        for check in existing_checks:
+            check.decompose()
 
         # Create Container for Peer Qs (Compact Style)
         # Reduced margin/padding, added line-height
