@@ -60,22 +60,130 @@ def process_cover_page(soup, week_number, week_data):
     if soup.title:
         soup.title.string = f"Week {week_number} Master Lesson Pack"
 
-    # Update Cover Week Number
-    cover_week = soup.find('h1', class_='cover-week')
-    if cover_week:
-        cover_week.string = f"WEEK {week_number}"
+    # INJECT CSS OVERRIDES
+    css_overrides = """
+    /* OVERRIDES FOR COVER PAGE (Page 1) */
+    @page:first {
+        background-image: url('https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: none !important; /* Override gradient */
+        position: relative;
+        width: 100%;
+        height: 100vh; /* Full viewport height for screen, A4 for print handled by @page */
+        color: white;
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end; /* Right align content */
+        text-align: right;
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 8em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 3px white;
+        text-shadow: 3px 3px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: white;
+        padding: 5px 15px;
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: white;
+        margin: 0;
+        line-height: 1;
+        text-shadow: 3px 3px 0 black;
+        -webkit-text-stroke: 2px black;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: white;
+        font-weight: 500;
+        text-shadow: 1px 1px 2px black;
+        opacity: 0.8;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; }
+    """
 
-    # Update Themes
-    # Assuming Part 2 Theme is 'theme' and Topic is 'topic'
-    # The template has "Part 2 Theme" -> "Describing Places" (Topic Category?)
-    # and "Part 3 Theme" -> "Urbanization & Community" (Topic?)
+    style_tag = soup.new_tag('style')
+    style_tag.string = css_overrides
+    if soup.head:
+        soup.head.append(style_tag)
 
-    # In Curriculum data: "theme": "People", "topic": "A Family Member You Are Proud Of"
+    # REBUILD COVER PAGE HTML
+    cover_div = soup.find('div', class_='cover-page')
+    if cover_div:
+        cover_div.clear()
 
-    theme_texts = soup.find_all('h2', class_='cover-theme-text')
-    if len(theme_texts) >= 2:
-        theme_texts[0].string = week_data.get('theme', 'General')
-        theme_texts[1].string = week_data.get('topic', 'Discussion')
+        # Container
+        content_div = soup.new_tag('div', attrs={'class': 'cover-content'})
+
+        # 1. Top Label
+        top_label = soup.new_tag('div', attrs={'class': 'cover-top-label'})
+        top_label.string = "IELTS SPEAKING MASTERCLASS"
+        content_div.append(top_label)
+
+        # 2. Week Number
+        week_h1 = soup.new_tag('h1', attrs={'class': 'cover-week'})
+        week_h1.string = f"WEEK {week_number}"
+        content_div.append(week_h1)
+
+        # 3. Large Title (Theme)
+        theme = week_data.get('theme', 'General')
+        title_h2 = soup.new_tag('h2', attrs={'class': 'cover-title-large'})
+        title_h2.string = theme
+        content_div.append(title_h2)
+
+        # 4. Subtitle (Topic)
+        topic = week_data.get('topic', 'Discussion')
+        sub_div = soup.new_tag('div', attrs={'class': 'cover-subtitle'})
+        sub_div.string = topic
+        content_div.append(sub_div)
+
+        cover_div.append(content_div)
+
+        # Footer
+        footer_div = soup.new_tag('div', attrs={'class': 'cover-footer'})
+        footer_div.string = "© Jinhua New Oriental Academy English Department Curriculum"
+        cover_div.append(footer_div)
 
 def process_teacher_plan(soup, week_number, week_data):
     """Updates Teacher Lesson Plan pages."""

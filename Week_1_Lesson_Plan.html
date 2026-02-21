@@ -378,23 +378,92 @@
     }
 
 </style>
-</head>
+<style>
+    /* OVERRIDES FOR COVER PAGE (Page 1) */
+    @page:first {
+        background-image: url('https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: none !important; /* Override gradient */
+        position: relative;
+        width: 100%;
+        height: 100vh; /* Full viewport height for screen, A4 for print handled by @page */
+        color: white;
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end; /* Right align content */
+        text-align: right;
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 8em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 3px white;
+        text-shadow: 3px 3px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: white;
+        padding: 5px 15px;
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: white;
+        margin: 0;
+        line-height: 1;
+        text-shadow: 3px 3px 0 black;
+        -webkit-text-stroke: 2px black;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: white;
+        font-weight: 500;
+        text-shadow: 1px 1px 2px black;
+        opacity: 0.8;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; }
+    </style></head>
 <body>
 <!-- =========================================
          PAGE 1: COVER PAGE
          ========================================= -->
-<div class="page cover-page">
-<div class="cover-box">
-<div class="cover-subtitle">IELTS Speaking Masterclass</div>
-<h1 class="cover-week">WEEK 1</h1>
-<div class="cover-theme-box">
-<div class="cover-theme-title">Part 2 Theme</div>
-<h2 class="cover-theme-text">People</h2>
-<div class="cover-theme-title">Part 3 Theme</div>
-<h2 class="cover-theme-text">A Family Member You Are Proud Of</h2>
-</div>
-</div>
-</div>
+<div class="page cover-page"><div class="cover-content"><div class="cover-top-label">IELTS SPEAKING MASTERCLASS</div><h1 class="cover-week">WEEK 1</h1><h2 class="cover-title-large">People</h2><div class="cover-subtitle">A Family Member You Are Proud Of</div></div><div class="cover-footer">© Jinhua New Oriental Academy English Department Curriculum</div></div>
 <!-- =========================================
          PAGE 2: BLANK PAGE (For Collation)
          ========================================= -->
