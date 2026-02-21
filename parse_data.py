@@ -11,17 +11,28 @@ def load_concatenated_json(filepath):
     data = []
     decoder = json.JSONDecoder()
     pos = 0
-    while pos < len(content):
-        content_slice = content[pos:].lstrip()
-        if not content_slice:
+    length = len(content)
+
+    while pos < length:
+        # Skip whitespace manually
+        while pos < length and content[pos].isspace():
+            pos += 1
+
+        if pos == length:
             break
+
         try:
-            obj, end = decoder.raw_decode(content_slice)
+            # Decode directly from content at pos, avoiding string slicing
+            obj, end = decoder.raw_decode(content, idx=pos)
+
             if isinstance(obj, list):
                 data.extend(obj)
             else:
                 data.append(obj)
-            pos += end
+
+            # end is the absolute index where object ended
+            pos = end
+
         except json.JSONDecodeError:
             break
 
