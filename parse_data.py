@@ -64,13 +64,13 @@ def process_cover_page(soup, week_number, week_data):
     css_overrides = """
     /* OVERRIDES FOR COVER PAGE (Page 1) */
     @page:first {
-        background-image: url('Textbook_Cover.jpg');
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
         background-size: cover;
         background-position: center;
         margin: 0;
     }
     .cover-page {
-        background: url('Textbook_Cover.jpg') no-repeat center center !important;
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important;
         background-size: cover !important;
         position: relative;
         width: 210mm; /* A4 Width */
@@ -79,9 +79,10 @@ def process_cover_page(soup, week_number, week_data):
         padding: 0 !important;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: flex-end; /* Right align content */
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
         text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
     }
     .cover-content {
         margin-right: 2cm;
