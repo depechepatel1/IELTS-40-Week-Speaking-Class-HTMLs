@@ -7,7 +7,7 @@ def run():
         page = browser.new_page()
 
         # Load the local HTML file
-        file_path = os.path.abspath("Week_1_Lesson_Plan.html")
+        file_path = os.path.abspath("Week_2_Lesson_Plan.html")
         page.goto(f"file://{file_path}")
 
         # Take a screenshot of the first page (Cover Page)

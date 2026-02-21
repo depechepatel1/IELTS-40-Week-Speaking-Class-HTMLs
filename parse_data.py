@@ -929,9 +929,9 @@ def process_homework(soup, week_number, homework_data):
     if key_div:
         key_div.string = answer_key
 
-def main():
-    week_number = 1
+import sys
 
+def main(week_number):
     # 1. Load Data
     week_curriculum, week_vocab, week_homework = load_data(week_number)
 
@@ -956,4 +956,5 @@ def main():
     print(f"Successfully generated {output_filename}")
 
 if __name__ == "__main__":
-    main()
+    week = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+    main(week)
