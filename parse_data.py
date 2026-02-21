@@ -64,7 +64,7 @@ def process_cover_page(soup, week_number, week_data):
     css_overrides = """
     /* OVERRIDES FOR COVER PAGE (Page 1) */
     @page:first {
-        background-image: url('https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3');
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
         background-size: cover;
         background-position: center;
         margin: 0;
@@ -72,9 +72,9 @@ def process_cover_page(soup, week_number, week_data):
     .cover-page {
         background: none !important; /* Override gradient */
         position: relative;
-        width: 100%;
-        height: 100vh; /* Full viewport height for screen, A4 for print handled by @page */
-        color: white;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black;
         padding: 0 !important;
         display: flex;
         flex-direction: column;
@@ -94,8 +94,8 @@ def process_cover_page(soup, week_number, week_data):
         font-weight: 900;
         line-height: 0.9;
         color: black;
-        -webkit-text-stroke: 3px white;
-        text-shadow: 3px 3px 0 #fff;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
         margin: 0;
         text-transform: uppercase;
     }
@@ -103,41 +103,45 @@ def process_cover_page(soup, week_number, week_data):
         font-size: 1.8em;
         font-weight: 700;
         color: black;
-        background: white;
-        padding: 5px 15px;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
         margin: 10px 0 0 0;
         text-transform: uppercase;
         letter-spacing: 2px;
         display: inline-block;
-        box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
     }
     .cover-top-label {
         font-size: 1.5em;
         font-weight: 800;
-        color: white;
+        color: black;
         text-transform: uppercase;
         letter-spacing: 4px;
         margin-bottom: 0;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
     }
     .cover-week {
         font-size: 5em;
         font-weight: 900;
-        color: white;
+        color: black;
         margin: 0;
         line-height: 1;
-        text-shadow: 3px 3px 0 black;
-        -webkit-text-stroke: 2px black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
     }
     .cover-footer {
         position: absolute;
         bottom: 1cm;
         right: 2cm;
         font-size: 0.8em;
-        color: white;
-        font-weight: 500;
-        text-shadow: 1px 1px 2px black;
-        opacity: 0.8;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
     }
     /* Hide default elements we don't need */
     .cover-box { display: none; }
