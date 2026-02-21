@@ -305,6 +305,14 @@ def process_teacher_plan(soup, week_number, week_data, week_vocab):
                 cells[1].clear()
                 cells[1].append(BeautifulSoup(new_html, 'html.parser'))
 
+            # Vocab Drill Update
+            if len(cells) > 1 and "Vocab Drill" in cells[1].get_text():
+                content = cells[1].decode_contents()
+                if '"Thick and thin"' in content:
+                    new_content = content.replace('"Thick and thin"', '"idioms"')
+                    cells[1].clear()
+                    cells[1].append(BeautifulSoup(new_content, 'html.parser'))
+
     # Dynamic Differentiation (All Differentiation Boxes)
     diff_cards = soup.find_all('div', class_='card')
     for card in diff_cards:
@@ -955,7 +963,7 @@ def process_homework(soup, week_number, homework_data):
         grammar_box.clear()
         for i, item in enumerate(grammar_data):
             error = item.get('error', '')
-            div = soup.new_tag('div', class_='grammar-sent')
+            div = soup.new_tag('div', attrs={'class': 'grammar-sent'})
             div.string = f"{i+1}. {error}"
             grammar_box.append(div)
 
