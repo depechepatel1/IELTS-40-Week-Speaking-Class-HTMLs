@@ -395,13 +395,34 @@ def process_vocabulary(soup, week_number, vocab_data):
             for word_item in l1_vocab_list:
                 if count >= 7: break
                 
-                word = word_item.get('word', '').split('(')[0].strip()
-                pos = word_item.get('word', '').split('(')[1].replace(')', '') if '(' in word_item.get('word', '') else ''
+                word_raw = word_item.get('word', '')
+                word = word_raw.split('(')[0].strip()
+
+                # Try to get POS from the word field if present e.g. "Diligent (Adj)"
+                pos = word_raw.split('(')[1].replace(')', '') if '(' in word_raw else ''
+
                 forms = word_item.get('forms', word_item.get('Word Forms', ''))
                 meaning = word_item.get('meaning', '')
                 recycled = word_item.get('recycled', False)
                 
-                row_html = f"<td><strong>{word}</strong> <span style='font-weight:normal; font-style:italic; font-size:0.9em;'>({pos})</span>"
+                # If POS missing, infer from 'forms' if it's a simple label
+                if not pos:
+                    forms_lower = forms.lower()
+                    if forms_lower == "adjective" or forms_lower == "adj":
+                        pos = "Adj"
+                    elif forms_lower == "noun" or forms_lower == "n":
+                        pos = "N"
+                    elif forms_lower == "verb" or forms_lower == "v":
+                        pos = "V"
+                    elif forms_lower == "adverb" or forms_lower == "adv":
+                        pos = "Adv"
+                    elif "noun phrase" in forms_lower:
+                        pos = "Noun Phrase"
+
+                row_html = f"<td><strong>{word}</strong>"
+                if pos:
+                    row_html += f" <span style='font-weight:normal; font-style:italic; font-size:0.9em;'>({pos})</span>"
+
                 if recycled and week_number > 1:
                      row_html += " <span class='recycled-tag'>Recycled</span>"
                 row_html += f"</td><td>{forms}</td><td><span class='vocab-cn'>{meaning}</span></td>"
@@ -453,12 +474,30 @@ def process_vocabulary(soup, week_number, vocab_data):
             l2_idioms_list = vocab_data.get('l2_idioms', [])
             
             for word_item in l2_vocab_list:
-                word = word_item.get('word', '').split('(')[0].strip()
-                pos = word_item.get('word', '').split('(')[1].replace(')', '') if '(' in word_item.get('word', '') else ''
+                word_raw = word_item.get('word', '')
+                word = word_raw.split('(')[0].strip()
+                pos = word_raw.split('(')[1].replace(')', '') if '(' in word_raw else ''
+
                 forms = word_item.get('forms', word_item.get('Word Forms', ''))
                 meaning = word_item.get('meaning', '')
                 
-                row_html = f"<td><strong>{word}</strong> <span style='font-weight:normal; font-style:italic; font-size:0.9em;'>({pos})</span></td><td>{forms}</td><td><span class='vocab-cn'>{meaning}</span></td>"
+                if not pos:
+                    forms_lower = forms.lower()
+                    if forms_lower == "adjective" or forms_lower == "adj":
+                        pos = "Adj"
+                    elif forms_lower == "noun" or forms_lower == "n":
+                        pos = "N"
+                    elif forms_lower == "verb" or forms_lower == "v":
+                        pos = "V"
+                    elif forms_lower == "adverb" or forms_lower == "adv":
+                        pos = "Adv"
+                    elif "noun phrase" in forms_lower:
+                        pos = "Noun Phrase"
+
+                row_html = f"<td><strong>{word}</strong>"
+                if pos:
+                    row_html += f" <span style='font-weight:normal; font-style:italic; font-size:0.9em;'>({pos})</span>"
+                row_html += f"</td><td>{forms}</td><td><span class='vocab-cn'>{meaning}</span></td>"
                 
                 tr = soup.new_tag('tr')
                 tr.append(BeautifulSoup(row_html, 'html.parser'))
