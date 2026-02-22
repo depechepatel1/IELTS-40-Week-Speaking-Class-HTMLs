@@ -44,7 +44,11 @@ def load_concatenated_json(filepath):
 def load_all_data():
     """Loads all data files once."""
     print("Loading all data files...")
-    curriculum_data = load_concatenated_json('Curriculum 0 final.txt')
+
+    # Load Curriculum (Standard JSON now)
+    with open('curriculum.json', 'r', encoding='utf-8') as f:
+        curriculum_data = json.load(f)
+
     vocab_data = load_concatenated_json('vocab_plan.txt')
     homework_data = load_concatenated_json('homework_plan.json')
 

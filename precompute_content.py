@@ -66,7 +66,8 @@ def get_peer_questions(q_text, week_num):
     return {"b5": b5, "b6": b6}
 
 def main():
-    curriculum = load_concatenated_json_robust('Curriculum 0 final.txt')
+    with open('curriculum.json', 'r', encoding='utf-8') as f:
+        curriculum = json.load(f)
     print(f"Loaded {len(curriculum)} weeks.")
 
     output = {}
