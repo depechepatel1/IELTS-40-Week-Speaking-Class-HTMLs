@@ -1,6 +1,7 @@
 
 import json
 import random
+import re
 
 def load_json(filepath):
     try:
@@ -10,6 +11,10 @@ def load_json(filepath):
         print(f"Error loading {filepath}: {e}")
         return []
 
+def clean_article(text):
+    """Removes leading 'a ' or 'an ' from text to avoid double articles."""
+    return re.sub(r'^(a|an)\s+', '', text, flags=re.IGNORECASE)
+
 def generate_l1_content(week_data, vocab_data, week_num):
     topic = week_data.get('topic', 'General Topic')
     theme = week_data.get('theme', 'General Theme')
@@ -18,27 +23,37 @@ def generate_l1_content(week_data, vocab_data, week_num):
     l1_vocab = vocab_data.get('l1_vocab', [])
     target_word = l1_vocab[0]['word'] if l1_vocab else "Target Word"
 
-    # Differentiation Strategy
-    if "People" in theme:
-        b5_starter = "My favorite person is..."
-        b6_trans = "'Additionally...', 'Furthermore...'"
-        lead_in_q = "Do you spend much time with your family?"
-    elif "Places" in theme:
-        b5_starter = "I would love to visit..."
-        b6_trans = "'Consequently...', 'As a result...'"
-        lead_in_q = f"Have you ever visited a {topic.lower()}?"
-    elif "Events" in theme:
-        b5_starter = "I remember when I..."
-        b6_trans = "'Subsequently...', 'Eventually...'"
-        lead_in_q = f"Do you enjoy {topic.lower()}?"
-    elif "Items" in theme:
-        b5_starter = "This object is useful because..."
-        b6_trans = "'Specifically...', 'For instance...'"
-        lead_in_q = f"Do you own a {topic.lower()}?"
-    else:
-        b5_starter = "I think that..."
-        b6_trans = "'Admittedly...', 'Conversely...'"
-        lead_in_q = f"What do you know about {topic}?"
+    clean_topic = clean_article(topic)
+    topic_lower = clean_topic.lower()
+
+    # Contextualized Lead-in
+    lead_in_q = f"What comes to mind when you think about {topic_lower}?" # Default
+    if "Family" in topic or "Person" in topic or "Friend" in topic:
+        lead_in_q = f"Do you think {topic_lower} is important in your life?"
+    elif "Place" in topic or "Country" in topic or "City" in topic:
+        lead_in_q = f"Have you ever visited {clean_article(topic)}?" # e.g. Have you ever visited a foreign country? -> Have you ever visited foreign country? (wait, keep article if needed or rely on topic having it)
+        # Actually topic usually is "A Foreign Country". clean_topic is "Foreign Country".
+        # So "Have you ever visited Foreign Country" is weird. "Have you ever visited a Foreign Country" is better.
+        # But if topic is "Shopping Mall", "Have you ever visited Shopping Mall" is bad.
+        # Let's use specific logic.
+        lead_in_q = f"Have you ever visited a place related to '{topic_lower}'?"
+    elif "Book" in topic or "Movie" in topic or "Story" in topic:
+        lead_in_q = f"Do you enjoy {topic_lower}?"
+    elif "Toy" in topic or "App" in topic or "Object" in topic or "Technology" in topic:
+        lead_in_q = f"Do you use or own {topic_lower}?"
+    elif "Event" in topic or "Festival" in topic or "Party" in topic:
+        lead_in_q = f"When was the last time you experienced {topic_lower}?"
+
+    # Contextualized Differentiation
+    b5_starter = f"I like {topic_lower} because..."
+    if "Person" in topic or "Family" in topic:
+        b5_starter = "This person is special because..."
+    elif "Place" in topic:
+        b5_starter = "I want to go there because..."
+    elif "Event" in topic:
+        b5_starter = "It was a memorable time because..."
+
+    b6_peer = f"Ask specific questions about {topic_lower}."
 
     return {
         "learning_objectives": [
@@ -53,8 +68,8 @@ def generate_l1_content(week_data, vocab_data, week_num):
                 "peer_check": "Simple generic prompts (e.g., 'Why?')."
             },
             "band_6": {
-                "transitions": b6_trans,
-                "peer_check": "Topic-specific extension questions."
+                "transitions": "'Additionally...', 'Furthermore...'",
+                "peer_check": b6_peer
             }
         },
         "lead_in": {
@@ -65,10 +80,21 @@ def generate_l1_content(week_data, vocab_data, week_num):
 
 def generate_l2_content(week_data, vocab_data, week_num):
     topic = week_data.get('topic', 'General Topic')
+    clean_topic = clean_article(topic)
+    topic_lower = clean_topic.lower()
 
     # Extract abstract noun
     l2_vocab = vocab_data.get('l2_vocab', [])
     abstract_word = l2_vocab[0]['word'] if l2_vocab else "Abstract Noun"
+
+    # Contextualized Lead-in
+    lead_in_q = f"How does {topic_lower} impact society?"
+    if "Child" in topic or "Toy" in topic:
+        lead_in_q = f"Do you think {topic_lower} affects how children grow up?"
+    elif "Job" in topic or "Work" in topic:
+        lead_in_q = f"How is {topic_lower} changing in the modern world?"
+    elif "Environment" in topic or "Nature" in topic:
+        lead_in_q = f"Why is {topic_lower} a critical issue today?"
 
     return {
         "learning_objectives": [
@@ -84,12 +110,12 @@ def generate_l2_content(week_data, vocab_data, week_num):
             },
             "band_6": {
                 "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-                "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+                "peer_check": f"Challenge questions about {topic_lower} (e.g., 'Is this always true?')."
             }
         },
         "lead_in": {
             "search_term": f"IELTS {topic} Part 3",
-            "question": "Do you think this topic is important for society?"
+            "question": lead_in_q
         }
     }
 

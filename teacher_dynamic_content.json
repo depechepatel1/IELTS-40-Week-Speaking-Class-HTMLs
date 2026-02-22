@@ -9,17 +9,17 @@
       "success_criteria": "\"I can speak for 2 mins about A Family Member You Are Proud Of using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "My favorite person is...",
+          "starter": "This person is special because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
           "transitions": "'Additionally...', 'Furthermore...'",
-          "peer_check": "Topic-specific extension questions."
+          "peer_check": "Ask specific questions about family member you are proud of."
         }
       },
       "lead_in": {
         "search_term": "IELTS A Family Member You Are Proud Of Speaking",
-        "question": "Do you spend much time with your family?"
+        "question": "Do you think family member you are proud of is important in your life?"
       }
     },
     "lesson_2": {
@@ -36,12 +36,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about family member you are proud of (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS A Family Member You Are Proud Of Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does family member you are proud of impact society?"
       }
     }
   },
@@ -55,17 +55,17 @@
       "success_criteria": "\"I can speak for 2 mins about Working Abroad / Foreign Country using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I would love to visit...",
+          "starter": "I like working abroad / foreign country because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Consequently...', 'As a result...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about working abroad / foreign country."
         }
       },
       "lead_in": {
         "search_term": "IELTS Working Abroad / Foreign Country Speaking",
-        "question": "Have you ever visited a working abroad / foreign country?"
+        "question": "Have you ever visited a place related to 'working abroad / foreign country'?"
       }
     },
     "lesson_2": {
@@ -82,12 +82,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about working abroad / foreign country (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Working Abroad / Foreign Country Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How is working abroad / foreign country changing in the modern world?"
       }
     }
   },
@@ -101,17 +101,17 @@
       "success_criteria": "\"I can speak for 2 mins about Your Perfect Job using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "This object is useful because...",
+          "starter": "I like your perfect job because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Specifically...', 'For instance...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about your perfect job."
         }
       },
       "lead_in": {
         "search_term": "IELTS Your Perfect Job Speaking",
-        "question": "Do you own a your perfect job?"
+        "question": "What comes to mind when you think about your perfect job?"
       }
     },
     "lesson_2": {
@@ -128,12 +128,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about your perfect job (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Your Perfect Job Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How is your perfect job changing in the modern world?"
       }
     }
   },
@@ -147,17 +147,17 @@
       "success_criteria": "\"I can speak for 2 mins about A Disappointed Movie using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I remember when I...",
+          "starter": "I like disappointed movie because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Subsequently...', 'Eventually...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about disappointed movie."
         }
       },
       "lead_in": {
         "search_term": "IELTS A Disappointed Movie Speaking",
-        "question": "Do you enjoy a disappointed movie?"
+        "question": "Do you enjoy disappointed movie?"
       }
     },
     "lesson_2": {
@@ -174,12 +174,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about disappointed movie (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS A Disappointed Movie Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does disappointed movie impact society?"
       }
     }
   },
@@ -193,17 +193,17 @@
       "success_criteria": "\"I can speak for 2 mins about Protecting Nature using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "My favorite person is...",
+          "starter": "I like protecting nature because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
           "transitions": "'Additionally...', 'Furthermore...'",
-          "peer_check": "Topic-specific extension questions."
+          "peer_check": "Ask specific questions about protecting nature."
         }
       },
       "lead_in": {
         "search_term": "IELTS Protecting Nature Speaking",
-        "question": "Do you spend much time with your family?"
+        "question": "What comes to mind when you think about protecting nature?"
       }
     },
     "lesson_2": {
@@ -220,12 +220,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about protecting nature (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Protecting Nature Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "Why is protecting nature a critical issue today?"
       }
     }
   },
@@ -239,17 +239,17 @@
       "success_criteria": "\"I can speak for 2 mins about A Place with Trees / Nature using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I would love to visit...",
+          "starter": "I want to go there because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Consequently...', 'As a result...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about place with trees / nature."
         }
       },
       "lead_in": {
         "search_term": "IELTS A Place with Trees / Nature Speaking",
-        "question": "Have you ever visited a a place with trees / nature?"
+        "question": "Have you ever visited a place related to 'place with trees / nature'?"
       }
     },
     "lesson_2": {
@@ -266,12 +266,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about place with trees / nature (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS A Place with Trees / Nature Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "Why is place with trees / nature a critical issue today?"
       }
     }
   },
@@ -285,17 +285,17 @@
       "success_criteria": "\"I can speak for 2 mins about A Mobile App using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "This object is useful because...",
+          "starter": "I like mobile app because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Specifically...', 'For instance...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about mobile app."
         }
       },
       "lead_in": {
         "search_term": "IELTS A Mobile App Speaking",
-        "question": "Do you own a a mobile app?"
+        "question": "Do you use or own mobile app?"
       }
     },
     "lesson_2": {
@@ -312,12 +312,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about mobile app (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS A Mobile App Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does mobile app impact society?"
       }
     }
   },
@@ -331,17 +331,17 @@
       "success_criteria": "\"I can speak for 2 mins about Giving Advice using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I remember when I...",
+          "starter": "I like giving advice because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Subsequently...', 'Eventually...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about giving advice."
         }
       },
       "lead_in": {
         "search_term": "IELTS Giving Advice Speaking",
-        "question": "Do you enjoy giving advice?"
+        "question": "What comes to mind when you think about giving advice?"
       }
     },
     "lesson_2": {
@@ -358,12 +358,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about giving advice (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Giving Advice Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does giving advice impact society?"
       }
     }
   },
@@ -377,17 +377,17 @@
       "success_criteria": "\"I can speak for 2 mins about A Child Who Enjoys Art using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "My favorite person is...",
+          "starter": "I like child who enjoys art because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
           "transitions": "'Additionally...', 'Furthermore...'",
-          "peer_check": "Topic-specific extension questions."
+          "peer_check": "Ask specific questions about child who enjoys art."
         }
       },
       "lead_in": {
         "search_term": "IELTS A Child Who Enjoys Art Speaking",
-        "question": "Do you spend much time with your family?"
+        "question": "What comes to mind when you think about child who enjoys art?"
       }
     },
     "lesson_2": {
@@ -404,12 +404,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about child who enjoys art (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS A Child Who Enjoys Art Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "Do you think child who enjoys art affects how children grow up?"
       }
     }
   },
@@ -423,17 +423,17 @@
       "success_criteria": "\"I can speak for 2 mins about An Interesting Building using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I would love to visit...",
+          "starter": "I like interesting building because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Consequently...', 'As a result...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about interesting building."
         }
       },
       "lead_in": {
         "search_term": "IELTS An Interesting Building Speaking",
-        "question": "Have you ever visited a an interesting building?"
+        "question": "What comes to mind when you think about interesting building?"
       }
     },
     "lesson_2": {
@@ -450,12 +450,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about interesting building (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS An Interesting Building Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does interesting building impact society?"
       }
     }
   },
@@ -469,17 +469,17 @@
       "success_criteria": "\"I can speak for 2 mins about Desired Technology using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "This object is useful because...",
+          "starter": "I like desired technology because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Specifically...', 'For instance...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about desired technology."
         }
       },
       "lead_in": {
         "search_term": "IELTS Desired Technology Speaking",
-        "question": "Do you own a desired technology?"
+        "question": "Do you use or own desired technology?"
       }
     },
     "lesson_2": {
@@ -496,12 +496,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about desired technology (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Desired Technology Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does desired technology impact society?"
       }
     }
   },
@@ -515,17 +515,17 @@
       "success_criteria": "\"I can speak for 2 mins about Losing Your Way using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I remember when I...",
+          "starter": "I like losing your way because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Subsequently...', 'Eventually...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about losing your way."
         }
       },
       "lead_in": {
         "search_term": "IELTS Losing Your Way Speaking",
-        "question": "Do you enjoy losing your way?"
+        "question": "What comes to mind when you think about losing your way?"
       }
     },
     "lesson_2": {
@@ -542,12 +542,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about losing your way (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Losing Your Way Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does losing your way impact society?"
       }
     }
   },
@@ -561,17 +561,17 @@
       "success_criteria": "\"I can speak for 2 mins about A Famous Person using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "My favorite person is...",
+          "starter": "This person is special because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
           "transitions": "'Additionally...', 'Furthermore...'",
-          "peer_check": "Topic-specific extension questions."
+          "peer_check": "Ask specific questions about famous person."
         }
       },
       "lead_in": {
         "search_term": "IELTS A Famous Person Speaking",
-        "question": "Do you spend much time with your family?"
+        "question": "Do you think famous person is important in your life?"
       }
     },
     "lesson_2": {
@@ -588,12 +588,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about famous person (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS A Famous Person Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does famous person impact society?"
       }
     }
   },
@@ -607,17 +607,17 @@
       "success_criteria": "\"I can speak for 2 mins about Shopping Mall using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I would love to visit...",
+          "starter": "I like shopping mall because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Consequently...', 'As a result...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about shopping mall."
         }
       },
       "lead_in": {
         "search_term": "IELTS Shopping Mall Speaking",
-        "question": "Have you ever visited a shopping mall?"
+        "question": "What comes to mind when you think about shopping mall?"
       }
     },
     "lesson_2": {
@@ -634,12 +634,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about shopping mall (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Shopping Mall Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does shopping mall impact society?"
       }
     }
   },
@@ -653,17 +653,17 @@
       "success_criteria": "\"I can speak for 2 mins about Books and Stories using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "This object is useful because...",
+          "starter": "I like books and stories because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Specifically...', 'For instance...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about books and stories."
         }
       },
       "lead_in": {
         "search_term": "IELTS Books and Stories Speaking",
-        "question": "Do you own a books and stories?"
+        "question": "Do you enjoy books and stories?"
       }
     },
     "lesson_2": {
@@ -680,12 +680,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about books and stories (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Books and Stories Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does books and stories impact society?"
       }
     }
   },
@@ -699,17 +699,17 @@
       "success_criteria": "\"I can speak for 2 mins about Laughter & Emotions using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I remember when I...",
+          "starter": "I like laughter & emotions because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Subsequently...', 'Eventually...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about laughter & emotions."
         }
       },
       "lead_in": {
         "search_term": "IELTS Laughter & Emotions Speaking",
-        "question": "Do you enjoy laughter & emotions?"
+        "question": "What comes to mind when you think about laughter & emotions?"
       }
     },
     "lesson_2": {
@@ -726,12 +726,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about laughter & emotions (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Laughter & Emotions Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does laughter & emotions impact society?"
       }
     }
   },
@@ -745,17 +745,17 @@
       "success_criteria": "\"I can speak for 2 mins about Friendship using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "My favorite person is...",
+          "starter": "I like friendship because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
           "transitions": "'Additionally...', 'Furthermore...'",
-          "peer_check": "Topic-specific extension questions."
+          "peer_check": "Ask specific questions about friendship."
         }
       },
       "lead_in": {
         "search_term": "IELTS Friendship Speaking",
-        "question": "Do you spend much time with your family?"
+        "question": "Do you think friendship is important in your life?"
       }
     },
     "lesson_2": {
@@ -772,12 +772,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about friendship (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Friendship Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does friendship impact society?"
       }
     }
   },
@@ -791,17 +791,17 @@
       "success_criteria": "\"I can speak for 2 mins about Housing & Accommodation using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I would love to visit...",
+          "starter": "I like housing & accommodation because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Consequently...', 'As a result...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about housing & accommodation."
         }
       },
       "lead_in": {
         "search_term": "IELTS Housing & Accommodation Speaking",
-        "question": "Have you ever visited a housing & accommodation?"
+        "question": "What comes to mind when you think about housing & accommodation?"
       }
     },
     "lesson_2": {
@@ -818,12 +818,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about housing & accommodation (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Housing & Accommodation Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does housing & accommodation impact society?"
       }
     }
   },
@@ -837,17 +837,17 @@
       "success_criteria": "\"I can speak for 2 mins about Important Objects using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "This object is useful because...",
+          "starter": "I like important objects because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Specifically...', 'For instance...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about important objects."
         }
       },
       "lead_in": {
         "search_term": "IELTS Important Objects Speaking",
-        "question": "Do you own a important objects?"
+        "question": "Do you use or own important objects?"
       }
     },
     "lesson_2": {
@@ -864,12 +864,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about important objects (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Important Objects Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does important objects impact society?"
       }
     }
   },
@@ -883,17 +883,17 @@
       "success_criteria": "\"I can speak for 2 mins about Journeys & Travel using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I remember when I...",
+          "starter": "I like journeys & travel because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Subsequently...', 'Eventually...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about journeys & travel."
         }
       },
       "lead_in": {
         "search_term": "IELTS Journeys & Travel Speaking",
-        "question": "Do you enjoy journeys & travel?"
+        "question": "What comes to mind when you think about journeys & travel?"
       }
     },
     "lesson_2": {
@@ -910,12 +910,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about journeys & travel (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Journeys & Travel Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does journeys & travel impact society?"
       }
     }
   },
@@ -929,17 +929,17 @@
       "success_criteria": "\"I can speak for 2 mins about Talent & Intelligence using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "My favorite person is...",
+          "starter": "I like talent & intelligence because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
           "transitions": "'Additionally...', 'Furthermore...'",
-          "peer_check": "Topic-specific extension questions."
+          "peer_check": "Ask specific questions about talent & intelligence."
         }
       },
       "lead_in": {
         "search_term": "IELTS Talent & Intelligence Speaking",
-        "question": "Do you spend much time with your family?"
+        "question": "What comes to mind when you think about talent & intelligence?"
       }
     },
     "lesson_2": {
@@ -956,12 +956,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about talent & intelligence (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Talent & Intelligence Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does talent & intelligence impact society?"
       }
     }
   },
@@ -975,17 +975,17 @@
       "success_criteria": "\"I can speak for 2 mins about Family Business & Shops using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I would love to visit...",
+          "starter": "This person is special because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Consequently...', 'As a result...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about family business & shops."
         }
       },
       "lead_in": {
         "search_term": "IELTS Family Business & Shops Speaking",
-        "question": "Have you ever visited a family business & shops?"
+        "question": "Do you think family business & shops is important in your life?"
       }
     },
     "lesson_2": {
@@ -1002,12 +1002,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about family business & shops (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Family Business & Shops Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does family business & shops impact society?"
       }
     }
   },
@@ -1021,17 +1021,17 @@
       "success_criteria": "\"I can speak for 2 mins about Childhood Toys using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "This object is useful because...",
+          "starter": "I like childhood toys because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Specifically...', 'For instance...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about childhood toys."
         }
       },
       "lead_in": {
         "search_term": "IELTS Childhood Toys Speaking",
-        "question": "Do you own a childhood toys?"
+        "question": "Do you use or own childhood toys?"
       }
     },
     "lesson_2": {
@@ -1048,12 +1048,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about childhood toys (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Childhood Toys Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "Do you think childhood toys affects how children grow up?"
       }
     }
   },
@@ -1067,17 +1067,17 @@
       "success_criteria": "\"I can speak for 2 mins about Technical Mishaps using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I remember when I...",
+          "starter": "I like technical mishaps because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Subsequently...', 'Eventually...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about technical mishaps."
         }
       },
       "lead_in": {
         "search_term": "IELTS Technical Mishaps Speaking",
-        "question": "Do you enjoy technical mishaps?"
+        "question": "What comes to mind when you think about technical mishaps?"
       }
     },
     "lesson_2": {
@@ -1094,12 +1094,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about technical mishaps (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Technical Mishaps Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does technical mishaps impact society?"
       }
     }
   },
@@ -1113,17 +1113,17 @@
       "success_criteria": "\"I can speak for 2 mins about Mentorship & Support using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "My favorite person is...",
+          "starter": "I like mentorship & support because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
           "transitions": "'Additionally...', 'Furthermore...'",
-          "peer_check": "Topic-specific extension questions."
+          "peer_check": "Ask specific questions about mentorship & support."
         }
       },
       "lead_in": {
         "search_term": "IELTS Mentorship & Support Speaking",
-        "question": "Do you spend much time with your family?"
+        "question": "What comes to mind when you think about mentorship & support?"
       }
     },
     "lesson_2": {
@@ -1140,12 +1140,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about mentorship & support (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Mentorship & Support Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does mentorship & support impact society?"
       }
     }
   },
@@ -1159,17 +1159,17 @@
       "success_criteria": "\"I can speak for 2 mins about Shopping & Service using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I would love to visit...",
+          "starter": "I like shopping & service because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Consequently...', 'As a result...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about shopping & service."
         }
       },
       "lead_in": {
         "search_term": "IELTS Shopping & Service Speaking",
-        "question": "Have you ever visited a shopping & service?"
+        "question": "What comes to mind when you think about shopping & service?"
       }
     },
     "lesson_2": {
@@ -1186,12 +1186,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about shopping & service (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Shopping & Service Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does shopping & service impact society?"
       }
     }
   },
@@ -1205,17 +1205,17 @@
       "success_criteria": "\"I can speak for 2 mins about Digital Media using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "This object is useful because...",
+          "starter": "I like digital media because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Specifically...', 'For instance...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about digital media."
         }
       },
       "lead_in": {
         "search_term": "IELTS Digital Media Speaking",
-        "question": "Do you own a digital media?"
+        "question": "What comes to mind when you think about digital media?"
       }
     },
     "lesson_2": {
@@ -1232,12 +1232,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about digital media (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Digital Media Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does digital media impact society?"
       }
     }
   },
@@ -1251,17 +1251,17 @@
       "success_criteria": "\"I can speak for 2 mins about Social Outings using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I remember when I...",
+          "starter": "I like social outings because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Subsequently...', 'Eventually...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about social outings."
         }
       },
       "lead_in": {
         "search_term": "IELTS Social Outings Speaking",
-        "question": "Do you enjoy social outings?"
+        "question": "What comes to mind when you think about social outings?"
       }
     },
     "lesson_2": {
@@ -1278,12 +1278,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about social outings (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Social Outings Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does social outings impact society?"
       }
     }
   },
@@ -1297,17 +1297,17 @@
       "success_criteria": "\"I can speak for 2 mins about Ethics & Interactions using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "My favorite person is...",
+          "starter": "I like ethics & interactions because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
           "transitions": "'Additionally...', 'Furthermore...'",
-          "peer_check": "Topic-specific extension questions."
+          "peer_check": "Ask specific questions about ethics & interactions."
         }
       },
       "lead_in": {
         "search_term": "IELTS Ethics & Interactions Speaking",
-        "question": "Do you spend much time with your family?"
+        "question": "What comes to mind when you think about ethics & interactions?"
       }
     },
     "lesson_2": {
@@ -1324,12 +1324,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about ethics & interactions (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Ethics & Interactions Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does ethics & interactions impact society?"
       }
     }
   },
@@ -1343,17 +1343,17 @@
       "success_criteria": "\"I can speak for 2 mins about Wild Animals & Habitats using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I would love to visit...",
+          "starter": "I like wild animals & habitats because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Consequently...', 'As a result...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about wild animals & habitats."
         }
       },
       "lead_in": {
         "search_term": "IELTS Wild Animals & Habitats Speaking",
-        "question": "Have you ever visited a wild animals & habitats?"
+        "question": "What comes to mind when you think about wild animals & habitats?"
       }
     },
     "lesson_2": {
@@ -1370,12 +1370,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about wild animals & habitats (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Wild Animals & Habitats Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does wild animals & habitats impact society?"
       }
     }
   },
@@ -1389,17 +1389,17 @@
       "success_criteria": "\"I can speak for 2 mins about Science & Imagination using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "This object is useful because...",
+          "starter": "I like science & imagination because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Specifically...', 'For instance...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about science & imagination."
         }
       },
       "lead_in": {
         "search_term": "IELTS Science & Imagination Speaking",
-        "question": "Do you own a science & imagination?"
+        "question": "What comes to mind when you think about science & imagination?"
       }
     },
     "lesson_2": {
@@ -1416,12 +1416,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about science & imagination (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Science & Imagination Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does science & imagination impact society?"
       }
     }
   },
@@ -1435,17 +1435,17 @@
       "success_criteria": "\"I can speak for 2 mins about Learning & Trying New Things using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I remember when I...",
+          "starter": "I like learning & trying new things because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Subsequently...', 'Eventually...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about learning & trying new things."
         }
       },
       "lead_in": {
         "search_term": "IELTS Learning & Trying New Things Speaking",
-        "question": "Do you enjoy learning & trying new things?"
+        "question": "What comes to mind when you think about learning & trying new things?"
       }
     },
     "lesson_2": {
@@ -1462,12 +1462,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about learning & trying new things (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Learning & Trying New Things Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does learning & trying new things impact society?"
       }
     }
   },
@@ -1481,17 +1481,17 @@
       "success_criteria": "\"I can speak for 2 mins about Habits & Character using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "My favorite person is...",
+          "starter": "I like habits & character because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
           "transitions": "'Additionally...', 'Furthermore...'",
-          "peer_check": "Topic-specific extension questions."
+          "peer_check": "Ask specific questions about habits & character."
         }
       },
       "lead_in": {
         "search_term": "IELTS Habits & Character Speaking",
-        "question": "Do you spend much time with your family?"
+        "question": "What comes to mind when you think about habits & character?"
       }
     },
     "lesson_2": {
@@ -1508,12 +1508,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about habits & character (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Habits & Character Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does habits & character impact society?"
       }
     }
   },
@@ -1527,17 +1527,17 @@
       "success_criteria": "\"I can speak for 2 mins about Restricted Areas & Rules using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I would love to visit...",
+          "starter": "I like restricted areas & rules because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Consequently...', 'As a result...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about restricted areas & rules."
         }
       },
       "lead_in": {
         "search_term": "IELTS Restricted Areas & Rules Speaking",
-        "question": "Have you ever visited a restricted areas & rules?"
+        "question": "What comes to mind when you think about restricted areas & rules?"
       }
     },
     "lesson_2": {
@@ -1554,12 +1554,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about restricted areas & rules (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Restricted Areas & Rules Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does restricted areas & rules impact society?"
       }
     }
   },
@@ -1573,17 +1573,17 @@
       "success_criteria": "\"I can speak for 2 mins about Planning & Waiting using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "This object is useful because...",
+          "starter": "I like planning & waiting because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Specifically...', 'For instance...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about planning & waiting."
         }
       },
       "lead_in": {
         "search_term": "IELTS Planning & Waiting Speaking",
-        "question": "Do you own a planning & waiting?"
+        "question": "What comes to mind when you think about planning & waiting?"
       }
     },
     "lesson_2": {
@@ -1600,12 +1600,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about planning & waiting (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Planning & Waiting Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does planning & waiting impact society?"
       }
     }
   },
@@ -1619,17 +1619,17 @@
       "success_criteria": "\"I can speak for 2 mins about Competition & Winning using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I remember when I...",
+          "starter": "I like competition & winning because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Subsequently...', 'Eventually...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about competition & winning."
         }
       },
       "lead_in": {
         "search_term": "IELTS Competition & Winning Speaking",
-        "question": "Do you enjoy competition & winning?"
+        "question": "What comes to mind when you think about competition & winning?"
       }
     },
     "lesson_2": {
@@ -1646,12 +1646,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about competition & winning (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Competition & Winning Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does competition & winning impact society?"
       }
     }
   },
@@ -1665,17 +1665,17 @@
       "success_criteria": "\"I can speak for 2 mins about Neighbors & Community using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "My favorite person is...",
+          "starter": "I like neighbors & community because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
           "transitions": "'Additionally...', 'Furthermore...'",
-          "peer_check": "Topic-specific extension questions."
+          "peer_check": "Ask specific questions about neighbors & community."
         }
       },
       "lead_in": {
         "search_term": "IELTS Neighbors & Community Speaking",
-        "question": "Do you spend much time with your family?"
+        "question": "What comes to mind when you think about neighbors & community?"
       }
     },
     "lesson_2": {
@@ -1692,12 +1692,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about neighbors & community (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Neighbors & Community Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does neighbors & community impact society?"
       }
     }
   },
@@ -1711,17 +1711,17 @@
       "success_criteria": "\"I can speak for 2 mins about Water & Coastal Areas using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I would love to visit...",
+          "starter": "I like water & coastal areas because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Consequently...', 'As a result...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about water & coastal areas."
         }
       },
       "lead_in": {
         "search_term": "IELTS Water & Coastal Areas Speaking",
-        "question": "Have you ever visited a water & coastal areas?"
+        "question": "What comes to mind when you think about water & coastal areas?"
       }
     },
     "lesson_2": {
@@ -1738,12 +1738,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about water & coastal areas (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Water & Coastal Areas Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does water & coastal areas impact society?"
       }
     }
   },
@@ -1757,17 +1757,17 @@
       "success_criteria": "\"I can speak for 2 mins about Clothing & Fashion using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "This object is useful because...",
+          "starter": "I like clothing & fashion because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Specifically...', 'For instance...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about clothing & fashion."
         }
       },
       "lead_in": {
         "search_term": "IELTS Clothing & Fashion Speaking",
-        "question": "Do you own a clothing & fashion?"
+        "question": "What comes to mind when you think about clothing & fashion?"
       }
     },
     "lesson_2": {
@@ -1784,12 +1784,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about clothing & fashion (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Clothing & Fashion Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does clothing & fashion impact society?"
       }
     }
   },
@@ -1803,17 +1803,17 @@
       "success_criteria": "\"I can speak for 2 mins about Festivals & Culture using 2 idioms.\"",
       "differentiation": {
         "band_5": {
-          "starter": "I remember when I...",
+          "starter": "I like festivals & culture because...",
           "peer_check": "Simple generic prompts (e.g., 'Why?')."
         },
         "band_6": {
-          "transitions": "'Subsequently...', 'Eventually...'",
-          "peer_check": "Topic-specific extension questions."
+          "transitions": "'Additionally...', 'Furthermore...'",
+          "peer_check": "Ask specific questions about festivals & culture."
         }
       },
       "lead_in": {
         "search_term": "IELTS Festivals & Culture Speaking",
-        "question": "Do you enjoy festivals & culture?"
+        "question": "When was the last time you experienced festivals & culture?"
       }
     },
     "lesson_2": {
@@ -1830,12 +1830,12 @@
         },
         "band_6": {
           "transitions": "'Undeniably...', 'It is widely acknowledged that...'",
-          "peer_check": "Challenge questions (e.g., 'Is this always true?')."
+          "peer_check": "Challenge questions about festivals & culture (e.g., 'Is this always true?')."
         }
       },
       "lead_in": {
         "search_term": "IELTS Festivals & Culture Part 3",
-        "question": "Do you think this topic is important for society?"
+        "question": "How does festivals & culture impact society?"
       }
     }
   }
