@@ -1,0 +1,5242 @@
+[
+  {
+    "week": 1,
+    "l1_vocab": [
+      {
+        "word": "Diligent",
+        "forms": "Diligence (N) - Diligently (Adv)",
+        "meaning": "\u52e4\u594b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Inspiring",
+        "forms": "Inspire (V) - Inspiration (N)",
+        "meaning": "\u9f13\u821e\u4eba\u5fc3\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Selfless",
+        "forms": "Selflessly (Adv) - Selflessness (N)",
+        "meaning": "\u65e0\u79c1\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Accomplished",
+        "forms": "Accomplish (V) - Accomplishment (N)",
+        "meaning": "\u6709\u9020\u8be3\u7684 / \u6210\u529f\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Considerate",
+        "forms": "Consider (V) - Consideration (N)",
+        "meaning": "\u4f53\u8d34\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Generous",
+        "forms": "Generosity (N)",
+        "meaning": "\u6177\u6168\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Devoted",
+        "forms": "Devotion (N) - Devote (V)",
+        "meaning": "\u631a\u7231\u7684 / \u5fe0\u8bda\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Go the extra mile",
+        "usage": "Went (V2)",
+        "meaning": "\u52a0\u500d\u52aa\u529b",
+        "cn_idiom": "\u518d\u63a5\u518d\u5389"
+      },
+      {
+        "idiom": "Look up to",
+        "usage": "Looked (V2)",
+        "meaning": "\u656c\u4ef0",
+        "cn_idiom": "\u4ef0\u89c6"
+      },
+      {
+        "idiom": "A heart of gold",
+        "usage": "Fixed Phrase",
+        "meaning": "\u5fc3\u5730\u5584\u826f",
+        "cn_idiom": "\u83e9\u8428\u5fc3\u80a0"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Generation gap",
+        "forms": "Generational (Adj)",
+        "meaning": "\u4ee3\u6c9f",
+        "recycled": false
+      },
+      {
+        "word": "Instill",
+        "forms": "Instilled (V2) - Instillation (N)",
+        "meaning": "\u704c\u8f93 (\u4ef7\u503c\u89c2)",
+        "recycled": false
+      },
+      {
+        "word": "Perspective",
+        "forms": "Perspectives (Pl)",
+        "meaning": "\u89c2\u70b9 / \u89c6\u89d2",
+        "recycled": false
+      },
+      {
+        "word": "Breadwinner",
+        "forms": "Breadwinners (Pl)",
+        "meaning": "\u517b\u5bb6\u7cca\u53e3\u7684\u4eba",
+        "recycled": false
+      },
+      {
+        "word": "Harmony",
+        "forms": "Harmonious (Adj)",
+        "meaning": "\u548c\u8c10",
+        "recycled": false
+      },
+      {
+        "word": "Appreciate",
+        "forms": "Appreciation (N)",
+        "meaning": "\u611f\u6fc0 / \u6b23\u8d4f",
+        "recycled": true
+      },
+      {
+        "word": "Guidance",
+        "forms": "Guide (V)",
+        "meaning": "\u6307\u5bfc",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Follow in someone's footsteps",
+        "usage": "Followed (V2)",
+        "meaning": "\u7ee7\u627f\u8863\u94b5 / \u6548\u6cd5",
+        "cn_idiom": "\u6b65\u4eba\u540e\u5c18 (neutral sense)"
+      },
+      {
+        "idiom": "The apple doesn't fall far from the tree",
+        "usage": "Proverb",
+        "meaning": "\u6709\u5176\u7236\u5fc5\u6709\u5176\u5b50",
+        "cn_idiom": "\u6709\u5176\u7236\u5fc5\u6709\u5176\u5b50"
+      },
+      {
+        "idiom": "Flesh and blood",
+        "usage": "Noun Phrase",
+        "meaning": "\u9aa8\u8089 / \u4eb2\u4eba",
+        "cn_idiom": "\u9aa8\u8089\u81f3\u4eb2"
+      }
+    ]
+  },
+  {
+    "week": 2,
+    "l1_vocab": [
+      {
+        "word": "Cosmopolitan",
+        "forms": "Cosmopolite (N)",
+        "meaning": "\u4e16\u754c\u6027\u7684 / \u56fd\u9645\u5316\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Lucrative",
+        "forms": "More lucrative (Comp)",
+        "meaning": "\u5229\u6da6\u4e30\u539a\u7684 / \u8d5a\u94b1\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Immerse",
+        "forms": "Immersion (N) - Immersed (Adj)",
+        "meaning": "\u6c89\u6d78",
+        "recycled": false
+      },
+      {
+        "word": "Adaptable",
+        "forms": "Adapt (V) - Adaptability (N)",
+        "meaning": "\u9002\u5e94\u6027\u5f3a\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Barrier",
+        "forms": "Barriers (Pl)",
+        "meaning": "\u969c\u788d",
+        "recycled": false
+      },
+      {
+        "word": "Diligent",
+        "forms": "Diligence (N)",
+        "meaning": "\u52e4\u594b\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Perspective",
+        "forms": "Perspectives (Pl)",
+        "meaning": "\u89c6\u89d2",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Culture shock",
+        "usage": "Noun Phrase",
+        "meaning": "\u6587\u5316\u51b2\u51fb",
+        "cn_idiom": "\u6c34\u571f\u4e0d\u670d (loosely)"
+      },
+      {
+        "idiom": "Broaden one's horizons",
+        "usage": "Broadened (V2)",
+        "meaning": "\u5f00\u9614\u773c\u754c",
+        "cn_idiom": "\u5927\u5f00\u773c\u754c"
+      },
+      {
+        "idiom": "Start from scratch",
+        "usage": "Started (V2)",
+        "meaning": "\u767d\u624b\u8d77\u5bb6 / \u4ece\u5934\u5f00\u59cb",
+        "cn_idiom": "\u767d\u624b\u8d77\u5bb6"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Globalization",
+        "forms": "Global (Adj) - Globalize (V)",
+        "meaning": "\u5168\u7403\u5316",
+        "recycled": false
+      },
+      {
+        "word": "Integration",
+        "forms": "Integrate (V) - Integrated (Adj)",
+        "meaning": "\u878d\u5408 / \u4e00\u4f53\u5316",
+        "recycled": false
+      },
+      {
+        "word": "Discrimination",
+        "forms": "Discriminate (V)",
+        "meaning": "\u6b67\u89c6",
+        "recycled": false
+      },
+      {
+        "word": "Brain drain",
+        "forms": "Noun Phrase",
+        "meaning": "\u4eba\u624d\u6d41\u5931",
+        "recycled": false
+      },
+      {
+        "word": "Prosperous",
+        "forms": "Prosperity (N) - Prosper (V)",
+        "meaning": "\u7e41\u8363\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Harmony",
+        "forms": "Harmonious (Adj)",
+        "meaning": "\u548c\u8c10",
+        "recycled": true
+      },
+      {
+        "word": "Inspiring",
+        "forms": "Inspire (V)",
+        "meaning": "\u9f13\u821e\u4eba\u5fc3\u7684",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "A melting pot",
+        "usage": "Noun Phrase",
+        "meaning": "\u5927\u7194\u7089 (\u591a\u79cd\u6587\u5316\u878d\u5408)",
+        "cn_idiom": "\u5927\u7194\u7089"
+      },
+      {
+        "idiom": "When in Rome, do as the Romans do",
+        "usage": "Proverb",
+        "meaning": "\u5165\u4e61\u968f\u4fd7",
+        "cn_idiom": "\u5165\u4e61\u968f\u4fd7"
+      },
+      {
+        "idiom": "Language barrier",
+        "usage": "Noun Phrase",
+        "meaning": "\u8bed\u8a00\u969c\u788d",
+        "cn_idiom": "\u8a00\u8bed\u4e0d\u901a"
+      }
+    ]
+  },
+  {
+    "week": 3,
+    "l1_vocab": [
+      {
+        "word": "Fulfilling",
+        "forms": "Fulfill (V) - Fulfillment (N)",
+        "meaning": "\u4ee4\u4eba\u6ee1\u8db3\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Challenging",
+        "forms": "Challenge (N/V)",
+        "meaning": "\u5145\u6ee1\u6311\u6218\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Prestigious",
+        "forms": "Prestige (N)",
+        "meaning": "\u6709\u58f0\u671b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Demanding",
+        "forms": "Demand (V/N)",
+        "meaning": "\u8981\u6c42\u9ad8\u7684 / \u8d39\u529b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Qualified",
+        "forms": "Qualify (V) - Qualification (N)",
+        "meaning": "\u5408\u683c\u7684 / \u80dc\u4efb\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Lucrative",
+        "forms": "More lucrative (Comp)",
+        "meaning": "\u8d5a\u94b1\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Adaptable",
+        "forms": "Adaptability (N)",
+        "meaning": "\u9002\u5e94\u529b\u5f3a\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Climb the career ladder",
+        "usage": "I worked hard to climb the career ladder from intern to manager.",
+        "meaning": "\u5728\u804c\u4e1a\u9636\u68af\u4e0a\u664b\u5347",
+        "cn_idiom": "\u6b65\u6b65\u9ad8\u5347"
+      },
+      {
+        "idiom": "Dream job",
+        "usage": "Being a pilot has always been my dream job.",
+        "meaning": "\u7406\u60f3\u7684\u5de5\u4f5c",
+        "cn_idiom": "\u68a6\u5bd0\u4ee5\u6c42\u7684\u5de5\u4f5c"
+      },
+      {
+        "idiom": "Make a living",
+        "usage": "It is difficult to make a living as an artist.",
+        "meaning": "\u8c0b\u751f",
+        "cn_idiom": "\u517b\u5bb6\u7cca\u53e3"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Automation",
+        "forms": "Automate (V) - Automatic (Adj)",
+        "meaning": "\u81ea\u52a8\u5316",
+        "recycled": false
+      },
+      {
+        "word": "Job security",
+        "forms": "Noun Phrase",
+        "meaning": "\u5de5\u4f5c\u4fdd\u969c",
+        "recycled": false
+      },
+      {
+        "word": "Unemployment",
+        "forms": "Unemployed (Adj)",
+        "meaning": "\u5931\u4e1a",
+        "recycled": false
+      },
+      {
+        "word": "Motivation",
+        "forms": "Motivate (V) - Motivated (Adj)",
+        "meaning": "\u52a8\u529b / \u52a8\u673a",
+        "recycled": false
+      },
+      {
+        "word": "Work-life balance",
+        "forms": "Noun Phrase",
+        "meaning": "\u5de5\u4f5c\u4e0e\u751f\u6d3b\u7684\u5e73\u8861",
+        "recycled": false
+      },
+      {
+        "word": "Brain drain",
+        "forms": "Noun Phrase",
+        "meaning": "\u4eba\u624d\u6d41\u5931",
+        "recycled": true
+      },
+      {
+        "word": "Prosperous",
+        "forms": "Prosperity (N)",
+        "meaning": "\u7e41\u8363\u7684",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Bring home the bacon",
+        "usage": "In many families, both parents work to bring home the bacon.",
+        "meaning": "\u517b\u5bb6\u7cca\u53e3",
+        "cn_idiom": "\u6323\u94b1\u517b\u5bb6"
+      },
+      {
+        "idiom": "Dead-end job",
+        "usage": "He quit because he felt stuck in a dead-end job.",
+        "meaning": "\u6ca1\u524d\u9014\u7684\u5de5\u4f5c",
+        "cn_idiom": "\u6b7b\u80e1\u540c"
+      },
+      {
+        "idiom": "Think outside the box",
+        "usage": "To solve this economic crisis, we must think outside the box.",
+        "meaning": "\u8df3\u51fa\u6846\u6846\u601d\u8003",
+        "cn_idiom": "\u6253\u7834\u5e38\u89c4"
+      }
+    ]
+  },
+  {
+    "week": 4,
+    "l1_vocab": [
+      {
+        "word": "Anticipated",
+        "forms": "Anticipate (V) - Anticipation (N)",
+        "meaning": "\u671f\u5f85\u5df2\u4e45\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Predictable",
+        "forms": "Predict (V) - Prediction (N)",
+        "meaning": "\u53ef\u9884\u6d4b\u7684 / \u8001\u5957\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Mediocre",
+        "forms": "Mediocrity (N)",
+        "meaning": "\u5e73\u5eb8\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Overrated",
+        "forms": "Underrate (Antonym)",
+        "meaning": "\u88ab\u9ad8\u4f30\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Confusing",
+        "forms": "Confuse (V) - Confusion (N)",
+        "meaning": "\u4ee4\u4eba\u56f0\u60d1\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Fulfilling",
+        "forms": "Fulfill (V)",
+        "meaning": "\u4ee4\u4eba\u6ee1\u8db3\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Demanding",
+        "forms": "Demand (N)",
+        "meaning": "\u8981\u6c42\u9ad8\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "A let-down",
+        "usage": "The sequel was a huge let-down compared to the first movie.",
+        "meaning": "\u4ee4\u4eba\u5931\u671b\u7684\u4e8b",
+        "cn_idiom": "\u5927\u5931\u6240\u671b"
+      },
+      {
+        "idiom": "Hype up",
+        "usage": "The media hyped up the film, but it was actually boring.",
+        "meaning": "\u7092\u4f5c / \u5439\u6367",
+        "cn_idiom": "\u5927\u8086\u5ba3\u4f20"
+      },
+      {
+        "idiom": "Waste of time",
+        "usage": "Watching that movie was a complete waste of time.",
+        "meaning": "\u6d6a\u8d39\u65f6\u95f4",
+        "cn_idiom": "\u865a\u5ea6\u5149\u9634"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Cinematography",
+        "forms": "Cinematic (Adj)",
+        "meaning": "\u7535\u5f71\u6444\u5f71\u6280\u672f",
+        "recycled": false
+      },
+      {
+        "word": "Genre",
+        "forms": "Genres (Pl)",
+        "meaning": "\u4f53\u88c1 / \u7c7b\u578b",
+        "recycled": false
+      },
+      {
+        "word": "Influence",
+        "forms": "Influential (Adj)",
+        "meaning": "\u5f71\u54cd",
+        "recycled": false
+      },
+      {
+        "word": "Blockbuster",
+        "forms": "Blockbusters (Pl)",
+        "meaning": "\u5927\u7247 (\u5356\u5ea7\u7535\u5f71)",
+        "recycled": false
+      },
+      {
+        "word": "Censorship",
+        "forms": "Censor (V)",
+        "meaning": "\u5ba1\u67e5\u5236\u5ea6",
+        "recycled": false
+      },
+      {
+        "word": "Motivation",
+        "forms": "Motivate (V)",
+        "meaning": "\u52a8\u673a",
+        "recycled": true
+      },
+      {
+        "word": "Automation",
+        "forms": "Automate (V)",
+        "meaning": "\u81ea\u52a8\u5316 (used in context of CGI)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Box office hit",
+        "usage": "The new Marvel movie is a guaranteed box office hit.",
+        "meaning": "\u7968\u623f\u5927\u5356",
+        "cn_idiom": "\u7968\u623f\u51a0\u519b"
+      },
+      {
+        "idiom": "Star-studded cast",
+        "usage": "The film features a star-studded cast of famous actors.",
+        "meaning": "\u4f17\u661f\u4e91\u96c6\u7684\u9635\u5bb9",
+        "cn_idiom": "\u661f\u5149\u71a0\u71a0"
+      },
+      {
+        "idiom": "On the edge of one's seat",
+        "usage": "The thriller kept the audience on the edge of their seats.",
+        "meaning": "\u7531\u4e8e\u7d27\u5f20\u5174\u594b\u800c\u5750\u7acb\u4e0d\u5b89",
+        "cn_idiom": "\u6263\u4eba\u5fc3\u5f26"
+      }
+    ]
+  },
+  {
+    "week": 5,
+    "l1_vocab": [
+      {
+        "word": "Conscientious",
+        "forms": "Conscience (N)",
+        "meaning": "\u5c3d\u8d23\u7684 / \u6709\u826f\u5fc3\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Eco-friendly",
+        "forms": "Adjective",
+        "meaning": "\u73af\u4fdd\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Sustainable",
+        "forms": "Sustain (V) - Sustainability (N)",
+        "meaning": "\u53ef\u6301\u7eed\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Passionate",
+        "forms": "Passion (N)",
+        "meaning": "\u70ed\u60c5\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Advocate",
+        "forms": "Advocacy (N)",
+        "meaning": "\u63d0\u5021\u8005",
+        "recycled": false
+      },
+      {
+        "word": "Inspiring",
+        "forms": "Inspire (V)",
+        "meaning": "\u9f13\u821e\u4eba\u5fc3\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Predictable",
+        "forms": "Predict (V)",
+        "meaning": "\u53ef\u9884\u6d4b\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Do one's bit",
+        "usage": "We should all do our bit to recycle plastic.",
+        "meaning": "\u5c3d\u81ea\u5df1\u7684\u4e00\u4efd\u529b",
+        "cn_idiom": "\u5c3d\u7ef5\u8584\u4e4b\u529b"
+      },
+      {
+        "idiom": "Practice what you preach",
+        "usage": "He talks about saving energy, but he doesn't practice what he preaches.",
+        "meaning": "\u8a00\u884c\u4e00\u81f4",
+        "cn_idiom": "\u4ee5\u8eab\u4f5c\u5219"
+      },
+      {
+        "idiom": "Nature lover",
+        "usage": "As a nature lover, she spends every weekend hiking.",
+        "meaning": "\u70ed\u7231\u5927\u81ea\u7136\u7684\u4eba",
+        "cn_idiom": "\u7231\u62a4\u81ea\u7136\u8005"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Biodiversity",
+        "forms": "Diverse (Adj)",
+        "meaning": "\u751f\u7269\u591a\u6837\u6027",
+        "recycled": false
+      },
+      {
+        "word": "Conservation",
+        "forms": "Conserve (V) - Conservative (Adj)",
+        "meaning": "\u4fdd\u62a4 (\u81ea\u7136)",
+        "recycled": false
+      },
+      {
+        "word": "Pollution",
+        "forms": "Pollute (V) - Pollutant (N)",
+        "meaning": "\u6c61\u67d3",
+        "recycled": false
+      },
+      {
+        "word": "Renewable",
+        "forms": "Renew (V)",
+        "meaning": "\u53ef\u518d\u751f\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Extinction",
+        "forms": "Extinct (Adj)",
+        "meaning": "\u706d\u7edd",
+        "recycled": false
+      },
+      {
+        "word": "Influence",
+        "forms": "Influential (Adj)",
+        "meaning": "\u5f71\u54cd",
+        "recycled": true
+      },
+      {
+        "word": "Generation gap",
+        "forms": "Generational (Adj)",
+        "meaning": "\u4ee3\u6c9f",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "A drop in the ocean",
+        "usage": "One person recycling is just a drop in the ocean, but it helps.",
+        "meaning": "\u6ca7\u6d77\u4e00\u7c9f",
+        "cn_idiom": "\u4e5d\u725b\u4e00\u6bdb"
+      },
+      {
+        "idiom": "Tip of the iceberg",
+        "usage": "Plastic pollution is just the tip of the iceberg of environmental issues.",
+        "meaning": "\u51b0\u5c71\u4e00\u89d2",
+        "cn_idiom": "\u51b0\u5c71\u4e00\u89d2"
+      },
+      {
+        "idiom": "Wreak havoc",
+        "usage": "The storm wreaked havoc on the coastal ecosystem.",
+        "meaning": "\u9020\u6210\u4e25\u91cd\u7834\u574f",
+        "cn_idiom": "\u6d69\u52ab"
+      }
+    ]
+  },
+  {
+    "week": 6,
+    "l1_vocab": [
+      {
+        "word": "Tranquil",
+        "forms": "Tranquility (N)",
+        "meaning": "\u5b81\u9759\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Picturesque",
+        "forms": "Adjective",
+        "meaning": "\u98ce\u666f\u5982\u753b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Breathtaking",
+        "forms": "Adjective",
+        "meaning": "\u60ca\u4eba\u7684 / \u6781\u7f8e\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Lush",
+        "forms": "Lushness (N)",
+        "meaning": "\u90c1\u90c1\u8471\u8471\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Isolated",
+        "forms": "Isolate (V) - Isolation (N)",
+        "meaning": "\u504f\u8fdc\u7684 / \u5b64\u7acb\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Eco-friendly",
+        "forms": "Adjective",
+        "meaning": "\u73af\u4fdd\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Sustainable",
+        "forms": "Sustainability (N)",
+        "meaning": "\u53ef\u6301\u7eed\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Off the beaten track",
+        "usage": "I found a beautiful park that was off the beaten track.",
+        "meaning": "\u4eba\u8ff9\u7f55\u81f3\u7684",
+        "cn_idiom": "\u4eba\u8ff9\u7f55\u81f3"
+      },
+      {
+        "idiom": "Peace and quiet",
+        "usage": "I go to the forest to enjoy some peace and quiet.",
+        "meaning": "\u5b81\u9759",
+        "cn_idiom": "\u6e05\u9759"
+      },
+      {
+        "idiom": "Get away from it all",
+        "usage": "Camping is a great way to get away from it all.",
+        "meaning": "\u8fdc\u79bb\u5c18\u56a3",
+        "cn_idiom": "\u907f\u4e16"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Urbanization",
+        "forms": "Urban (Adj) - Urbanize (V)",
+        "meaning": "\u57ce\u5e02\u5316",
+        "recycled": false
+      },
+      {
+        "word": "Deforestation",
+        "forms": "Forest (N)",
+        "meaning": "\u68ee\u6797\u780d\u4f10",
+        "recycled": false
+      },
+      {
+        "word": "Habitat",
+        "forms": "Inhabit (V)",
+        "meaning": "\u6816\u606f\u5730",
+        "recycled": false
+      },
+      {
+        "word": "Therapeutic",
+        "forms": "Therapy (N)",
+        "meaning": "\u6709\u6cbb\u7597\u4f5c\u7528\u7684 / \u6cbb\u6108\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Preservation",
+        "forms": "Preserve (V)",
+        "meaning": "\u4fdd\u62a4 / \u4fdd\u5b58",
+        "recycled": false
+      },
+      {
+        "word": "Biodiversity",
+        "forms": "Bio (Prefix)",
+        "meaning": "\u751f\u7269\u591a\u6837\u6027",
+        "recycled": true
+      },
+      {
+        "word": "Pollution",
+        "forms": "Pollute (V)",
+        "meaning": "\u6c61\u67d3",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Concrete jungle",
+        "usage": "Living in a concrete jungle can be stressful without green spaces.",
+        "meaning": "\u94a2\u7b4b\u6c34\u6ce5\u68ee\u6797 (\u57ce\u5e02)",
+        "cn_idiom": "\u94a2\u7b4b\u6c34\u6ce5\u4e1b\u6797"
+      },
+      {
+        "idiom": "Breath of fresh air",
+        "usage": "This new park design is a breath of fresh air for the city.",
+        "meaning": "\u4ee4\u4eba\u8033\u76ee\u4e00\u65b0\u7684\u4eba\u6216\u4e8b",
+        "cn_idiom": "\u8033\u76ee\u4e00\u65b0"
+      },
+      {
+        "idiom": "Back to nature",
+        "usage": "Many city dwellers want to get back to nature on weekends.",
+        "meaning": "\u56de\u5f52\u81ea\u7136",
+        "cn_idiom": "\u56de\u5f52\u81ea\u7136"
+      }
+    ]
+  },
+  {
+    "week": 7,
+    "l1_vocab": [
+      {
+        "word": "Indispensable",
+        "forms": "Adjective",
+        "meaning": "\u4e0d\u53ef\u6216\u7f3a\u7684",
+        "recycled": false
+      },
+      {
+        "word": "User-friendly",
+        "forms": "Adjective",
+        "meaning": "\u7528\u6237\u53cb\u597d\u7684 / \u6613\u7528\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Innovative",
+        "forms": "Innovate (V) - Innovation (N)",
+        "meaning": "\u521b\u65b0\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Addictive",
+        "forms": "Addict (N) - Addiction (N)",
+        "meaning": "\u4ee4\u4eba\u4e0a\u763e\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Efficient",
+        "forms": "Efficiency (N) - Efficiently (Adv)",
+        "meaning": "\u9ad8\u6548\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Isolated",
+        "forms": "Isolation (N)",
+        "meaning": "\u5b64\u7acb\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Breathtaking",
+        "forms": "Adjective",
+        "meaning": "\u60ca\u4eba\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Glued to the screen",
+        "usage": "My little brother is constantly glued to the screen.",
+        "meaning": "\u76ef\u7740\u5c4f\u5e55\u770b",
+        "cn_idiom": "\u76ee\u4e0d\u8f6c\u775b"
+      },
+      {
+        "idiom": "At your fingertips",
+        "usage": "With this app, all the information is at your fingertips.",
+        "meaning": "\u89e6\u624b\u53ef\u53ca",
+        "cn_idiom": "\u89e6\u624b\u53ef\u53ca"
+      },
+      {
+        "idiom": "Lose track of time",
+        "usage": "I often lose track of time when playing games.",
+        "meaning": "\u5fd8\u8bb0\u65f6\u95f4",
+        "cn_idiom": "\u5e9f\u5bdd\u5fd8\u98df"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Dependency",
+        "forms": "Depend (V) - Dependent (Adj)",
+        "meaning": "\u4f9d\u8d56",
+        "recycled": false
+      },
+      {
+        "word": "Privacy",
+        "forms": "Private (Adj)",
+        "meaning": "\u9690\u79c1",
+        "recycled": false
+      },
+      {
+        "word": "Cybersecurity",
+        "forms": "Cyber (Prefix)",
+        "meaning": "\u7f51\u7edc\u5b89\u5168",
+        "recycled": false
+      },
+      {
+        "word": "Digitalization",
+        "forms": "Digital (Adj) - Digitize (V)",
+        "meaning": "\u6570\u5b57\u5316",
+        "recycled": false
+      },
+      {
+        "word": "Interaction",
+        "forms": "Interact (V) - Interactive (Adj)",
+        "meaning": "\u4e92\u52a8",
+        "recycled": false
+      },
+      {
+        "word": "Urbanization",
+        "forms": "Urban (Adj)",
+        "meaning": "\u57ce\u5e02\u5316",
+        "recycled": true
+      },
+      {
+        "word": "Therapeutic",
+        "forms": "Therapy (N)",
+        "meaning": "\u6709\u6cbb\u7597\u4f5c\u7528\u7684",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Double-edged sword",
+        "usage": "Technology is a double-edged sword; it connects and distracts us.",
+        "meaning": "\u53cc\u5203\u5251",
+        "cn_idiom": "\u53cc\u5203\u5251"
+      },
+      {
+        "idiom": "Information overload",
+        "usage": "Social media often causes information overload.",
+        "meaning": "\u4fe1\u606f\u8fc7\u8f7d",
+        "cn_idiom": "\u4fe1\u606f\u7206\u70b8"
+      },
+      {
+        "idiom": "Social butterfly",
+        "usage": "She is a social butterfly online but shy in real life.",
+        "meaning": "\u4ea4\u9645\u82b1 (socially active person)",
+        "cn_idiom": "\u4ea4\u9645\u82b1"
+      }
+    ]
+  },
+  {
+    "week": 8,
+    "l1_vocab": [
+      {
+        "word": "Constructive",
+        "forms": "Construct (V) - Construction (N)",
+        "meaning": "\u5efa\u8bbe\u6027\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Reluctant",
+        "forms": "Reluctance (N) - Reluctantly (Adv)",
+        "meaning": "\u4e0d\u60c5\u613f\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Grateful",
+        "forms": "Gratitude (N)",
+        "meaning": "\u611f\u6fc0\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Sensible",
+        "forms": "Sense (N)",
+        "meaning": "\u660e\u667a\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Hesitant",
+        "forms": "Hesitate (V) - Hesitation (N)",
+        "meaning": "\u72b9\u8c6b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Indispensable",
+        "forms": "Adjective",
+        "meaning": "\u4e0d\u53ef\u6216\u7f3a\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Efficient",
+        "forms": "Efficiency (N)",
+        "meaning": "\u9ad8\u6548\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "In the same boat",
+        "usage": "We are both unemployed, so we are in the same boat.",
+        "meaning": "\u5904\u5883\u76f8\u540c",
+        "cn_idiom": "\u540c\u821f\u5171\u6d4e"
+      },
+      {
+        "idiom": "Take it to heart",
+        "usage": "Don't take his criticism to heart; he was just tired.",
+        "meaning": "\u5f80\u5fc3\u91cc\u53bb (\u8ba4\u771f\u5bf9\u5f85)",
+        "cn_idiom": "\u94ed\u8bb0\u5728\u5fc3"
+      },
+      {
+        "idiom": "A word of wisdom",
+        "usage": "My grandfather gave me a word of wisdom about patience.",
+        "meaning": "\u81f3\u7406\u540d\u8a00",
+        "cn_idiom": "\u91d1\u7389\u826f\u8a00"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Counseling",
+        "forms": "Counsel (V) - Counselor (N)",
+        "meaning": "\u54a8\u8be2 / \u8f85\u5bfc",
+        "recycled": false
+      },
+      {
+        "word": "Dilemma",
+        "forms": "Dilemmas (Pl)",
+        "meaning": "\u8fdb\u9000\u4e24\u96be\u7684\u56f0\u5883",
+        "recycled": false
+      },
+      {
+        "word": "Wisdom",
+        "forms": "Wise (Adj)",
+        "meaning": "\u667a\u6167",
+        "recycled": false
+      },
+      {
+        "word": "Objective",
+        "forms": "Objectivity (N)",
+        "meaning": "\u5ba2\u89c2\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Intervention",
+        "forms": "Intervene (V)",
+        "meaning": "\u5e72\u9884",
+        "recycled": false
+      },
+      {
+        "word": "Interaction",
+        "forms": "Interact (V)",
+        "meaning": "\u4e92\u52a8",
+        "recycled": true
+      },
+      {
+        "word": "Privacy",
+        "forms": "Private (Adj)",
+        "meaning": "\u9690\u79c1",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Sit on the fence",
+        "usage": "You can't sit on the fence forever; you must make a decision.",
+        "meaning": "\u4fdd\u6301\u4e2d\u7acb / \u89c2\u671b",
+        "cn_idiom": "\u9a91\u5899 / \u5750\u5c71\u89c2\u864e\u6597"
+      },
+      {
+        "idiom": "The blind leading the blind",
+        "usage": "Asking him for advice is like the blind leading the blind.",
+        "meaning": "\u95ee\u9053\u4e8e\u76f2 (\u5916\u884c\u6307\u5bfc\u5916\u884c)",
+        "cn_idiom": "\u95ee\u9053\u4e8e\u76f2"
+      },
+      {
+        "idiom": "Learn the hard way",
+        "usage": "He didn't study and learned the hard way when he failed.",
+        "meaning": "\u901a\u8fc7\u5403\u4e8f\u5b66\u5230\u6559\u8bad",
+        "cn_idiom": "\u5403\u4e00\u5811\u957f\u4e00\u667a"
+      }
+    ]
+  },
+  {
+    "week": 9,
+    "l1_vocab": [
+      {
+        "word": "Imaginative",
+        "forms": "Imagine (V) - Imagination (N)",
+        "meaning": "\u5bcc\u4e8e\u60f3\u8c61\u529b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Gifted",
+        "forms": "Gift (N)",
+        "meaning": "\u6709\u5929\u8d4b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Expressive",
+        "forms": "Express (V) - Expression (N)",
+        "meaning": "\u8868\u73b0\u529b\u5f3a\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Observant",
+        "forms": "Observe (V) - Observation (N)",
+        "meaning": "\u89c2\u5bdf\u529b\u654f\u9510\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Messy",
+        "forms": "Mess (N)",
+        "meaning": "\u51cc\u4e71\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Reluctant",
+        "forms": "Reluctance (N)",
+        "meaning": "\u4e0d\u60c5\u613f\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Grateful",
+        "forms": "Gratitude (N)",
+        "meaning": "\u611f\u6fc0\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Think outside the box",
+        "usage": "The child thinks outside the box when painting.",
+        "meaning": "\u8df3\u51fa\u6846\u6846\u601d\u8003",
+        "cn_idiom": "\u6253\u7834\u5e38\u89c4"
+      },
+      {
+        "idiom": "In one's element",
+        "usage": "She is truly in her element when drawing.",
+        "meaning": "\u5982\u9c7c\u5f97\u6c34 (\u5728\u81ea\u5df1\u64c5\u957f\u7684\u9886\u57df)",
+        "cn_idiom": "\u5982\u9c7c\u5f97\u6c34"
+      },
+      {
+        "idiom": "A hidden talent",
+        "usage": "He has a hidden talent for sculpture.",
+        "meaning": "\u9690\u85cf\u7684\u5929\u8d4b",
+        "cn_idiom": "\u6f5c\u80fd"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Inspiration",
+        "forms": "Inspire (V) - Inspirational (Adj)",
+        "meaning": "\u7075\u611f",
+        "recycled": false
+      },
+      {
+        "word": "Masterpiece",
+        "forms": "Masterpieces (Pl)",
+        "meaning": "\u6770\u4f5c",
+        "recycled": false
+      },
+      {
+        "word": "Aesthetic",
+        "forms": "Aesthetics (N)",
+        "meaning": "\u5ba1\u7f8e\u7684 / \u7f8e\u5b66\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Cognitive",
+        "forms": "Cognition (N)",
+        "meaning": "\u8ba4\u77e5\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Appreciation",
+        "forms": "Appreciate (V)",
+        "meaning": "\u6b23\u8d4f / \u9274\u8d4f",
+        "recycled": false
+      },
+      {
+        "word": "Wisdom",
+        "forms": "Wise (Adj)",
+        "meaning": "\u667a\u6167",
+        "recycled": true
+      },
+      {
+        "word": "Objective",
+        "forms": "Objectivity (N)",
+        "meaning": "\u5ba2\u89c2\u7684",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Beauty is in the eye of the beholder",
+        "usage": "Modern art proves that beauty is in the eye of the beholder.",
+        "meaning": "\u60c5\u4eba\u773c\u91cc\u51fa\u897f\u65bd (\u5ba1\u7f8e\u56e0\u4eba\u800c\u5f02)",
+        "cn_idiom": "\u5404\u82b1\u5165\u5404\u773c"
+      },
+      {
+        "idiom": "Down to earth",
+        "usage": "Despite his fame, the artist is very down to earth.",
+        "meaning": "\u52a1\u5b9e\u7684 / \u63a5\u5730\u6c14\u7684",
+        "cn_idiom": "\u811a\u8e0f\u5b9e\u5730"
+      },
+      {
+        "idiom": "Paint a picture",
+        "usage": "The report paints a bleak picture of the funding crisis.",
+        "meaning": "\u63cf\u7ed8 (\u60c5\u51b5)",
+        "cn_idiom": "\u7ed8\u58f0\u7ed8\u8272"
+      }
+    ]
+  },
+  {
+    "week": 10,
+    "l1_vocab": [
+      {
+        "word": "Magnificent",
+        "forms": "Magnificence (N)",
+        "meaning": "\u5b8f\u4f1f\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Contemporary",
+        "forms": "Adjective",
+        "meaning": "\u5f53\u4ee3\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Spacious",
+        "forms": "Space (N)",
+        "meaning": "\u5bbd\u655e\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Iconic",
+        "forms": "Icon (N)",
+        "meaning": "\u6807\u5fd7\u6027\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Dilapidated",
+        "forms": "Adjective",
+        "meaning": "\u7834\u65e7\u7684 / \u5e74\u4e45\u5931\u4fee\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Imaginative",
+        "forms": "Imagination (N)",
+        "meaning": "\u5bcc\u4e8e\u60f3\u8c61\u529b\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Observant",
+        "forms": "Observation (N)",
+        "meaning": "\u89c2\u5bdf\u529b\u654f\u9510\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "A landmark",
+        "usage": "The Eiffel Tower is a famous landmark.",
+        "meaning": "\u5730\u6807",
+        "cn_idiom": "\u5730\u6807"
+      },
+      {
+        "idiom": "Stand the test of time",
+        "usage": "This ancient castle has stood the test of time.",
+        "meaning": "\u7ecf\u53d7\u4f4f\u65f6\u95f4\u7684\u8003\u9a8c",
+        "cn_idiom": "\u5386\u4e45\u5f25\u65b0"
+      },
+      {
+        "idiom": "Take one's breath away",
+        "usage": "The view from the skyscraper took my breath away.",
+        "meaning": "\u4ee4\u4eba\u53f9\u4e3a\u89c2\u6b62",
+        "cn_idiom": "\u53f9\u4e3a\u89c2\u6b62"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Preservation",
+        "forms": "Preserve (V)",
+        "meaning": "\u4fdd\u62a4 / \u7ef4\u62a4 (\u5efa\u7b51)",
+        "recycled": false
+      },
+      {
+        "word": "Heritage",
+        "forms": "Noun",
+        "meaning": "\u9057\u4ea7 / \u4f20\u7edf",
+        "recycled": false
+      },
+      {
+        "word": "Infrastructure",
+        "forms": "Noun",
+        "meaning": "\u57fa\u7840\u8bbe\u65bd",
+        "recycled": false
+      },
+      {
+        "word": "Residential",
+        "forms": "Resident (N)",
+        "meaning": "\u5c45\u4f4f\u7684 / \u4f4f\u5b85\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Skyscraper",
+        "forms": "Noun",
+        "meaning": "\u6469\u5929\u5927\u697c",
+        "recycled": false
+      },
+      {
+        "word": "Aesthetic",
+        "forms": "Aesthetics (N)",
+        "meaning": "\u7f8e\u5b66\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Masterpiece",
+        "forms": "Masterpieces (Pl)",
+        "meaning": "\u6770\u4f5c",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Concrete jungle",
+        "usage": "Skyscrapers turn the city into a concrete jungle.",
+        "meaning": "\u94a2\u7b4b\u6c34\u6ce5\u68ee\u6797",
+        "cn_idiom": "\u94a2\u7b4b\u6c34\u6ce5\u4e1b\u6797"
+      },
+      {
+        "idiom": "Roof over one's head",
+        "usage": "Everyone deserves a roof over their head.",
+        "meaning": "\u6816\u8eab\u4e4b\u5904",
+        "cn_idiom": "\u5b89\u8eab\u7acb\u547d\u4e4b\u5730"
+      },
+      {
+        "idiom": "Build bridges",
+        "usage": "Architecture can build bridges between cultures.",
+        "meaning": "\u5efa\u7acb\u5173\u7cfb / \u6c9f\u901a",
+        "cn_idiom": "\u67b6\u8d77\u6865\u6881"
+      }
+    ]
+  },
+  {
+    "week": 11,
+    "l1_vocab": [
+      {
+        "word": "Cutting-edge",
+        "forms": "Adjective",
+        "meaning": "\u5c16\u7aef\u7684 / \u524d\u6cbf\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Pricey",
+        "forms": "Adjective",
+        "meaning": "\u6602\u8d35\u7684 (informal)",
+        "recycled": false
+      },
+      {
+        "word": "Compact",
+        "forms": "Compactness (N)",
+        "meaning": "\u7d27\u51d1\u7684 / \u5c0f\u5de7\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Versatile",
+        "forms": "Versatility (N)",
+        "meaning": "\u591a\u529f\u80fd\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Obsolete",
+        "forms": "Adjective",
+        "meaning": "\u8fc7\u65f6\u7684 / \u6dd8\u6c70\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Magnificent",
+        "forms": "Magnificence (N)",
+        "meaning": "\u5b8f\u4f1f\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Spacious",
+        "forms": "Space (N)",
+        "meaning": "\u5bbd\u655e\u7684 (storage)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Must-have",
+        "usage": "Noun / Adj",
+        "meaning": "\u5fc5\u5907\u54c1",
+        "cn_idiom": "\u5fc5\u5907\u4e4b\u7269"
+      },
+      {
+        "idiom": "State-of-the-art",
+        "usage": "Adjective",
+        "meaning": "\u6700\u5148\u8fdb\u7684",
+        "cn_idiom": "\u767b\u5cf0\u9020\u6781 / \u9876\u5c16"
+      },
+      {
+        "idiom": "Cost an arm and a leg",
+        "usage": "Cost (V2)",
+        "meaning": "\u6781\u5176\u6602\u8d35",
+        "cn_idiom": "\u4ef7\u503c\u8fde\u57ce / \u5929\u4ef7"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Artificial Intelligence",
+        "forms": "AI (Abbr)",
+        "meaning": "\u4eba\u5de5\u667a\u80fd",
+        "recycled": false
+      },
+      {
+        "word": "Isolation",
+        "forms": "Isolate (V) - Isolated (Adj)",
+        "meaning": "\u5b64\u7acb",
+        "recycled": false
+      },
+      {
+        "word": "Distraction",
+        "forms": "Distract (V)",
+        "meaning": "\u5e72\u6270 / \u5206\u5fc3",
+        "recycled": false
+      },
+      {
+        "word": "Revolutionize",
+        "forms": "Revolution (N)",
+        "meaning": "\u5f7b\u5e95\u53d8\u9769",
+        "recycled": false
+      },
+      {
+        "word": "Virtual",
+        "forms": "Virtually (Adv)",
+        "meaning": "\u865a\u62df\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Infrastructure",
+        "forms": "Noun",
+        "meaning": "\u57fa\u7840\u8bbe\u65bd",
+        "recycled": true
+      },
+      {
+        "word": "Heritage",
+        "forms": "Noun",
+        "meaning": "\u9057\u4ea7",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Silver lining",
+        "usage": "Noun Phrase",
+        "meaning": "\u4e00\u7ebf\u5e0c\u671b / \u574f\u4e8b\u4e2d\u7684\u597d\u4e8b",
+        "cn_idiom": "\u585e\u7fc1\u5931\u9a6c\u7109\u77e5\u975e\u798f"
+      },
+      {
+        "idiom": "At the click of a button",
+        "usage": "Phrase",
+        "meaning": "\u5f39\u6307\u4e4b\u95f4 / \u6781\u5176\u4fbf\u6377",
+        "cn_idiom": "\u8f7b\u70b9\u9f20\u6807"
+      },
+      {
+        "idiom": "Keep up with the times",
+        "usage": "Kept (V2)",
+        "meaning": "\u4e0e\u65f6\u4ff1\u8fdb",
+        "cn_idiom": "\u4e0e\u65f6\u4ff1\u8fdb"
+      }
+    ]
+  },
+  {
+    "week": 12,
+    "l1_vocab": [
+      {
+        "word": "Disoriented",
+        "forms": "Disorient (V)",
+        "meaning": "\u8ff7\u5931\u65b9\u5411\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Unfamiliar",
+        "forms": "Familiar (Adj)",
+        "meaning": "\u4e0d\u719f\u6089\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Panicked",
+        "forms": "Panic (N/V)",
+        "meaning": "\u60ca\u614c\u5931\u63aa\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Helpful",
+        "forms": "Help (V/N)",
+        "meaning": "\u6709\u5e2e\u52a9\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Relieved",
+        "forms": "Relief (N)",
+        "meaning": "\u5982\u91ca\u91cd\u8d1f\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Versatile",
+        "forms": "Versatility (N)",
+        "meaning": "\u591a\u529f\u80fd\u7684 (phone map)",
+        "recycled": true
+      },
+      {
+        "word": "Compact",
+        "forms": "Compactness (N)",
+        "meaning": "\u5c0f\u5de7\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Go around in circles",
+        "usage": "Went (V2)",
+        "meaning": "\u539f\u5730\u6253\u8f6c / \u6beb\u65e0\u8fdb\u5c55",
+        "cn_idiom": "\u515c\u5708\u5b50"
+      },
+      {
+        "idiom": "Lost cause",
+        "usage": "Noun Phrase",
+        "meaning": "\u6ce8\u5b9a\u5931\u8d25\u7684\u4e8b / \u6ca1\u6551\u4e86",
+        "cn_idiom": "\u65e0\u53ef\u6551\u836f"
+      },
+      {
+        "idiom": "Safe and sound",
+        "usage": "Adj Phrase",
+        "meaning": "\u5b89\u7136\u65e0\u6059",
+        "cn_idiom": "\u5b89\u7136\u65e0\u6059"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Navigation",
+        "forms": "Navigate (V)",
+        "meaning": "\u5bfc\u822a",
+        "recycled": false
+      },
+      {
+        "word": "Reliance",
+        "forms": "Rely (V) - Reliable (Adj)",
+        "meaning": "\u4f9d\u8d56",
+        "recycled": false
+      },
+      {
+        "word": "Intuition",
+        "forms": "Intuitive (Adj)",
+        "meaning": "\u76f4\u89c9",
+        "recycled": false
+      },
+      {
+        "word": "Orientation",
+        "forms": "Orient (V)",
+        "meaning": "\u65b9\u5411\u611f",
+        "recycled": false
+      },
+      {
+        "word": "Landmark",
+        "forms": "Landmarks (Pl)",
+        "meaning": "\u5730\u6807",
+        "recycled": false
+      },
+      {
+        "word": "Virtual",
+        "forms": "Virtually (Adv)",
+        "meaning": "\u865a\u62df\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Distraction",
+        "forms": "Distract (V)",
+        "meaning": "\u5206\u5fc3",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Find one's feet",
+        "usage": "Found (V2)",
+        "meaning": "\u9002\u5e94\u65b0\u73af\u5883 / \u7ad9\u7a33\u811a\u8ddf",
+        "cn_idiom": "\u7ad9\u7a33\u811a\u8ddf"
+      },
+      {
+        "idiom": "Off the beaten track",
+        "usage": "Adj Phrase",
+        "meaning": "\u4eba\u8ff9\u7f55\u81f3\u7684",
+        "cn_idiom": "\u4eba\u8ff9\u7f55\u81f3"
+      },
+      {
+        "idiom": "Cross that bridge when you come to it",
+        "usage": "Proverb",
+        "meaning": "\u8239\u5230\u6865\u5934\u81ea\u7136\u76f4",
+        "cn_idiom": "\u8239\u5230\u6865\u5934\u81ea\u7136\u76f4"
+      }
+    ]
+  },
+  {
+    "week": 13,
+    "l1_vocab": [
+      {
+        "word": "Charismatic",
+        "forms": "Charisma (N)",
+        "meaning": "\u6709\u9b45\u529b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Influential",
+        "forms": "Influence (N/V)",
+        "meaning": "\u6709\u5f71\u54cd\u529b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Talented",
+        "forms": "Talent (N)",
+        "meaning": "\u6709\u624d\u534e\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Humble",
+        "forms": "Humility (N)",
+        "meaning": "\u8c26\u900a\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Legendary",
+        "forms": "Legend (N)",
+        "meaning": "\u4f20\u5947\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Relieved",
+        "forms": "Relief (N)",
+        "meaning": "\u5982\u91ca\u91cd\u8d1f\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Helpful",
+        "forms": "Helpfulness (N)",
+        "meaning": "\u6709\u5e2e\u52a9\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Down to earth",
+        "usage": "Adjective",
+        "meaning": "\u63a5\u5730\u6c14\u7684 / \u52a1\u5b9e\u7684",
+        "cn_idiom": "\u5e73\u6613\u8fd1\u4eba"
+      },
+      {
+        "idiom": "Role model",
+        "usage": "Noun Phrase",
+        "meaning": "\u699c\u6837",
+        "cn_idiom": "\u699c\u6837"
+      },
+      {
+        "idiom": "In the limelight",
+        "usage": "Phrase",
+        "meaning": "\u5904\u4e8e\u805a\u5149\u706f\u4e0b / \u53d7\u4eba\u5173\u6ce8",
+        "cn_idiom": "\u4e07\u4f17\u77a9\u76ee"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Privacy",
+        "forms": "Private (Adj)",
+        "meaning": "\u9690\u79c1",
+        "recycled": false
+      },
+      {
+        "word": "Reputation",
+        "forms": "Reputable (Adj)",
+        "meaning": "\u540d\u8a89",
+        "recycled": false
+      },
+      {
+        "word": "Scandal",
+        "forms": "Scandalous (Adj)",
+        "meaning": "\u4e11\u95fb",
+        "recycled": false
+      },
+      {
+        "word": "Paparazzi",
+        "forms": "Noun (Plural)",
+        "meaning": "\u72d7\u4ed4\u961f",
+        "recycled": false
+      },
+      {
+        "word": "Contribution",
+        "forms": "Contribute (V)",
+        "meaning": "\u8d21\u732e",
+        "recycled": false
+      },
+      {
+        "word": "Reliance",
+        "forms": "Rely (V)",
+        "meaning": "\u4f9d\u8d56",
+        "recycled": true
+      },
+      {
+        "word": "Orientation",
+        "forms": "Orient (V)",
+        "meaning": "\u65b9\u5411 / \u5b9a\u4f4d",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Price of fame",
+        "usage": "Noun Phrase",
+        "meaning": "\u6210\u540d\u7684\u4ee3\u4ef7",
+        "cn_idiom": "\u76db\u540d\u4e4b\u7d2f"
+      },
+      {
+        "idiom": "Household name",
+        "usage": "Noun Phrase",
+        "meaning": "\u5bb6\u55bb\u6237\u6653\u7684\u540d\u5b57",
+        "cn_idiom": "\u5bb6\u55bb\u6237\u6653"
+      },
+      {
+        "idiom": "Live in a fishbowl",
+        "usage": "Lived (V2)",
+        "meaning": "\u6beb\u65e0\u9690\u79c1\u7684\u751f\u6d3b",
+        "cn_idiom": "\u6beb\u65e0\u9690\u79c1"
+      }
+    ]
+  },
+  {
+    "week": 14,
+    "l1_vocab": [
+      {
+        "word": "Bustling",
+        "forms": "Bustle (V)",
+        "meaning": "\u7199\u7199\u6518\u6518\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Affordable",
+        "forms": "Afford (V)",
+        "meaning": "\u8d1f\u62c5\u5f97\u8d77\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Trendy",
+        "forms": "Trend (N)",
+        "meaning": "\u65f6\u9ae6\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Convenient",
+        "forms": "Convenience (N)",
+        "meaning": "\u65b9\u4fbf\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Overcrowded",
+        "forms": "Crowd (N)",
+        "meaning": "\u62e5\u6324\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Influential",
+        "forms": "Influence (N)",
+        "meaning": "\u6709\u5f71\u54cd\u529b\u7684 (brands)",
+        "recycled": true
+      },
+      {
+        "word": "Charismatic",
+        "forms": "Charisma (N)",
+        "meaning": "\u6709\u9b45\u529b\u7684 (salesperson)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Shop till you drop",
+        "usage": "Shopped (V2)",
+        "meaning": "\u75af\u72c2\u8d2d\u7269",
+        "cn_idiom": "\u8840\u62fc\u5230\u5e95"
+      },
+      {
+        "idiom": "Window shopping",
+        "usage": "Noun / Verb",
+        "meaning": "\u53ea\u901b\u4e0d\u4e70",
+        "cn_idiom": "\u6a71\u7a97\u8d2d\u7269"
+      },
+      {
+        "idiom": "Bargain hunter",
+        "usage": "Noun Phrase",
+        "meaning": "\u4e13\u95e8\u4e70\u4fbf\u5b9c\u8d27\u7684\u4eba",
+        "cn_idiom": "\u6361\u6f0f\u8005"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Consumerism",
+        "forms": "Consumer (N) - Consume (V)",
+        "meaning": "\u6d88\u8d39\u4e3b\u4e49",
+        "recycled": false
+      },
+      {
+        "word": "Transaction",
+        "forms": "Transact (V)",
+        "meaning": "\u4ea4\u6613",
+        "recycled": false
+      },
+      {
+        "word": "E-commerce",
+        "forms": "Noun",
+        "meaning": "\u7535\u5b50\u5546\u52a1",
+        "recycled": false
+      },
+      {
+        "word": "Retail",
+        "forms": "Retailer (N)",
+        "meaning": "\u96f6\u552e",
+        "recycled": false
+      },
+      {
+        "word": "Impulsive",
+        "forms": "Impulse (N)",
+        "meaning": "\u51b2\u52a8\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Reputation",
+        "forms": "Reputable (Adj)",
+        "meaning": "\u58f0\u8a89",
+        "recycled": true
+      },
+      {
+        "word": "Privacy",
+        "forms": "Private (Adj)",
+        "meaning": "\u9690\u79c1 (data)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Retail therapy",
+        "usage": "Noun Phrase",
+        "meaning": "\u8d2d\u7269\u7597\u6cd5",
+        "cn_idiom": "\u8d2d\u7269\u89e3\u538b"
+      },
+      {
+        "idiom": "Break the bank",
+        "usage": "Broke (V2)",
+        "meaning": "\u82b1\u8d39\u592a\u9ad8 / \u503e\u5bb6\u8361\u4ea7",
+        "cn_idiom": "\u503e\u5bb6\u8361\u4ea7"
+      },
+      {
+        "idiom": "Catch one's eye",
+        "usage": "Caught (V2)",
+        "meaning": "\u5438\u5f15\u773c\u7403",
+        "cn_idiom": "\u5f15\u4eba\u6ce8\u76ee"
+      }
+    ]
+  },
+  {
+    "week": 15,
+    "l1_vocab": [
+      {
+        "word": "Educational",
+        "forms": "Education (N) - Educate (V)",
+        "meaning": "\u6709\u6559\u80b2\u610f\u4e49\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Captivating",
+        "forms": "Captivate (V)",
+        "meaning": "\u8ff7\u4eba\u7684 / \u5438\u5f15\u4eba\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Thought-provoking",
+        "forms": "Adjective",
+        "meaning": "\u53d1\u4eba\u6df1\u7701\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Memorable",
+        "forms": "Memory (N)",
+        "meaning": "\u96be\u5fd8\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Classic",
+        "forms": "Classics (Pl)",
+        "meaning": "\u7ecf\u5178\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Trendy",
+        "forms": "Trend (N)",
+        "meaning": "\u65f6\u9ae6\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Overcrowded",
+        "forms": "Crowd (N)",
+        "meaning": "\u62e5\u6324\u7684 (book fair)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Page-turner",
+        "usage": "Noun",
+        "meaning": "\u5f15\u4eba\u5165\u80dc\u7684\u4e66",
+        "cn_idiom": "\u5f15\u4eba\u5165\u80dc\u4e4b\u4f5c"
+      },
+      {
+        "idiom": "Lose oneself in",
+        "usage": "Lost (V2)",
+        "meaning": "\u6c89\u8ff7\u4e8e...",
+        "cn_idiom": "\u9676\u9189\u5176\u4e2d"
+      },
+      {
+        "idiom": "Judge a book by its cover",
+        "usage": "Proverb",
+        "meaning": "\u4ee5\u8c8c\u53d6\u4eba",
+        "cn_idiom": "\u4ee5\u8c8c\u53d6\u4eba"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Literacy",
+        "forms": "Literate (Adj)",
+        "meaning": "\u8bfb\u5199\u80fd\u529b / \u7d20\u517b",
+        "recycled": false
+      },
+      {
+        "word": "Attention span",
+        "forms": "Noun Phrase",
+        "meaning": "\u6ce8\u610f\u529b\u6301\u7eed\u65f6\u95f4",
+        "recycled": false
+      },
+      {
+        "word": "Preservation",
+        "forms": "Preserve (V)",
+        "meaning": "\u4fdd\u5b58 (culture)",
+        "recycled": false
+      },
+      {
+        "word": "Accessibility",
+        "forms": "Access (V) - Accessible (Adj)",
+        "meaning": "\u53ef\u8bbf\u95ee\u6027 / \u4fbf\u6377\u6027",
+        "recycled": false
+      },
+      {
+        "word": "Imagination",
+        "forms": "Imagine (V) - Imaginative (Adj)",
+        "meaning": "\u60f3\u8c61\u529b",
+        "recycled": false
+      },
+      {
+        "word": "Impulsive",
+        "forms": "Impulse (N)",
+        "meaning": "\u51b2\u52a8\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Consumerism",
+        "forms": "Consume (V)",
+        "meaning": "\u6d88\u8d39\u4e3b\u4e49",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Read between the lines",
+        "usage": "Read (V2)",
+        "meaning": "\u8bfb\u61c2\u8a00\u5916\u4e4b\u610f",
+        "cn_idiom": "\u901a\u8fc7\u5b57\u91cc\u884c\u95f4\u9886\u4f1a"
+      },
+      {
+        "idiom": "Bookworm",
+        "usage": "Noun",
+        "meaning": "\u4e66\u5446\u5b50 / \u7231\u4e66\u7684\u4eba",
+        "cn_idiom": "\u4e66\u866b"
+      },
+      {
+        "idiom": "Hit the books",
+        "usage": "Hit (V2)",
+        "meaning": "\u7528\u529f\u8bfb\u4e66",
+        "cn_idiom": "\u7528\u529f\u8bfb\u4e66"
+      }
+    ]
+  },
+  {
+    "week": 16,
+    "l1_vocab": [
+      {
+        "word": "Hilarious",
+        "forms": "Hilarity (N)",
+        "meaning": "\u6781\u6ed1\u7a3d\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Amusing",
+        "forms": "Amuse (V) - Amusement (N)",
+        "meaning": "\u6709\u8da3\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Awkward",
+        "forms": "Awkwardness (N)",
+        "meaning": "\u5c34\u5c2c\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Contagious",
+        "forms": "Contagion (N)",
+        "meaning": "\u6709\u611f\u67d3\u529b\u7684 (laughter)",
+        "recycled": false
+      },
+      {
+        "word": "Joyful",
+        "forms": "Joy (N)",
+        "meaning": "\u5feb\u4e50\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Memorable",
+        "forms": "Memory (N)",
+        "meaning": "\u96be\u5fd8\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Captivating",
+        "forms": "Captivate (V)",
+        "meaning": "\u8ff7\u4eba\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Burst into laughter",
+        "usage": "Burst (V2)",
+        "meaning": "\u7a81\u7136\u5927\u7b11",
+        "cn_idiom": "\u54c4\u5802\u5927\u7b11"
+      },
+      {
+        "idiom": "Crack a joke",
+        "usage": "Cracked (V2)",
+        "meaning": "\u8bb2\u7b11\u8bdd",
+        "cn_idiom": "\u8bb2\u7b11\u8bdd"
+      },
+      {
+        "idiom": "Laughter is the best medicine",
+        "usage": "Proverb",
+        "meaning": "\u7b11\u662f\u6700\u597d\u7684\u826f\u836f",
+        "cn_idiom": "\u7b11\u4e00\u7b11\u5341\u5e74\u5c11"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Expressive",
+        "forms": "Express (V) - Expression (N)",
+        "meaning": "\u8868\u73b0\u529b\u4e30\u5bcc\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Suppression",
+        "forms": "Suppress (V)",
+        "meaning": "\u538b\u6291 (emotions)",
+        "recycled": false
+      },
+      {
+        "word": "Universal",
+        "forms": "Universe (N)",
+        "meaning": "\u666e\u904d\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Psychological",
+        "forms": "Psychology (N)",
+        "meaning": "\u5fc3\u7406\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Bonding",
+        "forms": "Bond (V/N)",
+        "meaning": "\u5efa\u7acb\u7ebd\u5e26",
+        "recycled": false
+      },
+      {
+        "word": "Literacy",
+        "forms": "Literate (Adj)",
+        "meaning": "\u7d20\u517b (emotional)",
+        "recycled": true
+      },
+      {
+        "word": "Accessibility",
+        "forms": "Accessible (Adj)",
+        "meaning": "\u53ef\u63a5\u8fd1\u6027",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Wear one's heart on one's sleeve",
+        "usage": "Wore (V2)",
+        "meaning": "\u60c5\u611f\u5916\u9732",
+        "cn_idiom": "\u771f\u60c5\u6d41\u9732"
+      },
+      {
+        "idiom": "Keep a straight face",
+        "usage": "Kept (V2)",
+        "meaning": "\u677f\u7740\u8138 / \u5fcd\u4f4f\u4e0d\u7b11",
+        "cn_idiom": "\u4e00\u672c\u6b63\u7ecf"
+      },
+      {
+        "idiom": "Sense of humor",
+        "usage": "Noun Phrase",
+        "meaning": "\u5e7d\u9ed8\u611f",
+        "cn_idiom": "\u5e7d\u9ed8\u611f"
+      }
+    ]
+  },
+  {
+    "week": 17,
+    "l1_vocab": [
+      {
+        "word": "Supportive",
+        "forms": "Support (V/N)",
+        "meaning": "\u652f\u6301\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Intimate",
+        "forms": "Intimacy (N)",
+        "meaning": "\u4eb2\u5bc6\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Childhood",
+        "forms": "Noun",
+        "meaning": "\u7ae5\u5e74",
+        "recycled": false
+      },
+      {
+        "word": "Inseparable",
+        "forms": "Separate (V)",
+        "meaning": "\u5f62\u5f71\u4e0d\u79bb\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Considerate",
+        "forms": "Consider (V)",
+        "meaning": "\u4f53\u8d34\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Hilarious",
+        "forms": "Hilarity (N)",
+        "meaning": "\u6781\u6ed1\u7a3d\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Joyful",
+        "forms": "Joy (N)",
+        "meaning": "\u5feb\u4e50\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Through thick and thin",
+        "usage": "Fixed Phrase",
+        "meaning": "\u98ce\u96e8\u540c\u821f",
+        "cn_idiom": "\u98ce\u96e8\u540c\u821f"
+      },
+      {
+        "idiom": "Hit it off",
+        "usage": "Hit (V2)",
+        "meaning": "\u4e00\u89c1\u5982\u6545",
+        "cn_idiom": "\u4e00\u89c1\u5982\u6545"
+      },
+      {
+        "idiom": "Drift apart",
+        "usage": "Drifted (V2)",
+        "meaning": "\u9010\u6e10\u758f\u8fdc",
+        "cn_idiom": "\u6e10\u884c\u6e10\u8fdc"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Companionship",
+        "forms": "Companion (N)",
+        "meaning": "\u966a\u4f34 / \u53cb\u8c0a",
+        "recycled": false
+      },
+      {
+        "word": "Superficial",
+        "forms": "Adjective",
+        "meaning": "\u80a4\u6d45\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Colleague",
+        "forms": "Colleagues (Pl)",
+        "meaning": "\u540c\u4e8b",
+        "recycled": false
+      },
+      {
+        "word": "Interaction",
+        "forms": "Interact (V)",
+        "meaning": "\u4e92\u52a8",
+        "recycled": false
+      },
+      {
+        "word": "Lifelong",
+        "forms": "Adjective",
+        "meaning": "\u7ec8\u8eab\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Psychological",
+        "forms": "Psychology (N)",
+        "meaning": "\u5fc3\u7406\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Universal",
+        "forms": "Universe (N)",
+        "meaning": "\u666e\u904d\u7684",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Fair-weather friend",
+        "usage": "Noun Phrase",
+        "meaning": "\u9152\u8089\u670b\u53cb",
+        "cn_idiom": "\u9152\u8089\u670b\u53cb"
+      },
+      {
+        "idiom": "See eye to eye",
+        "usage": "Saw (V2)",
+        "meaning": "\u770b\u6cd5\u4e00\u81f4",
+        "cn_idiom": "\u6240\u89c1\u7565\u540c"
+      },
+      {
+        "idiom": "A friend in need is a friend indeed",
+        "usage": "Proverb",
+        "meaning": "\u60a3\u96be\u89c1\u771f\u60c5",
+        "cn_idiom": "\u60a3\u96be\u89c1\u771f\u60c5"
+      }
+    ]
+  },
+  {
+    "week": 18,
+    "l1_vocab": [
+      {
+        "word": "Cozy",
+        "forms": "Coziness (N)",
+        "meaning": "\u8212\u9002\u7684 / \u6e29\u99a8\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Spacious",
+        "forms": "Space (N)",
+        "meaning": "\u5bbd\u655e\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Decorated",
+        "forms": "Decorate (V) - Decoration (N)",
+        "meaning": "\u88c5\u9970\u8fc7\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Modern",
+        "forms": "Modernize (V)",
+        "meaning": "\u73b0\u4ee3\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Messy",
+        "forms": "Mess (N)",
+        "meaning": "\u51cc\u4e71\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Supportive",
+        "forms": "Support (V)",
+        "meaning": "\u652f\u6301\u7684 (environment)",
+        "recycled": true
+      },
+      {
+        "word": "Intimate",
+        "forms": "Intimacy (N)",
+        "meaning": "\u79c1\u5bc6\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Home sweet home",
+        "usage": "Phrase",
+        "meaning": "\u6e29\u99a8\u7684\u5bb6",
+        "cn_idiom": "\u91d1\u7a9d\u94f6\u7a9d\u4e0d\u5982\u81ea\u5df1\u7684\u72d7\u7a9d"
+      },
+      {
+        "idiom": "Make oneself at home",
+        "usage": "Made (V2)",
+        "meaning": "\u4e0d\u62d8\u675f / \u50cf\u5728\u81ea\u5df1\u5bb6\u4e00\u6837",
+        "cn_idiom": "\u5bbe\u81f3\u5982\u5f52"
+      },
+      {
+        "idiom": "Peace and quiet",
+        "usage": "Noun Phrase",
+        "meaning": "\u5b81\u9759",
+        "cn_idiom": "\u6e05\u9759"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Affordability",
+        "forms": "Afford (V) - Affordable (Adj)",
+        "meaning": "\u53ef\u8d1f\u62c5\u6027",
+        "recycled": false
+      },
+      {
+        "word": "Urban",
+        "forms": "Urbanization (N)",
+        "meaning": "\u57ce\u5e02\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Shortage",
+        "forms": "Short (Adj)",
+        "meaning": "\u77ed\u7f3a",
+        "recycled": false
+      },
+      {
+        "word": "Investment",
+        "forms": "Invest (V)",
+        "meaning": "\u6295\u8d44",
+        "recycled": false
+      },
+      {
+        "word": "Regulation",
+        "forms": "Regulate (V)",
+        "meaning": "\u6cd5\u89c4 / \u7ba1\u5236",
+        "recycled": false
+      },
+      {
+        "word": "Lifelong",
+        "forms": "Adjective",
+        "meaning": "\u7ec8\u8eab\u7684 (mortgage)",
+        "recycled": true
+      },
+      {
+        "word": "Superficial",
+        "forms": "Adjective",
+        "meaning": "\u8868\u9762\u7684 (decoration)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Get on the property ladder",
+        "usage": "Got (V2)",
+        "meaning": "\u4e70\u7b2c\u4e00\u5957\u623f",
+        "cn_idiom": "\u7f6e\u4e1a"
+      },
+      {
+        "idiom": "Go through the roof",
+        "usage": "Went (V2)",
+        "meaning": "\u98de\u6da8 (\u4ef7\u683c)",
+        "cn_idiom": "\u98de\u6da8"
+      },
+      {
+        "idiom": "A roof over one's head",
+        "usage": "Noun Phrase",
+        "meaning": "\u6816\u8eab\u4e4b\u5904",
+        "cn_idiom": "\u6816\u8eab\u4e4b\u5904"
+      }
+    ]
+  },
+  {
+    "week": 19,
+    "l1_vocab": [
+      {
+        "word": "Sentimental",
+        "forms": "Sentiment (N)",
+        "meaning": "\u60c5\u611f\u7684 / \u6000\u65e7\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Valuable",
+        "forms": "Value (N/V)",
+        "meaning": "\u5b9d\u8d35\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Antique",
+        "forms": "Noun / Adj",
+        "meaning": "\u53e4\u8463 / \u53e4\u8001\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Irreplaceable",
+        "forms": "Replace (V)",
+        "meaning": "\u4e0d\u53ef\u66ff\u4ee3\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Fragile",
+        "forms": "Fragility (N)",
+        "meaning": "\u6613\u788e\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Cozy",
+        "forms": "Coziness (N)",
+        "meaning": "\u6e29\u99a8\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Decorated",
+        "forms": "Decorate (V)",
+        "meaning": "\u88c5\u9970\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Blast from the past",
+        "usage": "Noun Phrase",
+        "meaning": "\u52fe\u8d77\u5f80\u4e8b\u7684\u4e8b\u7269",
+        "cn_idiom": "\u5f80\u4e8b\u91cd\u73b0"
+      },
+      {
+        "idiom": "Hold dear",
+        "usage": "Held (V2)",
+        "meaning": "\u73cd\u89c6",
+        "cn_idiom": "\u73cd\u89c6"
+      },
+      {
+        "idiom": "Pass down",
+        "usage": "Passed (V2)",
+        "meaning": "\u4f20\u4e0b\u6765",
+        "cn_idiom": "\u4f20\u627f"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Consumerism",
+        "forms": "Consume (V)",
+        "meaning": "\u6d88\u8d39\u4e3b\u4e49",
+        "recycled": false
+      },
+      {
+        "word": "Materialistic",
+        "forms": "Materialism (N)",
+        "meaning": "\u7269\u8d28\u4e3b\u4e49\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Nostalgia",
+        "forms": "Nostalgic (Adj)",
+        "meaning": "\u6000\u65e7",
+        "recycled": false
+      },
+      {
+        "word": "Sustainability",
+        "forms": "Sustain (V)",
+        "meaning": "\u53ef\u6301\u7eed\u6027",
+        "recycled": false
+      },
+      {
+        "word": "Accumulate",
+        "forms": "Accumulation (N)",
+        "meaning": "\u79ef\u7d2f",
+        "recycled": false
+      },
+      {
+        "word": "Investment",
+        "forms": "Invest (V)",
+        "meaning": "\u6295\u8d44",
+        "recycled": true
+      },
+      {
+        "word": "Affordability",
+        "forms": "Afford (V)",
+        "meaning": "\u8d2d\u4e70\u529b",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "One man's trash is another man's treasure",
+        "usage": "Proverb",
+        "meaning": "\u53d8\u5e9f\u4e3a\u5b9d",
+        "cn_idiom": "\u5f7c\u4e4b\u7812\u971c\u543e\u4e4b\u871c\u7cd6"
+      },
+      {
+        "idiom": "Hoarder",
+        "usage": "Noun",
+        "meaning": "\u56e4\u79ef\u72c2",
+        "cn_idiom": "\u677e\u9f20\u75c7 / \u56e4\u79ef\u72c2"
+      },
+      {
+        "idiom": "Throwaway society",
+        "usage": "Noun Phrase",
+        "meaning": "\u7528\u5b8c\u5373\u5f03\u7684\u793e\u4f1a",
+        "cn_idiom": "\u4e00\u6b21\u6027\u6d88\u8d39\u793e\u4f1a"
+      }
+    ]
+  },
+  {
+    "week": 20,
+    "l1_vocab": [
+      {
+        "word": "Exhausting",
+        "forms": "Exhaust (V) - Exhausted (Adj)",
+        "meaning": "\u7b4b\u75b2\u529b\u5c3d\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Scenic",
+        "forms": "Scenery (N)",
+        "meaning": "\u98ce\u666f\u4f18\u7f8e\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Adventurous",
+        "forms": "Adventure (N)",
+        "meaning": "\u7231\u5192\u9669\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Spontaneous",
+        "forms": "Spontaneity (N)",
+        "meaning": "\u81ea\u53d1\u7684 / \u968f\u6027\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Delayed",
+        "forms": "Delay (N/V)",
+        "meaning": "\u5ef6\u8bef\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Sentimental",
+        "forms": "Sentiment (N)",
+        "meaning": "\u60c5\u611f\u7684 (journey)",
+        "recycled": true
+      },
+      {
+        "word": "Valuable",
+        "forms": "Value (N)",
+        "meaning": "\u5b9d\u8d35\u7684 (experience)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Hit the road",
+        "usage": "Hit (V2)",
+        "meaning": "\u4e0a\u8def / \u51fa\u53d1",
+        "cn_idiom": "\u4e0a\u8def"
+      },
+      {
+        "idiom": "Travel light",
+        "usage": "Traveled (V2)",
+        "meaning": "\u8f7b\u88c5\u4e0a\u9635",
+        "cn_idiom": "\u8f7b\u88c5\u4e0a\u9635"
+      },
+      {
+        "idiom": "Bumpy ride",
+        "usage": "Noun Phrase",
+        "meaning": "\u98a0\u7c38\u7684\u65c5\u7a0b / \u574e\u5777",
+        "cn_idiom": "\u574e\u5777"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Eco-tourism",
+        "forms": "Tourist (N)",
+        "meaning": "\u751f\u6001\u65c5\u6e38",
+        "recycled": false
+      },
+      {
+        "word": "Emission",
+        "forms": "Emit (V)",
+        "meaning": "\u6392\u653e",
+        "recycled": false
+      },
+      {
+        "word": "Commute",
+        "forms": "Commuter (N)",
+        "meaning": "\u901a\u52e4",
+        "recycled": false
+      },
+      {
+        "word": "Congestion",
+        "forms": "Congest (V)",
+        "meaning": "\u62e5\u5835",
+        "recycled": false
+      },
+      {
+        "word": "Preparation",
+        "forms": "Prepare (V)",
+        "meaning": "\u51c6\u5907",
+        "recycled": false
+      },
+      {
+        "word": "Sustainability",
+        "forms": "Sustainable (Adj)",
+        "meaning": "\u53ef\u6301\u7eed\u6027",
+        "recycled": true
+      },
+      {
+        "word": "Accumulate",
+        "forms": "Accumulation (N)",
+        "meaning": "\u79ef\u7d2f (miles)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Carbon footprint",
+        "usage": "Noun Phrase",
+        "meaning": "\u78b3\u8db3\u8ff9",
+        "cn_idiom": "\u78b3\u8db3\u8ff9"
+      },
+      {
+        "idiom": "Hustle and bustle",
+        "usage": "Noun Phrase",
+        "meaning": "\u7199\u7199\u6518\u6518",
+        "cn_idiom": "\u7199\u7199\u6518\u6518"
+      },
+      {
+        "idiom": "Rush hour",
+        "usage": "Noun Phrase",
+        "meaning": "\u9ad8\u5cf0\u671f",
+        "cn_idiom": "\u9ad8\u5cf0\u671f"
+      }
+    ]
+  },
+  {
+    "week": 21,
+    "l1_vocab": [
+      {
+        "word": "Exceptional",
+        "forms": "Exception (N)",
+        "meaning": "\u6770\u51fa\u7684 / \u5f02\u5e38\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Innovative",
+        "forms": "Innovation (N)",
+        "meaning": "\u521b\u65b0\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Dedicated",
+        "forms": "Dedicate (V) - Dedication (N)",
+        "meaning": "\u4e13\u6ce8\u7684 / \u732e\u8eab\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Versatile",
+        "forms": "Versatility (N)",
+        "meaning": "\u591a\u624d\u591a\u827a\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Visionary",
+        "forms": "Vision (N)",
+        "meaning": "\u6709\u8fdc\u89c1\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Adventurous",
+        "forms": "Adventure (N)",
+        "meaning": "\u6562\u4e8e\u521b\u65b0\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Spontaneous",
+        "forms": "Spontaneity (N)",
+        "meaning": "\u81ea\u53d1\u7684 (creativity)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Born with a silver spoon",
+        "usage": "Phrase",
+        "meaning": "\u542b\u7740\u91d1\u6c64\u5319\u51fa\u751f (context of luck vs talent)",
+        "cn_idiom": "\u542b\u7740\u91d1\u6c64\u5319\u51fa\u751f"
+      },
+      {
+        "idiom": "Think on one's feet",
+        "usage": "Thought (V2)",
+        "meaning": "\u53cd\u5e94\u654f\u6377",
+        "cn_idiom": "\u968f\u673a\u5e94\u53d8"
+      },
+      {
+        "idiom": "A natural",
+        "usage": "Noun",
+        "meaning": "\u5929\u751f\u597d\u624b",
+        "cn_idiom": "\u5929\u751f\u597d\u624b"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Innate",
+        "forms": "Adjective",
+        "meaning": "\u5929\u751f\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Potential",
+        "forms": "Adjective / Noun",
+        "meaning": "\u6f5c\u529b",
+        "recycled": false
+      },
+      {
+        "word": "Nurture",
+        "forms": "Nurtured (V2)",
+        "meaning": "\u57f9\u517b / \u540e\u5929\u6559\u80b2",
+        "recycled": false
+      },
+      {
+        "word": "Academic",
+        "forms": "Academy (N)",
+        "meaning": "\u5b66\u672f\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Intelligence",
+        "forms": "Intelligent (Adj)",
+        "meaning": "\u667a\u529b",
+        "recycled": false
+      },
+      {
+        "word": "Preparation",
+        "forms": "Prepare (V)",
+        "meaning": "\u51c6\u5907",
+        "recycled": true
+      },
+      {
+        "word": "Emission",
+        "forms": "Emit (V)",
+        "meaning": "\u6392\u653e (irrelevant here, swap)",
+        "recycled": false
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Practice makes perfect",
+        "usage": "Proverb",
+        "meaning": "\u719f\u80fd\u751f\u5de7",
+        "cn_idiom": "\u719f\u80fd\u751f\u5de7"
+      },
+      {
+        "idiom": "Brainy",
+        "usage": "Adjective (Informal)",
+        "meaning": "\u806a\u660e\u7684",
+        "cn_idiom": "\u8111\u74dc\u7075"
+      },
+      {
+        "idiom": "Jack of all trades",
+        "usage": "Noun Phrase",
+        "meaning": "\u4e07\u91d1\u6cb9 (\u535a\u800c\u4e0d\u7cbe)",
+        "cn_idiom": "\u4e07\u91d1\u6cb9"
+      }
+    ]
+  },
+  {
+    "week": 22,
+    "l1_vocab": [
+      {
+        "word": "Entrepreneurial",
+        "forms": "Entrepreneur (N)",
+        "meaning": "\u6709\u521b\u4e1a\u7cbe\u795e\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Diligent",
+        "forms": "Diligence (N)",
+        "meaning": "\u52e4\u594b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Authentic",
+        "forms": "Authenticity (N)",
+        "meaning": "\u6b63\u5b97\u7684 / \u771f\u5b9e\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Prosperous",
+        "forms": "Prosperity (N)",
+        "meaning": "\u7e41\u8363\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Reputable",
+        "forms": "Reputation (N)",
+        "meaning": "\u58f0\u8a89\u597d\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Dedicated",
+        "forms": "Dedication (N)",
+        "meaning": "\u656c\u4e1a\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Exceptional",
+        "forms": "Exception (N)",
+        "meaning": "\u6770\u51fa\u7684 (service)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Run the show",
+        "usage": "Ran (V2)",
+        "meaning": "\u638c\u7ba1 / \u4e3b\u6301\u5927\u5c40",
+        "cn_idiom": "\u5f53\u5bb6\u4f5c\u4e3b"
+      },
+      {
+        "idiom": "Pass the torch",
+        "usage": "Passed (V2)",
+        "meaning": "\u85aa\u706b\u76f8\u4f20 / \u4ea4\u63a5",
+        "cn_idiom": "\u85aa\u706b\u76f8\u4f20"
+      },
+      {
+        "idiom": "Mom and Pop store",
+        "usage": "Noun Phrase",
+        "meaning": "\u592b\u59bb\u5e97",
+        "cn_idiom": "\u592b\u59bb\u5e97"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Corporation",
+        "forms": "Corporate (Adj)",
+        "meaning": "\u5927\u516c\u53f8 / \u4f01\u4e1a",
+        "recycled": false
+      },
+      {
+        "word": "Competition",
+        "forms": "Compete (V) - Competitive (Adj)",
+        "meaning": "\u7ade\u4e89",
+        "recycled": false
+      },
+      {
+        "word": "Monopoly",
+        "forms": "Monopolize (V)",
+        "meaning": "\u5784\u65ad",
+        "recycled": false
+      },
+      {
+        "word": "Economy",
+        "forms": "Economic (Adj)",
+        "meaning": "\u7ecf\u6d4e",
+        "recycled": false
+      },
+      {
+        "word": "Startup",
+        "forms": "Noun",
+        "meaning": "\u521d\u521b\u516c\u53f8",
+        "recycled": false
+      },
+      {
+        "word": "Innate",
+        "forms": "Adjective",
+        "meaning": "\u56fa\u6709\u7684 (risk)",
+        "recycled": true
+      },
+      {
+        "word": "Potential",
+        "forms": "Noun",
+        "meaning": "\u6f5c\u529b",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Cut-throat",
+        "usage": "Adjective",
+        "meaning": "\u6b8b\u9177\u7684 (\u7ade\u4e89)",
+        "cn_idiom": "\u4f60\u6b7b\u6211\u6d3b"
+      },
+      {
+        "idiom": "Go out of business",
+        "usage": "Went (V2)",
+        "meaning": "\u7834\u4ea7 / \u5012\u95ed",
+        "cn_idiom": "\u5012\u95ed"
+      },
+      {
+        "idiom": "Big fish eat little fish",
+        "usage": "Proverb",
+        "meaning": "\u5927\u9c7c\u5403\u5c0f\u9c7c",
+        "cn_idiom": "\u5f31\u8089\u5f3a\u98df"
+      }
+    ]
+  },
+  {
+    "week": 23,
+    "l1_vocab": [
+      {
+        "word": "Nostalgic",
+        "forms": "Nostalgia (N)",
+        "meaning": "\u6000\u65e7\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Imaginative",
+        "forms": "Imagination (N)",
+        "meaning": "\u5bcc\u4e8e\u60f3\u8c61\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Durable",
+        "forms": "Durability (N)",
+        "meaning": "\u8010\u7528\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Precious",
+        "forms": "Adjective",
+        "meaning": "\u73cd\u8d35\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Educational",
+        "forms": "Educate (V)",
+        "meaning": "\u6709\u6559\u80b2\u610f\u4e49\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Authentic",
+        "forms": "Authenticity (N)",
+        "meaning": "\u771f\u5b9e\u7684 (memories)",
+        "recycled": true
+      },
+      {
+        "word": "Prosperous",
+        "forms": "Prosperity (N)",
+        "meaning": "\u5bcc\u88d5\u7684 (childhood)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Child's play",
+        "usage": "Noun Phrase",
+        "meaning": "\u5c0f\u513f\u79d1 / \u6781\u5bb9\u6613\u7684\u4e8b",
+        "cn_idiom": "\u5c0f\u513f\u79d1"
+      },
+      {
+        "idiom": "Trip down memory lane",
+        "usage": "Noun Phrase",
+        "meaning": "\u8ffd\u5fc6\u5f80\u6614",
+        "cn_idiom": "\u8ffd\u5fc6\u5f80\u6614"
+      },
+      {
+        "idiom": "Pride and joy",
+        "usage": "Noun Phrase",
+        "meaning": "\u638c\u4e0a\u660e\u73e0 / \u6700\u5f97\u610f\u7684\u73cd\u5b9d",
+        "cn_idiom": "\u638c\u4e0a\u660e\u73e0"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Creativity",
+        "forms": "Create (V) - Creative (Adj)",
+        "meaning": "\u521b\u9020\u529b",
+        "recycled": false
+      },
+      {
+        "word": "Development",
+        "forms": "Develop (V)",
+        "meaning": "\u53d1\u5c55",
+        "recycled": false
+      },
+      {
+        "word": "Socialization",
+        "forms": "Socialize (V)",
+        "meaning": "\u793e\u4f1a\u5316",
+        "recycled": false
+      },
+      {
+        "word": "Cognitive",
+        "forms": "Cognition (N)",
+        "meaning": "\u8ba4\u77e5\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Interaction",
+        "forms": "Interact (V)",
+        "meaning": "\u4e92\u52a8",
+        "recycled": false
+      },
+      {
+        "word": "Competition",
+        "forms": "Compete (V)",
+        "meaning": "\u7ade\u4e89",
+        "recycled": true
+      },
+      {
+        "word": "Economy",
+        "forms": "Economic (Adj)",
+        "meaning": "\u7ecf\u6d4e (cost of toys)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Spoiled brat",
+        "usage": "Noun Phrase",
+        "meaning": "\u88ab\u5ba0\u574f\u7684\u5b69\u5b50",
+        "cn_idiom": "\u88ab\u5ba0\u574f\u7684\u5b69\u5b50"
+      },
+      {
+        "idiom": "Wrap someone in cotton wool",
+        "usage": "Wrapped (V2)",
+        "meaning": "\u8fc7\u5206\u4fdd\u62a4",
+        "cn_idiom": "\u5a07\u751f\u60ef\u517b"
+      },
+      {
+        "idiom": "Play by the rules",
+        "usage": "Played (V2)",
+        "meaning": "\u9075\u5b88\u89c4\u5219",
+        "cn_idiom": "\u5faa\u89c4\u8e48\u77e9"
+      }
+    ]
+  },
+  {
+    "week": 24,
+    "l1_vocab": [
+      {
+        "word": "Frustrated",
+        "forms": "Frustrate (V) - Frustration (N)",
+        "meaning": "\u6cae\u4e27\u7684 / \u632b\u8d25\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Helpless",
+        "forms": "Helplessness (N)",
+        "meaning": "\u65e0\u52a9\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Unexpected",
+        "forms": "Expect (V)",
+        "meaning": "\u610f\u60f3\u4e0d\u5230\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Inconvenient",
+        "forms": "Inconvenience (N)",
+        "meaning": "\u4e0d\u4fbf\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Urgent",
+        "forms": "Urgency (N)",
+        "meaning": "\u7d27\u6025\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Durable",
+        "forms": "Durability (N)",
+        "meaning": "\u8010\u7528\u7684 (not durable)",
+        "recycled": true
+      },
+      {
+        "word": "Precious",
+        "forms": "Adjective",
+        "meaning": "\u5b9d\u8d35\u7684 (time)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "In the dark",
+        "usage": "Phrase",
+        "meaning": "\u8499\u5728\u9f13\u91cc / \u5728\u9ed1\u6697\u4e2d",
+        "cn_idiom": "\u4e24\u773c\u4e00\u62b9\u9ed1"
+      },
+      {
+        "idiom": "Out of order",
+        "usage": "Adj Phrase",
+        "meaning": "\u6545\u969c",
+        "cn_idiom": "\u574f\u4e86"
+      },
+      {
+        "idiom": "Save the day",
+        "usage": "Saved (V2)",
+        "meaning": "\u633d\u6551\u5c40\u9762",
+        "cn_idiom": "\u529b\u633d\u72c2\u6f9c"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Dependency",
+        "forms": "Depend (V)",
+        "meaning": "\u4f9d\u8d56",
+        "recycled": false
+      },
+      {
+        "word": "Obsolescence",
+        "forms": "Obsolete (Adj)",
+        "meaning": "\u5e9f\u5f03 / \u6dd8\u6c70",
+        "recycled": false
+      },
+      {
+        "word": "Reliability",
+        "forms": "Reliable (Adj)",
+        "meaning": "\u53ef\u9760\u6027",
+        "recycled": false
+      },
+      {
+        "word": "Manufacturing",
+        "forms": "Manufacture (V)",
+        "meaning": "\u5236\u9020\u4e1a",
+        "recycled": false
+      },
+      {
+        "word": "Sustainability",
+        "forms": "Sustainable (Adj)",
+        "meaning": "\u53ef\u6301\u7eed\u6027",
+        "recycled": false
+      },
+      {
+        "word": "Development",
+        "forms": "Develop (V)",
+        "meaning": "\u53d1\u5c55",
+        "recycled": true
+      },
+      {
+        "word": "Creativity",
+        "forms": "Creative (Adj)",
+        "meaning": "\u521b\u9020\u529b (solving problems)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Throwaway culture",
+        "usage": "Noun Phrase",
+        "meaning": "\u7528\u5b8c\u5373\u5f03\u7684\u6587\u5316",
+        "cn_idiom": "\u5feb\u9910\u6587\u5316"
+      },
+      {
+        "idiom": "Wear and tear",
+        "usage": "Noun Phrase",
+        "meaning": "\u78e8\u635f",
+        "cn_idiom": "\u78e8\u635f"
+      },
+      {
+        "idiom": "Don't fix what isn't broken",
+        "usage": "Proverb",
+        "meaning": "\u6ca1\u574f\u5c31\u522b\u4fee (\u591a\u4e00\u4e8b\u4e0d\u5982\u5c11\u4e00\u4e8b)",
+        "cn_idiom": "\u753b\u86c7\u6dfb\u8db3"
+      }
+    ]
+  },
+  {
+    "week": 25,
+    "l1_vocab": [
+      {
+        "word": "Persuasive",
+        "forms": "Persuade (V) - Persuasion (N)",
+        "meaning": "\u6709\u8bf4\u670d\u529b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Reluctant",
+        "forms": "Reluctance (N)",
+        "meaning": "\u4e0d\u60c5\u613f\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Supportive",
+        "forms": "Support (V)",
+        "meaning": "\u652f\u6301\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Appreciative",
+        "forms": "Appreciate (V)",
+        "meaning": "\u611f\u6fc0\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Wise",
+        "forms": "Wisdom (N)",
+        "meaning": "\u660e\u667a\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Frustrated",
+        "forms": "Frustration (N)",
+        "meaning": "\u6cae\u4e27\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Urgent",
+        "forms": "Urgency (N)",
+        "meaning": "\u7d27\u6025\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Talk someone into something",
+        "usage": "Talked (V2)",
+        "meaning": "\u8bf4\u670d\u67d0\u4eba\u505a\u67d0\u4e8b",
+        "cn_idiom": "\u8bf4\u670d"
+      },
+      {
+        "idiom": "Give it a shot",
+        "usage": "Gave (V2)",
+        "meaning": "\u8bd5\u4e00\u8bd5",
+        "cn_idiom": "\u8bd5\u4e00\u8bd5"
+      },
+      {
+        "idiom": "Two heads are better than one",
+        "usage": "Proverb",
+        "meaning": "\u4e09\u4e2a\u81ed\u76ae\u5320\u9876\u4e2a\u8bf8\u845b\u4eae",
+        "cn_idiom": "\u96c6\u601d\u5e7f\u76ca"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Guidance",
+        "forms": "Guide (V)",
+        "meaning": "\u6307\u5bfc",
+        "recycled": false
+      },
+      {
+        "word": "Mentorship",
+        "forms": "Mentor (N)",
+        "meaning": "\u5bfc\u5e08\u5236\u5ea6",
+        "recycled": false
+      },
+      {
+        "word": "Motivation",
+        "forms": "Motivate (V)",
+        "meaning": "\u52a8\u529b",
+        "recycled": false
+      },
+      {
+        "word": "Criticism",
+        "forms": "Criticize (V) - Critical (Adj)",
+        "meaning": "\u6279\u8bc4",
+        "recycled": false
+      },
+      {
+        "word": "Leadership",
+        "forms": "Leader (N)",
+        "meaning": "\u9886\u5bfc\u529b",
+        "recycled": false
+      },
+      {
+        "word": "Reliability",
+        "forms": "Reliable (Adj)",
+        "meaning": "\u53ef\u9760\u6027",
+        "recycled": true
+      },
+      {
+        "word": "Dependency",
+        "forms": "Depend (V)",
+        "meaning": "\u4f9d\u8d56",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Peer pressure",
+        "usage": "Noun Phrase",
+        "meaning": "\u540c\u4f34\u538b\u529b",
+        "cn_idiom": "\u540c\u8f88\u538b\u529b"
+      },
+      {
+        "idiom": "Lead by example",
+        "usage": "Led (V2)",
+        "meaning": "\u4ee5\u8eab\u4f5c\u5219",
+        "cn_idiom": "\u4ee5\u8eab\u4f5c\u5219"
+      },
+      {
+        "idiom": "Constructive criticism",
+        "usage": "Noun Phrase",
+        "meaning": "\u5efa\u8bbe\u6027\u6279\u8bc4",
+        "cn_idiom": "\u5efa\u8bbe\u6027\u610f\u89c1"
+      }
+    ]
+  },
+  {
+    "week": 26,
+    "l1_vocab": [
+      {
+        "word": "Attentive",
+        "forms": "Attention (N)",
+        "meaning": "\u4f53\u8d34\u7684 / \u6bb7\u52e4\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Impeccable",
+        "forms": "Adjective",
+        "meaning": "\u65e0\u61c8\u53ef\u51fb\u7684 / \u5b8c\u7f8e\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Satisfied",
+        "forms": "Satisfy (V) - Satisfaction (N)",
+        "meaning": "\u6ee1\u610f\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Courteous",
+        "forms": "Courtesy (N)",
+        "meaning": "\u793c\u8c8c\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Efficient",
+        "forms": "Efficiency (N)",
+        "meaning": "\u9ad8\u6548\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Persuasive",
+        "forms": "Persuade (V)",
+        "meaning": "\u6709\u8bf4\u670d\u529b\u7684 (sales)",
+        "recycled": true
+      },
+      {
+        "word": "Appreciative",
+        "forms": "Appreciate (V)",
+        "meaning": "\u611f\u6fc0\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Go above and beyond",
+        "usage": "Went (V2)",
+        "meaning": "\u8d85\u8d8a\u671f\u671b / \u5c3d\u5fc3\u5c3d\u529b",
+        "cn_idiom": "\u5c3d\u804c\u5c3d\u8d23"
+      },
+      {
+        "idiom": "With a smile",
+        "usage": "Phrase",
+        "meaning": "\u9762\u5e26\u5fae\u7b11",
+        "cn_idiom": "\u7b11\u8138\u76f8\u8fce"
+      },
+      {
+        "idiom": "Treat someone like royalty",
+        "usage": "Treated (V2)",
+        "meaning": "\u5949\u82e5\u4e0a\u5bbe",
+        "cn_idiom": "\u5949\u82e5\u4e0a\u5bbe"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Automation",
+        "forms": "Automate (V)",
+        "meaning": "\u81ea\u52a8\u5316",
+        "recycled": false
+      },
+      {
+        "word": "Transaction",
+        "forms": "Transact (V)",
+        "meaning": "\u4ea4\u6613",
+        "recycled": false
+      },
+      {
+        "word": "Budgeting",
+        "forms": "Budget (N/V)",
+        "meaning": "\u9884\u7b97",
+        "recycled": false
+      },
+      {
+        "word": "Consumption",
+        "forms": "Consume (V)",
+        "meaning": "\u6d88\u8d39",
+        "recycled": false
+      },
+      {
+        "word": "Hospitality",
+        "forms": "Hospitable (Adj)",
+        "meaning": "\u597d\u5ba2 / \u670d\u52a1\u4e1a",
+        "recycled": false
+      },
+      {
+        "word": "Guidance",
+        "forms": "Guide (V)",
+        "meaning": "\u6307\u5bfc",
+        "recycled": true
+      },
+      {
+        "word": "Motivation",
+        "forms": "Motivate (V)",
+        "meaning": "\u52a8\u673a (to buy)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "The customer is always right",
+        "usage": "Proverb",
+        "meaning": "\u987e\u5ba2\u5c31\u662f\u4e0a\u5e1d",
+        "cn_idiom": "\u987e\u5ba2\u81f3\u4e0a"
+      },
+      {
+        "idiom": "Human touch",
+        "usage": "Noun Phrase",
+        "meaning": "\u4eba\u60c5\u5473",
+        "cn_idiom": "\u4eba\u60c5\u5473"
+      },
+      {
+        "idiom": "Bang for your buck",
+        "usage": "Noun Phrase",
+        "meaning": "\u7269\u8d85\u6240\u503c",
+        "cn_idiom": "\u7269\u8d85\u6240\u503c"
+      }
+    ]
+  },
+  {
+    "week": 27,
+    "l1_vocab": [
+      {
+        "word": "Entertaining",
+        "forms": "Entertain (V) - Entertainment (N)",
+        "meaning": "\u6709\u8da3\u7684 / \u5a31\u4e50\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Informative",
+        "forms": "Information (N) - Inform (V)",
+        "meaning": "\u4fe1\u606f\u91cf\u5927\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Addictive",
+        "forms": "Addiction (N)",
+        "meaning": "\u4ee4\u4eba\u4e0a\u763e\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Viral",
+        "forms": "Virus (N)",
+        "meaning": "\u75c5\u6bd2\u5f0f\u4f20\u64ad\u7684 / \u7206\u706b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Engaging",
+        "forms": "Engage (V) - Engagement (N)",
+        "meaning": "\u5f15\u4eba\u5165\u80dc\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Attentive",
+        "forms": "Attention (N)",
+        "meaning": "\u4e13\u6ce8\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Impeccable",
+        "forms": "Adjective",
+        "meaning": "\u5b8c\u7f8e\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Binge-watch",
+        "usage": "Binge-watched (V2)",
+        "meaning": "\u5237\u5267",
+        "cn_idiom": "\u5237\u5267"
+      },
+      {
+        "idiom": "Scroll through",
+        "usage": "Scrolled (V2)",
+        "meaning": "\u6d4f\u89c8 / \u6ed1\u52a8 (\u624b\u673a)",
+        "cn_idiom": "\u5237\u5c4f"
+      },
+      {
+        "idiom": "Blow up",
+        "usage": "Blew (V2)",
+        "meaning": "\u7a81\u7136\u7206\u7ea2",
+        "cn_idiom": "\u7206\u7ea2"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Censorship",
+        "forms": "Censor (V)",
+        "meaning": "\u5ba1\u67e5",
+        "recycled": false
+      },
+      {
+        "word": "Misinformation",
+        "forms": "Inform (V)",
+        "meaning": "\u9519\u8bef\u4fe1\u606f / \u8c23\u8a00",
+        "recycled": false
+      },
+      {
+        "word": "Algorithm",
+        "forms": "Algorithmic (Adj)",
+        "meaning": "\u7b97\u6cd5",
+        "recycled": false
+      },
+      {
+        "word": "Connectivity",
+        "forms": "Connect (V)",
+        "meaning": "\u8fde\u63a5\u6027",
+        "recycled": false
+      },
+      {
+        "word": "Mainstream",
+        "forms": "Adjective",
+        "meaning": "\u4e3b\u6d41\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Consumption",
+        "forms": "Consume (V)",
+        "meaning": "\u6d88\u8d39 (media)",
+        "recycled": true
+      },
+      {
+        "word": "Automation",
+        "forms": "Automate (V)",
+        "meaning": "\u81ea\u52a8\u5316",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Fake news",
+        "usage": "Noun Phrase",
+        "meaning": "\u5047\u65b0\u95fb",
+        "cn_idiom": "\u5047\u65b0\u95fb"
+      },
+      {
+        "idiom": "Go viral",
+        "usage": "Went (V2)",
+        "meaning": "\u75af\u4f20",
+        "cn_idiom": "\u75af\u4f20"
+      },
+      {
+        "idiom": "Couch potato",
+        "usage": "Noun",
+        "meaning": "\u7535\u89c6\u8ff7 (\u61d2\u60f0\u7684\u4eba)",
+        "cn_idiom": "\u61d2\u9aa8\u5934"
+      }
+    ]
+  },
+  {
+    "week": 28,
+    "l1_vocab": [
+      {
+        "word": "Lively",
+        "forms": "Liveliness (N)",
+        "meaning": "\u70ed\u95f9\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Delicious",
+        "forms": "Delicacy (N)",
+        "meaning": "\u7f8e\u5473\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Memorable",
+        "forms": "Memory (N)",
+        "meaning": "\u96be\u5fd8\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Sociable",
+        "forms": "Society (N)",
+        "meaning": "\u5584\u4e8e\u4ea4\u9645\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Awkward",
+        "forms": "Awkwardness (N)",
+        "meaning": "\u5c34\u5c2c\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Entertaining",
+        "forms": "Entertainment (N)",
+        "meaning": "\u6709\u8da3\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Engaging",
+        "forms": "Engage (V)",
+        "meaning": "\u5438\u5f15\u4eba\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Break the ice",
+        "usage": "Broke (V2)",
+        "meaning": "\u6253\u7834\u50f5\u5c40",
+        "cn_idiom": "\u7834\u51b0"
+      },
+      {
+        "idiom": "Life of the party",
+        "usage": "Noun Phrase",
+        "meaning": "\u805a\u4f1a\u7684\u7075\u9b42\u4eba\u7269",
+        "cn_idiom": "\u6d3b\u8dc3\u6c14\u6c1b\u7684\u4eba"
+      },
+      {
+        "idiom": "Have a blast",
+        "usage": "Had (V2)",
+        "meaning": "\u73a9\u5f97\u5f88\u5f00\u5fc3",
+        "cn_idiom": "\u73a9\u5f97\u5c3d\u5174"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Tradition",
+        "forms": "Traditional (Adj)",
+        "meaning": "\u4f20\u7edf",
+        "recycled": false
+      },
+      {
+        "word": "Community",
+        "forms": "Communal (Adj)",
+        "meaning": "\u793e\u533a / \u7fa4\u4f53",
+        "recycled": false
+      },
+      {
+        "word": "Celebration",
+        "forms": "Celebrate (V)",
+        "meaning": "\u5e86\u795d",
+        "recycled": false
+      },
+      {
+        "word": "Isolation",
+        "forms": "Isolate (V)",
+        "meaning": "\u5b64\u7acb",
+        "recycled": false
+      },
+      {
+        "word": "Etiquette",
+        "forms": "Noun",
+        "meaning": "\u793c\u8282",
+        "recycled": false
+      },
+      {
+        "word": "Connectivity",
+        "forms": "Connect (V)",
+        "meaning": "\u8054\u7cfb",
+        "recycled": true
+      },
+      {
+        "word": "Mainstream",
+        "forms": "Adjective",
+        "meaning": "\u4e3b\u6d41\u7684",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Let one's hair down",
+        "usage": "Let (V2)",
+        "meaning": "\u653e\u677e / \u5c3d\u60c5\u4eab\u53d7",
+        "cn_idiom": "\u5c3d\u60c5\u653e\u677e"
+      },
+      {
+        "idiom": "Quality time",
+        "usage": "Noun Phrase",
+        "meaning": "\u73cd\u8d35\u7684\u76f8\u5904\u65f6\u5149",
+        "cn_idiom": "\u9ec4\u91d1\u65f6\u95f4"
+      },
+      {
+        "idiom": "The more the merrier",
+        "usage": "Proverb",
+        "meaning": "\u4eba\u8d8a\u591a\u8d8a\u597d",
+        "cn_idiom": "\u591a\u591a\u76ca\u5584"
+      }
+    ]
+  },
+  {
+    "week": 29,
+    "l1_vocab": [
+      {
+        "word": "Sincere",
+        "forms": "Sincerity (N)",
+        "meaning": "\u771f\u8bda\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Regretful",
+        "forms": "Regret (V/N)",
+        "meaning": "\u540e\u6094\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Honest",
+        "forms": "Honesty (N)",
+        "meaning": "\u8bda\u5b9e\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Forgiving",
+        "forms": "Forgive (V) - Forgiveness (N)",
+        "meaning": "\u5bbd\u5bb9\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Courageous",
+        "forms": "Courage (N)",
+        "meaning": "\u52c7\u6562\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Awkward",
+        "forms": "Awkwardness (N)",
+        "meaning": "\u5c34\u5c2c\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Sociable",
+        "forms": "Society (N)",
+        "meaning": "\u5584\u4ea4\u9645\u7684 (but made mistake)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Swallow one's pride",
+        "usage": "Swallowed (V2)",
+        "meaning": "\u653e\u4e0b\u81ea\u5c0a",
+        "cn_idiom": "\u5fcd\u6c14\u541e\u58f0 / \u653e\u4e0b\u9762\u5b50"
+      },
+      {
+        "idiom": "Clear the air",
+        "usage": "Cleared (V2)",
+        "meaning": "\u6d88\u9664\u8bef\u4f1a",
+        "cn_idiom": "\u6d88\u9664\u9694\u9602"
+      },
+      {
+        "idiom": "Get something off one's chest",
+        "usage": "Got (V2)",
+        "meaning": "\u5410\u9732\u5fc3\u58f0 / \u4e00\u5410\u4e3a\u5feb",
+        "cn_idiom": "\u4e00\u5410\u4e3a\u5feb"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Integrity",
+        "forms": "Noun",
+        "meaning": "\u6b63\u76f4 / \u8bda\u4fe1",
+        "recycled": false
+      },
+      {
+        "word": "Deception",
+        "forms": "Deceive (V) - Deceptive (Adj)",
+        "meaning": "\u6b3a\u9a97",
+        "recycled": false
+      },
+      {
+        "word": "Morality",
+        "forms": "Moral (Adj)",
+        "meaning": "\u9053\u5fb7",
+        "recycled": false
+      },
+      {
+        "word": "Conflict",
+        "forms": "Conflicted (Adj)",
+        "meaning": "\u51b2\u7a81",
+        "recycled": false
+      },
+      {
+        "word": "Resolution",
+        "forms": "Resolve (V)",
+        "meaning": "\u89e3\u51b3",
+        "recycled": false
+      },
+      {
+        "word": "Etiquette",
+        "forms": "Noun",
+        "meaning": "\u793c\u8282",
+        "recycled": true
+      },
+      {
+        "word": "Community",
+        "forms": "Communal (Adj)",
+        "meaning": "\u793e\u533a",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "White lie",
+        "usage": "Noun Phrase",
+        "meaning": "\u5584\u610f\u7684\u8c0e\u8a00",
+        "cn_idiom": "\u5584\u610f\u7684\u8c0e\u8a00"
+      },
+      {
+        "idiom": "Honesty is the best policy",
+        "usage": "Proverb",
+        "meaning": "\u8bda\u5b9e\u662f\u4e0a\u7b56",
+        "cn_idiom": "\u8bda\u5b9e\u662f\u4e0a\u7b56"
+      },
+      {
+        "idiom": "Bury the hatchet",
+        "usage": "Buried (V2)",
+        "meaning": "\u8a00\u5f52\u4e8e\u597d / \u6cef\u6069\u4ec7",
+        "cn_idiom": "\u63e1\u624b\u8a00\u548c"
+      }
+    ]
+  },
+  {
+    "week": 30,
+    "l1_vocab": [
+      {
+        "word": "Fascinating",
+        "forms": "Fascinate (V) - Fascination (N)",
+        "meaning": "\u8ff7\u4eba\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Endangered",
+        "forms": "Danger (N)",
+        "meaning": "\u6fd2\u5371\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Wild",
+        "forms": "Wilderness (N)",
+        "meaning": "\u91ce\u751f\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Majestic",
+        "forms": "Majesty (N)",
+        "meaning": "\u96c4\u4f1f\u7684 / \u5a01\u4e25\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Unique",
+        "forms": "Uniqueness (N)",
+        "meaning": "\u72ec\u7279\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Courageous",
+        "forms": "Courage (N)",
+        "meaning": "\u52c7\u6562\u7684 (to approach)",
+        "recycled": true
+      },
+      {
+        "word": "Sincere",
+        "forms": "Sincerity (N)",
+        "meaning": "\u771f\u8bda\u7684 (interest)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Face to face",
+        "usage": "Phrase",
+        "meaning": "\u9762\u5bf9\u9762",
+        "cn_idiom": "\u9762\u5bf9\u9762"
+      },
+      {
+        "idiom": "In the wild",
+        "usage": "Phrase",
+        "meaning": "\u5728\u91ce\u5916",
+        "cn_idiom": "\u5728\u91ce\u5916"
+      },
+      {
+        "idiom": "King of the jungle",
+        "usage": "Noun Phrase",
+        "meaning": "\u4e1b\u6797\u4e4b\u738b (\u72ee\u5b50)",
+        "cn_idiom": "\u767e\u517d\u4e4b\u738b"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Ecosystem",
+        "forms": "System (N)",
+        "meaning": "\u751f\u6001\u7cfb\u7edf",
+        "recycled": false
+      },
+      {
+        "word": "Extinction",
+        "forms": "Extinct (Adj)",
+        "meaning": "\u706d\u7edd",
+        "recycled": false
+      },
+      {
+        "word": "Captivity",
+        "forms": "Captive (Adj/N)",
+        "meaning": "\u5708\u517b / \u56da\u7981",
+        "recycled": false
+      },
+      {
+        "word": "Biodiversity",
+        "forms": "Diverse (Adj)",
+        "meaning": "\u751f\u7269\u591a\u6837\u6027",
+        "recycled": false
+      },
+      {
+        "word": "Conservation",
+        "forms": "Conserve (V)",
+        "meaning": "\u4fdd\u62a4",
+        "recycled": false
+      },
+      {
+        "word": "Morality",
+        "forms": "Moral (Adj)",
+        "meaning": "\u9053\u5fb7 (of zoos)",
+        "recycled": true
+      },
+      {
+        "word": "Conflict",
+        "forms": "Conflicted (Adj)",
+        "meaning": "\u51b2\u7a81 (human-animal)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Survival of the fittest",
+        "usage": "Phrase",
+        "meaning": "\u9002\u8005\u751f\u5b58",
+        "cn_idiom": "\u9002\u8005\u751f\u5b58"
+      },
+      {
+        "idiom": "Crocodile tears",
+        "usage": "Noun Phrase",
+        "meaning": "\u9cc4\u9c7c\u7684\u773c\u6cea (\u5047\u6148\u60b2)",
+        "cn_idiom": "\u732b\u54ed\u8017\u5b50"
+      },
+      {
+        "idiom": "Let sleeping dogs lie",
+        "usage": "Proverb",
+        "meaning": "\u83ab\u60f9\u662f\u975e / \u522b\u81ea\u627e\u9ebb\u70e6",
+        "cn_idiom": "\u522b\u81ea\u627e\u9ebb\u70e6"
+      }
+    ]
+  },
+  {
+    "week": 31,
+    "l1_vocab": [
+      {
+        "word": "Complex",
+        "forms": "Complexity (N)",
+        "meaning": "\u590d\u6742\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Fascinating",
+        "forms": "Fascination (N)",
+        "meaning": "\u8ff7\u4eba\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Logical",
+        "forms": "Logic (N)",
+        "meaning": "\u5408\u4e4e\u903b\u8f91\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Creative",
+        "forms": "Creativity (N)",
+        "meaning": "\u6709\u521b\u9020\u529b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Theoretical",
+        "forms": "Theory (N)",
+        "meaning": "\u7406\u8bba\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Groundbreaking",
+        "forms": "Adjective",
+        "meaning": "\u5f00\u521b\u6027\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Unique",
+        "forms": "Uniqueness (N)",
+        "meaning": "\u72ec\u7279\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Rocket science",
+        "usage": "Noun Phrase",
+        "meaning": "\u9ad8\u6df1\u5b66\u95ee (usually negative: not rocket science)",
+        "cn_idiom": "\u9ad8\u6df1\u83ab\u6d4b\u7684\u4e8b"
+      },
+      {
+        "idiom": "Food for thought",
+        "usage": "Noun Phrase",
+        "meaning": "\u5f15\u4eba\u6df1\u601d\u7684\u4e8b",
+        "cn_idiom": "\u7cbe\u795e\u98df\u7cae / \u8010\u4eba\u5bfb\u5473"
+      },
+      {
+        "idiom": "Light bulb moment",
+        "usage": "Noun Phrase",
+        "meaning": "\u987f\u609f\u65f6\u523b",
+        "cn_idiom": "\u7075\u673a\u4e00\u52a8"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Innovation",
+        "forms": "Innovate (V)",
+        "meaning": "\u521b\u65b0",
+        "recycled": false
+      },
+      {
+        "word": "Curiosity",
+        "forms": "Curious (Adj)",
+        "meaning": "\u597d\u5947\u5fc3",
+        "recycled": false
+      },
+      {
+        "word": "Hypothesis",
+        "forms": "Hypothetical (Adj)",
+        "meaning": "\u5047\u8bbe",
+        "recycled": false
+      },
+      {
+        "word": "Experiment",
+        "forms": "Experimental (Adj)",
+        "meaning": "\u5b9e\u9a8c",
+        "recycled": false
+      },
+      {
+        "word": "Breakthrough",
+        "forms": "Noun",
+        "meaning": "\u7a81\u7834",
+        "recycled": false
+      },
+      {
+        "word": "Ecosystem",
+        "forms": "System (N)",
+        "meaning": "\u751f\u6001\u7cfb\u7edf (irrelevant, swap)",
+        "recycled": true
+      },
+      {
+        "word": "Extinction",
+        "forms": "Extinct (Adj)",
+        "meaning": "\u706d\u7edd (irrelevant, swap)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Reinvent the wheel",
+        "usage": "Reinvented (V2)",
+        "meaning": "\u505a\u65e0\u7528\u529f / \u91cd\u590d\u53d1\u660e",
+        "cn_idiom": "\u591a\u6b64\u4e00\u4e3e"
+      },
+      {
+        "idiom": "Blind with science",
+        "usage": "Blinded (V2)",
+        "meaning": "\u7528\u4e13\u4e1a\u672f\u8bed\u8ff7\u60d1\u4eba",
+        "cn_idiom": "\u6545\u5f04\u7384\u865a"
+      },
+      {
+        "idiom": "Great minds think alike",
+        "usage": "Proverb",
+        "meaning": "\u82f1\u96c4\u6240\u89c1\u7565\u540c",
+        "cn_idiom": "\u82f1\u96c4\u6240\u89c1\u7565\u540c"
+      }
+    ]
+  },
+  {
+    "week": 32,
+    "l1_vocab": [
+      {
+        "word": "Challenging",
+        "forms": "Challenge (N)",
+        "meaning": "\u5145\u6ee1\u6311\u6218\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Rewarding",
+        "forms": "Reward (N/V)",
+        "meaning": "\u503c\u5f97\u7684 / \u6709\u56de\u62a5\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Nerve-wracking",
+        "forms": "Adjective",
+        "meaning": "\u4ee4\u4eba\u7d27\u5f20\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Exhilarating",
+        "forms": "Exhilaration (N)",
+        "meaning": "\u4ee4\u4eba\u5174\u594b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Determined",
+        "forms": "Determination (N)",
+        "meaning": "\u4e0b\u5b9a\u51b3\u5fc3\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Complex",
+        "forms": "Complexity (N)",
+        "meaning": "\u590d\u6742\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Logical",
+        "forms": "Logic (N)",
+        "meaning": "\u5408\u4e4e\u903b\u8f91\u7684 (approach)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Give it a go",
+        "usage": "Gave (V2)",
+        "meaning": "\u8bd5\u4e00\u8bd5",
+        "cn_idiom": "\u5c1d\u8bd5\u4e00\u4e0b"
+      },
+      {
+        "idiom": "Learning curve",
+        "usage": "Noun Phrase",
+        "meaning": "\u5b66\u4e60\u66f2\u7ebf (\u4e0a\u624b\u96be\u5ea6)",
+        "cn_idiom": "\u5b66\u4e60\u66f2\u7ebf"
+      },
+      {
+        "idiom": "Get the hang of it",
+        "usage": "Got (V2)",
+        "meaning": "\u638c\u63e1\u7a8d\u95e8",
+        "cn_idiom": "\u5f97\u5fc3\u5e94\u624b"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Acquisition",
+        "forms": "Acquire (V)",
+        "meaning": "\u4e60\u5f97 / \u83b7\u5f97",
+        "recycled": false
+      },
+      {
+        "word": "Proficiency",
+        "forms": "Proficient (Adj)",
+        "meaning": "\u719f\u7ec3\u7a0b\u5ea6",
+        "recycled": false
+      },
+      {
+        "word": "Globalization",
+        "forms": "Global (Adj)",
+        "meaning": "\u5168\u7403\u5316",
+        "recycled": false
+      },
+      {
+        "word": "Barrier",
+        "forms": "Barriers (Pl)",
+        "meaning": "\u969c\u788d",
+        "recycled": false
+      },
+      {
+        "word": "Adaptability",
+        "forms": "Adapt (V)",
+        "meaning": "\u9002\u5e94\u80fd\u529b",
+        "recycled": false
+      },
+      {
+        "word": "Curiosity",
+        "forms": "Curious (Adj)",
+        "meaning": "\u597d\u5947\u5fc3",
+        "recycled": true
+      },
+      {
+        "word": "Innovation",
+        "forms": "Innovate (V)",
+        "meaning": "\u521b\u65b0",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Practice makes perfect",
+        "usage": "Proverb",
+        "meaning": "\u719f\u80fd\u751f\u5de7",
+        "cn_idiom": "\u719f\u80fd\u751f\u5de7"
+      },
+      {
+        "idiom": "Learn the ropes",
+        "usage": "Learned (V2)",
+        "meaning": "\u6478\u6e05\u95e8\u9053",
+        "cn_idiom": "\u5165\u95e8"
+      },
+      {
+        "idiom": "Broaden one's horizons",
+        "usage": "Broadened (V2)",
+        "meaning": "\u5f00\u9614\u773c\u754c",
+        "cn_idiom": "\u5f00\u9614\u773c\u754c"
+      }
+    ]
+  },
+  {
+    "week": 33,
+    "l1_vocab": [
+      {
+        "word": "Disciplined",
+        "forms": "Discipline (N)",
+        "meaning": "\u81ea\u5f8b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Productive",
+        "forms": "Produce (V) - Productivity (N)",
+        "meaning": "\u9ad8\u6548\u7684 / \u591a\u4ea7\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Detrimental",
+        "forms": "Detriment (N)",
+        "meaning": "\u6709\u5bb3\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Beneficial",
+        "forms": "Benefit (N/V)",
+        "meaning": "\u6709\u76ca\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Persistent",
+        "forms": "Persist (V) - Persistence (N)",
+        "meaning": "\u575a\u6301\u4e0d\u61c8\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Determined",
+        "forms": "Determination (N)",
+        "meaning": "\u4e0b\u5b9a\u51b3\u5fc3\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Rewarding",
+        "forms": "Reward (N)",
+        "meaning": "\u6709\u56de\u62a5\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Turn over a new leaf",
+        "usage": "Turned (V2)",
+        "meaning": "\u6539\u8fc7\u81ea\u65b0 / \u91cd\u65b0\u5f00\u59cb",
+        "cn_idiom": "\u6539\u5934\u6362\u9762"
+      },
+      {
+        "idiom": "Kick the habit",
+        "usage": "Kicked (V2)",
+        "meaning": "\u6212\u9664\u6076\u4e60",
+        "cn_idiom": "\u6212\u6389\u4e60\u60ef"
+      },
+      {
+        "idiom": "Creature of habit",
+        "usage": "Noun Phrase",
+        "meaning": "\u58a8\u5b88\u6210\u89c4\u7684\u4eba",
+        "cn_idiom": "\u58a8\u5b88\u6210\u89c4\u8005"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Lifestyle",
+        "forms": "Lifestyles (Pl)",
+        "meaning": "\u751f\u6d3b\u65b9\u5f0f",
+        "recycled": false
+      },
+      {
+        "word": "Influence",
+        "forms": "Influential (Adj)",
+        "meaning": "\u5f71\u54cd",
+        "recycled": false
+      },
+      {
+        "word": "Routine",
+        "forms": "Adjective / Noun",
+        "meaning": "\u5e38\u89c4 / \u4f8b\u884c\u516c\u4e8b",
+        "recycled": false
+      },
+      {
+        "word": "Willpower",
+        "forms": "Noun",
+        "meaning": "\u610f\u5fd7\u529b",
+        "recycled": false
+      },
+      {
+        "word": "Consequence",
+        "forms": "Consequent (Adj)",
+        "meaning": "\u540e\u679c",
+        "recycled": false
+      },
+      {
+        "word": "Acquisition",
+        "forms": "Acquire (V)",
+        "meaning": "\u517b\u6210 (habit)",
+        "recycled": true
+      },
+      {
+        "word": "Proficiency",
+        "forms": "Proficient (Adj)",
+        "meaning": "\u719f\u7ec3",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Old habits die hard",
+        "usage": "Proverb",
+        "meaning": "\u79ef\u4e60\u96be\u6539",
+        "cn_idiom": "\u6c5f\u5c71\u6613\u6539\u672c\u6027\u96be\u79fb"
+      },
+      {
+        "idiom": "Set in one's ways",
+        "usage": "Set (V2)",
+        "meaning": "\u56fa\u6267\u5df1\u89c1 / \u58a8\u5b88\u6210\u89c4",
+        "cn_idiom": "\u56fa\u6b65\u81ea\u5c01"
+      },
+      {
+        "idiom": "Early bird",
+        "usage": "Noun",
+        "meaning": "\u65e9\u8d77\u7684\u4eba",
+        "cn_idiom": "\u65e9\u8d77\u9e1f"
+      }
+    ]
+  },
+  {
+    "week": 34,
+    "l1_vocab": [
+      {
+        "word": "Prohibited",
+        "forms": "Prohibit (V) - Prohibition (N)",
+        "meaning": "\u7981\u6b62\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Strict",
+        "forms": "Strictly (Adv)",
+        "meaning": "\u4e25\u683c\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Respectful",
+        "forms": "Respect (N/V)",
+        "meaning": "\u5c0a\u91cd\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Disruptive",
+        "forms": "Disrupt (V) - Disruption (N)",
+        "meaning": "\u7834\u574f\u6027\u7684 / \u6270\u4e71\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Considerate",
+        "forms": "Consideration (N)",
+        "meaning": "\u4f53\u8d34\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Disciplined",
+        "forms": "Discipline (N)",
+        "meaning": "\u5b88\u7eaa\u5f8b\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Detrimental",
+        "forms": "Detriment (N)",
+        "meaning": "\u6709\u5bb3\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Follow the rules",
+        "usage": "Followed (V2)",
+        "meaning": "\u9075\u5b88\u89c4\u5219",
+        "cn_idiom": "\u5faa\u89c4\u8e48\u77e9"
+      },
+      {
+        "idiom": "Bend the rules",
+        "usage": "Bent (V2)",
+        "meaning": "\u901a\u878d / \u53d8\u901a",
+        "cn_idiom": "\u53d8\u901a"
+      },
+      {
+        "idiom": "Keep one's voice down",
+        "usage": "Kept (V2)",
+        "meaning": "\u5c0f\u58f0\u8bf4\u8bdd",
+        "cn_idiom": "\u4f4e\u58f0\u7ec6\u8bed"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Etiquette",
+        "forms": "Noun",
+        "meaning": "\u793c\u4eea",
+        "recycled": false
+      },
+      {
+        "word": "Restriction",
+        "forms": "Restrict (V)",
+        "meaning": "\u9650\u5236",
+        "recycled": false
+      },
+      {
+        "word": "Authority",
+        "forms": "Authoritative (Adj)",
+        "meaning": "\u6743\u5a01",
+        "recycled": false
+      },
+      {
+        "word": "Compliance",
+        "forms": "Comply (V)",
+        "meaning": "\u670d\u4ece",
+        "recycled": false
+      },
+      {
+        "word": "Freedom",
+        "forms": "Free (Adj)",
+        "meaning": "\u81ea\u7531",
+        "recycled": false
+      },
+      {
+        "word": "Consequence",
+        "forms": "Consequent (Adj)",
+        "meaning": "\u540e\u679c",
+        "recycled": true
+      },
+      {
+        "word": "Influence",
+        "forms": "Influential (Adj)",
+        "meaning": "\u5f71\u54cd",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Law and order",
+        "usage": "Noun Phrase",
+        "meaning": "\u6cd5\u5f8b\u4e0e\u79e9\u5e8f",
+        "cn_idiom": "\u6cbb\u5b89"
+      },
+      {
+        "idiom": "Cross the line",
+        "usage": "Crossed (V2)",
+        "meaning": "\u8fc7\u5206 / \u8d8a\u754c",
+        "cn_idiom": "\u8d8a\u754c"
+      },
+      {
+        "idiom": "Common courtesy",
+        "usage": "Noun Phrase",
+        "meaning": "\u57fa\u672c\u793c\u8c8c",
+        "cn_idiom": "\u57fa\u672c\u793c\u8c8c"
+      }
+    ]
+  },
+  {
+    "week": 35,
+    "l1_vocab": [
+      {
+        "word": "Organized",
+        "forms": "Organize (V) - Organization (N)",
+        "meaning": "\u6709\u6761\u7406\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Punctual",
+        "forms": "Punctuality (N)",
+        "meaning": "\u5b88\u65f6\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Hectic",
+        "forms": "Adjective",
+        "meaning": "\u5fd9\u4e71\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Anxious",
+        "forms": "Anxiety (N)",
+        "meaning": "\u7126\u8651\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Impatient",
+        "forms": "Patience (N)",
+        "meaning": "\u4e0d\u8010\u70e6\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Strict",
+        "forms": "Strictness (N)",
+        "meaning": "\u4e25\u683c\u7684 (schedule)",
+        "recycled": true
+      },
+      {
+        "word": "Disruptive",
+        "forms": "Disruption (N)",
+        "meaning": "\u6270\u4e71\u7684 (delay)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Kill time",
+        "usage": "Killed (V2)",
+        "meaning": "\u6d88\u78e8\u65f6\u95f4",
+        "cn_idiom": "\u6d88\u78e8\u65f6\u95f4"
+      },
+      {
+        "idiom": "Plan ahead",
+        "usage": "Planned (V2)",
+        "meaning": "\u672a\u96e8\u7ef8\u7f2a",
+        "cn_idiom": "\u672a\u96e8\u7ef8\u7f2a"
+      },
+      {
+        "idiom": "Worth the wait",
+        "usage": "Adjective Phrase",
+        "meaning": "\u503c\u5f97\u7b49\u5f85",
+        "cn_idiom": "\u7269\u6709\u6240\u503c"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Management",
+        "forms": "Manage (V)",
+        "meaning": "\u7ba1\u7406",
+        "recycled": false
+      },
+      {
+        "word": "Priority",
+        "forms": "Prioritize (V)",
+        "meaning": "\u4f18\u5148\u4e8b\u9879",
+        "recycled": false
+      },
+      {
+        "word": "Schedule",
+        "forms": "Scheduled (Adj)",
+        "meaning": "\u65e5\u7a0b\u5b89\u6392",
+        "recycled": false
+      },
+      {
+        "word": "Efficiency",
+        "forms": "Efficient (Adj)",
+        "meaning": "\u6548\u7387",
+        "recycled": false
+      },
+      {
+        "word": "Procrastination",
+        "forms": "Procrastinate (V)",
+        "meaning": "\u62d6\u5ef6\u75c7",
+        "recycled": false
+      },
+      {
+        "word": "Compliance",
+        "forms": "Comply (V)",
+        "meaning": "\u9075\u5b88 (deadlines)",
+        "recycled": true
+      },
+      {
+        "word": "Restriction",
+        "forms": "Restrict (V)",
+        "meaning": "\u9650\u5236 (time)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Time flies",
+        "usage": "Phrase",
+        "meaning": "\u5149\u9634\u4f3c\u7bad",
+        "cn_idiom": "\u5149\u9634\u4f3c\u7bad"
+      },
+      {
+        "idiom": "Better late than never",
+        "usage": "Proverb",
+        "meaning": "\u4ea1\u7f8a\u8865\u7262 / \u8fdf\u505a\u603b\u6bd4\u4e0d\u505a\u597d",
+        "cn_idiom": "\u4ea1\u7f8a\u8865\u7262"
+      },
+      {
+        "idiom": "Beat the clock",
+        "usage": "Beat (V2)",
+        "meaning": "\u8d76\u65f6\u95f4\u5b8c\u6210",
+        "cn_idiom": "\u4e89\u5206\u593a\u79d2"
+      }
+    ]
+  },
+  {
+    "week": 36,
+    "l1_vocab": [
+      {
+        "word": "Competitive",
+        "forms": "Compete (V) - Competition (N)",
+        "meaning": "\u597d\u80dc\u7684 / \u7ade\u4e89\u6fc0\u70c8\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Victorious",
+        "forms": "Victory (N)",
+        "meaning": "\u80dc\u5229\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Intense",
+        "forms": "Intensity (N)",
+        "meaning": "\u6fc0\u70c8\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Prestigious",
+        "forms": "Prestige (N)",
+        "meaning": "\u4eab\u6709\u58f0\u671b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Triumphant",
+        "forms": "Triumph (N)",
+        "meaning": "\u6b22\u6b23\u9f13\u821e\u7684 (\u80dc\u5229)",
+        "recycled": false
+      },
+      {
+        "word": "Anxious",
+        "forms": "Anxiety (N)",
+        "meaning": "\u7126\u8651\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Organized",
+        "forms": "Organization (N)",
+        "meaning": "\u6709\u7ec4\u7ec7\u7684 (event)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Win hands down",
+        "usage": "Won (V2)",
+        "meaning": "\u8d62\u5f97\u8f7b\u677e",
+        "cn_idiom": "\u8f7b\u800c\u6613\u4e3e\u83b7\u80dc"
+      },
+      {
+        "idiom": "Be in it to win it",
+        "usage": "Phrase",
+        "meaning": "\u5fd7\u5728\u5fc5\u5f97",
+        "cn_idiom": "\u5fd7\u5728\u5fc5\u5f97"
+      },
+      {
+        "idiom": "Give it your all",
+        "usage": "Gave (V2)",
+        "meaning": "\u5168\u529b\u4ee5\u8d74",
+        "cn_idiom": "\u5168\u529b\u4ee5\u8d74"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Sportsmanship",
+        "forms": "Sport (N)",
+        "meaning": "\u4f53\u80b2\u7cbe\u795e",
+        "recycled": false
+      },
+      {
+        "word": "Teamwork",
+        "forms": "Team (N)",
+        "meaning": "\u56e2\u961f\u5408\u4f5c",
+        "recycled": false
+      },
+      {
+        "word": "Rivalry",
+        "forms": "Rival (N)",
+        "meaning": "\u7ade\u4e89 / \u654c\u5bf9\u72b6\u6001",
+        "recycled": false
+      },
+      {
+        "word": "Determination",
+        "forms": "Determined (Adj)",
+        "meaning": "\u51b3\u5fc3",
+        "recycled": false
+      },
+      {
+        "word": "Cooperation",
+        "forms": "Cooperate (V)",
+        "meaning": "\u5408\u4f5c",
+        "recycled": false
+      },
+      {
+        "word": "Priority",
+        "forms": "Prioritize (V)",
+        "meaning": "\u4f18\u5148 (winning vs fun)",
+        "recycled": true
+      },
+      {
+        "word": "Management",
+        "forms": "Manage (V)",
+        "meaning": "\u7ba1\u7406 (pressure)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Level playing field",
+        "usage": "Noun Phrase",
+        "meaning": "\u516c\u5e73\u7ade\u4e89\u7684\u73af\u5883",
+        "cn_idiom": "\u516c\u5e73\u7ade\u4e89"
+      },
+      {
+        "idiom": "Keep one's eye on the ball",
+        "usage": "Kept (V2)",
+        "meaning": "\u4fdd\u6301\u4e13\u6ce8",
+        "cn_idiom": "\u5168\u795e\u8d2f\u6ce8"
+      },
+      {
+        "idiom": "Win-win situation",
+        "usage": "Noun Phrase",
+        "meaning": "\u53cc\u8d62\u5c40\u9762",
+        "cn_idiom": "\u53cc\u8d62"
+      }
+    ]
+  },
+  {
+    "week": 37,
+    "l1_vocab": [
+      {
+        "word": "Neighborly",
+        "forms": "Neighbor (N)",
+        "meaning": "\u7766\u90bb\u53cb\u597d\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Helpful",
+        "forms": "Helpfulness (N)",
+        "meaning": "\u4e50\u4e8e\u52a9\u4eba\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Generous",
+        "forms": "Generosity (N)",
+        "meaning": "\u6177\u6168\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Nosy",
+        "forms": "Adjective",
+        "meaning": "\u7231\u7ba1\u95f2\u4e8b\u7684 (negative)",
+        "recycled": false
+      },
+      {
+        "word": "Considerate",
+        "forms": "Consideration (N)",
+        "meaning": "\u4f53\u8d34\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Competitive",
+        "forms": "Competition (N)",
+        "meaning": "\u7231\u6500\u6bd4\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Intense",
+        "forms": "Intensity (N)",
+        "meaning": "\u5f3a\u70c8\u7684 (dislike)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Lend a hand",
+        "usage": "Lent (V2)",
+        "meaning": "\u4f38\u51fa\u63f4\u624b",
+        "cn_idiom": "\u52a9\u4e00\u81c2\u4e4b\u529b"
+      },
+      {
+        "idiom": "Keep an eye on",
+        "usage": "Kept (V2)",
+        "meaning": "\u7167\u770b / \u7559\u610f",
+        "cn_idiom": "\u7167\u770b"
+      },
+      {
+        "idiom": "Next-door neighbor",
+        "usage": "Noun Phrase",
+        "meaning": "\u9694\u58c1\u90bb\u5c45",
+        "cn_idiom": "\u9694\u58c1\u90bb\u5c45"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Community",
+        "forms": "Communal (Adj)",
+        "meaning": "\u793e\u533a",
+        "recycled": false
+      },
+      {
+        "word": "Isolation",
+        "forms": "Isolate (V)",
+        "meaning": "\u5b64\u7acb / \u9694\u7edd",
+        "recycled": false
+      },
+      {
+        "word": "Security",
+        "forms": "Secure (Adj)",
+        "meaning": "\u5b89\u5168",
+        "recycled": false
+      },
+      {
+        "word": "Interaction",
+        "forms": "Interact (V)",
+        "meaning": "\u4e92\u52a8",
+        "recycled": false
+      },
+      {
+        "word": "Urbanization",
+        "forms": "Urban (Adj)",
+        "meaning": "\u57ce\u5e02\u5316",
+        "recycled": false
+      },
+      {
+        "word": "Cooperation",
+        "forms": "Cooperate (V)",
+        "meaning": "\u5408\u4f5c",
+        "recycled": true
+      },
+      {
+        "word": "Rivalry",
+        "forms": "Rival (N)",
+        "meaning": "\u5bf9\u7acb",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Good fences make good neighbors",
+        "usage": "Proverb",
+        "meaning": "\u4fdd\u6301\u8ddd\u79bb\u624d\u80fd\u548c\u7766\u76f8\u5904",
+        "cn_idiom": "\u541b\u5b50\u4e4b\u4ea4\u6de1\u5982\u6c34"
+      },
+      {
+        "idiom": "Look out for each other",
+        "usage": "Looked (V2)",
+        "meaning": "\u4e92\u76f8\u7167\u5e94",
+        "cn_idiom": "\u5b88\u671b\u76f8\u52a9"
+      },
+      {
+        "idiom": "Close to home",
+        "usage": "Phrase",
+        "meaning": "\u89e6\u53ca\u75db\u5904 / \u79bb\u5bb6\u8fd1",
+        "cn_idiom": "\u5207\u8eab\u76f8\u5173"
+      }
+    ]
+  },
+  {
+    "week": 38,
+    "l1_vocab": [
+      {
+        "word": "Serene",
+        "forms": "Serenity (N)",
+        "meaning": "\u5b81\u9759\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Breathtaking",
+        "forms": "Adjective",
+        "meaning": "\u7f8e\u5f97\u60ca\u4eba\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Refreshing",
+        "forms": "Refresh (V)",
+        "meaning": "\u4ee4\u4eba\u8033\u76ee\u4e00\u65b0\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Coastal",
+        "forms": "Coast (N)",
+        "meaning": "\u6cbf\u6d77\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Polluted",
+        "forms": "Pollute (V) - Pollution (N)",
+        "meaning": "\u88ab\u6c61\u67d3\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Neighborly",
+        "forms": "Neighbor (N)",
+        "meaning": "\u53cb\u597d\u7684 (people)",
+        "recycled": true
+      },
+      {
+        "word": "Generous",
+        "forms": "Generosity (N)",
+        "meaning": "\u6177\u6168\u7684 (nature)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "A stone's throw away",
+        "usage": "Phrase",
+        "meaning": "\u8fd1\u5728\u54ab\u5c3a",
+        "cn_idiom": "\u4e00\u7bad\u4e4b\u9065"
+      },
+      {
+        "idiom": "Soak up the sun",
+        "usage": "Soaked (V2)",
+        "meaning": "\u4eab\u53d7\u9633\u5149",
+        "cn_idiom": "\u6c90\u6d74\u9633\u5149"
+      },
+      {
+        "idiom": "Crystal clear",
+        "usage": "Adj Phrase",
+        "meaning": "\u6e05\u6f88\u89c1\u5e95 / \u4e00\u6e05\u4e8c\u695a",
+        "cn_idiom": "\u6676\u83b9\u5254\u900f"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Maritime",
+        "forms": "Adjective",
+        "meaning": "\u6d77\u4e8b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Conservation",
+        "forms": "Conserve (V)",
+        "meaning": "\u4fdd\u62a4",
+        "recycled": false
+      },
+      {
+        "word": "Resource",
+        "forms": "Resources (Pl)",
+        "meaning": "\u8d44\u6e90",
+        "recycled": false
+      },
+      {
+        "word": "Transportation",
+        "forms": "Transport (V)",
+        "meaning": "\u8fd0\u8f93",
+        "recycled": false
+      },
+      {
+        "word": "Biodiversity",
+        "forms": "Diverse (Adj)",
+        "meaning": "\u751f\u7269\u591a\u6837\u6027",
+        "recycled": false
+      },
+      {
+        "word": "Urbanization",
+        "forms": "Urban (Adj)",
+        "meaning": "\u57ce\u5e02\u5316",
+        "recycled": true
+      },
+      {
+        "word": "Security",
+        "forms": "Secure (Adj)",
+        "meaning": "\u5b89\u5168 (water security)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Drop in the ocean",
+        "usage": "Noun Phrase",
+        "meaning": "\u6ca7\u6d77\u4e00\u7c9f",
+        "cn_idiom": "\u4e5d\u725b\u4e00\u6bdb"
+      },
+      {
+        "idiom": "Make waves",
+        "usage": "Made (V2)",
+        "meaning": "\u5174\u98ce\u4f5c\u6d6a / \u5f15\u8d77\u8f70\u52a8",
+        "cn_idiom": "\u5174\u98ce\u4f5c\u6d6a"
+      },
+      {
+        "idiom": "Turn the tide",
+        "usage": "Turned (V2)",
+        "meaning": "\u626d\u8f6c\u5c40\u52bf",
+        "cn_idiom": "\u529b\u633d\u72c2\u6f9c"
+      }
+    ]
+  },
+  {
+    "week": 39,
+    "l1_vocab": [
+      {
+        "word": "Stylish",
+        "forms": "Style (N)",
+        "meaning": "\u65f6\u9ae6\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Formal",
+        "forms": "Formality (N)",
+        "meaning": "\u6b63\u5f0f\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Comfortable",
+        "forms": "Comfort (N)",
+        "meaning": "\u8212\u9002\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Elegant",
+        "forms": "Elegance (N)",
+        "meaning": "\u4f18\u96c5\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Outdated",
+        "forms": "Date (N)",
+        "meaning": "\u8fc7\u65f6\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Refreshing",
+        "forms": "Refresh (V)",
+        "meaning": "\u6e05\u723d\u7684 (look)",
+        "recycled": true
+      },
+      {
+        "word": "Serene",
+        "forms": "Serenity (N)",
+        "meaning": "\u5b81\u9759\u7684 (color)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Dressed to kill",
+        "usage": "Adj Phrase",
+        "meaning": "\u76db\u88c5\u6253\u626e / \u8ff7\u6b7b\u4eba",
+        "cn_idiom": "\u76db\u88c5\u6253\u626e"
+      },
+      {
+        "idiom": "Fit like a glove",
+        "usage": "Fit (V2)",
+        "meaning": "\u6781\u5176\u5408\u8eab",
+        "cn_idiom": "\u5929\u8863\u65e0\u7f1d"
+      },
+      {
+        "idiom": "Trendsetter",
+        "usage": "Noun",
+        "meaning": "\u5f15\u9886\u6f6e\u6d41\u7684\u4eba",
+        "cn_idiom": "\u6f6e\u6d41\u5f15\u9886\u8005"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Uniformity",
+        "forms": "Uniform (Adj/N)",
+        "meaning": "\u4e00\u81f4\u6027",
+        "recycled": false
+      },
+      {
+        "word": "Identity",
+        "forms": "Identify (V)",
+        "meaning": "\u8eab\u4efd",
+        "recycled": false
+      },
+      {
+        "word": "Status",
+        "forms": "Noun",
+        "meaning": "\u5730\u4f4d",
+        "recycled": false
+      },
+      {
+        "word": "Expression",
+        "forms": "Express (V)",
+        "meaning": "\u8868\u8fbe",
+        "recycled": false
+      },
+      {
+        "word": "Textile",
+        "forms": "Textiles (Pl)",
+        "meaning": "\u7eba\u7ec7\u54c1",
+        "recycled": false
+      },
+      {
+        "word": "Resource",
+        "forms": "Resources (Pl)",
+        "meaning": "\u8d44\u6e90 (waste)",
+        "recycled": true
+      },
+      {
+        "word": "Conservation",
+        "forms": "Conserve (V)",
+        "meaning": "\u8282\u7ea6 (clothes)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Fashion victim",
+        "usage": "Noun Phrase",
+        "meaning": "\u76f2\u76ee\u8ffd\u6c42\u65f6\u5c1a\u7684\u4eba",
+        "cn_idiom": "\u76f2\u76ee\u8ffd\u8d76\u6f6e\u6d41\u8005"
+      },
+      {
+        "idiom": "Judge a book by its cover",
+        "usage": "Proverb",
+        "meaning": "\u4ee5\u8c8c\u53d6\u4eba",
+        "cn_idiom": "\u4ee5\u8c8c\u53d6\u4eba"
+      },
+      {
+        "idiom": "Slave to fashion",
+        "usage": "Noun Phrase",
+        "meaning": "\u65f6\u5c1a\u7684\u5974\u96b6",
+        "cn_idiom": "\u65f6\u5c1a\u5974\u96b6"
+      }
+    ]
+  },
+  {
+    "week": 40,
+    "l1_vocab": [
+      {
+        "word": "Festive",
+        "forms": "Festival (N)",
+        "meaning": "\u8282\u65e5\u7684 / \u559c\u5e86\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Traditional",
+        "forms": "Tradition (N)",
+        "meaning": "\u4f20\u7edf\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Meaningful",
+        "forms": "Meaning (N)",
+        "meaning": "\u6709\u610f\u4e49\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Vibrant",
+        "forms": "Vibrancy (N)",
+        "meaning": "\u5145\u6ee1\u6d3b\u529b\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Ceremonial",
+        "forms": "Ceremony (N)",
+        "meaning": "\u4eea\u5f0f\u7684",
+        "recycled": false
+      },
+      {
+        "word": "Elegant",
+        "forms": "Elegance (N)",
+        "meaning": "\u4f18\u96c5\u7684",
+        "recycled": true
+      },
+      {
+        "word": "Formal",
+        "forms": "Formality (N)",
+        "meaning": "\u6b63\u5f0f\u7684",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Paint the town red",
+        "usage": "Painted (V2)",
+        "meaning": "\u72c2\u6b22",
+        "cn_idiom": "\u72c2\u6b22"
+      },
+      {
+        "idiom": "Have a ball",
+        "usage": "Had (V2)",
+        "meaning": "\u73a9\u5f97\u6781\u5f00\u5fc3",
+        "cn_idiom": "\u5c3d\u60c5\u72c2\u6b22"
+      },
+      {
+        "idiom": "The more the merrier",
+        "usage": "Proverb",
+        "meaning": "\u4eba\u8d8a\u591a\u8d8a\u70ed\u95f9",
+        "cn_idiom": "\u4eba\u591a\u70ed\u95f9"
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Commercialization",
+        "forms": "Commercial (Adj)",
+        "meaning": "\u5546\u4e1a\u5316",
+        "recycled": false
+      },
+      {
+        "word": "Preservation",
+        "forms": "Preserve (V)",
+        "meaning": "\u4fdd\u5b58",
+        "recycled": false
+      },
+      {
+        "word": "Integration",
+        "forms": "Integrate (V)",
+        "meaning": "\u878d\u5408",
+        "recycled": false
+      },
+      {
+        "word": "Heritage",
+        "forms": "Noun",
+        "meaning": "\u9057\u4ea7",
+        "recycled": false
+      },
+      {
+        "word": "Globalization",
+        "forms": "Global (Adj)",
+        "meaning": "\u5168\u7403\u5316",
+        "recycled": false
+      },
+      {
+        "word": "Identity",
+        "forms": "Identify (V)",
+        "meaning": "\u8ba4\u540c\u611f",
+        "recycled": true
+      },
+      {
+        "word": "Expression",
+        "forms": "Express (V)",
+        "meaning": "\u8868\u8fbe",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Keep tradition alive",
+        "usage": "Kept (V2)",
+        "meaning": "\u4f20\u627f\u4f20\u7edf",
+        "cn_idiom": "\u85aa\u706b\u76f8\u4f20"
+      },
+      {
+        "idiom": "Melting pot",
+        "usage": "Noun Phrase",
+        "meaning": "\u5927\u7194\u7089",
+        "cn_idiom": "\u5927\u7194\u7089"
+      },
+      {
+        "idiom": "In high spirits",
+        "usage": "Phrase",
+        "meaning": "\u5174\u9ad8\u91c7\u70c8",
+        "cn_idiom": "\u5174\u9ad8\u91c7\u70c8"
+      }
+    ]
+  }
+]
