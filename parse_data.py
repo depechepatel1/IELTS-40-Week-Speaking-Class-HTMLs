@@ -63,6 +63,14 @@ def load_all_data():
     except FileNotFoundError:
         ai_data = {}
 
+    # Load Peer Check Questions
+    try:
+        with open('peer_check_questions.json', 'r', encoding='utf-8') as f:
+            peer_data = json.load(f)
+    except FileNotFoundError:
+        print("Warning: peer_check_questions.json not found.")
+        peer_data = []
+
     # Load Teacher Dynamic Content
     try:
         with open('teacher_dynamic_content.json', 'r', encoding='utf-8') as f:
@@ -71,7 +79,7 @@ def load_all_data():
         print("Warning: teacher_dynamic_content.json not found.")
         teacher_data = {}
         
-    return curriculum_data, vocab_data, homework_data, ai_data, teacher_data
+    return curriculum_data, vocab_data, homework_data, ai_data, teacher_data, peer_data
 
 def get_week_data(week_number, curriculum_data, vocab_data, homework_data):
     """Extracts data for the specific week."""
@@ -773,11 +781,13 @@ def format_mind_maps(soup, week_data, ai_content):
                 if i < len(q3_hints):
                     leg.contents[0].replace_with(q3_hints[i])
 
-def process_student_l2(soup, week_data, ai_content):
+def process_student_l2(soup, week_data, ai_content, week_peer_data):
     """Updates Student Lesson 2 (Part 3) Q1-Q6."""
     l2_data = week_data.get('lesson_2_part_3', {})
-    peer_qs = ai_content.get('part_3_peer_qs', [])
     
+    # week_peer_data is a dictionary for the current week, e.g. {"lesson_2_part_3": {"q1": { ... }, ...}}
+    peer_questions = week_peer_data.get('lesson_2_part_3', {}) if week_peer_data else {}
+
     def update_q(q_id, q_key, container_id=None, container_elem=None):
         data = l2_data.get(q_key, {})
         html = data.get('html', '')
@@ -815,6 +825,43 @@ def process_student_l2(soup, week_data, ai_content):
                     li = soup.new_tag('li')
                     li.string = hint
                     scaffold.append(li)
+
+            # Inject Peer Check Questions
+            # Look for the peer check section at the bottom of the writing area
+            # In template it is: <div style="margin-top:1px; ..."> <div>...</div> </div>
+
+            # Get specific questions for this Q
+            q_peer_data = peer_questions.get(q_key, {})
+            band_5_q = q_peer_data.get('band_5_peer_question', 'Why?')
+            band_6_q = q_peer_data.get('band_6_plus_peer_question', 'Can you expand?')
+
+            # Find the peer check container. It usually follows the writing lines.
+            # In the template, it's inside the writing box container.
+            # We can find it by looking for "Band 5 Peer Check" text
+
+            # Locate writing box
+            writing_box = None
+            if container_id:
+                # For Q1, Q2, Q3 (if on page 6)
+                writing_box = card.find('div', style=lambda x: x and 'border:1px solid #ddd' in x)
+                # Q3 on page 6 has dashed border style sometimes or similar structure
+                if not writing_box:
+                     writing_box = card.find('div', style=lambda x: x and 'border-top:1px dashed' in x)
+            else:
+                # For Q4-Q6 compact cards
+                writing_box = card.find('div', style=lambda x: x and 'border-top:1px dashed' in x)
+
+            if writing_box:
+                # Find the container for peer checks
+                peer_div = writing_box.find('div', style=lambda x: x and 'border-top:1px dotted' in x)
+                if peer_div:
+                    peer_div.clear()
+                    # Rebuild HTML
+                    html_content = f"""
+                    <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: '{band_5_q}'</div>
+                    <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: '{band_6_q}'</div>
+                    """
+                    peer_div.append(BeautifulSoup(html_content, 'html.parser'))
 
     # Q1 (Page 5)
     update_q(1, 'q1', container_id='p5-q1')
@@ -882,7 +929,7 @@ def main():
     os.makedirs('lessons', exist_ok=True)
     
     # Load all data
-    curriculum_data, vocab_data, homework_data, ai_data, teacher_data = load_all_data()
+    curriculum_data, vocab_data, homework_data, ai_data, teacher_data, peer_data = load_all_data()
     
     if not curriculum_data:
         print("Failed to load curriculum data. Exiting.")
@@ -903,6 +950,9 @@ def main():
             week_curriculum, week_vocab, week_homework = get_week_data(week_number, curriculum_data, vocab_data, homework_data)
             week_teacher_content = teacher_data.get(str(week_number), {})
             
+            # Get Peer Data for this week
+            week_peer_data = next((item for item in peer_data if item.get("week") == week_number), None)
+
             if not week_curriculum:
                 print(f"Skipping Week {week_number}: No curriculum data found.")
                 errors.append(week_number)
@@ -919,7 +969,7 @@ def main():
             process_vocabulary(soup, week_number, week_vocab)
             process_student_l1(soup, week_curriculum)
             format_mind_maps(soup, week_curriculum, ai_content)
-            process_student_l2(soup, week_curriculum, ai_content)
+            process_student_l2(soup, week_curriculum, ai_content, week_peer_data)
             process_homework(soup, week_number, week_homework)
             
             # Save
