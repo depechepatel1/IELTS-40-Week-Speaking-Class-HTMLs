@@ -1611,7 +1611,7 @@
     "week": 20,
     "lesson_1": {
       "part2_q1": {
-        [cite_start]"question": "Describe a long journey you want to enjoy again. You should say:\nWhen you took the journey\nWhere you went\nWho you were with\nAnd explain why you want to go again. [cite: 1]",
+        "question": "Describe a long journey you want to enjoy again. You should say:\nWhen you took the journey\nWhere you went\nWho you were with\nAnd explain why you want to go again. ",
         "answer": "<mark class=\"highlight-yellow\"><span class=\"highlight-transition\">To begin with,</span> I want to describe a <strong>scenic (风景优美的)</strong> train trip I took to Yunnan, which was completely <strong>spontaneous (自发的 / 随性的)</strong>, because I needed a break.</mark> <span class=\"highlight-transition\">Honestly,</span> it was quite a <strong>bumpy ride (颠簸的旅程 / 坎坷)</strong> since the train was <strong>delayed (延误的)</strong> by rain. <span class=\"highlight-transition\">However,</span> I decided to <strong>travel light (轻装上阵)</strong> so carrying my bags wasn't <strong>exhausting (筋疲力尽的)</strong>. <span class=\"highlight-transition\">Furthermore,</span> I felt very <strong>adventurous (爱冒险的)</strong> exploring the local villages. <span class=\"highlight-transition\">In retrospect,</span> it was a deeply <strong>sentimental (情感的)</strong> experience for me. <span class=\"highlight-transition\">Ultimately,</span> I gained some <strong>valuable (宝贵的)</strong> memories, and I would love to <strong>hit the road (上路 / 出发)</strong> and do it again.",
         "spider_diagram_hints": [
           "Family roadtrip",
@@ -1621,7 +1621,7 @@
         ]
       },
       "part2_q2": {
-        "question": "Describe a bicycle, motorcycle, or car trip you would like to go on. [cite_start]You should say:\nWho you would like to go with\nWhere you would like to go\nWhich vehicle you would choose\nAnd explain why you would like to travel this way. [cite: 1]",
+        "question": "Describe a bicycle, motorcycle, or car trip you would like to go on. You should say:\nWho you would like to go with\nWhere you would like to go\nWhich vehicle you would choose\nAnd explain why you would like to travel this way. ",
         "answer": "First of all, I would love to go on a motorcycle trip across the country. Honestly, I would invite my best friend to join me because we share the same passion for riding. Obviously, we would choose powerful touring motorcycles to handle the long distances comfortably. Furthermore, we would travel along the famous coastal highway to see the beautiful ocean views. Frankly, I want to travel this way because it feels incredibly free and exciting. Finally, feeling the wind while riding is an unforgettable experience that you just cannot get inside a regular car.",
         "spider_diagram_hints": [
           "Mountain biking",
@@ -1631,7 +1631,7 @@
         ]
       },
       "part2_q3": {
-        "question": "Describe a time your travel plans were delayed or changed. [cite_start]You should say:\nWhere you were going\nWhat caused the delay\nWhat you did while waiting\nAnd explain how you felt about the change in plans. [cite: 1]",
+        "question": "Describe a time your travel plans were delayed or changed. You should say:\nWhere you were going\nWhat caused the delay\nWhat you did while waiting\nAnd explain how you felt about the change in plans. ",
         "answer": "To start off, I remember a time when my flight to Beijing was severely delayed. Unfortunately, there was a massive snowstorm that closed the entire airport. Consequently, I had to wait in the terminal for over eight hours. Meanwhile, I spent the time reading a novel and chatting with other stranded passengers. Truthfully, I felt extremely frustrated at first because I was missing an important dinner. Eventually, I realized it was out of my control and managed to calm down. Looking back, it taught me a lot about patience and staying positive.",
         "spider_diagram_hints": [
           "Train station",
@@ -1643,7 +1643,7 @@
     },
     "lesson_2": {
       "part3_q1": {
-        [cite_start]"question": "<p><strong>Q1: Who prefers long journeys, young people or old people? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q1: Who prefers long journeys, young people or old people? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Generally speaking,</span> young people prefer long journeys, whereas older individuals usually avoid them.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">To explain,</span> the youth have more energy for <strong>eco-tourism (生态旅游)</strong> and care less about their <strong>carbon footprint (碳足迹)</strong> when traveling far. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For instance,</span> many university students take month-long backpacking trips across different continents.",
         "ore_hints": [
           "Young adults",
@@ -1652,7 +1652,7 @@
         ]
       },
       "part3_q2": {
-        [cite_start]"question": "<p><strong>Q2: What do people prepare before a journey? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q2: What do people prepare before a journey? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Undoubtedly,</span> travelers pack essential items, and they also plan their itineraries carefully.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">This is because,</span> thorough <strong>preparation (准备)</strong> helps them avoid the stressful <strong>hustle and bustle (熙熙攘攘)</strong> of navigating unfamiliar and crowded places. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For example,</span> booking hotels and researching local transit routes in advance ensures a much smoother trip.",
         "ore_hints": [
           "Pack luggage",
@@ -1661,7 +1661,7 @@
         ]
       },
       "part3_q3": {
-        [cite_start]"question": "<p><strong>Q3: Why do people prefer traveling in their own countries rather than foreign countries? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q3: Why do people prefer traveling in their own countries rather than foreign countries? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">In my view,</span> domestic travel is much cheaper, and it avoids language barriers.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Specifically,</span> people do not want a long <strong>commute (通勤)</strong> or to deal with massive airport <strong>congestion (拥堵)</strong> during short holidays. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">As an illustration,</span> driving to a nearby province is significantly easier than flying internationally.",
         "ore_hints": [
           "Saves money",
@@ -1670,7 +1670,7 @@
         ]
       },
       "part3_q4": {
-        [cite_start]"question": "<p><strong>Q4: Do you think air pollution comes mostly from mobile vehicles? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q4: Do you think air pollution comes mostly from mobile vehicles? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">To a certain extent,</span> cars are a major source, but factories contribute heavily too.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Evidently,</span> industrial exhaust and vehicular <strong>emission (排放)</strong> both <strong>accumulate (积累)</strong> in the atmosphere to cause severe smog. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For instance,</span> many manufacturing hubs have noticeably worse air quality than busy urban centers.",
         "ore_hints": [
           "Partially true",
@@ -1679,7 +1679,7 @@
         ]
       },
       "part3_q5": {
-        [cite_start]"question": "<p><strong>Q5: Do you think people need to change the way of transportation drastically to protect the environment? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q5: Do you think people need to change the way of transportation drastically to protect the environment? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Absolutely,</span> a significant shift is required if we want to save our planet.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Fundamentally,</span> our current reliance on fossil fuels completely undermines long-term environmental <strong>sustainability (可持续性)</strong>. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">Therefore,</span> switching globally to electric trains or hydrogen-powered buses will dramatically lower harmful pollution levels.",
         "ore_hints": [
           "Strongly agree",
@@ -1688,7 +1688,7 @@
         ]
       },
       "part3_q6": {
-        [cite_start]"question": "<p><strong>Q6: Has the ability to travel cheaply (budget airlines) changed how people view the world? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q6: Has the ability to travel cheaply (budget airlines) changed how people view the world? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Certainly,</span> budget travel has broadened perspectives, since more people can explore internationally.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Consequently,</span> average citizens can escape the daily <strong>rush hour (高峰期)</strong> to experience foreign cultures firsthand. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For example,</span> affordable flights allow students to witness global diversity, making them much more tolerant.",
         "ore_hints": [
           "Broadens minds",
@@ -1702,7 +1702,7 @@
     "week": 21,
     "lesson_1": {
       "part2_q1": {
-        "question": "Describe a creative person whose work you admire (e.g., artist or musician). [cite_start]You should say:\nWho this person is\nHow you knew him/her\nWhat creative work he/she does\nAnd explain why you admire him/her. [cite: 1]",
+        "question": "Describe a creative person whose work you admire (e.g., artist or musician). You should say:\nWho this person is\nHow you knew him/her\nWhat creative work he/she does\nAnd explain why you admire him/her. ",
         "answer": "<mark class=\"highlight-yellow\"><span class=\"highlight-transition\">To begin with,</span> I want to talk about an <strong>innovative (创新的)</strong> musician I admire, who is extremely <strong>dedicated (专注的 / 献身的)</strong>, and whose music is incredible.</mark> <span class=\"highlight-transition\">Honestly,</span> he is completely <strong>versatile (多才多艺的)</strong>, playing multiple instruments flawlessly. <span class=\"highlight-transition\">Furthermore,</span> he wasn't <strong>born with a silver spoon (含着金汤匙出生)</strong>, but worked hard for his success. <span class=\"highlight-transition\">Sometimes,</span> his performances are highly <strong>spontaneous (自发的)</strong>. <span class=\"highlight-transition\">Moreover,</span> he can <strong>think on his feet (反应敏捷)</strong> when a guitar string breaks. <span class=\"highlight-transition\">Truly,</span> he is an <strong>exceptional (杰出的 / 异常的)</strong> talent and a true <strong>visionary (有远见的)</strong>. <span class=\"highlight-transition\">Additionally,</span> his <strong>adventurous (敢于创新的)</strong> spirit makes him <strong>a natural (天生好手)</strong> on stage.",
         "spider_diagram_hints": [
           "Local painter",
@@ -1712,7 +1712,7 @@
         ]
       },
       "part2_q2": {
-        "question": "Describe a person who has a natural talent (e.g., for sports, music, or math). [cite_start]You should say:\nWho the person is\nWhat talent they possess\nWhen you discovered this talent\nAnd explain whether you think they use this talent well. [cite: 1]",
+        "question": "Describe a person who has a natural talent (e.g., for sports, music, or math). You should say:\nWho the person is\nWhat talent they possess\nWhen you discovered this talent\nAnd explain whether you think they use this talent well. ",
         "answer": "To begin with, I would like to describe my younger cousin who has an incredible natural talent for mathematics. Honestly, he is only ten years old, but he can solve high school calculus problems effortlessly. Actually, I first discovered this talent when I was struggling with my own homework, and he pointed out the solution. Surprisingly, his brain just processes numbers in a completely different way. Ultimately, I believe he uses his talent exceptionally well because he tutors other children. Looking ahead, I am certain he will achieve great things in the scientific field.",
         "spider_diagram_hints": [
           "Older sister",
@@ -1722,7 +1722,7 @@
         ]
       },
       "part2_q3": {
-        "question": "Describe a person who solved a problem in a clever way. [cite_start]You should say:\nWho the person is\nWhat the problem was\nHow they solved it\nAnd explain why you think their solution was intelligent. [cite: 1]",
+        "question": "Describe a person who solved a problem in a clever way. You should say:\nWho the person is\nWhat the problem was\nHow they solved it\nAnd explain why you think their solution was intelligent. ",
         "answer": "First and foremost, I want to talk about my father, who is incredibly resourceful at fixing things around the house. Recently, our kitchen sink was completely blocked, and the plumber was unavailable. Suddenly, my dad decided to use a combination of baking soda and a modified wire hanger to clear the pipe. Amazingly, it worked perfectly within just a few minutes. Frankly, I thought his solution was highly intelligent because it saved us both time and money. Furthermore, it demonstrated how practical everyday knowledge can easily overcome seemingly difficult household emergencies.",
         "spider_diagram_hints": [
           "Classmate",
@@ -1734,7 +1734,7 @@
     },
     "lesson_2": {
       "part3_q1": {
-        [cite_start]"question": "<p><strong>Q1: How can we know if a child has talent or not? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q1: How can we know if a child has talent or not? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Essentially,</span> parents can spot talent early, especially when children show <strong>innate (天生的)</strong> skills.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Specifically,</span> a child might naturally excel at tasks without needing intense <strong>preparation (准备)</strong>. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For example,</span> a <strong>brainy (聪明的)</strong> toddler who solves complex puzzles easily demonstrates high intellectual <strong>potential (潜力)</strong>.",
         "ore_hints": [
           "Early signs",
@@ -1743,7 +1743,7 @@
         ]
       },
       "part3_q2": {
-        [cite_start]"question": "<p><strong>Q2: Is it a waste of time if people don't use their talents? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q2: Is it a waste of time if people don't use their talents? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Honestly,</span> it is a tragic loss, because society misses out on their gifts.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Therefore,</span> if we do not <strong>nurture (培养 / 后天教育)</strong> our abilities, we fail to contribute meaningfully. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For instance,</span> a musical genius who ignores their gift limits their own creative <strong>emission (排放)</strong> into the world.",
         "ore_hints": [
           "Huge waste",
@@ -1752,7 +1752,7 @@
         ]
       },
       "part3_q3": {
-        [cite_start]"question": "<p><strong>Q3: Are children born smart, or do they become smart through learning? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q3: Are children born smart, or do they become smart through learning? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">In reality,</span> it is a combination, since both genetics and environment matter.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Certainly,</span> natural <strong>intelligence (智力)</strong> exists, but education refines it because <strong>practice makes perfect (熟能生巧)</strong>. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">As an example,</span> rigorous <strong>academic (学术的)</strong> training can make an average student highly successful over time.",
         "ore_hints": [
           "It's both",
@@ -1761,7 +1761,7 @@
         ]
       },
       "part3_q4": {
-        "question": "<p><strong>Q4: Is being intelligent always a good thing? [cite_start]Are there limitations? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q4: Is being intelligent always a good thing? Are there limitations? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Admittedly,</span> high intellect is beneficial, yet it can cause social isolation.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Frequently,</span> brilliant individuals focus on one niche instead of being a <strong>jack of all trades (万金油 / 博而不精)</strong>, causing them to struggle socially. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For example,</span> a math prodigy (神童) might feel completely misunderstood by regular classmates.",
         "ore_hints": [
           "Social issues",
@@ -1770,7 +1770,7 @@
         ]
       },
       "part3_q5": {
-        [cite_start]"question": "<p><strong>Q5: Do you think the education system stifles creativity by focusing too much on academic scores? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q5: Do you think the education system stifles creativity by focusing too much on academic scores? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Absolutely,</span> strict testing restricts imagination, and it limits independent thought.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Consequently,</span> schools reward memorization (死记硬背) rather than original problem-solving skills. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For instance,</span> art and music programs are often canceled to make more time for standardized test preparation.",
         "ore_hints": [
           "Yes it does",
@@ -1779,7 +1779,7 @@
         ]
       },
       "part3_q6": {
-        [cite_start]"question": "<p><strong>Q6: Can creativity be learned, or is it an innate quality? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q6: Can creativity be learned, or is it an innate quality? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Personally,</span> I believe it can be developed, although some have natural inclinations (倾向).</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Fundamentally,</span> being exposed to diverse experiences teaches the brain to form new connections. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For example,</span> taking painting classes can unlock a person's hidden artistic abilities over time.",
         "ore_hints": [
           "Can be learned",
@@ -1793,7 +1793,7 @@
     "week": 22,
     "lesson_1": {
       "part2_q1": {
-        "question": "Describe a person you know who works in a family business. (Examiner Note: Focus your description on the business place itself) [cite_start]You should say:\nWho he/she is\nWhat the business is (e.g., store/restaurant)\nWhat products it sells\nAnd explain what you have learned from observing this business. [cite: 1]",
+        "question": "Describe a person you know who works in a family business. (Examiner Note: Focus your description on the business place itself) You should say:\nWho he/she is\nWhat the business is (e.g., store/restaurant)\nWhat products it sells\nAnd explain what you have learned from observing this business. ",
         "answer": "<mark class=\"highlight-yellow\"><span class=\"highlight-transition\">First of all,</span> I want to describe a <strong>diligent (勤奋的)</strong> baker I know, who is highly <strong>entrepreneurial (有创业精神的)</strong>, and who owns a great shop.</mark> <span class=\"highlight-transition\">Essentially,</span> his bakery is a traditional <strong>mom and pop store (夫妻店)</strong>. <span class=\"highlight-transition\">Currently,</span> his aging father continues to <strong>run the show (掌管 / 主持大局)</strong>. <span class=\"highlight-transition\">However,</span> they plan to <strong>pass the torch (薪火相传 / 交接)</strong> to him soon. <span class=\"highlight-transition\">Honestly,</span> they sell <strong>authentic (正宗的 / 真实的)</strong> sourdough bread that is universally loved. <span class=\"highlight-transition\">Furthermore,</span> their business is extremely <strong>prosperous (繁荣的)</strong> due to their hard work. <span class=\"highlight-transition\">Overall,</span> they are a very <strong>reputable (声誉好的)</strong> and <strong>dedicated (敬业的)</strong> family, providing <strong>exceptional (杰出的)</strong> service.",
         "spider_diagram_hints": [
           "My uncle",
@@ -1803,7 +1803,7 @@
         ]
       },
       "part2_q2": {
-        "question": "Describe a successful small shop or business in your hometown. [cite_start]You should say:\nWhere it is located\nWhat it sells\nWho goes there\nAnd explain why it is successful. [cite: 1]",
+        "question": "Describe a successful small shop or business in your hometown. You should say:\nWhere it is located\nWhat it sells\nWho goes there\nAnd explain why it is successful. ",
         "answer": "To start off, I want to describe a highly successful local coffee shop located right in the center of my hometown. Truthfully, it sells the most amazing hand-crafted espresso and freshly baked pastries. Generally, it attracts a huge crowd of university students and young professionals every single morning. Primarily, I believe it is so successful because the owner treats every customer like a close friend. Moreover, the cozy atmosphere makes it the perfect place to study or relax. Ultimately, their dedication to quality ingredients sets them apart from the larger chain cafes.",
         "spider_diagram_hints": [
           "City center",
@@ -1813,7 +1813,7 @@
         ]
       },
       "part2_q3": {
-        "question": "Describe a business or company you would like to work for. [cite_start]You should say:\nWhere it is located\nWhat the environment is like\nWhat the company does\nAnd explain why you want to work there. [cite: 1]",
+        "question": "Describe a business or company you would like to work for. You should say:\nWhere it is located\nWhat the environment is like\nWhat the company does\nAnd explain why you want to work there. ",
         "answer": "First of all, I would absolutely love to work for a leading electric vehicle manufacturer like Tesla or BYD. Specifically, their main headquarters are located in major tech hubs, offering a dynamic environment. From what I understand, the workplace culture is highly innovative and encourages creative problem-solving. Honestly, I want to work there because I am deeply passionate about sustainable technology. Furthermore, being part of a team that designs future transportation would be incredibly rewarding. Finally, it would provide excellent career growth opportunities within a rapidly expanding global industry.",
         "spider_diagram_hints": [
           "Silicon Valley",
@@ -1825,7 +1825,7 @@
     },
     "lesson_2": {
       "part3_q1": {
-        [cite_start]"question": "<p><strong>Q1: Would you like to start a family business? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q1: Would you like to start a family business? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Personally,</span> I would avoid it, because mixing family and work is stressful.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Specifically,</span> managing a <strong>startup (初创公司)</strong> requires intense focus that can easily damage personal relationships. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For example,</span> arguments over financial decisions might cause a family to <strong>go out of business (破产 / 倒闭)</strong>.",
         "ore_hints": [
           "No way",
@@ -1834,7 +1834,7 @@
         ]
       },
       "part3_q2": {
-        [cite_start]"question": "<p><strong>Q2: What are the advantages and disadvantages of family businesses? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q2: What are the advantages and disadvantages of family businesses? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Generally,</span> they offer deep trust, yet they often lack professional management.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Undoubtedly,</span> <strong>competition (竞争)</strong> is fierce, and relatives may not have the <strong>innate (固有的)</strong> skills to survive. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For instance,</span> a small family shop might lose out to a larger, more efficient <strong>corporation (大公司 / 企业)</strong>.",
         "ore_hints": [
           "High trust",
@@ -1843,7 +1843,7 @@
         ]
       },
       "part3_q3": {
-        [cite_start]"question": "<p><strong>Q3: Why do young people start their own business? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q3: Why do young people start their own business? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Mainly,</span> they desire independence, and they want to pursue their passions.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Furthermore,</span> the modern <strong>economy (经济)</strong> offers immense <strong>potential (潜力)</strong> for innovative ideas to succeed quickly. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">As an illustration,</span> many tech graduates create software apps to become their own bosses.",
         "ore_hints": [
           "Be independent",
@@ -1852,7 +1852,7 @@
         ]
       },
       "part3_q4": {
-        [cite_start]"question": "<p><strong>Q4: How do large international corporations impact local family-owned businesses? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q4: How do large international corporations impact local family-owned businesses? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Sadly,</span> they often destroy local shops, as they offer much lower prices.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Essentially,</span> it is a <strong>cut-throat (残酷的)</strong> environment where <strong>big fish eat little fish (大鱼吃小鱼 / 弱肉强食)</strong>. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For example,</span> a giant supermarket opening nearby usually bankrupts small neighborhood grocery stores.",
         "ore_hints": [
           "Bankrupt locals",
@@ -1861,7 +1861,7 @@
         ]
       },
       "part3_q5": {
-        [cite_start]"question": "<p><strong>Q5: Is it better for a city's economy to have many small shops or a few large shopping malls? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q5: Is it better for a city's economy to have many small shops or a few large shopping malls? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">In my opinion,</span> diverse small shops are better, because they distribute wealth evenly.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Conversely,</span> a <strong>monopoly (垄断)</strong> by massive malls removes character from the city streets. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">Therefore,</span> supporting local vendors keeps the community vibrant and financially stable.",
         "ore_hints": [
           "Small shops",
@@ -1870,7 +1870,7 @@
         ]
       },
       "part3_q6": {
-        [cite_start]"question": "<p><strong>Q6: How has the rise of online shopping changed the physical landscape of city centers? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q6: How has the rise of online shopping changed the physical landscape of city centers? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Noticeably,</span> many physical stores have closed down, and streets look emptier.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">As a result,</span> high retail rents force traditional brands to move entirely to e-commerce platforms. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For instance,</span> former shopping districts are now being converted into residential apartments or cafes.",
         "ore_hints": [
           "Empty stores",
@@ -1884,7 +1884,7 @@
     "week": 23,
     "lesson_1": {
       "part2_q1": {
-        "question": "Describe a toy that you loved in your childhood. [cite_start]You should say:\nWhat the toy was\nWho gave it to you\nHow often you played with it\nAnd explain why it was so special to you. [cite: 1]",
+        "question": "Describe a toy that you loved in your childhood. You should say:\nWhat the toy was\nWho gave it to you\nHow often you played with it\nAnd explain why it was so special to you. ",
         "answer": "<mark class=\"highlight-yellow\"><span class=\"highlight-transition\">To begin with,</span> I will describe my wooden train set, which was highly <strong>educational (有教育意义的)</strong>, and which kept me busy.</mark> <span class=\"highlight-transition\">Honestly,</span> looking at it now takes me on a <strong>trip down memory lane (追忆往昔)</strong>. <span class=\"highlight-transition\">Furthermore,</span> it made me feel very <strong>imaginative (富于想象的)</strong> as a kid. <span class=\"highlight-transition\">Actually,</span> the wood was incredibly <strong>durable (耐用的)</strong>, so it never broke. <span class=\"highlight-transition\">Consequently,</span> it became my absolute <strong>pride and joy (掌上明珠 / 最得意的珍宝)</strong>. <span class=\"highlight-transition\">Moreover,</span> it reminds me of my <strong>prosperous (富裕的)</strong> and happy childhood. <span class=\"highlight-transition\">Overall,</span> this <strong>authentic (真实的)</strong> memory is very <strong>precious (珍贵的)</strong> to me. <span class=\"highlight-transition\">Finally,</span> playing with it was simple <strong>child's play (小儿科 / 极容易的事)</strong>, making me feel deeply <strong>nostalgic (怀旧的)</strong> today.",
         "spider_diagram_hints": [
           "Lego set",
@@ -1894,7 +1894,7 @@
         ]
       },
       "part2_q2": {
-        "question": "Describe a game (indoor or outdoor) you played when you were a child. [cite_start]You should say:\nWhat the game was\nWho you played it with\nWhere you played it\nAnd explain why you enjoyed it. [cite: 1]",
+        "question": "Describe a game (indoor or outdoor) you played when you were a child. You should say:\nWhat the game was\nWho you played it with\nWhere you played it\nAnd explain why you enjoyed it. ",
         "answer": "To begin with, I want to talk about a classic game of hide-and-seek that I played constantly during my childhood. Usually, I played it with my younger brother and the neighborhood kids after school. Mostly, we utilized the large local park because it had countless trees and bushes to hide behind. Frankly, I enjoyed it immensely because the thrill of hiding in silence was incredibly exciting. Additionally, it was a fantastic way to stay active and run around outside. Looking back, those carefree afternoons remain some of my fondest early memories.",
         "spider_diagram_hints": [
           "Tag game",
@@ -1904,7 +1904,7 @@
         ]
       },
       "part2_q3": {
-        "question": "Describe a toy or game that is popular with children today. [cite_start]You should say:\nWhat it is\nWhy it is popular\nWhether you think it is good for children\nAnd explain how it compares to toys from your childhood. [cite: 1]",
+        "question": "Describe a toy or game that is popular with children today. You should say:\nWhat it is\nWhy it is popular\nWhether you think it is good for children\nAnd explain how it compares to toys from your childhood. ",
         "answer": "First and foremost, I will describe the digital building game Minecraft, which is massively popular with kids today. Essentially, it allows players to construct entire virtual worlds using pixelated blocks. Clearly, it is popular because it offers unlimited creative freedom and fun multiplayer modes. Personally, I think it is great for children because it enhances their spatial awareness and problem-solving skills. Compared to the simple plastic toys from my own childhood, this game is far more complex and interactive. Ultimately, it reflects how modern entertainment relies heavily on advanced digital technology.",
         "spider_diagram_hints": [
           "Nintendo Switch",
@@ -1916,7 +1916,7 @@
     },
     "lesson_2": {
       "part3_q1": {
-        [cite_start]"question": "<p><strong>Q1: Do boys and girls prefer different kinds of toys? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q1: Do boys and girls prefer different kinds of toys? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Traditionally,</span> yes, but modern parents are encouraging more gender-neutral options.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Historically,</span> society pushed dolls for girls and action figures for boys to shape their early <strong>socialization (社会化)</strong>. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">Today,</span> educational building blocks are equally popular for both genders' <strong>development (发展)</strong>.",
         "ore_hints": [
           "Changing trends",
@@ -1925,7 +1925,7 @@
         ]
       },
       "part3_q2": {
-        [cite_start]"question": "<p><strong>Q2: How do toys that were popular in the past compare with toys that are popular now? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q2: How do toys that were popular in the past compare with toys that are popular now? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Undeniably,</span> older toys were simpler, while modern toys are highly digital.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Consequently,</span> classic wooden toys required more physical <strong>interaction (互动)</strong> compared to today’s screen-based games. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For example,</span> playing board games demands more face-to-face communication than solitary mobile applications.",
         "ore_hints": [
           "Digital shift",
@@ -1934,7 +1934,7 @@
         ]
       },
       "part3_q3": {
-        [cite_start]"question": "<p><strong>Q3: What should people consider when choosing a toy for a child? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q3: What should people consider when choosing a toy for a child? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Primarily,</span> safety is crucial, but educational value is also highly important.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Specifically,</span> a good toy should stimulate <strong>cognitive (认知的)</strong> growth and spark <strong>creativity (创造力)</strong>. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For instance,</span> puzzles are excellent because they teach children how to <strong>play by the rules (遵守规则)</strong> safely.",
         "ore_hints": [
           "Safety first",
@@ -1943,7 +1943,7 @@
         ]
       },
       "part3_q4": {
-        [cite_start]"question": "<p><strong>Q4: Should kids be permitted to pick their own toys at a toy store? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q4: Should kids be permitted to pick their own toys at a toy store? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Occasionally,</span> it is fine, provided parents set a strict budget beforehand.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Otherwise,</span> children might become a <strong>spoiled brat (被宠坏的孩子)</strong> if they always get whatever they demand. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">As an illustration,</span> allowing them to choose a small reward teaches them about the <strong>economy (经济 / 金钱观念)</strong>.",
         "ore_hints": [
           "With limits",
@@ -1952,7 +1952,7 @@
         ]
       },
       "part3_q5": {
-        [cite_start]"question": "<p><strong>Q5: Do educational toys really help children become smarter? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q5: Do educational toys really help children become smarter? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Absolutely,</span> they provide a strong foundation, though they cannot replace parenting.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">In fact,</span> toys that challenge the brain can give kids an edge in future <strong>competition (竞争)</strong>. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">For example,</span> learning robotics early on develops critical thinking and spatial awareness.",
         "ore_hints": [
           "Builds foundation",
@@ -1961,7 +1961,7 @@
         ]
       },
       "part3_q6": {
-        [cite_start]"question": "<p><strong>Q6: Is it harmful for children to own too many toys? [cite: 1]</strong></p>",
+        "question": "<p><strong>Q6: Is it harmful for children to own too many toys? </strong></p>",
         "answer": "<span class=\"badge-ore bg-o\">Op</span> <mark class=\"highlight-yellow\"><span class=\"highlight-transition\">Definitely,</span> an excess of toys causes distraction, and it ruins appreciation.</mark> <span class=\"badge-ore bg-r\">Re</span> <span class=\"highlight-transition\">Ultimately,</span> if parents <strong>wrap someone in cotton wool (溺爱 / 过分保护)</strong> by buying everything, children lose focus. <span class=\"badge-ore bg-e\">Ex</span> <span class=\"highlight-transition\">Therefore,</span> having fewer items forces kids to be more resourceful and imaginative during playtime.",
         "ore_hints": [
           "Loss of focus",
@@ -1972,7 +1972,6 @@
     }
   }
 ]
-[
 [
   {
     "week": 24,

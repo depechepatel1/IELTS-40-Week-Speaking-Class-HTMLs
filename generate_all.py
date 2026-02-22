@@ -1,12 +1,17 @@
 import json
 import re
 import os
+import time
 from bs4 import BeautifulSoup
 
 def load_concatenated_json(filepath):
     """Loads concatenated JSON arrays from a file."""
-    with open(filepath, 'r', encoding='utf-8') as f:
-        content = f.read()
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except FileNotFoundError:
+        print(f"Error: {filepath} not found.")
+        return []
 
     data = []
     decoder = json.JSONDecoder()
@@ -14,59 +19,56 @@ def load_concatenated_json(filepath):
     length = len(content)
 
     while pos < length:
-        # Skip whitespace manually
-        while pos < length and content[pos].isspace():
+        # Skip whitespace, commas, and stray closing brackets
+        while pos < length and (content[pos].isspace() or content[pos] in ',]'):
             pos += 1
 
         if pos == length:
             break
 
         try:
-            # Decode directly from content at pos, avoiding string slicing
+            # Decode directly from content at pos
             obj, end = decoder.raw_decode(content, idx=pos)
 
             if isinstance(obj, list):
                 data.extend(obj)
             else:
                 data.append(obj)
-
-            # end is the absolute index where object ended
             pos = end
-
         except json.JSONDecodeError:
-            break
+            # Try to recover by skipping one char (if garbage)
+            pos += 1
 
     return data
 
-def load_data(week_number):
-    """Loads data for the specific week from JSON files."""
-    print(f"Loading data for Week {week_number}...")
-
-    # Load Curriculum
+def load_all_data():
+    """Loads all data files once."""
+    print("Loading all data files...")
     curriculum_data = load_concatenated_json('Curriculum 0 final.txt')
-    week_curriculum = next((item for item in curriculum_data if item.get("week") == week_number), None)
-    if not week_curriculum:
-        raise ValueError(f"Week {week_number} not found in Curriculum 0 final.txt")
-
-    # Load Vocabulary
     vocab_data = load_concatenated_json('vocab_plan.txt')
-    week_vocab = next((item for item in vocab_data if item.get("week") == week_number), None)
-    if not week_vocab:
-        raise ValueError(f"Week {week_number} not found in vocab_plan.txt")
-
-    # Load Homework
-    # homework_plan.json seems to be a single JSON file, but using the same loader is safer
     homework_data = load_concatenated_json('homework_plan.json')
-    week_homework = next((item for item in homework_data if item.get("week") == week_number), None)
-    if not week_homework:
-        raise ValueError(f"Week {week_number} not found in homework_plan.json")
 
+    # Load AI content
+    try:
+        with open('ai_dynamic_content.json', 'r', encoding='utf-8') as f:
+            ai_data = json.load(f)
+    except FileNotFoundError:
+        ai_data = {}
+
+    return curriculum_data, vocab_data, homework_data, ai_data
+
+def get_week_data(week_number, curriculum_data, vocab_data, homework_data):
+    """Extracts data for the specific week."""
+    week_curriculum = next((item for item in curriculum_data if item.get("week") == week_number), None)
+    week_vocab = next((item for item in vocab_data if item.get("week") == week_number), None)
+    week_homework = next((item for item in homework_data if item.get("week") == week_number), None)
     return week_curriculum, week_vocab, week_homework
+
+# ... [Include all processing functions from parse_data.py] ...
+# To ensure all logic is included, I will copy-paste the functions directly.
 
 def process_cover_page(soup, week_number, week_data):
     """Updates the cover page with week number and theme."""
-    print("Processing Cover Page...")
-
     # Update Title Tag
     if soup.title:
         soup.title.string = f"Week {week_number} Master Lesson Pack"
@@ -211,8 +213,6 @@ def process_cover_page(soup, week_number, week_data):
 
 def process_teacher_plan(soup, week_number, week_data, week_vocab):
     """Updates Teacher Lesson Plan pages."""
-    print("Processing Teacher Plan...")
-
     topic = week_data.get('topic', '')
     theme = week_data.get('theme', 'General')
 
@@ -340,8 +340,6 @@ def process_teacher_plan(soup, week_number, week_data, week_vocab):
 
 def process_vocabulary(soup, week_number, vocab_data):
     """Injects vocabulary into L1 and L2 tables."""
-    print("Processing Vocabulary...")
-
     # Week 1 Logic: 7 New words, 0 Recycled, 3 Idioms for L1
 
     # L1 Vocabulary
@@ -349,9 +347,6 @@ def process_vocabulary(soup, week_number, vocab_data):
     l1_idioms_list = vocab_data.get('l1_idioms', [])
 
     # Find L1 Vocab Table (Page 2)
-    # It's in the Student Lesson 1 page.
-    # Look for table with class 'vocab-table' inside a 'page l1' div
-
     vocab_tables = soup.find_all('table', class_='vocab-table')
 
     # Assuming first vocab table is L1 (Page 2)
@@ -471,16 +466,11 @@ def format_bullet_text(html_content):
     parts = re.split(r'<br\s*/?>', raw_str)
 
     # First part might be "You should say:" or main question.
-    # We assume this function handles just the bullets part or we handle the split before calling.
-    # Actually, let's make this function handle the whole paragraph structure:
-    # "Question. You should say:<br>Bullet 1<br>Bullet 2..."
-
     formatted_parts = []
     main_text = ""
 
     if "You should say" in parts[0]:
         # Split main question and "You should say" if they are in the first part
-        # But usually "You should say:" is the end of the first line.
         main_text = parts[0].strip()
         bullet_lines = parts[1:]
     else:
@@ -504,8 +494,6 @@ def format_bullet_text(html_content):
 
 def process_student_l1(soup, week_data):
     """Updates Student Lesson 1 (Page 2) content."""
-    print("Processing Student L1...")
-
     l1_data = week_data.get('lesson_1_part_2', {})
     q1_data = l1_data.get('q1', {})
 
@@ -543,8 +531,6 @@ def process_student_l1(soup, week_data):
                     h3.string = f"📌 CUE CARD: {question_text}"
 
                 # Format bullets
-                # Create a dummy "You should say:<br>..." string to use the helper, or just parse bullets
-                # Let's simplify: split bullets_raw by <br>
                 bullet_lines = re.split(r'<br\s*/?>', bullets_raw)
                 fmt_bullets = []
                 for line in bullet_lines:
@@ -571,27 +557,6 @@ def process_student_l1(soup, week_data):
         # Get the answer part (usually second paragraph in source html)
         answer_p = q1_soup.find_all('p')[1] if len(q1_soup.find_all('p')) > 1 else None
         if answer_p:
-            # We need to preserve the formatting from source HTML (highlight-yellow, strong, etc.)
-            # The source HTML seems to use <mark class="highlight-yellow"> and <span class="highlight-transition">
-            # The template uses <span class="highlight-transition"> and <span class="highlight-3clause">
-
-            # We will use the inner HTML of the answer paragraph
-            # But we might need to adjust classes if they differ
-
-            # Using content directly from source JSON's HTML field for the answer part
-            # Convert <mark class="highlight-yellow"> to ? The template doesn't seem to use mark highlight-yellow in the final HTML shown in read_file,
-            # but it uses highlight-3clause.
-            # Wait, the prompt says "Three clause sentences: Highlight using <span class=\"highlight-3clause\">Text</span> (Red text)."
-            # The source text has `<mark class="highlight-yellow">`. I should check if I need to map it.
-            # Source: <mark class="highlight-yellow"><span class="highlight-transition">...
-            # Template CSS: .highlight-3clause { color: #c0392b; ... }
-
-            # Let's trust the source HTML structure if it's already generated with intended classes,
-            # OR map them.
-            # Source has "highlight-yellow". Template has "highlight-3clause" (Red).
-            # Maybe "highlight-yellow" corresponds to "highlight-3clause"?
-            # Let's replace 'highlight-yellow' with 'highlight-3clause' just in case.
-
             new_content = str(answer_p).replace('<p>', '').replace('</p>', '')
             new_content = new_content.replace('highlight-yellow', 'highlight-3clause')
 
@@ -609,31 +574,20 @@ def extract_keyword(text):
         return "<br>".join(words[:2]).upper()
     return "TOPIC"
 
-def format_mind_maps(soup, week_data):
+def format_mind_maps(soup, week_data, ai_content):
     """Updates Mind Maps on Page 3."""
-    print("Processing Mind Maps...")
-
     l1_data = week_data.get('lesson_1_part_2', {})
     q1 = l1_data.get('q1', {})
     q2 = l1_data.get('q2', {})
     q3 = l1_data.get('q3', {})
 
     # 1. Main Brainstorming Map (Top of Page 3)
-
-    # Extract Keyword from Q1 Question
     q1_html = q1.get('html', '')
     q1_soup = BeautifulSoup(q1_html, 'html.parser')
-    q1_text = q1_soup.get_text()
 
-    # Keyword Logic
-    topic = week_data.get('topic', 'Topic')
-    central_text = extract_keyword(q1_text)
-    if central_text == "TOPIC" and topic:
-        central_text = topic.split()[0].upper()
-
-    # Special overrides for known topics
-    if "Family Member" in topic: central_text = "FAMILY<br>MEMBER"
-    elif "Job" in topic: central_text = "PERFECT<br>JOB"
+    # Use AI Content
+    central_text = ai_content.get('part_2_keyword', 'TOPIC')
+    if not central_text: central_text = "TOPIC"
 
     # Update Center
     spider_centers = soup.find_all('div', class_='spider-center')
@@ -764,11 +718,10 @@ def get_specific_peer_question(q_key):
         return WEEK_1_FOLLOW_UPS[q_key]
     return "What other examples can you think of?"
 
-def process_student_l2(soup, week_data):
+def process_student_l2(soup, week_data, ai_content):
     """Updates Student Lesson 2 (Part 3) Q1-Q6."""
-    print("Processing Student L2...")
-
     l2_data = week_data.get('lesson_2_part_3', {})
+    peer_qs = ai_content.get('part_3_peer_qs', [])
 
     # Helper to process Q
     def update_q(q_id, q_key, container_id=None, container_elem=None):
@@ -804,7 +757,8 @@ def process_student_l2(soup, week_data):
             mbox = card.find('div', class_='model-box')
             if mbox:
                 mbox.clear()
-                mbox.append(BeautifulSoup(answer_html, 'html.parser'))
+                if answer_html:
+                    mbox.append(BeautifulSoup(answer_html, 'html.parser'))
 
             # Update Hints (Scaffold text)
             hints = data.get('ore_hints', [])
@@ -881,46 +835,38 @@ def process_student_l2(soup, week_data):
             update_q(6, 'q6', container_elem=compact_cards[2])
 
     # Inject Peer-Led Follow-up Questions (Differentiation)
-    # Add to bottom of writing spaces (scaffold-text container)
     scaffold_uls = soup.find_all('ul', class_='scaffold-text')
-    for ul in scaffold_uls:
-        # Find the question text associated with this scaffold
-        # The scaffold is inside a card. The card has an h3 with the question.
-        card = ul.find_parent('div', class_='card')
-        q_text = ""
-        if card:
-            h3 = card.find('h3')
-            if h3: q_text = h3.get_text()
+    for idx, ul in enumerate(scaffold_uls):
+        # AI Content Logic
+        # peer_qs is a list of dicts: [{'b5': ..., 'b6': ...}, ...]
+        # We expect 6 items. If missing, fallback.
 
-        # Reverse lookup key from text for Week 1
-        q_key = None # Default
-        if "What would children do" in q_text: q_key = "q1"
-        elif "What did you do" in q_text: q_key = "q2"
-        elif "What advantages of yours" in q_text: q_key = "q3"
-        elif "When was the last time" in q_text: q_key = "q4"
-        elif "How does family pride" in q_text: q_key = "q5"
-        elif "definition of \"success\"" in q_text: q_key = "q6"
+        b5_q = "Why?" # Fallback
+        b6_q = "What other examples can you think of?" # Fallback
 
-        # Generate Two Questions
-        generic_q = get_generic_peer_question(q_text)
-        specific_q = get_specific_peer_question(q_key)
+        if idx < len(peer_qs):
+            qs = peer_qs[idx]
+            if isinstance(qs, dict):
+                b5_q = qs.get('b5', b5_q)
+                b6_q = qs.get('b6', b6_q)
+            elif isinstance(qs, str): # Handle if string list
+                b6_q = qs
 
         # Remove existing peer checks to avoid duplication
         existing_checks = ul.parent.find_all('div', style=lambda x: x and 'border-top:1px dotted #ccc' in x)
         for check in existing_checks:
             check.decompose()
 
-        # Create Container for Peer Qs (Compact Style)
-        # Reduced margin/padding, added line-height
+        # Create Container for Peer Qs
         peer_container = soup.new_tag('div', attrs={'style': 'margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;'})
 
-        # Band 5 Question (Smaller font)
+        # Band 5 Question
         b5_div = soup.new_tag('div', attrs={'style': 'font-size:0.7em; color:#7f8c8d; margin-bottom:0;'})
-        b5_div.append(BeautifulSoup(f"📉 <strong>Band 5 Peer Check:</strong> Ask: '{generic_q}'", 'html.parser'))
+        b5_div.append(BeautifulSoup(f"📉 <strong>Band 5 Peer Check:</strong> Ask: '{b5_q}'", 'html.parser'))
 
-        # Band 6 Question (Unified Style: same color/size as Band 5)
+        # Band 6 Question
         b6_div = soup.new_tag('div', attrs={'style': 'font-size:0.7em; color:#7f8c8d; margin-bottom:0;'})
-        b6_div.append(BeautifulSoup(f"📈 <strong>Band 6 Peer Check:</strong> Ask: '{specific_q}'", 'html.parser'))
+        b6_div.append(BeautifulSoup(f"📈 <strong>Band 6 Peer Check:</strong> Ask: '{b6_q}'", 'html.parser'))
 
         peer_container.append(b5_div)
         peer_container.append(b6_div)
@@ -1016,32 +962,72 @@ def process_homework(soup, week_number, homework_data):
     if key_div:
         key_div.string = answer_key
 
-import sys
+def main():
+    print("Generating all 40 lesson plans...")
+    os.makedirs('lessons', exist_ok=True)
 
-def main(week_number):
-    # 1. Load Data
-    week_curriculum, week_vocab, week_homework = load_data(week_number)
+    # Load all data once
+    curriculum_data, vocab_data, homework_data, ai_data = load_all_data()
 
-    # 2. Load Template
+    if not curriculum_data:
+        print("Failed to load curriculum data. Exiting.")
+        return
+
+    # Load Template once
     with open('Week_2_Lesson_Plan.html', 'r', encoding='utf-8') as f:
-        soup = BeautifulSoup(f, 'html.parser')
+        template_html = f.read()
 
-    # 3. Process Content
-    process_cover_page(soup, week_number, week_curriculum)
-    process_teacher_plan(soup, week_number, week_curriculum, week_vocab)
-    process_vocabulary(soup, week_number, week_vocab)
-    process_student_l1(soup, week_curriculum)
-    format_mind_maps(soup, week_curriculum)
-    process_student_l2(soup, week_curriculum)
-    process_homework(soup, week_number, week_homework)
+    success_count = 0
+    errors = []
 
-    # 4. Save
-    output_filename = f'Week_{week_number}_Lesson_Plan.html'
-    with open(output_filename, 'w', encoding='utf-8') as f:
-        f.write(str(soup))
+    for week_number in range(1, 41):
+        try:
+            print(f"--- Generating Week {week_number} ---")
 
-    print(f"Successfully generated {output_filename}")
+            # Get data for the week
+            week_curriculum, week_vocab, week_homework = get_week_data(week_number, curriculum_data, vocab_data, homework_data)
+
+            if not week_curriculum:
+                print(f"Skipping Week {week_number}: No curriculum data found.")
+                errors.append(week_number)
+                continue
+
+            # Reset soup for each iteration
+            soup = BeautifulSoup(template_html, 'html.parser')
+
+            # Process Content
+            ai_content = ai_data.get(str(week_number), {})
+
+            process_cover_page(soup, week_number, week_curriculum)
+            process_teacher_plan(soup, week_number, week_curriculum, week_vocab)
+            process_vocabulary(soup, week_number, week_vocab)
+            process_student_l1(soup, week_curriculum)
+            format_mind_maps(soup, week_curriculum, ai_content)
+            process_student_l2(soup, week_curriculum, ai_content)
+            process_homework(soup, week_number, week_homework)
+
+            # Save
+            output_filename = f'lessons/Week_{week_number}_Lesson_Plan.html'
+            with open(output_filename, 'w', encoding='utf-8') as f:
+                f.write(str(soup))
+
+            print(f"Successfully generated {output_filename}")
+            success_count += 1
+
+        except Exception as e:
+            print(f"❌ Error generating Week {week_number}: {e}")
+            import traceback
+            traceback.print_exc()
+            errors.append(week_number)
+
+    print("\n" + "="*30)
+    print(f"Build Complete.")
+    print(f"Success: {success_count}/40")
+    if errors:
+        print(f"Failed Weeks: {errors}")
+    else:
+        print("🎉 All weeks generated successfully!")
+    print("="*30)
 
 if __name__ == "__main__":
-    week = int(sys.argv[1]) if len(sys.argv) > 1 else 1
-    main(week)
+    main()
