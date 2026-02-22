@@ -1,0 +1,2367 @@
+[
+  {
+    "week": 1,
+    "vocab_review": [
+      {
+        "word": "Diligent",
+        "synonym": "Hard-working",
+        "option": "C"
+      },
+      {
+        "word": "Inspiring",
+        "synonym": "Encouraging",
+        "option": "D"
+      },
+      {
+        "word": "Selfless",
+        "synonym": "Altruistic",
+        "option": "E"
+      },
+      {
+        "word": "Accomplished",
+        "synonym": "Successful",
+        "option": "A"
+      },
+      {
+        "word": "Considerate",
+        "synonym": "Thoughtful",
+        "option": "B"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "She is very diligent person.",
+        "correction": "She is a very diligent person.",
+        "key": "She is a very..."
+      },
+      {
+        "error": "I am admire him very much.",
+        "correction": "I admire him very much.",
+        "key": "I admire..."
+      },
+      {
+        "error": "He has a heart of golding.",
+        "correction": "He has a heart of gold.",
+        "key": "heart of gold"
+      },
+      {
+        "error": "We are friends since 10 years.",
+        "correction": "We have been friends for 10 years.",
+        "key": "have been friends..."
+      },
+      {
+        "error": "He encourage me to study hard.",
+        "correction": "He encourages me to study hard.",
+        "key": "encourages me..."
+      }
+    ],
+    "writing_task": "Describe a time your family member helped you. (Write 50 words)",
+    "answer_key": "Key: 1. Diligent-C, 2. Inspiring-D, 3. Selfless-E, 4. Accomplished-A, 5. Considerate-B | 1. She is a very... 2. I admire... 3. heart of gold... 4. have been friends... 5. encourages me..."
+  },
+  {
+    "week": 2,
+    "vocab_review": [
+      {
+        "word": "Lucrative",
+        "synonym": "Profitable",
+        "option": "D"
+      },
+      {
+        "word": "Barrier",
+        "synonym": "Obstacle",
+        "option": "E"
+      },
+      {
+        "word": "Immerse",
+        "synonym": "Submerge / Dive in",
+        "option": "A"
+      },
+      {
+        "word": "Adaptable",
+        "synonym": "Flexible",
+        "option": "B"
+      },
+      {
+        "word": "Cosmopolitan",
+        "synonym": "International",
+        "option": "C"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I want go to abroad.",
+        "correction": "I want to go abroad.",
+        "key": "go abroad"
+      },
+      {
+        "error": "There are many barriers for foreigners.",
+        "correction": "There are many barriers for foreigners.",
+        "key": "Correct"
+      },
+      {
+        "error": "Wait, simpler error: I enjoy to travel.",
+        "correction": "I enjoy traveling.",
+        "key": "enjoy traveling"
+      },
+      {
+        "error": "Although it is hard, but I will try.",
+        "correction": "Although it is hard, I will try.",
+        "key": "hard, I will..."
+      },
+      {
+        "error": "It is a lucrative work.",
+        "correction": "It is a lucrative job.",
+        "key": "job"
+      },
+      {
+        "error": "I faced a culture shocks.",
+        "correction": "I faced culture shock.",
+        "key": "culture shock"
+      }
+    ],
+    "writing_task": "Why do you want to work abroad? (Write 50 words)",
+    "answer_key": "Key: 1. Lucrative-D, 2. Barrier-E, 3. Immerse-A, 4. Adaptable-B, 5. Cosmopolitan-C | 1. go abroad... 2. Correct 3. enjoy traveling... 4. hard, I will... 5. job... 6. culture shock..."
+  },
+  {
+    "week": 3,
+    "vocab_review": [
+      {
+        "word": "Prestigious",
+        "synonym": "Reputable",
+        "option": "E"
+      },
+      {
+        "word": "Demanding",
+        "synonym": "Difficult",
+        "option": "A"
+      },
+      {
+        "word": "Fulfilling",
+        "synonym": "Satisfying",
+        "option": "B"
+      },
+      {
+        "word": "Qualified",
+        "synonym": "Certified",
+        "option": "C"
+      },
+      {
+        "word": "Challenging",
+        "synonym": "Testing",
+        "option": "D"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I am interested at this job.",
+        "correction": "I am interested in this job.",
+        "key": "interested in"
+      },
+      {
+        "error": "It is a prestige university.",
+        "correction": "It is a prestigious university.",
+        "key": "prestigious"
+      },
+      {
+        "error": "I need to make a live.",
+        "correction": "I need to make a living.",
+        "key": "make a living"
+      },
+      {
+        "error": "This job is very bored.",
+        "correction": "This job is very boring.",
+        "key": "boring"
+      },
+      {
+        "error": "He work in a big company.",
+        "correction": "He works in a big company.",
+        "key": "works"
+      }
+    ],
+    "writing_task": "What is the most important factor in a job? (Write 50 words)",
+    "answer_key": "Key: 1. Prestigious-E, 2. Demanding-A, 3. Fulfilling-B, 4. Qualified-C, 5. Challenging-D | 1. interested in... 2. prestigious... 3. make a living... 4. boring... 5. works..."
+  },
+  {
+    "week": 4,
+    "vocab_review": [
+      {
+        "word": "Mediocre",
+        "synonym": "Average",
+        "option": "B"
+      },
+      {
+        "word": "Overrated",
+        "synonym": "Hyped",
+        "option": "C"
+      },
+      {
+        "word": "Predictable",
+        "synonym": "Expected",
+        "option": "D"
+      },
+      {
+        "word": "Confusing",
+        "synonym": "Unclear",
+        "option": "E"
+      },
+      {
+        "word": "Anticipated",
+        "synonym": "Awaited",
+        "option": "A"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "The movie was disappointed.",
+        "correction": "The movie was disappointing.",
+        "key": "disappointing"
+      },
+      {
+        "error": "I was very boring watching it.",
+        "correction": "I was very bored watching it.",
+        "key": "bored"
+      },
+      {
+        "error": "It was a waste of times.",
+        "correction": "It was a waste of time.",
+        "key": "time"
+      },
+      {
+        "error": "The actors acts badly.",
+        "correction": "The actors acted badly.",
+        "key": "acted"
+      },
+      {
+        "error": "I didn't liked the ending.",
+        "correction": "I didn't like the ending.",
+        "key": "like"
+      }
+    ],
+    "writing_task": "Describe a bad movie you saw. (Write 50 words)",
+    "answer_key": "Key: 1. Mediocre-B, 2. Overrated-C, 3. Predictable-D, 4. Confusing-E, 5. Anticipated-A | 1. disappointing... 2. bored... 3. time... 4. acted... 5. like..."
+  },
+  {
+    "week": 5,
+    "vocab_review": [
+      {
+        "word": "Sustainable",
+        "synonym": "Long-lasting",
+        "option": "C"
+      },
+      {
+        "word": "Passionate",
+        "synonym": "Enthusiastic",
+        "option": "D"
+      },
+      {
+        "word": "Conscientious",
+        "synonym": "Responsible",
+        "option": "E"
+      },
+      {
+        "word": "Advocate",
+        "synonym": "Supporter",
+        "option": "A"
+      },
+      {
+        "word": "Eco-friendly",
+        "synonym": "Green",
+        "option": "B"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "We should protecting nature.",
+        "correction": "We should protect nature.",
+        "key": "protect"
+      },
+      {
+        "error": "Pollution is become serious.",
+        "correction": "Pollution is becoming serious.",
+        "key": "becoming"
+      },
+      {
+        "error": "He told me recycle bottles.",
+        "correction": "He told me to recycle bottles.",
+        "key": "to recycle"
+      },
+      {
+        "error": "I agree with that we need help.",
+        "correction": "I agree that we need help.",
+        "key": "agree that"
+      },
+      {
+        "error": "It is important preserve animals.",
+        "correction": "It is important to preserve animals.",
+        "key": "to preserve"
+      }
+    ],
+    "writing_task": "How can we protect the environment? (Write 50 words)",
+    "answer_key": "Key: 1. Sustainable-C, 2. Passionate-D, 3. Conscientious-E, 4. Advocate-A, 5. Eco-friendly-B | 1. protect... 2. becoming... 3. to recycle... 4. agree that... 5. to preserve..."
+  },
+  {
+    "week": 6,
+    "vocab_review": [
+      {
+        "word": "Tranquil",
+        "synonym": "Peaceful",
+        "option": "D"
+      },
+      {
+        "word": "Picturesque",
+        "synonym": "Beautiful",
+        "option": "E"
+      },
+      {
+        "word": "Isolated",
+        "synonym": "Remote",
+        "option": "A"
+      },
+      {
+        "word": "Lush",
+        "synonym": "Green",
+        "option": "B"
+      },
+      {
+        "word": "Breathtaking",
+        "synonym": "Stunning",
+        "option": "C"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "The scenery is beautiful view.",
+        "correction": "The scenery is beautiful.",
+        "key": "is beautiful"
+      },
+      {
+        "error": "I went to there last year.",
+        "correction": "I went there last year.",
+        "key": "went there"
+      },
+      {
+        "error": "There has many trees.",
+        "correction": "There are many trees.",
+        "key": "There are"
+      },
+      {
+        "error": "I like breathe fresh air.",
+        "correction": "I like breathing fresh air.",
+        "key": "breathing"
+      },
+      {
+        "error": "It locates in the south.",
+        "correction": "It is located in the south.",
+        "key": "is located"
+      }
+    ],
+    "writing_task": "Describe a beautiful park you know. (Write 50 words)",
+    "answer_key": "Key: 1. Tranquil-D, 2. Picturesque-E, 3. Isolated-A, 4. Lush-B, 5. Breathtaking-C | 1. is beautiful... 2. went there... 3. There are... 4. breathing... 5. is located..."
+  },
+  {
+    "week": 7,
+    "vocab_review": [
+      {
+        "word": "Innovative",
+        "synonym": "Creative",
+        "option": "E"
+      },
+      {
+        "word": "Addictive",
+        "synonym": "Obsessive",
+        "option": "A"
+      },
+      {
+        "word": "Efficient",
+        "synonym": "Effective",
+        "option": "B"
+      },
+      {
+        "word": "Indispensable",
+        "synonym": "Essential",
+        "option": "C"
+      },
+      {
+        "word": "User-friendly",
+        "synonym": "Easy to use",
+        "option": "D"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I use my phone for chat.",
+        "correction": "I use my phone for chatting.",
+        "key": "for chatting"
+      },
+      {
+        "error": "This app is very convenience.",
+        "correction": "This app is very convenient.",
+        "key": "convenient"
+      },
+      {
+        "error": "I spend 2 hours to play games.",
+        "correction": "I spend 2 hours playing games.",
+        "key": "playing"
+      },
+      {
+        "error": "It help me learn English.",
+        "correction": "It helps me learn English.",
+        "key": "helps"
+      },
+      {
+        "error": "I cannot live without phone.",
+        "correction": "I cannot live without my phone.",
+        "key": "my phone"
+      }
+    ],
+    "writing_task": "What is your favorite app? (Write 50 words)",
+    "answer_key": "Key: 1. Innovative-E, 2. Addictive-A, 3. Efficient-B, 4. Indispensable-C, 5. User-friendly-D | 1. for chatting... 2. convenient... 3. playing... 4. helps... 5. my phone..."
+  },
+  {
+    "week": 8,
+    "vocab_review": [
+      {
+        "word": "Reluctant",
+        "synonym": "Unwilling",
+        "option": "B"
+      },
+      {
+        "word": "Sensible",
+        "synonym": "Reasonable",
+        "option": "C"
+      },
+      {
+        "word": "Grateful",
+        "synonym": "Thankful",
+        "option": "D"
+      },
+      {
+        "word": "Constructive",
+        "synonym": "Helpful",
+        "option": "E"
+      },
+      {
+        "word": "Hesitant",
+        "synonym": "Unsure",
+        "option": "A"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "He gave me a good advice.",
+        "correction": "He gave me good advice.",
+        "key": "good advice"
+      },
+      {
+        "error": "I suggest you to go home.",
+        "correction": "I suggest you go home.",
+        "key": "you go"
+      },
+      {
+        "error": "I thanked him for help me.",
+        "correction": "I thanked him for helping me.",
+        "key": "helping"
+      },
+      {
+        "error": "It was difficult decision.",
+        "correction": "It was a difficult decision.",
+        "key": "a difficult"
+      },
+      {
+        "error": "I didn't know what should I do.",
+        "correction": "I didn't know what I should do.",
+        "key": "what I should"
+      }
+    ],
+    "writing_task": "Describe a piece of advice you gave. (Write 50 words)",
+    "answer_key": "Key: 1. Reluctant-B, 2. Sensible-C, 3. Grateful-D, 4. Constructive-E, 5. Hesitant-A | 1. good advice... 2. you go... 3. helping... 4. a difficult... 5. what I should..."
+  },
+  {
+    "week": 9,
+    "vocab_review": [
+      {
+        "word": "Observant",
+        "synonym": "Attentive",
+        "option": "C"
+      },
+      {
+        "word": "Gifted",
+        "synonym": "Talented",
+        "option": "D"
+      },
+      {
+        "word": "Imaginative",
+        "synonym": "Creative",
+        "option": "E"
+      },
+      {
+        "word": "Expressive",
+        "synonym": "Emotional",
+        "option": "A"
+      },
+      {
+        "word": "Messy",
+        "synonym": "Untidy",
+        "option": "B"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "She is good in painting.",
+        "correction": "She is good at painting.",
+        "key": "good at"
+      },
+      {
+        "error": "He likes draw pictures.",
+        "correction": "He likes drawing pictures.",
+        "key": "drawing"
+      },
+      {
+        "error": "She has a talent of music.",
+        "correction": "She has a talent for music.",
+        "key": "talent for"
+      },
+      {
+        "error": "It is amazed to see his art.",
+        "correction": "It is amazing to see his art.",
+        "key": "amazing"
+      },
+      {
+        "error": "He is a 5 years old boy.",
+        "correction": "He is a 5-year-old boy.",
+        "key": "5-year-old"
+      }
+    ],
+    "writing_task": "Do you think art is important for children? (Write 50 words)",
+    "answer_key": "Key: 1. Observant-C, 2. Gifted-D, 3. Imaginative-E, 4. Expressive-A, 5. Messy-B | 1. good at... 2. drawing... 3. talent for... 4. amazing... 5. 5-year-old..."
+  },
+  {
+    "week": 10,
+    "vocab_review": [
+      {
+        "word": "Spacious",
+        "synonym": "Large/Roomy",
+        "option": "D"
+      },
+      {
+        "word": "Magnificent",
+        "synonym": "Grand",
+        "option": "E"
+      },
+      {
+        "word": "Dilapidated",
+        "synonym": "Ruined",
+        "option": "A"
+      },
+      {
+        "word": "Iconic",
+        "synonym": "Famous",
+        "option": "B"
+      },
+      {
+        "word": "Contemporary",
+        "synonym": "Modern",
+        "option": "C"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "The building was build in 1990.",
+        "correction": "The building was built in 1990.",
+        "key": "built"
+      },
+      {
+        "error": "It is a very tall scyscraper.",
+        "correction": "It is a very tall skyscraper.",
+        "key": "skyscraper"
+      },
+      {
+        "error": "I look forward to visit it.",
+        "correction": "I look forward to visiting it.",
+        "key": "visiting"
+      },
+      {
+        "error": "The design is very uniquely.",
+        "correction": "The design is very unique.",
+        "key": "unique"
+      },
+      {
+        "error": "There is a old bridge.",
+        "correction": "There is an old bridge.",
+        "key": "an old"
+      }
+    ],
+    "writing_task": "Describe a famous building in your city. (Write 50 words)",
+    "answer_key": "Key: 1. Spacious-D, 2. Magnificent-E, 3. Dilapidated-A, 4. Iconic-B, 5. Contemporary-C | 1. built... 2. skyscraper... 3. visiting... 4. unique... 5. an old..."
+  },
+  {
+    "week": 11,
+    "vocab_review": [
+      {
+        "word": "Cutting-edge",
+        "synonym": "Advanced",
+        "option": "E"
+      },
+      {
+        "word": "Pricey",
+        "synonym": "Expensive",
+        "option": "A"
+      },
+      {
+        "word": "Obsolete",
+        "synonym": "Outdated",
+        "option": "B"
+      },
+      {
+        "word": "Compact",
+        "synonym": "Small",
+        "option": "C"
+      },
+      {
+        "word": "Versatile",
+        "synonym": "Multi-purpose",
+        "option": "D"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I bought a new computer yesterday.",
+        "correction": "I bought a new computer yesterday.",
+        "key": "Correct"
+      },
+      {
+        "error": "It cost me many money.",
+        "correction": "It cost me a lot of money.",
+        "key": "a lot of"
+      },
+      {
+        "error": "The screen is more big than mine.",
+        "correction": "The screen is bigger than mine.",
+        "key": "bigger"
+      },
+      {
+        "error": "I use it to study English.",
+        "correction": "I use it to study English.",
+        "key": "Correct"
+      },
+      {
+        "error": "Technology change our lives.",
+        "correction": "Technology changes our lives.",
+        "key": "changes"
+      }
+    ],
+    "writing_task": "What is the most useful gadget you own? (Write 50 words)",
+    "answer_key": "Key: 1. Cutting-edge-E, 2. Pricey-A, 3. Obsolete-B, 4. Compact-C, 5. Versatile-D | 1. Correct 2. a lot of... 3. bigger... 4. Correct 5. changes..."
+  },
+  {
+    "week": 12,
+    "vocab_review": [
+      {
+        "word": "Panicked",
+        "synonym": "Scared",
+        "option": "B"
+      },
+      {
+        "word": "Disoriented",
+        "synonym": "Confused",
+        "option": "C"
+      },
+      {
+        "word": "Relieved",
+        "synonym": "Reassured",
+        "option": "D"
+      },
+      {
+        "word": "Unfamiliar",
+        "synonym": "Strange/New",
+        "option": "E"
+      },
+      {
+        "word": "Helpful",
+        "synonym": "Useful",
+        "option": "A"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I lost my way in the forest.",
+        "correction": "I lost my way in the forest.",
+        "key": "Correct"
+      },
+      {
+        "error": "I didn't know where go.",
+        "correction": "I didn't know where to go.",
+        "key": "where to go"
+      },
+      {
+        "error": "I felt very confusing.",
+        "correction": "I felt very confused.",
+        "key": "confused"
+      },
+      {
+        "error": "A kind man help me.",
+        "correction": "A kind man helped me.",
+        "key": "helped"
+      },
+      {
+        "error": "Finally, I arrived to home.",
+        "correction": "Finally, I arrived home.",
+        "key": "arrived home"
+      }
+    ],
+    "writing_task": "Describe a time you got lost. (Write 50 words)",
+    "answer_key": "Key: 1. Panicked-B, 2. Disoriented-C, 3. Relieved-D, 4. Unfamiliar-E, 5. Helpful-A | 1. Correct 2. where to go... 3. confused... 4. helped... 5. arrived home..."
+  },
+  {
+    "week": 13,
+    "vocab_review": [
+      {
+        "word": "Humble",
+        "synonym": "Modest",
+        "option": "C"
+      },
+      {
+        "word": "Legendary",
+        "synonym": "Famous",
+        "option": "D"
+      },
+      {
+        "word": "Charismatic",
+        "synonym": "Charming",
+        "option": "E"
+      },
+      {
+        "word": "Influential",
+        "synonym": "Powerful",
+        "option": "A"
+      },
+      {
+        "word": "Talented",
+        "synonym": "Gifted",
+        "option": "B"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "He is famous of his songs.",
+        "correction": "He is famous for his songs.",
+        "key": "famous for"
+      },
+      {
+        "error": "I would like meet him.",
+        "correction": "I would like to meet him.",
+        "key": "like to"
+      },
+      {
+        "error": "He plays tennis very good.",
+        "correction": "He plays tennis very well.",
+        "key": "well"
+      },
+      {
+        "error": "He is the most rich person.",
+        "correction": "He is the richest person.",
+        "key": "richest"
+      },
+      {
+        "error": "Everyone know him.",
+        "correction": "Everyone knows him.",
+        "key": "knows"
+      }
+    ],
+    "writing_task": "Who is your favorite celebrity? (Write 50 words)",
+    "answer_key": "Key: 1. Humble-C, 2. Legendary-D, 3. Charismatic-E, 4. Influential-A, 5. Talented-B | 1. famous for... 2. like to... 3. well... 4. richest... 5. knows..."
+  },
+  {
+    "week": 14,
+    "vocab_review": [
+      {
+        "word": "Overcrowded",
+        "synonym": "Packed",
+        "option": "D"
+      },
+      {
+        "word": "Bustling",
+        "synonym": "Busy",
+        "option": "E"
+      },
+      {
+        "word": "Trendy",
+        "synonym": "Fashionable",
+        "option": "A"
+      },
+      {
+        "word": "Convenient",
+        "synonym": "Handy",
+        "option": "B"
+      },
+      {
+        "word": "Affordable",
+        "synonym": "Cheap",
+        "option": "C"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I go to shopping every week.",
+        "correction": "I go shopping every week.",
+        "key": "go shopping"
+      },
+      {
+        "error": "There is too many people.",
+        "correction": "There are too many people.",
+        "key": "are too many"
+      },
+      {
+        "error": "The clothes is very cheap.",
+        "correction": "The clothes are very cheap.",
+        "key": "clothes are"
+      },
+      {
+        "error": "I prefer buy online.",
+        "correction": "I prefer buying online.",
+        "key": "buying"
+      },
+      {
+        "error": "It locate in the city center.",
+        "correction": "It is located in the city center.",
+        "key": "is located"
+      }
+    ],
+    "writing_task": "Do you prefer malls or street markets? (Write 50 words)",
+    "answer_key": "Key: 1. Overcrowded-D, 2. Bustling-E, 3. Trendy-A, 4. Convenient-B, 5. Affordable-C | 1. go shopping... 2. are too many... 3. clothes are... 4. buying... 5. is located..."
+  },
+  {
+    "week": 15,
+    "vocab_review": [
+      {
+        "word": "Classic",
+        "synonym": "Traditional",
+        "option": "E"
+      },
+      {
+        "word": "Memorable",
+        "synonym": "Unforgettable",
+        "option": "A"
+      },
+      {
+        "word": "Thought-provoking",
+        "synonym": "Inspiring",
+        "option": "B"
+      },
+      {
+        "word": "Captivating",
+        "synonym": "Fascinating",
+        "option": "C"
+      },
+      {
+        "word": "Educational",
+        "synonym": "Instructive",
+        "option": "D"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I read a book naming Harry Potter.",
+        "correction": "I read a book named Harry Potter.",
+        "key": "named"
+      },
+      {
+        "error": "It writed by JK Rowling.",
+        "correction": "It was written by JK Rowling.",
+        "key": "was written"
+      },
+      {
+        "error": "The story is interested.",
+        "correction": "The story is interesting.",
+        "key": "interesting"
+      },
+      {
+        "error": "I spent 3 days to read it.",
+        "correction": "I spent 3 days reading it.",
+        "key": "reading"
+      },
+      {
+        "error": "I learn a lot from it.",
+        "correction": "I learned a lot from it.",
+        "key": "learned"
+      }
+    ],
+    "writing_task": "What kind of books do you like? (Write 50 words)",
+    "answer_key": "Key: 1. Classic-E, 2. Memorable-A, 3. Thought-provoking-B, 4. Captivating-C, 5. Educational-D | 1. named... 2. was written... 3. interesting... 4. reading... 5. learned..."
+  },
+  {
+    "week": 16,
+    "vocab_review": [
+      {
+        "word": "Awkward",
+        "synonym": "Uncomfortable",
+        "option": "B"
+      },
+      {
+        "word": "Contagious",
+        "synonym": "Infectious",
+        "option": "C"
+      },
+      {
+        "word": "Hilarious",
+        "synonym": "Funny",
+        "option": "D"
+      },
+      {
+        "word": "Joyful",
+        "synonym": "Happy",
+        "option": "E"
+      },
+      {
+        "word": "Amusing",
+        "synonym": "Entertaining",
+        "option": "A"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I was laughing at him.",
+        "correction": "I was laughing at him.",
+        "key": "Correct"
+      },
+      {
+        "error": "The movie made me crying.",
+        "correction": "The movie made me cry.",
+        "key": "made me cry"
+      },
+      {
+        "error": "He is a very funny man.",
+        "correction": "He is a very funny man.",
+        "key": "Correct"
+      },
+      {
+        "error": "I felt very embarrassing.",
+        "correction": "I felt very embarrassed.",
+        "key": "embarrassed"
+      },
+      {
+        "error": "We smiled to each other.",
+        "correction": "We smiled at each other.",
+        "key": "smiled at"
+      }
+    ],
+    "writing_task": "Describe something that made you laugh. (Write 50 words)",
+    "answer_key": "Key: 1. Awkward-B, 2. Contagious-C, 3. Hilarious-D, 4. Joyful-E, 5. Amusing-A | 1. Correct 2. made me cry... 3. Correct 4. embarrassed... 5. smiled at..."
+  },
+  {
+    "week": 17,
+    "vocab_review": [
+      {
+        "word": "Inseparable",
+        "synonym": "Close",
+        "option": "C"
+      },
+      {
+        "word": "Intimate",
+        "synonym": "Personal",
+        "option": "D"
+      },
+      {
+        "word": "Considerate",
+        "synonym": "Kind",
+        "option": "E"
+      },
+      {
+        "word": "Childhood",
+        "synonym": "Youth",
+        "option": "A"
+      },
+      {
+        "word": "Supportive",
+        "synonym": "Helpful",
+        "option": "B"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I know him since primary school.",
+        "correction": "I have known him since primary school.",
+        "key": "have known"
+      },
+      {
+        "error": "We always play together.",
+        "correction": "We always play together.",
+        "key": "Correct"
+      },
+      {
+        "error": "He is my one of best friends.",
+        "correction": "He is one of my best friends.",
+        "key": "one of my"
+      },
+      {
+        "error": "We have same hobbies.",
+        "correction": "We have the same hobbies.",
+        "key": "the same"
+      },
+      {
+        "error": "I can trust on him.",
+        "correction": "I can trust him.",
+        "key": "trust him"
+      }
+    ],
+    "writing_task": "What qualities make a good friend? (Write 50 words)",
+    "answer_key": "Key: 1. Inseparable-C, 2. Intimate-D, 3. Considerate-E, 4. Childhood-A, 5. Supportive-B | 1. have known... 2. Correct 3. one of my... 4. the same... 5. trust him..."
+  },
+  {
+    "week": 18,
+    "vocab_review": [
+      {
+        "word": "Cozy",
+        "synonym": "Comfortable",
+        "option": "D"
+      },
+      {
+        "word": "Messy",
+        "synonym": "Untidy",
+        "option": "E"
+      },
+      {
+        "word": "Decorated",
+        "synonym": "Adorned",
+        "option": "A"
+      },
+      {
+        "word": "Spacious",
+        "synonym": "Big",
+        "option": "B"
+      },
+      {
+        "word": "Modern",
+        "synonym": "New",
+        "option": "C"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "My house is locate in Beijing.",
+        "correction": "My house is located in Beijing.",
+        "key": "is located"
+      },
+      {
+        "error": "There is three bedrooms.",
+        "correction": "There are three bedrooms.",
+        "key": "are three"
+      },
+      {
+        "error": "I like relax in the sofa.",
+        "correction": "I like relaxing on the sofa.",
+        "key": "relaxing on"
+      },
+      {
+        "error": "The room is full of furnitures.",
+        "correction": "The room is full of furniture.",
+        "key": "furniture"
+      },
+      {
+        "error": "It is a very quietly place.",
+        "correction": "It is a very quiet place.",
+        "key": "quiet"
+      }
+    ],
+    "writing_task": "Describe your dream house. (Write 50 words)",
+    "answer_key": "Key: 1. Cozy-D, 2. Messy-E, 3. Decorated-A, 4. Spacious-B, 5. Modern-C | 1. is located... 2. are three... 3. relaxing on... 4. furniture... 5. quiet..."
+  },
+  {
+    "week": 19,
+    "vocab_review": [
+      {
+        "word": "Antique",
+        "synonym": "Vintage",
+        "option": "E"
+      },
+      {
+        "word": "Fragile",
+        "synonym": "Delicate",
+        "option": "A"
+      },
+      {
+        "word": "Valuable",
+        "synonym": "Worth a lot",
+        "option": "B"
+      },
+      {
+        "word": "Sentimental",
+        "synonym": "Emotional",
+        "option": "C"
+      },
+      {
+        "word": "Irreplaceable",
+        "synonym": "Unique",
+        "option": "D"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "This watch was give to me.",
+        "correction": "This watch was given to me.",
+        "key": "was given"
+      },
+      {
+        "error": "I kept it for 10 years.",
+        "correction": "I have kept it for 10 years.",
+        "key": "have kept"
+      },
+      {
+        "error": "It is made by gold.",
+        "correction": "It is made of gold.",
+        "key": "made of"
+      },
+      {
+        "error": "I lost it yesterday night.",
+        "correction": "I lost it last night.",
+        "key": "last night"
+      },
+      {
+        "error": "It means lots for me.",
+        "correction": "It means a lot to me.",
+        "key": "a lot to"
+      }
+    ],
+    "writing_task": "Describe a special gift you received. (Write 50 words)",
+    "answer_key": "Key: 1. Antique-E, 2. Fragile-A, 3. Valuable-B, 4. Sentimental-C, 5. Irreplaceable-D | 1. was given... 2. have kept... 3. made of... 4. last night... 5. a lot to..."
+  },
+  {
+    "week": 20,
+    "vocab_review": [
+      {
+        "word": "Spontaneous",
+        "synonym": "Unplanned",
+        "option": "B"
+      },
+      {
+        "word": "Adventurous",
+        "synonym": "Daring",
+        "option": "C"
+      },
+      {
+        "word": "Exhausting",
+        "synonym": "Tiring",
+        "option": "D"
+      },
+      {
+        "word": "Delayed",
+        "synonym": "Late",
+        "option": "E"
+      },
+      {
+        "word": "Scenic",
+        "synonym": "Beautiful",
+        "option": "A"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I went to travel last month.",
+        "correction": "I went traveling last month.",
+        "key": "went traveling"
+      },
+      {
+        "error": "The scenery was wonderful.",
+        "correction": "The scenery was wonderful.",
+        "key": "Correct"
+      },
+      {
+        "error": "We go there by car.",
+        "correction": "We went there by car.",
+        "key": "went there"
+      },
+      {
+        "error": "It took 5 hours to arrived.",
+        "correction": "It took 5 hours to arrive.",
+        "key": "to arrive"
+      },
+      {
+        "error": "I felt very exciting.",
+        "correction": "I felt very excited.",
+        "key": "excited"
+      }
+    ],
+    "writing_task": "Describe a trip you would like to take. (Write 50 words)",
+    "answer_key": "Key: 1. Spontaneous-B, 2. Adventurous-C, 3. Exhausting-D, 4. Delayed-E, 5. Scenic-A | 1. went traveling... 2. Correct 3. went there... 4. to arrive... 5. excited..."
+  },
+  {
+    "week": 21,
+    "vocab_review": [
+      {
+        "word": "Visionary",
+        "synonym": "Farsighted",
+        "option": "C"
+      },
+      {
+        "word": "Exceptional",
+        "synonym": "Outstanding",
+        "option": "D"
+      },
+      {
+        "word": "Dedicated",
+        "synonym": "Committed",
+        "option": "E"
+      },
+      {
+        "word": "Versatile",
+        "synonym": "Flexible",
+        "option": "A"
+      },
+      {
+        "word": "Innovative",
+        "synonym": "Creative",
+        "option": "B"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "He has a talent in drawing.",
+        "correction": "He has a talent for drawing.",
+        "key": "talent for"
+      },
+      {
+        "error": "He plays piano very good.",
+        "correction": "He plays the piano very well.",
+        "key": "the piano... well"
+      },
+      {
+        "error": "She is naturally singer.",
+        "correction": "She is a natural singer.",
+        "key": "natural"
+      },
+      {
+        "error": "I admire at his skill.",
+        "correction": "I admire his skill.",
+        "key": "admire his"
+      },
+      {
+        "error": "He work hard to succeed.",
+        "correction": "He works hard to succeed.",
+        "key": "works hard"
+      }
+    ],
+    "writing_task": "Who is the most talented person you know? (Write 50 words)",
+    "answer_key": "Key: 1. Visionary-C, 2. Exceptional-D, 3. Dedicated-E, 4. Versatile-A, 5. Innovative-B | 1. talent for... 2. the piano... well... 3. natural... 4. admire his... 5. works hard..."
+  },
+  {
+    "week": 22,
+    "vocab_review": [
+      {
+        "word": "Authentic",
+        "synonym": "Genuine",
+        "option": "D"
+      },
+      {
+        "word": "Reputable",
+        "synonym": "Respected",
+        "option": "E"
+      },
+      {
+        "word": "Prosperous",
+        "synonym": "Wealthy",
+        "option": "A"
+      },
+      {
+        "word": "Entrepreneurial",
+        "synonym": "Business-minded",
+        "option": "B"
+      },
+      {
+        "word": "Diligent",
+        "synonym": "Hard-working",
+        "option": "C"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "My father runs a business company.",
+        "correction": "My father runs a business.",
+        "key": "business"
+      },
+      {
+        "error": "The shop opened since 20 years.",
+        "correction": "The shop has been open for 20 years.",
+        "key": "has been open"
+      },
+      {
+        "error": "It is a family running business.",
+        "correction": "It is a family-run business.",
+        "key": "family-run"
+      },
+      {
+        "error": "They sell many products.",
+        "correction": "They sell many products.",
+        "key": "Correct"
+      },
+      {
+        "error": "The service is very kindly.",
+        "correction": "The service is very kind.",
+        "key": "kind"
+      }
+    ],
+    "writing_task": "Would you like to start your own business? (Write 50 words)",
+    "answer_key": "Key: 1. Authentic-D, 2. Reputable-E, 3. Prosperous-A, 4. Entrepreneurial-B, 5. Diligent-C | 1. business... 2. has been open... 3. family-run... 4. Correct 5. kind..."
+  },
+  {
+    "week": 23,
+    "vocab_review": [
+      {
+        "word": "Durable",
+        "synonym": "Long-lasting",
+        "option": "E"
+      },
+      {
+        "word": "Educational",
+        "synonym": "Learning",
+        "option": "A"
+      },
+      {
+        "word": "Precious",
+        "synonym": "Valuable",
+        "option": "B"
+      },
+      {
+        "word": "Imaginative",
+        "synonym": "Creative",
+        "option": "C"
+      },
+      {
+        "word": "Nostalgic",
+        "synonym": "Sentimental",
+        "option": "D"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I played with it when I was child.",
+        "correction": "I played with it when I was a child.",
+        "key": "a child"
+      },
+      {
+        "error": "It was gave to me by my mom.",
+        "correction": "It was given to me by my mom.",
+        "key": "was given"
+      },
+      {
+        "error": "I kept it in my bedroom.",
+        "correction": "I kept it in my bedroom.",
+        "key": "Correct"
+      },
+      {
+        "error": "It is made of plastics.",
+        "correction": "It is made of plastic.",
+        "key": "plastic"
+      },
+      {
+        "error": "I used to playing with it.",
+        "correction": "I used to play with it.",
+        "key": "play"
+      }
+    ],
+    "writing_task": "Describe your favorite childhood toy. (Write 50 words)",
+    "answer_key": "Key: 1. Durable-E, 2. Educational-A, 3. Precious-B, 4. Imaginative-C, 5. Nostalgic-D | 1. a child... 2. was given... 3. Correct 4. plastic... 5. play..."
+  },
+  {
+    "week": 24,
+    "vocab_review": [
+      {
+        "word": "Unexpected",
+        "synonym": "Surprising",
+        "option": "B"
+      },
+      {
+        "word": "Urgent",
+        "synonym": "Pressing",
+        "option": "C"
+      },
+      {
+        "word": "Frustrated",
+        "synonym": "Annoyed",
+        "option": "D"
+      },
+      {
+        "word": "Helpless",
+        "synonym": "Powerless",
+        "option": "E"
+      },
+      {
+        "word": "Inconvenient",
+        "synonym": "Troublesome",
+        "option": "A"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "The light went out suddenly.",
+        "correction": "The lights went out suddenly.",
+        "key": "lights"
+      },
+      {
+        "error": "I didn't know what happen.",
+        "correction": "I didn't know what happened.",
+        "key": "happened"
+      },
+      {
+        "error": "It was dark everywhere.",
+        "correction": "It was dark everywhere.",
+        "key": "Correct"
+      },
+      {
+        "error": "I waited the power to come back.",
+        "correction": "I waited for the power to come back.",
+        "key": "waited for"
+      },
+      {
+        "error": "It is a terrible experience.",
+        "correction": "It was a terrible experience.",
+        "key": "was"
+      }
+    ],
+    "writing_task": "Describe a time something broke. (Write 50 words)",
+    "answer_key": "Key: 1. Unexpected-B, 2. Urgent-C, 3. Frustrated-D, 4. Helpless-E, 5. Inconvenient-A | 1. lights... 2. happened... 3. Correct 4. waited for... 5. was..."
+  },
+  {
+    "week": 25,
+    "vocab_review": [
+      {
+        "word": "Reluctant",
+        "synonym": "Unwilling",
+        "option": "C"
+      },
+      {
+        "word": "Persuasive",
+        "synonym": "Convincing",
+        "option": "D"
+      },
+      {
+        "word": "Supportive",
+        "synonym": "Encouraging",
+        "option": "E"
+      },
+      {
+        "word": "Appreciative",
+        "synonym": "Thankful",
+        "option": "A"
+      },
+      {
+        "word": "Wise",
+        "synonym": "Smart",
+        "option": "B"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I encourage him try again.",
+        "correction": "I encouraged him to try again.",
+        "key": "encouraged him to"
+      },
+      {
+        "error": "He didn't want do it.",
+        "correction": "He didn't want to do it.",
+        "key": "want to"
+      },
+      {
+        "error": "I told him don't give up.",
+        "correction": "I told him not to give up.",
+        "key": "not to"
+      },
+      {
+        "error": "He succeed in the end.",
+        "correction": "He succeeded in the end.",
+        "key": "succeeded"
+      },
+      {
+        "error": "I was proud of him.",
+        "correction": "I was proud of him.",
+        "key": "Correct"
+      }
+    ],
+    "writing_task": "Who has supported you the most? (Write 50 words)",
+    "answer_key": "Key: 1. Reluctant-C, 2. Persuasive-D, 3. Supportive-E, 4. Appreciative-A, 5. Wise-B | 1. encouraged him to... 2. want to... 3. not to... 4. succeeded... 5. Correct"
+  },
+  {
+    "week": 26,
+    "vocab_review": [
+      {
+        "word": "Efficient",
+        "synonym": "Productive",
+        "option": "D"
+      },
+      {
+        "word": "Courteous",
+        "synonym": "Polite",
+        "option": "E"
+      },
+      {
+        "word": "Satisfied",
+        "synonym": "Happy",
+        "option": "A"
+      },
+      {
+        "word": "Impeccable",
+        "synonym": "Perfect",
+        "option": "B"
+      },
+      {
+        "word": "Attentive",
+        "synonym": "Observant",
+        "option": "C"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "The staff was very politely.",
+        "correction": "The staff was very polite.",
+        "key": "polite"
+      },
+      {
+        "error": "He help me find the size.",
+        "correction": "He helped me find the size.",
+        "key": "helped"
+      },
+      {
+        "error": "I satisfied with the service.",
+        "correction": "I was satisfied with the service.",
+        "key": "was satisfied"
+      },
+      {
+        "error": "It is the best shop.",
+        "correction": "It is the best shop.",
+        "key": "Correct"
+      },
+      {
+        "error": "I will come back again.",
+        "correction": "I will come back again.",
+        "key": "Correct"
+      }
+    ],
+    "writing_task": "Describe good service you received. (Write 50 words)",
+    "answer_key": "Key: 1. Efficient-D, 2. Courteous-E, 3. Satisfied-A, 4. Impeccable-B, 5. Attentive-C | 1. polite... 2. helped... 3. was satisfied... 4. Correct 5. Correct"
+  },
+  {
+    "week": 27,
+    "vocab_review": [
+      {
+        "word": "Viral",
+        "synonym": "Popular",
+        "option": "E"
+      },
+      {
+        "word": "Informative",
+        "synonym": "Educational",
+        "option": "A"
+      },
+      {
+        "word": "Addictive",
+        "synonym": "Obsessive",
+        "option": "B"
+      },
+      {
+        "word": "Engaging",
+        "synonym": "Interesting",
+        "option": "C"
+      },
+      {
+        "word": "Entertaining",
+        "synonym": "Fun",
+        "option": "D"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I saw a video in Douyin.",
+        "correction": "I saw a video on Douyin.",
+        "key": "on Douyin"
+      },
+      {
+        "error": "It was very funny video.",
+        "correction": "It was a very funny video.",
+        "key": "a very"
+      },
+      {
+        "error": "I shared it to my friends.",
+        "correction": "I shared it with my friends.",
+        "key": "with"
+      },
+      {
+        "error": "I spend much time online.",
+        "correction": "I spend a lot of time online.",
+        "key": "a lot of"
+      },
+      {
+        "error": "The internet is useful.",
+        "correction": "The internet is useful.",
+        "key": "Correct"
+      }
+    ],
+    "writing_task": "What kind of videos do you watch online? (Write 50 words)",
+    "answer_key": "Key: 1. Viral-E, 2. Informative-A, 3. Addictive-B, 4. Engaging-C, 5. Entertaining-D | 1. on Douyin... 2. a very... 3. with... 4. a lot of... 5. Correct"
+  },
+  {
+    "week": 28,
+    "vocab_review": [
+      {
+        "word": "Delicious",
+        "synonym": "Tasty",
+        "option": "B"
+      },
+      {
+        "word": "Lively",
+        "synonym": "Energetic",
+        "option": "C"
+      },
+      {
+        "word": "Sociable",
+        "synonym": "Friendly",
+        "option": "D"
+      },
+      {
+        "word": "Awkward",
+        "synonym": "Uncomfortable",
+        "option": "E"
+      },
+      {
+        "word": "Memorable",
+        "synonym": "Unforgettable",
+        "option": "A"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "We ate dinner together.",
+        "correction": "We ate dinner together.",
+        "key": "Correct"
+      },
+      {
+        "error": "The food tasted badly.",
+        "correction": "The food tasted bad.",
+        "key": "bad"
+      },
+      {
+        "error": "We talked about many things.",
+        "correction": "We talked about many things.",
+        "key": "Correct"
+      },
+      {
+        "error": "I enjoyed the time very much.",
+        "correction": "I enjoyed the time very much.",
+        "key": "Correct"
+      },
+      {
+        "error": "It was a happy memory.",
+        "correction": "It was a happy memory.",
+        "key": "Correct"
+      }
+    ],
+    "writing_task": "Describe a dinner with friends. (Write 50 words)",
+    "answer_key": "Key: 1. Delicious-B, 2. Lively-C, 3. Sociable-D, 4. Awkward-E, 5. Memorable-A | 1. Correct 2. bad... 3. Correct 4. Correct 5. Correct"
+  },
+  {
+    "week": 29,
+    "vocab_review": [
+      {
+        "word": "Regretful",
+        "synonym": "Sorry",
+        "option": "C"
+      },
+      {
+        "word": "Honest",
+        "synonym": "Truthful",
+        "option": "D"
+      },
+      {
+        "word": "Sincere",
+        "synonym": "Genuine",
+        "option": "E"
+      },
+      {
+        "word": "Courageous",
+        "synonym": "Brave",
+        "option": "A"
+      },
+      {
+        "word": "Forgiving",
+        "synonym": "Merciful",
+        "option": "B"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "He apologize to me.",
+        "correction": "He apologized to me.",
+        "key": "apologized"
+      },
+      {
+        "error": "I accepted his apologize.",
+        "correction": "I accepted his apology.",
+        "key": "apology"
+      },
+      {
+        "error": "He told me the true.",
+        "correction": "He told me the truth.",
+        "key": "truth"
+      },
+      {
+        "error": "It is important to be honest.",
+        "correction": "It is important to be honest.",
+        "key": "Correct"
+      },
+      {
+        "error": "I forgive him.",
+        "correction": "I forgave him.",
+        "key": "forgave"
+      }
+    ],
+    "writing_task": "Is it always good to be honest? (Write 50 words)",
+    "answer_key": "Key: 1. Regretful-C, 2. Honest-D, 3. Sincere-E, 4. Courageous-A, 5. Forgiving-B | 1. apologized... 2. apology... 3. truth... 4. Correct 5. forgave..."
+  },
+  {
+    "week": 30,
+    "vocab_review": [
+      {
+        "word": "Unique",
+        "synonym": "Special",
+        "option": "D"
+      },
+      {
+        "word": "Majestic",
+        "synonym": "Grand",
+        "option": "E"
+      },
+      {
+        "word": "Fascinating",
+        "synonym": "Interesting",
+        "option": "A"
+      },
+      {
+        "word": "Wild",
+        "synonym": "Untamed",
+        "option": "B"
+      },
+      {
+        "word": "Endangered",
+        "synonym": "Threatened",
+        "option": "C"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I saw a panda in the zoo.",
+        "correction": "I saw a panda at the zoo.",
+        "key": "at the zoo"
+      },
+      {
+        "error": "It is very cute animal.",
+        "correction": "It is a very cute animal.",
+        "key": "a very"
+      },
+      {
+        "error": "It eat bamboo.",
+        "correction": "It eats bamboo.",
+        "key": "eats"
+      },
+      {
+        "error": "We should protect animals.",
+        "correction": "We should protect animals.",
+        "key": "Correct"
+      },
+      {
+        "error": "They are in danger to extinct.",
+        "correction": "They are in danger of extinction.",
+        "key": "of extinction"
+      }
+    ],
+    "writing_task": "Describe a wild animal you like. (Write 50 words)",
+    "answer_key": "Key: 1. Unique-D, 2. Majestic-E, 3. Fascinating-A, 4. Wild-B, 5. Endangered-C | 1. at the zoo... 2. a very... 3. eats... 4. Correct 5. of extinction..."
+  },
+  {
+    "week": 31,
+    "vocab_review": [
+      {
+        "word": "Creative",
+        "synonym": "Imaginative",
+        "option": "E"
+      },
+      {
+        "word": "Logical",
+        "synonym": "Rational",
+        "option": "A"
+      },
+      {
+        "word": "Theoretical",
+        "synonym": "Abstract",
+        "option": "B"
+      },
+      {
+        "word": "Complex",
+        "synonym": "Complicated",
+        "option": "C"
+      },
+      {
+        "word": "Groundbreaking",
+        "synonym": "Innovative",
+        "option": "D"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I am interesting in science.",
+        "correction": "I am interested in science.",
+        "key": "interested in"
+      },
+      {
+        "error": "Physics are difficult subject.",
+        "correction": "Physics is a difficult subject.",
+        "key": "is a"
+      },
+      {
+        "error": "It explain how the world works.",
+        "correction": "It explains how the world works.",
+        "key": "explains"
+      },
+      {
+        "error": "I want to be scientist.",
+        "correction": "I want to be a scientist.",
+        "key": "a scientist"
+      },
+      {
+        "error": "Imagination is important.",
+        "correction": "Imagination is important.",
+        "key": "Correct"
+      }
+    ],
+    "writing_task": "Do you like science? Why? (Write 50 words)",
+    "answer_key": "Key: 1. Creative-E, 2. Logical-A, 3. Theoretical-B, 4. Complex-C, 5. Groundbreaking-D | 1. interested in... 2. is a... 3. explains... 4. a scientist... 5. Correct"
+  },
+  {
+    "week": 32,
+    "vocab_review": [
+      {
+        "word": "Exhilarating",
+        "synonym": "Exciting",
+        "option": "B"
+      },
+      {
+        "word": "Determined",
+        "synonym": "Resolute",
+        "option": "C"
+      },
+      {
+        "word": "Rewarding",
+        "synonym": "Satisfying",
+        "option": "D"
+      },
+      {
+        "word": "Challenging",
+        "synonym": "Difficult",
+        "option": "E"
+      },
+      {
+        "word": "Nerve-wracking",
+        "synonym": "Stressful",
+        "option": "A"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I tried skiing first time.",
+        "correction": "I tried skiing for the first time.",
+        "key": "for the first"
+      },
+      {
+        "error": "I was scary at first.",
+        "correction": "I was scared at first.",
+        "key": "scared"
+      },
+      {
+        "error": "But it was excited.",
+        "correction": "But it was exciting.",
+        "key": "exciting"
+      },
+      {
+        "error": "I felt proud of myself.",
+        "correction": "I felt proud of myself.",
+        "key": "Correct"
+      },
+      {
+        "error": "I want try it again.",
+        "correction": "I want to try it again.",
+        "key": "to try"
+      }
+    ],
+    "writing_task": "Describe a new thing you tried. (Write 50 words)",
+    "answer_key": "Key: 1. Exhilarating-B, 2. Determined-C, 3. Rewarding-D, 4. Challenging-E, 5. Nerve-wracking-A | 1. for the first... 2. scared... 3. exciting... 4. Correct 5. to try..."
+  },
+  {
+    "week": 33,
+    "vocab_review": [
+      {
+        "word": "Persistent",
+        "synonym": "Determined",
+        "option": "C"
+      },
+      {
+        "word": "Beneficial",
+        "synonym": "Helpful",
+        "option": "D"
+      },
+      {
+        "word": "Disciplined",
+        "synonym": "Controlled",
+        "option": "E"
+      },
+      {
+        "word": "Productive",
+        "synonym": "Effective",
+        "option": "A"
+      },
+      {
+        "word": "Detrimental",
+        "synonym": "Harmful",
+        "option": "B"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "He wake up early every day.",
+        "correction": "He wakes up early every day.",
+        "key": "wakes up"
+      },
+      {
+        "error": "It is a good habit.",
+        "correction": "It is a good habit.",
+        "key": "Correct"
+      },
+      {
+        "error": "Smoking is bad for health.",
+        "correction": "Smoking is bad for your health.",
+        "key": "your health"
+      },
+      {
+        "error": "I want to stop to smoke.",
+        "correction": "I want to stop smoking.",
+        "key": "stop smoking"
+      },
+      {
+        "error": "Habits are hard to change.",
+        "correction": "Habits are hard to change.",
+        "key": "Correct"
+      }
+    ],
+    "writing_task": "What is a good habit you have? (Write 50 words)",
+    "answer_key": "Key: 1. Persistent-C, 2. Beneficial-D, 3. Disciplined-E, 4. Productive-A, 5. Detrimental-B | 1. wakes up... 2. Correct 3. your health... 4. stop smoking... 5. Correct"
+  },
+  {
+    "week": 34,
+    "vocab_review": [
+      {
+        "word": "Strict",
+        "synonym": "Firm",
+        "option": "D"
+      },
+      {
+        "word": "Respectful",
+        "synonym": "Polite",
+        "option": "E"
+      },
+      {
+        "word": "Prohibited",
+        "synonym": "Banned",
+        "option": "A"
+      },
+      {
+        "word": "Disruptive",
+        "synonym": "Disturbing",
+        "option": "B"
+      },
+      {
+        "word": "Considerate",
+        "synonym": "Thoughtful",
+        "option": "C"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "You must not to smoke here.",
+        "correction": "You must not smoke here.",
+        "key": "not smoke"
+      },
+      {
+        "error": "Please keep quiet.",
+        "correction": "Please keep quiet.",
+        "key": "Correct"
+      },
+      {
+        "error": "We followed the rules.",
+        "correction": "We followed the rules.",
+        "key": "Correct"
+      },
+      {
+        "error": "The teacher is very strictly.",
+        "correction": "The teacher is very strict.",
+        "key": "strict"
+      },
+      {
+        "error": "I was punished by teacher.",
+        "correction": "I was punished by the teacher.",
+        "key": "the teacher"
+      }
+    ],
+    "writing_task": "Are rules important? (Write 50 words)",
+    "answer_key": "Key: 1. Strict-D, 2. Respectful-E, 3. Prohibited-A, 4. Disruptive-B, 5. Considerate-C | 1. not smoke... 2. Correct 3. Correct 4. strict... 5. the teacher..."
+  },
+  {
+    "week": 35,
+    "vocab_review": [
+      {
+        "word": "Punctual",
+        "synonym": "On time",
+        "option": "E"
+      },
+      {
+        "word": "Impatient",
+        "synonym": "Restless",
+        "option": "A"
+      },
+      {
+        "word": "Hectic",
+        "synonym": "Busy",
+        "option": "B"
+      },
+      {
+        "word": "Anxious",
+        "synonym": "Worried",
+        "option": "C"
+      },
+      {
+        "word": "Organized",
+        "synonym": "Orderly",
+        "option": "D"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I waited him for 1 hour.",
+        "correction": "I waited for him for 1 hour.",
+        "key": "waited for him"
+      },
+      {
+        "error": "He is always lately.",
+        "correction": "He is always late.",
+        "key": "late"
+      },
+      {
+        "error": "I was very angry.",
+        "correction": "I was very angry.",
+        "key": "Correct"
+      },
+      {
+        "error": "Planning is important.",
+        "correction": "Planning is important.",
+        "key": "Correct"
+      },
+      {
+        "error": "I make a plan every day.",
+        "correction": "I make a plan every day.",
+        "key": "Correct"
+      }
+    ],
+    "writing_task": "Do you like to plan things? (Write 50 words)",
+    "answer_key": "Key: 1. Punctual-E, 2. Impatient-A, 3. Hectic-B, 4. Anxious-C, 5. Organized-D | 1. waited for him... 2. late... 3. Correct 4. Correct 5. Correct"
+  },
+  {
+    "week": 36,
+    "vocab_review": [
+      {
+        "word": "Intense",
+        "synonym": "Strong/Extreme",
+        "option": "B"
+      },
+      {
+        "word": "Triumphant",
+        "synonym": "Winning",
+        "option": "C"
+      },
+      {
+        "word": "Victorious",
+        "synonym": "Successful",
+        "option": "D"
+      },
+      {
+        "word": "Competitive",
+        "synonym": "Ambitious",
+        "option": "E"
+      },
+      {
+        "word": "Prestigious",
+        "synonym": "Honored",
+        "option": "A"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I took part in a competition.",
+        "correction": "I took part in a competition.",
+        "key": "Correct"
+      },
+      {
+        "error": "I won the first prize.",
+        "correction": "I won first prize.",
+        "key": "won first"
+      },
+      {
+        "error": "I felt very exciting.",
+        "correction": "I felt very excited.",
+        "key": "excited"
+      },
+      {
+        "error": "My parents was proud.",
+        "correction": "My parents were proud.",
+        "key": "were proud"
+      },
+      {
+        "error": "It was my best memory.",
+        "correction": "It was my best memory.",
+        "key": "Correct"
+      }
+    ],
+    "writing_task": "Describe a competition you entered. (Write 50 words)",
+    "answer_key": "Key: 1. Intense-B, 2. Triumphant-C, 3. Victorious-D, 4. Competitive-E, 5. Prestigious-A | 1. Correct 2. won first... 3. excited... 4. were proud... 5. Correct"
+  },
+  {
+    "week": 37,
+    "vocab_review": [
+      {
+        "word": "Nosy",
+        "synonym": "Curious",
+        "option": "C"
+      },
+      {
+        "word": "Considerate",
+        "synonym": "Kind",
+        "option": "D"
+      },
+      {
+        "word": "Neighborly",
+        "synonym": "Friendly",
+        "option": "E"
+      },
+      {
+        "word": "Helpful",
+        "synonym": "Useful",
+        "option": "A"
+      },
+      {
+        "word": "Generous",
+        "synonym": "Giving",
+        "option": "B"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "My neighbor is very kind.",
+        "correction": "My neighbor is very kind.",
+        "key": "Correct"
+      },
+      {
+        "error": "He live next door.",
+        "correction": "He lives next door.",
+        "key": "lives"
+      },
+      {
+        "error": "We help each other.",
+        "correction": "We help each other.",
+        "key": "Correct"
+      },
+      {
+        "error": "He invited me for dinner.",
+        "correction": "He invited me to dinner.",
+        "key": "to dinner"
+      },
+      {
+        "error": "He is a good man.",
+        "correction": "He is a good man.",
+        "key": "Correct"
+      }
+    ],
+    "writing_task": "Do you know your neighbors well? (Write 50 words)",
+    "answer_key": "Key: 1. Nosy-C, 2. Considerate-D, 3. Neighborly-E, 4. Helpful-A, 5. Generous-B | 1. Correct 2. lives... 3. Correct 4. to dinner... 5. Correct"
+  },
+  {
+    "week": 38,
+    "vocab_review": [
+      {
+        "word": "Refreshing",
+        "synonym": "Revitalizing",
+        "option": "D"
+      },
+      {
+        "word": "Polluted",
+        "synonym": "Dirty",
+        "option": "E"
+      },
+      {
+        "word": "Coastal",
+        "synonym": "Seaside",
+        "option": "A"
+      },
+      {
+        "word": "Serene",
+        "synonym": "Calm",
+        "option": "B"
+      },
+      {
+        "word": "Breathtaking",
+        "synonym": "Amazing",
+        "option": "C"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I like go to the beach.",
+        "correction": "I like going to the beach.",
+        "key": "going to"
+      },
+      {
+        "error": "The water is very clean.",
+        "correction": "The water is very clean.",
+        "key": "Correct"
+      },
+      {
+        "error": "We swam in the sea.",
+        "correction": "We swam in the sea.",
+        "key": "Correct"
+      },
+      {
+        "error": "It was a sunny day.",
+        "correction": "It was a sunny day.",
+        "key": "Correct"
+      },
+      {
+        "error": "I took many photos.",
+        "correction": "I took many photos.",
+        "key": "Correct"
+      }
+    ],
+    "writing_task": "Describe a place near water. (Write 50 words)",
+    "answer_key": "Key: 1. Refreshing-D, 2. Polluted-E, 3. Coastal-A, 4. Serene-B, 5. Breathtaking-C | 1. going to... 2. Correct 3. Correct 4. Correct 5. Correct"
+  },
+  {
+    "week": 39,
+    "vocab_review": [
+      {
+        "word": "Comfortable",
+        "synonym": "Relaxing",
+        "option": "E"
+      },
+      {
+        "word": "Outdated",
+        "synonym": "Old-fashioned",
+        "option": "A"
+      },
+      {
+        "word": "Elegant",
+        "synonym": "Graceful",
+        "option": "B"
+      },
+      {
+        "word": "Formal",
+        "synonym": "Official",
+        "option": "C"
+      },
+      {
+        "word": "Stylish",
+        "synonym": "Fashionable",
+        "option": "D"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "I wear uniform at school.",
+        "correction": "I wear a uniform at school.",
+        "key": "a uniform"
+      },
+      {
+        "error": "It is uncomfortable.",
+        "correction": "It is uncomfortable.",
+        "key": "Correct"
+      },
+      {
+        "error": "I like wear jeans.",
+        "correction": "I like wearing jeans.",
+        "key": "wearing"
+      },
+      {
+        "error": "Fashion is important.",
+        "correction": "Fashion is important.",
+        "key": "Correct"
+      },
+      {
+        "error": "I bought a new shirt.",
+        "correction": "I bought a new shirt.",
+        "key": "Correct"
+      }
+    ],
+    "writing_task": "What clothes do you like to wear? (Write 50 words)",
+    "answer_key": "Key: 1. Comfortable-E, 2. Outdated-A, 3. Elegant-B, 4. Formal-C, 5. Stylish-D | 1. a uniform... 2. Correct 3. wearing... 4. Correct 5. Correct"
+  },
+  {
+    "week": 40,
+    "vocab_review": [
+      {
+        "word": "Meaningful",
+        "synonym": "Significant",
+        "option": "B"
+      },
+      {
+        "word": "Ceremonial",
+        "synonym": "Formal",
+        "option": "C"
+      },
+      {
+        "word": "Vibrant",
+        "synonym": "Colorful",
+        "option": "D"
+      },
+      {
+        "word": "Traditional",
+        "synonym": "Customary",
+        "option": "E"
+      },
+      {
+        "word": "Festive",
+        "synonym": "Celebratory",
+        "option": "A"
+      }
+    ],
+    "grammar_clinic": [
+      {
+        "error": "Spring Festival is important.",
+        "correction": "Spring Festival is important.",
+        "key": "Correct"
+      },
+      {
+        "error": "We eat dumplings together.",
+        "correction": "We eat dumplings together.",
+        "key": "Correct"
+      },
+      {
+        "error": "I got money from parents.",
+        "correction": "I got money from my parents.",
+        "key": "my parents"
+      },
+      {
+        "error": "It is a happy time.",
+        "correction": "It is a happy time.",
+        "key": "Correct"
+      },
+      {
+        "error": "I like visit relatives.",
+        "correction": "I like visiting relatives.",
+        "key": "visiting"
+      }
+    ],
+    "writing_task": "Describe a festival in your country. (Write 50 words)",
+    "answer_key": "Key: 1. Meaningful-B, 2. Ceremonial-C, 3. Vibrant-D, 4. Traditional-E, 5. Festive-A | 1. Correct 2. Correct 3. my parents... 4. Correct 5. visiting..."
+  }
+]
