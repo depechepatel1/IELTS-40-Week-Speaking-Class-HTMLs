@@ -118,7 +118,7 @@ def process_cover_page(soup, week_number, week_data):
         gap: 0px; /* Compact lines */
     }
     .cover-title-large {
-        font-size: 8em;
+        font-size: 6em;
         font-weight: 900;
         line-height: 0.9;
         color: black;
