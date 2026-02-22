@@ -625,12 +625,46 @@ def process_student_l1(soup, week_data):
 
 def extract_keyword(text):
     """Extracts a central keyword from the question text."""
-    match = re.search(r'Describe (?:a|an) ([A-Za-z\s]+)(?:who|that|which|where|\.)', text, re.IGNORECASE)
-    if match:
-        words = match.group(1).split()
-        # Clean up
-        clean_words = [w for w in words if w.lower() not in ['who', 'that', 'which', 'where']]
-        return "<br>".join(clean_words[:2]).upper()
+    # Clean up text first
+    text = BeautifulSoup(text, 'html.parser').get_text().strip()
+    # Remove "You should say..." and everything after
+    if "You should say" in text:
+        text = text.split("You should say")[0]
+    elif "." in text:
+        text = text.split(".")[0]
+    text = text.strip()
+
+    stopwords = ['a', 'an', 'the', 'to', 'of', 'in', 'on', 'at', 'for', 'with', 'by',
+                 'you', 'your', 'my', 'his', 'her', 'their', 'our', 'it', 'its',
+                 'who', 'that', 'which', 'where', 'when',
+                 'time', 'occasion', 'situation', 'describe', 'had']
+
+    # Pattern 1: Time/Event
+    # e.g. "Describe a time when you gave advice" -> "GAVE ADVICE"
+    # Matches "Describe a time you..." as well (optional when/where)
+    match_time = re.search(r'Describe (?:a|an) (?:time|occasion|situation)(?:\s+(?:when|where|that))?(?:\s+(?:you|it|he|she))?\s+([A-Za-z\s]+)', text, re.IGNORECASE)
+    if match_time:
+        phrase = match_time.group(1).strip()
+        words = [w for w in phrase.split() if w.lower() not in stopwords]
+        if words:
+            return "<br>".join(words[:2]).upper()
+
+    # Pattern 2: Standard Noun "Describe a/an [Noun]..."
+    match_noun = re.search(r'Describe (?:a|an|the) ([A-Za-z\s]+?)(?:\s+(?:who|that|which|where|whose)[\s\.]|$)', text, re.IGNORECASE)
+    if match_noun:
+        phrase = match_noun.group(1).strip()
+        words = [w for w in phrase.split() if w.lower() not in stopwords]
+        if words:
+            return "<br>".join(words[:2]).upper()
+
+    # Fallback
+    match_simple = re.search(r'Describe ([A-Za-z\s]+)', text, re.IGNORECASE)
+    if match_simple:
+        phrase = match_simple.group(1).strip()
+        words = [w for w in phrase.split() if w.lower() not in stopwords]
+        if words:
+            return "<br>".join(words[:2]).upper()
+
     return "TOPIC"
 
 def format_mind_maps(soup, week_data, ai_content):
