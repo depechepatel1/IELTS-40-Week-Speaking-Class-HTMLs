@@ -299,8 +299,6 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
 
             # Smart Sentence Starter Logic
             starter = b5_data.get('starter', '')
-            # If the starter is generic "I like..." or "I want..." or incorrectly uses "This person" for businesses (Week 22),
-            # replace it with the corrected grammatical phrase.
             if starter.lower().startswith("i like") or starter.lower().startswith("i want") or week_number == 22:
                 starter = f"I like {target_phrase} because..."
 
@@ -314,7 +312,8 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
             band6_div = diff_card.find('div', style=lambda x: x and 'background:#fef9e7' in x)
             if band6_div:
                 band6_div.clear()
-                band6_div.append(BeautifulSoup(f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: {b6_data.get('transitions', '')}<br>• Peer Check: {b6_data.get('peer_check', '')}", 'html.parser'))
+                # UPDATED: Use target_phrase for Peer Check template
+                band6_div.append(BeautifulSoup(f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: {b6_data.get('transitions', '')}<br>• Peer Check: Ask specific questions about {target_phrase}.", 'html.parser'))
 
         # Lead-in (Table)
         l1_table = l1_page.find('table', class_='lp-table')
@@ -327,19 +326,13 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
 
                     if "Lead-in" in cell_text:
                         lead_in_info = l1_data.get('lead_in', {})
-                        new_html = f"<strong>Lead-in:</strong> Click Bilibili icon on Student Handout (Banner) to show 5-min warmup video (Search: {lead_in_info.get('search_term')}). Ask: '{lead_in_info.get('question')}'"
+                        # UPDATED: Use plural-safe phrasing "What are your thoughts on..."
+                        new_html = f"<strong>Lead-in:</strong> Click Bilibili icon on Student Handout (Banner) to show 5-min warmup video (Search: {lead_in_info.get('search_term')}). Ask: 'What are your thoughts on {target_phrase}?'"
                         cells[1].clear()
                         cells[1].append(BeautifulSoup(new_html, 'html.parser'))
 
                     elif "Input" in cell_text:
-                        # Extract first vocab word from learning objectives or data
-                        # We used a sample word in LOs, let's grab it again or use a placeholder
                         target_word = "Target Word"
-                        # Parse from existing LOs if available, or just rely on vocab injection logic?
-                        # Better: access the raw vocab data passed to this function?
-                        # Wait, process_teacher_plan doesn't receive vocab_data directly, only week_teacher_content.
-                        # But week_teacher_content["lesson_1"]["learning_objectives"][1] has the word: "Use 7 target words (e.g., <em>Diligent</em>)..."
-
                         try:
                             lo_html = l1_data.get('learning_objectives', [])[1]
                             match = re.search(r'<em>(.*?)</em>', lo_html)
@@ -349,12 +342,10 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
                             pass
 
                         content = cells[1].decode_contents()
-                        # Replace 'Highlight "Reliable"'
                         new_content = re.sub(r'Highlight "(.*?)"', f'Highlight "{target_word}"', content)
                         cells[1].clear()
                         cells[1].append(BeautifulSoup(new_content, 'html.parser'))
 
-                    # Vocab Drill Update (Static fix)
                     elif "Vocab Drill" in cell_text:
                         content = cells[1].decode_contents()
                         if '"Thick and thin"' in content:
@@ -374,7 +365,6 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
             ul = lo_card.find('ul')
             if ul:
                 ul.clear()
-                # Update Speaking Objective dynamically
                 objs = l2_data.get('learning_objectives', [])
                 new_objs = []
                 for obj in objs:
@@ -410,7 +400,43 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
             band6_div = diff_card.find('div', style=lambda x: x and 'background:#fef9e7' in x)
             if band6_div:
                 band6_div.clear()
-                band6_div.append(BeautifulSoup(f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: {b6_data.get('transitions', '')}<br>• Peer Check: {b6_data.get('peer_check', '')}", 'html.parser'))
+                # UPDATED: Use target_phrase for Peer Check template
+                band6_div.append(BeautifulSoup(f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: {b6_data.get('transitions', '')}<br>• Peer Check: Challenge questions about {target_phrase} (e.g., 'Is this always true?').", 'html.parser'))
+
+        # UPDATED: L2 Lead-in
+        # Find L2 Lead-in table row (usually in a similar table structure)
+        l2_table = l2_teacher_page.find('table', class_='lp-table')
+        if l2_table:
+            rows = l2_table.find_all('tr')
+            for row in rows:
+                cells = row.find_all('td')
+                if len(cells) > 1:
+                    cell_text = cells[1].get_text()
+                    if "Intro:" in cell_text or "intro" in cell_text.lower():
+                        # We reconstruct the intro cell content to include the new question
+                        # "Click Bilibili icon... Explain that Part 3 is about 'World' not 'Self'."
+                        # But wait, the original template had "Ask: ..." sometimes?
+                        # The user requested fixing L2 Lead-in if grammar is bad.
+                        # The template in `teacher_dynamic_content` has "lead_in" data for Lesson 2.
+                        # However, the static template in `Week_1_Lesson_Plan.html` (which is loaded as template)
+                        # says: "Intro: Click Bilibili icon... Explain that Part 3 is about 'World' not 'Self'."
+                        # It DOES NOT usually have a specific topic question in the HTML template.
+                        # BUT, `process_teacher_plan` was previously *not* updating L2 Lead-in.
+                        # If I want to inject a question, I should append it.
+
+                        # Let's check `l2_data` (lesson_2 in json). It has a `lead_in` field.
+                        # "question": "How does family member you are proud of impact society?"
+
+                        # So I should update this cell to include that question, fixed.
+                        l2_lead_in_q = f"Ask: 'What is the impact of {target_phrase} on society?'"
+
+                        # Preserve existing text "Intro: Click Bilibili..."
+                        # But simpler: Just rewrite the cell with standard text + new question.
+
+                        new_html = f"<strong>Intro:</strong> Click Bilibili icon on Student Handout (Banner) to show 5-min warmup video. Explain that Part 3 is about 'World' not 'Self'. {l2_lead_in_q}"
+                        cells[1].clear()
+                        cells[1].append(BeautifulSoup(new_html, 'html.parser'))
+
 
     # Bilibili Link (Student Handouts)
     l1_link = l1_data.get('lead_in', {}).get('search_term', 'IELTS Speaking')
