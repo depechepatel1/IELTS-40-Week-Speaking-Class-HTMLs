@@ -71,6 +71,14 @@ def load_all_data():
         print("Warning: peer_check_questions.json not found.")
         peer_data = []
 
+    # Load Phrase Data
+    try:
+        with open('noun_or_verb_phrases_for_weekly_topics.json', 'r', encoding='utf-8') as f:
+            phrase_data = json.load(f)
+    except FileNotFoundError:
+        print("Warning: noun_or_verb_phrases_for_weekly_topics.json not found.")
+        phrase_data = []
+
     # Load Teacher Dynamic Content
     try:
         with open('teacher_dynamic_content.json', 'r', encoding='utf-8') as f:
@@ -79,7 +87,7 @@ def load_all_data():
         print("Warning: teacher_dynamic_content.json not found.")
         teacher_data = {}
         
-    return curriculum_data, vocab_data, homework_data, ai_data, teacher_data, peer_data
+    return curriculum_data, vocab_data, homework_data, ai_data, teacher_data, peer_data, phrase_data
 
 def get_week_data(week_number, curriculum_data, vocab_data, homework_data):
     """Extracts data for the specific week."""
@@ -232,10 +240,16 @@ def process_cover_page(soup, week_number, week_data):
         footer_div.string = "© Jinhua New Oriental Academy English Department Curriculum"
         cover_div.append(footer_div)
 
-def process_teacher_plan(soup, week_number, week_data, teacher_content):
+def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_data):
     """Updates Teacher Lesson Plan pages using pre-generated dynamic content."""
     topic = week_data.get('topic', '')
     
+    # Get grammar phrase for this week
+    target_phrase = topic  # Default fallback
+    week_phrase_data = next((item for item in phrase_data if item.get("week") == week_number), None)
+    if week_phrase_data:
+        target_phrase = week_phrase_data.get('grammar_target_phrase', topic)
+
     # Update Header Bars (Teacher L1, Student L1, Student Practice, Teacher L2, Student L2, Deep Dive, Rapid Fire)
     headers = soup.find_all('span', class_='week-tag')
     for header in headers:
@@ -256,7 +270,16 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content):
             ul = lo_card.find('ul')
             if ul:
                 ul.clear()
-                for obj_html in l1_data.get('learning_objectives', []):
+                # Update Grammar Objective dynamically
+                objs = l1_data.get('learning_objectives', [])
+                new_objs = []
+                for obj in objs:
+                    if "Grammar:" in obj:
+                        new_objs.append(f"<strong>Grammar:</strong> Use narrative tenses or relevant grammar for {target_phrase}.")
+                    else:
+                        new_objs.append(obj)
+
+                for obj_html in new_objs:
                     ul.append(BeautifulSoup(f"<li>{obj_html}</li>", 'html.parser'))
         
         # Criteria
@@ -343,7 +366,16 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content):
             ul = lo_card.find('ul')
             if ul:
                 ul.clear()
-                for obj_html in l2_data.get('learning_objectives', []):
+                # Update Speaking Objective dynamically
+                objs = l2_data.get('learning_objectives', [])
+                new_objs = []
+                for obj in objs:
+                    if "Speaking:" in obj:
+                        new_objs.append(f"<strong>Speaking:</strong> Discuss abstract ideas about {target_phrase}.")
+                    else:
+                        new_objs.append(obj)
+
+                for obj_html in new_objs:
                     ul.append(BeautifulSoup(f"<li>{obj_html}</li>", 'html.parser'))
 
         # Criteria
@@ -929,7 +961,7 @@ def main():
     os.makedirs('lessons', exist_ok=True)
     
     # Load all data
-    curriculum_data, vocab_data, homework_data, ai_data, teacher_data, peer_data = load_all_data()
+    curriculum_data, vocab_data, homework_data, ai_data, teacher_data, peer_data, phrase_data = load_all_data()
     
     if not curriculum_data:
         print("Failed to load curriculum data. Exiting.")
@@ -965,7 +997,7 @@ def main():
             ai_content = ai_data.get(str(week_number), {})
             
             process_cover_page(soup, week_number, week_curriculum)
-            process_teacher_plan(soup, week_number, week_curriculum, week_teacher_content)
+            process_teacher_plan(soup, week_number, week_curriculum, week_teacher_content, phrase_data)
             process_vocabulary(soup, week_number, week_vocab)
             process_student_l1(soup, week_curriculum)
             format_mind_maps(soup, week_curriculum, ai_content)
