@@ -2,6 +2,7 @@ import json
 import re
 import os
 import time
+import random
 from bs4 import BeautifulSoup
 
 def load_concatenated_json(filepath):
@@ -923,12 +924,36 @@ def process_homework(soup, week_number, homework_data):
         tbody = vocab_table.find('tbody')
         if tbody:
             tbody.clear()
-            for i, item in enumerate(vocab_review):
-                word = item.get('word', '')
-                option = item.get('option', '')
-                synonym = item.get('synonym', '')
+
+            # SHUFFLE LOGIC
+            # Separate Words from Synonyms
+            words_list = []
+            synonyms_list = []
+
+            for item in vocab_review:
+                words_list.append(item.get('word', ''))
+                synonyms_list.append({
+                    "option": item.get('option', ''),
+                    "synonym": item.get('synonym', '')
+                })
+
+            # Shuffle the Synonyms independently
+            random.shuffle(synonyms_list)
+
+            # Combine them back for display
+            for i in range(len(words_list)):
+                word = words_list[i]
+
+                # If we have fewer synonyms than words (shouldn't happen), handle gracefully
+                if i < len(synonyms_list):
+                    option = synonyms_list[i]['option']
+                    synonym = synonyms_list[i]['synonym']
+                else:
+                    option = "?"
+                    synonym = "?"
                 
-                row_html = f"<td>{i+1}. {word}</td><td style='border-bottom:1px solid #eee;'></td><td>( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) {option}. {synonym}</td>"
+                # Added padding style to TD for increased spacing
+                row_html = f"<td style='padding: 10px 5px;'>{i+1}. {word}</td><td style='border-bottom:1px solid #eee;'></td><td style='padding: 10px 5px;'>( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) {option}. {synonym}</td>"
                 tr = soup.new_tag('tr')
                 tr.append(BeautifulSoup(row_html, 'html.parser'))
                 tbody.append(tr)
