@@ -297,11 +297,18 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
             b5_data = l1_data.get('differentiation', {}).get('band_5', {})
             b6_data = l1_data.get('differentiation', {}).get('band_6', {})
 
+            # Smart Sentence Starter Logic
+            starter = b5_data.get('starter', '')
+            # If the starter is generic "I like..." or "I want..." or incorrectly uses "This person" for businesses (Week 22),
+            # replace it with the corrected grammatical phrase.
+            if starter.lower().startswith("i like") or starter.lower().startswith("i want") or week_number == 22:
+                starter = f"I like {target_phrase} because..."
+
             # Band 5 Box
             band5_div = diff_card.find('div', style=lambda x: x and 'background:#e8f8f5' in x)
             if band5_div:
                 band5_div.clear()
-                band5_div.append(BeautifulSoup(f"<strong>📉 Band 5.0 (Support)</strong><br>• Sentence Starter: '{b5_data.get('starter', '')}'<br>• Peer Check: Specific personal questions", 'html.parser'))
+                band5_div.append(BeautifulSoup(f"<strong>📉 Band 5.0 (Support)</strong><br>• Sentence Starter: '{starter}'<br>• Peer Check: Specific personal questions", 'html.parser'))
 
             # Band 6 Box
             band6_div = diff_card.find('div', style=lambda x: x and 'background:#fef9e7' in x)
