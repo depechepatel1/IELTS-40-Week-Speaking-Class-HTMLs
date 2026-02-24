@@ -984,7 +984,7 @@ def process_homework(soup, week_number, homework_data):
                 else:
                     option = "?"
                     synonym = "?"
-                
+
                 # Added padding style to TD for increased spacing
                 row_html = f"<td style='padding: 10px 5px;'>{i+1}. {word}</td><td style='border-bottom:1px solid #eee;'></td><td style='padding: 10px 5px;'>( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) {option}. {synonym}</td>"
                 tr = soup.new_tag('tr')
@@ -1007,6 +1007,45 @@ def process_homework(soup, week_number, homework_data):
     writing_card = hw_page.find('h3', string=re.compile(r'Writing Task'))
     if writing_card:
         writing_card.string = f"3. Writing Task: {writing_task} (10 minutes)"
+
+    # 4. Recording Challenge
+    # Find the recording challenge card by its background color and style
+    rec_card = hw_page.find('div', style=lambda x: x and 'background:#eafaf1' in x)
+    if rec_card:
+        # Determine next week logic
+        next_week_num = week_number + 1
+        if next_week_num > 40:
+            next_week_text = "Review Course Material"
+        else:
+            next_week_text = f"Week {next_week_num} Part 2"
+
+        # Construct new content
+        # Note: We use flexbox and separators to create the two-part layout
+        new_html = f"""
+        <h3 style="color:var(--hw-accent); margin:0; margin-bottom:10px;">🎙️ 4. Recording Challenge (&lt;28 Mins)</h3>
+
+        <!-- Part 1: Shadowing -->
+        <div style="text-align:left; border-bottom:1px dashed #ccc; padding-bottom:10px; margin-bottom:10px;">
+            <strong style="color:#2c3e50;">Part 1: Shadow Reading (10 mins)</strong>
+            <p style="margin:5px 0; font-size:0.85em; color:#555;">Use the AI Speaking Avatar to shadow read the model answers to familiarize yourself with vocabulary, pronunciation, and grammar.</p>
+            <ul style="margin:5px 0 5px 20px; padding:0; font-size:0.85em; text-align:left;">
+                <li><strong>After Lesson 1:</strong> Shadow read <strong>Lesson 2 Part 3</strong> Model Answers.</li>
+                <li><strong>After Lesson 2:</strong> Shadow read <strong>{next_week_text}</strong> Model Answers.</li>
+            </ul>
+        </div>
+
+        <!-- Part 2: Recording -->
+        <div style="text-align:left;">
+            <strong style="color:#2c3e50;">Part 2: Recording Task (18 mins)</strong>
+            <p style="margin:5px 0; font-size:0.9em;">Record on <strong>portable MP3 players</strong> (One continuous file). Submit to teacher.</p>
+            <div style="font-size:0.85em; font-weight:bold; margin-top:5px; color:#d35400;">
+                Record 3 x Part 2 (6 mins) and 6 x Part 3 Questions (12 mins).
+            </div>
+        </div>
+        """
+
+        rec_card.clear()
+        rec_card.append(BeautifulSoup(new_html, 'html.parser'))
 
     # 5. Answer Key
     answer_key = homework_data.get('answer_key', '')
