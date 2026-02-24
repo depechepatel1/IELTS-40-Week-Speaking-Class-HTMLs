@@ -985,6 +985,33 @@ def process_student_l2(soup, week_data, ai_content, week_peer_data):
     update_q(2, 'q2', container_id='p6-q2')
     # Q3 (Page 6)
     update_q(3, 'q3', container_id='p6-q3')
+
+    # Task 1: Equal Height for Q2 and Q3
+    # We need to find Page 6 (which contains Q2 and Q3) and set flex: 1 for both cards
+    # Page 6 is identified by id="page6" in the template
+    page6_div = soup.find('div', id='page6')
+    if page6_div:
+        # Find Q2 and Q3 cards by ID
+        card_q2 = page6_div.find('div', id='p6-q2')
+        card_q3 = page6_div.find('div', id='p6-q3')
+
+        if card_q2 and card_q3:
+            # Enforce flex: 1 to make them grow equally in the column flex container
+            # Update style attribute for Q2
+            q2_style = card_q2.get('style', '')
+            if "flex:2" in q2_style: # Remove old flex:2 if present
+                 q2_style = q2_style.replace("flex:2", "flex:1")
+            elif "flex:1" not in q2_style:
+                 q2_style += "; flex: 1;"
+            card_q2['style'] = q2_style
+
+            # Update style attribute for Q3
+            q3_style = card_q3.get('style', '')
+            if "display:flex" in q3_style:
+                 q3_style += "; flex: 1;"
+            else:
+                 q3_style += "; display:flex; flex-direction:column; flex: 1;"
+            card_q3['style'] = q3_style
     
     # Q4, Q5, Q6 (Page 7)
     l2_pages = soup.find_all('div', class_='l2')
@@ -1102,21 +1129,29 @@ def process_homework(soup, week_number, homework_data):
         # Get the container card (parent)
         writing_card = writing_h3.parent
 
+        # Task 4 & 6: Style Section 3
+        # Remove old border-left and apply new styling
+        # Border: Teal (#17a2b8), BG: Light Teal (#e0f7fa)
+        existing_style = writing_card.get('style', '')
+        # Remove conflicting border/flex props to reset
+        style_parts = [s.strip() for s in existing_style.split(';') if s.strip()]
+        new_parts = [s for s in style_parts if 'border' not in s and 'background' not in s]
+        new_style = '; '.join(new_parts)
+
+        writing_card['style'] = new_style + "; border: 2px solid #17a2b8; background: #e0f7fa; border-radius: 8px; padding: 15px; display: flex; flex-direction: column; flex-grow: 1; margin-bottom: 15px;"
+
         # Clear existing writing lines and draft boxes
         # We keep the title and adding the instruction
         # Remove siblings after h3
         for sibling in writing_h3.find_next_siblings():
             sibling.decompose()
 
-        # Task 6: Flex grow for Section 3
-        writing_card['style'] = writing_card.get('style', '') + " flex-grow: 1;"
-
-        # Add new Instruction (Task 4)
-        instruction_div = soup.new_tag('div', style="margin-top:15px; font-size:1em; font-weight:bold; color:#2c3e50; text-align:left; padding:15px; border:2px dashed #bdc3c7; border-radius:10px; background:#f9f9f9; display:flex; flex-direction:column; justify-content:center; flex-grow:1;")
+        # Add new Instruction (Task 4 - Updated Text)
+        instruction_div = soup.new_tag('div', style="margin-top:10px; font-size:0.95em; color:#2c3e50; text-align:left; flex-grow:1; display:flex; flex-direction:column; justify-content:center;")
 
         instr_html = """
-        <div style="margin-bottom:5px;">👉 <strong>Go to Page 2:</strong></div>
-        <ol style="margin:0 0 0 20px; padding:0; font-size:0.9em; font-weight:normal; color:#444;">
+        <div style="margin-bottom:8px; font-weight:bold; font-size:1.1em;">👉 Go to Page 2:</div>
+        <ol style="margin:0 0 0 25px; padding:0; line-height:1.6;">
             <li>Write a first draft answer for the question above.</li>
             <li>Scan your written answer into your AI and ask it to "Minimally correct the grammar and vocabulary in this answer".</li>
             <li>Write the corrected answer your AI gave to you in the 'Polished Rewrite' box.</li>
@@ -1129,41 +1164,52 @@ def process_homework(soup, week_number, homework_data):
     # Find the recording challenge card by its background color and style
     rec_card = hw_page.find('div', style=lambda x: x and 'background:#eafaf1' in x)
     if rec_card:
-        # Task 6: Flex grow for Section 4
-        rec_card['style'] = rec_card.get('style', '') + " flex-grow: 1; display:flex; flex-direction:column;"
+        # Task 4 & 6: Style Section 4
+        # Border: Orange/Red (#e67e22), BG: Light Orange (#fdf2e9)
+        # We replace the old green background style
+        rec_card['style'] = "border: 2px solid #e67e22; background: #fdf2e9; border-radius: 8px; padding: 15px; display: flex; flex-direction: column; flex-grow: 1;"
 
         # Determine next week logic
         next_week_num = week_number + 1
         if next_week_num > 40:
             next_week_text = "Review Course Material"
         else:
-            next_week_text = f"Week {next_week_num} Part 2"
+            next_week_text = f"Week {next_week_num}"
 
-        # Construct new content (Task 5)
+        # Construct new content (Task 2 & 5 - Exact Text)
         new_html = f"""
-        <h3 style="color:var(--hw-accent); margin:0; margin-bottom:10px;">🎙️ 4. Recording Challenge (Total Weekly Homework: 50 Minutes)</h3>
+        <h3 style="color:#d35400; margin:0; margin-bottom:15px; border-bottom: 1px solid #edbb99; padding-bottom: 5px;">🎙️ 4. Recording Challenge (Total Weekly Homework: 50 Minutes)</h3>
 
-        <!-- Part 1: Shadowing -->
-        <div style="text-align:left; border-bottom:1px dashed #ccc; padding-bottom:10px; margin-bottom:10px; flex-grow:1;">
-            <strong style="color:#2c3e50;">Part 1: AI Shadow Reading (19 mins)</strong>
-            <p style="margin:5px 0; font-size:0.85em; color:#555;">Use the AI Speaking Avatar. <strong>Choose British or American accent.</strong></p>
+        <div style="flex-grow:1; display:flex; flex-direction:column; gap:10px;">
+            <!-- Part 1 -->
+            <div>
+                <strong style="color:#c0392b; font-size:1em;">Part 1: AI Shadow Reading (19 mins)</strong>
+                <p style="margin:5px 0; font-size:0.9em;">Use the AI Speaking Avatar. Choose British or American accent.</p>
 
-            <div style="margin-top:5px; font-size:0.85em;">
-                <div><strong>Task A (10 mins):</strong> Shadow read model answers.</div>
-                <div style="padding-left:10px; color:#555;">After L1: <strong>Lesson 2 Part 3</strong>. After L2: <strong>{next_week_text}</strong>.</div>
+                <div style="margin-top:8px; padding-left:10px;">
+                    <div style="margin-bottom:5px;"><strong>Task A (10 mins):</strong> Shadow read model answers:</div>
+                    <ul style="margin:0 0 0 20px; padding:0; font-size:0.9em; line-height:1.4;">
+                        <li>After Lesson 1: Use the AI APP to shadow read this week's <strong>Lesson 2 Part 3</strong> model answers.</li>
+                        <li>After Lesson 2: Use the AI app to shadow read <strong>next weeks lesson 1 part 2</strong> model answers.</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top:8px; padding-left:10px;">
+                    <strong>Task B (9 mins):</strong>
+                    <div style="margin-left:20px; font-size:0.9em;">Part 1: Use the AI app for Pronunciation Practice by reading the Tongue Twisters.</div>
+                </div>
             </div>
 
-            <div style="margin-top:5px; font-size:0.85em;">
-                <strong>Task B (9 mins):</strong> AI Pronunciation Practice (Tongue Twisters).
-            </div>
-        </div>
-
-        <!-- Part 2: Recording -->
-        <div style="text-align:left; flex-grow:1;">
-            <strong style="color:#2c3e50;">Part 2: Recording Task (18 mins)</strong>
-            <p style="margin:5px 0; font-size:0.9em;">Record on <strong>portable MP3 players</strong> (One continuous file). Submit to teacher.</p>
-            <div style="font-size:0.85em; font-weight:bold; margin-top:5px; color:#d35400;">
-                Record 3 x Part 2 (6 mins) and 6 x Part 3 Questions (12 mins).
+            <!-- Part 2 -->
+            <div style="border-top:1px dashed #edbb99; padding-top:10px;">
+                <strong style="color:#c0392b; font-size:1em;">Part 2: Recording Task (18 mins)</strong>
+                <div style="margin-top:5px; font-size:0.9em;">
+                    Record on portable MP3 players (One continuous file). Submit to teacher.
+                </div>
+                <div style="margin-top:8px; font-weight:bold; color:#d35400; font-size:0.9em; text-align:center; background:rgba(255,255,255,0.5); padding:5px; border-radius:5px;">
+                    Record 3 x Part 2 answers from this weeks lessons (6 mins)<br>
+                    6 x Part 3 answers from this weeks lessons (12 mins).
+                </div>
             </div>
         </div>
         """
