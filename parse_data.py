@@ -241,6 +241,56 @@ def process_cover_page(soup, week_number, week_data):
         footer_div.string = "© Jinhua New Oriental Academy English Department Curriculum"
         cover_div.append(footer_div)
 
+def create_writing_homework_page(soup):
+    """Replaces the existing Page 2 placeholder with the new Writing Homework page."""
+    # Find the generic notes page (Page 2)
+    # It usually follows the cover page and has a class "card" with pastel yellow background
+    # We identify it by looking for the second "page" div
+    pages = soup.find_all('div', class_='page')
+    if len(pages) > 1:
+        notes_page = pages[1]
+        notes_page.clear()
+
+        # Build new content
+        header_bar = soup.new_tag('div', attrs={'class': 'header-bar'})
+
+        title_span = soup.new_tag('span', attrs={'class': 'header-title'})
+        title_span.string = "📝 Writing Homework"
+        header_bar.append(title_span)
+
+        tag_span = soup.new_tag('span', attrs={'class': 'week-tag'})
+        tag_span.string = "Draft & Polished Rewrite"
+        header_bar.append(tag_span)
+
+        notes_page.append(header_bar)
+
+        # Main Flex Container
+        main_container = soup.new_tag('div', style="display:flex; gap:20px; flex-grow:1; height:100%; padding-bottom:20px;")
+
+        # Draft Box
+        draft_box = soup.new_tag('div', style="flex:1; display:flex; flex-direction:column; border:2px dashed #bdc3c7; border-radius:10px; padding:15px; background:#fff;")
+        draft_header = soup.new_tag('h3', style="margin-top:0; color:#7f8c8d; border-bottom:1px solid #eee; padding-bottom:10px;")
+        draft_header.string = "1. Draft Written Homework"
+        draft_box.append(draft_header)
+
+        draft_lines = soup.new_tag('div', attrs={'class': 'lines'}, style="flex-grow:1; width:100%;")
+        draft_box.append(draft_lines)
+
+        main_container.append(draft_box)
+
+        # Polished Box
+        polished_box = soup.new_tag('div', style="flex:1; display:flex; flex-direction:column; border:2px solid #2ecc71; border-radius:10px; padding:15px; background:#f9fff9;")
+        polished_header = soup.new_tag('h3', style="margin-top:0; color:#27ae60; border-bottom:1px solid #eee; padding-bottom:10px;")
+        polished_header.string = "2. Polished Rewrite (After AI Correction)"
+        polished_box.append(polished_header)
+
+        polished_lines = soup.new_tag('div', attrs={'class': 'lines'}, style="flex-grow:1; width:100%;")
+        polished_box.append(polished_lines)
+
+        main_container.append(polished_box)
+
+        notes_page.append(main_container)
+
 def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_data):
     """Updates Teacher Lesson Plan pages using pre-generated dynamic content."""
     topic = week_data.get('topic', '')
@@ -1002,13 +1052,30 @@ def process_homework(soup, week_number, homework_data):
             div.string = f"{i+1}. {error}"
             grammar_box.append(div)
 
-    # 3. Writing Task
+    # 3. Writing Task (Updated for Page 2 Reference)
     writing_task = homework_data.get('writing_task', '')
-    writing_card = hw_page.find('h3', string=re.compile(r'Writing Task'))
-    if writing_card:
-        writing_card.string = f"3. Writing Task: {writing_task} (10 minutes)"
 
-    # 4. Recording Challenge
+    # Locate the Writing Task Card (usually identifiable by H3)
+    writing_h3 = hw_page.find('h3', string=re.compile(r'Writing Task'))
+    if writing_h3:
+        # Update Title
+        writing_h3.string = f"3. Writing Task: {writing_task} (10 minutes)"
+
+        # Get the container card (parent)
+        writing_card = writing_h3.parent
+
+        # Clear existing writing lines and draft boxes
+        # We keep the title and adding the instruction
+        # Remove siblings after h3
+        for sibling in writing_h3.find_next_siblings():
+            sibling.decompose()
+
+        # Add new Instruction
+        instruction_div = soup.new_tag('div', style="margin-top:15px; font-size:1.1em; font-weight:bold; color:#2c3e50; text-align:center; padding:20px; border:2px dashed #bdc3c7; border-radius:10px; background:#f9f9f9;")
+        instruction_div.string = "👉 Go to Page 2 to complete your Draft and Polished Rewrite."
+        writing_card.append(instruction_div)
+
+    # 4. Recording Challenge (Updated)
     # Find the recording challenge card by its background color and style
     rec_card = hw_page.find('div', style=lambda x: x and 'background:#eafaf1' in x)
     if rec_card:
@@ -1020,17 +1087,18 @@ def process_homework(soup, week_number, homework_data):
             next_week_text = f"Week {next_week_num} Part 2"
 
         # Construct new content
-        # Note: We use flexbox and separators to create the two-part layout
         new_html = f"""
-        <h3 style="color:var(--hw-accent); margin:0; margin-bottom:10px;">🎙️ 4. Recording Challenge (&lt;28 Mins)</h3>
+        <h3 style="color:var(--hw-accent); margin:0; margin-bottom:10px;">🎙️ 4. Recording Challenge (Total Weekly Homework: 50 Minutes)</h3>
 
         <!-- Part 1: Shadowing -->
         <div style="text-align:left; border-bottom:1px dashed #ccc; padding-bottom:10px; margin-bottom:10px;">
-            <strong style="color:#2c3e50;">Part 1: Shadow Reading (10 mins)</strong>
-            <p style="margin:5px 0; font-size:0.85em; color:#555;">Use the AI Speaking Avatar to shadow read the model answers to familiarize yourself with vocabulary, pronunciation, and grammar.</p>
+            <strong style="color:#2c3e50;">Part 1: AI Shadow Reading (19 mins)</strong>
+            <p style="margin:5px 0; font-size:0.85em; color:#555;">Use the AI Speaking Avatar. <strong>Choose British or American accent.</strong></p>
             <ul style="margin:5px 0 5px 20px; padding:0; font-size:0.85em; text-align:left;">
-                <li><strong>After Lesson 1:</strong> Shadow read <strong>Lesson 2 Part 3</strong> Model Answers.</li>
-                <li><strong>After Lesson 2:</strong> Shadow read <strong>{next_week_text}</strong> Model Answers.</li>
+                <li><strong>Task A (10 mins):</strong> Shadow read model answers.
+                    <br>After L1: <strong>Lesson 2 Part 3</strong>. After L2: <strong>{next_week_text}</strong>.
+                </li>
+                <li><strong>Task B (9 mins):</strong> AI Pronunciation Practice (Tongue Twisters).</li>
             </ul>
         </div>
 
@@ -1094,6 +1162,7 @@ def main():
             ai_content = ai_data.get(str(week_number), {})
             
             process_cover_page(soup, week_number, week_curriculum)
+            create_writing_homework_page(soup)
             process_teacher_plan(soup, week_number, week_curriculum, week_teacher_content, phrase_data)
             process_vocabulary(soup, week_number, week_vocab)
             process_student_l1(soup, week_curriculum)
