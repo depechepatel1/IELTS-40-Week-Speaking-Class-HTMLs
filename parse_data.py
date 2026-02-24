@@ -87,8 +87,19 @@ def load_all_data():
     except FileNotFoundError:
         print("Warning: teacher_dynamic_content.json not found.")
         teacher_data = {}
+
+    # Load Mindmap Labels
+    try:
+        with open('mindmap_labels.json', 'r', encoding='utf-8') as f:
+            # The file structure is { "mindmap_labels": { ... } }
+            # We want to return the inner dict
+            data = json.load(f)
+            mindmap_labels = data.get('mindmap_labels', {})
+    except FileNotFoundError:
+        print("Warning: mindmap_labels.json not found.")
+        mindmap_labels = {}
         
-    return curriculum_data, vocab_data, homework_data, ai_data, teacher_data, peer_data, phrase_data
+    return curriculum_data, vocab_data, homework_data, ai_data, teacher_data, peer_data, phrase_data, mindmap_labels
 
 def get_week_data(week_number, curriculum_data, vocab_data, homework_data):
     """Extracts data for the specific week."""
@@ -791,19 +802,26 @@ def extract_keyword(text):
 
     return "TOPIC"
 
-def format_mind_maps(soup, week_data, ai_content):
+def format_mind_maps(soup, week_data, ai_content, week_mindmap_labels):
     """Updates Mind Maps on Page 3."""
     l1_data = week_data.get('lesson_1_part_2', {})
     q1 = l1_data.get('q1', {})
     q2 = l1_data.get('q2', {})
     q3 = l1_data.get('q3', {})
     
-    # 1. Main Brainstorming Map
+    # Get custom labels for this week
+    labels = week_mindmap_labels.get('lesson_1', {}) if week_mindmap_labels else {}
+
+    # 1. Main Brainstorming Map (Q1)
     q1_html = q1.get('html', '')
     q1_soup = BeautifulSoup(q1_html, 'html.parser')
 
-    # Extract keyword from Q1 if possible, or use Topic
-    central_text = extract_keyword(q1_soup.get_text())
+    # Use custom label if available, else extraction
+    custom_label_q1 = labels.get('q1')
+    if custom_label_q1:
+        central_text = custom_label_q1.replace(" ", "<br>")
+    else:
+        central_text = extract_keyword(q1_soup.get_text())
     
     # Update Center
     spider_centers = soup.find_all('div', class_='spider-center')
@@ -831,9 +849,6 @@ def format_mind_maps(soup, week_data, ai_content):
         legs = spider_legs[0].find_all('div', class_='spider-leg')
         for i, leg in enumerate(legs):
             if i < len(hints):
-                # We need to preserve the bolding structure if possible, or just replace content
-                # Template: <strong>1. WHO:</strong><br/><span style="color:#777;">Older sister</span>
-                # We update the span.
                 span = leg.find('span')
                 if span:
                     span.string = hints[i]
@@ -857,14 +872,17 @@ def format_mind_maps(soup, week_data, ai_content):
         if spider_container:
             center = spider_container.find('div', class_='spider-center')
             if center:
-                center_text = extract_keyword(q2_text)
+                custom_label_q2 = labels.get('q2')
+                if custom_label_q2:
+                    center_text = custom_label_q2.replace(" ", "<br>")
+                else:
+                    center_text = extract_keyword(q2_text)
                 center.clear()
                 center.append(BeautifulSoup(center_text, 'html.parser'))
                 
             q2_hints = q2.get('spider_diagram_hints', [])
             legs = spider_container.find_all('div', class_='spider-leg')
             for i, leg in enumerate(legs):
-                # These legs are simpler: Text<div class="lines"></div>
                 if i < len(q2_hints):
                     leg.contents[0].replace_with(q2_hints[i])
 
@@ -887,7 +905,11 @@ def format_mind_maps(soup, week_data, ai_content):
         if spider_container:
             center = spider_container.find('div', class_='spider-center')
             if center:
-                center_text = extract_keyword(q3_text)
+                custom_label_q3 = labels.get('q3')
+                if custom_label_q3:
+                    center_text = custom_label_q3.replace(" ", "<br>")
+                else:
+                    center_text = extract_keyword(q3_text)
                 center.clear()
                 center.append(BeautifulSoup(center_text, 'html.parser'))
             
@@ -1228,7 +1250,7 @@ def main():
     os.makedirs('lessons', exist_ok=True)
     
     # Load all data
-    curriculum_data, vocab_data, homework_data, ai_data, teacher_data, peer_data, phrase_data = load_all_data()
+    curriculum_data, vocab_data, homework_data, ai_data, teacher_data, peer_data, phrase_data, mindmap_labels = load_all_data()
     
     if not curriculum_data:
         print("Failed to load curriculum data. Exiting.")
@@ -1263,12 +1285,16 @@ def main():
             # AI Content (Legacy/Fallback)
             ai_content = ai_data.get(str(week_number), {})
             
+            # Get Mindmap Labels for this week
+            week_key = f"week_{week_number}"
+            week_labels = mindmap_labels.get(week_key, {})
+
             process_cover_page(soup, week_number, week_curriculum)
             create_writing_homework_page(soup)
             process_teacher_plan(soup, week_number, week_curriculum, week_teacher_content, phrase_data)
             process_vocabulary(soup, week_number, week_vocab)
             process_student_l1(soup, week_curriculum)
-            format_mind_maps(soup, week_curriculum, ai_content)
+            format_mind_maps(soup, week_curriculum, ai_content, week_labels)
             process_student_l2(soup, week_curriculum, ai_content, week_peer_data)
             process_homework(soup, week_number, week_homework)
             
