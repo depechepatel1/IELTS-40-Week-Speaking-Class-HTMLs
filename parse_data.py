@@ -264,8 +264,8 @@ def create_writing_homework_page(soup):
 
         notes_page.append(header_bar)
 
-        # Main Flex Container
-        main_container = soup.new_tag('div', style="display:flex; gap:20px; flex-grow:1; height:100%; padding-bottom:20px;")
+        # Main Flex Container (Column Direction for stacking)
+        main_container = soup.new_tag('div', style="display:flex; flex-direction:column; gap:20px; flex-grow:1; height:100%; padding-bottom:20px;")
 
         # Draft Box
         draft_box = soup.new_tag('div', style="flex:1; display:flex; flex-direction:column; border:2px dashed #bdc3c7; border-radius:10px; padding:15px; background:#fff;")
@@ -990,6 +990,20 @@ def process_student_l2(soup, week_data, ai_content, week_peer_data):
     l2_pages = soup.find_all('div', class_='l2')
     if len(l2_pages) >= 4:
         page7 = l2_pages[3]
+
+        # Add padding-top to the main container to push it down from the header
+        # The header bar is at the top. The container is below it.
+        # We need to find the container div. It's usually the one after the header bar.
+        main_container = page7.find('div', style=lambda x: x and 'display:flex; flex-direction:column' in x)
+        if main_container:
+            # Add margin-top to push content down away from the header/page edge
+            # Also reduce gap to fit content better
+            current_style = main_container.get('style', '')
+            # Update padding and gap
+            # Increase top padding (was 0), reduce gap (was 15px)
+            new_style = current_style.replace('padding: 0', 'padding: 20px').replace('gap:15px', 'gap:10px')
+            main_container['style'] = new_style
+
         compact_cards = page7.find_all('div', class_='card compact')
         if len(compact_cards) >= 3:
             update_q(4, 'q4', container_elem=compact_cards[0])
