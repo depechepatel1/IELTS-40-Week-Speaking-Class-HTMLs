@@ -991,17 +991,41 @@ def process_student_l2(soup, week_data, ai_content, week_peer_data):
     if len(l2_pages) >= 4:
         page7 = l2_pages[3]
 
-        # Add padding-top to the main container to push it down from the header
-        # The header bar is at the top. The container is below it.
-        # We need to find the container div. It's usually the one after the header bar.
+        # Task 2: Move top banner down (within printable boundary 5mm)
+        # We add padding-top to the page container itself
+        existing_style = page7.get('style', '')
+        # Replace padding-top:0 !important with 5mm
+        if "padding-top:0" in existing_style:
+            new_page_style = existing_style.replace("padding-top:0 !important;", "padding-top:5mm !important;")
+            new_page_style = new_page_style.replace("padding-top:0 !important", "padding-top:5mm !important")
+        else:
+            new_page_style = existing_style + " padding-top:5mm !important;"
+        page7['style'] = new_page_style
+
+        # Task 3: 0px padding between banner and Q4
+        # The banner is the first child. The content container is the second.
+        # Ensure gap is 0 on the page flex container (already is style="gap:0 !important")
+
+        # Find the content container
         main_container = page7.find('div', style=lambda x: x and 'display:flex; flex-direction:column' in x)
         if main_container:
-            # Add margin-top to push content down away from the header/page edge
-            # Also reduce gap to fit content better
+            # We want to remove the top padding we added in the previous step (20px)
+            # because the page padding handles the printable area now.
+            # And user asked for 0px padding between banner and Q4.
             current_style = main_container.get('style', '')
-            # Update padding and gap
-            # Increase top padding (was 0), reduce gap (was 15px)
-            new_style = current_style.replace('padding: 0', 'padding: 20px').replace('gap:15px', 'gap:10px')
+            # Reset padding to what it was or ensure top is 0
+            # Previous replace was: replace('padding: 0', 'padding: 20px')
+            # Now we want padding-top: 0. But side/bottom padding might remain.
+            # Original was: padding: 0 15px 20px 15px;
+            # Let's enforce that.
+            if "padding: 20px" in current_style:
+                 new_style = current_style.replace("padding: 20px", "padding: 0 15px 20px 15px")
+            else:
+                 new_style = current_style
+
+            # Ensure gap is small (10px or 0px? User said "0px padding between banner and Q4".
+            # Gap on page is 0. Container top padding is 0. So distance is 0.)
+            # But the cards inside might need gap. 'gap:10px' on container is between cards. That's fine.
             main_container['style'] = new_style
 
         compact_cards = page7.find_all('div', class_='card compact')
@@ -1084,15 +1108,30 @@ def process_homework(soup, week_number, homework_data):
         for sibling in writing_h3.find_next_siblings():
             sibling.decompose()
 
-        # Add new Instruction
-        instruction_div = soup.new_tag('div', style="margin-top:15px; font-size:1.1em; font-weight:bold; color:#2c3e50; text-align:center; padding:20px; border:2px dashed #bdc3c7; border-radius:10px; background:#f9f9f9;")
-        instruction_div.string = "👉 Go to Page 2 to complete your Draft and Polished Rewrite."
+        # Task 6: Flex grow for Section 3
+        writing_card['style'] = writing_card.get('style', '') + " flex-grow: 1;"
+
+        # Add new Instruction (Task 4)
+        instruction_div = soup.new_tag('div', style="margin-top:15px; font-size:1em; font-weight:bold; color:#2c3e50; text-align:left; padding:15px; border:2px dashed #bdc3c7; border-radius:10px; background:#f9f9f9; display:flex; flex-direction:column; justify-content:center; flex-grow:1;")
+
+        instr_html = """
+        <div style="margin-bottom:5px;">👉 <strong>Go to Page 2:</strong></div>
+        <ol style="margin:0 0 0 20px; padding:0; font-size:0.9em; font-weight:normal; color:#444;">
+            <li>Write a first draft answer for the question above.</li>
+            <li>Scan your written answer into your AI and ask it to "Minimally correct the grammar and vocabulary in this answer".</li>
+            <li>Write the corrected answer your AI gave to you in the 'Polished Rewrite' box.</li>
+        </ol>
+        """
+        instruction_div.append(BeautifulSoup(instr_html, 'html.parser'))
         writing_card.append(instruction_div)
 
     # 4. Recording Challenge (Updated)
     # Find the recording challenge card by its background color and style
     rec_card = hw_page.find('div', style=lambda x: x and 'background:#eafaf1' in x)
     if rec_card:
+        # Task 6: Flex grow for Section 4
+        rec_card['style'] = rec_card.get('style', '') + " flex-grow: 1; display:flex; flex-direction:column;"
+
         # Determine next week logic
         next_week_num = week_number + 1
         if next_week_num > 40:
@@ -1100,24 +1139,27 @@ def process_homework(soup, week_number, homework_data):
         else:
             next_week_text = f"Week {next_week_num} Part 2"
 
-        # Construct new content
+        # Construct new content (Task 5)
         new_html = f"""
         <h3 style="color:var(--hw-accent); margin:0; margin-bottom:10px;">🎙️ 4. Recording Challenge (Total Weekly Homework: 50 Minutes)</h3>
 
         <!-- Part 1: Shadowing -->
-        <div style="text-align:left; border-bottom:1px dashed #ccc; padding-bottom:10px; margin-bottom:10px;">
+        <div style="text-align:left; border-bottom:1px dashed #ccc; padding-bottom:10px; margin-bottom:10px; flex-grow:1;">
             <strong style="color:#2c3e50;">Part 1: AI Shadow Reading (19 mins)</strong>
             <p style="margin:5px 0; font-size:0.85em; color:#555;">Use the AI Speaking Avatar. <strong>Choose British or American accent.</strong></p>
-            <ul style="margin:5px 0 5px 20px; padding:0; font-size:0.85em; text-align:left;">
-                <li><strong>Task A (10 mins):</strong> Shadow read model answers.
-                    <br>After L1: <strong>Lesson 2 Part 3</strong>. After L2: <strong>{next_week_text}</strong>.
-                </li>
-                <li><strong>Task B (9 mins):</strong> AI Pronunciation Practice (Tongue Twisters).</li>
-            </ul>
+
+            <div style="margin-top:5px; font-size:0.85em;">
+                <div><strong>Task A (10 mins):</strong> Shadow read model answers.</div>
+                <div style="padding-left:10px; color:#555;">After L1: <strong>Lesson 2 Part 3</strong>. After L2: <strong>{next_week_text}</strong>.</div>
+            </div>
+
+            <div style="margin-top:5px; font-size:0.85em;">
+                <strong>Task B (9 mins):</strong> AI Pronunciation Practice (Tongue Twisters).
+            </div>
         </div>
 
         <!-- Part 2: Recording -->
-        <div style="text-align:left;">
+        <div style="text-align:left; flex-grow:1;">
             <strong style="color:#2c3e50;">Part 2: Recording Task (18 mins)</strong>
             <p style="margin:5px 0; font-size:0.9em;">Record on <strong>portable MP3 players</strong> (One continuous file). Submit to teacher.</p>
             <div style="font-size:0.85em; font-weight:bold; margin-top:5px; color:#d35400;">
