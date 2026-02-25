@@ -44,7 +44,7 @@ def load_data():
 
         vocab_data_list = load_concatenated_json('vocab_plan.json')
         vocab_data = {item.get('week'): item for item in vocab_data_list}
-        
+
         homework_data_list = load_concatenated_json('homework_plan.json')
         homework_data = {item.get('week'): item for item in homework_data_list}
 
@@ -52,7 +52,7 @@ def load_data():
         print(f"Error loading auxiliary files: {e}")
         vocab_data = {}
         homework_data = {}
-        
+
     try:
         with open('peer_check_questions.json', 'r', encoding='utf-8') as f:
             peer_data_list = json.load(f)
@@ -67,10 +67,19 @@ def get_week_phrase(week_number, phrase_data):
     week_info = phrase_data.get(week_number, {})
     return week_info.get('grammar_target_phrase', 'this topic')
 
-def process_teacher_plan(soup, week_number, week_curriculum, phrase_data):
+def process_teacher_plan(soup, week_number, week_curriculum, phrase_data, week_vocab):
     target_phrase = get_week_phrase(week_number, phrase_data)
     if not isinstance(target_phrase, str): target_phrase = str(target_phrase)
     
+    # Get first vocab words
+    first_word_l1 = "Target Word"
+    if week_vocab and week_vocab.get('l1_vocab'):
+        first_word_l1 = week_vocab['l1_vocab'][0].get('word', '').split('(')[0].strip()
+
+    first_word_l2 = "Abstract Noun"
+    if week_vocab and week_vocab.get('l2_vocab'):
+        first_word_l2 = week_vocab['l2_vocab'][0].get('word', '').split('(')[0].strip()
+
     l1_page = soup.find('div', class_='l1')
     if l1_page:
         lo_card = l1_page.find('h2', string=re.compile(r'Learning Objectives')).parent
@@ -80,19 +89,41 @@ def process_teacher_plan(soup, week_number, week_curriculum, phrase_data):
                 for li in ul.find_all('li'):
                     if "Grammar:" in li.text:
                         li.string = f"Grammar: Use narrative tenses or relevant grammar for {target_phrase}."
+                    elif "Speaking:" in li.text:
+                        # Point 1: Inject modified topic into 'Speaking' label
+                        # The text is likely "Speaking: Speak fluently about A Family Member..."
+                        # We want to replace the topic part or just set it fresh.
+                        # The user says "inject the modified topic for that weeks lesson".
+                        # Current: "Speaking: Speak fluently about A Family Member You Are Proud Of using Part 2 structure."
+                        # New: "Speaking: Speak fluently about {target_phrase} using Part 2 structure."
+                        li.clear()
+                        li.append(BeautifulSoup(f"<strong>Speaking:</strong> Speak fluently about {target_phrase} using Part 2 structure.", 'html.parser'))
+                    elif "Vocab:" in li.text:
+                         # Point 3: Inject first word
+                        li.clear()
+                        li.append(BeautifulSoup(f"<strong>Vocab:</strong> Use 7 target words (e.g., <em>{first_word_l1}</em>) in context.", 'html.parser'))
         
+        # Point 2: Success Criteria
+        criteria_card = l1_page.find('h2', string=re.compile(r'Criteria')).parent
+        if criteria_card:
+            div = criteria_card.find('div')
+            if div:
+                div.string = f"\"I can speak for 2 mins about {target_phrase} using 2 idioms.\""
+
         diff_card = l1_page.find('h2', string=re.compile(r'Differentiation')).parent
         if diff_card:
             b5_div = diff_card.find('div', style=lambda x: x and 'background:#e8f8f5' in x)
             if b5_div:
                 b5_div.clear()
-                b5_html = f"<strong>📉 Band 5.0 (Support)</strong><br>• Sentence Starter: 'I like {target_phrase} because...'<br>• Peer Check: Simple generic prompts (e.g., 'Why?')."
+                # Point 4: Band 5 Peer Check
+                b5_html = f"<strong>📉 Band 5.0 (Support)</strong><br>• Sentence Starter: 'I like {target_phrase} because...'<br>• Peer Check: Ask a personal follow up question."
                 b5_div.append(BeautifulSoup(b5_html, 'html.parser'))
             
             b6_div = diff_card.find('div', style=lambda x: x and 'background:#fef9e7' in x)
             if b6_div:
                 b6_div.clear()
-                b6_html = f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: 'Admittedly...', 'Conversely...'<br>• Peer Check: Ask specific questions about {target_phrase}."
+                # Point 4: Band 6 Peer Check
+                b6_html = f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: 'Admittedly...', 'Conversely...'<br>• Peer Check: Ask an abstract question about {target_phrase}."
                 b6_div.append(BeautifulSoup(b6_html, 'html.parser'))
 
         lp_table = l1_page.find('table', class_='lp-table')
@@ -100,12 +131,22 @@ def process_teacher_plan(soup, week_number, week_curriculum, phrase_data):
             rows = lp_table.find_all('tr')
             for row in rows:
                 cells = row.find_all('td')
-                if len(cells) > 1 and "Lead-in" in cells[1].text:
-                    topic = week_curriculum.get('topic', 'IELTS Speaking')
-                    search_term = f"IELTS {topic} Speaking"
-                    new_html = f"<strong>Lead-in:</strong> Click Bilibili icon on Student Handout (Banner) to show 5-min warmup video (Search: {search_term}). Ask: 'Do you think {target_phrase} is important in your life?'"
-                    cells[1].clear()
-                    cells[1].append(BeautifulSoup(new_html, 'html.parser'))
+                if len(cells) > 1:
+                    # Point 5: Lead-in
+                    if "Lead-in" in cells[1].text:
+                        topic = week_curriculum.get('topic', 'IELTS Speaking')
+                        search_term = f"IELTS {topic} Speaking"
+                        new_html = f"<strong>Lead-in:</strong> Click Bilibili icon on Student Handout (Banner) to show 5-min warmup video (Search: {search_term}). Ask: 'Do you think {target_phrase} is important in your life?'"
+                        cells[1].clear()
+                        cells[1].append(BeautifulSoup(new_html, 'html.parser'))
+                    # Point 6: Input
+                    elif "Input" in cells[1].text:
+                        # Change "Reliable" to "vocabulary list words"
+                        # Current HTML: <strong>Input:</strong> Read Model. Highlight "Reliable". Analyze...
+                        current_html = str(cells[1])
+                        new_html = current_html.replace('"Reliable"', '"vocabulary list words"')
+                        cells[1].clear()
+                        cells[1].append(BeautifulSoup(new_html, 'html.parser'))
 
     l2_pages = soup.find_all('div', class_='l2')
     l2_teacher_page = None
@@ -121,22 +162,102 @@ def process_teacher_plan(soup, week_number, week_curriculum, phrase_data):
             if ul:
                 for li in ul.find_all('li'):
                     if "Speaking:" in li.text:
-                        li.string = f"Speaking: Discuss abstract ideas about {target_phrase}."
+                        # Point 1: Speaking LO
+                        li.clear()
+                        li.append(BeautifulSoup(f"<strong>Speaking:</strong> Discuss abstract ideas about {target_phrase}.", 'html.parser'))
+                    elif "Vocab:" in li.text:
+                         # Point 3: Inject first word (L2)
+                         # Note: L2 template says "Vocab: Use Abstract Nouns (e.g., Generation gap)."
+                         # We replace Generation gap with first_word_l2
+                        li.clear()
+                        li.append(BeautifulSoup(f"<strong>Vocab:</strong> Use Abstract Nouns (e.g., <em>{first_word_l2}</em>).", 'html.parser'))
 
         diff_card = l2_teacher_page.find('h2', string=re.compile(r'Differentiation')).parent
         if diff_card:
+            b5_div = diff_card.find('div', style=lambda x: x and 'background:#e8f8f5' in x)
+            if b5_div:
+                b5_div.clear()
+                # Point 4: Band 5 Peer Check
+                b5_html = f"<strong>📉 Band 5.0 (Support)</strong><br>• Sentence Starter: 'I like {target_phrase} because...'<br>• Peer Check: Ask a personal follow up question."
+                b5_div.append(BeautifulSoup(b5_html, 'html.parser'))
+
             b6_div = diff_card.find('div', style=lambda x: x and 'background:#fef9e7' in x)
             if b6_div:
                 b6_div.clear()
-                b6_html = f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: 'Admittedly...', 'Conversely...'<br>• Peer Check: Ask: 'Do you think {target_phrase} is important in your life?'"
+                # Point 4: Band 6 Peer Check
+                b6_html = f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: 'Admittedly...', 'Conversely...'<br>• Peer Check: Ask an abstract question about {target_phrase}."
                 b6_div.append(BeautifulSoup(b6_html, 'html.parser'))
 
-def format_mind_maps(soup, week_number, phrase_data):
+def format_mind_maps(soup, week_number, phrase_data, week_data):
     target_phrase = get_week_phrase(week_number, phrase_data).upper()
+
+    # Point 9: Central Nodes
     spider_centers = soup.find_all('div', class_='spider-center')
     for center in spider_centers:
         center.clear()
-        center.append(BeautifulSoup(target_phrase, 'html.parser'))
+        # Replace newlines with <br> if needed or just let CSS handle it
+        center.append(BeautifulSoup(target_phrase.replace(' ', '<br>'), 'html.parser'))
+
+    # Point 8: Spider Diagram Questions & Hints
+    l1_data = week_data.get('lesson_1_part_2', {})
+
+    # Helper to update legs
+    def update_legs(container, hints):
+        if not container or not hints: return
+        legs = container.find_all('div', class_='spider-leg')
+        for i, leg in enumerate(legs):
+            if i < len(hints):
+                # The structure inside leg is <strong>LABEL:</strong><br><span style="...">Text</span>
+                # We want to replace the span text.
+                span = leg.find('span')
+                if span:
+                    span.string = hints[i]
+                else:
+                    # Q2/Q3 Style: <div class="spider-leg">Text<div class="lines"></div></div>
+                    lines_div = leg.find('div', class_='lines')
+                    if lines_div:
+                        leg.clear()
+                        leg.append(hints[i])
+                        leg.append(lines_div)
+
+    # Q1 Map (Page 3)
+    # Find the Brainstorming Map card
+    brainstorm_card = soup.find('h2', string=re.compile(r'Brainstorming Map'))
+    if brainstorm_card:
+        card = brainstorm_card.parent
+        # Update Prompt Text (from Q1 HTML)
+        q1_html = l1_data.get('q1', {}).get('html', '')
+        if q1_html:
+            bs = BeautifulSoup(q1_html, 'html.parser')
+            ps = bs.find_all('p')
+            if len(ps) > 0:
+                raw = ps[0].decode_contents()
+                if "You should say" in raw:
+                    prompt_div = card.find('div', style=lambda x: x and 'color:#444' in x)
+                    if prompt_div:
+                        prompt_div.clear()
+                        prompt_div.append(BeautifulSoup(format_bullet_text(str(ps[0])), 'html.parser'))
+
+        # Update Legs
+        q1_hints = l1_data.get('q1', {}).get('spider_diagram_hints', [])
+        spider_container = card.find('div', class_='spider-container')
+        update_legs(spider_container, q1_hints)
+
+    # Q2 Map (Page 3)
+    q2_card = soup.find('h3', string=re.compile(r'Part 2: Q2'))
+    if q2_card:
+        card = q2_card.parent
+        q2_hints = l1_data.get('q2', {}).get('spider_diagram_hints', [])
+        spider_container = card.find('div', class_='spider-container')
+        update_legs(spider_container, q2_hints)
+
+    # Q3 Map (Page 3)
+    q3_card = soup.find('h3', string=re.compile(r'Part 2: Q3'))
+    if q3_card:
+        card = q3_card.parent
+        q3_hints = l1_data.get('q3', {}).get('spider_diagram_hints', [])
+        spider_container = card.find('div', class_='spider-container')
+        update_legs(spider_container, q3_hints)
 
 def process_homework(soup, week_number, homework_data):
     hw_page = soup.find('div', class_='hw')
@@ -154,7 +275,7 @@ def process_homework(soup, week_number, homework_data):
     sec2_card = hw_page.find('h3', string=re.compile(r'Error Correction')).parent
     if sec2_card:
         sec2_card['style'] = (sec2_card.get('style', '') or '') + "; background: var(--bg-pastel-green);"
-    
+
     grammar_data = homework_data.get('grammar_clinic', [])
     grammar_box = hw_page.find('div', style=lambda x: x and 'display:flex; flex-direction:column; gap:5px;' in x)
     if grammar_box:
@@ -164,7 +285,7 @@ def process_homework(soup, week_number, homework_data):
             div = soup.new_tag('div', attrs={'class': 'grammar-sent'})
             div.string = f"{i+1}. {error}"
             grammar_box.append(div)
-            
+
     vocab_review = homework_data.get('vocab_review', [])
     vocab_table = hw_page.find('table', class_='vocab-table')
     if vocab_table:
@@ -196,11 +317,14 @@ def process_homework(soup, week_number, homework_data):
         h3.string = f"3. Writing Task: {writing_task_text} (10 minutes)"
         sec3_card.append(h3)
         instructions_html = """
-        <div style="font-size:0.9em; line-height:1.6; padding:10px;">
-        <strong>👉 On the next page:</strong><br>
-        1. Write a first draft answer for the question above.<br>
-        2. Scan your written answer into your AI and ask it to 'Minimally correct the grammar and vocabulary in this answer'.<br>
-        3. Write the corrected answer your AI gave to you in the 'Polished Rewrite' box.
+        <div style="background:white; border-radius:8px; padding:12px; margin-top:5px; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+            <div style="font-weight:bold; color:#444; margin-bottom:5px;">📝 Instructions:</div>
+            <ol style="margin:0; padding-left:20px; font-size:0.9em; color:#555;">
+                <li>Go to <strong>Page 10</strong> ("Writing Homework").</li>
+                <li>Write your first draft in the top box.</li>
+                <li>Use AI to correct grammar/vocabulary.</li>
+                <li>Write the polished version in the bottom box.</li>
+            </ol>
         </div>
         """
         sec3_card.append(BeautifulSoup(instructions_html, 'html.parser'))
@@ -210,14 +334,22 @@ def process_homework(soup, week_number, homework_data):
     if sec4_card:
         sec4_card.clear()
         sec4_html = """
-        <h3 style="color:var(--hw-accent); margin:0 0 10px 0;">🎙️ 4. Recording Challenge (&lt;18 Mins)</h3>
-        <div style="font-size:0.85em; line-height:1.5;">
-        <strong>Part 1: AI Shadow Reading (19 mins)</strong> Use the AI Speaking Avatar. Choose British or American accent.<br>
-        <strong>Task A (10 mins): Shadow read model answers:</strong><br>
-        After Lesson 1: Use the AI APP to shadow read this week's Lesson 2 Part 3 model answers.<br>
-        After Lesson 2: Use the AI app to shadow read next weeks lesson 1 part 2 model answers.<br>
-        <strong>Task B (9 mins): Part 1:</strong> Use the AI app for Pronunciation Practice by reading the Tongue Twisters.<br>
-        <strong>Part 2: Recording Task (18 mins):</strong> Using the AI app, record - 3 x Part 2 answers from this weeks lessons (6 mins) 6 x Part 3 answers from this weeks lessons (12 mins).
+        <h3 style="color:var(--hw-accent); margin:0 0 10px 0; border-bottom:1px solid #ddd; padding-bottom:5px;">🎙️ 4. Recording Challenge</h3>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:0.85em;">
+            <div style="background:white; padding:8px; border-radius:6px; border-left:3px solid #3498db;">
+                <strong>Part 1: AI Shadow Reading (19 mins)</strong>
+                <ul style="margin:5px 0 0 0; padding-left:15px; color:#555;">
+                    <li><strong>Task A (10 mins):</strong> Shadow read model answers (L2 Part 3 after L1; Next Wk L1 Part 2 after L2).</li>
+                    <li><strong>Task B (9 mins):</strong> Tongue Twisters (Pronunciation Practice).</li>
+                </ul>
+            </div>
+            <div style="background:white; padding:8px; border-radius:6px; border-left:3px solid #e74c3c;">
+                <strong>Part 2: Recording Task (18 mins)</strong>
+                <ul style="margin:5px 0 0 0; padding-left:15px; color:#555;">
+                    <li>Record 3 x Part 2 answers (6 mins).</li>
+                    <li>Record 6 x Part 3 answers (12 mins).</li>
+                </ul>
+            </div>
         </div>
         """
         sec4_card.append(BeautifulSoup(sec4_html, 'html.parser'))
@@ -402,6 +534,23 @@ def update_student_l1(soup, week_data):
                     clean_bullets = format_bullet_text(str(ps[0]))
                     bullets_div.append(BeautifulSoup(clean_bullets, 'html.parser'))
 
+        # Point 7: Band 6 Model Answer (Page 2)
+        if len(ps) >= 2:
+            model_html = "".join([str(x) for x in ps[1].contents])
+            # Find the model box on the same page (L1)
+            # We can search globally or relatively. Let's try finding the specific L1 Model Box.
+            # It usually follows the Cue Card.
+            model_box = soup.find('div', class_='l1').find('div', class_='model-box')
+            # Note: There might be multiple L1 divs (Teacher vs Student).
+            # The Student L1 page is usually the second 'l1' div in the template.
+            l1_pages = soup.find_all('div', class_='l1')
+            if len(l1_pages) >= 2:
+                student_l1 = l1_pages[1]
+                model_box = student_l1.find('div', class_='model-box')
+                if model_box:
+                    model_box.clear()
+                    model_box.append(BeautifulSoup(model_html, 'html.parser'))
+
     q2_card = soup.find('h3', string=re.compile(r'Part 2: Q2'))
     if q2_card:
         prompt_div = q2_card.find_next_sibling('div')
@@ -493,25 +642,18 @@ def update_student_l2(soup, week_data, peer_data):
         b6_q = p_q_data.get('band_6_plus_peer_question', '')
 
         if b5_q:
-            b5_div = card.find('div', string=re.compile(r'Band 5 Peer Check'))
-            if not b5_div: # Try searching nested children
-                b5_div = card.find('div', style=lambda x: x and 'color:#7f8c8d' in x) # heuristic
-                # Better: search text recursively
-                for div in card.find_all('div'):
-                    if "Band 5 Peer Check" in div.text:
-                        # Reconstruct the inner HTML
-                        div.clear()
-                        div.append(BeautifulSoup(f"📉 <strong>Band 5 Peer Check:</strong> Ask: '{b5_q}'", 'html.parser'))
-                        break
+            strong = card.find('strong', string=re.compile(r'Band 5 Peer Check'))
+            if strong:
+                parent_div = strong.parent
+                parent_div.clear()
+                parent_div.append(BeautifulSoup(f"📉 <strong>Band 5 Peer Check:</strong> Ask: '{b5_q}'", 'html.parser'))
 
         if b6_q:
-            b6_div = card.find('div', string=re.compile(r'Band 6 Peer Check'))
-            if not b6_div:
-                 for div in card.find_all('div'):
-                    if "Band 6 Peer Check" in div.text:
-                        div.clear()
-                        div.append(BeautifulSoup(f"📈 <strong>Band 6 Peer Check:</strong> Ask: '{b6_q}'", 'html.parser'))
-                        break
+            strong = card.find('strong', string=re.compile(r'Band 6 Peer Check'))
+            if strong:
+                parent_div = strong.parent
+                parent_div.clear()
+                parent_div.append(BeautifulSoup(f"📈 <strong>Band 6 Peer Check:</strong> Ask: '{b6_q}'", 'html.parser'))
 
 def main():
     print("Generating all 40 lesson plans...")
@@ -547,8 +689,8 @@ def main():
                 soup = BeautifulSoup(template_html, 'html.parser')
 
                 populate_content(soup, week_data, week_vocab, peer_data)
-                process_teacher_plan(soup, week_num, week_data, phrases)
-                format_mind_maps(soup, week_num, phrases)
+                process_teacher_plan(soup, week_num, week_data, phrases, week_vocab)
+                format_mind_maps(soup, week_num, phrases, week_data)
                 process_homework(soup, week_num, week_homework)
                 writing_page = process_writing_page(soup)
                 process_layout_adjustments(soup)
