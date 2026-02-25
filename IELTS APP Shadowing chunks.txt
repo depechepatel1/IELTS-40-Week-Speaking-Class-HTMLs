@@ -1,0 +1,291 @@
+[
+  {
+    "week_number": 1,
+    "sections": [
+      {
+        "section_id": "part_2",
+        "questions": [
+          {
+            "question_id": "q1",
+            "question_text": "Describe a family member who you are proud of.",
+            "answer_id": "a1",
+            "chunks": [
+              { "chunk_number": 1, "text": "To begin with, I want to talk about my uncle," },
+              { "chunk_number": 2, "text": "who is an accomplished doctor, because I truly look up to him." },
+              { "chunk_number": 3, "text": "Actually, he is a very diligent person" },
+              { "chunk_number": 4, "text": "who always puts others first." },
+              { "chunk_number": 5, "text": "Whenever his patients need help," },
+              { "chunk_number": 6, "text": "he is considerate and completely selfless." },
+              { "chunk_number": 7, "text": "In fact, he has a generous nature" },
+              { "chunk_number": 8, "text": "and essentially has a heart of gold." },
+              { "chunk_number": 9, "text": "For example, he will always go the extra mile" },
+              { "chunk_number": 10, "text": "to ensure everyone is safe." },
+              { "chunk_number": 11, "text": "I think, seeing his devoted attitude is highly inspiring to me." },
+              { "chunk_number": 12, "text": "To be honest, I felt so proud" },
+              { "chunk_number": 13, "text": "when he saved a life last year." }
+            ]
+          },
+          {
+            "question_id": "q2",
+            "question_text": "Describe a family member who has achieved something great.",
+            "answer_id": "a2",
+            "chunks": [
+              { "chunk_number": 1, "text": "Honestly, I want to talk about my older cousin" },
+              { "chunk_number": 2, "text": "and her amazing achievements." },
+              { "chunk_number": 3, "text": "Last year, she managed to start" },
+              { "chunk_number": 4, "text": "her own successful coffee shop in our city." },
+              { "chunk_number": 5, "text": "To make this happen, she worked day and night" },
+              { "chunk_number": 6, "text": "to save enough money." },
+              { "chunk_number": 7, "text": "Of course, it was not easy for her" },
+              { "chunk_number": 8, "text": "to build everything from nothing." },
+              { "chunk_number": 9, "text": "However, she learned how to make great drinks" },
+              { "chunk_number": 10, "text": "and advertise her business online." },
+              { "chunk_number": 11, "text": "I think, her hard work definitely showed me" },
+              { "chunk_number": 12, "text": "that anything is possible." },
+              { "chunk_number": 13, "text": "In the end, her incredible success really motivated me" },
+              { "chunk_number": 14, "text": "to study much harder for my own future goals." }
+            ]
+          },
+          {
+            "question_id": "q3",
+            "question_text": "Describe a family member you admire for their personality.",
+            "answer_id": "a3",
+            "chunks": [
+              { "chunk_number": 1, "text": "I would like to say, my grandmother" },
+              { "chunk_number": 2, "text": "is someone I deeply admire for her amazing personality." },
+              { "chunk_number": 3, "text": "Basically, she is the most patient and caring person" },
+              { "chunk_number": 4, "text": "I have ever met in my entire life." },
+              { "chunk_number": 5, "text": "Whenever someone is feeling upset," },
+              { "chunk_number": 6, "text": "she always knows exactly what to say" },
+              { "chunk_number": 7, "text": "to cheer them up quickly." },
+              { "chunk_number": 8, "text": "For example, she treats every single neighbor" },
+              { "chunk_number": 9, "text": "like they are part of our own family." },
+              { "chunk_number": 10, "text": "To be honest, she never gets angry or shouts at anyone." },
+              { "chunk_number": 11, "text": "As a result, everyone in our community loves and respects her." },
+              { "chunk_number": 12, "text": "Ultimately, I admire her character" },
+              { "chunk_number": 13, "text": "because she makes the world a happier place." }
+            ]
+          }
+        ]
+      },
+      {
+        "section_id": "part_3",
+        "questions": [
+          {
+            "question_id": "q1",
+            "question_text": "Q1: What would children do to make their parents proud?",
+            "answer_id": "a1",
+            "chunks": [
+              { "chunk_number": 1, "text": "Generally speaking, children can make their parents proud" },
+              { "chunk_number": 2, "text": "by excelling in their education," },
+              { "chunk_number": 3, "text": "as academic success is highly valued." },
+              { "chunk_number": 4, "text": "This is because, parents often sacrifice time" },
+              { "chunk_number": 5, "text": "to instill good study habits in their kids." },
+              { "chunk_number": 6, "text": "For instance, when a student achieves top grades," },
+              { "chunk_number": 7, "text": "parents truly appreciate the immense effort shown." }
+            ]
+          },
+          {
+            "question_id": "q2",
+            "question_text": "Q2: What did you do to make your parents proud when you were young?",
+            "answer_id": "a2",
+            "chunks": [
+              { "chunk_number": 1, "text": "Looking back, I made my parents proud" },
+              { "chunk_number": 2, "text": "when I decided to follow in someone's footsteps" },
+              { "chunk_number": 3, "text": "by learning the piano." },
+              { "chunk_number": 4, "text": "The primary reason is that, my mother is a musician" },
+              { "chunk_number": 5, "text": "who wanted me to share her passion." },
+              { "chunk_number": 6, "text": "As an example, performing well at my first recital" },
+              { "chunk_number": 7, "text": "proved that the apple doesn't fall far from the tree." }
+            ]
+          },
+          {
+            "question_id": "q3",
+            "question_text": "Q3: What advantages of yours make you proud?",
+            "answer_id": "a3",
+            "chunks": [
+              { "chunk_number": 1, "text": "From my perspective, I am most proud" },
+              { "chunk_number": 2, "text": "of my ability to maintain peace," },
+              { "chunk_number": 3, "text": "because it creates harmony in my social circles." },
+              { "chunk_number": 4, "text": "This is largely due to the fact that," },
+              { "chunk_number": 5, "text": "resolving disputes requires immense patience and excellent communication skills." },
+              { "chunk_number": 6, "text": "For example, whenever my classmates argue," },
+              { "chunk_number": 7, "text": "I step in to offer calm guidance to resolve the issue." }
+            ]
+          },
+          {
+            "question_id": "q4",
+            "question_text": "Q4: When was the last time that you felt proud of yourself?",
+            "answer_id": "a4",
+            "chunks": [
+              { "chunk_number": 1, "text": "To be specific, I felt incredibly proud last month" },
+              { "chunk_number": 2, "text": "when I helped bridge a generation gap" },
+              { "chunk_number": 3, "text": "between my grandfather and me." },
+              { "chunk_number": 4, "text": "This was significant because, younger people and older relatives" },
+              { "chunk_number": 5, "text": "often struggle to comprehend each other." },
+              { "chunk_number": 6, "text": "As an illustration, I taught him how to use a smartphone," },
+              { "chunk_number": 7, "text": "which greatly improved our daily conversations." }
+            ]
+          },
+          {
+            "question_id": "q5",
+            "question_text": "Q5: How does family pride contribute to the stability of a society?",
+            "answer_id": "a5",
+            "chunks": [
+              { "chunk_number": 1, "text": "It is widely acknowledged that, family pride creates a strong foundation," },
+              { "chunk_number": 2, "text": "which ultimately leads to a more stable community." },
+              { "chunk_number": 3, "text": "The core reason is that, people naturally want" },
+              { "chunk_number": 4, "text": "to protect and support their own flesh and blood." },
+              { "chunk_number": 5, "text": "For instance, families that respect each other" },
+              { "chunk_number": 6, "text": "are far less likely to commit crimes in public areas." }
+            ]
+          },
+          {
+            "question_id": "q6",
+            "question_text": "Q6: Do you think the definition of \"success\" within families has changed between the past and the present?",
+            "answer_id": "a6",
+            "chunks": [
+              { "chunk_number": 1, "text": "Undeniably, the definition of success has evolved," },
+              { "chunk_number": 2, "text": "as modern families value personal happiness over just financial wealth." },
+              { "chunk_number": 3, "text": "In the past, success simply meant being the main breadwinner" },
+              { "chunk_number": 4, "text": "to provide basic necessities." },
+              { "chunk_number": 5, "text": "Today, however, achieving a healthy work-life balance" },
+              { "chunk_number": 6, "text": "and pursuing individual passions are seen as equally important." }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "week_number": 2,
+    "sections": [
+      {
+        "section_id": "part_2",
+        "questions": [
+          {
+            "question_id": "q1",
+            "question_text": "Describe a foreign country where you'd like to work for a short time.",
+            "answer_id": "a1",
+            "chunks": [
+              { "chunk_number": 1, "text": "To be honest, I would love to work in London," },
+              { "chunk_number": 2, "text": "which is a cosmopolitan city," },
+              { "chunk_number": 3, "text": "because it offers many excellent opportunities." },
+              { "chunk_number": 4, "text": "Personally, I want to immerse myself in the culture" },
+              { "chunk_number": 5, "text": "and avoid any culture shock." },
+              { "chunk_number": 6, "text": "Hopefully, I can find a lucrative job in the technology sector soon." },
+              { "chunk_number": 7, "text": "I think, working there will genuinely help me broaden one's horizons." },
+              { "chunk_number": 8, "text": "Of course, I am an adaptable and diligent person," },
+              { "chunk_number": 9, "text": "so I will easily overcome any language barrier." },
+              { "chunk_number": 10, "text": "Even if I have to start from scratch," },
+              { "chunk_number": 11, "text": "it will give me a new perspective on life." }
+            ]
+          },
+          {
+            "question_id": "q2",
+            "question_text": "Describe a city you would like to live in for work purposes.",
+            "answer_id": "a2",
+            "chunks": [
+              { "chunk_number": 1, "text": "Personally, I would absolutely love to live and work" },
+              { "chunk_number": 2, "text": "in Shenzhen in the near future." },
+              { "chunk_number": 3, "text": "To begin with, this city is famous" },
+              { "chunk_number": 4, "text": "for its booming technology and software industries." },
+              { "chunk_number": 5, "text": "Actually, I first learned about this vibrant place" },
+              { "chunk_number": 6, "text": "from reading various business articles online." },
+              { "chunk_number": 7, "text": "In my opinion, it is a fantastic location" },
+              { "chunk_number": 8, "text": "for my long-term career development." },
+              { "chunk_number": 9, "text": "This is because, there are countless innovative companies" },
+              { "chunk_number": 10, "text": "that hire young graduates every single year." },
+              { "chunk_number": 11, "text": "Furthermore, the fast-paced lifestyle pushes people to learn new skills constantly." },
+              { "chunk_number": 12, "text": "Ultimately, moving there would provide me with the perfect environment" },
+              { "chunk_number": 13, "text": "to grow professionally." }
+            ]
+          },
+          {
+            "question_id": "q3",
+            "question_text": "Describe a place you visited that you think would be a good place to work.",
+            "answer_id": "a3",
+            "chunks": [
+              { "chunk_number": 1, "text": "Without a doubt, a place I visited" },
+              { "chunk_number": 2, "text": "that would be great for work is Singapore." },
+              { "chunk_number": 3, "text": "I remember, I traveled there with my parents" },
+              { "chunk_number": 4, "text": "during the summer holidays two years ago." },
+              { "chunk_number": 5, "text": "From what I saw, the lifestyle there is very organized," },
+              { "chunk_number": 6, "text": "clean, and highly efficient." },
+              { "chunk_number": 7, "text": "Actually, the public transport system makes commuting to an office incredibly easy." },
+              { "chunk_number": 8, "text": "I think, working there would be deeply enjoyable" },
+              { "chunk_number": 9, "text": "because the overall environment is very safe." },
+              { "chunk_number": 10, "text": "Besides that, the city offers amazing food" },
+              { "chunk_number": 11, "text": "and relaxing parks for the weekends." },
+              { "chunk_number": 12, "text": "Therefore, it seems like an ideal place" },
+              { "chunk_number": 13, "text": "to balance a career and personal life." }
+            ]
+          }
+        ]
+      },
+      {
+        "section_id": "part_3",
+        "questions": [
+          {
+            "question_id": "q1",
+            "question_text": "Q1: What kind of job is easy to get in a foreign country?",
+            "answer_id": "a1",
+            "chunks": [
+              { "chunk_number": 1, "text": "Generally speaking, jobs in the restaurant sector are the easiest to secure," },
+              { "chunk_number": 2, "text": "as they require fewer formal qualifications." },
+              { "chunk_number": 3, "text": "This is because, these entry-level roles" },
+              { "chunk_number": 4, "text": "usually welcome a highly diverse workforce." },
+              { "chunk_number": 5, "text": "For example, international students often find quick work" },
+              { "chunk_number": 6, "text": "in local cafes to bypass the initial language barrier." }
+            ]
+          },
+          {
+            "question_id": "q2",
+            "question_text": "Q2: Should young people work abroad?",
+            "answer_id": "a2",
+            "chunks": [
+              { "chunk_number": 1, "text": "In my view, young people should definitely try to work overseas," },
+              { "chunk_number": 2, "text": "because it provides an incredibly inspiring life experience." },
+              { "chunk_number": 3, "text": "The main reason is that, international travel fosters rapid personal growth" },
+              { "chunk_number": 4, "text": "and deepens cultural integration." },
+              { "chunk_number": 5, "text": "For instance, living in a foreign melting pot" },
+              { "chunk_number": 6, "text": "teaches young professionals how to become independent quickly." }
+            ]
+          },
+          {
+            "question_id": "q3",
+            "question_text": "Q3: Do Chinese parents encourage their children to work abroad?",
+            "answer_id": "a3",
+            "chunks": [
+              { "chunk_number": 1, "text": "Admittedly, many Chinese parents do encourage working abroad," },
+              { "chunk_number": 2, "text": "as they believe it leads to a more prosperous future." },
+              { "chunk_number": 3, "text": "This is due to the fact that, global experience" },
+              { "chunk_number": 4, "text": "can significantly enhance a resume in today’s job market." },
+              { "chunk_number": 5, "text": "As an illustration, parents often support their children financially" },
+              { "chunk_number": 6, "text": "so they can benefit from ongoing globalization." }
+            ]
+          },
+          {
+            "question_id": "q4",
+            "question_text": "Q4: Why do some people not want to work overseas?",
+            "answer_id": "a4",
+            "chunks": [
+              { "chunk_number": 1, "text": "On the other hand, some individuals avoid working abroad," },
+              { "chunk_number": 2, "text": "because they fear facing isolation or racial discrimination." },
+              { "chunk_number": 3, "text": "Furthermore, leaving behind family and friends" },
+              { "chunk_number": 4, "text": "can ruin their sense of emotional stability and social harmony." },
+              { "chunk_number": 5, "text": "For example, many people strongly prefer the quiet comfort" },
+              { "chunk_number": 6, "text": "of their hometown rather than adapting overseas." }
+            ]
+          },
+          {
+            "question_id": "q5",
+            "question_text": "Q5: What are the benefits of working abroad?",
+            "answer_id": "a5",
+            "chunks": [
+              { "chunk_number": 1, "text": "Without a doubt, working abroad offers immense benefits," },
+              { "chunk_number": 2, "text": "as it helps individuals develop vital cross-cultural communication skills." },
+              { "chunk_number": 3, "text": "This is because, employees must learn local customs," },
+              { "chunk_number": 4, "text": "following the idea that when in Rome, do as the Romans do." },
+              { "chunk_number": 5, "text": "Consequently, this cultural flexibility makes them highly valuable" },
+              { "chunk_number": 6, "text": "to international corporations in the long run." }

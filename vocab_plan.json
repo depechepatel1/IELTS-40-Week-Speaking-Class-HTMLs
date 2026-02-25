@@ -136,7 +136,7 @@
       {
         "word": "Cosmopolitan (Adj)",
         "forms": "Cosmopolite (N)",
-        "meaning": "世界的 / 国际化的",
+        "meaning": "世界性的 / 国际化的",
         "recycled": false
       },
       {
@@ -545,13 +545,13 @@
         "recycled": false
       },
       {
-        "word": "Passionate (Adj)",
+        "word": "Passionate (V)",
         "forms": "Passion (N)",
         "meaning": "热情的",
         "recycled": false
       },
       {
-        "word": "Advocate (N)",
+        "word": "Advocate (V)",
         "forms": "Advocacy (N)",
         "meaning": "提倡者",
         "recycled": false
@@ -658,7 +658,7 @@
     "week": 6,
     "l1_vocab": [
       {
-        "word": "Tranquil (Adj)",
+        "word": "Tranquil (N)",
         "forms": "Tranquility (N)",
         "meaning": "宁静的",
         "recycled": false
@@ -676,13 +676,13 @@
         "recycled": false
       },
       {
-        "word": "Lush (Adj)",
+        "word": "Lush (N)",
         "forms": "Lushness (N)",
         "meaning": "郁郁葱葱的",
         "recycled": false
       },
       {
-        "word": "Isolated (Adj)",
+        "word": "Isolated (N)",
         "forms": "Isolate (V) - Isolation (N)",
         "meaning": "偏远的 / 孤立的",
         "recycled": false
@@ -734,7 +734,7 @@
         "recycled": false
       },
       {
-        "word": "Habitat (N)",
+        "word": "Habitat (V)",
         "forms": "Inhabit (V)",
         "meaning": "栖息地",
         "recycled": false
@@ -819,7 +819,7 @@
         "recycled": false
       },
       {
-        "word": "Isolated (Adj)",
+        "word": "Isolated (N)",
         "forms": "Isolation (N)",
         "meaning": "孤立的",
         "recycled": true
@@ -990,7 +990,7 @@
         "recycled": false
       },
       {
-        "word": "Dilemma (N)",
+        "word": "Dilemma",
         "forms": "Dilemmas (Pl)",
         "meaning": "进退两难的困境",
         "recycled": false
@@ -1057,7 +1057,7 @@
         "recycled": false
       },
       {
-        "word": "Gifted (Adj)",
+        "word": "Gifted (N)",
         "forms": "Gift (N)",
         "meaning": "有天赋的",
         "recycled": false
@@ -1121,7 +1121,7 @@
         "recycled": false
       },
       {
-        "word": "Masterpiece (N)",
+        "word": "Masterpiece",
         "forms": "Masterpieces (Pl)",
         "meaning": "杰作",
         "recycled": false
@@ -1282,7 +1282,7 @@
         "recycled": true
       },
       {
-        "word": "Masterpiece (N)",
+        "word": "Masterpiece",
         "forms": "Masterpieces (Pl)",
         "meaning": "杰作",
         "recycled": true
@@ -1325,13 +1325,13 @@
         "recycled": false
       },
       {
-        "word": "Compact (Adj)",
+        "word": "Compact (N)",
         "forms": "Compactness (N)",
         "meaning": "紧凑的 / 小巧的",
         "recycled": false
       },
       {
-        "word": "Versatile (Adj)",
+        "word": "Versatile (N)",
         "forms": "Versatility (N)",
         "meaning": "多功能的",
         "recycled": false
@@ -1444,7 +1444,7 @@
     "week": 12,
     "l1_vocab": [
       {
-        "word": "Disoriented (Adj)",
+        "word": "Disoriented (V)",
         "forms": "Disorient (V)",
         "meaning": "迷失方向的",
         "recycled": false
@@ -1456,7 +1456,7 @@
         "recycled": false
       },
       {
-        "word": "Panicked (Adj)",
+        "word": "Panicked",
         "forms": "Panic (N/V)",
         "meaning": "惊慌失措的",
         "recycled": false
@@ -1468,19 +1468,19 @@
         "recycled": false
       },
       {
-        "word": "Relieved (Adj)",
+        "word": "Relieved (N)",
         "forms": "Relief (N)",
         "meaning": "如释重负的",
         "recycled": false
       },
       {
-        "word": "Versatile (Adj)",
+        "word": "Versatile (N)",
         "forms": "Versatility (N)",
         "meaning": "多功能的 (phone map)",
         "recycled": true
       },
       {
-        "word": "Compact (Adj)",
+        "word": "Compact (N)",
         "forms": "Compactness (N)",
         "meaning": "小巧的",
         "recycled": true
@@ -1532,7 +1532,7 @@
         "recycled": false
       },
       {
-        "word": "Landmark (N)",
+        "word": "Landmark",
         "forms": "Landmarks (Pl)",
         "meaning": "地标",
         "recycled": false
@@ -1587,13 +1587,13 @@
         "recycled": false
       },
       {
-        "word": "Talented (Adj)",
+        "word": "Talented (N)",
         "forms": "Talent (N)",
         "meaning": "有才华的",
         "recycled": false
       },
       {
-        "word": "Humble (Adj)",
+        "word": "Humble (N)",
         "forms": "Humility (N)",
         "meaning": "谦逊的",
         "recycled": false
@@ -1605,7 +1605,7 @@
         "recycled": false
       },
       {
-        "word": "Relieved (Adj)",
+        "word": "Relieved (N)",
         "forms": "Relief (N)",
         "meaning": "如释重负的",
         "recycled": true
@@ -1651,7 +1651,7 @@
         "recycled": false
       },
       {
-        "word": "Scandal (N)",
+        "word": "Scandal (Adj)",
         "forms": "Scandalous (Adj)",
         "meaning": "丑闻",
         "recycled": false
@@ -1706,7 +1706,7 @@
     "week": 14,
     "l1_vocab": [
       {
-        "word": "Bustling (Adj)",
+        "word": "Bustling (V)",
         "forms": "Bustle (V)",
         "meaning": "熙熙攘攘的",
         "recycled": false
@@ -1730,7 +1730,7 @@
         "recycled": false
       },
       {
-        "word": "Overcrowded (Adj)",
+        "word": "Overcrowded (N)",
         "forms": "Crowd (N)",
         "meaning": "拥挤的",
         "recycled": false
@@ -1843,7 +1843,7 @@
         "recycled": false
       },
       {
-        "word": "Captivating (Adj)",
+        "word": "Captivating (V)",
         "forms": "Captivate (V)",
         "meaning": "迷人的 / 吸引人的",
         "recycled": false
@@ -1873,7 +1873,7 @@
         "recycled": true
       },
       {
-        "word": "Overcrowded (Adj)",
+        "word": "Overcrowded (N)",
         "forms": "Crowd (N)",
         "meaning": "拥挤的 (book fair)",
         "recycled": true
@@ -1974,13 +1974,13 @@
         "recycled": false
       },
       {
-        "word": "Amusing (Adj)",
+        "word": "Amusing (N)",
         "forms": "Amuse (V) - Amusement (N)",
         "meaning": "有趣的",
         "recycled": false
       },
       {
-        "word": "Awkward (Adj)",
+        "word": "Awkward (N)",
         "forms": "Awkwardness (N)",
         "meaning": "尴尬的",
         "recycled": false
@@ -2004,7 +2004,7 @@
         "recycled": true
       },
       {
-        "word": "Captivating (Adj)",
+        "word": "Captivating (V)",
         "forms": "Captivate (V)",
         "meaning": "迷人的",
         "recycled": true
@@ -2056,7 +2056,7 @@
         "recycled": false
       },
       {
-        "word": "Bonding (N)",
+        "word": "Bonding",
         "forms": "Bond (V/N)",
         "meaning": "建立纽带",
         "recycled": false
@@ -2105,7 +2105,7 @@
         "recycled": false
       },
       {
-        "word": "Intimate (Adj)",
+        "word": "Intimate (V)",
         "forms": "Intimacy (N)",
         "meaning": "亲密的",
         "recycled": false
@@ -2175,7 +2175,7 @@
         "recycled": false
       },
       {
-        "word": "Colleague (N)",
+        "word": "Colleague",
         "forms": "Colleagues (Pl)",
         "meaning": "同事",
         "recycled": false
@@ -2242,13 +2242,13 @@
         "recycled": false
       },
       {
-        "word": "Decorated (Adj)",
+        "word": "Decorated (N)",
         "forms": "Decorate (V) - Decoration (N)",
         "meaning": "装饰过的",
         "recycled": false
       },
       {
-        "word": "Modern (Adj)",
+        "word": "Modern (V)",
         "forms": "Modernize (V)",
         "meaning": "现代的",
         "recycled": false
@@ -2266,7 +2266,7 @@
         "recycled": true
       },
       {
-        "word": "Intimate (Adj)",
+        "word": "Intimate (V)",
         "forms": "Intimacy (N)",
         "meaning": "私密的",
         "recycled": true
@@ -2300,7 +2300,7 @@
         "recycled": false
       },
       {
-        "word": "Urban (Adj)",
+        "word": "Urban (N)",
         "forms": "Urbanization (N)",
         "meaning": "城市的",
         "recycled": false
@@ -2373,7 +2373,7 @@
         "recycled": false
       },
       {
-        "word": "Antique (Adj/N)",
+        "word": "Antique (Adj)",
         "forms": "Noun / Adj",
         "meaning": "古董 / 古老的",
         "recycled": false
@@ -2385,7 +2385,7 @@
         "recycled": false
       },
       {
-        "word": "Fragile (Adj)",
+        "word": "Fragile (N)",
         "forms": "Fragility (N)",
         "meaning": "易碎的",
         "recycled": false
@@ -2397,7 +2397,7 @@
         "recycled": true
       },
       {
-        "word": "Decorated (Adj)",
+        "word": "Decorated (V)",
         "forms": "Decorate (V)",
         "meaning": "装饰的",
         "recycled": true
@@ -2407,7 +2407,7 @@
       {
         "idiom": "Blast from the past",
         "usage": "Noun Phrase",
-        "meaning": "勾起往大事的事物",
+        "meaning": "勾起往事的事物",
         "cn_idiom": "往事重现"
       },
       {
@@ -2437,7 +2437,7 @@
         "recycled": false
       },
       {
-        "word": "Nostalgia (N)",
+        "word": "Nostalgia (Adj)",
         "forms": "Nostalgic (Adj)",
         "meaning": "怀旧",
         "recycled": false
@@ -2516,7 +2516,7 @@
         "recycled": false
       },
       {
-        "word": "Delayed (Adj)",
+        "word": "Delayed",
         "forms": "Delay (N/V)",
         "meaning": "延误的",
         "recycled": false
@@ -2635,13 +2635,13 @@
         "recycled": false
       },
       {
-        "word": "Dedicated (Adj)",
+        "word": "Dedicated (N)",
         "forms": "Dedicate (V) - Dedication (N)",
         "meaning": "专注的 / 献身的",
         "recycled": false
       },
       {
-        "word": "Versatile (Adj)",
+        "word": "Versatile (N)",
         "forms": "Versatility (N)",
         "meaning": "多才多艺的",
         "recycled": false
@@ -2687,13 +2687,13 @@
     ],
     "l2_vocab": [
       {
-        "word": "Innate (Adj)",
+        "word": "Innate (V)",
         "forms": "Adjective",
         "meaning": "天生的",
         "recycled": false
       },
       {
-        "word": "Potential (N)",
+        "word": "Potential (Adj)",
         "forms": "Adjective / Noun",
         "meaning": "潜力",
         "recycled": false
@@ -2784,7 +2784,7 @@
         "recycled": false
       },
       {
-        "word": "Dedicated (Adj)",
+        "word": "Dedicated (N)",
         "forms": "Dedication (N)",
         "meaning": "敬业的",
         "recycled": true
@@ -2830,13 +2830,13 @@
         "recycled": false
       },
       {
-        "word": "Monopoly (N)",
+        "word": "Monopoly (Adj)",
         "forms": "Monopolize (V)",
         "meaning": "垄断",
         "recycled": false
       },
       {
-        "word": "Economy (N)",
+        "word": "Economy (Adj)",
         "forms": "Economic (Adj)",
         "meaning": "经济",
         "recycled": false
@@ -2848,13 +2848,13 @@
         "recycled": false
       },
       {
-        "word": "Innate (Adj)",
+        "word": "Innate (V)",
         "forms": "Adjective",
         "meaning": "固有的 (risk)",
         "recycled": true
       },
       {
-        "word": "Potential (N)",
+        "word": "Potential (Adj)",
         "forms": "Noun",
         "meaning": "潜力",
         "recycled": true
@@ -2985,7 +2985,7 @@
         "recycled": true
       },
       {
-        "word": "Economy (N)",
+        "word": "Economy (Adj)",
         "forms": "Economic (Adj)",
         "meaning": "经济 (cost of toys)",
         "recycled": true
@@ -3016,7 +3016,7 @@
     "week": 24,
     "l1_vocab": [
       {
-        "word": "Frustrated (Adj)",
+        "word": "Frustrated (N)",
         "forms": "Frustrate (V) - Frustration (N)",
         "meaning": "沮丧的 / 挫败的",
         "recycled": false
@@ -3028,7 +3028,7 @@
         "recycled": false
       },
       {
-        "word": "Unexpected (Adj)",
+        "word": "Unexpected (V)",
         "forms": "Expect (V)",
         "meaning": "意想不到的",
         "recycled": false
@@ -3098,7 +3098,7 @@
         "recycled": false
       },
       {
-        "word": "Manufacturing (N)",
+        "word": "Manufacturing (V)",
         "forms": "Manufacture (V)",
         "meaning": "制造业",
         "recycled": false
@@ -3171,13 +3171,13 @@
         "recycled": false
       },
       {
-        "word": "Wise (Adj)",
+        "word": "Wise (V)",
         "forms": "Wisdom (N)",
         "meaning": "明智的",
         "recycled": false
       },
       {
-        "word": "Frustrated (Adj)",
+        "word": "Frustrated (N)",
         "forms": "Frustration (N)",
         "meaning": "沮丧的",
         "recycled": true
@@ -3290,7 +3290,7 @@
         "recycled": false
       },
       {
-        "word": "Satisfied (Adj)",
+        "word": "Satisfied (N)",
         "forms": "Satisfy (V) - Satisfaction (N)",
         "meaning": "满意的",
         "recycled": false
@@ -3354,7 +3354,7 @@
         "recycled": false
       },
       {
-        "word": "Budgeting (N)",
+        "word": "Budgeting",
         "forms": "Budget (N/V)",
         "meaning": "预算",
         "recycled": false
@@ -3409,7 +3409,7 @@
     "week": 27,
     "l1_vocab": [
       {
-        "word": "Entertaining (Adj)",
+        "word": "Entertaining (N)",
         "forms": "Entertain (V) - Entertainment (N)",
         "meaning": "有趣的 / 娱乐的",
         "recycled": false
@@ -3433,7 +3433,7 @@
         "recycled": false
       },
       {
-        "word": "Engaging (Adj)",
+        "word": "Engaging (N)",
         "forms": "Engage (V) - Engagement (N)",
         "meaning": "引人入胜的",
         "recycled": false
@@ -3485,7 +3485,7 @@
         "recycled": false
       },
       {
-        "word": "Algorithm (N)",
+        "word": "Algorithm (Adj)",
         "forms": "Algorithmic (Adj)",
         "meaning": "算法",
         "recycled": false
@@ -3564,19 +3564,19 @@
         "recycled": false
       },
       {
-        "word": "Awkward (Adj)",
+        "word": "Awkward (N)",
         "forms": "Awkwardness (N)",
         "meaning": "尴尬的",
         "recycled": false
       },
       {
-        "word": "Entertaining (Adj)",
+        "word": "Entertaining (N)",
         "forms": "Entertainment (N)",
         "meaning": "有趣的",
         "recycled": true
       },
       {
-        "word": "Engaging (Adj)",
+        "word": "Engaging (V)",
         "forms": "Engage (V)",
         "meaning": "吸引人的",
         "recycled": true
@@ -3671,7 +3671,7 @@
     "week": 29,
     "l1_vocab": [
       {
-        "word": "Sincere (Adj)",
+        "word": "Sincere (N)",
         "forms": "Sincerity (N)",
         "meaning": "真诚的",
         "recycled": false
@@ -3683,13 +3683,13 @@
         "recycled": false
       },
       {
-        "word": "Honest (Adj)",
+        "word": "Honest (N)",
         "forms": "Honesty (N)",
         "meaning": "诚实的",
         "recycled": false
       },
       {
-        "word": "Forgiving (Adj)",
+        "word": "Forgiving (N)",
         "forms": "Forgive (V) - Forgiveness (N)",
         "meaning": "宽容的",
         "recycled": false
@@ -3701,7 +3701,7 @@
         "recycled": false
       },
       {
-        "word": "Awkward (Adj)",
+        "word": "Awkward (N)",
         "forms": "Awkwardness (N)",
         "meaning": "尴尬的",
         "recycled": true
@@ -3718,7 +3718,7 @@
         "idiom": "Swallow one's pride",
         "usage": "Swallowed (V2)",
         "meaning": "放下自尊",
-        "cn_idiom": "忍气吞声 / 放下名子"
+        "cn_idiom": "忍气吞声 / 放下面子"
       },
       {
         "idiom": "Clear the air",
@@ -3753,7 +3753,7 @@
         "recycled": false
       },
       {
-        "word": "Conflict (N)",
+        "word": "Conflict (Adj)",
         "forms": "Conflicted (Adj)",
         "meaning": "冲突",
         "recycled": false
@@ -3802,19 +3802,19 @@
     "week": 30,
     "l1_vocab": [
       {
-        "word": "Fascinating (Adj)",
+        "word": "Fascinating (N)",
         "forms": "Fascinate (V) - Fascination (N)",
         "meaning": "迷人的",
         "recycled": false
       },
       {
-        "word": "Endangered (Adj)",
+        "word": "Endangered (N)",
         "forms": "Danger (N)",
         "meaning": "濒危的",
         "recycled": false
       },
       {
-        "word": "Wild (Adj)",
+        "word": "Wild (N)",
         "forms": "Wilderness (N)",
         "meaning": "野生的",
         "recycled": false
@@ -3826,7 +3826,7 @@
         "recycled": false
       },
       {
-        "word": "Unique (Adj)",
+        "word": "Unique (N)",
         "forms": "Uniqueness (N)",
         "meaning": "独特的",
         "recycled": false
@@ -3838,7 +3838,7 @@
         "recycled": true
       },
       {
-        "word": "Sincere (Adj)",
+        "word": "Sincere (N)",
         "forms": "Sincerity (N)",
         "meaning": "真诚的 (interest)",
         "recycled": true
@@ -3902,7 +3902,7 @@
         "recycled": true
       },
       {
-        "word": "Conflict (N)",
+        "word": "Conflict (Adj)",
         "forms": "Conflicted (Adj)",
         "meaning": "冲突 (human-animal)",
         "recycled": true
@@ -3933,13 +3933,13 @@
     "week": 31,
     "l1_vocab": [
       {
-        "word": "Complex (Adj)",
+        "word": "Complex (N)",
         "forms": "Complexity (N)",
         "meaning": "复杂的",
         "recycled": false
       },
       {
-        "word": "Fascinating (Adj)",
+        "word": "Fascinating (N)",
         "forms": "Fascination (N)",
         "meaning": "迷人的",
         "recycled": true
@@ -3969,7 +3969,7 @@
         "recycled": false
       },
       {
-        "word": "Unique (Adj)",
+        "word": "Unique (N)",
         "forms": "Uniqueness (N)",
         "meaning": "独特的",
         "recycled": true
@@ -4009,7 +4009,7 @@
         "recycled": false
       },
       {
-        "word": "Hypothesis (N)",
+        "word": "Hypothesis (Adj)",
         "forms": "Hypothetical (Adj)",
         "meaning": "假设",
         "recycled": false
@@ -4070,7 +4070,7 @@
         "recycled": false
       },
       {
-        "word": "Rewarding (Adj)",
+        "word": "Rewarding",
         "forms": "Reward (N/V)",
         "meaning": "值得的 / 有回报的",
         "recycled": false
@@ -4082,19 +4082,19 @@
         "recycled": false
       },
       {
-        "word": "Exhilarating (Adj)",
+        "word": "Exhilarating (N)",
         "forms": "Exhilaration (N)",
         "meaning": "令人兴奋的",
         "recycled": false
       },
       {
-        "word": "Determined (Adj)",
+        "word": "Determined (N)",
         "forms": "Determination (N)",
         "meaning": "下定决心的",
         "recycled": false
       },
       {
-        "word": "Complex (Adj)",
+        "word": "Complex (N)",
         "forms": "Complexity (N)",
         "meaning": "复杂的",
         "recycled": true
@@ -4195,7 +4195,7 @@
     "week": 33,
     "l1_vocab": [
       {
-        "word": "Disciplined (Adj)",
+        "word": "Disciplined (N)",
         "forms": "Discipline (N)",
         "meaning": "自律的",
         "recycled": false
@@ -4225,13 +4225,13 @@
         "recycled": false
       },
       {
-        "word": "Determined (Adj)",
+        "word": "Determined (N)",
         "forms": "Determination (N)",
         "meaning": "下定决心的",
         "recycled": true
       },
       {
-        "word": "Rewarding (Adj)",
+        "word": "Rewarding (N)",
         "forms": "Reward (N)",
         "meaning": "有回报的",
         "recycled": true
@@ -4259,7 +4259,7 @@
     ],
     "l2_vocab": [
       {
-        "word": "Lifestyle (N)",
+        "word": "Lifestyle",
         "forms": "Lifestyles (Pl)",
         "meaning": "生活方式",
         "recycled": false
@@ -4271,7 +4271,7 @@
         "recycled": false
       },
       {
-        "word": "Routine (N)",
+        "word": "Routine (Adj)",
         "forms": "Adjective / Noun",
         "meaning": "常规 / 例行公事",
         "recycled": false
@@ -4326,13 +4326,13 @@
     "week": 34,
     "l1_vocab": [
       {
-        "word": "Prohibited (Adj)",
+        "word": "Prohibited (N)",
         "forms": "Prohibit (V) - Prohibition (N)",
         "meaning": "禁止的",
         "recycled": false
       },
       {
-        "word": "Strict (Adj)",
+        "word": "Strict",
         "forms": "Strictly (Adv)",
         "meaning": "严格的",
         "recycled": false
@@ -4356,7 +4356,7 @@
         "recycled": false
       },
       {
-        "word": "Disciplined (Adj)",
+        "word": "Disciplined (N)",
         "forms": "Discipline (N)",
         "meaning": "守纪律的",
         "recycled": true
@@ -4457,7 +4457,7 @@
     "week": 35,
     "l1_vocab": [
       {
-        "word": "Organized (Adj)",
+        "word": "Organized (N)",
         "forms": "Organize (V) - Organization (N)",
         "meaning": "有条理的",
         "recycled": false
@@ -4487,7 +4487,7 @@
         "recycled": false
       },
       {
-        "word": "Strict (Adj)",
+        "word": "Strict (N)",
         "forms": "Strictness (N)",
         "meaning": "严格的 (schedule)",
         "recycled": true
@@ -4533,7 +4533,7 @@
         "recycled": false
       },
       {
-        "word": "Schedule (N)",
+        "word": "Schedule (Adj)",
         "forms": "Scheduled (Adj)",
         "meaning": "日程安排",
         "recycled": false
@@ -4600,7 +4600,7 @@
         "recycled": false
       },
       {
-        "word": "Intense (Adj)",
+        "word": "Intense (N)",
         "forms": "Intensity (N)",
         "meaning": "激烈的",
         "recycled": false
@@ -4624,7 +4624,7 @@
         "recycled": true
       },
       {
-        "word": "Organized (Adj)",
+        "word": "Organized (N)",
         "forms": "Organization (N)",
         "meaning": "有组织的 (event)",
         "recycled": true
@@ -4664,7 +4664,7 @@
         "recycled": false
       },
       {
-        "word": "Rivalry (N)",
+        "word": "Rivalry (Adj)",
         "forms": "Rival (N)",
         "meaning": "竞争 / 敌对状态",
         "recycled": false
@@ -4755,7 +4755,7 @@
         "recycled": true
       },
       {
-        "word": "Intense (Adj)",
+        "word": "Intense (N)",
         "forms": "Intensity (N)",
         "meaning": "强烈的 (dislike)",
         "recycled": true
@@ -4819,7 +4819,7 @@
         "recycled": true
       },
       {
-        "word": "Rivalry (N)",
+        "word": "Rivalry (Adj)",
         "forms": "Rival (N)",
         "meaning": "对立",
         "recycled": true
@@ -4850,7 +4850,7 @@
     "week": 38,
     "l1_vocab": [
       {
-        "word": "Serene (Adj)",
+        "word": "Serene (N)",
         "forms": "Serenity (N)",
         "meaning": "宁静的",
         "recycled": false
@@ -4862,7 +4862,7 @@
         "recycled": false
       },
       {
-        "word": "Refreshing (Adj)",
+        "word": "Refreshing (V)",
         "forms": "Refresh (V)",
         "meaning": "令人耳目一新的",
         "recycled": false
@@ -4874,7 +4874,7 @@
         "recycled": false
       },
       {
-        "word": "Polluted (Adj)",
+        "word": "Polluted (N)",
         "forms": "Pollute (V) - Pollution (N)",
         "meaning": "被污染的",
         "recycled": false
@@ -4926,7 +4926,7 @@
         "recycled": false
       },
       {
-        "word": "Resource (N)",
+        "word": "Resource",
         "forms": "Resources (Pl)",
         "meaning": "资源",
         "recycled": false
@@ -5005,19 +5005,19 @@
         "recycled": false
       },
       {
-        "word": "Outdated (Adj)",
+        "word": "Outdated (N)",
         "forms": "Date (N)",
         "meaning": "过时的",
         "recycled": false
       },
       {
-        "word": "Refreshing (Adj)",
+        "word": "Refreshing (V)",
         "forms": "Refresh (V)",
         "meaning": "清爽的 (look)",
         "recycled": true
       },
       {
-        "word": "Serene (Adj)",
+        "word": "Serene (N)",
         "forms": "Serenity (N)",
         "meaning": "宁静的 (color)",
         "recycled": true
@@ -5069,13 +5069,13 @@
         "recycled": false
       },
       {
-        "word": "Textile (N)",
+        "word": "Textile",
         "forms": "Textiles (Pl)",
         "meaning": "纺织品",
         "recycled": false
       },
       {
-        "word": "Resource (N)",
+        "word": "Resource",
         "forms": "Resources (Pl)",
         "meaning": "资源 (waste)",
         "recycled": true
