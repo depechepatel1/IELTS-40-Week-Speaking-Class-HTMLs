@@ -36,13 +36,14 @@
         /* Standard Repo Page Container */
         .page {
             width: 210mm;
-            height: 296mm; /* Fixed A4 Height */
+            min-height: 296mm; /* Allow content to grow if needed */
+            height: auto;
             background: white;
             margin: 20px auto; /* Centered with margin for preview */
             padding: 20mm 25mm; /* Generous padding for professional look */
             box-sizing: border-box;
             position: relative;
-            overflow: hidden; /* Ensures content stays within boundaries */
+            overflow: visible; /* Prevent cutting off content */
             display: flex;
             flex-direction: column;
             box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Drop shadow for page outline */
@@ -51,7 +52,7 @@
 
         @media print {
             body { background: none; }
-            .page { margin: 0; box-shadow: none; height: 296mm; width: 210mm; page-break-after: always; }
+            .page { margin: 0; box-shadow: none; min-height: 296mm; width: 210mm; page-break-after: always; }
         }
 
         /* =========================================
@@ -64,7 +65,7 @@
             background-repeat: no-repeat;
             background-color: #000000;
             padding: 0; /* No padding on cover */
-            height: 296mm;
+            height: 296mm; /* Fixed height for cover only */
         }
 
         /* =========================================
