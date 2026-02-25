@@ -406,13 +406,14 @@
      PAGE 1: COVER PAGE
      ========================================= -->
 <div class="page" style="padding: 0; display: block;">
-    <img src="https://res.cloudinary.com/daujjfaqg/image/upload/v1771954617/Gemini_Generated_Image_l9b5ncl9b5ncl9b5_1_g88oyg.jpg" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Cover Image">
+    <!-- object-fit: fill ensures it stretches to fit the 210mm x 296mm container exactly, fixing "runs off" issues -->
+    <img src="https://res.cloudinary.com/daujjfaqg/image/upload/v1771954617/Gemini_Generated_Image_l9b5ncl9b5ncl9b5_1_g88oyg.jpg" style="width: 100%; height: 100%; object-fit: fill; display: block;" alt="Cover Image">
 </div>
 
 <!-- =========================================
-     PAGE 2: ENGLISH INTRODUCTION
+     PAGE 2: ENGLISH INTRODUCTION (PART 1)
      ========================================= -->
-<div class="page l1" style="font-size: 0.9em;"> <!-- Slightly smaller base font to ensure fit -->
+<div class="page l1" style="font-size: 0.9em;">
     <div class="header-bar">
         <span class="header-title">Welcome to Your New IGCSE Speaking Course!</span>
         <span class="week-tag">A Guide for Students and School Leaders</span>
@@ -437,7 +438,7 @@
     </div>
 
     <!-- Smart Homework -->
-    <div class="card" style="background: var(--bg-pastel-blue);">
+    <div class="card" style="background: var(--bg-pastel-blue); flex-grow: 1;">
         <h2 class="intro-section-title" style="margin-top:0;">Smart Homework: The 20-Minute AI Web App</h2>
         <div class="intro-text">
             Chinese education law strictly limits homework time. We respect this rule perfectly. Your homework is limited to exactly 20 spoken minutes a week using our custom AI web app. There are no boring written worksheets!
@@ -453,6 +454,16 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- =========================================
+     PAGE 3: ENGLISH INTRODUCTION (PART 2)
+     ========================================= -->
+<div class="page l1" style="font-size: 0.9em;">
+    <div class="header-bar">
+        <span class="header-title">Welcome to Your New IGCSE Speaking Course! (Continued)</span>
+        <span class="week-tag">A Guide for Students and School Leaders</span>
+    </div>
 
     <!-- The Science of Learning -->
     <div class="card" style="flex-grow: 1;">
@@ -467,14 +478,14 @@
             <li><strong>The 4-3-2 Fluency Game:</strong> Many students translate Chinese to English in their heads, which makes speaking very slow. In this classroom game, you speak your original answer to a partner in 4 minutes, then 3 minutes, then 2 minutes. This trains your brain to stop translating and start speaking fast.</li>
             <li><strong>Real Conversation Skills (Interactive Turn-Taking):</strong> The real exam tests if you can hold a natural conversation. We teach you exactly how to take turns, listen actively, and politely ask for help just like a native speaker (for example, learning to ask, "Sorry, did you mean...?").</li>
         </ol>
-        <div style="font-weight: bold; text-align: center; margin-top: 10px; color: var(--primary-color);">
+        <div style="font-weight: bold; text-align: center; margin-top: 30px; color: var(--primary-color); font-size: 1.2em; padding: 20px; border: 2px dashed var(--primary-color); border-radius: 10px; background: #fff;">
             By combining every topic from the world-class Cambridge textbook, amazing AI technology, and the best teaching science, you are getting the absolute best speaking course possible. We are excited to guide you to success!
         </div>
     </div>
 </div>
 
 <!-- =========================================
-     PAGE 3: CHINESE INTRODUCTION
+     PAGE 4: CHINESE INTRODUCTION (PART 1)
      ========================================= -->
 <div class="page l1" style="font-size: 0.9em; font-family: 'Microsoft YaHei', sans-serif;"> <!-- Chinese Font Stack -->
     <div class="header-bar">
@@ -501,7 +512,7 @@
     </div>
 
     <!-- Smart Homework -->
-    <div class="card" style="background: var(--bg-pastel-blue);">
+    <div class="card" style="background: var(--bg-pastel-blue); flex-grow: 1;">
         <h2 class="intro-section-title" style="margin-top:0;">智慧作业：20分钟AI语音程序</h2>
         <div class="intro-text">
             中国教育法规严格限制作业时长。我们完全遵循该规定：每周仅需通过定制AI语音程序完成20分钟口语练习，彻底告别枯燥的书面作业！
@@ -517,6 +528,16 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- =========================================
+     PAGE 5: CHINESE INTRODUCTION (PART 2)
+     ========================================= -->
+<div class="page l1" style="font-size: 0.9em; font-family: 'Microsoft YaHei', sans-serif;">
+    <div class="header-bar">
+        <span class="header-title">欢迎使用全新的IGCSE口语课程！ (续)</span>
+        <span class="week-tag">学生与校方指南</span>
+    </div>
 
     <!-- The Science of Learning -->
     <div class="card" style="flex-grow: 1;">
@@ -531,7 +552,7 @@
             <li><strong>4-3-2流利度挑战：</strong>针对“中译英”思维导致语速迟缓的痛点，通过课堂配对练习——分别用4分钟、3分钟、2分钟陈述同一观点，训练大脑实现英语直输。</li>
             <li><strong>真实对话技巧（互动话轮转换）：</strong>模拟真实考场中的自然交流场景，专项训练话轮转换、主动聆听、得体求助等母语者必备技能（例如学习使用“抱歉，您是指...？”等策略）。</li>
         </ol>
-        <div style="font-weight: bold; text-align: center; margin-top: 10px; color: var(--primary-color);">
+        <div style="font-weight: bold; text-align: center; margin-top: 30px; color: var(--primary-color); font-size: 1.2em; padding: 20px; border: 2px dashed var(--primary-color); border-radius: 10px; background: #fff;">
             通过世界级剑桥教材的全主题覆盖、尖端AI技术赋能与最优教学科学的深度融合，您将获得无可比拟的口语课程。我们满怀期待，助您迈向成功！
         </div>
     </div>
