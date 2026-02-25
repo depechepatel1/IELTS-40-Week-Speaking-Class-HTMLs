@@ -17,7 +17,7 @@
             --primary-color: #2c3e50; /* Deep Blue */
             --accent-color: #3498db;  /* Academic Blue */
             --text-color: #333333;
-            --bg-color: #ffffff;
+            --bg-color: #eef2f5;      /* Soft Gray-Blue Background (Repo Standard) */
             --font-main: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
             --font-heading: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
         }
@@ -27,26 +27,31 @@
             padding: 0;
             font-family: var(--font-main);
             color: var(--text-color);
-            background: #ccc; /* For preview background */
+            background: var(--bg-color); /* Match repo background */
+            line-height: 1.5; /* Increased for readability */
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
 
+        /* Standard Repo Page Container */
         .page {
             width: 210mm;
-            min-height: 296mm; /* Allow growth */
-            background: var(--bg-color);
-            margin: 0 auto; /* Center for preview */
-            position: relative;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Preview shadow */
-            overflow: visible; /* Prevent cutting off content */
+            height: 296mm; /* Fixed A4 Height */
+            background: white;
+            margin: 20px auto; /* Centered with margin for preview */
+            padding: 20mm 25mm; /* Generous padding for professional look */
             box-sizing: border-box;
+            position: relative;
+            overflow: hidden; /* Ensures content stays within boundaries */
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Drop shadow for page outline */
             page-break-after: always;
         }
 
         @media print {
             body { background: none; }
-            .page { margin: 0; box-shadow: none; width: 210mm; min-height: 296mm; page-break-after: always; }
+            .page { margin: 0; box-shadow: none; height: 296mm; width: 210mm; page-break-after: always; }
         }
 
         /* =========================================
@@ -58,23 +63,19 @@
             background-position: center;
             background-repeat: no-repeat;
             background-color: #000000;
-            height: 296mm; /* Fixed height for cover only */
+            padding: 0; /* No padding on cover */
+            height: 296mm;
         }
 
         /* =========================================
-           CONTENT PAGES (English & Chinese)
+           CONTENT STYLES
            ========================================= */
-        .content-page {
-            padding: 20mm 20mm; /* Standard Margins */
-            display: block; /* Use block to allow flow */
-        }
-
         h1 {
             font-family: var(--font-heading);
             color: var(--primary-color);
-            font-size: 20pt;
+            font-size: 22pt;
             text-align: center;
-            margin: 0 0 5px 0;
+            margin: 0 0 10px 0;
             line-height: 1.1;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -83,27 +84,27 @@
         .subtitle {
             font-family: var(--font-heading);
             color: var(--accent-color);
-            font-size: 11pt;
+            font-size: 13pt;
             text-align: center;
-            margin: 0 0 20px 0;
+            margin: 0 0 30px 0;
             font-weight: 600;
             font-style: italic;
         }
 
         .intro-block {
-            font-size: 10pt; /* Improved readability */
-            line-height: 1.4;
+            font-size: 11pt; /* Professional size */
+            line-height: 1.6;
             text-align: justify;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         h2 {
             font-family: var(--font-heading);
             color: var(--primary-color);
-            font-size: 12pt;
-            margin: 15px 0 8px 0;
-            border-bottom: 1px solid var(--accent-color);
-            padding-bottom: 2px;
+            font-size: 14pt;
+            margin: 25px 0 15px 0;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 4px;
             display: inline-block;
             text-transform: uppercase;
             font-weight: 700;
@@ -115,28 +116,49 @@
         }
 
         ul, ol {
-            margin: 8px 0;
-            padding-left: 20px;
+            margin: 15px 0;
+            padding-left: 25px;
         }
 
         li {
-            font-size: 10pt; /* Improved readability */
-            line-height: 1.35;
-            margin-bottom: 6px;
+            font-size: 11pt;
+            line-height: 1.6;
+            margin-bottom: 10px;
             text-align: justify;
         }
 
         /* List numbering style */
         ol { list-style-type: decimal; }
 
-        /* Specific Tweaks for Chinese Font */
+        /* Chinese Typography Tweaks */
         .chinese-text {
             font-family: "Microsoft YaHei", "SimHei", var(--font-main);
-            line-height: 1.45;
+            line-height: 1.6;
         }
-        .chinese-text h1 { font-weight: bold; font-size: 18pt; }
-        .chinese-text .intro-block { font-size: 10pt; line-height: 1.5; }
-        .chinese-text li { font-size: 10pt; line-height: 1.45; }
+        .chinese-text h1 { font-weight: bold; font-size: 20pt; }
+        .chinese-text .intro-block { font-size: 11pt; line-height: 1.6; }
+        .chinese-text li { font-size: 11pt; line-height: 1.6; }
+
+        /* Footer line for professionalism */
+        .footer-line {
+            margin-top: auto; /* Pushes to bottom */
+            border-top: 1px dashed #ccc;
+            padding-top: 15px;
+            font-size: 10pt;
+            text-align: center;
+            color: #7f8c8d;
+            font-weight: bold;
+        }
+
+        /* Spacer for continued pages */
+        .continued-header {
+            text-align: right;
+            font-size: 0.9em;
+            color: #aaa;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
 
     </style>
 </head>
@@ -147,8 +169,8 @@
         <!-- Image provides all content -->
     </div>
 
-    <!-- PAGE 2: ENGLISH FULL TEXT -->
-    <div class="page content-page">
+    <!-- PAGE 2: ENGLISH PART 1 -->
+    <div class="page">
         <h1>Welcome to IELTS Speaking Mastery!</h1>
         <div class="subtitle">(A Guide for Students and School Leaders)</div>
 
@@ -166,6 +188,13 @@
         <div class="intro-block">
             <strong>Why is this better?</strong> Because you are training for the real test, not a simulation. You are practicing the exact questions that real examiners are asking in test rooms right now. By the time you take your exam, you will face zero surprises. Because we use real, live test data instead of old books, this course literally could not be any better.
         </div>
+
+        <div style="margin-top:auto; text-align:center; color:#ccc; font-size:0.9em;">- 1 -</div>
+    </div>
+
+    <!-- PAGE 3: ENGLISH PART 2 -->
+    <div class="page">
+        <div class="continued-header">IELTS Speaking Mastery (Continued)</div>
 
         <h2>Your 24/7 AI Homework Teacher</h2>
         <div class="intro-block">
@@ -188,13 +217,14 @@
             <li><strong>Instant 1-on-1 Coaching (Micro-Conferencing):</strong> Your teacher will constantly walk around the room to give you fast, 2-minute private coaching sessions. We fix your mistakes the exact moment you make them!</li>
         </ol>
 
-        <div class="intro-block" style="margin-top: 15px; font-weight: bold; text-align: center; color: var(--primary-color); font-size: 10pt; border-top: 1px dashed #ccc; padding-top: 10px;">
+        <div class="footer-line">
             By combining real collected exam questions, Google Gemini’s perfect AI course design, and the most advanced teaching science in the world, this course is the ultimate IELTS preparation. We are excited to guide you to success!
         </div>
+        <div style="margin-top:10px; text-align:center; color:#ccc; font-size:0.9em;">- 2 -</div>
     </div>
 
-    <!-- PAGE 3: CHINESE FULL TEXT -->
-    <div class="page content-page chinese-text">
+    <!-- PAGE 4: CHINESE PART 1 -->
+    <div class="page chinese-text">
         <h1>欢迎使用雅思口语 Mastery 课程！</h1>
         <div class="subtitle">（学生与校方指南）</div>
 
@@ -212,6 +242,13 @@
         <div class="intro-block">
             <strong>优势何在？</strong>因为您是在为真正的考试备战，而非模拟演练。您所练习的，正是当下考官在考场中正在提问的真实题目。待到您步入考场之日，将不会遭遇任何意外。由于我们使用实时更新的真实考试数据，而非陈旧教材，本课程的备考精准度已臻极致。
         </div>
+
+        <div style="margin-top:auto; text-align:center; color:#ccc; font-size:0.9em;">- 3 -</div>
+    </div>
+
+    <!-- PAGE 5: CHINESE PART 2 -->
+    <div class="page chinese-text">
+        <div class="continued-header">雅思口语 Mastery 课程指南 (续)</div>
 
         <h2>您的 24/7 AI 助教</h2>
         <div class="intro-block">
@@ -234,9 +271,10 @@
             <li><strong>即时一对一辅导（微型会谈）：</strong>教师将持续在教室内巡视，为您提供快速、高效的 2 分钟私人辅导。确保在您犯错的第一时间，得到精准纠正！</li>
         </ol>
 
-        <div class="intro-block" style="margin-top: 15px; font-weight: bold; text-align: center; color: var(--primary-color); font-size: 10pt; border-top: 1px dashed #ccc; padding-top: 10px;">
+        <div class="footer-line">
             通过融合真实采集的考题、Google Gemini 的完美 AI 课程设计，以及全球最前沿的教学科学，本课程堪称雅思备考的终极之选。我们满怀期待，助您迈向成功！
         </div>
+        <div style="margin-top:10px; text-align:center; color:#ccc; font-size:0.9em;">- 4 -</div>
     </div>
 
 </body>
