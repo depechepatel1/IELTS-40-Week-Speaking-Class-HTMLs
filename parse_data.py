@@ -496,7 +496,11 @@ def process_cover(soup, week_data):
     cover_week = soup.find('h1', class_='cover-week')
     if cover_week: cover_week.string = f"WEEK {week_data.get('week')}"
     cover_title = soup.find('h2', class_='cover-title-large')
-    if cover_title: cover_title.string = week_data.get('theme', '')
+    if cover_title:
+        cover_title.string = week_data.get('theme', '')
+        # Ensure styling matches cover-week (5em) and remove underlining
+        cover_title['style'] = "font-size: 5em; text-decoration: none; border-bottom: none;"
+
     cover_sub = soup.find('div', class_='cover-subtitle')
     if cover_sub: cover_sub.string = week_data.get('topic', '')
 
