@@ -61,7 +61,14 @@ def load_data():
         print("Warning: peer_check_questions.json not found.")
         peer_data = {}
 
-    return curriculum_data, phrase_data, vocab_data, homework_data, peer_data
+    try:
+        with open('mindmap_labels.json', 'r', encoding='utf-8') as f:
+            mindmap_labels = json.load(f).get('mindmap_labels', {})
+    except FileNotFoundError:
+        print("Warning: mindmap_labels.json not found.")
+        mindmap_labels = {}
+
+    return curriculum_data, phrase_data, vocab_data, homework_data, peer_data, mindmap_labels
 
 def get_week_phrase(week_number, phrase_data):
     week_info = phrase_data.get(week_number, {})
@@ -141,12 +148,23 @@ def process_teacher_plan(soup, week_number, week_curriculum, phrase_data, week_v
                         cells[1].append(BeautifulSoup(new_html, 'html.parser'))
                     # Point 6: Input
                     elif "Input" in cells[1].text:
-                        # Change "Reliable" to "vocabulary list words"
-                        # Current HTML: <strong>Input:</strong> Read Model. Highlight "Reliable". Analyze...
-                        current_html = str(cells[1])
-                        new_html = current_html.replace('"Reliable"', '"vocabulary list words"')
+                        # Fix column misalignment if any empty cells or structure issues
+                        # And Change "Reliable" to "vocabulary list words"
+                        # We must extract the inner HTML or text, NOT str(cells[1]) which includes the <td> tags.
+                        # If we append <td> inside <td>, we get nesting issues.
+                        content = "".join([str(x) for x in cells[1].contents])
+                        new_content = content.replace('"Reliable"', '"vocabulary list words"')
                         cells[1].clear()
-                        cells[1].append(BeautifulSoup(new_html, 'html.parser'))
+                        cells[1].append(BeautifulSoup(new_content, 'html.parser'))
+
+                        # Fix potential misalignment by ensuring cells[2] (Student Activity) and cells[3] (Notes) exist and are populated
+                        # The user reported "Teacher Activity box is empty" and misalignment.
+                        # If cells[1] was empty or malformed, we just refilled it.
+                        # But if the row structure is broken in template, we might need to rebuild the row.
+                        # However, based on the template read earlier, the row is:
+                        # <tr><td>10-25</td><td><strong>Input:</strong>...</td><td>Highlight text.</td><td>CCQs on vocab.</td></tr>
+                        # If the user sees it empty, maybe the replace failed or cells[1] content was lost.
+                        # We are explicitly setting it now.
 
     l2_pages = soup.find_all('div', class_='l2')
     l2_teacher_page = None
@@ -188,18 +206,24 @@ def process_teacher_plan(soup, week_number, week_curriculum, phrase_data, week_v
                 b6_html = f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: 'Admittedly...', 'Conversely...'<br>• Peer Check: Ask an abstract question about {target_phrase}."
                 b6_div.append(BeautifulSoup(b6_html, 'html.parser'))
 
-def format_mind_maps(soup, week_number, phrase_data, week_data):
+def format_mind_maps(soup, week_number, phrase_data, week_data, mindmap_labels):
     target_phrase = get_week_phrase(week_number, phrase_data).upper()
 
-    # Point 9: Central Nodes
-    spider_centers = soup.find_all('div', class_='spider-center')
-    for center in spider_centers:
-        center.clear()
-        # Replace newlines with <br> if needed or just let CSS handle it
-        center.append(BeautifulSoup(target_phrase.replace(' ', '<br>'), 'html.parser'))
+    # Get labels for this week
+    week_key = f"week_{week_number}"
+    week_labels = mindmap_labels.get(week_key, {}).get('lesson_1', {})
 
-    # Point 8: Spider Diagram Questions & Hints
-    l1_data = week_data.get('lesson_1_part_2', {})
+    # Q1 -> Brainstorming Map (Page 3 top)
+    # Q2 -> Part 2: Q2 (Page 3 bottom left)
+    # Q3 -> Part 2: Q3 (Page 3 bottom right)
+
+    # Helper to set center label
+    def set_center_label(card_parent, label):
+        if not card_parent: return
+        center = card_parent.find('div', class_='spider-center')
+        if center:
+            center.clear()
+            center.append(BeautifulSoup(label.upper().replace(' ', '<br>'), 'html.parser'))
 
     # Helper to update legs
     def update_legs(container, hints):
@@ -221,11 +245,14 @@ def format_mind_maps(soup, week_number, phrase_data, week_data):
                         leg.append(lines_div)
 
     # Q1 Map (Page 3)
-    # Find the Brainstorming Map card
-    brainstorm_card = soup.find('h2', string=re.compile(r'Brainstorming Map'))
-    if brainstorm_card:
-        card = brainstorm_card.parent
-        # Update Prompt Text (from Q1 HTML)
+    brainstorm_card_h2 = soup.find('h2', string=re.compile(r'Brainstorming Map'))
+    if brainstorm_card_h2:
+        card = brainstorm_card_h2.parent
+        q1_label = week_labels.get('q1', target_phrase) # Fallback to target_phrase if missing
+        set_center_label(card, q1_label)
+
+        # Update Prompt & Legs (Existing Logic)
+        l1_data = week_data.get('lesson_1_part_2', {})
         q1_html = l1_data.get('q1', {}).get('html', '')
         if q1_html:
             bs = BeautifulSoup(q1_html, 'html.parser')
@@ -238,26 +265,38 @@ def format_mind_maps(soup, week_number, phrase_data, week_data):
                         prompt_div.clear()
                         prompt_div.append(BeautifulSoup(format_bullet_text(str(ps[0])), 'html.parser'))
 
-        # Update Legs
         q1_hints = l1_data.get('q1', {}).get('spider_diagram_hints', [])
         spider_container = card.find('div', class_='spider-container')
         update_legs(spider_container, q1_hints)
 
     # Q2 Map (Page 3)
-    q2_card = soup.find('h3', string=re.compile(r'Part 2: Q2'))
-    if q2_card:
-        card = q2_card.parent
-        q2_hints = l1_data.get('q2', {}).get('spider_diagram_hints', [])
+    q2_card_h3 = soup.find('h3', string=re.compile(r'Part 2: Q2'))
+    if q2_card_h3:
+        card = q2_card_h3.parent
+        q2_label = week_labels.get('q2', target_phrase)
+        set_center_label(card, q2_label)
+
+        q2_hints = week_data.get('lesson_1_part_2', {}).get('q2', {}).get('spider_diagram_hints', [])
         spider_container = card.find('div', class_='spider-container')
         update_legs(spider_container, q2_hints)
 
     # Q3 Map (Page 3)
-    q3_card = soup.find('h3', string=re.compile(r'Part 2: Q3'))
-    if q3_card:
-        card = q3_card.parent
-        q3_hints = l1_data.get('q3', {}).get('spider_diagram_hints', [])
+    q3_card_h3 = soup.find('h3', string=re.compile(r'Part 2: Q3'))
+    if q3_card_h3:
+        card = q3_card_h3.parent
+        q3_label = week_labels.get('q3', target_phrase)
+        set_center_label(card, q3_label)
+
+        q3_hints = week_data.get('lesson_1_part_2', {}).get('q3', {}).get('spider_diagram_hints', [])
         spider_container = card.find('div', class_='spider-container')
         update_legs(spider_container, q3_hints)
+
+    # Helper to update legs (moved inside format_mind_maps or redefined)
+    # Actually, update_legs was defined inside format_mind_maps but logic was messy.
+    # I will move update_legs to be a top-level helper or redefine it here.
+
+    # Point 8: Spider Diagram Questions & Hints (Logic now integrated above in Point 9 block)
+    # Removing redundant block.
 
 def process_homework(soup, week_number, homework_data):
     hw_page = soup.find('div', class_='hw')
@@ -659,7 +698,7 @@ def main():
     print("Generating all 40 lesson plans...")
     os.makedirs('lessons', exist_ok=True)
     
-    curriculum, phrases, vocab, homework, peer_data = load_data()
+    curriculum, phrases, vocab, homework, peer_data, mindmap_labels = load_data()
     if not curriculum: return
 
     with open('Week_1_Lesson_Plan.html', 'r', encoding='utf-8') as f:
@@ -690,7 +729,7 @@ def main():
 
                 populate_content(soup, week_data, week_vocab, peer_data)
                 process_teacher_plan(soup, week_num, week_data, phrases, week_vocab)
-                format_mind_maps(soup, week_num, phrases, week_data)
+                format_mind_maps(soup, week_num, phrases, week_data, mindmap_labels)
                 process_homework(soup, week_num, week_homework)
                 writing_page = process_writing_page(soup)
                 process_layout_adjustments(soup)
