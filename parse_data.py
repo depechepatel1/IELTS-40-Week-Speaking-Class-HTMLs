@@ -225,6 +225,9 @@ def format_mind_maps(soup, week_number, phrase_data, week_data, mindmap_labels):
         if center:
             center.clear()
             center.append(BeautifulSoup(label.upper().replace(' ', '<br>'), 'html.parser'))
+            # Task 2: Change central node color to light blue and font to black
+            # Existing style might be in CSS class, we override with inline style
+            center['style'] = "background: var(--bg-pastel-blue); color: black;"
 
     # Helper to update legs
     def update_legs(container, hints):
@@ -264,7 +267,8 @@ def format_mind_maps(soup, week_number, phrase_data, week_data, mindmap_labels):
                     prompt_div = card.find('div', style=lambda x: x and 'color:#444' in x)
                     if prompt_div:
                         prompt_div.clear()
-                        prompt_div.append(BeautifulSoup(format_bullet_text(str(ps[0])), 'html.parser'))
+                        # Task 3: Bold question for mind map
+                        prompt_div.append(BeautifulSoup(format_bullet_text(str(ps[0]), bold_question=True), 'html.parser'))
 
         q1_hints = l1_data.get('q1', {}).get('spider_diagram_hints', [])
         spider_container = card.find('div', class_='spider-container')
@@ -375,20 +379,12 @@ def process_homework(soup, week_number, homework_data):
         sec4_card.clear()
         sec4_html = """
         <h3 style="color:var(--hw-accent); margin:0 0 10px 0; border-bottom:1px solid #ddd; padding-bottom:5px;">🎙️ 4. Recording Challenge</h3>
-        <div style="display:flex; flex-direction:column; gap:10px; font-size:0.85em;">
-            <div style="background:white; padding:8px; border-radius:6px; border-left:3px solid #3498db;">
-                <strong>Part 1: AI Shadow Reading (19 mins)</strong>
-                <ul style="margin:5px 0 0 0; padding-left:15px; color:#555;">
-                    <li><strong>Task A (10 mins):</strong> Shadow read model answers (L2 Part 3 after L1; Next Wk L1 Part 2 after L2).</li>
-                    <li><strong>Task B (9 mins):</strong> Tongue Twisters (Pronunciation Practice).</li>
-                </ul>
-            </div>
-            <div style="background:white; padding:8px; border-radius:6px; border-left:3px solid #e74c3c;">
-                <strong>Part 2: Recording Task (18 mins)</strong>
-                <ul style="margin:5px 0 0 0; padding-left:15px; color:#555;">
-                    <li>Record 3 x Part 2 answers (6 mins).</li>
-                    <li>Record 6 x Part 3 answers (12 mins).</li>
-                </ul>
+        <div style="font-size:0.85em; line-height:1.5; color:#333;">
+            <strong>Part 1: AI Shadow Reading (20 mins)</strong><br>
+            <div style="margin-top:5px; padding-left:10px; border-left:3px solid #3498db;">
+                <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br>
+                <strong>Task B - Memorise</strong> all next weeks vocabulary and idioms (5 mins).<br>
+                <strong>Task C - Tongue Twisters:</strong> Use the AI APP for Pronunciation Practice (5 mins).
             </div>
         </div>
         """
@@ -531,7 +527,7 @@ def update_vocab_tables(soup, week_vocab):
     if len(vocab_tables) >= 1: fill_table(vocab_tables[0], l1_vocab, l1_idioms)
     if len(vocab_tables) >= 2: fill_table(vocab_tables[1], week_vocab.get('l2_vocab', []), week_vocab.get('l2_idioms', []))
 
-def format_bullet_text(html_content):
+def format_bullet_text(html_content, bold_question=False):
     soup = BeautifulSoup(html_content, 'html.parser')
     raw_str = soup.decode_contents() if soup.name else str(soup)
     parts = re.split(r'<br\s*/?>', raw_str)
@@ -552,6 +548,10 @@ def format_bullet_text(html_content):
                 found = True
                 break
         if not found: return html_content
+
+    # Task 3: Bold question text if requested
+    if bold_question:
+        main_text = f"<strong>{main_text}</strong>"
 
     formatted_bullets = []
     for line in bullet_lines:
@@ -617,7 +617,8 @@ def update_student_l1(soup, week_data):
             p = q2_bs.find('p')
             if p:
                 prompt_div.clear()
-                prompt_div.append(BeautifulSoup(format_bullet_text(str(p)), 'html.parser'))
+                # Task 3: Bold question for mind map
+                prompt_div.append(BeautifulSoup(format_bullet_text(str(p), bold_question=True), 'html.parser'))
     q3_card = soup.find('h3', string=re.compile(r'Part 2: Q3'))
     if q3_card:
         prompt_div = q3_card.find_next_sibling('div')
@@ -626,7 +627,8 @@ def update_student_l1(soup, week_data):
             p = q3_bs.find('p')
             if p:
                 prompt_div.clear()
-                prompt_div.append(BeautifulSoup(format_bullet_text(str(p)), 'html.parser'))
+                # Task 3: Bold question for mind map
+                prompt_div.append(BeautifulSoup(format_bullet_text(str(p), bold_question=True), 'html.parser'))
 
 def update_student_l2(soup, week_data, peer_data):
     l2_data = week_data.get('lesson_2_part_3', {})
