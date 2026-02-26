@@ -269,6 +269,11 @@ def format_mind_maps(soup, week_number, phrase_data, week_data, mindmap_labels):
                         prompt_div.clear()
                         # Task 3: Bold question for mind map
                         prompt_div.append(BeautifulSoup(format_bullet_text(str(ps[0]), bold_question=True), 'html.parser'))
+                        # Reduce spacing
+                        if 'margin-bottom:8px' in prompt_div.get('style', ''):
+                             prompt_div['style'] = prompt_div['style'].replace('margin-bottom:8px', 'margin-bottom:4px')
+                        # Ensure tighter line height
+                        prompt_div['style'] += "; line-height: 1.2;"
 
         q1_hints = l1_data.get('q1', {}).get('spider_diagram_hints', [])
         spider_container = card.find('div', class_='spider-container')
@@ -529,6 +534,11 @@ def update_vocab_tables(soup, week_vocab):
 
 def format_bullet_text(html_content, bold_question=False):
     soup = BeautifulSoup(html_content, 'html.parser')
+
+    # Unwrap outer paragraph if present to avoid extra spacing
+    if soup.p:
+        soup.p.unwrap()
+
     raw_str = soup.decode_contents() if soup.name else str(soup)
     parts = re.split(r'<br\s*/?>', raw_str)
     
@@ -591,6 +601,7 @@ def update_student_l1(soup, week_data):
                     bullets_div.clear()
                     clean_bullets = format_bullet_text(str(ps[0]))
                     bullets_div.append(BeautifulSoup(clean_bullets, 'html.parser'))
+                    # Reduce spacing for CUE CARD as well just in case, though user mentioned mind maps specifically
 
         # Point 7: Band 6 Model Answer (Page 2)
         if len(ps) >= 2:
@@ -619,6 +630,11 @@ def update_student_l1(soup, week_data):
                 prompt_div.clear()
                 # Task 3: Bold question for mind map
                 prompt_div.append(BeautifulSoup(format_bullet_text(str(p), bold_question=True), 'html.parser'))
+                # Reduce spacing
+                if 'margin-bottom:8px' in prompt_div.get('style', ''):
+                     prompt_div['style'] = prompt_div['style'].replace('margin-bottom:8px', 'margin-bottom:4px')
+                prompt_div['style'] += "; line-height: 1.2;"
+
     q3_card = soup.find('h3', string=re.compile(r'Part 2: Q3'))
     if q3_card:
         prompt_div = q3_card.find_next_sibling('div')
@@ -629,6 +645,10 @@ def update_student_l1(soup, week_data):
                 prompt_div.clear()
                 # Task 3: Bold question for mind map
                 prompt_div.append(BeautifulSoup(format_bullet_text(str(p), bold_question=True), 'html.parser'))
+                # Reduce spacing
+                if 'margin-bottom:8px' in prompt_div.get('style', ''):
+                     prompt_div['style'] = prompt_div['style'].replace('margin-bottom:8px', 'margin-bottom:4px')
+                prompt_div['style'] += "; line-height: 1.2;"
 
 def update_student_l2(soup, week_data, peer_data):
     l2_data = week_data.get('lesson_2_part_3', {})
