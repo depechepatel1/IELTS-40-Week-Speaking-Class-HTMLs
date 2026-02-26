@@ -3,6 +3,7 @@ import re
 import os
 import time
 import random
+import urllib.parse
 from bs4 import BeautifulSoup
 import traceback
 
@@ -473,8 +474,22 @@ def process_layout_adjustments(soup):
 def populate_content(soup, week_curriculum, vocab_data, peer_data):
     process_cover(soup, week_curriculum)
     update_vocab_tables(soup, vocab_data)
+    update_bilibili_links(soup, week_curriculum)
     update_student_l1(soup, week_curriculum)
     update_student_l2(soup, week_curriculum, peer_data)
+
+def update_bilibili_links(soup, week_data):
+    topic = week_data.get('topic', '')
+    if not topic: return
+
+    # Construct Search URL: https://search.bilibili.com/all?keyword=IELTS {topic} Speaking
+    query = f"IELTS {topic} Speaking"
+    encoded_query = urllib.parse.quote(query)
+    search_url = f"https://search.bilibili.com/all?keyword={encoded_query}"
+
+    links = soup.find_all('a', class_='bili-btn')
+    for link in links:
+        link['href'] = search_url
 
 def process_cover(soup, week_data):
     if soup.title: soup.title.string = f"Week {week_data.get('week')} Master Lesson Pack"
