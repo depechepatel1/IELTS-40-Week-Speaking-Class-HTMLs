@@ -191,6 +191,13 @@ def process_teacher_plan(soup, week_number, week_curriculum, phrase_data, week_v
                         li.clear()
                         li.append(BeautifulSoup(f"<strong>Vocab:</strong> Use Abstract Nouns (e.g., <em>{first_word_l2}</em>).", 'html.parser'))
 
+        # Update L2 Success Criteria
+        criteria_card = l2_teacher_page.find('h2', string=re.compile(r'Criteria')).parent
+        if criteria_card:
+            div = criteria_card.find('div')
+            if div:
+                div.string = f"\"I can answer 3 abstract questions about {target_phrase} using O.R.E.\""
+
         diff_card = l2_teacher_page.find('h2', string=re.compile(r'Differentiation')).parent
         if diff_card:
             b5_div = diff_card.find('div', style=lambda x: x and 'background:#e8f8f5' in x)
