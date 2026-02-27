@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Intro Packet</title>
+<style>
+    /* =========================================
+       1. GLOBAL SETTINGS & TYPOGRAPHY
+       ========================================= */
+    :root {
+        --primary-color: #2c3e50; /* Dark Slate Blue - Professional */
+        --accent-color: #3498db;  /* Academic Blue */
+        --highlight-color: #e74c3c;
+        --text-color: #333333;
+        --page-bg: #ffffff;
+
+        /* Textbook Fonts */
+        --heading-font: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+        --body-font: "Georgia", "Times New Roman", serif; /* Serif for body text feels more academic */
+        --body-font-cn: "Microsoft YaHei", "SimHei", sans-serif;
+    }
+
+    @page { size: A4 portrait; margin: 0; }
+
+    body {
+        font-family: var(--body-font);
+        background: #f0f0f0; /* Web background to differentiate pages */
+        margin: 0;
+        color: var(--text-color);
+        line-height: 1.6; /* generous leading for readability */
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .page {
+        width: 210mm;
+        height: 296mm;
+        background: white;
+        margin: 20px auto;
+        padding: 15mm 20mm; /* Reduced margins: 15mm Top/Bottom, 20mm Left/Right */
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+    }
+
+    @media print {
+        body { background: none; }
+        .page { margin: 0; box-shadow: none; height: 296mm; page-break-after: always; }
+    }
+
+    /* =========================================
+       2. TYPOGRAPHY & LAYOUT
+       ========================================= */
+
+    h1, h2, h3 {
+        font-family: var(--heading-font);
+        color: var(--primary-color);
+        margin-top: 0;
+    }
+
+    h1 {
+        font-size: 24pt;
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 16pt;
+        margin-top: 25px;
+        margin-bottom: 10px;
+        color: var(--accent-color);
+    }
+
+    p {
+        margin-bottom: 15px;
+        text-align: justify; /* Academic look */
+    }
+
+    /* Feature Box (e.g., Smart Homework) */
+    .feature-box {
+        background-color: #f8f9fa; /* Very light gray */
+        border-left: 5px solid var(--accent-color);
+        padding: 15px 20px;
+        margin: 20px 0;
+        font-family: var(--heading-font); /* Sans-serif for distinct sections */
+        font-size: 0.95em;
+    }
+
+    .feature-box h3 {
+        color: var(--primary-color);
+        font-size: 1.1em;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .homework-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 10px;
+    }
+
+    .homework-item {
+        background: white;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+    }
+
+    /* Science of Learning List */
+    .science-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .science-list li {
+        margin-bottom: 15px;
+        padding-left: 20px;
+        position: relative;
+    }
+
+    .science-list li::before {
+        content: "•";
+        color: var(--accent-color);
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+        font-size: 1.2em;
+        line-height: 1.4;
+    }
+
+    .science-list strong {
+        color: var(--primary-color);
+        font-family: var(--heading-font);
+    }
+
+    /* Cover Page Styles */
+    .cover-page { padding: 0 !important; display: block; }
+
+    /* Chinese Override */
+    .cn-font {
+        font-family: var(--body-font-cn);
+    }
+    .cn-font p { text-align: justify; }
+
+    /* Compact Layout for Chinese (tighter spacing) */
+    .cn-compact p { margin-bottom: 10px; }
+    .cn-compact h2 { margin-top: 20px; margin-bottom: 8px; }
+    .cn-compact .feature-box { padding: 12px 15px; margin: 15px 0; }
+
+    /* Maximize Space on Page 2 (Dense Layout) */
+    .page-dense h1 { margin-top: 0; padding-top: 0; margin-bottom: 10px; font-size: 20pt; }
+    .page-dense h2 { margin-top: 15px; margin-bottom: 5px; font-size: 14pt; }
+    .page-dense p { margin-bottom: 8px; line-height: 1.45; font-size: 0.95em; }
+    .page-dense .feature-box { margin-top: 10px; padding: 10px 15px; }
+    .page-dense .feature-box h3 { margin-bottom: 5px; font-size: 1.05em; }
+    .page-dense .feature-box p { margin-bottom: 8px; }
+    .page-dense .homework-grid { gap: 10px; margin-top: 5px; }
+    .page-dense .homework-item { padding: 8px; font-size: 0.9em; }
+
+</style>
+</head>
+<body>
+
+<!-- =========================================
+     PAGE 1: COVER PAGE
+     ========================================= -->
+<div class="page cover-page">
+    <img src="https://res.cloudinary.com/daujjfaqg/image/upload/v1771954617/Gemini_Generated_Image_l9b5ncl9b5ncl9b5_1_g88oyg.jpg" style="width: 100%; height: 100%; object-fit: fill; display: block;" alt="Cover Image">
+</div>
+
+<!-- =========================================
+     PAGE 2: ENGLISH INTRODUCTION (PART 1)
+     ========================================= -->
+<div class="page page-dense">
+    <h1>Welcome to Your New Course</h1>
+
+    <p><strong>Welcome to your new IGCSE English Speaking course!</strong> We wrote this guide for students and school leaders to explain exactly how and why this course was made. Our goal is simple: to give you the absolute best preparation for your IGCSE and future IELTS speaking exams.</p>
+
+    <p>To build this course, we used advanced Artificial Intelligence (AI) to find the best, scientifically proven ways to teach languages. We then built these methods straight into your weekly lessons. For our learning material, we started with the most trusted textbook available: the famous Cambridge IGCSE English as a Second Language Coursebook by Peter Lucantoni. We extracted every single one of the 20 topics from this book and transformed them into a specialized speaking course that meets the highest UK teacher training standards (PGCE and QTS).</p>
+
+    <h2>Solving the "Memorization" Problem</h2>
+    <p>In Chinese schools, students are usually excellent at reading and grammar but lack confidence in speaking. Because they are afraid of making mistakes, many students try to pass speaking exams by writing down perfect answers and memorizing them. However, IGCSE and IELTS examiners are trained to spot memorization and will give very low scores for it. Real fluency means thinking on your feet.</p>
+
+    <p>This course is specially designed to stop you from memorizing. In class, we give you a Model Answer, but we teach you to use it as a "menu" of good vocabulary, not a script to copy. In your handout's "Writing Space," you are only allowed to write short keywords, never full sentences. This forces your brain to speak naturally!</p>
+
+    <div class="feature-box">
+        <h3>Smart Homework: The 20-Minute AI Web App</h3>
+        <p>Our course uses a custom AI web app to make homework fun and efficient. You will spend just 20 minutes a week speaking, with no boring written worksheets!</p>
+
+        <div class="homework-grid">
+            <div class="homework-item">
+                <strong>10 Minutes Before Class (Shadowing):</strong><br>
+                You will use our AI Speaking Avatar. The Avatar will speak perfect British or American English using the vocabulary for your next lesson. You will listen and copy the Avatar's voice immediately (this is called "shadowing"). This trains your mouth muscles and builds your confidence privately before class even starts.
+            </div>
+            <div class="homework-item">
+                <strong>10 Minutes After Class (Spontaneous Speaking):</strong><br>
+                To make sure you have not just memorized the class lesson, the app will give you a new, similar question. You must think on your feet and speak a 2-minute original answer. Using powerful Alibaba Qwen audio AI technology, the app will listen to your voice and give you instant, personalized feedback on your grammar and pronunciation. This guarantees you are building real, independent fluency!
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================
+     PAGE 3: ENGLISH INTRODUCTION (PART 2)
+     ========================================= -->
+<div class="page">
+
+    <h2>The Science of Learning</h2>
+    <p>Inside the classroom, we do not use old-fashioned repetition. Instead, we use five researched teaching methods proven to help Chinese learners get high scores:</p>
+
+    <ul class="science-list">
+        <li>
+            <strong>The Spiral Curriculum (Learn it Twice):</strong><br>
+            We do not just study a topic once. In the first 20 weeks, we cover all 20 of the Cambridge topics to build your basic speaking skills. In the last 20 weeks, we "spiral" back and study the exact same 20 topics again, but this time using advanced grammar and deeper thinking.
+        </li>
+        <li>
+            <strong>Memory Warm-ups (Spaced Retrieval):</strong><br>
+            Science shows we forget new words quickly if we do not use them. Every lesson begins with a fun warm-up that forces you to remember and use words from the previous week. This locks the English vocabulary permanently into your long-term memory.
+        </li>
+        <li>
+            <strong>Step-by-Step Grammar (Scaffolding):</strong><br>
+            We build your skills slowly so you never feel stressed. In the early weeks, we help you add just one complex sentence to your answers. As you get stronger, we safely guide you to use two.
+        </li>
+        <li>
+            <strong>The 4-3-2 Fluency Game:</strong><br>
+            Many students translate Chinese to English in their heads, which makes speaking very slow. In this classroom game, you speak your original answer to a partner in 4 minutes, then 3 minutes, then 2 minutes. This trains your brain to stop translating and start speaking fast.
+        </li>
+        <li>
+            <strong>Real Conversation Skills (Interactive Turn-Taking):</strong><br>
+            The real exam tests if you can hold a natural conversation. We teach you exactly how to take turns, listen actively, and politely ask for help just like a native speaker (for example, learning to ask, "Sorry, did you mean...?").
+        </li>
+    </ul>
+
+    <div style="margin-top: 40px; border-top: 1px solid #ccc; padding-top: 20px; text-align: center; font-style: italic; color: var(--primary-color);">
+        By combining every topic from the world-class Cambridge textbook, amazing AI technology, and the best teaching science, you are getting the absolute best speaking course possible. We are excited to guide you to success!
+    </div>
+</div>
+
+<!-- =========================================
+     PAGE 4: CHINESE INTRODUCTION (PART 1)
+     ========================================= -->
+<div class="page cn-font page-dense">
+    <h1>欢迎使用全新的IGCSE口语课程！</h1>
+
+    <p><strong>欢迎加入全新的IGCSE英语口语课程！</strong>我们编写这本指南，旨在向学生和校方详细阐释本课程的研发理念与教学逻辑。目标很简单：为您的IGCSE考试及未来的雅思口语测试提供最优质的备考支持。</p>
+
+    <p>为构建此课程，我们运用先进人工智能技术，筛选出经科学验证的最优语言教学策略，并将其融入每周的课堂教学。在教材选用上，我们以最具权威性的剑桥大学出版社《IGCSE英语作为第二语言教程》（Peter Lucantoni著）为蓝本，从中提炼全部20个主题，转化为符合英国最高教师培训标准（PGCE与QTS）的专业口语课程。</p>
+
+    <h2>破解“背诵”困局</h2>
+    <p>中国学生通常擅长阅读与语法，却在口语表达上缺乏自信。由于畏惧犯错，许多学生试图通过撰写完美答案并死记硬背来应对口语考试。然而，IGCSE与雅思考官均受过识别背诵答案的专业训练，此类作答将被给予极低分数。真正的流利度意味着即兴思考能力。</p>
+
+    <p>本课程专为破除机械背诵设计：课堂上我们会提供范文，但教导学生将其作为优质词汇的“菜单”而非逐字复述的脚本。在讲义“写作区”，您只能记录关键词，严禁书写完整句子——这将迫使大脑进行自然语言组织！</p>
+
+    <div class="feature-box">
+        <h3>智慧作业：20分钟AI语音程序</h3>
+        <p>我们采用定制AI语音程序，让口语练习高效有趣。每周仅需完成20分钟口语任务，彻底告别枯燥的书面作业！</p>
+
+        <div class="homework-grid">
+            <div class="homework-item">
+                <strong>课前10分钟（影子跟读）：</strong><br>
+                使用AI虚拟口语教练，聆听纯正英音或美音朗读新课词汇，即时模仿跟读。这项“影子训练”让您在课前私密环境中锻炼口腔肌肉，建立表达自信。
+            </div>
+            <div class="homework-item">
+                <strong>课后10分钟（即兴表达）：</strong><br>
+                为检验课堂学习效果，程序将随机提出同类新问题。您需即兴组织语言，完成2分钟原创回答。依托阿里巴巴通义千问音频AI技术，程序将精准分析您的语音，实时反馈语法与发音问题，确保培养真实独立的语言能力！
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================
+     PAGE 5: CHINESE INTRODUCTION (PART 2)
+     ========================================= -->
+<div class="page cn-font">
+
+    <h2>科学教学法</h2>
+    <p>课堂内，我们摒弃传统机械重复，采用五项经实证有效且专为中国学习者设计的教学策略：</p>
+
+    <ul class="science-list">
+        <li>
+            <strong>螺旋式课程（双重强化）：</strong><br>
+            每个主题经历两轮学习。前20周完成剑桥全主题基础口语构建；后20周以更高阶语法和深度思维重新研习相同主题，实现能力跃升。
+        </li>
+        <li>
+            <strong>记忆激活（间隔提取）：</strong><br>
+            科学表明新词如不运用会快速遗忘。每节课以趣味活动启动，强制调用上周词汇，将英语表达永久锚定于长时记忆。
+        </li>
+        <li>
+            <strong>阶梯式语法（支架教学）：</strong><br>
+            循序渐进培养复杂句式运用能力。初期阶段，我们引导学生在回答中嵌入一个复合句；随着能力提升，逐步拓展至两个复合句的安全运用。
+        </li>
+        <li>
+            <strong>4-3-2流利度挑战：</strong><br>
+            针对“中译英”思维导致语速迟缓的痛点，通过课堂配对练习——分别用4分钟、3分钟、2分钟陈述同一观点，训练大脑实现英语直输。
+        </li>
+        <li>
+            <strong>真实对话技巧（互动话轮转换）：</strong><br>
+            模拟真实考场中的自然交流场景，专项训练话轮转换、主动聆听、得体求助等母语者必备技能（例如学习使用“抱歉，您是指...？”等策略）。
+        </li>
+    </ul>
+
+    <div style="margin-top: 40px; border-top: 1px solid #ccc; padding-top: 20px; text-align: center; font-style: italic; color: var(--primary-color);">
+        通过世界级剑桥教材的全主题覆盖、尖端AI技术赋能与最优教学科学的深度融合，您将获得无可比拟的口语课程。我们满怀期待，助您迈向成功！
+    </div>
+</div>
+
+</body>
+</html>
