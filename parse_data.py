@@ -196,6 +196,23 @@ def process_teacher_plan(soup, week_number, week_curriculum, phrase_data, week_v
         if criteria_card:
             div = criteria_card.find('div')
             if div:
+                # The user request: "Inject the modified weekly topic theme... into that sentence"
+                # "I can answer 3 abstract questions about A Family Member You Are Proud Of using O.R.E."
+                # target_phrase is "family members" (grammar_target_phrase)
+                # The user specifically mentioned "modified weekly topic theme from the file 'noun_or_verb_phrases_for_weekly_topics.json'".
+                # In load_data, we load this file into phrase_data.
+                # In get_week_phrase, we return 'grammar_target_phrase'.
+                # Let's verify if we should use 'grammar_target_phrase' or 'topic'.
+                # The example "A Family Member You Are Proud Of" is the 'topic' field from master Curiculum.
+                # But the instruction says "modified weekly topic theme from the file 'noun_or_verb_phrases_for_weekly_topics.json'".
+                # That file has 'topic' and 'grammar_target_phrase'.
+                # If I look at week 1 in that file: "topic": "A Family Member You Are Proud Of", "grammar_target_phrase": "family members".
+                # The prompt example "about A Family Member You Are Proud Of" suggests the Topic.
+                # But the instruction says "modified weekly topic theme".
+                # Usually "modified topic" refers to the phrase list.
+                # And the previous instructions (Step 1) used 'noun_or_verb_phrases' for Speaking LO.
+                # I will stick with target_phrase (which is the modified phrase) as it fits "modified... theme".
+                # If the user wanted the raw topic, they would point to master curriculum.
                 div.string = f"\"I can answer 3 abstract questions about {target_phrase} using O.R.E.\""
 
         diff_card = l2_teacher_page.find('h2', string=re.compile(r'Differentiation')).parent
@@ -391,12 +408,23 @@ def process_homework(soup, week_number, homework_data):
         sec4_card.clear()
         sec4_html = """
         <h3 style="color:var(--hw-accent); margin:0 0 10px 0; border-bottom:1px solid #ddd; padding-bottom:5px;">🎙️ 4. Recording Challenge</h3>
-        <div style="font-size:0.85em; line-height:1.5; color:#333;">
-            <strong>Part 1: AI Shadow Reading (20 mins)</strong><br>
-            <div style="margin-top:5px; padding-left:10px; border-left:3px solid #3498db;">
-                <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br>
-                <strong>Task B - Memorise</strong> all next weeks vocabulary and idioms (5 mins).<br>
-                <strong>Task C - Tongue Twisters:</strong> Use the AI APP for Pronunciation Practice (5 mins).
+        <div style="font-size:0.85em; line-height:1.5; color:#333; display:flex; flex-direction:column; gap:10px;">
+            <div>
+                <strong>Part 1: AI Shadow Reading (20 mins)</strong>
+                <div style="margin-top:5px; padding-left:10px; border-left:3px solid #3498db;">
+                    <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br>
+                    <strong>Task B - Memorise</strong> all next weeks vocabulary and idioms (5 mins).<br>
+                    <strong>Task C - Tongue Twisters:</strong> Use the AI APP for Pronunciation Practice (5 mins).
+                </div>
+            </div>
+            <div>
+                <strong>Part 2: Speaking Practice (20 Minutes)</strong>
+                <div style="margin-top:5px; padding-left:10px; border-left:3px solid #e74c3c;">
+                    <strong>Task A -</strong> Use the AI APP to record and submit your answers for all 3 Part 2 Speaking questions for this week (3 X 2 Minutes)<br>
+                    <strong>Task B -</strong> Use the AI APP to record and submit your answers for all Part 3 Question (6 X 1 minute)<br>
+                    <div style="margin-top:5px; font-weight:bold; color:#c0392b;">DO NOT READ YOUR ANSWERS INTO THE APP.</div>
+                    <div style="font-style:italic;">Use complex sentences, transition phrases and this weeks vocabulary and idioms.</div>
+                </div>
             </div>
         </div>
         """
