@@ -74,36 +74,36 @@
         h1 {
             font-family: var(--font-heading);
             color: var(--primary-color);
-            font-size: 22pt;
+            font-size: 20pt;
             text-align: center;
-            margin: 0 0 10px 0;
-            line-height: 1.1;
+            margin: 0 0 8px 0;
+            line-height: 1.2;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         .subtitle {
             font-family: var(--font-heading);
             color: var(--accent-color);
-            font-size: 13pt;
+            font-size: 12pt;
             text-align: center;
-            margin: 0 0 30px 0;
+            margin: 0 0 25px 0;
             font-weight: 600;
             font-style: italic;
         }
 
         .intro-block {
-            font-size: 11pt; /* Professional size */
+            font-size: 10.5pt; /* Professional size */
             line-height: 1.6;
             text-align: justify;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         h2 {
             font-family: var(--font-heading);
             color: var(--primary-color);
-            font-size: 14pt;
-            margin: 25px 0 15px 0;
+            font-size: 13pt;
+            margin: 20px 0 10px 0;
             border-bottom: 2px solid var(--accent-color);
             padding-bottom: 4px;
             display: inline-block;
@@ -117,35 +117,23 @@
         }
 
         ul, ol {
-            margin: 15px 0;
-            padding-left: 25px;
+            margin: 10px 0;
+            padding-left: 20px;
         }
 
         li {
-            font-size: 11pt;
-            line-height: 1.6;
-            margin-bottom: 10px;
+            font-size: 10.5pt;
+            line-height: 1.5;
+            margin-bottom: 8px;
             text-align: justify;
         }
 
-        /* List numbering style */
-        ol { list-style-type: decimal; }
-
-        /* Chinese Typography Tweaks */
-        .chinese-text {
-            font-family: "Microsoft YaHei", "SimHei", var(--font-main);
-            line-height: 1.6;
-        }
-        .chinese-text h1 { font-weight: bold; font-size: 20pt; }
-        .chinese-text .intro-block { font-size: 11pt; line-height: 1.6; }
-        .chinese-text li { font-size: 11pt; line-height: 1.6; }
-
         /* Highlight box for conclusion */
         .conclusion-box {
-            margin-top: 30px;
+            margin-top: 25px;
             border: 2px dashed var(--accent-color);
             background-color: #fdfefe;
-            padding: 20px;
+            padding: 15px;
             border-radius: 12px;
             font-size: 11pt;
             text-align: center;
@@ -162,6 +150,82 @@
             margin-bottom: 20px;
             border-bottom: 1px solid #eee;
             padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .page-number {
+            margin-top: auto;
+            text-align: center;
+            color: #ccc;
+            font-size: 0.9em;
+            padding-top: 15px;
+        }
+
+        /* Table Styles for Bloom's */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 9.5pt;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+
+        /* Image styling */
+        .diagram-img {
+            display: block;
+            margin: 20px auto;
+            max-width: 90%;
+            max-height: 250px; /* Keep it constrained to fit on A4 */
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Chinese Typography Tweaks */
+        .chinese-text {
+            font-family: "Microsoft YaHei", "SimHei", var(--font-main);
+            line-height: 1.6;
+        }
+        .chinese-text h1 { font-weight: bold; font-size: 18pt; margin-bottom: 5px; }
+        .chinese-text .subtitle { font-size: 11pt; margin-bottom: 20px; }
+        .chinese-text .intro-block { font-size: 10.5pt; line-height: 1.6; }
+        .chinese-text li { font-size: 10.5pt; line-height: 1.6; }
+        .chinese-text h2 { font-size: 13pt; }
+
+        /* References styling */
+        .references {
+            margin-top: 30px;
+            font-size: 8.5pt;
+            color: #666;
+            line-height: 1.4;
+        }
+        .references h3 {
+            font-size: 10pt;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .references ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .references li {
+            margin-bottom: 5px;
+            padding-left: 15px;
+            text-indent: -15px; /* Hanging indent */
         }
 
     </style>
@@ -175,110 +239,251 @@
 
     <!-- PAGE 2: ENGLISH PART 1 -->
     <div class="page">
-        <h1>Welcome to IELTS Speaking Mastery!</h1>
-        <div class="subtitle">(A Guide for Students and School Leaders)</div>
+        <h1>Welcome to IELTS Speaking Mastery: An AI-Driven Approach</h1>
+        <div class="subtitle">A Guide for Students and School Leaders</div>
 
         <div class="intro-block">
-            Welcome to your new 40-week IELTS Speaking course! We wrote this guide to explain why this program is the absolute best way to jump from an IELTS Band 5.5 to a 6.5 or higher.
+            Teachers in Chinese classrooms often struggle to motivate students to spend enough time independently speaking English unless directly observed, severely limiting weekly speaking time. This 40-week IELTS Speaking preparation course is designed to solve this problem, guiding students from an IELTS Band 5.5 to a 6.5 or higher.
         </div>
         <div class="intro-block">
-            To build the perfect curriculum, this course was researched and created by <strong>Google Gemini</strong>, the world’s most advanced Artificial Intelligence model. Gemini analyzed the latest global language education science to design a course that actually exceeds strict UK teacher training standards (PGCE and QTS). It achieves this by combining world-class classroom teaching with a revolutionary, "always-available" AI teacher.
-        </div>
-
-        <h2>The Ultimate Advantage: 100% Real Exam Questions</h2>
-        <div class="intro-block">
-            Standard English textbooks have a major weakness: they take years to publish. By the time they reach your classroom, the practice questions are old, outdated, and artificial. The real IELTS exam is constantly changing its topics. To give you a massive advantage, this course does not use textbook questions. Instead, every single prompt you will practice is an <strong>actual, recent IELTS speaking test question</strong> collected directly by language training centers all across China.
-        </div>
-        <div class="intro-block">
-            <strong>Why is this better?</strong> While the number of active IELTS questions is far too large to fit into a single course, we have carefully selected the most high-frequency topics. Every single prompt you practice is a <strong>current, active exam question</strong>. Furthermore, we update this curriculum every 6 months as new questions are captured by training centers to ensure you never study outdated material. By the time you take your exam, you will face zero surprises.
+            Researched and structured by the latest AI technologies, the curriculum integrates the most advanced global language education science with cutting-edge AI. It exceeds strict UK Qualified Teacher Status (QTS) standards by combining world-class classroom teaching with a revolutionary, "always-available" AI co-teacher, freeing human teachers to focus entirely on building confidence and deeper communication skills.
         </div>
 
-        <h2>Your 24/7 AI Homework Teacher</h2>
+        <h2>1. The Ultimate Advantage: 100% Real Exam Questions</h2>
         <div class="intro-block">
-            We know high school students are busy, so there are no boring written worksheets. Your homework is a fast, highly effective spoken workout using our custom AI web app.
+            Standard English textbooks take years to publish, meaning their practice questions are artificial and outdated by the time they reach the classroom. Because the real IELTS exam constantly rotates topics, this course abandons textbooks entirely.
+        </div>
+        <div class="intro-block">
+            Instead, every prompt students practice is an actual, recent IELTS speaking test question collected directly by language training centres across China (e.g., New Oriental). The curriculum is updated periodically as new questions are captured, ensuring students study active topics to face fewer surprises on test day.
+        </div>
+
+        <h2>2. The 24/7 AI Homework Teacher</h2>
+        <div class="intro-block">
+            To comply with student time constraints and eliminate passive worksheets, homework is a fast, highly effective spoken workout utilizing our custom Web App and cutting-edge Aliyun Qwen Audio AI.
         </div>
         <ul>
-            <li><strong>Before Class (Shadow Reading):</strong> You will practice with our AI Speaking Avatar, which has a perfect UK or US English accent. You will listen to the lesson's vocabulary and model answers, then repeat them instantly (shadowing). This trains your mouth muscles and builds a beautiful, confident accent privately at home.</li>
-            <li><strong>After Class (AI Feedback):</strong> To prove you can think on your feet, you will speak your own original answers to real exam questions into the app. Using highly advanced Aliyun Qwen AI, the system analyzes your voice and gives instant, personalized feedback on your grammar and fluency. It is exactly like having a private native-speaker tutor available 24/7!</li>
+            <li><strong>Pre-Lesson (10 mins) - Structured Input (Shadow Reading):</strong> Students practice with an AI Speaking Avatar featuring a perfect UK or US accent. They listen to the next lesson's vocabulary and model answers, then repeat them instantly. This aligns with Stephen Krashen’s Input Hypothesis, ensuring students enter the classroom with the target language activated and their pronunciation muscles privately trained.</li>
+            <li><strong>Post-Lesson (20 mins) - Retrieval Practice (AI Feedback):</strong> Students record unscripted answers to real exam questions into the app. The Qwen AI provides instant, 24/7 personalized feedback on grammar and fluency. This leverages Merrill Swain’s Output Hypothesis, proving that producing language forces learners to notice the gap between what they want to say and what they can say, triggering cognitive awareness that drives fluency.</li>
         </ul>
 
-        <div style="margin-top:auto; text-align:center; color:#ccc; font-size:0.9em;">- 1 -</div>
+        <div class="page-number">- 1 -</div>
     </div>
 
     <!-- PAGE 3: ENGLISH PART 2 -->
     <div class="page">
         <div class="continued-header">IELTS Speaking Mastery (Continued)</div>
 
-        <h2>The Science of the Classroom</h2>
+        <h2>3. The Foundation of Western Curriculum Design: Bloom's Taxonomy</h2>
         <div class="intro-block">
-            Inside the classroom, sitting at desks makes students sleepy and allows them to hide in the back row. Instead, Gemini selected specific, well-researched teaching methodologies to build real English fluency:
+            Chinese students taking IELTS are preparing for Western universities, which expect analytical thinking rather than rote memorization. IELTS examiners actively penalize memorized scripts. This course utilizes the 2001 Anderson & Krathwohl revision of Bloom's Taxonomy to seamlessly transition students from rote memorization to complex, critical communication. This revision focuses on Action-Oriented Verbs (making "Creating" the highest level) and organizing knowledge into four dimensions: Factual, Conceptual, Procedural, and Metacognitive.
         </div>
-        <ol>
-            <li><strong>"Thinking Classrooms" (Standing Up to Learn):</strong> You will stand up and work in small groups on big wall whiteboards. Science calls this Embodied Cognition—using your physical body to wake up your brain. Standing gives you energy, and because whiteboard markers erase easily, you never have to fear making mistakes!</li>
-            <li><strong>The 5-3-2 Vocabulary Rule (Spaced Repetition):</strong> We use a "Recursive Lexical Strategy." Every week, you learn exactly 5 topic words, 3 native idioms, and 2 recycled words from past weeks. This locks the English into your long-term memory forever.</li>
-            <li><strong>Idea Building (Schema Activation):</strong> Many students freeze in tests because they run out of ideas. We use short videos to give you background ideas, then teach you to draw visual mind maps on your whiteboards. This builds "Narrative Endurance"—the stamina to speak easily for 2 full minutes.</li>
-            <li><strong>Harvard "Thinking Routines":</strong> For difficult IELTS Part 3 questions, we use methods created by Harvard University. We teach you a simple formula: O.R.E. (Opinion, Reason, Example). This gives your brain a map to build deep, intelligent answers without stopping.</li>
-            <li><strong>Instant 1-on-1 Coaching (Micro-Conferencing):</strong> Your teacher will constantly walk around the room to give you fast, 2-minute private coaching sessions. We fix your mistakes the exact moment you make them!</li>
-        </ol>
 
-        <div class="conclusion-box">
-            By combining real collected exam questions, Google Gemini’s perfect AI course design, and the most advanced teaching science in the world, this course is the ultimate IELTS preparation. We are excited to guide you to success!
+        <img src="https://res.cloudinary.com/daujjfaqg/image/upload/v1772513734/Blooms_taxonomy_q9qlcv.jpg" alt="Bloom's Taxonomy Diagram" class="diagram-img">
+
+        <div class="intro-block" style="margin-top: 15px;">
+            <strong>Mapping the Course to the Revised Taxonomy:</strong>
         </div>
-        <div style="margin-top:auto; text-align:center; color:#ccc; font-size:0.9em;">- 2 -</div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Thinking Process</th>
+                    <th style="width: 25%;">Knowledge Dimension</th>
+                    <th style="width: 55%;">IELTS Speaking Course Application</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Remembering</strong></td>
+                    <td>Factual Knowledge</td>
+                    <td>Recalling correct vocabulary and common idioms to talk about familiar topics (Parts 2 & 3).</td>
+                </tr>
+                <tr>
+                    <td><strong>Applying</strong></td>
+                    <td>Procedural Knowledge</td>
+                    <td>Using the specific procedure of making quick, effective notes during the 1-minute Part 2 prep.</td>
+                </tr>
+                <tr>
+                    <td><strong>Analyzing</strong></td>
+                    <td>Conceptual Knowledge</td>
+                    <td>Breaking down complex, abstract Part 3 questions to understand exactly what is being asked.</td>
+                </tr>
+                <tr>
+                    <td><strong>Evaluating</strong></td>
+                    <td>Metacognitive Knowledge</td>
+                    <td>Judging one's own spoken practice recordings to detect inconsistencies, using AI feedback to measure progress.</td>
+                </tr>
+                <tr>
+                    <td><strong>Creating</strong></td>
+                    <td>Procedural Knowledge</td>
+                    <td>Putting words, grammar, and ideas together to generate spontaneous, original spoken English under time pressure.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-number">- 2 -</div>
     </div>
 
-    <!-- PAGE 4: CHINESE PART 1 -->
-    <div class="page chinese-text">
-        <h1>欢迎使用雅思口语 Mastery 课程！</h1>
-        <div class="subtitle">（学生与校方指南）</div>
+    <!-- PAGE 4: ENGLISH PART 3 -->
+    <div class="page">
+        <div class="continued-header">IELTS Speaking Mastery (Continued)</div>
 
+        <h2>4. The Science of the Classroom</h2>
         <div class="intro-block">
-            欢迎加入全新的 40 周雅思口语课程！本指南旨在阐明为何此课程能助您实现从雅思 5.5 分到 6.5 分及以上的决定性飞跃。
-        </div>
-        <div class="intro-block">
-            为构建完美课程体系，本课程由全球最先进的人工智能模型 <strong>Google Gemini</strong> 研发设计。Gemini 通过分析全球最新语言教育科学，打造出不仅满足、更超越英国严格教师培训标准（PGCE 与 QTS）的课程体系。其核心优势在于，将世界一流的课堂教学与革命性的"全天候"AI 教师完美融合。
-        </div>
-
-        <h2>核心优势：100% 真实考题</h2>
-        <div class="intro-block">
-            传统英语教科书存在重大缺陷：出版周期长达数年。当它们进入课堂时，所提供的练习题目早已过时陈旧，且多为人工编造。而真实的雅思考试，其话题始终处于动态更新之中。为赋予您显著优势，本课程弃用教材习题。您将练习的每一道题目，均由中国各地的语言培训中心直接采集自近期真实的雅思口语考试。
-        </div>
-        <div class="intro-block">
-            <strong>优势何在？</strong>虽然现行的雅思口语题库庞大，无法在一门课程中尽数涵盖，但我们精心甄选了最高频的考题。您在课程中练习的每一个话题，均为<strong>当下考场正在使用的真实考题</strong>。此外，随着培训中心捕捉到新题，我们将每 6 个月更新一次课程体系，确保您所学内容永远快人一步，绝无过时之虞。
-        </div>
-
-        <h2>您的 24/7 AI 助教</h2>
-        <div class="intro-block">
-            深知高中生学业繁忙，我们摒弃枯燥的书面作业。您的家庭作业是借助定制 AI 语音程序，进行高效、快速的口语特训。
+            With the pre-lesson AI handling the input phase, 100% of the 80-minute lesson is preserved for interactive output and real-time human communication. Sitting at desks makes students sleepy and allows them to hide; instead, we utilize specific, well-researched methodologies to build real fluency:
         </div>
         <ul>
-            <li><strong>课前（影子跟读）：</strong>使用拥有纯正英音或美音的 AI 口语教练，聆听课程词汇与范文，并即时模仿跟读（影子训练）。让您在家中私密环境中锻炼口腔肌肉，塑造优美自信的语音语调。</li>
-            <li><strong>课后（AI 即时反馈）：</strong>为检验即兴思考能力，您需对着程序，就真实考题发表原创回答。依托先进的阿里云通义千问 AI 技术，系统将分析您的语音，并针对语法与流利度提供即时、个性化的反馈。这如同拥有一位 24 小时在线的母语私教！</li>
+            <li><strong>"Thinking Classrooms" (Embodied Cognition):</strong> Students stand up and work in small groups on big wall whiteboards. Using the physical body wakes up the brain, and because markers erase easily, the fear of making permanent mistakes is eliminated.</li>
+            <li><strong>The 5-3-2 Vocabulary Rule (Spaced Repetition):</strong> Every week, students learn exactly 5 topic words, 3 native idioms, and 2 recycled words from past weeks to lock English into long-term memory.</li>
+            <li><strong>Idea Building (Schema Activation):</strong> To prevent students from freezing up, short videos provide background ideas. Students then draw visual mind maps on their whiteboards, building "Narrative Endurance"—the stamina to speak easily for 2 full minutes.</li>
+            <li><strong>Harvard "Thinking Routines":</strong> For difficult IELTS Part 3 questions, we teach the O.R.E. formula (Opinion, Reason, Example), giving the brain a map to build deep, intelligent answers without stopping.</li>
+            <li><strong>Instant 1-on-1 Coaching (Micro-Conferencing):</strong> Meeting UK QTS Standard 6 for formative assessment, the teacher constantly walks the room to give fast, 2-minute mini IELTS tests, fixing mistakes the exact moment they happen.</li>
         </ul>
 
-        <div style="margin-top:auto; text-align:center; color:#ccc; font-size:0.9em;">- 3 -</div>
-    </div>
-
-    <!-- PAGE 5: CHINESE PART 2 -->
-    <div class="page chinese-text">
-        <div class="continued-header">雅思口语 Mastery 课程指南 (续)</div>
-
-        <h2>课堂科学</h2>
+        <h2>5. Differentiation & Scaffolding (Vygotsky)</h2>
         <div class="intro-block">
-            传统课堂中，久坐易使学生困倦，后排更易"隐身"。为此，Gemini 甄选了经充分研究验证的具体教学方法，旨在构建真实的英语流利度：
+            Lessons operate within Lev Vygotsky’s Zone of Proximal Development (ZPD)—the space between what a student can do independently and what they can achieve with guidance.
         </div>
-        <ol>
-            <li><strong>"思考型课堂"（站立学习）：</strong>学生将站立起来，在墙面白板上以小组形式协作学习。科学称此为"具身认知"——通过调动身体来激活大脑。站立激发活力，且白板笔易于擦除，让您从此告别犯错恐惧！</li>
-            <li><strong>5-3-2 词汇法则（间隔重复）：</strong>我们采用"递归词汇策略"。每周，您将精确学习 5 个主题核心词、3 个地道习语，并复习 2 个前几周的旧词。此举能将英语词汇永久锁定于长时记忆。</li>
-            <li><strong>观点构建（图式激活）：</strong>许多考生因思路枯竭而在考试中卡壳。我们运用短视频激发背景知识，然后引导您在白板上绘制可视化思维导图。这旨在培养"叙事耐力"——即轻松自如地进行 2 分钟连续表达的能力。</li>
-            <li><strong>哈佛"思维模式"：</strong>针对高难度的雅思 Part 3 问题，我们采用哈佛大学研发的方法论。教授一个简洁公式：O.R.E.（观点、理由、例证）。这为您的大脑提供了构建深刻、睿智、连贯回答的思维地图。</li>
-            <li><strong>即时一对一辅导（微型会谈）：</strong>教师将持续在教室内巡视，为您提供快速、高效的 2 分钟私人辅导。确保在您犯错的第一时间，得到精准纠正！</li>
-        </ol>
+        <ul>
+            <li><strong>Scaffolding:</strong> Weaker students receive heavy support via idea prompts and the O.R.E. logic templates to progress without frustration.</li>
+            <li><strong>Differentiation:</strong> Stronger students are stretched through "Constraint-Based Challenges" (e.g., "Answer this question using a 3-clause sentence and one idiom").</li>
+        </ul>
 
         <div class="conclusion-box">
-            通过融合真实采集的考题、Google Gemini 的完美 AI 课程设计，以及全球最前沿的教学科学，本课程堪称雅思备考的终极之选。我们满怀期待，助您迈向成功！
+            By combining real collected exam questions, AI-driven course design, and the most advanced teaching science in the world today, this program is the ultimate IELTS preparation.
         </div>
-        <div style="margin-top:auto; text-align:center; color:#ccc; font-size:0.9em;">- 4 -</div>
+
+        <div class="page-number">- 3 -</div>
+    </div>
+
+    <!-- PAGE 5: CHINESE PART 1 -->
+    <div class="page chinese-text">
+        <h1>欢迎阅读《雅思口语 mastery：AI驱动的分类法教学法》</h1>
+        <div class="subtitle">学生与学校领导者指南</div>
+
+        <div class="intro-block">
+            中国课堂的教师们常常面临一个困境：除非在直接监督下，否则难以激励学生投入足够时间进行独立的英语口语练习，这严重限制了学生每周的口语训练时间。本套为期40周的雅思口语备考课程旨在解决这一问题，引导学生将雅思口语成绩从5.5分提升至6.5分或更高。
+        </div>
+        <div class="intro-block">
+            本课程体系基于最新AI技术进行研究和构建，将全球最先进的语言教育科学与尖端人工智能相融合。通过将世界一流的课堂教学与革命性的、"随时可用"的AI助教相结合，它超越了严格的英国合格教师身份（QTS）标准，使人类教师能够完全专注于培养学生的自信心和更深层次的沟通技能。
+        </div>
+
+        <h2>1. 终极优势：100%真实考题</h2>
+        <div class="intro-block">
+            标准英语教科书需要数年时间才能出版，这意味着当它们进入课堂时，其中的练习题往往是人为编造且过时的。由于真实的雅思考试会不断轮换话题，本课程完全摒弃了教科书。
+        </div>
+        <div class="intro-block">
+            取而代之的是，学生练习的每一个问题都是直接来自中国各地语言培训中心（如新东方）收集的、近期真实考过的雅思口语测试题。随着新问题的出现，课程内容会定期更新，确保学生学习的是当前活跃的话题，从而在考试日面对更少的意外。
+        </div>
+
+        <h2>2. 全天候AI作业辅导老师</h2>
+        <div class="intro-block">
+            为适应学生的时间限制并摒弃被动的练习题，本课程的作业是利用我们定制的Web应用程序和尖端的阿里云通义音频AI进行的快速、高效的"口语训练"。
+        </div>
+        <ul>
+            <li><strong>课前（10分钟）- 结构化输入（影子跟读）：</strong>学生与拥有完美英音或美音的AI口语虚拟形象进行练习。他们聆听下一节课的词汇和范文答案，然后立即进行复述模仿。这符合斯蒂芬·克拉申的"输入假说"，确保学生在进入课堂时，目标语言已被激活，发音肌肉也经过了私下训练。</li>
+            <li><strong>课后（20分钟）- 提取练习（AI反馈）：</strong>学生在应用程序中录制对真实考题的即兴回答。通义AI提供即时、全天候的个性化语法和流利度反馈。这利用了梅里尔·斯温的"输出假说"，实践证明，产出语言会迫使学习者注意到他们想说的和能说的之间的差距，从而激发促进流利度的认知意识。</li>
+        </ul>
+
+        <div class="page-number">- 4 -</div>
+    </div>
+
+    <!-- PAGE 6: CHINESE PART 2 -->
+    <div class="page chinese-text">
+        <div class="continued-header">雅思口语 Mastery 指南 (续)</div>
+
+        <h2>3. 西方课程设计的基础：布鲁姆分类法</h2>
+        <div class="intro-block">
+            参加雅思考试的中国学生是为进入西方大学做准备，而西方大学期望的是分析性思维，而非死记硬背。雅思考官会主动惩罚背诵模板的考生。本课程运用2001年安德森和克拉斯沃尔修订的布鲁姆分类法，引导学生无缝地从机械记忆过渡到复杂的、批判性的沟通。此次修订侧重于以行动为导向的动词（将"创造"设为最高层级），并将知识组织为四个维度：事实性知识、概念性知识、程序性知识和元认知知识。
+        </div>
+
+        <img src="https://res.cloudinary.com/daujjfaqg/image/upload/v1772513734/Blooms_taxonomy_q9qlcv.jpg" alt="Bloom's Taxonomy Diagram" class="diagram-img">
+
+        <div class="intro-block" style="margin-top: 15px;">
+            <strong>课程与修订版分类法的对应关系：</strong>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">思维过程</th>
+                    <th style="width: 25%;">知识维度</th>
+                    <th style="width: 60%;">雅思口语课程应用</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>记忆</strong></td>
+                    <td>事实性知识</td>
+                    <td>回忆正确的词汇和常用习语，以谈论熟悉的话题（第1、3部分）。</td>
+                </tr>
+                <tr>
+                    <td><strong>应用</strong></td>
+                    <td>程序性知识</td>
+                    <td>运用在第2部分1分钟准备时间内快速、有效做笔记的具体步骤。</td>
+                </tr>
+                <tr>
+                    <td><strong>分析</strong></td>
+                    <td>概念性知识</td>
+                    <td>分解复杂的、抽象的第3部分问题，以准确理解提问意图。</td>
+                </tr>
+                <tr>
+                    <td><strong>评价</strong></td>
+                    <td>元认知知识</td>
+                    <td>评判自己的口语练习录音以发现不一致之处，利用AI反馈衡量进步。</td>
+                </tr>
+                <tr>
+                    <td><strong>创造</strong></td>
+                    <td>程序性知识</td>
+                    <td>将词汇、语法和想法整合起来，在时间压力下生成即兴的、原创的口语表达。</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-number">- 5 -</div>
+    </div>
+
+    <!-- PAGE 7: CHINESE PART 3 -->
+    <div class="page chinese-text">
+        <div class="continued-header">雅思口语 Mastery 指南 (续)</div>
+
+        <h2>4. 课堂教学的科学</h2>
+        <div class="intro-block">
+            由于课前AI处理了"输入"环节，80分钟的课堂时间100%被保留用于互动式"输出"和实时人际沟通。坐在课桌前容易让学生犯困并隐藏自己；因此，我们采用了特定的、经过充分研究的方法来构建真正的流利度：
+        </div>
+        <ul>
+            <li><strong>"思考型课堂"（体验式认知）：</strong>学生站立起来，在大白板上以小组形式合作。运用身体能唤醒大脑，而且由于马克笔笔迹易擦除，害怕犯下永久性错误的恐惧感也随之消除。</li>
+            <li><strong>5-3-2词汇法则（间隔重复）：</strong>每周，学生精确学习5个主题词汇、3个地道习语，并复习2个过去几周学过的词汇，从而将英语牢固地锁定在长期记忆中。</li>
+            <li><strong>观点构建（图式激活）：</strong>为防止学生"大脑空白"，通过短视频提供背景观点。然后学生在白板上绘制视觉思维导图，建立"叙事耐力"——即能轻松说满2分钟的持续表达能力。</li>
+            <li><strong>哈佛"思考常规"：</strong>针对棘手的雅思第3部分问题，我们教授O.R.E.公式（观点、理由、例子），为大脑构建深入、智慧应答的"思维地图"，避免卡顿。</li>
+            <li><strong>即时一对一辅导（微型会谈）：</strong>为满足英国QTS标准中关于形成性评估的第6条，教师会不断在教室中巡视，进行快速的、2分钟的迷你雅思测试，在学生犯错的那一刻立即纠正。</li>
+        </ul>
+
+        <h2>5. 差异教学与支架式教学（维果茨基）</h2>
+        <div class="intro-block">
+            课程的开展遵循利维·维果茨基的"最近发展区"（ZPD）理论——即学生独立完成任务的能力与其在指导下能够达到的水平之间的区域。
+        </div>
+        <ul>
+            <li><strong>支架式教学：</strong>通过观点提示和O.R.E.逻辑模板，为较弱的学生提供强力支持，使其能够在不受挫的情况下取得进步。</li>
+            <li><strong>差异教学：</strong>通过"基于约束的挑战"（例如："请用一个包含三个从句的句子和一个习语来回答这个问题"），向较强的学生提出更高要求，拓展其能力。</li>
+        </ul>
+
+        <div class="conclusion-box">
+            通过将真实收集的考题、AI驱动的课程设计以及当今世界最先进的教学科学相结合，本课程是终极的雅思备考方案。
+        </div>
+
+        <div class="references">
+            <h3>参考文献</h3>
+            <ul>
+                <li>Anderson, L. W., & Krathwohl, D. R. (编). (2001). <em>A taxonomy for learning, teaching, and assessing: A revision of Bloom's taxonomy of educational objectives.</em> Longman.</li>
+                <li>Bloom, B. S. (编). (1956). <em>Taxonomy of educational objectives: The classification of educational goals. Handbook I: Cognitive domain.</em> David McKay Company.</li>
+                <li>Krashen, S. D. (1985). <em>The input hypothesis: Issues and implications.</em> Longman.</li>
+                <li>Swain, M. (1985). Communicative competence: Some roles of comprehensible input and comprehensible output in its development. 载于 S. Gass & C. Madden (编), <em>Input in second language acquisition</em> (页 235-253). Newbury House.</li>
+                <li>Vygotsky, L. S. (1978). <em>Mind in society: The development of higher psychological processes.</em> Harvard University Press.</li>
+            </ul>
+        </div>
+
+        <div class="page-number">- 6 -</div>
     </div>
 
 </body>
