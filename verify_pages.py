@@ -7,8 +7,12 @@ def check_pages():
         page = browser.new_page()
         page.goto(f"file://{os.path.abspath('intro_packet.html')}", wait_until="networkidle")
 
-        # Take a screenshot of the entire document to see the flow
-        page.screenshot(path="intro_packet_full_flow.png", full_page=True)
+        # Get number of pages
+        pages = page.locator('.page').all()
+        print(f"Found {len(pages)} pages.")
+
+        for i, p_loc in enumerate(pages):
+            p_loc.screenshot(path=f"intro_packet_page_{i+1}.png")
 
         browser.close()
 
