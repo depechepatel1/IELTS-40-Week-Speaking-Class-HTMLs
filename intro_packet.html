@@ -56,6 +56,22 @@
        2. TYPOGRAPHY & LAYOUT
        ========================================= */
 
+    /* Global font consistency as requested */
+    p, li {
+        font-size: 11pt;
+        line-height: 1.45;
+        text-align: justify;
+        margin-bottom: 10px; /* Reduced from 12px for better flow */
+    }
+
+    ul {
+        margin-top: 5px;
+        margin-bottom: 10px;
+        padding-left: 20px;
+    }
+
+    li { margin-bottom: 6px; }
+
     h1, h2, h3, h4 {
         font-family: var(--heading-font);
         color: var(--primary-color);
@@ -63,73 +79,64 @@
     }
 
     h1 {
-        font-size: 22pt;
+        font-size: 20pt; /* Slightly smaller to save space */
         border-bottom: 2px solid var(--accent-color);
-        padding-bottom: 8px;
-        margin-bottom: 15px;
+        padding-bottom: 4px;
+        margin-bottom: 10px;
         line-height: 1.2;
     }
 
     h2 {
         font-size: 14pt;
-        margin-top: 15px;
-        margin-bottom: 8px;
+        margin-top: 12px;
+        margin-bottom: 6px;
         color: var(--accent-color);
     }
 
     h3 {
         font-size: 12pt;
-        margin-top: 12px;
-        margin-bottom: 5px;
+        margin-top: 10px;
+        margin-bottom: 4px;
         color: var(--primary-color);
-    }
-
-    p {
-        margin-bottom: 12px;
-        text-align: justify; /* Academic look */
-        font-size: 11pt;
     }
 
     .meta-info {
         background-color: #f8f9fa;
-        padding: 10px 15px;
+        padding: 8px 12px;
         border-left: 4px solid var(--accent-color);
-        margin-bottom: 15px;
+        margin-bottom: 12px;
         font-family: var(--heading-font);
-        font-size: 10pt;
+        font-size: 10pt; /* Meta info can remain slightly smaller as it's secondary */
     }
-    .meta-info p { margin-bottom: 5px; }
+    .meta-info p { margin-bottom: 2px; font-size: 10pt; text-align: left; }
     .meta-info p:last-child { margin-bottom: 0; }
-
-    /* Lists */
-    ul { margin-top: 5px; margin-bottom: 12px; padding-left: 20px; font-size: 11pt; }
-    li { margin-bottom: 5px; text-align: justify; }
 
     /* Cover Page Styles */
     .cover-page { padding: 0 !important; display: block; }
 
-    /* Chinese Override */
+    /* Chinese Override - Kept consistent with English 11pt */
     .cn-font {
         font-family: var(--body-font-cn);
     }
-    .cn-font p, .cn-font li { text-align: justify; font-size: 10.5pt; line-height: 1.6; }
+    .cn-font p, .cn-font li { font-size: 11pt; line-height: 1.5; }
 
     /* Helpers */
     .bold-accent { color: var(--primary-color); font-weight: bold; }
     .italic-text { font-style: italic; color: #555; }
 
-    /* Spiral Table (Semester 1 & 2) */
+    /* Spiral Table (Semester 1 & 2) - Kept compact specifically as requested */
     .spiral-table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 10px;
+        margin-top: 12px;
+        margin-bottom: 10px;
         font-size: 9.5pt;
-        line-height: 1.4;
+        line-height: 1.35;
     }
     .spiral-table th {
         background-color: var(--primary-color);
         color: white;
-        padding: 8px;
+        padding: 6px 10px;
         text-align: left;
         font-family: var(--heading-font);
         font-size: 10.5pt;
@@ -138,26 +145,18 @@
     }
     .spiral-table td {
         border: 1px solid #ccc;
-        padding: 10px;
+        padding: 8px 10px;
         vertical-align: top;
         background-color: #fafafa;
     }
     .spiral-table .cell-title {
         color: var(--accent-color);
         font-weight: bold;
-        margin-bottom: 3px;
+        margin-bottom: 2px;
         display: block;
         font-family: var(--heading-font);
     }
-
-    /* Dense Page 2 & 5 adjustments */
-    .page-dense h1 { margin-bottom: 5px; padding-bottom: 2px; font-size: 18pt; }
-    .page-dense h2 { margin-top: 10px; margin-bottom: 5px; font-size: 13pt; }
-    .page-dense h3 { margin-top: 8px; margin-bottom: 3px; font-size: 11pt; }
-    .page-dense p, .page-dense li { margin-bottom: 5px; line-height: 1.35; font-size: 10.5pt; }
-    .page-dense .meta-info { padding: 6px 10px; margin-bottom: 10px; }
-    .page-dense .spiral-table { margin-top: 15px; font-size: 9pt; } /* Added padding before table */
-    .page-dense .spiral-table td { padding: 6px 10px; }
+    .spiral-table p { font-size: 9.5pt; margin-bottom: 5px; }
 
 </style>
 </head>
@@ -173,7 +172,7 @@
 <!-- =========================================
      PAGE 2: ENGLISH INTRODUCTION (PART 1)
      ========================================= -->
-<div class="page page-dense">
+<div class="page">
     <h1>Course Rationale & Pedagogical Framework</h1>
 
     <div class="meta-info">
@@ -189,8 +188,13 @@
 
     <h2>2. Curriculum Architecture: The Spiral Model</h2>
     <p>Research by Jerome Bruner (1960) posits that learning is most effective when key concepts are revisited at increasing levels of complexity. Consequently, this course rejects a linear "one-and-done" approach to topics.</p>
+</div>
 
-    <table class="spiral-table">
+<!-- =========================================
+     PAGE 3: ENGLISH INTRODUCTION (PART 2)
+     ========================================= -->
+<div class="page">
+    <table class="spiral-table" style="margin-top: 0;">
         <tr>
             <th>Semester 1 (Weeks 1–20): The Foundation Phase</th>
             <th>Semester 2 (Weeks 21–40): The Mastery Phase</th>
@@ -208,12 +212,7 @@
             </td>
         </tr>
     </table>
-</div>
 
-<!-- =========================================
-     PAGE 3: ENGLISH INTRODUCTION (PART 2)
-     ========================================= -->
-<div class="page">
     <h2>3. Alignment with the 2001 Revised Bloom's Taxonomy</h2>
     <p>In Western education, Bloom's Taxonomy is the gold standard for curriculum design because it ensures students do not just passively memorize information, but actively use it to think, analyze, and create original output. By bringing this proven Western pedagogical framework to our classrooms in China, the course maps perfectly to Lorin Anderson and David Krathwohl’s 2001 revision of the taxonomy.</p>
 
@@ -226,12 +225,7 @@
         <li><span class="bold-accent">Applying & Analyzing (Higher-Order Skills):</span> Handled during the 80-minute class. Students apply their new vocabulary to specific speaking tasks and analyze teacher models to understand how to produce coherent and relevant responses using discourse markers for addition, time, sequence, cause/effect, and contrast.</li>
         <li><span class="bold-accent">Evaluating & Creating (Highest-Order Skills):</span> At the end of the lesson, students evaluate their peers' speaking errors. They then create their own unscripted, original answers during a fast-paced speaking circuit and their post-lesson AI recording.</li>
     </ul>
-</div>
 
-<!-- =========================================
-     PAGE 4: ENGLISH INTRODUCTION (PART 3)
-     ========================================= -->
-<div class="page">
     <h2>4. Alignment with PGCE & QTS Standards</h2>
     <p>The lesson design strictly adheres to UK Qualified Teacher Status (QTS) standards, ensuring rigorous, evidence-based pedagogy.</p>
 
@@ -243,6 +237,13 @@
         <li><span class="bold-accent">Post-Lesson (10 mins): Retrieval Practice.</span> Students record their own answers into the App for AI analysis. This leverages Swain’s Output Hypothesis, where learners are forced to notice the gap between what they want to say and what they can say.</li>
     </ul>
 
+</div>
+
+<!-- =========================================
+     PAGE 4: ENGLISH INTRODUCTION (PART 3)
+     ========================================= -->
+<div class="page">
+    <h2>4. Alignment with PGCE & QTS Standards (Continued)</h2>
     <h3>B. The "Transcoding" Strategy</h3>
     <p>We utilize the Peter Lucantoni Coursebook, the most widely respected text in the IGCSE arena. However, rather than treating it as a reading comprehension exercise, we apply a Lexical Approach (Michael Lewis).</p>
     <ul>
@@ -289,7 +290,7 @@
 <!-- =========================================
      PAGE 6: CHINESE INTRODUCTION (PART 1)
      ========================================= -->
-<div class="page cn-font page-dense">
+<div class="page cn-font">
     <h1>课程设计理念与教学框架说明书</h1>
 
     <div class="meta-info">
@@ -305,8 +306,13 @@
 
     <h2>2. 课程架构：螺旋式模型</h2>
     <p>基于杰罗姆·布鲁纳 (Jerome Bruner, 1960) 的研究理论，当关键概念在不断提升的复杂度层级上被反复重现时，学习效果最为显著。因此，本课程摒弃了“一次性完成”的线性教学法。</p>
+</div>
 
-    <table class="spiral-table">
+<!-- =========================================
+     PAGE 7: CHINESE INTRODUCTION (PART 2)
+     ========================================= -->
+<div class="page cn-font">
+    <table class="spiral-table" style="margin-top: 0;">
         <tr>
             <th>第一学期（第1–20周）：基础构建阶段</th>
             <th>第二学期（第21–40周）：精通进阶阶段</th>
@@ -324,12 +330,7 @@
             </td>
         </tr>
     </table>
-</div>
 
-<!-- =========================================
-     PAGE 7: CHINESE INTRODUCTION (PART 2)
-     ========================================= -->
-<div class="page cn-font">
     <h2>3. 与 2001 年修订版布鲁姆教育目标分类学的对标</h2>
     <p>在西方教育体系中，布鲁姆教育目标分类学是课程设计的“黄金标准”，因为它确保学生不只是被动地死记硬背信息，而是主动运用知识去思考、分析和创造原创内容。通过将这一经过验证的西方教学框架引入中国的课堂，本课程完美契合 Lorin Anderson 和 David Krathwohl 在2001年修订的分类学标准。</p>
 
@@ -342,12 +343,7 @@
         <li><span class="bold-accent">应用与分析（高阶思维技能）：</span> 在80分钟的课堂内进行。学生将新词汇应用到具体的口语任务中，并分析教师提供的范例，以理解如何使用表示递进、时间、因果和转折的话语标记来产出连贯且切题的回答。</li>
         <li><span class="bold-accent">评价与创造（最高阶思维技能）：</span> 在课程尾声，学生需要评价同伴的口语错误。随后，在快节奏的口语轮转练习和课后AI录音作业中，他们需要脱稿创造出属于自己的、原创的回答。</li>
     </ul>
-</div>
 
-<!-- =========================================
-     PAGE 8: CHINESE INTRODUCTION (PART 3)
-     ========================================= -->
-<div class="page cn-font">
     <h2>4. 与 PGCE 及 QTS 标准的对标</h2>
     <p>教案设计严格遵循英国教师资格认证 (QTS) 标准，确保教学法严谨且基于实证研究。</p>
 
@@ -359,6 +355,13 @@
         <li><span class="bold-accent">课后（10分钟）：提取练习 (Retrieval Practice)。</span> 学生将自己的答案录入 App 并由 AI 进行分析。这利用了斯温 (Swain) 的“输出假说”，迫使学习者注意到自己“想说的”与“能说的”之间的差距。</li>
     </ul>
 
+</div>
+
+<!-- =========================================
+     PAGE 8: CHINESE INTRODUCTION (PART 3)
+     ========================================= -->
+<div class="page cn-font">
+    <h2>4. 与 PGCE 及 QTS 标准的对标 (Continued)</h2>
     <h3>B. “语体转换”策略 (The "Transcoding" Strategy)</h3>
     <p>我们使用 IGCSE 领域最权威的 Peter Lucantoni 编写的教材。然而，我们并非将其作为阅读理解练习，而是应用词块教学法 (The Lexical Approach, Michael Lewis)。</p>
     <ul>
