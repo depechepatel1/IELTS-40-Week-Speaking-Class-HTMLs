@@ -124,39 +124,35 @@
     .bold-accent { color: var(--primary-color); font-weight: bold; }
     .italic-text { font-style: italic; color: #555; }
 
-    /* Spiral Table (Semester 1 & 2) - Kept compact specifically as requested */
-    .spiral-table {
+    /* Matrix Table (Bloom's Taxonomy) */
+    .matrix-table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 12px;
-        margin-bottom: 10px;
+        margin-top: 10px;
+        margin-bottom: 15px;
         font-size: 9.5pt;
         line-height: 1.35;
+        font-family: var(--heading-font);
     }
-    .spiral-table th {
+    .matrix-table th {
         background-color: var(--primary-color);
         color: white;
         padding: 6px 10px;
         text-align: left;
-        font-family: var(--heading-font);
-        font-size: 10.5pt;
+        font-size: 10pt;
         border: 1px solid var(--primary-color);
-        width: 50%;
     }
-    .spiral-table td {
+    .matrix-table td {
         border: 1px solid #ccc;
-        padding: 8px 10px;
+        padding: 6px 10px;
         vertical-align: top;
         background-color: #fafafa;
     }
-    .spiral-table .cell-title {
-        color: var(--accent-color);
+    .matrix-table td:nth-child(1), .matrix-table td:nth-child(2) {
         font-weight: bold;
-        margin-bottom: 2px;
-        display: block;
-        font-family: var(--heading-font);
+        color: var(--primary-color);
+        width: 20%;
     }
-    .spiral-table p { font-size: 9.5pt; margin-bottom: 5px; }
 
 </style>
 </head>
