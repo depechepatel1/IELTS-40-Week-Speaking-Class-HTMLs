@@ -118,6 +118,44 @@
     .bold-accent { color: var(--primary-color); font-weight: bold; }
     .italic-text { font-style: italic; color: #555; }
 
+    /* Spiral Table (Semester 1 & 2) */
+    .spiral-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        font-size: 9.5pt;
+        line-height: 1.4;
+    }
+    .spiral-table th {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 8px;
+        text-align: left;
+        font-family: var(--heading-font);
+        font-size: 10.5pt;
+        border: 1px solid var(--primary-color);
+        width: 50%;
+    }
+    .spiral-table td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        vertical-align: top;
+        background-color: #fafafa;
+    }
+    .spiral-table .cell-title {
+        color: var(--accent-color);
+        font-weight: bold;
+        margin-bottom: 3px;
+        display: block;
+        font-family: var(--heading-font);
+    }
+
+    /* Dense Page 2 & 5 adjustments */
+    .page-dense h1 { margin-bottom: 10px; padding-bottom: 5px; }
+    .page-dense h2 { margin-top: 10px; margin-bottom: 5px; }
+    .page-dense p { margin-bottom: 8px; }
+    .page-dense .meta-info { padding: 8px 12px; margin-bottom: 10px; }
+
 </style>
 </head>
 <body>
@@ -132,7 +170,7 @@
 <!-- =========================================
      PAGE 2: ENGLISH INTRODUCTION (PART 1)
      ========================================= -->
-<div class="page">
+<div class="page page-dense">
     <h1>Course Rationale & Pedagogical Framework</h1>
 
     <div class="meta-info">
@@ -148,26 +186,31 @@
 
     <h2>2. Curriculum Architecture: The Spiral Model</h2>
     <p>Research by Jerome Bruner (1960) posits that learning is most effective when key concepts are revisited at increasing levels of complexity. Consequently, this course rejects a linear "one-and-done" approach to topics.</p>
+
+    <table class="spiral-table">
+        <tr>
+            <th>Semester 1 (Weeks 1–20): The Foundation Phase</th>
+            <th>Semester 2 (Weeks 21–40): The Mastery Phase</th>
+        </tr>
+        <tr>
+            <td>
+                <span class="cell-title">Objective:</span> Vocabulary Acquisition & Fluency.<br><br>
+                <span class="cell-title">Method:</span> Students cover all 20 units of the Lucantoni textbook, focusing on concrete description and personal narrative.<br><br>
+                <span class="cell-title">Rationale:</span> "Band 5" students often lack the lexical range to speak confidently. Rapidly covering all topics ensures they possess the foundational vocabulary for every potential exam theme to communicate factual information, ideas and opinions with expansion.
+            </td>
+            <td>
+                <span class="cell-title">Objective:</span> Complex Grammar & Abstract Reasoning.<br><br>
+                <span class="cell-title">Method:</span> The course revisits the same 20 units but shifts the cognitive demand to abstract discussion, debate, and complex grammatical structures.<br><br>
+                <span class="cell-title">Rationale:</span> By reducing the cognitive load of learning "new" topics, students can focus entirely on upgrading their syntax, such as using conditionals, passive voice, and a range of lexical structures including idioms.
+            </td>
+        </tr>
+    </table>
 </div>
 
 <!-- =========================================
      PAGE 3: ENGLISH INTRODUCTION (PART 2)
      ========================================= -->
 <div class="page">
-    <h3>Semester 1 (Weeks 1–20): The Foundation Phase</h3>
-    <ul>
-        <li><span class="bold-accent">Objective:</span> Vocabulary Acquisition & Fluency.</li>
-        <li><span class="bold-accent">Method:</span> Students cover all 20 units of the Lucantoni textbook, focusing on concrete description and personal narrative.</li>
-        <li><span class="bold-accent">Rationale:</span> "Band 5" students often lack the lexical range to speak confidently. Rapidly covering all topics ensures they possess the foundational vocabulary for every potential exam theme to communicate factual information, ideas and opinions with expansion.</li>
-    </ul>
-
-    <h3>Semester 2 (Weeks 21–40): The Mastery Phase</h3>
-    <ul>
-        <li><span class="bold-accent">Objective:</span> Complex Grammar & Abstract Reasoning.</li>
-        <li><span class="bold-accent">Method:</span> The course revisits the same 20 units but shifts the cognitive demand to abstract discussion, debate, and complex grammatical structures.</li>
-        <li><span class="bold-accent">Rationale:</span> By reducing the cognitive load of learning "new" topics, students can focus entirely on upgrading their syntax, such as using conditionals, passive voice, and a range of lexical structures including idioms.</li>
-    </ul>
-
     <h2>3. Alignment with the 2001 Revised Bloom's Taxonomy</h2>
     <p>In Western education, Bloom's Taxonomy is the gold standard for curriculum design because it ensures students do not just passively memorize information, but actively use it to think, analyze, and create original output. By bringing this proven Western pedagogical framework to our classrooms in China, the course maps perfectly to Lorin Anderson and David Krathwohl’s 2001 revision of the taxonomy.</p>
 
@@ -219,7 +262,7 @@
 <!-- =========================================
      PAGE 5: CHINESE INTRODUCTION (PART 1)
      ========================================= -->
-<div class="page cn-font">
+<div class="page cn-font page-dense">
     <h1>课程设计理念与教学框架说明书</h1>
 
     <div class="meta-info">
@@ -235,26 +278,31 @@
 
     <h2>2. 课程架构：螺旋式模型</h2>
     <p>基于杰罗姆·布鲁纳 (Jerome Bruner, 1960) 的研究理论，当关键概念在不断提升的复杂度层级上被反复重现时，学习效果最为显著。因此，本课程摒弃了“一次性完成”的线性教学法。</p>
+
+    <table class="spiral-table">
+        <tr>
+            <th>第一学期（第1–20周）：基础构建阶段</th>
+            <th>第二学期（第21–40周）：精通进阶阶段</th>
+        </tr>
+        <tr>
+            <td>
+                <span class="cell-title">教学目标：</span> 词汇积累与流利度。<br><br>
+                <span class="cell-title">实施方法：</span> 学生将覆盖 Lucantoni 教材的全部20个单元，重点在于具体事物的描述与个人叙事。<br><br>
+                <span class="cell-title">设计依据：</span> 雅思5.0水平的学生通常缺乏自信表达所需的词汇广度。快速覆盖所有话题可确保学生掌握应对所有潜在考试主题的基础词汇，从而能够交流事实信息、想法，并对观点进行扩展。
+            </td>
+            <td>
+                <span class="cell-title">教学目标：</span> 复杂语法与抽象逻辑思维。<br><br>
+                <span class="cell-title">实施方法：</span> 课程将重新回顾相同的20个单元话题，但将认知难度提升至抽象讨论、辩论以及复杂语法结构的应用。<br><br>
+                <span class="cell-title">设计依据：</span> 通过减少学习“新话题”的认知负荷，学生可以将精力完全集中在句法升级上（如使用条件句、被动语态以及包含习语的词汇结构）。
+            </td>
+        </tr>
+    </table>
 </div>
 
 <!-- =========================================
      PAGE 6: CHINESE INTRODUCTION (PART 2)
      ========================================= -->
 <div class="page cn-font">
-    <h3>第一学期（第1–20周）：基础构建阶段</h3>
-    <ul>
-        <li><span class="bold-accent">教学目标：</span> 词汇积累与流利度。</li>
-        <li><span class="bold-accent">实施方法：</span> 学生将覆盖 Lucantoni 教材的全部20个单元，重点在于具体事物的描述与个人叙事。</li>
-        <li><span class="bold-accent">设计依据：</span> 雅思5.0水平的学生通常缺乏自信表达所需的词汇广度。快速覆盖所有话题可确保学生掌握应对所有潜在考试主题的基础词汇，从而能够交流事实信息、想法，并对观点进行扩展。</li>
-    </ul>
-
-    <h3>第二学期（第21–40周）：精通进阶阶段</h3>
-    <ul>
-        <li><span class="bold-accent">教学目标：</span> 复杂语法与抽象逻辑思维。</li>
-        <li><span class="bold-accent">实施方法：</span> 课程将重新回顾相同的20个单元话题，但将认知难度提升至抽象讨论、辩论以及复杂语法结构的应用。</li>
-        <li><span class="bold-accent">设计依据：</span> 通过减少学习“新话题”的认知负荷，学生可以将精力完全集中在句法升级上（如使用条件句、被动语态以及包含习语的词汇结构）。</li>
-    </ul>
-
     <h2>3. 与 2001 年修订版布鲁姆教育目标分类学的对标</h2>
     <p>在西方教育体系中，布鲁姆教育目标分类学是课程设计的“黄金标准”，因为它确保学生不只是被动地死记硬背信息，而是主动运用知识去思考、分析和创造原创内容。通过将这一经过验证的西方教学框架引入中国的课堂，本课程完美契合 Lorin Anderson 和 David Krathwohl 在2001年修订的分类学标准。</p>
 
