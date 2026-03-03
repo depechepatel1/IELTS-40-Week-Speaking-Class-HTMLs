@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Intro Packet</title>
+<title>Intro Packet - Course Rationale & Pedagogical Framework</title>
 <style>
     /* =========================================
        1. GLOBAL SETTINGS & TYPOGRAPHY
@@ -21,35 +21,44 @@
         --body-font-cn: "Microsoft YaHei", "SimHei", sans-serif;
     }
 
-    @page { size: A4 portrait; margin: 0; }
+    @page {
+        size: A4 portrait;
+        margin: 0;
+    }
 
     body {
         font-family: var(--body-font);
         background: #f0f0f0; /* Web background to differentiate pages */
         margin: 0;
+        padding: 0;
         color: var(--text-color);
-        line-height: 1.5; /* Good reading leading */
+        line-height: 1.45; /* Good reading leading */
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
 
-    .page {
+    /* Container for the document body (excluding cover page) */
+    .document-content {
         width: 210mm;
-        height: 296mm;
-        background: white;
         margin: 20px auto;
         padding: 15mm 20mm; /* standard academic margins */
         box-sizing: border-box;
-        position: relative;
-        overflow: hidden;
+        background: white;
         box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        display: flex;
-        flex-direction: column;
     }
 
     @media print {
-        body { background: none; }
-        .page { margin: 0; box-shadow: none; height: 296mm; page-break-after: always; }
+        body { background: none; margin: 0; padding: 0; }
+        .document-content {
+            width: 100%;
+            margin: 0;
+            padding: 15mm 20mm;
+            box-shadow: none;
+            /* Allow natural page breaks */
+            page-break-before: auto;
+            page-break-after: auto;
+            page-break-inside: auto;
+        }
     }
 
     /* =========================================
@@ -57,20 +66,25 @@
        ========================================= */
 
     /* Global font consistency as requested */
-    p, li {
+    p, li, td, th {
         font-size: 11pt;
         line-height: 1.45;
         text-align: justify;
-        margin-bottom: 10px; /* Reduced from 12px for better flow */
+        margin-bottom: 10px;
     }
 
-    ul {
+    ul, ol {
         margin-top: 5px;
         margin-bottom: 10px;
         padding-left: 20px;
     }
 
     li { margin-bottom: 6px; }
+
+    /* Prevent paragraphs and list items from breaking poorly */
+    p, li, h1, h2, h3, h4, .keep-together {
+        page-break-inside: avoid;
+    }
 
     h1, h2, h3, h4 {
         font-family: var(--heading-font);
@@ -79,79 +93,96 @@
     }
 
     h1 {
-        font-size: 20pt; /* Slightly smaller to save space */
+        font-size: 20pt;
         border-bottom: 2px solid var(--accent-color);
         padding-bottom: 4px;
+        margin-top: 15px;
         margin-bottom: 10px;
         line-height: 1.2;
     }
 
     h2 {
         font-size: 14pt;
-        margin-top: 12px;
-        margin-bottom: 6px;
+        margin-top: 15px;
+        margin-bottom: 8px;
         color: var(--accent-color);
     }
 
     h3 {
         font-size: 12pt;
-        margin-top: 10px;
-        margin-bottom: 4px;
+        margin-top: 12px;
+        margin-bottom: 6px;
         color: var(--primary-color);
     }
 
+    /* Meta Info Block */
     .meta-info {
-        background-color: #f8f9fa;
-        padding: 8px 12px;
-        border-left: 4px solid var(--accent-color);
-        margin-bottom: 12px;
-        font-family: var(--heading-font);
-        font-size: 10pt; /* Meta info can remain slightly smaller as it's secondary */
+        margin-bottom: 15px;
+        font-size: 11pt;
     }
-    .meta-info p { margin-bottom: 2px; font-size: 10pt; text-align: left; }
-    .meta-info p:last-child { margin-bottom: 0; }
+    .meta-info p { margin-bottom: 2px; }
 
     /* Cover Page Styles */
-    .cover-page { padding: 0 !important; display: block; }
-
-    /* Chinese Override - Kept consistent with English 11pt */
-    .cn-font {
-        font-family: var(--body-font-cn);
+    .cover-page {
+        width: 210mm;
+        height: 297mm;
+        margin: 0 auto 20px auto;
+        padding: 0;
+        display: block;
+        background: white;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        overflow: hidden;
     }
-    .cn-font p, .cn-font li { font-size: 11pt; line-height: 1.5; }
+    @media print {
+        .cover-page {
+            width: 100%;
+            height: 297mm; /* Ensure it takes full page */
+            margin: 0;
+            box-shadow: none;
+            page-break-after: always;
+        }
+    }
+
+    /* Chinese Override */
+    .cn-section {
+        font-family: var(--body-font-cn);
+        /* Start Chinese section on a new page */
+        page-break-before: always;
+    }
+    .cn-section p, .cn-section li, .cn-section td, .cn-section th {
+        font-size: 11pt;
+        line-height: 1.5;
+    }
 
     /* Helpers */
     .bold-accent { color: var(--primary-color); font-weight: bold; }
-    .italic-text { font-style: italic; color: #555; }
 
-    /* Matrix Table (Bloom's Taxonomy) */
-    .matrix-table {
+    /* Tables */
+    table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 10px;
         margin-bottom: 15px;
-        font-size: 9.5pt;
-        line-height: 1.35;
-        font-family: var(--heading-font);
+        page-break-inside: avoid;
     }
-    .matrix-table th {
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        vertical-align: top;
+    }
+    th {
         background-color: var(--primary-color);
         color: white;
-        padding: 6px 10px;
-        text-align: left;
-        font-size: 10pt;
-        border: 1px solid var(--primary-color);
+        font-family: var(--heading-font);
     }
-    .matrix-table td {
-        border: 1px solid #ccc;
-        padding: 6px 10px;
-        vertical-align: top;
-        background-color: #fafafa;
-    }
-    .matrix-table td:nth-child(1), .matrix-table td:nth-child(2) {
-        font-weight: bold;
-        color: var(--primary-color);
-        width: 20%;
+
+    /* Images */
+    .content-image {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 15px auto;
+        page-break-inside: avoid;
     }
 
 </style>
@@ -159,231 +190,293 @@
 <body>
 
 <!-- =========================================
-     PAGE 1: COVER PAGE
+     PAGE 1: COVER PAGE (Borderless)
      ========================================= -->
-<div class="page cover-page">
+<div class="cover-page">
     <img src="https://res.cloudinary.com/daujjfaqg/image/upload/v1771954617/Gemini_Generated_Image_l9b5ncl9b5ncl9b5_1_g88oyg.jpg" style="width: 100%; height: 100%; object-fit: fill; display: block;" alt="Cover Image">
 </div>
 
 <!-- =========================================
-     PAGE 2: ENGLISH INTRODUCTION (PART 1)
+     CONTENT DOCUMENT (Flows naturally)
      ========================================= -->
-<div class="page">
+<div class="document-content">
+
+    <!-- ENGLISH SECTION -->
     <h1>Course Rationale & Pedagogical Framework</h1>
 
-    <div class="meta-info">
-        <p><strong>Subject:</strong> IGCSE English as a Second Language (Speaking Component)</p>
-        <p><strong>Target Cohort:</strong> Grade 10 (Entry Level: IELTS Band 5.0 / CEFR B1)</p>
-        <p><strong>Duration:</strong> 40 Weeks (Spiral Curriculum)</p>
+    <div class="meta-info keep-together">
+        <p><span class="bold-accent">Subject:</span> IGCSE English as a Second Language (Speaking Component)</p>
+        <p><span class="bold-accent">Target Cohort:</span> Grade 10 (Entry Level: IELTS Band 5.0 / CEFR B1)</p>
+        <p><span class="bold-accent">Duration:</span> 40 Weeks (Spiral Curriculum)</p>
     </div>
 
-    <h2>1. Executive Summary</h2>
-    <p>This document outlines the rationale for a 40-week Speaking Course for Grade 10 students. Engineered using the very latest generative AI technologies—tools available only in the last few months—this course synthesizes the most current global language teaching methodologies. The curriculum is built upon the Cambridge IGCSE English as a Second Language syllabus and utilizes the industry-standard textbook by Peter Lucantoni as its primary content source. However, distinct from traditional linear instruction, this course employs a Spiral Curriculum model supported by AI-driven independent study to maximize classroom interaction and strictly adhere to local homework time constraints.</p>
+    <h2>1. Introduction</h2>
+    <p>Teachers in Chinese classrooms often struggle to motivate students to spend enough time independently speaking English unless directly observed, severely limiting weekly speaking time. This 40-week IGCSE Speaking Course for Grade 10 students is designed to solve this problem guiding students from an IELTS Band 5 to a Band 6.</p>
+
+    <p>This curriculum was researched and structured by the latest AI technologies and integrates the most advanced global language education science with cutting-edge AI. It exceeds strict UK Qualified Teacher Status (QTS) standards by combining world-class classroom teaching with a revolutionary, 24/7 AI co-teacher, freeing human teachers to focus entirely on building confidence and deeper communication skills.</p>
+
+    <p>The curriculum is built upon the Cambridge IGCSE English as a Second Language syllabus and uses text from the industry-standard textbook by Peter Lucantoni as its primary content source. However, we have moved away from the linear Cambridge model by using a Spiral Curriculum model supported by AI-driven independent study to maximize classroom interaction time and use 20 minutes of homework time to the fullest effect possible.</p>
 
     <p>Learners are encouraged to speak in a range of different situations and for different purposes, including brief transactions, conversations, expressing their opinions, and giving short talks on a range of topics. The result is a curriculum unmatched in its academic rigor, designed to move students from an intermediate level (IELTS Band 5.0) to the higher fluency required for IGCSE success (Band 6.0+).</p>
 
     <h2>2. Curriculum Architecture: The Spiral Model</h2>
     <p>Research by Jerome Bruner (1960) posits that learning is most effective when key concepts are revisited at increasing levels of complexity. Consequently, this course rejects a linear "one-and-done" approach to topics.</p>
-</div>
 
-<!-- =========================================
-     PAGE 3: ENGLISH INTRODUCTION (PART 2)
-     ========================================= -->
-<div class="page">
-    <table class="spiral-table" style="margin-top: 0;">
-        <tr>
-            <th>Semester 1 (Weeks 1–20): The Foundation Phase</th>
-            <th>Semester 2 (Weeks 21–40): The Mastery Phase</th>
-        </tr>
-        <tr>
-            <td>
-                <span class="cell-title">Objective:</span> Vocabulary Acquisition & Fluency.<br><br>
-                <span class="cell-title">Method:</span> Students cover all 20 units of the Lucantoni textbook, focusing on concrete description and personal narrative.<br><br>
-                <span class="cell-title">Rationale:</span> "Band 5" students often lack the lexical range to speak confidently. Rapidly covering all topics ensures they possess the foundational vocabulary for every potential exam theme to communicate factual information, ideas and opinions with expansion.
-            </td>
-            <td>
-                <span class="cell-title">Objective:</span> Complex Grammar & Abstract Reasoning.<br><br>
-                <span class="cell-title">Method:</span> The course revisits the same 20 units but shifts the cognitive demand to abstract discussion, debate, and complex grammatical structures.<br><br>
-                <span class="cell-title">Rationale:</span> By reducing the cognitive load of learning "new" topics, students can focus entirely on upgrading their syntax, such as using conditionals, passive voice, and a range of lexical structures including idioms.
-            </td>
-        </tr>
+    <table>
+        <thead>
+            <tr>
+                <th>Semester 1 (Weeks 1–20): The Foundation Phase</th>
+                <th>Semester 2 (Weeks 21–40): The Mastery Phase</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p><span class="bold-accent">Objective:</span><br>Vocabulary Acquisition & Fluency.</p>
+                    <p><span class="bold-accent">Method:</span><br>Students cover all 20 units of the Lucantoni textbook, focusing on concrete description and personal narrative.</p>
+                    <p><span class="bold-accent">Rationale:</span><br>"Band 5" students often lack the lexical range to speak confidently. Rapidly covering all topics ensures they possess the foundational vocabulary for every potential exam theme to communicate factual information, ideas and opinions with expansion.</p>
+                </td>
+                <td>
+                    <p><span class="bold-accent">Objective:</span><br>Complex Grammar & Abstract Reasoning.</p>
+                    <p><span class="bold-accent">Method:</span><br>The course revisits the same 20 units but shifts the cognitive demand to abstract discussion, debate, and complex grammatical structures.</p>
+                    <p><span class="bold-accent">Rationale:</span><br>By reducing the cognitive load of learning "new" topics, students can focus entirely on upgrading their syntax, such as using conditionals, passive voice, and a range of lexical structures including idioms.</p>
+                </td>
+            </tr>
+        </tbody>
     </table>
 
     <h2>3. Alignment with the 2001 Revised Bloom's Taxonomy</h2>
-    <p>In Western education, Bloom's Taxonomy is the gold standard for curriculum design because it ensures students do not just passively memorize information, but actively use it to think, analyze, and create original output. By bringing this proven Western pedagogical framework to our classrooms in China, the course maps perfectly to Lorin Anderson and David Krathwohl’s 2001 revision of the taxonomy.</p>
 
-    <div style="text-align: center; margin: 15px 0;">
-        <img src="https://res.cloudinary.com/daujjfaqg/image/upload/v1772513734/Blooms_taxonomy_q9qlcv.jpg" alt="Bloom's Taxonomy" style="max-height: 250px; width: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-    </div>
+    <img class="content-image" src="https://res.cloudinary.com/daujjfaqg/image/upload/v1772513734/Blooms_taxonomy_q9qlcv.jpg" alt="Revised Bloom's Taxonomy">
+
+    <p>In Western education, Bloom's Taxonomy is the gold standard for curriculum design because it ensures students do not just passively memorize information, but actively use it to think, analyze, and create original output. By bringing this proven Western pedagogical framework to our classrooms in China, the course maps perfectly to Lorin Anderson and David Krathwohl’s 2001 revision of Bloom’s taxonomy designed specifically for education.</p>
+
+    <p>We accurately apply this matrix to every lesson and AI activity in our IGCSE speaking course:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Cognitive Process</th>
+                <th>Knowledge Dimension</th>
+                <th>IGCSE Speaking Course Application</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="bold-accent">Remembering</span></td>
+                <td>Factual Knowledge</td>
+                <td>Recalling correct target vocabulary, idioms, and phonetic pronunciation models from the Lucantoni text during pre-class AI shadowing.</td>
+            </tr>
+            <tr>
+                <td><span class="bold-accent">Applying</span></td>
+                <td>Procedural Knowledge</td>
+                <td>Utilizing specific "O.R.E." frameworks to systematically structure and expand answers during controlled classroom practice.</td>
+            </tr>
+            <tr>
+                <td><span class="bold-accent">Analyzing</span></td>
+                <td>Conceptual Knowledge</td>
+                <td>Deconstructing "transcoded" teacher speaking models to accurately understand how discourse markers connect ideas.</td>
+            </tr>
+            <tr>
+                <td><span class="bold-accent">Evaluating</span></td>
+                <td>Metacognitive Knowledge</td>
+                <td>Judging peer performance during error correction activities, and utilizing post-class Qwen AI audio feedback to identify personal syllable stress and fluency issues.</td>
+            </tr>
+            <tr>
+                <td><span class="bold-accent">Creating</span></td>
+                <td>Procedural Knowledge</td>
+                <td>Synthesizing vocabulary, complex grammar, and original thought to produce spontaneous, natural spoken English during the fast-paced 4-3-2 classroom speaking circuits.</td>
+            </tr>
+        </tbody>
+    </table>
 
     <ul>
-        <li><span class="bold-accent">Remembering & Understanding (Lower-Order Skills):</span> Handled by the AI App before class. Students memorize vocabulary, understand phonetic sounds, and shadow native pronunciation.</li>
+        <li><span class="bold-accent">Remembering & Understanding (Lower-Order Skills):</span> Handled by the AI App before class. Students memorize vocabulary and grammar, understand phonetic sounds, and shadow native pronunciation to train UK or US accents.</li>
         <li><span class="bold-accent">Applying & Analyzing (Higher-Order Skills):</span> Handled during the 80-minute class. Students apply their new vocabulary to specific speaking tasks and analyze teacher models to understand how to produce coherent and relevant responses using discourse markers for addition, time, sequence, cause/effect, and contrast.</li>
-        <li><span class="bold-accent">Evaluating & Creating (Highest-Order Skills):</span> At the end of the lesson, students evaluate their peers' speaking errors. They then create their own unscripted, original answers during a fast-paced speaking circuit and their post-lesson AI recording.</li>
+        <li><span class="bold-accent">Evaluating & Creating (Highest-Order Skills):</span> At the end of the lesson, students evaluate their peers' speaking errors. They then create their own unscripted, original answers during a fast-paced speaking circuit and their post-lesson AI recording homework.</li>
     </ul>
 
     <h2>4. Alignment with PGCE & QTS Standards</h2>
     <p>The lesson design strictly adheres to UK Qualified Teacher Status (QTS) standards, ensuring rigorous, evidence-based pedagogy.</p>
 
     <h3>A. The "Sandwich" Model (Flipped Learning)</h3>
-    <p>To comply with the 20-minute homework cap mandated by local regulations, we utilize a "High-Frequency, Low-Duration" approach facilitated by custom AI technology.</p>
+    <p>To comply with a 20-minute homework cap to help protect students from homework fatigue, we utilize a "High-Frequency, Low-Duration" approach facilitated by custom AI technology.</p>
     <ul>
-        <li><span class="bold-accent">Pre-Lesson (10 mins): Input Flood.</span> Students use the Web App to "shadow" native-speaker models of the upcoming lesson's vocabulary. This aligns with Stephen Krashen’s Input Hypothesis, ensuring students enter the classroom with the target language already activated.</li>
+        <li><span class="bold-accent">Pre-Lesson Input Homework (Shadowing 10 mins):</span> Students use the Web App to "shadow" native-speaker models of the upcoming lesson's model answers This aligns with Stephen Krashen’s i+1 Input Hypothesis, ensuring students enter the classroom with the target language already activated.</li>
         <li><span class="bold-accent">The Lesson (80 mins): Communicative Interaction.</span> Classroom time is preserved exclusively for interactive output.</li>
-        <li><span class="bold-accent">Post-Lesson (10 mins): Retrieval Practice.</span> Students record their own answers into the App for AI analysis. This leverages Swain’s Output Hypothesis, where learners are forced to notice the gap between what they want to say and what they can say.</li>
+        <li><span class="bold-accent">Post-Lesson Output Homework (Unscripted Practice 10 mins):</span> Students record their own answers into the App for AI analysis. This leverages Swain’s Output Hypothesis, where learners are forced to notice the gap between what they want to say and what they can say.</li>
     </ul>
 
-</div>
-
-<!-- =========================================
-     PAGE 4: ENGLISH INTRODUCTION (PART 3)
-     ========================================= -->
-<div class="page">
-    <h2>4. Alignment with PGCE & QTS Standards (Continued)</h2>
     <h3>B. The "Transcoding" Strategy</h3>
-    <p>We utilize the Peter Lucantoni Coursebook, the most widely respected text in the IGCSE arena. However, rather than treating it as a reading comprehension exercise, we apply a Lexical Approach (Michael Lewis).</p>
+    <p>We utilize the Peter Lucantoni Coursebook, the most widely respected text in the IGCSE arena. However, rather than treating it as a reading comprehension exercise as it is in the textbook, we apply a Lexical Approach (Michael Lewis).</p>
     <ul>
-        <li><span class="bold-accent">Method:</span> Textual reading passages are "transcoded" (rewritten) into spoken models.</li>
-        <li><span class="bold-accent">Justification:</span> Written English and Spoken English differ significantly in register. By converting formal texts into natural speech patterns, we provide students with authentic models of high-scoring spoken responses rather than stilted, "textbook" language.</li>
+        <li><span class="bold-accent">Method:</span> Formal reading text passages are "transcoded" (rewritten) into more natural spoken models.</li>
+        <li><span class="bold-accent">Justification:</span> Written English and Spoken English differ significantly in tone. By converting formal texts into natural speech patterns, we provide students with authentic models of high-scoring spoken responses rather than stilted, "textbook" language.</li>
     </ul>
 
     <h3>C. Differentiation & Scaffolding (Vygotsky)</h3>
-    <p>Lessons are designed within the Zone of Proximal Development (ZPD).</p>
+    <p>Lessons are designed within Lev Vygotsky’s Zone of Proximal Development (ZPD).</p>
     <ul>
-        <li><span class="bold-accent">Scaffolding:</span> Weak students (Band 5) are supported with sentence stems and "O.R.E." logic templates (Opinion, Reason, Example).</li>
+        <li><span class="bold-accent">Scaffolding:</span> Weak students (Band 5) are supported with sentence prompts and the Harvard University and IELTS “O.R.E.” logic templates (Opinion, Reason, Example).</li>
         <li><span class="bold-accent">Differentiation:</span> Stronger students are stretched through "Constraint-Based Challenges" (e.g., "Answer this question using a 3-clause sentence and one idiom").</li>
     </ul>
 
     <h2>5. IGCSE Criteria, Technical & Resource Integration</h2>
     <p><span class="bold-accent">Primary Text:</span> Cambridge IGCSE English as a Second Language Coursebook (Peter Lucantoni). This ensures full syllabus coverage and topic compliance with Cambridge International Examinations (CIE).</p>
 
-    <p><span class="bold-accent">AI Integration & IGCSE Criteria:</span> The course explicitly trains students to meet the exact IGCSE speaking criteria, requiring them to communicate showing control of pronunciation and intonation, with specific focus on syllable stress and sentence stress to show contrast or emphasis. The integration of the Qwen Audio API allows for personalized, immediate feedback on pronunciation and fluency—a feat impossible for a single teacher to perform manually for a full class daily. This provides high-quality Formative Assessment (QTS Standard 6) without exceeding teacher workload capacity.</p>
-</div>
+    <p><span class="bold-accent">AI Integration & IGCSE Criteria:</span> The course explicitly trains students to meet the exact IGCSE speaking criteria, requiring them to communicate showing control of pronunciation and intonation, with specific focus on syllable stress and sentence stress to show contrast or emphasis. The integration of Aliyun Qwen Audio AI allows for personalized, immediate feedback on pronunciation and fluency—a feat impossible for a single teacher to perform manually for a full class daily. This provides high-quality Formative Assessment (QTS Standard 6) without exceeding teacher workload capacity.</p>
 
-<!-- =========================================
-     PAGE 5: ENGLISH INTRODUCTION (PART 4)
-     ========================================= -->
-<div class="page">
     <h2>6. Conclusion</h2>
-    <p>This course combines traditional academic rigor with modern teaching science. By spiraling the curriculum, we ensure students remember vocabulary. By using the 2001 Revised Taxonomy, we guarantee students spend class time actively creating language. This highly efficient model guarantees a course that is engaging, compliant with school rules, and unmatched in preparing students for exam success.</p>
+    <p>This course combines the best teaching research and traditional academic standards with advanced AI-driven course design. By spiralling the the most widely used Cambridge curriculum to become increasingly difficult, we ensure students progress in manageable steps they find achievable. By using the Revised Bloom’s Taxonomy as its foundation, we guarantee students receive the gold standard in western educational curriculum design and together with the most advanced teaching science available in the world today, this program is the ultimate IGCSE ESL Speaking component preparation.</p>
 
-    <h2 style="font-size: 11pt; margin-top: 15px; margin-bottom: 5px;">References</h2>
-    <div style="font-size: 8.5pt; line-height: 1.3;">
-        <p style="margin-bottom: 3px;">Anderson, L. W. and Krathwohl, D. R. (eds.) (2001) A taxonomy for learning, teaching, and assessing: A revision of Bloom's taxonomy of educational objectives. New York: Longman.</p>
-        <p style="margin-bottom: 3px;">Bruner, J. S. (1960) The process of education. Cambridge, MA: Harvard University Press.</p>
-        <p style="margin-bottom: 3px;">Krashen, S. D. (1985) The input hypothesis: Issues and implications. London: Longman.</p>
-        <p style="margin-bottom: 3px;">Lewis, M. (1993) The lexical approach: The state of ELT and a way forward. Hove: Language Teaching Publications.</p>
-        <p style="margin-bottom: 3px;">Lucantoni, P. (2022) Cambridge IGCSE™ English as a Second Language Coursebook. 6th edn. Cambridge: Cambridge University Press.</p>
-        <p style="margin-bottom: 3px;">Swain, M. (1985) 'Communicative competence: Some roles of comprehensible input and comprehensible output in its development', in Gass, S. and Madden, C. (eds.) Input in second language acquisition. Rowley, MA: Newbury House, pp. 235–253.</p>
-        <p style="margin-bottom: 8px;">Vygotsky, L. S. (1978) Mind in society: The development of higher psychological processes. Cambridge, MA: Harvard University Press.</p>
+    <h2 style="border-top: 1px solid #ccc; padding-top: 15px; margin-top: 20px;">References</h2>
+    <ol>
+        <li>Anderson, L.W. and Krathwohl, D.R. eds., 2001. <em>A taxonomy for learning, teaching, and assessing: A revision of Bloom's taxonomy of educational objectives</em>. New York: Longman.</li>
+        <li>Bruner, J.S., 1960. <em>The process of education</em>. Cambridge, MA: Harvard University Press.</li>
+        <li>Krashen, S.D., 1985. <em>The input hypothesis: Issues and implications</em>. London: Longman.</li>
+        <li>Lewis, M., 1993. <em>The lexical approach: The state of ELT and a way forward</em>. Hove: Language Teaching Publications.</li>
+        <li>Lucantoni, P., 2022. <em>Cambridge IGCSE English as a Second Language Coursebook</em>. Cambridge: Cambridge University Press.</li>
+        <li>Swain, M., 1985. Communicative competence: Some roles of comprehensible input and comprehensible output in its development. In: S. Gass and C. Madden, eds. <em>Input in second language acquisition</em>. Rowley, MA: Newbury House, pp.235-253.</li>
+        <li>Vygotsky, L.S., 1978. <em>Mind in society: The development of higher psychological processes</em>. Cambridge, MA: Harvard University Press.</li>
+    </ol>
 
-        <p style="font-weight: bold; margin-bottom: 3px;">Institutional Frameworks Mentioned</p>
-        <p style="margin-bottom: 3px;">Cambridge Assessment International Education (no date) Cambridge IGCSE English as a Second Language (Speaking endorsement) 0510. Available at: www.cambridgeinternational.org.</p>
-        <p style="margin-bottom: 3px;">Department for Education (2011) Teachers' standards. London: DfE.</p>
+    <!-- =========================================
+         CHINESE SECTION (Starts on a new page)
+         ========================================= -->
+    <div class="cn-section">
+        <h1>课程理念与教学框架</h1>
+
+        <div class="meta-info keep-together">
+            <p><span class="bold-accent">科目：</span> IGCSE英语作为第二语言（口语部分）</p>
+            <p><span class="bold-accent">目标学生：</span> 十年级（入学水平：雅思5.0分 / 欧洲共同语言参考标准B1级）</p>
+            <p><span class="bold-accent">课时：</span> 40周（螺旋式课程）</p>
+        </div>
+
+        <h2>1. 引言</h2>
+        <p>中国课堂的教师常面临一个挑战：除非直接监督，否则难以激励学生投入足够时间进行自主英语口语练习，这严重限制了学生每周的口语训练时间。本课程专为十年级学生设计的40周IGCSE口语课程，旨在解决此问题，引导学生从雅思5分水平提升至6分。</p>
+
+        <p>本课程体系由最新人工智能技术辅助研发，融合了最前沿的全球语言教育科学与尖端AI技术。它超越了严格的英国合格教师身份标准，将世界级的课堂教学与革命性的、全天候在线的AI助教相结合，使人类教师得以专注于培养学生的自信心和更深层次的沟通技能。</p>
+
+        <p>课程构建于剑桥IGCSE英语作为第二语言教学大纲之上，并以行业标准教材——Peter Lucantoni编著的课本为主要内容来源。然而，我们摒弃了线性的剑桥模式，采用了螺旋式课程模型，并由AI驱动的自主学习提供支持，旨在最大化课堂互动时间，并将20分钟的家庭作业时间效用发挥到极致。</p>
+
+        <p>课程鼓励学习者在各种不同情境中，为不同目的进行口语表达，包括简短交易、对话、表达观点以及就各类话题进行简短陈述。其成果是一套在学术严谨性上无与伦比的课程体系，旨在帮助学生从中级水平（雅思5.0分）迈向IGCSE成功所要求的更高流利度（雅思6.0分及以上）。</p>
+
+        <h2>2. 课程架构：螺旋式模型</h2>
+        <p>杰罗姆·布鲁纳的研究指出，当关键概念以递增的复杂性被反复回顾时，学习最为有效。因此，本课程摒弃了话题上一遍就过的线性模式。</p>
+
+        <ul>
+            <li>
+                <span class="bold-accent">第一学期（第1-20周）：基础阶段</span>
+                <ul>
+                    <li><span class="bold-accent">目标：</span> 词汇积累与流利度。</li>
+                    <li><span class="bold-accent">方法：</span> 学生学习Lucantoni教材全部20个单元，重点放在具体描述和个人叙述上。</li>
+                    <li><span class="bold-accent">理念：</span> "雅思5分"水平的学生常因词汇量不足而缺乏自信地表达。快速覆盖所有话题，确保他们为每个可能的考试主题打下基础词汇基础，能够展开阐述事实信息、观点和想法。</li>
+                </ul>
+            </li>
+            <li>
+                <span class="bold-accent">第二学期（第21-40周）：精进阶段</span>
+                <ul>
+                    <li><span class="bold-accent">目标：</span> 复杂语法与抽象推理。</li>
+                    <li><span class="bold-accent">方法：</span> 课程重新回顾同样的20个单元，但将认知要求转向抽象讨论、辩论和复杂语法结构。</li>
+                    <li><span class="bold-accent">理念：</span> 通过减轻学习"新"话题的认知负担，学生可以专注于提升句法水平，例如使用条件句、被动语态以及包括习语在内的各种词汇结构。</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>3. 与2001年修订版布鲁姆分类学的结合</h2>
+        <p>在西方教育中，布鲁姆分类学是课程设计的黄金标准，因为它确保学生不仅被动记忆信息，更能主动运用信息进行思考、分析和创造原创内容。通过将这套经过验证的西方教学框架引入中国课堂，本课程完美契合了洛林·安德森和戴维·克拉思沃尔为教育领域专门修订的2001版布鲁姆分类学。</p>
+
+        <p>我们在IGCSE口语课程的每一节课和每一项AI练习活动中，都精确运用此矩阵：</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>认知过程</th>
+                    <th>知识维度</th>
+                    <th>IGCSE口语课程应用</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="bold-accent">记忆</span></td>
+                    <td>事实性知识</td>
+                    <td>在课前AI应用跟读模仿阶段，回忆Lucantoni教材中正确的目标词汇、习语和语音发音模型。</td>
+                </tr>
+                <tr>
+                    <td><span class="bold-accent">应用</span></td>
+                    <td>程序性知识</td>
+                    <td>在课堂控制练习中，运用特定的"O.R.E."框架来系统性地组织和扩展回答。</td>
+                </tr>
+                <tr>
+                    <td><span class="bold-accent">分析</span></td>
+                    <td>概念性知识</td>
+                    <td>解构教师"转码"后的口语示范，准确理解连接词如何连接观点。</td>
+                </tr>
+                <tr>
+                    <td><span class="bold-accent">评价</span></td>
+                    <td>元认知知识</td>
+                    <td>在纠错环节评判同伴表现，并利用课后Qwen AI音频反馈，发现自身在音节重读和流利度方面的问题。</td>
+                </tr>
+                <tr>
+                    <td><span class="bold-accent">创造</span></td>
+                    <td>程序性知识</td>
+                    <td>在快节奏的4-3-2课堂口语练习中，综合运用词汇、复杂语法和原创想法，生成即兴、自然的英语口语。</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ul>
+            <li><span class="bold-accent">记忆与理解（低阶技能）：</span> 由AI应用在课前处理。学生记忆词汇和语法，理解语音，并通过跟读模仿训练英式或美式口音。</li>
+            <li><span class="bold-accent">应用与分析（高阶技能）：</span> 在80分钟的课堂内进行。学生将新词汇应用于特定口语任务，并分析教师示范，学习如何运用表示补充、时间、顺序、因果和对比的连接词，构建连贯、相关的回答。</li>
+            <li><span class="bold-accent">评价与创造（最高阶技能）：</span> 课程结束时，学生相互评价口语错误。随后，在快节奏的口语练习环节以及课后AI录音作业中，他们创造自己即兴的、原创的回答。</li>
+        </ul>
+
+        <h2>4. 与PGCE及QTS标准的契合</h2>
+        <p>课程设计严格遵守英国合格教师身份标准，确保采用严谨、循证的教学法。</p>
+
+        <h3>A. "三明治"模型（翻转学习）</h3>
+        <p>为遵守20分钟家庭作业时限，帮助学生避免作业疲劳，我们利用定制AI技术实施了一种"高频、短时"的方法。</p>
+        <ul>
+            <li><span class="bold-accent">课前输入作业（跟读模仿 10分钟）：</span> 学生使用网页应用"跟读模仿"即将学习的课堂示范回答的母语者模型。这符合斯蒂芬·克拉申的"i+1输入假说"，确保学生进入课堂时，目标语言已被激活。</li>
+            <li><span class="bold-accent">课堂环节（80分钟）：交际互动。</span> 课堂时间专门保留给互动性输出。</li>
+            <li><span class="bold-accent">课后输出作业（即兴练习 10分钟）：</span> 学生将自己的回答录制成音频并上传至应用，供AI分析。这利用了Merrill Swain的输出假说，促使学习者意识到自己"想说的"与"能说的"之间的差距。</li>
+        </ul>
+
+        <h3>B. "转码"策略</h3>
+        <p>我们使用Peter Lucantoni编著的练习册，这是IGCSE领域最受推崇的教材。然而，我们并未像传统使用那样将其作为阅读理解练习，而是应用了迈克尔·刘易斯的词汇教学法。</p>
+        <ul>
+            <li><span class="bold-accent">方法：</span> 将正式的阅读文本段落"转码"为更自然的口语模型。</li>
+            <li><span class="bold-accent">理由：</span> 书面英语与口语英语在语气上差异显著。通过将正式文本转换为自然的言语模式，我们为学生提供了高分口语回答的真实范例，而非生硬的"教科书式"语言。</li>
+        </ul>
+
+        <h3>C. 差异教学与支架式教学</h3>
+        <p>课程设计基于利维·维果茨基的"最近发展区"理论。</p>
+        <ul>
+            <li><span class="bold-accent">支架式教学：</span> 为能力较弱的学生提供句型提示和基于哈佛大学及雅思考试的"O.R.E."逻辑模板。</li>
+            <li><span class="bold-accent">差异教学：</span> 通过"基于约束的挑战"来拓展能力较强的学生。</li>
+        </ul>
+
+        <h2>5. IGCSE标准、技术与资源整合</h2>
+        <ul>
+            <li><span class="bold-accent">主教材：</span> 剑桥IGCSE英语作为第二语言练习册。这确保了与剑桥国际考试委员会教学大纲的完全覆盖和主题一致。</li>
+            <li><span class="bold-accent">AI整合与IGCSE标准：</span> 本课程明确训练学生满足IGCSE口语考试的确切标准，要求他们在交流中展现出对发音和语调的控制，特别关注音节重读和句子重读，以表达对比或强调。阿里云"听悟"音频AI的集成，能够为学生提供个性化、即时的发音和流利度反馈——这是单靠一位教师每天为全班学生人工操作所无法实现的。这提供了高质量的形成性评价，且不会超出教师的工作负荷。</li>
+        </ul>
+
+        <h2>6. 结论</h2>
+        <p>本课程融合了顶尖的教学研究和传统学术标准，并结合了先进的AI驱动课程设计。通过螺旋式地提升最广泛使用的剑桥课程难度，我们确保学生以可控的、可实现的步骤取得进步。通过以修订版布鲁姆分类学为基础，我们保证学生接受到西方教育课程设计的黄金标准。结合当今世界最前沿的教学科学，本课程是IGCSE ESL口语备考的终极方案。</p>
+
+        <h2 style="border-top: 1px solid #ccc; padding-top: 15px; margin-top: 20px;">参考文献</h2>
+        <ol>
+            <li>Anderson, L.W. and Krathwohl, D.R. 编，2001年。《学习、教学和评估的分类学：布鲁姆教育目标分类学的修订版》。纽约：朗文出版社。</li>
+            <li>Bruner, J.S.，1960年。《教育过程》。剑桥，马萨诸塞州：哈佛大学出版社。</li>
+            <li>Krashen, S.D.，1985年。《输入假说：问题与启示》。伦敦：朗文出版社。</li>
+            <li>Lewis, M.，1993年。《词汇法：英语语言教学的现状与前进之路》。霍夫：语言教学出版社。</li>
+            <li>Lucantoni, P.，2022年。《剑桥IGCSE英语作为第二语言练习册》。剑桥：剑桥大学出版社。</li>
+            <li>Swain, M.，1985年。《交际能力：可理解性输入与可理解性输出在其发展中的作用》。收录于：S. Gass 和 C. Madden 编。《第二语言习得中的输入》。罗利，马萨诸塞州：纽伯里豪斯出版社，第235-253页。</li>
+            <li>Vygotsky, L.S.，1978年。《社会中的心智：高级心理过程的发展》。剑桥，马萨诸塞州：哈佛大学出版社。</li>
+        </ol>
     </div>
-</div>
 
-<!-- =========================================
-     PAGE 6: CHINESE INTRODUCTION (PART 1)
-     ========================================= -->
-<div class="page cn-font">
-    <h1>课程设计理念与教学框架说明书</h1>
-
-    <div class="meta-info">
-        <p><strong>科目：</strong> IGCSE 英语作为第二语言（口语部分）</p>
-        <p><strong>目标群体：</strong> 10年级学生（入学水平：雅思 5.0 / CEFR B1）</p>
-        <p><strong>课程周期：</strong> 40周（螺旋式课程设计）</p>
-    </div>
-
-    <h2>1. 执行摘要</h2>
-    <p>本文件旨在阐述针对10年级学生设计的40周口语专项课程的理论依据。本课程利用最新问世的生成式人工智能技术研发（这些技术在最近几个月才刚刚普及），深度融合了全球最前沿的语言教学法。课程体系基于剑桥 IGCSE 英语作为第二语言考纲，并以 Peter Lucantoni 编写的行业权威教材为核心内容载体。然而，与传统的线性教学模式不同，本课程采用螺旋式课程模型，并结合AI驱动的自主学习系统，以最大化课堂互动效率，并严格遵守教育部门关于课后作业时长的规定。</p>
-
-    <p>我们鼓励学习者在各种不同的情境中、为不同的目的进行口语表达，包括简短的事务性交流、对话、表达观点以及就各类话题进行简短演讲 。我们旨在打造出在学术严谨性上无与伦比的课程体系，切实有效地帮助学生从中级水平（雅思5.0）提升至IGCSE考试获得高分所需的流利度（雅思6.0+）。</p>
-
-    <h2>2. 课程架构：螺旋式模型</h2>
-    <p>基于杰罗姆·布鲁纳 (Jerome Bruner, 1960) 的研究理论，当关键概念在不断提升的复杂度层级上被反复重现时，学习效果最为显著。因此，本课程摒弃了“一次性完成”的线性教学法。</p>
-</div>
-
-<!-- =========================================
-     PAGE 7: CHINESE INTRODUCTION (PART 2)
-     ========================================= -->
-<div class="page cn-font">
-    <table class="spiral-table" style="margin-top: 0;">
-        <tr>
-            <th>第一学期（第1–20周）：基础构建阶段</th>
-            <th>第二学期（第21–40周）：精通进阶阶段</th>
-        </tr>
-        <tr>
-            <td>
-                <span class="cell-title">教学目标：</span> 词汇积累与流利度。<br><br>
-                <span class="cell-title">实施方法：</span> 学生将覆盖 Lucantoni 教材的全部20个单元，重点在于具体事物的描述与个人叙事。<br><br>
-                <span class="cell-title">设计依据：</span> 雅思5.0水平的学生通常缺乏自信表达所需的词汇广度。快速覆盖所有话题可确保学生掌握应对所有潜在考试主题的基础词汇，从而能够交流事实信息、想法，并对观点进行扩展。
-            </td>
-            <td>
-                <span class="cell-title">教学目标：</span> 复杂语法与抽象逻辑思维。<br><br>
-                <span class="cell-title">实施方法：</span> 课程将重新回顾相同的20个单元话题，但将认知难度提升至抽象讨论、辩论以及复杂语法结构的应用。<br><br>
-                <span class="cell-title">设计依据：</span> 通过减少学习“新话题”的认知负荷，学生可以将精力完全集中在句法升级上（如使用条件句、被动语态以及包含习语的词汇结构）。
-            </td>
-        </tr>
-    </table>
-
-    <h2>3. 与 2001 年修订版布鲁姆教育目标分类学的对标</h2>
-    <p>在西方教育体系中，布鲁姆教育目标分类学是课程设计的“黄金标准”，因为它确保学生不只是被动地死记硬背信息，而是主动运用知识去思考、分析和创造原创内容。通过将这一经过验证的西方教学框架引入中国的课堂，本课程完美契合 Lorin Anderson 和 David Krathwohl 在2001年修订的分类学标准。</p>
-
-    <div style="text-align: center; margin: 15px 0;">
-        <img src="https://res.cloudinary.com/daujjfaqg/image/upload/v1772513734/Blooms_taxonomy_q9qlcv.jpg" alt="Bloom's Taxonomy" style="max-height: 250px; width: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-    </div>
-
-    <ul>
-        <li><span class="bold-accent">记忆与理解（低阶思维技能）：</span> 在课前由 AI App 负责。学生记忆词汇、理解发音规则，并跟读母语者的发音。</li>
-        <li><span class="bold-accent">应用与分析（高阶思维技能）：</span> 在80分钟的课堂内进行。学生将新词汇应用到具体的口语任务中，并分析教师提供的范例，以理解如何使用表示递进、时间、因果和转折的话语标记来产出连贯且切题的回答。</li>
-        <li><span class="bold-accent">评价与创造（最高阶思维技能）：</span> 在课程尾声，学生需要评价同伴的口语错误。随后，在快节奏的口语轮转练习和课后AI录音作业中，他们需要脱稿创造出属于自己的、原创的回答。</li>
-    </ul>
-
-    <h2>4. 与 PGCE 及 QTS 标准的对标</h2>
-    <p>教案设计严格遵循英国教师资格认证 (QTS) 标准，确保教学法严谨且基于实证研究。</p>
-
-    <h3>A. “三明治”教学模式（翻转课堂）</h3>
-    <p>为遵守本地法规关于20分钟作业上限的规定，我们利用定制的AI技术，实施“高频次、短时长”的学习策略。</p>
-    <ul>
-        <li><span class="bold-accent">课前（10分钟）：输入浸泡 (Input Flood)。</span> 学生使用 Web App “跟读”下节课目标词汇的母语者示范音频。这符合斯蒂芬·克拉申 (Stephen Krashen) 的“输入假说”，确保学生在进入课堂前已激活目标语言。</li>
-        <li><span class="bold-accent">课中（80分钟）：交际互动。</span> 宝贵的课堂时间将完全用于互动输出。</li>
-        <li><span class="bold-accent">课后（10分钟）：提取练习 (Retrieval Practice)。</span> 学生将自己的答案录入 App 并由 AI 进行分析。这利用了斯温 (Swain) 的“输出假说”，迫使学习者注意到自己“想说的”与“能说的”之间的差距。</li>
-    </ul>
-
-</div>
-
-<!-- =========================================
-     PAGE 8: CHINESE INTRODUCTION (PART 3)
-     ========================================= -->
-<div class="page cn-font">
-    <h2>4. 与 PGCE 及 QTS 标准的对标 (Continued)</h2>
-    <h3>B. “语体转换”策略 (The "Transcoding" Strategy)</h3>
-    <p>我们使用 IGCSE 领域最权威的 Peter Lucantoni 编写的教材。然而，我们并非将其作为阅读理解练习，而是应用词块教学法 (The Lexical Approach, Michael Lewis)。</p>
-    <ul>
-        <li><span class="bold-accent">实施方法：</span> 将书面阅读段落“转码”（重写）为口语示范文本。</li>
-        <li><span class="bold-accent">设计依据：</span> 书面英语与口语英语在语域上存在显著差异。通过将正式文本转化为自然的口语模式，我们为学生提供了真实的高分口语范例，而非生硬的“教科书式”语言。</li>
-    </ul>
-
-    <h3>C. 差异化教学与支架式教学 (Vygotsky)</h3>
-    <p>课程设计立足于维果茨基的“最近发展区” (ZPD) 理论。</p>
-    <ul>
-        <li><span class="bold-accent">支架支持：</span> 为基础较弱的学生（雅思5.0）提供句型模板和“O.R.E.”逻辑框架（观点、理由、例子）。</li>
-        <li><span class="bold-accent">差异化挑战：</span> 通过“限制性挑战”提升能力较强的学生（例如：“使用一个包含三个分句的复杂句和一个习语来回答这个问题”）。</li>
-    </ul>
-
-    <h2>5. IGCSE 评分标准与技术整合</h2>
-    <p><span class="bold-accent">核心教材：</span> Cambridge IGCSE English as a Second Language Coursebook (Peter Lucantoni)。这确保了完全覆盖剑桥国际考试 (CIE) 的教学大纲与话题要求。</p>
-
-    <p><span class="bold-accent">AI 整合与 IGCSE 标准：</span> 本课程明确训练学生以达到 IGCSE 口语的精确评分标准，要求他们在交流时展示对发音和语调的控制，重点关注音节重音以及用于表示对比或强调的句子重音。Qwen Audio API 的整合使得系统能够对发音和流利度进行个性化、即时的反馈——这是传统课堂中单一教师无法对全班学生每日实现的。这提供了高质量的形成性评估（QTS 标准第6条），且不会超出教师的工作负荷。</p>
-</div>
-
-<!-- =========================================
-     PAGE 9: CHINESE INTRODUCTION (PART 4)
-     ========================================= -->
-<div class="page cn-font">
-    <h2>6. 结语</h2>
-    <p>本课程将传统的学术严谨性与现代教学科学相结合。通过螺旋式课程设计，我们确保学生牢记词汇。通过使用2001年修订版分类学，我们保证学生在课堂上积极创造语言。这种高效的模式不仅合规，更能切实有效地帮助学生在考试中取得成功。</p>
 </div>
 
 </body>
