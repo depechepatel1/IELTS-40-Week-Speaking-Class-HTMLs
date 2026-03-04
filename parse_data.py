@@ -557,12 +557,27 @@ def update_vocab_tables(soup, week_vocab):
             row = f"<td><strong>{word}</strong> <span style='font-style:italic;font-size:0.9em;'>({pos})</span></td><td>{item.get('forms','')}</td><td><span class='vocab-cn'>{item.get('meaning','')}</span></td>"
             tbody.append(BeautifulSoup(f"<tr>{row}</tr>", 'html.parser'))
         tbody.append(BeautifulSoup("<tr><td colspan='3' style='background:#eee; font-weight:bold; color:#555;'>🐎 Idioms</td></tr>", 'html.parser'))
+
+        # Simple generic fallback generator since we can't reliably call LLMs
+        def get_generic_sentence(idiom):
+            idiom_lower = idiom.lower()
+            return f"Using the phrase '{idiom_lower}' can significantly improve your IELTS speaking score."
+
         for i, item in enumerate(idioms):
             if i >= 3: break
-            row1 = f"<td><strong>{item.get('idiom','')}</strong></td><td>({item.get('usage','')})</td><td><span class='vocab-cn'>{item.get('cn_idiom','')}</span></td>"
+            idiom_text = item.get('idiom','')
+            usage_text = item.get('usage','')
+            cn_idiom = item.get('cn_idiom','')
+
+            # Use provided example, or fallback
+            example = item.get('example_sentence')
+            if not example:
+                example = get_generic_sentence(idiom_text)
+
+            # Task 1: Put example sentence in Word Forms column instead of separate row
+            forms_col = f"({usage_text})<br><span style='font-style:italic; font-size:0.85em; color:#666;'>\"{example}\"</span>"
+            row1 = f"<td><strong>{idiom_text}</strong></td><td>{forms_col}</td><td><span class='vocab-cn'>{cn_idiom}</span></td>"
             tbody.append(BeautifulSoup(f"<tr>{row1}</tr>", 'html.parser'))
-            if item.get('example_sentence'):
-                tbody.append(BeautifulSoup(f"<tr class='vocab-example-row'><td colspan='3'>\"{item.get('example_sentence')}\"</td></tr>", 'html.parser'))
 
     if len(vocab_tables) >= 1: fill_table(vocab_tables[0], l1_vocab, l1_idioms)
     if len(vocab_tables) >= 2: fill_table(vocab_tables[1], week_vocab.get('l2_vocab', []), week_vocab.get('l2_idioms', []))
@@ -694,12 +709,12 @@ def update_student_l2(soup, week_data, peer_data):
     for tag in tags:
         if "(Part 3)" in tag.text:
             tag.string = f"Week {week_data.get('week')} • Lesson 2 • {week_data.get('topic', '')} (Part 3)"
-    
+
     # Locate Cards
     q1_card = soup.find('div', id='p5-q1')
     q2_card = soup.find('div', id='p6-q2')
     q3_card = soup.find('div', id='p6-q3')
-    
+
     q4_card, q5_card, q6_card = None, None, None
     l2_pages = soup.find_all('div', class_='l2')
     if l2_pages:
@@ -712,7 +727,7 @@ def update_student_l2(soup, week_data, peer_data):
             q4_card = q_cards[0]
             q5_card = q_cards[1]
             q6_card = q_cards[2]
-            
+
     cards_map = {
         'q1': q1_card, 'q2': q2_card, 'q3': q3_card,
         'q4': q4_card, 'q5': q5_card, 'q6': q6_card
@@ -750,7 +765,7 @@ def update_student_l2(soup, week_data, peer_data):
                 li = soup.new_tag('li')
                 li.string = hint
                 scaffold_ul.append(li)
-                
+
         # Update Peer Check
         p_q_data = week_peer.get(q_key, {})
         b5_q = p_q_data.get('band_5_peer_question', '')
@@ -769,6 +784,36 @@ def update_student_l2(soup, week_data, peer_data):
                 parent_div = strong.parent
                 parent_div.clear()
                 parent_div.append(BeautifulSoup(f"📈 <strong>Band 6 Peer Check:</strong> Ask: '{b6_q}'", 'html.parser'))
+
+        # Task 2: Q3 Formatting fix
+        # Ensure lines are above peer check, and container is flex
+        if q_key == 'q3':
+            # The writing box is usually the div with border-top dashed or solid
+            writing_box = card.find('div', style=lambda x: x and 'border-top:1px' in x and 'flex-grow:1' in x)
+            if writing_box:
+                # Find lines and peer checks
+                lines_div = writing_box.find('div', class_='lines')
+                b5_strong = writing_box.find('strong', string=re.compile(r'Band 5 Peer Check'))
+
+                if lines_div and b5_strong:
+                    # In Q3 the lines div might be missing height:100% or misplaced
+                    lines_div['style'] = "height:100%; flex-grow:1;"
+
+                    # Ensure Peer Check container is at the bottom
+                    peer_check_container = b5_strong.parent.parent # Usually wraps b5 and b6
+
+                    # Actually, a safer way to reorder is to just extract them and re-append
+                    if peer_check_container and peer_check_container.parent == writing_box:
+                        peer_check_container.extract()
+                        writing_box.append(peer_check_container)
+
+                    if lines_div.parent == writing_box:
+                        lines_div.extract()
+                        # Insert lines before peer check container
+                        if peer_check_container and peer_check_container.parent == writing_box:
+                            peer_check_container.insert_before(lines_div)
+                        else:
+                            writing_box.append(lines_div)
 
 def main():
     print("Generating all 40 lesson plans...")
