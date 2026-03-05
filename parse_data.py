@@ -4,7 +4,7 @@ import os
 import time
 import random
 import urllib.parse
-from bs4 import BeautifulSoup
+from jinja2 import Template
 import traceback
 
 def load_data():
@@ -14,14 +14,13 @@ def load_data():
             curriculum_data = json.load(f)
     except FileNotFoundError:
         print("Error: master Curiculum.json not found.")
-        return None, None, None, None, None
+        return None, None, None, None, None, None
 
     try:
         with open('noun_or_verb_phrases_for_weekly_topics.json', 'r', encoding='utf-8') as f:
             phrase_list = json.load(f)
             phrase_data = {item['week']: item for item in phrase_list}
     except FileNotFoundError:
-        print("Warning: noun_or_verb_phrases_for_weekly_topics.json not found.")
         phrase_data = {}
 
     try:
@@ -59,355 +58,249 @@ def load_data():
             peer_data_list = json.load(f)
             peer_data = {item['week']: item for item in peer_data_list}
     except FileNotFoundError:
-        print("Warning: peer_check_questions.json not found.")
         peer_data = {}
 
     try:
         with open('mindmap_labels.json', 'r', encoding='utf-8') as f:
             mindmap_labels = json.load(f).get('mindmap_labels', {})
     except FileNotFoundError:
-        print("Warning: mindmap_labels.json not found.")
         mindmap_labels = {}
-
+        
     return curriculum_data, phrase_data, vocab_data, homework_data, peer_data, mindmap_labels
 
-def get_week_phrase(week_number, phrase_data):
-    week_info = phrase_data.get(week_number, {})
-    return week_info.get('grammar_target_phrase', 'this topic')
+def format_bullet_text(html_content, bold_question=False):
+    import bs4
+    soup = bs4.BeautifulSoup(html_content, 'html.parser')
+    if soup.p: soup.p.unwrap()
 
-def process_teacher_plan(soup, week_number, week_curriculum, phrase_data, week_vocab):
-    target_phrase = get_week_phrase(week_number, phrase_data)
-    if not isinstance(target_phrase, str): target_phrase = str(target_phrase)
+    raw_str = soup.decode_contents() if soup.name else str(soup)
+    parts = re.split(r'<br\s*/?>', raw_str)
     
-    # Get first vocab words
-    first_word_l1 = "Target Word"
-    if week_vocab and week_vocab.get('l1_vocab'):
-        first_word_l1 = week_vocab['l1_vocab'][0].get('word', '').split('(')[0].strip()
+    main_text = ""
+    bullet_lines = []
+    
+    if "You should say" in parts[0]:
+        main_text = parts[0].strip()
+        bullet_lines = parts[1:]
+    else:
+        found = False
+        for i, p in enumerate(parts):
+            if "You should say" in p:
+                main_text = " ".join(parts[:i+1]).strip()
+                bullet_lines = parts[i+1:]
+                found = True
+                break
+        if not found: return html_content
 
-    first_word_l2 = "Abstract Noun"
-    if week_vocab and week_vocab.get('l2_vocab'):
-        first_word_l2 = week_vocab['l2_vocab'][0].get('word', '').split('(')[0].strip()
+    if bold_question:
+        main_text = f"<strong>{main_text}</strong>"
 
-    l1_page = soup.find('div', class_='l1')
-    if l1_page:
-        lo_card = l1_page.find('h2', string=re.compile(r'Learning Objectives')).parent
-        if lo_card:
-            ul = lo_card.find('ul')
-            if ul:
-                for li in ul.find_all('li'):
-                    if "Grammar:" in li.text:
-                        li.string = f"Grammar: Use narrative tenses or relevant grammar for {target_phrase}."
-                    elif "Speaking:" in li.text:
-                        # Point 1: Inject modified topic into 'Speaking' label
-                        # The text is likely "Speaking: Speak fluently about A Family Member..."
-                        # We want to replace the topic part or just set it fresh.
-                        # The user says "inject the modified topic for that weeks lesson".
-                        # Current: "Speaking: Speak fluently about A Family Member You Are Proud Of using Part 2 structure."
-                        # New: "Speaking: Speak fluently about {target_phrase} using Part 2 structure."
-                        li.clear()
-                        li.append(BeautifulSoup(f"<strong>Speaking:</strong> Speak fluently about {target_phrase} using Part 2 structure.", 'html.parser'))
-                    elif "Vocab:" in li.text:
-                         # Point 3: Inject first word
-                        li.clear()
-                        li.append(BeautifulSoup(f"<strong>Vocab:</strong> Use 7 target words (e.g., <em>{first_word_l1}</em>) in context.", 'html.parser'))
-        
-        # Point 2: Success Criteria
-        criteria_card = l1_page.find('h2', string=re.compile(r'Criteria')).parent
-        if criteria_card:
-            div = criteria_card.find('div')
-            if div:
-                div.string = f"\"I can speak for 2 mins about {target_phrase} using 2 idioms.\""
+    formatted_bullets = []
+    for line in bullet_lines:
+        clean_line = bs4.BeautifulSoup(line, 'html.parser').get_text().strip()
+        if not clean_line: continue
+        words = clean_line.split(' ', 1)
+        if len(words) > 0:
+            first = words[0]
+            rest = " " + words[1] if len(words) > 1 else ""
+            formatted_bullets.append(f"<strong>{first}</strong>{rest}")
+    
+    return f"{main_text} {', '.join(formatted_bullets)}"
 
-        diff_card = l1_page.find('h2', string=re.compile(r'Differentiation')).parent
-        if diff_card:
-            b5_div = diff_card.find('div', style=lambda x: x and 'background:#e8f8f5' in x)
-            if b5_div:
-                b5_div.clear()
-                # Point 4: Band 5 Peer Check
-                b5_html = f"<strong>📉 Band 5.0 (Support)</strong><br>• Sentence Starter: 'I like {target_phrase} because...'<br>• Peer Check: Ask a personal follow up question."
-                b5_div.append(BeautifulSoup(b5_html, 'html.parser'))
+def build_vocab_html(vocab, idioms):
+    html = ""
+    for i, item in enumerate(vocab):
+        if i >= 7: break
+        word_raw = item.get('word', '')
+        word = word_raw.split('(')[0].strip() if '(' in word_raw else word_raw.strip()
+        pos = word_raw.split('(')[1].replace(')', '') if '(' in word_raw else ''
+        pos_span = f" <span style='font-style:italic;font-size:0.9em;'>({pos})</span>" if pos else ""
+        row = f"<td><strong>{word}</strong>{pos_span}</td><td>{item.get('forms','')}</td><td><span class='vocab-cn'>{item.get('meaning','')}</span></td>"
+        html += f"<tr>{row}</tr>"
+    
+    html += "<tr><td colspan='3' style='background:#eee; font-weight:bold; color:#555;'>🐎 Idioms</td></tr>"
+    for i, item in enumerate(idioms):
+        if i >= 3: break
+        idiom_text = item.get('idiom','')
+        usage_text = item.get('usage','')
+        cn_idiom = item.get('cn_idiom','')
+        example = item.get('example') or item.get('example_sentence') or ""
+        row1 = f"<td><strong>{idiom_text}</strong></td><td>({usage_text})</td><td><span class='vocab-cn'>{cn_idiom}</span></td>"
+        html += f"<tr>{row1}</tr>"
+        if example:
+            row2 = f"<tr class='vocab-example-row'><td colspan='3' style='padding-left:15px; padding-top:2px; padding-bottom:6px; font-style:italic; color:#666; font-size:0.9em; border-bottom:1px solid #eee;'>\"{example}\"</td></tr>"
+            html += row2
+    return html
+
+def build_spider_html(hints):
+    legs = ""
+    for i, hint in enumerate(hints):
+        if i == 0 or i == 2:
+            legs += f"<div class=\"spider-leg\"><strong>{i+1}. LABEL:</strong><br><span style=\"color:#777;\">{hint}</span></div>"
+        else:
+            legs += f"<div class=\"spider-leg\">{hint}<div class=\"lines\"></div></div>"
             
-            b6_div = diff_card.find('div', style=lambda x: x and 'background:#fef9e7' in x)
-            if b6_div:
-                b6_div.clear()
-                # Point 4: Band 6 Peer Check
-                b6_html = f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: 'Admittedly...', 'Conversely...'<br>• Peer Check: Ask an abstract question about {target_phrase}."
-                b6_div.append(BeautifulSoup(b6_html, 'html.parser'))
+    # Normalize to simple lines style for robustness
+    legs = ""
+    for hint in hints:
+        legs += f"<div class=\"spider-leg\">{hint}<div class=\"lines\"></div></div>"
 
-        lp_table = l1_page.find('table', class_='lp-table')
-        if lp_table:
-            rows = lp_table.find_all('tr')
-            for row in rows:
-                cells = row.find_all('td')
-                if len(cells) > 1:
-                    # Point 5: Lead-in
-                    if "Lead-in" in cells[1].text:
-                        topic = week_curriculum.get('topic', 'IELTS Speaking')
-                        search_term = f"IELTS {topic} Speaking"
-                        new_html = f"<strong>Lead-in:</strong> Click Bilibili icon on Student Handout (Banner) to show 5-min warmup video (Search: {search_term}). Ask: 'Do you think {target_phrase} is important in your life?'"
-                        cells[1].clear()
-                        cells[1].append(BeautifulSoup(new_html, 'html.parser'))
-                    # Point 6: Input
-                    elif "Input" in cells[1].text:
-                        # Fix column misalignment if any empty cells or structure issues
-                        # And Change "Reliable" to "vocabulary list words"
-                        # We must extract the inner HTML or text, NOT str(cells[1]) which includes the <td> tags.
-                        # If we append <td> inside <td>, we get nesting issues.
-                        content = "".join([str(x) for x in cells[1].contents])
-                        new_content = content.replace('"Reliable"', '"vocabulary list words"')
-                        cells[1].clear()
-                        cells[1].append(BeautifulSoup(new_content, 'html.parser'))
+    return f"<div class=\"spider-legs\">{legs}</div>"
 
-                        # Fix potential misalignment by ensuring cells[2] (Student Activity) and cells[3] (Notes) exist and are populated
-                        # The user reported "Teacher Activity box is empty" and misalignment.
-                        # If cells[1] was empty or malformed, we just refilled it.
-                        # But if the row structure is broken in template, we might need to rebuild the row.
-                        # However, based on the template read earlier, the row is:
-                        # <tr><td>10-25</td><td><strong>Input:</strong>...</td><td>Highlight text.</td><td>CCQs on vocab.</td></tr>
-                        # If the user sees it empty, maybe the replace failed or cells[1] content was lost.
-                        # We are explicitly setting it now.
+def main():
+    print("Generating all 40 lesson plans...")
+    os.makedirs('lessons', exist_ok=True)
 
-    l2_pages = soup.find_all('div', class_='l2')
-    l2_teacher_page = None
-    for p in l2_pages:
-        if "Teacher Lesson Plan" in p.text:
-            l2_teacher_page = p
-            break
+    curriculum, phrases, vocab, homework, peer_data, mindmap_labels = load_data()
+    if not curriculum: return
 
-    if l2_teacher_page:
-        lo_card = l2_teacher_page.find('h2', string=re.compile(r'Learning Objectives')).parent
-        if lo_card:
-            ul = lo_card.find('ul')
-            if ul:
-                for li in ul.find_all('li'):
-                    if "Speaking:" in li.text:
-                        # Point 1: Speaking LO
-                        li.clear()
-                        li.append(BeautifulSoup(f"<strong>Speaking:</strong> Discuss abstract ideas about {target_phrase}.", 'html.parser'))
-                    elif "Vocab:" in li.text:
-                         # Point 3: Inject first word (L2)
-                         # Note: L2 template says "Vocab: Use Abstract Nouns (e.g., Generation gap)."
-                         # We replace Generation gap with first_word_l2
-                        li.clear()
-                        li.append(BeautifulSoup(f"<strong>Vocab:</strong> Use Abstract Nouns (e.g., <em>{first_word_l2}</em>).", 'html.parser'))
+    with open('template.j2', 'r', encoding='utf-8') as f:
+        template_str = f.read()
 
-        # Update L2 Success Criteria
-        criteria_card = l2_teacher_page.find('h2', string=re.compile(r'Criteria')).parent
-        if criteria_card:
-            div = criteria_card.find('div')
-            if div:
-                # The user request: "Inject the modified weekly topic theme... into that sentence"
-                # "I can answer 3 abstract questions about A Family Member You Are Proud Of using O.R.E."
-                # target_phrase is "family members" (grammar_target_phrase)
-                # The user specifically mentioned "modified weekly topic theme from the file 'noun_or_verb_phrases_for_weekly_topics.json'".
-                # In load_data, we load this file into phrase_data.
-                # In get_week_phrase, we return 'grammar_target_phrase'.
-                # Let's verify if we should use 'grammar_target_phrase' or 'topic'.
-                # The example "A Family Member You Are Proud Of" is the 'topic' field from master Curiculum.
-                # But the instruction says "modified weekly topic theme from the file 'noun_or_verb_phrases_for_weekly_topics.json'".
-                # That file has 'topic' and 'grammar_target_phrase'.
-                # If I look at week 1 in that file: "topic": "A Family Member You Are Proud Of", "grammar_target_phrase": "family members".
-                # The prompt example "about A Family Member You Are Proud Of" suggests the Topic.
-                # But the instruction says "modified weekly topic theme".
-                # Usually "modified topic" refers to the phrase list.
-                # And the previous instructions (Step 1) used 'noun_or_verb_phrases' for Speaking LO.
-                # I will stick with target_phrase (which is the modified phrase) as it fits "modified... theme".
-                # If the user wanted the raw topic, they would point to master curriculum.
-                div.string = f"\"I can answer 3 abstract questions about {target_phrase} using O.R.E.\""
+    template = Template(template_str)
 
-        diff_card = l2_teacher_page.find('h2', string=re.compile(r'Differentiation')).parent
-        if diff_card:
-            b5_div = diff_card.find('div', style=lambda x: x and 'background:#e8f8f5' in x)
-            if b5_div:
-                b5_div.clear()
-                # Point 4: Band 5 Peer Check
-                b5_html = f"<strong>📉 Band 5.0 (Support)</strong><br>• Sentence Starter: 'I like {target_phrase} because...'<br>• Peer Check: Ask a personal follow up question."
-                b5_div.append(BeautifulSoup(b5_html, 'html.parser'))
+    success_count = 0
+    errors = []
 
-            b6_div = diff_card.find('div', style=lambda x: x and 'background:#fef9e7' in x)
-            if b6_div:
-                b6_div.clear()
-                # Point 4: Band 6 Peer Check
-                b6_html = f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: 'Admittedly...', 'Conversely...'<br>• Peer Check: Ask an abstract question about {target_phrase}."
-                b6_div.append(BeautifulSoup(b6_html, 'html.parser'))
+    total_weeks = 40
+    batch_size = 5
 
-def format_mind_maps(soup, week_number, phrase_data, week_data, mindmap_labels):
-    target_phrase = get_week_phrase(week_number, phrase_data).upper()
+    for start in range(1, total_weeks + 1, batch_size):
+        end = min(start + batch_size, total_weeks + 1)
+        print(f"Processing Batch: Weeks {start} to {end-1}")
 
-    # Get labels for this week
-    week_key = f"week_{week_number}"
-    week_labels = mindmap_labels.get(week_key, {}).get('lesson_1', {})
+        for week_num in range(start, end):
+            try:
+                week_data = next((w for w in curriculum if w['week'] == week_num), None)
+                if not week_data:
+                    print(f"Skipping Week {week_num}: No Data")
+                    continue
+                
+                week_vocab = vocab.get(week_num, {})
+                week_homework = homework.get(week_num, {})
+                week_peer = peer_data.get(week_num, {}).get('lesson_2_part_3', {})
+                week_phrase = phrases.get(week_num, {}).get('grammar_target_phrase', 'this topic')
+                theme = week_data.get('theme', '')
+                topic = week_data.get('topic', '')
 
-    # Q1 -> Brainstorming Map (Page 3 top)
-    # Q2 -> Part 2: Q2 (Page 3 bottom left)
-    # Q3 -> Part 2: Q3 (Page 3 bottom right)
+                # Context variables
+                ctx = {}
+                ctx['page_title'] = f"Week {week_num} Master Lesson Pack"
+                ctx['cover_week'] = f"WEEK {week_num}"
+                ctx['cover_theme'] = theme
+                ctx['cover_topic'] = topic
+                ctx['bilibili_url'] = f"https://search.bilibili.com/all?keyword={urllib.parse.quote(f'IELTS {topic} Speaking')}"
+                ctx['l1_week_tag'] = f"Week {week_num} • Lesson 1 • {topic}"
+                ctx['l2_week_tag'] = f"Week {week_num} • Lesson 2 • {topic} (Part 3)"
 
-    # Helper to set center label
-    def set_center_label(card_parent, label):
-        if not card_parent: return
-        center = card_parent.find('div', class_='spider-center')
-        if center:
-            center.clear()
-            center.append(BeautifulSoup(label.upper().replace(' ', '<br>'), 'html.parser'))
-            # Task 2: Change central node color to light blue and font to black
-            # Existing style might be in CSS class, we override with inline style
-            center['style'] = "background: var(--bg-pastel-blue); color: black;"
+                first_word_l1 = week_vocab.get('l1_vocab', [{}])[0].get('word', 'Target Word').split('(')[0].strip()
+                first_word_l2 = week_vocab.get('l2_vocab', [{}])[0].get('word', 'Abstract Noun').split('(')[0].strip()
 
-    # Helper to update legs
-    def update_legs(container, hints):
-        if not container or not hints: return
-        legs = container.find_all('div', class_='spider-leg')
-        for i, leg in enumerate(legs):
-            if i < len(hints):
-                # The structure inside leg is <strong>LABEL:</strong><br><span style="...">Text</span>
-                # We want to replace the span text.
-                span = leg.find('span')
-                if span:
-                    span.string = hints[i]
+                ctx['l1_lo_speaking'] = f"<strong>Speaking:</strong> Speak fluently about {week_phrase} using Part 2 structure."
+                ctx['l1_lo_vocab'] = f"<strong>Vocab:</strong> Use 7 target words (e.g., <em>{first_word_l1}</em>) in context."
+                ctx['l1_lo_grammar'] = f"Grammar: Use narrative tenses or relevant grammar for {week_phrase}."
+                ctx['l1_criteria'] = f"\"I can speak for 2 mins about {week_phrase} using 2 idioms.\""
+                ctx['l1_diff_b5'] = f"<strong>📉 Band 5.0 (Support)</strong><br>• Sentence Starter: 'I like {week_phrase} because...'<br>• Peer Check: Ask a personal follow up question."
+                ctx['l1_diff_b6'] = f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: 'Admittedly...', 'Conversely...'<br>• Peer Check: Ask an abstract question about {week_phrase}."
+                ctx['l1_leadin'] = f"<strong>Lead-in:</strong> Click Bilibili icon on Student Handout (Banner) to show 5-min warmup video (Search: IELTS {topic} Speaking). Ask: 'Do you think {week_phrase} is important in your life?'"
+                ctx['l1_input'] = f"<strong>Input:</strong> Read Model. Highlight \"vocabulary list words\". Analyze 3-clause sentence structure. Check understanding of idioms."
+
+                ctx['l2_lo_speaking'] = f"<strong>Speaking:</strong> Discuss abstract ideas about {week_phrase}."
+                ctx['l2_lo_vocab'] = f"<strong>Vocab:</strong> Use Abstract Nouns (e.g., <em>{first_word_l2}</em>)."
+                ctx['l2_criteria'] = f"\"I can answer 3 abstract questions about {week_phrase} using O.R.E.\""
+                ctx['l2_diff_b5'] = ctx['l1_diff_b5']
+                ctx['l2_diff_b6'] = ctx['l1_diff_b6']
+
+                ctx['l1_vocab_tbody'] = build_vocab_html(week_vocab.get('l1_vocab', []), week_vocab.get('l1_idioms', []))
+                ctx['l2_vocab_tbody'] = build_vocab_html(week_vocab.get('l2_vocab', []), week_vocab.get('l2_idioms', []))
+
+                l1_data = week_data.get('lesson_1_part_2', {})
+                ctx['part2_banner_title'] = f"Part 2: {theme}"
+
+                # Part 2 Q1
+                q1_html = l1_data.get('q1', {}).get('html', '')
+                import bs4
+                bs = bs4.BeautifulSoup(q1_html, 'html.parser')
+                ps = bs.find_all('p')
+                if len(ps) > 0:
+                    q_text = bs4.BeautifulSoup(ps[0].decode_contents().split("You should say")[0], 'html.parser').get_text().strip()
+                    ctx['l1_q1_cue_html'] = f"<h3>📌 CUE CARD: {q_text}</h3><div style=\"font-size:0.9em; color:#444;\">{format_bullet_text(str(ps[0]))}</div>"
+                    ctx['l1_q1_spider_prompt'] = format_bullet_text(str(ps[0]), bold_question=True)
                 else:
-                    # Q2/Q3 Style: <div class="spider-leg">Text<div class="lines"></div></div>
-                    lines_div = leg.find('div', class_='lines')
-                    if lines_div:
-                        leg.clear()
-                        leg.append(hints[i])
-                        leg.append(lines_div)
+                    ctx['l1_q1_cue_html'] = ""
+                    ctx['l1_q1_spider_prompt'] = ""
 
-    # Q1 Map (Page 3)
-    brainstorm_card_h2 = soup.find('h2', string=re.compile(r'Brainstorming Map'))
-    if brainstorm_card_h2:
-        card = brainstorm_card_h2.parent
-        q1_label = week_labels.get('q1', target_phrase) # Fallback to target_phrase if missing
-        set_center_label(card, q1_label)
+                ctx['l1_q1_model'] = "".join([str(x) for x in ps[1].contents]) if len(ps) >= 2 else "Model Answer Not Found"
 
-        # Update Prompt & Legs (Existing Logic)
-        l1_data = week_data.get('lesson_1_part_2', {})
-        q1_html = l1_data.get('q1', {}).get('html', '')
-        if q1_html:
-            bs = BeautifulSoup(q1_html, 'html.parser')
-            ps = bs.find_all('p')
-            if len(ps) > 0:
-                raw = ps[0].decode_contents()
-                if "You should say" in raw:
-                    prompt_div = card.find('div', style=lambda x: x and 'color:#444' in x)
-                    if prompt_div:
-                        prompt_div.clear()
-                        # Task 3: Bold question for mind map
-                        prompt_div.append(BeautifulSoup(format_bullet_text(str(ps[0]), bold_question=True), 'html.parser'))
-                        # Reduce spacing
-                        if 'margin-bottom:8px' in prompt_div.get('style', ''):
-                             prompt_div['style'] = prompt_div['style'].replace('margin-bottom:8px', 'margin-bottom:4px')
-                        # Ensure tighter line height
-                        prompt_div['style'] += "; line-height: 1.2;"
+                labels = mindmap_labels.get(f"week_{week_num}", {}).get('lesson_1', {})
+                q1_hints = l1_data.get('q1', {}).get('spider_diagram_hints', [])
+                ctx['l1_q1_spider'] = f"<div class=\"spider-center\" style=\"background: var(--bg-pastel-blue); color: black;\">{labels.get('q1', week_phrase.upper()).replace(' ', '<br>')}</div>" + build_spider_html(q1_hints)
 
-        q1_hints = l1_data.get('q1', {}).get('spider_diagram_hints', [])
-        spider_container = card.find('div', class_='spider-container')
-        update_legs(spider_container, q1_hints)
+                # Part 2 Q2
+                q2_html = l1_data.get('q2', {}).get('html', '')
+                bs2 = bs4.BeautifulSoup(q2_html, 'html.parser')
+                p2 = bs2.find('p')
+                ctx['l1_q2_prompt'] = format_bullet_text(str(p2), bold_question=True) if p2 else ""
+                ctx['l1_q2_spider'] = f"<div class=\"spider-center\" style=\"background: var(--bg-pastel-blue); color: black;\">{labels.get('q2', week_phrase.upper()).replace(' ', '<br>')}</div>" + build_spider_html(l1_data.get('q2', {}).get('spider_diagram_hints', []))
 
-    # Q2 Map (Page 3)
-    q2_card_h3 = soup.find('h3', string=re.compile(r'Part 2: Q2'))
-    if q2_card_h3:
-        card = q2_card_h3.parent
-        q2_label = week_labels.get('q2', target_phrase)
-        set_center_label(card, q2_label)
+                # Part 2 Q3
+                q3_html = l1_data.get('q3', {}).get('html', '')
+                bs3 = bs4.BeautifulSoup(q3_html, 'html.parser')
+                p3 = bs3.find('p')
+                ctx['l1_q3_prompt'] = format_bullet_text(str(p3), bold_question=True) if p3 else ""
+                ctx['l1_q3_spider'] = f"<div class=\"spider-center\" style=\"background: var(--bg-pastel-blue); color: black;\">{labels.get('q3', week_phrase.upper()).replace(' ', '<br>')}</div>" + build_spider_html(l1_data.get('q3', {}).get('spider_diagram_hints', []))
 
-        q2_hints = week_data.get('lesson_1_part_2', {}).get('q2', {}).get('spider_diagram_hints', [])
-        spider_container = card.find('div', class_='spider-container')
-        update_legs(spider_container, q2_hints)
+                # Part 3 (Q1-Q6)
+                l2_data = week_data.get('lesson_2_part_3', {})
+                for key in ['q1', 'q2', 'q3', 'q4', 'q5', 'q6']:
+                    q_info = l2_data.get(key, {})
+                    html_content = q_info.get('html', '')
+                    b = bs4.BeautifulSoup(html_content, 'html.parser')
+                    b_ps = b.find_all('p')
+                    if len(b_ps) >= 1:
+                        q_text = b_ps[0].get_text().strip().replace(f"{key.upper()}: ", "").replace(f"{key.upper()}:", "")
+                        ctx[f'l2_{key}_title'] = f"{key.upper()}: {q_text}"
+                    else: ctx[f'l2_{key}_title'] = f"{key.upper()}: "
 
-    # Q3 Map (Page 3)
-    q3_card_h3 = soup.find('h3', string=re.compile(r'Part 2: Q3'))
-    if q3_card_h3:
-        card = q3_card_h3.parent
-        q3_label = week_labels.get('q3', target_phrase)
-        set_center_label(card, q3_label)
+                    ctx[f'l2_{key}_model'] = "".join([str(x) for x in b_ps[1].contents]) if len(b_ps) >= 2 else ""
 
-        q3_hints = week_data.get('lesson_1_part_2', {}).get('q3', {}).get('spider_diagram_hints', [])
-        spider_container = card.find('div', class_='spider-container')
-        update_legs(spider_container, q3_hints)
+                    hints_html = ""
+                    for hint in q_info.get('ore_hints', []): hints_html += f"<li>{hint}</li>"
+                    ctx[f'l2_{key}_scaffold'] = hints_html
 
-    # Helper to update legs (moved inside format_mind_maps or redefined)
-    # Actually, update_legs was defined inside format_mind_maps but logic was messy.
-    # I will move update_legs to be a top-level helper or redefine it here.
+                    p_q_data = week_peer.get(key, {})
+                    b5_q = p_q_data.get('band_5_peer_question', '')
+                    b6_q = p_q_data.get('band_6_plus_peer_question', '')
+                    ctx[f'l2_{key}_b5'] = f"📉 <strong>Band 5 Peer Check:</strong> Ask: '{b5_q}'" if b5_q else ""
+                    ctx[f'l2_{key}_b6'] = f"📈 <strong>Band 6 Peer Check:</strong> Ask: '{b6_q}'" if b6_q else ""
 
-    # Point 8: Spider Diagram Questions & Hints (Logic now integrated above in Point 9 block)
-    # Removing redundant block.
+                # Homework
+                # We need a quick mock for homework vocab review table
+                hw_vocab_html = ""
+                words_list = []
+                synonyms_list = []
+                for item in week_homework.get('vocab_review', []):
+                    words_list.append(item.get('word', ''))
+                    synonyms_list.append({"option": item.get('option', ''), "synonym": item.get('synonym', '')})
+                random.shuffle(synonyms_list)
+                for i in range(len(words_list)):
+                    word = words_list[i]
+                    opt = synonyms_list[i]['option'] if i < len(synonyms_list) else "?"
+                    syn = synonyms_list[i]['synonym'] if i < len(synonyms_list) else "?"
+                    row = f"<td style='padding: 12px 5px;'>{i+1}. {word}</td><td style='border-bottom:1px solid #eee;'></td><td style='padding: 12px 5px;'>( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) {opt}. {syn}</td>"
+                    hw_vocab_html += f"<tr>{row}</tr>"
+                ctx['hw_vocab_tbody'] = hw_vocab_html
 
-def process_homework(soup, week_number, homework_data):
-    hw_page = soup.find('div', class_='hw')
-    if not hw_page: return
+                hw_grammar_html = ""
+                for i, item in enumerate(week_homework.get('grammar_clinic', [])):
+                    hw_grammar_html += f"<div class='grammar-sent'>{i+1}. {item.get('error', '')}</div>"
+                ctx['hw_grammar_html'] = hw_grammar_html
 
-    sec1_card = hw_page.find('h3', string=re.compile(r'Vocabulary Review')).parent
-    if sec1_card:
-        sec1_card['style'] = (sec1_card.get('style', '') or '') + "; background: var(--bg-pastel-green);"
-        table = sec1_card.find('table')
-        if table:
-            for td in table.find_all('td'):
-                existing_style = td.get('style', '')
-                td['style'] = existing_style + "; padding: 12px 5px;"
+                # Critical Instruction Fix!
+                wt_text = week_homework.get('writing_task', '')
+                ctx['hw_writing_html'] = f"<h3>3. Writing Task: {wt_text} (10 minutes)</h3><div style=\"background:white; border-radius:8px; padding:12px; margin-top:5px; box-shadow:0 2px 4px rgba(0,0,0,0.05);\"><div style=\"font-weight:bold; color:#444; margin-bottom:5px;\">📝 Instructions:</div><ol style=\"margin:0; padding-left:20px; font-size:0.9em; color:#555;\"><li>Go to the next Page (that woul be page 10)</li><li>Write your first draft in the top box.</li><li>Use AI to correct grammar/vocabulary.</li><li>Write the polished version in the bottom box.</li></ol></div>"
 
-    sec2_card = hw_page.find('h3', string=re.compile(r'Error Correction')).parent
-    if sec2_card:
-        sec2_card['style'] = (sec2_card.get('style', '') or '') + "; background: var(--bg-pastel-green);"
-
-    grammar_data = homework_data.get('grammar_clinic', [])
-    grammar_box = hw_page.find('div', style=lambda x: x and 'display:flex; flex-direction:column; gap:5px;' in x)
-    if grammar_box:
-        grammar_box.clear()
-        for i, item in enumerate(grammar_data):
-            error = item.get('error', '')
-            div = soup.new_tag('div', attrs={'class': 'grammar-sent'})
-            div.string = f"{i+1}. {error}"
-            grammar_box.append(div)
-
-    vocab_review = homework_data.get('vocab_review', [])
-    vocab_table = hw_page.find('table', class_='vocab-table')
-    if vocab_table:
-        tbody = vocab_table.find('tbody')
-        if tbody:
-            tbody.clear()
-            words_list = []
-            synonyms_list = []
-            for item in vocab_review:
-                words_list.append(item.get('word', ''))
-                synonyms_list.append({"option": item.get('option', ''), "synonym": item.get('synonym', '')})
-            random.shuffle(synonyms_list)
-            for i in range(len(words_list)):
-                word = words_list[i]
-                if i < len(synonyms_list):
-                    option = synonyms_list[i]['option']
-                    synonym = synonyms_list[i]['synonym']
-                else: option, synonym = "?", "?"
-                row_html = f"<td style='padding: 12px 5px;'>{i+1}. {word}</td><td style='border-bottom:1px solid #eee;'></td><td style='padding: 12px 5px;'>( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) {option}. {synonym}</td>"
-                tr = soup.new_tag('tr')
-                tr.append(BeautifulSoup(row_html, 'html.parser'))
-                tbody.append(tr)
-
-    sec3_card = hw_page.find('h3', string=re.compile(r'Writing Task')).parent
-    if sec3_card:
-        writing_task_text = homework_data.get('writing_task', '')
-        sec3_card.clear()
-        h3 = soup.new_tag('h3')
-        h3.string = f"3. Writing Task: {writing_task_text} (10 minutes)"
-        sec3_card.append(h3)
-        instructions_html = """
-        <div style="background:white; border-radius:8px; padding:12px; margin-top:5px; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
-            <div style="font-weight:bold; color:#444; margin-bottom:5px;">📝 Instructions:</div>
-            <ol style="margin:0; padding-left:20px; font-size:0.9em; color:#555;">
-                <li>Go to <strong>Page 10</strong> ("Writing Homework").</li>
-                <li>Write your first draft in the top box.</li>
-                <li>Use AI to correct grammar/vocabulary.</li>
-                <li>Write the polished version in the bottom box.</li>
-            </ol>
-        </div>
-        """
-        sec3_card.append(BeautifulSoup(instructions_html, 'html.parser'))
-        sec3_card['style'] = "flex-grow:1; border-left:5px solid var(--hw-accent); background: var(--bg-pastel-green); display:flex; flex-direction:column; justify-content:center;"
-
-    sec4_card = hw_page.find('h3', string=re.compile(r'Recording Challenge')).parent
-    if sec4_card:
-        sec4_card.clear()
-        sec4_html = """
-        <h3 style="color:var(--hw-accent); margin:0 0 10px 0; border-bottom:1px solid #ddd; padding-bottom:5px;">🎙️ 4. Recording Challenge</h3>
+                ctx['hw_recording_html'] = """<h3 style="color:var(--hw-accent); margin:0 0 10px 0; border-bottom:1px solid #ddd; padding-bottom:5px;">🎙️ 4. Recording Challenge</h3>
         <div style="font-size:0.85em; line-height:1.5; color:#333; display:flex; flex-direction:column; gap:10px;">
             <div>
                 <strong>Part 1: AI Shadow Reading (20 mins)</strong>
@@ -426,438 +319,19 @@ def process_homework(soup, week_number, homework_data):
                     <div style="font-style:italic;">Use complex sentences, transition phrases and this weeks vocabulary and idioms.</div>
                 </div>
             </div>
-        </div>
-        """
-        sec4_card.append(BeautifulSoup(sec4_html, 'html.parser'))
-        sec4_card['style'] = "flex-grow:1; border-left:5px solid var(--hw-accent); background: var(--bg-pastel-green); border-radius:12px; padding:10px; display:flex; flex-direction:column; justify-content:center;"
+        </div>"""
+                ctx['hw_answer_key'] = week_homework.get('answer_key', '')
 
-    answer_key = homework_data.get('answer_key', '')
-    key_div = hw_page.find('div', style=lambda x: x and 'transform:rotate(180deg)' in x)
-    if key_div:
-        key_div.string = answer_key
+                # Render HTML
+                html_out = template.render(**ctx)
 
-def process_writing_page(soup):
-    blank_page = soup.find('div', class_='blank-page')
-    if not blank_page:
-        blank_page = soup.new_tag('div', attrs={'class': 'page'})
-        soup.body.append(blank_page)
+                # Final pass string replacements for things jinja couldn't easily catch without a complex template
+                # But Jinja replaces everything we mapped.
 
-    blank_page['class'] = ['page', 'hw']
-    blank_page.clear()
-
-    header_html = """
-    <div class="header-bar">
-    <span class="header-title">✍️ Writing Homework</span>
-    <span class="week-tag">Draft & Polished Rewrite</span>
-    </div>
-    """
-    blank_page.append(BeautifulSoup(header_html, 'html.parser'))
-
-    title = soup.new_tag('h2')
-    title.string = "Writing Homework"
-    title['style'] = "text-align:center; margin-top:10px; color:var(--primary-color);"
-    blank_page.append(title)
-
-    content_html = """
-    <div style="display:flex; flex-direction:column; gap:20px; flex-grow:1; height:100%; padding-bottom:10px;">
-        <div class="card" style="flex:1; display:flex; flex-direction:column; background:var(--bg-pastel-green); border:1px solid #ccc;">
-            <h3 style="margin:0 0 5px 0; color:#555;">Draft Written Homework</h3>
-            <div class="lines" style="flex-grow:1; height:auto; width:100%;"></div>
-        </div>
-        <div class="card" style="flex:1; display:flex; flex-direction:column; background:var(--bg-pastel-green); border:1px solid #ccc;">
-            <h3 style="margin:0 0 5px 0; color:#555;">Polished Rewrite</h3>
-            <div class="lines" style="flex-grow:1; height:auto; width:100%;"></div>
-        </div>
-    </div>
-    """
-    blank_page.append(BeautifulSoup(content_html, 'html.parser'))
-
-    return blank_page
-
-def reorder_pages(soup, writing_page):
-    writing_page.extract()
-    soup.body.append(writing_page)
-
-def process_layout_adjustments(soup):
-    page6 = soup.find('div', id='page6')
-    if page6:
-        q1_cont = page6.find('div', id='p6-q1-cont')
-        if q1_cont: q1_cont.decompose()
-        q2 = page6.find('div', id='p6-q2')
-        q3 = page6.find('div', id='p6-q3')
-        if q2: q2['style'] = "flex:1; display:flex; flex-direction:column;"
-        if q3: q3['style'] = "flex:1; display:flex; flex-direction:column;"
-
-    l2_pages = soup.find_all('div', class_='l2')
-    if l2_pages:
-        page9 = l2_pages[-1]
-        style_tag = soup.new_tag('style')
-        style_tag.string = """
-            @page { margin: 5mm; }
-            .page { padding: 10mm; }
-        """
-        soup.head.append(style_tag)
-        banner = page9.find('div', class_='header-bar')
-        if banner:
-            banner['style'] = "margin-top: 5mm; margin-bottom: 0px;"
-        cards = page9.find_all('div', class_='card')
-        for card in cards:
-            card['style'] = (card.get('style', '') or '') + "; margin-bottom: 5px;"
-        stack = page9.find('div', style=lambda x: x and 'display:flex' in x and 'gap:15px' in x)
-        if stack:
-            stack['style'] = stack['style'].replace('gap:15px', 'gap:5px').replace('padding: 0 15px 20px 15px', 'padding: 0;')
-
-def populate_content(soup, week_curriculum, vocab_data, peer_data):
-    process_cover(soup, week_curriculum)
-    update_vocab_tables(soup, vocab_data)
-    update_bilibili_links(soup, week_curriculum)
-    update_student_l1(soup, week_curriculum)
-    update_student_l2(soup, week_curriculum, peer_data)
-
-def update_bilibili_links(soup, week_data):
-    topic = week_data.get('topic', '')
-    if not topic: return
-
-    # Construct Search URL: https://search.bilibili.com/all?keyword=IELTS {topic} Speaking
-    query = f"IELTS {topic} Speaking"
-    encoded_query = urllib.parse.quote(query)
-    search_url = f"https://search.bilibili.com/all?keyword={encoded_query}"
-
-    links = soup.find_all('a', class_='bili-btn')
-    for link in links:
-        link['href'] = search_url
-
-def process_cover(soup, week_data):
-    if soup.title: soup.title.string = f"Week {week_data.get('week')} Master Lesson Pack"
-    cover_week = soup.find('h1', class_='cover-week')
-    if cover_week: cover_week.string = f"WEEK {week_data.get('week')}"
-    cover_title = soup.find('h2', class_='cover-title-large')
-    if cover_title:
-        cover_title.string = week_data.get('theme', '')
-        # Ensure styling matches cover-week (5em) and remove underlining
-        cover_title['style'] = "font-size: 5em; text-decoration: none; border-bottom: none;"
-
-    cover_sub = soup.find('div', class_='cover-subtitle')
-    if cover_sub: cover_sub.string = week_data.get('topic', '')
-
-def update_vocab_tables(soup, week_vocab):
-    if not week_vocab: return
-    l1_vocab = week_vocab.get('l1_vocab', [])
-    l1_idioms = week_vocab.get('l1_idioms', [])
-    vocab_tables = soup.find_all('table', class_='vocab-table')
-
-    def fill_table(table, vocab, idioms):
-        tbody = table.find('tbody')
-        if not tbody: return
-        tbody.clear()
-        for i, item in enumerate(vocab):
-            if i >= 7: break
-            word = item.get('word', '').split('(')[0].strip()
-            pos = item.get('word', '').split('(')[1].replace(')', '') if '(' in item.get('word', '') else ''
-            row = f"<td><strong>{word}</strong> <span style='font-style:italic;font-size:0.9em;'>({pos})</span></td><td>{item.get('forms','')}</td><td><span class='vocab-cn'>{item.get('meaning','')}</span></td>"
-            tbody.append(BeautifulSoup(f"<tr>{row}</tr>", 'html.parser'))
-        tbody.append(BeautifulSoup("<tr><td colspan='3' style='background:#eee; font-weight:bold; color:#555;'>🐎 Idioms</td></tr>", 'html.parser'))
-
-        # Simple generic fallback generator since we can't reliably call LLMs
-        def get_generic_sentence(idiom):
-            idiom_lower = idiom.lower()
-            return f"Using the phrase '{idiom_lower}' can significantly improve your IELTS speaking score."
-
-        for i, item in enumerate(idioms):
-            if i >= 3: break
-            idiom_text = item.get('idiom','')
-            usage_text = item.get('usage','')
-            cn_idiom = item.get('cn_idiom','')
-
-            # Use provided example, or fallback
-            example = item.get('example_sentence')
-            if not example:
-                example = get_generic_sentence(idiom_text)
-
-            # Task 1: Put example sentence in Word Forms column instead of separate row
-            forms_col = f"({usage_text})<br><span style='font-style:italic; font-size:0.85em; color:#666;'>\"{example}\"</span>"
-            row1 = f"<td><strong>{idiom_text}</strong></td><td>{forms_col}</td><td><span class='vocab-cn'>{cn_idiom}</span></td>"
-            tbody.append(BeautifulSoup(f"<tr>{row1}</tr>", 'html.parser'))
-
-    if len(vocab_tables) >= 1: fill_table(vocab_tables[0], l1_vocab, l1_idioms)
-    if len(vocab_tables) >= 2: fill_table(vocab_tables[1], week_vocab.get('l2_vocab', []), week_vocab.get('l2_idioms', []))
-
-def format_bullet_text(html_content, bold_question=False):
-    soup = BeautifulSoup(html_content, 'html.parser')
-
-    # Unwrap outer paragraph if present to avoid extra spacing
-    if soup.p:
-        soup.p.unwrap()
-
-    raw_str = soup.decode_contents() if soup.name else str(soup)
-    parts = re.split(r'<br\s*/?>', raw_str)
-    
-    formatted_parts = []
-    main_text = ""
-    bullet_lines = []
-    
-    if "You should say" in parts[0]:
-        main_text = parts[0].strip()
-        bullet_lines = parts[1:]
-    else:
-        found = False
-        for i, p in enumerate(parts):
-            if "You should say" in p:
-                main_text = " ".join(parts[:i+1]).strip()
-                bullet_lines = parts[i+1:]
-                found = True
-                break
-        if not found: return html_content
-
-    # Task 3: Bold question text if requested
-    if bold_question:
-        main_text = f"<strong>{main_text}</strong>"
-
-    formatted_bullets = []
-    for line in bullet_lines:
-        clean_line = BeautifulSoup(line, 'html.parser').get_text().strip()
-        if not clean_line: continue
-        words = clean_line.split(' ', 1)
-        if len(words) > 0:
-            first = words[0]
-            rest = " " + words[1] if len(words) > 1 else ""
-            formatted_bullets.append(f"<strong>{first}</strong>{rest}")
-    
-    return f"{main_text} {', '.join(formatted_bullets)}"
-
-def update_student_l1(soup, week_data):
-    l1 = week_data.get('lesson_1_part_2', {})
-    q1 = l1.get('q1', {})
-    q2 = l1.get('q2', {})
-    q3 = l1.get('q3', {})
-    
-    banner = soup.find('span', class_='header-title', string=re.compile(r'Part 2:'))
-    if banner: banner.string = f"Part 2: {week_data.get('theme', 'General')}"
-
-    cue = soup.find('div', style=lambda x: x and 'border-left:5px solid #fbc02d' in x)
-    if cue:
-        h3 = cue.find('h3')
-        q1_html = q1.get('html', '')
-        bs = BeautifulSoup(q1_html, 'html.parser')
-        ps = bs.find_all('p')
-        if len(ps) > 0:
-            raw = ps[0].decode_contents()
-            if "You should say" in raw:
-                parts = raw.split("You should say")
-                q_text = BeautifulSoup(parts[0], 'html.parser').get_text().strip()
-                if h3: h3.string = f"📌 CUE CARD: {q_text}"
-                bullets_div = cue.find('div', style=lambda x: x and 'color:#444' in x)
-                if bullets_div:
-                    bullets_div.clear()
-                    clean_bullets = format_bullet_text(str(ps[0]))
-                    bullets_div.append(BeautifulSoup(clean_bullets, 'html.parser'))
-                    # Reduce spacing for CUE CARD as well just in case, though user mentioned mind maps specifically
-
-        # Point 7: Band 6 Model Answer (Page 2)
-        if len(ps) >= 2:
-            model_html = "".join([str(x) for x in ps[1].contents])
-            # Find the model box on the same page (L1)
-            # We can search globally or relatively. Let's try finding the specific L1 Model Box.
-            # It usually follows the Cue Card.
-            model_box = soup.find('div', class_='l1').find('div', class_='model-box')
-            # Note: There might be multiple L1 divs (Teacher vs Student).
-            # The Student L1 page is usually the second 'l1' div in the template.
-            l1_pages = soup.find_all('div', class_='l1')
-            if len(l1_pages) >= 2:
-                student_l1 = l1_pages[1]
-                model_box = student_l1.find('div', class_='model-box')
-                if model_box:
-                    model_box.clear()
-                    model_box.append(BeautifulSoup(model_html, 'html.parser'))
-
-    q2_card = soup.find('h3', string=re.compile(r'Part 2: Q2'))
-    if q2_card:
-        prompt_div = q2_card.find_next_sibling('div')
-        if prompt_div:
-            q2_bs = BeautifulSoup(q2.get('html', ''), 'html.parser')
-            p = q2_bs.find('p')
-            if p:
-                prompt_div.clear()
-                # Task 3: Bold question for mind map
-                prompt_div.append(BeautifulSoup(format_bullet_text(str(p), bold_question=True), 'html.parser'))
-                # Reduce spacing
-                if 'margin-bottom:8px' in prompt_div.get('style', ''):
-                     prompt_div['style'] = prompt_div['style'].replace('margin-bottom:8px', 'margin-bottom:4px')
-                prompt_div['style'] += "; line-height: 1.2;"
-
-    q3_card = soup.find('h3', string=re.compile(r'Part 2: Q3'))
-    if q3_card:
-        prompt_div = q3_card.find_next_sibling('div')
-        if prompt_div:
-            q3_bs = BeautifulSoup(q3.get('html', ''), 'html.parser')
-            p = q3_bs.find('p')
-            if p:
-                prompt_div.clear()
-                # Task 3: Bold question for mind map
-                prompt_div.append(BeautifulSoup(format_bullet_text(str(p), bold_question=True), 'html.parser'))
-                # Reduce spacing
-                if 'margin-bottom:8px' in prompt_div.get('style', ''):
-                     prompt_div['style'] = prompt_div['style'].replace('margin-bottom:8px', 'margin-bottom:4px')
-                prompt_div['style'] += "; line-height: 1.2;"
-
-def update_student_l2(soup, week_data, peer_data):
-    l2_data = week_data.get('lesson_2_part_3', {})
-    week_peer = peer_data.get(week_data.get('week'), {}).get('lesson_2_part_3', {})
-    
-    # Update Header Tags
-    tags = soup.find_all('span', class_='week-tag')
-    for tag in tags:
-        if "(Part 3)" in tag.text:
-            tag.string = f"Week {week_data.get('week')} • Lesson 2 • {week_data.get('topic', '')} (Part 3)"
-
-    # Locate Cards
-    q1_card = soup.find('div', id='p5-q1')
-    q2_card = soup.find('div', id='p6-q2')
-    q3_card = soup.find('div', id='p6-q3')
-
-    q4_card, q5_card, q6_card = None, None, None
-    l2_pages = soup.find_all('div', class_='l2')
-    if l2_pages:
-        # Assuming the last L2 page is the Rapid Fire one
-        rf_page = l2_pages[-1]
-        cards = rf_page.find_all('div', class_='card')
-        # Filter for question cards (checking h3 content or position)
-        q_cards = [c for c in cards if c.find('h3') and "Q" in c.find('h3').text]
-        if len(q_cards) >= 3:
-            q4_card = q_cards[0]
-            q5_card = q_cards[1]
-            q6_card = q_cards[2]
-
-    cards_map = {
-        'q1': q1_card, 'q2': q2_card, 'q3': q3_card,
-        'q4': q4_card, 'q5': q5_card, 'q6': q6_card
-    }
-
-    for q_key, card in cards_map.items():
-        if not card: continue
-
-        q_info = l2_data.get(q_key, {})
-        html_content = q_info.get('html', '')
-        if not html_content: continue
-
-        # Parse Question and Model
-        bs = BeautifulSoup(html_content, 'html.parser')
-        ps = bs.find_all('p')
-        if len(ps) >= 1:
-            q_text = ps[0].get_text().strip().replace(f"{q_key.upper()}: ", "").replace(f"{q_key.upper()}:", "")
-            # Update H3
-            h3 = card.find('h3')
-            if h3: h3.string = f"{q_key.upper()}: {q_text}"
-            
-        if len(ps) >= 2:
-            model_html = "".join([str(x) for x in ps[1].contents]) # Inner HTML of 2nd p
-            model_box = card.find('div', class_='model-box')
-            if model_box:
-                model_box.clear()
-                model_box.append(BeautifulSoup(model_html, 'html.parser'))
-                
-        # Update Scaffold
-        hints = q_info.get('ore_hints', [])
-        scaffold_ul = card.find('ul', class_='scaffold-text')
-        if scaffold_ul and hints:
-            scaffold_ul.clear()
-            for hint in hints:
-                li = soup.new_tag('li')
-                li.string = hint
-                scaffold_ul.append(li)
-
-        # Update Peer Check
-        p_q_data = week_peer.get(q_key, {})
-        b5_q = p_q_data.get('band_5_peer_question', '')
-        b6_q = p_q_data.get('band_6_plus_peer_question', '')
-
-        if b5_q:
-            strong = card.find('strong', string=re.compile(r'Band 5 Peer Check'))
-            if strong:
-                parent_div = strong.parent
-                parent_div.clear()
-                parent_div.append(BeautifulSoup(f"📉 <strong>Band 5 Peer Check:</strong> Ask: '{b5_q}'", 'html.parser'))
-
-        if b6_q:
-            strong = card.find('strong', string=re.compile(r'Band 6 Peer Check'))
-            if strong:
-                parent_div = strong.parent
-                parent_div.clear()
-                parent_div.append(BeautifulSoup(f"📈 <strong>Band 6 Peer Check:</strong> Ask: '{b6_q}'", 'html.parser'))
-
-        # Task 2: Q3 Formatting fix
-        # Ensure lines are above peer check, and container is flex
-        if q_key == 'q3':
-            # The writing box is usually the div with border-top dashed or solid
-            writing_box = card.find('div', style=lambda x: x and 'border-top:1px' in x and 'flex-grow:1' in x)
-            if writing_box:
-                # Find lines and peer checks
-                lines_div = writing_box.find('div', class_='lines')
-                b5_strong = writing_box.find('strong', string=re.compile(r'Band 5 Peer Check'))
-
-                if lines_div and b5_strong:
-                    # In Q3 the lines div might be missing height:100% or misplaced
-                    lines_div['style'] = "height:100%; flex-grow:1;"
-
-                    # Ensure Peer Check container is at the bottom
-                    peer_check_container = b5_strong.parent.parent # Usually wraps b5 and b6
-
-                    # Actually, a safer way to reorder is to just extract them and re-append
-                    if peer_check_container and peer_check_container.parent == writing_box:
-                        peer_check_container.extract()
-                        writing_box.append(peer_check_container)
-
-                    if lines_div.parent == writing_box:
-                        lines_div.extract()
-                        # Insert lines before peer check container
-                        if peer_check_container and peer_check_container.parent == writing_box:
-                            peer_check_container.insert_before(lines_div)
-                        else:
-                            writing_box.append(lines_div)
-
-def main():
-    print("Generating all 40 lesson plans...")
-    os.makedirs('lessons', exist_ok=True)
-    
-    curriculum, phrases, vocab, homework, peer_data, mindmap_labels = load_data()
-    if not curriculum: return
-
-    with open('Week_1_Lesson_Plan.html', 'r', encoding='utf-8') as f:
-        template_html = f.read()
-
-    success_count = 0
-    errors = []
-
-    # Batch Processing
-    total_weeks = 40
-    batch_size = 5
-
-    for start in range(1, total_weeks + 1, batch_size):
-        end = min(start + batch_size, total_weeks + 1)
-        print(f"Processing Batch: Weeks {start} to {end-1}")
-
-        for week_num in range(start, end):
-            try:
-                week_data = next((w for w in curriculum if w['week'] == week_num), None)
-                if not week_data:
-                    print(f"Skipping Week {week_num}: No Data")
-                    continue
-                
-                week_vocab = vocab.get(week_num)
-                week_homework = homework.get(week_num)
-
-                soup = BeautifulSoup(template_html, 'html.parser')
-
-                populate_content(soup, week_data, week_vocab, peer_data)
-                process_teacher_plan(soup, week_num, week_data, phrases, week_vocab)
-                format_mind_maps(soup, week_num, phrases, week_data, mindmap_labels)
-                process_homework(soup, week_num, week_homework)
-                writing_page = process_writing_page(soup)
-                process_layout_adjustments(soup)
-                reorder_pages(soup, writing_page)
-
+                # Write to file
                 with open(f'lessons/Week_{week_num}_Lesson_Plan.html', 'w', encoding='utf-8') as f:
-                    f.write(str(soup))
+                    f.write(html_out)
+
                 print(f"Generated Week {week_num}")
                 success_count += 1
 
