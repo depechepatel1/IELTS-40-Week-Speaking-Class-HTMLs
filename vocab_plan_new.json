@@ -1,0 +1,5482 @@
+[
+  {
+    "week": 1,
+    "l1_vocab": [
+      {
+        "word": "Diligent",
+        "forms": "Diligence (N) - Diligently (Adv)",
+        "meaning": "勤奋的",
+        "recycled": false
+      },
+      {
+        "word": "Inspiring",
+        "forms": "Inspire (V) - Inspiration (N)",
+        "meaning": "鼓舞人心的",
+        "recycled": false
+      },
+      {
+        "word": "Selfless",
+        "forms": "Selflessly (Adv) - Selflessness (N)",
+        "meaning": "无私的",
+        "recycled": false
+      },
+      {
+        "word": "Accomplished",
+        "forms": "Accomplish (V) - Accomplishment (N)",
+        "meaning": "有造诣的 / 成功的",
+        "recycled": false
+      },
+      {
+        "word": "Considerate",
+        "forms": "Consider (V) - Consideration (N)",
+        "meaning": "体贴的",
+        "recycled": false
+      },
+      {
+        "word": "Generous",
+        "forms": "Generosity (N)",
+        "meaning": "慷慨的",
+        "recycled": true
+      },
+      {
+        "word": "Devoted",
+        "forms": "Devotion (N) - Devote (V)",
+        "meaning": "挚爱的 / 忠诚的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Go the extra mile",
+        "usage": "Went (V2)",
+        "meaning": "加倍努力",
+        "cn_idiom": "再接再厉",
+        "example": "She always goes the extra mile to help her team."
+      },
+      {
+        "idiom": "Look up to",
+        "usage": "Looked (V2)",
+        "meaning": "敬仰",
+        "cn_idiom": "仰视",
+        "example": "I really look up to my older brother."
+      },
+      {
+        "idiom": "A heart of gold",
+        "usage": "Noun Phrase",
+        "meaning": "心地善良",
+        "cn_idiom": "菩萨心肠",
+        "example": "My grandmother has a heart of gold."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Generation gap",
+        "forms": "Generational (Adj)",
+        "meaning": "代沟",
+        "recycled": false
+      },
+      {
+        "word": "Instill",
+        "forms": "Instilled (V2) - Instillation (N)",
+        "meaning": "灌输 (价值观)",
+        "recycled": false
+      },
+      {
+        "word": "Perspective",
+        "forms": "Perspectives (Pl)",
+        "meaning": "观点 / 视角",
+        "recycled": false
+      },
+      {
+        "word": "Breadwinner",
+        "forms": "Breadwinners (Pl)",
+        "meaning": "养家糊口的人",
+        "recycled": false
+      },
+      {
+        "word": "Harmony",
+        "forms": "Harmonious (Adj)",
+        "meaning": "和谐",
+        "recycled": false
+      },
+      {
+        "word": "Appreciate",
+        "forms": "Appreciation (N)",
+        "meaning": "感激 / 欣赏",
+        "recycled": true
+      },
+      {
+        "word": "Guidance",
+        "forms": "Guide (V)",
+        "meaning": "指导",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Follow in someone's footsteps",
+        "usage": "Followed (V2)",
+        "meaning": "继承衣钵 / 效法",
+        "cn_idiom": "步人后尘 (neutral sense)",
+        "example": "He decided to follow in his father's footsteps and become a doctor."
+      },
+      {
+        "idiom": "The apple doesn't fall far from the tree",
+        "usage": "Proverb",
+        "meaning": "有其父必有其子",
+        "cn_idiom": "有其父必有其子",
+        "example": "He is stubborn just like his dad; the apple doesn't fall far from the tree."
+      },
+      {
+        "idiom": "Flesh and blood",
+        "usage": "Noun Phrase",
+        "meaning": "骨肉 / 亲人",
+        "cn_idiom": "骨肉至亲",
+        "example": "You cannot treat your own flesh and blood like that."
+      }
+    ]
+  },
+  {
+    "week": 2,
+    "l1_vocab": [
+      {
+        "word": "Cosmopolitan",
+        "forms": "Cosmopolite (N)",
+        "meaning": "世界性的 / 国际化的",
+        "recycled": false
+      },
+      {
+        "word": "Lucrative",
+        "forms": "More lucrative (Comp)",
+        "meaning": "利润丰厚的 / 赚钱的",
+        "recycled": false
+      },
+      {
+        "word": "Immerse",
+        "forms": "Immersion (N) - Immersed (Adj)",
+        "meaning": "沉浸",
+        "recycled": false
+      },
+      {
+        "word": "Adaptable",
+        "forms": "Adapt (V) - Adaptability (N)",
+        "meaning": "适应性强的",
+        "recycled": false
+      },
+      {
+        "word": "Barrier",
+        "forms": "Barriers (Pl)",
+        "meaning": "障碍",
+        "recycled": false
+      },
+      {
+        "word": "Diligent",
+        "forms": "Diligence (N)",
+        "meaning": "勤奋的",
+        "recycled": true
+      },
+      {
+        "word": "Perspective",
+        "forms": "Perspectives (Pl)",
+        "meaning": "视角",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Culture shock",
+        "usage": "Noun Phrase",
+        "meaning": "文化冲击",
+        "cn_idiom": "水土不服 (loosely)",
+        "example": "She experienced severe culture shock when she moved to Tokyo."
+      },
+      {
+        "idiom": "Broaden one's horizons",
+        "usage": "Broadened (V2)",
+        "meaning": "开阔眼界",
+        "cn_idiom": "大开眼界",
+        "example": "Traveling abroad is a great way to broaden your horizons."
+      },
+      {
+        "idiom": "Start from scratch",
+        "usage": "Started (V2)",
+        "meaning": "白手起家 / 从头开始",
+        "cn_idiom": "白手起家",
+        "example": "After the fire, they had to rebuild their business and start from scratch."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Globalization",
+        "forms": "Global (Adj) - Globalize (V)",
+        "meaning": "全球化",
+        "recycled": false
+      },
+      {
+        "word": "Integration",
+        "forms": "Integrate (V) - Integrated (Adj)",
+        "meaning": "融合 / 一体化",
+        "recycled": false
+      },
+      {
+        "word": "Discrimination",
+        "forms": "Discriminate (V)",
+        "meaning": "歧视",
+        "recycled": false
+      },
+      {
+        "word": "Brain drain",
+        "forms": "Noun Phrase",
+        "meaning": "人才流失",
+        "recycled": false
+      },
+      {
+        "word": "Prosperous",
+        "forms": "Prosperity (N) - Prosper (V)",
+        "meaning": "繁荣的",
+        "recycled": false
+      },
+      {
+        "word": "Harmony",
+        "forms": "Harmonious (Adj)",
+        "meaning": "和谐",
+        "recycled": true
+      },
+      {
+        "word": "Inspiring",
+        "forms": "Inspire (V)",
+        "meaning": "鼓舞人心的",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "A melting pot",
+        "usage": "Noun Phrase",
+        "meaning": "大熔炉 (多种文化融合)",
+        "cn_idiom": "大熔炉",
+        "example": "New York City has always been a cultural melting pot."
+      },
+      {
+        "idiom": "When in Rome, do as the Romans do",
+        "usage": "Proverb",
+        "meaning": "入乡随俗",
+        "cn_idiom": "入乡随俗",
+        "example": "I don't usually eat spicy food, but when in Rome, do as the Romans do."
+      },
+      {
+        "idiom": "Language barrier",
+        "usage": "Noun Phrase",
+        "meaning": "语言障碍",
+        "cn_idiom": "言语不通",
+        "example": "They used a translation app to overcome the language barrier."
+      }
+    ]
+  },
+  {
+    "week": 3,
+    "l1_vocab": [
+      {
+        "word": "Fulfilling",
+        "forms": "Fulfill (V) - Fulfillment (N)",
+        "meaning": "令人满足的",
+        "recycled": false
+      },
+      {
+        "word": "Challenging",
+        "forms": "Challenge (N/V)",
+        "meaning": "充满挑战的",
+        "recycled": false
+      },
+      {
+        "word": "Prestigious",
+        "forms": "Prestige (N)",
+        "meaning": "有声望的",
+        "recycled": false
+      },
+      {
+        "word": "Demanding",
+        "forms": "Demand (V/N)",
+        "meaning": "要求高的 / 费力的",
+        "recycled": false
+      },
+      {
+        "word": "Qualified",
+        "forms": "Qualify (V) - Qualification (N)",
+        "meaning": "合格的 / 胜任的",
+        "recycled": false
+      },
+      {
+        "word": "Lucrative",
+        "forms": "More lucrative (Comp)",
+        "meaning": "赚钱的",
+        "recycled": true
+      },
+      {
+        "word": "Adaptable",
+        "forms": "Adaptability (N)",
+        "meaning": "适应力强的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Climb the career ladder",
+        "usage": "Climbed (V2)",
+        "meaning": "在职业阶梯上晋升",
+        "cn_idiom": "步步高升",
+        "example": "I worked hard to climb the career ladder from intern to manager."
+      },
+      {
+        "idiom": "Dream job",
+        "usage": "Noun Phrase",
+        "meaning": "理想的工作",
+        "cn_idiom": "梦寐以求的工作",
+        "example": "Being a pilot has always been my dream job."
+      },
+      {
+        "idiom": "Make a living",
+        "usage": "Made (V2)",
+        "meaning": "谋生",
+        "cn_idiom": "养家糊口",
+        "example": "It is difficult to make a living as an artist."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Automation",
+        "forms": "Automate (V) - Automatic (Adj)",
+        "meaning": "自动化",
+        "recycled": false
+      },
+      {
+        "word": "Job security",
+        "forms": "Noun Phrase",
+        "meaning": "工作保障",
+        "recycled": false
+      },
+      {
+        "word": "Unemployment",
+        "forms": "Unemployed (Adj)",
+        "meaning": "失业",
+        "recycled": false
+      },
+      {
+        "word": "Motivation",
+        "forms": "Motivate (V) - Motivated (Adj)",
+        "meaning": "动力 / 动机",
+        "recycled": false
+      },
+      {
+        "word": "Work-life balance",
+        "forms": "Noun Phrase",
+        "meaning": "工作与生活的平衡",
+        "recycled": false
+      },
+      {
+        "word": "Brain drain",
+        "forms": "Noun Phrase",
+        "meaning": "人才流失",
+        "recycled": true
+      },
+      {
+        "word": "Prosperous",
+        "forms": "Prosperity (N)",
+        "meaning": "繁荣的",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Bring home the bacon",
+        "usage": "Brought (V2)",
+        "meaning": "养家糊口",
+        "cn_idiom": "挣钱养家",
+        "example": "In many families, both parents work to bring home the bacon."
+      },
+      {
+        "idiom": "Dead-end job",
+        "usage": "Noun Phrase",
+        "meaning": "没前途的工作",
+        "cn_idiom": "死胡同",
+        "example": "He quit because he felt stuck in a dead-end job."
+      },
+      {
+        "idiom": "Think outside the box",
+        "usage": "Thought (V2)",
+        "meaning": "跳出框框思考",
+        "cn_idiom": "打破常规",
+        "example": "To solve this economic crisis, we must think outside the box."
+      }
+    ]
+  },
+  {
+    "week": 4,
+    "l1_vocab": [
+      {
+        "word": "Anticipated",
+        "forms": "Anticipate (V) - Anticipation (N)",
+        "meaning": "期待已久的",
+        "recycled": false
+      },
+      {
+        "word": "Predictable",
+        "forms": "Predict (V) - Prediction (N)",
+        "meaning": "可预测的 / 老套的",
+        "recycled": false
+      },
+      {
+        "word": "Mediocre",
+        "forms": "Mediocrity (N)",
+        "meaning": "平庸的",
+        "recycled": false
+      },
+      {
+        "word": "Overrated",
+        "forms": "Underrate (Antonym)",
+        "meaning": "被高估的",
+        "recycled": false
+      },
+      {
+        "word": "Confusing",
+        "forms": "Confuse (V) - Confusion (N)",
+        "meaning": "令人困惑的",
+        "recycled": false
+      },
+      {
+        "word": "Fulfilling",
+        "forms": "Fulfill (V)",
+        "meaning": "令人满足的",
+        "recycled": true
+      },
+      {
+        "word": "Demanding",
+        "forms": "Demand (N)",
+        "meaning": "要求高的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "A let-down",
+        "usage": "Noun Phrase",
+        "meaning": "令人失望的事",
+        "cn_idiom": "大失所望",
+        "example": "The sequel was a huge let-down compared to the first movie."
+      },
+      {
+        "idiom": "Hype up",
+        "usage": "Hyped (V2)",
+        "meaning": "炒作 / 吹捧",
+        "cn_idiom": "大肆宣传",
+        "example": "The media hyped up the film, but it was actually boring."
+      },
+      {
+        "idiom": "Waste of time",
+        "usage": "Noun Phrase",
+        "meaning": "浪费时间",
+        "cn_idiom": "虚度光阴",
+        "example": "Watching that movie was a complete waste of time."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Cinematography",
+        "forms": "Cinematic (Adj)",
+        "meaning": "电影摄影技术",
+        "recycled": false
+      },
+      {
+        "word": "Genre",
+        "forms": "Genres (Pl)",
+        "meaning": "体裁 / 类型",
+        "recycled": false
+      },
+      {
+        "word": "Influence",
+        "forms": "Influential (Adj)",
+        "meaning": "影响",
+        "recycled": false
+      },
+      {
+        "word": "Blockbuster",
+        "forms": "Blockbusters (Pl)",
+        "meaning": "大片 (卖座电影)",
+        "recycled": false
+      },
+      {
+        "word": "Censorship",
+        "forms": "Censor (V)",
+        "meaning": "审查制度",
+        "recycled": false
+      },
+      {
+        "word": "Motivation",
+        "forms": "Motivate (V)",
+        "meaning": "动机",
+        "recycled": true
+      },
+      {
+        "word": "Automation",
+        "forms": "Automate (V)",
+        "meaning": "自动化 (used in context of CGI)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Box office hit",
+        "usage": "Noun Phrase",
+        "meaning": "票房大卖",
+        "cn_idiom": "票房冠军",
+        "example": "The new Marvel movie is a guaranteed box office hit."
+      },
+      {
+        "idiom": "Star-studded cast",
+        "usage": "Noun Phrase",
+        "meaning": "众星云集的阵容",
+        "cn_idiom": "星光熠熠",
+        "example": "The film features a star-studded cast of famous actors."
+      },
+      {
+        "idiom": "On the edge of one's seat",
+        "usage": "Adjective Phrase",
+        "meaning": "由于紧张兴奋而坐立不安",
+        "cn_idiom": "扣人心弦",
+        "example": "The thriller kept the audience on the edge of their seats."
+      }
+    ]
+  },
+  {
+    "week": 5,
+    "l1_vocab": [
+      {
+        "word": "Conscientious",
+        "forms": "Conscience (N)",
+        "meaning": "尽责的 / 有良心的",
+        "recycled": false
+      },
+      {
+        "word": "Eco-friendly",
+        "forms": "Adjective",
+        "meaning": "环保的",
+        "recycled": false
+      },
+      {
+        "word": "Sustainable",
+        "forms": "Sustain (V) - Sustainability (N)",
+        "meaning": "可持续的",
+        "recycled": false
+      },
+      {
+        "word": "Passionate",
+        "forms": "Passion (N)",
+        "meaning": "热情的",
+        "recycled": false
+      },
+      {
+        "word": "Advocate",
+        "forms": "Advocacy (N)",
+        "meaning": "提倡者",
+        "recycled": false
+      },
+      {
+        "word": "Inspiring",
+        "forms": "Inspire (V)",
+        "meaning": "鼓舞人心的",
+        "recycled": true
+      },
+      {
+        "word": "Predictable",
+        "forms": "Predict (V)",
+        "meaning": "可预测的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Do one's bit",
+        "usage": "Did (V2)",
+        "meaning": "尽自己的一份力",
+        "cn_idiom": "尽绵薄之力",
+        "example": "We should all do our bit to recycle plastic."
+      },
+      {
+        "idiom": "Practice what you preach",
+        "usage": "Practiced (V2)",
+        "meaning": "言行一致",
+        "cn_idiom": "以身作则",
+        "example": "He talks about saving energy, but he doesn't practice what he preaches."
+      },
+      {
+        "idiom": "Nature lover",
+        "usage": "Noun Phrase",
+        "meaning": "热爱大自然的人",
+        "cn_idiom": "爱护自然者",
+        "example": "As a nature lover, she spends every weekend hiking."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Biodiversity",
+        "forms": "Diverse (Adj)",
+        "meaning": "生物多样性",
+        "recycled": false
+      },
+      {
+        "word": "Conservation",
+        "forms": "Conserve (V) - Conservative (Adj)",
+        "meaning": "保护 (自然)",
+        "recycled": false
+      },
+      {
+        "word": "Pollution",
+        "forms": "Pollute (V) - Pollutant (N)",
+        "meaning": "污染",
+        "recycled": false
+      },
+      {
+        "word": "Renewable",
+        "forms": "Renew (V)",
+        "meaning": "可再生的",
+        "recycled": false
+      },
+      {
+        "word": "Extinction",
+        "forms": "Extinct (Adj)",
+        "meaning": "灭绝",
+        "recycled": false
+      },
+      {
+        "word": "Influence",
+        "forms": "Influential (Adj)",
+        "meaning": "影响",
+        "recycled": true
+      },
+      {
+        "word": "Generation gap",
+        "forms": "Generational (Adj)",
+        "meaning": "代沟",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "A drop in the ocean",
+        "usage": "Noun Phrase",
+        "meaning": "沧海一粟",
+        "cn_idiom": "九牛一毛",
+        "example": "One person recycling is just a drop in the ocean, but it helps."
+      },
+      {
+        "idiom": "Tip of the iceberg",
+        "usage": "Noun Phrase",
+        "meaning": "冰山一角",
+        "cn_idiom": "冰山一角",
+        "example": "Plastic pollution is just the tip of the iceberg of environmental issues."
+      },
+      {
+        "idiom": "Wreak havoc",
+        "usage": "Wreaked (V2)",
+        "meaning": "造成严重破坏",
+        "cn_idiom": "浩劫",
+        "example": "The storm wreaked havoc on the coastal ecosystem."
+      }
+    ]
+  },
+  {
+    "week": 6,
+    "l1_vocab": [
+      {
+        "word": "Tranquil",
+        "forms": "Tranquility (N)",
+        "meaning": "宁静的",
+        "recycled": false
+      },
+      {
+        "word": "Picturesque",
+        "forms": "Adjective",
+        "meaning": "风景如画的",
+        "recycled": false
+      },
+      {
+        "word": "Breathtaking",
+        "forms": "Adjective",
+        "meaning": "惊人的 / 极美的",
+        "recycled": false
+      },
+      {
+        "word": "Lush",
+        "forms": "Lushness (N)",
+        "meaning": "郁郁葱葱的",
+        "recycled": false
+      },
+      {
+        "word": "Isolated",
+        "forms": "Isolate (V) - Isolation (N)",
+        "meaning": "偏远的 / 孤立的",
+        "recycled": false
+      },
+      {
+        "word": "Eco-friendly",
+        "forms": "Adjective",
+        "meaning": "环保的",
+        "recycled": true
+      },
+      {
+        "word": "Sustainable",
+        "forms": "Sustainability (N)",
+        "meaning": "可持续的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Off the beaten track",
+        "usage": "Adjective Phrase",
+        "meaning": "人迹罕至的",
+        "cn_idiom": "人迹罕至",
+        "example": "I found a beautiful park that was off the beaten track."
+      },
+      {
+        "idiom": "Peace and quiet",
+        "usage": "Noun Phrase",
+        "meaning": "宁静",
+        "cn_idiom": "清静",
+        "example": "I go to the forest to enjoy some peace and quiet."
+      },
+      {
+        "idiom": "Get away from it all",
+        "usage": "Got (V2)",
+        "meaning": "远离尘嚣",
+        "cn_idiom": "避世",
+        "example": "Camping is a great way to get away from it all."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Urbanization",
+        "forms": "Urban (Adj) - Urbanize (V)",
+        "meaning": "城市化",
+        "recycled": false
+      },
+      {
+        "word": "Deforestation",
+        "forms": "Forest (N)",
+        "meaning": "森林砍伐",
+        "recycled": false
+      },
+      {
+        "word": "Habitat",
+        "forms": "Inhabit (V)",
+        "meaning": "栖息地",
+        "recycled": false
+      },
+      {
+        "word": "Therapeutic",
+        "forms": "Therapy (N)",
+        "meaning": "有治疗作用的 / 治愈的",
+        "recycled": false
+      },
+      {
+        "word": "Preservation",
+        "forms": "Preserve (V)",
+        "meaning": "保护 / 保存",
+        "recycled": false
+      },
+      {
+        "word": "Biodiversity",
+        "forms": "Bio (Prefix)",
+        "meaning": "生物多样性",
+        "recycled": true
+      },
+      {
+        "word": "Pollution",
+        "forms": "Pollute (V)",
+        "meaning": "污染",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Concrete jungle",
+        "usage": "Noun Phrase",
+        "meaning": "钢筋水泥森林 (城市)",
+        "cn_idiom": "钢筋水泥丛林",
+        "example": "Living in a concrete jungle can be stressful without green spaces."
+      },
+      {
+        "idiom": "Breath of fresh air",
+        "usage": "Noun Phrase",
+        "meaning": "令人耳目一新的人或事",
+        "cn_idiom": "耳目一新",
+        "example": "This new park design is a breath of fresh air for the city."
+      },
+      {
+        "idiom": "Back to nature",
+        "usage": "Fixed Phrase",
+        "meaning": "回归自然",
+        "cn_idiom": "回归自然",
+        "example": "Many city dwellers want to get back to nature on weekends."
+      }
+    ]
+  },
+  {
+    "week": 7,
+    "l1_vocab": [
+      {
+        "word": "Indispensable",
+        "forms": "Adjective",
+        "meaning": "不可或缺的",
+        "recycled": false
+      },
+      {
+        "word": "User-friendly",
+        "forms": "Adjective",
+        "meaning": "用户友好的 / 易用的",
+        "recycled": false
+      },
+      {
+        "word": "Innovative",
+        "forms": "Innovate (V) - Innovation (N)",
+        "meaning": "创新的",
+        "recycled": false
+      },
+      {
+        "word": "Addictive",
+        "forms": "Addict (N) - Addiction (N)",
+        "meaning": "令人上瘾的",
+        "recycled": false
+      },
+      {
+        "word": "Efficient",
+        "forms": "Efficiency (N) - Efficiently (Adv)",
+        "meaning": "高效的",
+        "recycled": false
+      },
+      {
+        "word": "Isolated",
+        "forms": "Isolation (N)",
+        "meaning": "孤立的",
+        "recycled": true
+      },
+      {
+        "word": "Breathtaking",
+        "forms": "Adjective",
+        "meaning": "惊人的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Glued to the screen",
+        "usage": "Adjective Phrase",
+        "meaning": "盯着屏幕看",
+        "cn_idiom": "目不转睛",
+        "example": "My little brother is constantly glued to the screen."
+      },
+      {
+        "idiom": "At your fingertips",
+        "usage": "Fixed Phrase",
+        "meaning": "触手可及",
+        "cn_idiom": "触手可及",
+        "example": "With this app, all the information is at your fingertips."
+      },
+      {
+        "idiom": "Lose track of time",
+        "usage": "Lost (V2)",
+        "meaning": "忘记时间",
+        "cn_idiom": "废寝忘食",
+        "example": "I often lose track of time when playing games."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Dependency",
+        "forms": "Depend (V) - Dependent (Adj)",
+        "meaning": "依赖",
+        "recycled": false
+      },
+      {
+        "word": "Privacy",
+        "forms": "Private (Adj)",
+        "meaning": "隐私",
+        "recycled": false
+      },
+      {
+        "word": "Cybersecurity",
+        "forms": "Cyber (Prefix)",
+        "meaning": "网络安全",
+        "recycled": false
+      },
+      {
+        "word": "Digitalization",
+        "forms": "Digital (Adj) - Digitize (V)",
+        "meaning": "数字化",
+        "recycled": false
+      },
+      {
+        "word": "Interaction",
+        "forms": "Interact (V) - Interactive (Adj)",
+        "meaning": "互动",
+        "recycled": false
+      },
+      {
+        "word": "Urbanization",
+        "forms": "Urban (Adj)",
+        "meaning": "城市化",
+        "recycled": true
+      },
+      {
+        "word": "Therapeutic",
+        "forms": "Therapy (N)",
+        "meaning": "有治疗作用的",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Double-edged sword",
+        "usage": "Noun Phrase",
+        "meaning": "双刃剑",
+        "cn_idiom": "双刃剑",
+        "example": "Technology is a double-edged sword; it connects and distracts us."
+      },
+      {
+        "idiom": "Information overload",
+        "usage": "Noun Phrase",
+        "meaning": "信息过载",
+        "cn_idiom": "信息爆炸",
+        "example": "Social media often causes information overload."
+      },
+      {
+        "idiom": "Social butterfly",
+        "usage": "Noun Phrase",
+        "meaning": "交际花 (socially active person)",
+        "cn_idiom": "交际花",
+        "example": "She is a social butterfly online but shy in real life."
+      }
+    ]
+  },
+  {
+    "week": 8,
+    "l1_vocab": [
+      {
+        "word": "Constructive",
+        "forms": "Construct (V) - Construction (N)",
+        "meaning": "建设性的",
+        "recycled": false
+      },
+      {
+        "word": "Reluctant",
+        "forms": "Reluctance (N) - Reluctantly (Adv)",
+        "meaning": "不情愿的",
+        "recycled": false
+      },
+      {
+        "word": "Grateful",
+        "forms": "Gratitude (N)",
+        "meaning": "感激的",
+        "recycled": false
+      },
+      {
+        "word": "Sensible",
+        "forms": "Sense (N)",
+        "meaning": "明智的",
+        "recycled": false
+      },
+      {
+        "word": "Hesitant",
+        "forms": "Hesitate (V) - Hesitation (N)",
+        "meaning": "犹豫的",
+        "recycled": false
+      },
+      {
+        "word": "Indispensable",
+        "forms": "Adjective",
+        "meaning": "不可或缺的",
+        "recycled": true
+      },
+      {
+        "word": "Efficient",
+        "forms": "Efficiency (N)",
+        "meaning": "高效的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "In the same boat",
+        "usage": "Fixed Phrase",
+        "meaning": "处境相同",
+        "cn_idiom": "同舟共济",
+        "example": "We are both unemployed, so we are in the same boat."
+      },
+      {
+        "idiom": "Take it to heart",
+        "usage": "Took (V2)",
+        "meaning": "往心里去 (认真对待)",
+        "cn_idiom": "铭记在心",
+        "example": "Don't take his criticism to heart; he was just tired."
+      },
+      {
+        "idiom": "A word of wisdom",
+        "usage": "Noun Phrase",
+        "meaning": "至理名言",
+        "cn_idiom": "金玉良言",
+        "example": "My grandfather gave me a word of wisdom about patience."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Counseling",
+        "forms": "Counsel (V) - Counselor (N)",
+        "meaning": "咨询 / 辅导",
+        "recycled": false
+      },
+      {
+        "word": "Dilemma",
+        "forms": "Dilemmas (Pl)",
+        "meaning": "进退两难的困境",
+        "recycled": false
+      },
+      {
+        "word": "Wisdom",
+        "forms": "Wise (Adj)",
+        "meaning": "智慧",
+        "recycled": false
+      },
+      {
+        "word": "Objective",
+        "forms": "Objectivity (N)",
+        "meaning": "客观的",
+        "recycled": false
+      },
+      {
+        "word": "Intervention",
+        "forms": "Intervene (V)",
+        "meaning": "干预",
+        "recycled": false
+      },
+      {
+        "word": "Interaction",
+        "forms": "Interact (V)",
+        "meaning": "互动",
+        "recycled": true
+      },
+      {
+        "word": "Privacy",
+        "forms": "Private (Adj)",
+        "meaning": "隐私",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Sit on the fence",
+        "usage": "Sat (V2)",
+        "meaning": "保持中立 / 观望",
+        "cn_idiom": "骑墙 / 坐山观虎斗",
+        "example": "You can't sit on the fence forever; you must make a decision."
+      },
+      {
+        "idiom": "The blind leading the blind",
+        "usage": "Noun Phrase",
+        "meaning": "问道于盲 (外行指导外行)",
+        "cn_idiom": "问道于盲",
+        "example": "Asking him for advice is like the blind leading the blind."
+      },
+      {
+        "idiom": "Learn the hard way",
+        "usage": "Learned (V2)",
+        "meaning": "通过吃亏学到教训",
+        "cn_idiom": "吃一堑长一智",
+        "example": "He didn't study and learned the hard way when he failed."
+      }
+    ]
+  },
+  {
+    "week": 9,
+    "l1_vocab": [
+      {
+        "word": "Imaginative",
+        "forms": "Imagine (V) - Imagination (N)",
+        "meaning": "富于想象力的",
+        "recycled": false
+      },
+      {
+        "word": "Gifted",
+        "forms": "Gift (N)",
+        "meaning": "有天赋的",
+        "recycled": false
+      },
+      {
+        "word": "Expressive",
+        "forms": "Express (V) - Expression (N)",
+        "meaning": "表现力强的",
+        "recycled": false
+      },
+      {
+        "word": "Observant",
+        "forms": "Observe (V) - Observation (N)",
+        "meaning": "观察力敏锐的",
+        "recycled": false
+      },
+      {
+        "word": "Messy",
+        "forms": "Mess (N)",
+        "meaning": "凌乱的",
+        "recycled": false
+      },
+      {
+        "word": "Reluctant",
+        "forms": "Reluctance (N)",
+        "meaning": "不情愿的",
+        "recycled": true
+      },
+      {
+        "word": "Grateful",
+        "forms": "Gratitude (N)",
+        "meaning": "感激的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Think outside the box",
+        "usage": "Thought (V2)",
+        "meaning": "跳出框框思考",
+        "cn_idiom": "打破常规",
+        "example": "The child thinks outside the box when painting."
+      },
+      {
+        "idiom": "In one's element",
+        "usage": "Fixed Phrase",
+        "meaning": "如鱼得水 (在自己擅长的领域)",
+        "cn_idiom": "如鱼得水",
+        "example": "She is truly in her element when drawing."
+      },
+      {
+        "idiom": "A hidden talent",
+        "usage": "Noun Phrase",
+        "meaning": "隐藏的天赋",
+        "cn_idiom": "潜能",
+        "example": "He has a hidden talent for sculpture."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Inspiration",
+        "forms": "Inspire (V) - Inspirational (Adj)",
+        "meaning": "灵感",
+        "recycled": false
+      },
+      {
+        "word": "Masterpiece",
+        "forms": "Masterpieces (Pl)",
+        "meaning": "杰作",
+        "recycled": false
+      },
+      {
+        "word": "Aesthetic",
+        "forms": "Aesthetics (N)",
+        "meaning": "审美的 / 美学的",
+        "recycled": false
+      },
+      {
+        "word": "Cognitive",
+        "forms": "Cognition (N)",
+        "meaning": "认知的",
+        "recycled": false
+      },
+      {
+        "word": "Appreciation",
+        "forms": "Appreciate (V)",
+        "meaning": "欣赏 / 鉴赏",
+        "recycled": false
+      },
+      {
+        "word": "Wisdom",
+        "forms": "Wise (Adj)",
+        "meaning": "智慧",
+        "recycled": true
+      },
+      {
+        "word": "Objective",
+        "forms": "Objectivity (N)",
+        "meaning": "客观的",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Beauty is in the eye of the beholder",
+        "usage": "Proverb",
+        "meaning": "情人眼里出西施 (审美因人而异)",
+        "cn_idiom": "各花入各眼",
+        "example": "Modern art proves that beauty is in the eye of the beholder."
+      },
+      {
+        "idiom": "Down to earth",
+        "usage": "Adjective Phrase",
+        "meaning": "务实的 / 接地气的",
+        "cn_idiom": "脚踏实地",
+        "example": "Despite his fame, the artist is very down to earth."
+      },
+      {
+        "idiom": "Paint a picture",
+        "usage": "Painted (V2)",
+        "meaning": "描绘 (情况)",
+        "cn_idiom": "绘声绘色",
+        "example": "The report paints a bleak picture of the funding crisis."
+      }
+    ]
+  },
+  {
+    "week": 10,
+    "l1_vocab": [
+      {
+        "word": "Magnificent",
+        "forms": "Magnificence (N)",
+        "meaning": "宏伟的",
+        "recycled": false
+      },
+      {
+        "word": "Contemporary",
+        "forms": "Adjective",
+        "meaning": "当代的",
+        "recycled": false
+      },
+      {
+        "word": "Spacious",
+        "forms": "Space (N)",
+        "meaning": "宽敞的",
+        "recycled": false
+      },
+      {
+        "word": "Iconic",
+        "forms": "Icon (N)",
+        "meaning": "标志性的",
+        "recycled": false
+      },
+      {
+        "word": "Dilapidated",
+        "forms": "Adjective",
+        "meaning": "破旧的 / 年久失修的",
+        "recycled": false
+      },
+      {
+        "word": "Imaginative",
+        "forms": "Imagination (N)",
+        "meaning": "富于想象力的",
+        "recycled": true
+      },
+      {
+        "word": "Observant",
+        "forms": "Observation (N)",
+        "meaning": "观察力敏锐的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "A landmark",
+        "usage": "Noun Phrase",
+        "meaning": "地标",
+        "cn_idiom": "地标",
+        "example": "The Eiffel Tower is a famous landmark."
+      },
+      {
+        "idiom": "Stand the test of time",
+        "usage": "Stood (V2)",
+        "meaning": "经受住时间的考验",
+        "cn_idiom": "历久弥新",
+        "example": "This ancient castle has stood the test of time."
+      },
+      {
+        "idiom": "Take one's breath away",
+        "usage": "Took (V2)",
+        "meaning": "令人叹为观止",
+        "cn_idiom": "叹为观止",
+        "example": "The view from the skyscraper took my breath away."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Preservation",
+        "forms": "Preserve (V)",
+        "meaning": "保护 / 维护 (建筑)",
+        "recycled": false
+      },
+      {
+        "word": "Heritage",
+        "forms": "Noun",
+        "meaning": "遗产 / 传统",
+        "recycled": false
+      },
+      {
+        "word": "Infrastructure",
+        "forms": "Noun",
+        "meaning": "基础设施",
+        "recycled": false
+      },
+      {
+        "word": "Residential",
+        "forms": "Resident (N)",
+        "meaning": "居住的 / 住宅的",
+        "recycled": false
+      },
+      {
+        "word": "Skyscraper",
+        "forms": "Noun",
+        "meaning": "摩天大楼",
+        "recycled": false
+      },
+      {
+        "word": "Aesthetic",
+        "forms": "Aesthetics (N)",
+        "meaning": "美学的",
+        "recycled": true
+      },
+      {
+        "word": "Masterpiece",
+        "forms": "Masterpieces (Pl)",
+        "meaning": "杰作",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Concrete jungle",
+        "usage": "Noun Phrase",
+        "meaning": "钢筋水泥森林",
+        "cn_idiom": "钢筋水泥丛林",
+        "example": "Skyscrapers turn the city into a concrete jungle."
+      },
+      {
+        "idiom": "Roof over one's head",
+        "usage": "Noun Phrase",
+        "meaning": "栖身之处",
+        "cn_idiom": "安身立命之地",
+        "example": "Everyone deserves a roof over their head."
+      },
+      {
+        "idiom": "Build bridges",
+        "usage": "Built (V2)",
+        "meaning": "建立关系 / 沟通",
+        "cn_idiom": "架起桥梁",
+        "example": "Architecture can build bridges between cultures."
+      }
+    ]
+  },
+  {
+    "week": 11,
+    "l1_vocab": [
+      {
+        "word": "Cutting-edge",
+        "forms": "Adjective",
+        "meaning": "尖端的 / 前沿的",
+        "recycled": false
+      },
+      {
+        "word": "Pricey",
+        "forms": "Adjective",
+        "meaning": "昂贵的 (informal)",
+        "recycled": false
+      },
+      {
+        "word": "Compact",
+        "forms": "Compactness (N)",
+        "meaning": "紧凑的 / 小巧的",
+        "recycled": false
+      },
+      {
+        "word": "Versatile",
+        "forms": "Versatility (N)",
+        "meaning": "多功能的",
+        "recycled": false
+      },
+      {
+        "word": "Obsolete",
+        "forms": "Adjective",
+        "meaning": "过时的 / 淘汰的",
+        "recycled": false
+      },
+      {
+        "word": "Magnificent",
+        "forms": "Magnificence (N)",
+        "meaning": "宏伟的",
+        "recycled": true
+      },
+      {
+        "word": "Spacious",
+        "forms": "Space (N)",
+        "meaning": "宽敞的 (storage)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Must-have",
+        "usage": "Noun Phrase",
+        "meaning": "必备品",
+        "cn_idiom": "必备之物",
+        "example": "This new smartphone is an absolute must-have."
+      },
+      {
+        "idiom": "State-of-the-art",
+        "usage": "Adjective Phrase",
+        "meaning": "最先进的",
+        "cn_idiom": "登峰造极 / 顶尖",
+        "example": "The hospital uses state-of-the-art medical equipment."
+      },
+      {
+        "idiom": "Cost an arm and a leg",
+        "usage": "Cost (V2)",
+        "meaning": "极其昂贵",
+        "cn_idiom": "价值连城 / 天价",
+        "example": "That luxury watch cost an arm and a leg."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Artificial Intelligence",
+        "forms": "AI (Abbr)",
+        "meaning": "人工智能",
+        "recycled": false
+      },
+      {
+        "word": "Isolation",
+        "forms": "Isolate (V) - Isolated (Adj)",
+        "meaning": "孤立",
+        "recycled": false
+      },
+      {
+        "word": "Distraction",
+        "forms": "Distract (V)",
+        "meaning": "干扰 / 分心",
+        "recycled": false
+      },
+      {
+        "word": "Revolutionize",
+        "forms": "Revolution (N)",
+        "meaning": "彻底变革",
+        "recycled": false
+      },
+      {
+        "word": "Virtual",
+        "forms": "Virtually (Adv)",
+        "meaning": "虚拟的",
+        "recycled": false
+      },
+      {
+        "word": "Infrastructure",
+        "forms": "Noun",
+        "meaning": "基础设施",
+        "recycled": true
+      },
+      {
+        "word": "Heritage",
+        "forms": "Noun",
+        "meaning": "遗产",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Silver lining",
+        "usage": "Noun Phrase",
+        "meaning": "一线希望 / 坏事中的好事",
+        "cn_idiom": "塞翁失马焉知非福",
+        "example": "Every cloud has a silver lining, even this mistake."
+      },
+      {
+        "idiom": "At the click of a button",
+        "usage": "Fixed Phrase",
+        "meaning": "弹指之间 / 极其便捷",
+        "cn_idiom": "轻点鼠标",
+        "example": "You can order dinner at the click of a button."
+      },
+      {
+        "idiom": "Keep up with the times",
+        "usage": "Kept (V2)",
+        "meaning": "与时俱进",
+        "cn_idiom": "与时俱进",
+        "example": "We must upgrade our software to keep up with the times."
+      }
+    ]
+  },
+  {
+    "week": 12,
+    "l1_vocab": [
+      {
+        "word": "Disoriented",
+        "forms": "Disorient (V)",
+        "meaning": "迷失方向的",
+        "recycled": false
+      },
+      {
+        "word": "Unfamiliar",
+        "forms": "Familiar (Adj)",
+        "meaning": "不熟悉的",
+        "recycled": false
+      },
+      {
+        "word": "Panicked",
+        "forms": "Panic (N/V)",
+        "meaning": "惊慌失措的",
+        "recycled": false
+      },
+      {
+        "word": "Helpful",
+        "forms": "Help (V/N)",
+        "meaning": "有帮助的",
+        "recycled": false
+      },
+      {
+        "word": "Relieved",
+        "forms": "Relief (N)",
+        "meaning": "如释重负的",
+        "recycled": false
+      },
+      {
+        "word": "Versatile",
+        "forms": "Versatility (N)",
+        "meaning": "多功能的 (phone map)",
+        "recycled": true
+      },
+      {
+        "word": "Compact",
+        "forms": "Compactness (N)",
+        "meaning": "小巧的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Go around in circles",
+        "usage": "Went (V2)",
+        "meaning": "原地打转 / 毫无进展",
+        "cn_idiom": "兜圈子",
+        "example": "We were completely lost and just went around in circles."
+      },
+      {
+        "idiom": "Lost cause",
+        "usage": "Noun Phrase",
+        "meaning": "注定失败的事 / 没救了",
+        "cn_idiom": "无可救药",
+        "example": "Trying to fix this broken compass is a lost cause."
+      },
+      {
+        "idiom": "Safe and sound",
+        "usage": "Adjective Phrase",
+        "meaning": "安然无恙",
+        "cn_idiom": "安然无恙",
+        "example": "We finally arrived home safe and sound."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Navigation",
+        "forms": "Navigate (V)",
+        "meaning": "导航",
+        "recycled": false
+      },
+      {
+        "word": "Reliance",
+        "forms": "Rely (V) - Reliable (Adj)",
+        "meaning": "依赖",
+        "recycled": false
+      },
+      {
+        "word": "Intuition",
+        "forms": "Intuitive (Adj)",
+        "meaning": "直觉",
+        "recycled": false
+      },
+      {
+        "word": "Orientation",
+        "forms": "Orient (V)",
+        "meaning": "方向感",
+        "recycled": false
+      },
+      {
+        "word": "Landmark",
+        "forms": "Landmarks (Pl)",
+        "meaning": "地标",
+        "recycled": false
+      },
+      {
+        "word": "Virtual",
+        "forms": "Virtually (Adv)",
+        "meaning": "虚拟的",
+        "recycled": true
+      },
+      {
+        "word": "Distraction",
+        "forms": "Distract (V)",
+        "meaning": "分心",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Find one's feet",
+        "usage": "Found (V2)",
+        "meaning": "适应新环境 / 站稳脚跟",
+        "cn_idiom": "站稳脚跟",
+        "example": "It took him a few months to find his feet in the new city."
+      },
+      {
+        "idiom": "Off the beaten track",
+        "usage": "Adjective Phrase",
+        "meaning": "人迹罕至的",
+        "cn_idiom": "人迹罕至",
+        "example": "The little cafe is entirely off the beaten track."
+      },
+      {
+        "idiom": "Cross that bridge when you come to it",
+        "usage": "Proverb",
+        "meaning": "船到桥头自然直",
+        "cn_idiom": "船到桥头自然直",
+        "example": "Don't worry about the final exam yet; we will cross that bridge when we come to it."
+      }
+    ]
+  },
+  {
+    "week": 13,
+    "l1_vocab": [
+      {
+        "word": "Charismatic",
+        "forms": "Charisma (N)",
+        "meaning": "有魅力的",
+        "recycled": false
+      },
+      {
+        "word": "Influential",
+        "forms": "Influence (N/V)",
+        "meaning": "有影响力的",
+        "recycled": false
+      },
+      {
+        "word": "Talented",
+        "forms": "Talent (N)",
+        "meaning": "有才华的",
+        "recycled": false
+      },
+      {
+        "word": "Humble",
+        "forms": "Humility (N)",
+        "meaning": "谦逊的",
+        "recycled": false
+      },
+      {
+        "word": "Legendary",
+        "forms": "Legend (N)",
+        "meaning": "传奇的",
+        "recycled": false
+      },
+      {
+        "word": "Relieved",
+        "forms": "Relief (N)",
+        "meaning": "如释重负的",
+        "recycled": true
+      },
+      {
+        "word": "Helpful",
+        "forms": "Helpfulness (N)",
+        "meaning": "有帮助的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Down to earth",
+        "usage": "Adjective Phrase",
+        "meaning": "接地气的 / 务实的",
+        "cn_idiom": "平易近人",
+        "example": "Despite his enormous success, he remains very down to earth."
+      },
+      {
+        "idiom": "Role model",
+        "usage": "Noun Phrase",
+        "meaning": "榜样",
+        "cn_idiom": "榜样",
+        "example": "My high school teacher was a great role model for me."
+      },
+      {
+        "idiom": "In the limelight",
+        "usage": "Fixed Phrase",
+        "meaning": "处于聚光灯下 / 受人关注",
+        "cn_idiom": "万众瞩目",
+        "example": "The young actor loves being in the limelight."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Privacy",
+        "forms": "Private (Adj)",
+        "meaning": "隐私",
+        "recycled": false
+      },
+      {
+        "word": "Reputation",
+        "forms": "Reputable (Adj)",
+        "meaning": "名誉",
+        "recycled": false
+      },
+      {
+        "word": "Scandal",
+        "forms": "Scandalous (Adj)",
+        "meaning": "丑闻",
+        "recycled": false
+      },
+      {
+        "word": "Paparazzi",
+        "forms": "Noun (Plural)",
+        "meaning": "狗仔队",
+        "recycled": false
+      },
+      {
+        "word": "Contribution",
+        "forms": "Contribute (V)",
+        "meaning": "贡献",
+        "recycled": false
+      },
+      {
+        "word": "Reliance",
+        "forms": "Rely (V)",
+        "meaning": "依赖",
+        "recycled": true
+      },
+      {
+        "word": "Orientation",
+        "forms": "Orient (V)",
+        "meaning": "方向 / 定位",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Price of fame",
+        "usage": "Noun Phrase",
+        "meaning": "成名的代价",
+        "cn_idiom": "盛名之累",
+        "example": "Losing her privacy was just the price of fame."
+      },
+      {
+        "idiom": "Household name",
+        "usage": "Noun Phrase",
+        "meaning": "家喻户晓的名字",
+        "cn_idiom": "家喻户晓",
+        "example": "That brand quickly became a household name."
+      },
+      {
+        "idiom": "Live in a fishbowl",
+        "usage": "Lived (V2)",
+        "meaning": "毫无隐私的生活",
+        "cn_idiom": "毫无隐私",
+        "example": "Celebrities often feel like they live in a fishbowl."
+      }
+    ]
+  },
+  {
+    "week": 14,
+    "l1_vocab": [
+      {
+        "word": "Bustling",
+        "forms": "Bustle (V)",
+        "meaning": "熙熙攘攘的",
+        "recycled": false
+      },
+      {
+        "word": "Affordable",
+        "forms": "Afford (V)",
+        "meaning": "负担得起的",
+        "recycled": false
+      },
+      {
+        "word": "Trendy",
+        "forms": "Trend (N)",
+        "meaning": "时髦的",
+        "recycled": false
+      },
+      {
+        "word": "Convenient",
+        "forms": "Convenience (N)",
+        "meaning": "方便的",
+        "recycled": false
+      },
+      {
+        "word": "Overcrowded",
+        "forms": "Crowd (N)",
+        "meaning": "拥挤的",
+        "recycled": false
+      },
+      {
+        "word": "Influential",
+        "forms": "Influence (N)",
+        "meaning": "有影响力的 (brands)",
+        "recycled": true
+      },
+      {
+        "word": "Charismatic",
+        "forms": "Charisma (N)",
+        "meaning": "有魅力的 (salesperson)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Shop till you drop",
+        "usage": "Shopped (V2)",
+        "meaning": "疯狂购物",
+        "cn_idiom": "血拼到底",
+        "example": "On Black Friday, we always shop till we drop."
+      },
+      {
+        "idiom": "Window shopping",
+        "usage": "Noun Phrase",
+        "meaning": "只逛不买",
+        "cn_idiom": "橱窗购物",
+        "example": "I don't have money, so I am just window shopping."
+      },
+      {
+        "idiom": "Bargain hunter",
+        "usage": "Noun Phrase",
+        "meaning": "专门买便宜货的人",
+        "cn_idiom": "捡漏者",
+        "example": "She is a keen bargain hunter who loves sales."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Consumerism",
+        "forms": "Consumer (N) - Consume (V)",
+        "meaning": "消费主义",
+        "recycled": false
+      },
+      {
+        "word": "Transaction",
+        "forms": "Transact (V)",
+        "meaning": "交易",
+        "recycled": false
+      },
+      {
+        "word": "E-commerce",
+        "forms": "Noun",
+        "meaning": "电子商务",
+        "recycled": false
+      },
+      {
+        "word": "Retail",
+        "forms": "Retailer (N)",
+        "meaning": "零售",
+        "recycled": false
+      },
+      {
+        "word": "Impulsive",
+        "forms": "Impulse (N)",
+        "meaning": "冲动的",
+        "recycled": false
+      },
+      {
+        "word": "Reputation",
+        "forms": "Reputable (Adj)",
+        "meaning": "声誉",
+        "recycled": true
+      },
+      {
+        "word": "Privacy",
+        "forms": "Private (Adj)",
+        "meaning": "隐私 (data)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Retail therapy",
+        "usage": "Noun Phrase",
+        "meaning": "购物疗法",
+        "cn_idiom": "购物解压",
+        "example": "I felt sad, so I engaged in some retail therapy."
+      },
+      {
+        "idiom": "Break the bank",
+        "usage": "Broke (V2)",
+        "meaning": "花费太高 / 倾家荡产",
+        "cn_idiom": "倾家荡产",
+        "example": "Buying that fancy dress will definitely break the bank."
+      },
+      {
+        "idiom": "Catch one's eye",
+        "usage": "Caught (V2)",
+        "meaning": "吸引眼球",
+        "cn_idiom": "引人注目",
+        "example": "The bright neon sign caught my eye."
+      }
+    ]
+  },
+  {
+    "week": 15,
+    "l1_vocab": [
+      {
+        "word": "Educational",
+        "forms": "Education (N) - Educate (V)",
+        "meaning": "有教育意义的",
+        "recycled": false
+      },
+      {
+        "word": "Captivating",
+        "forms": "Captivate (V)",
+        "meaning": "迷人的 / 吸引人的",
+        "recycled": false
+      },
+      {
+        "word": "Thought-provoking",
+        "forms": "Adjective",
+        "meaning": "发人深省的",
+        "recycled": false
+      },
+      {
+        "word": "Memorable",
+        "forms": "Memory (N)",
+        "meaning": "难忘的",
+        "recycled": false
+      },
+      {
+        "word": "Classic",
+        "forms": "Classics (Pl)",
+        "meaning": "经典的",
+        "recycled": false
+      },
+      {
+        "word": "Trendy",
+        "forms": "Trend (N)",
+        "meaning": "时髦的",
+        "recycled": true
+      },
+      {
+        "word": "Overcrowded",
+        "forms": "Crowd (N)",
+        "meaning": "拥挤的 (book fair)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Page-turner",
+        "usage": "Noun Phrase",
+        "meaning": "引人入胜的书",
+        "cn_idiom": "引人入胜之作",
+        "example": "Her latest thriller is a real page-turner."
+      },
+      {
+        "idiom": "Lose oneself in",
+        "usage": "Lost (V2)",
+        "meaning": "沉迷于...",
+        "cn_idiom": "陶醉其中",
+        "example": "I can easily lose myself in a good science fiction novel."
+      },
+      {
+        "idiom": "Judge a book by its cover",
+        "usage": "Proverb",
+        "meaning": "以貌取人",
+        "cn_idiom": "以貌取人",
+        "example": "He looks rough, but never judge a book by its cover."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Literacy",
+        "forms": "Literate (Adj)",
+        "meaning": "读写能力 / 素养",
+        "recycled": false
+      },
+      {
+        "word": "Attention span",
+        "forms": "Noun Phrase",
+        "meaning": "注意力持续时间",
+        "recycled": false
+      },
+      {
+        "word": "Preservation",
+        "forms": "Preserve (V)",
+        "meaning": "保存 (culture)",
+        "recycled": false
+      },
+      {
+        "word": "Accessibility",
+        "forms": "Access (V) - Accessible (Adj)",
+        "meaning": "可访问性 / 便捷性",
+        "recycled": false
+      },
+      {
+        "word": "Imagination",
+        "forms": "Imagine (V) - Imaginative (Adj)",
+        "meaning": "想象力",
+        "recycled": false
+      },
+      {
+        "word": "Impulsive",
+        "forms": "Impulse (N)",
+        "meaning": "冲动的",
+        "recycled": true
+      },
+      {
+        "word": "Consumerism",
+        "forms": "Consume (V)",
+        "meaning": "消费主义",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Read between the lines",
+        "usage": "Read (V2)",
+        "meaning": "读懂言外之意",
+        "cn_idiom": "通过字里行间领会",
+        "example": "You have to read between the lines to understand his true message."
+      },
+      {
+        "idiom": "Bookworm",
+        "usage": "Noun Phrase",
+        "meaning": "书呆子 / 爱书的人",
+        "cn_idiom": "书虫",
+        "example": "My sister is a total bookworm and reads daily."
+      },
+      {
+        "idiom": "Hit the books",
+        "usage": "Hit (V2)",
+        "meaning": "用功读书",
+        "cn_idiom": "用功读书",
+        "example": "I have an exam tomorrow, so I need to hit the books."
+      }
+    ]
+  },
+  {
+    "week": 16,
+    "l1_vocab": [
+      {
+        "word": "Hilarious",
+        "forms": "Hilarity (N)",
+        "meaning": "极滑稽的",
+        "recycled": false
+      },
+      {
+        "word": "Amusing",
+        "forms": "Amuse (V) - Amusement (N)",
+        "meaning": "有趣的",
+        "recycled": false
+      },
+      {
+        "word": "Awkward",
+        "forms": "Awkwardness (N)",
+        "meaning": "尴尬的",
+        "recycled": false
+      },
+      {
+        "word": "Contagious",
+        "forms": "Contagion (N)",
+        "meaning": "有感染力的 (laughter)",
+        "recycled": false
+      },
+      {
+        "word": "Joyful",
+        "forms": "Joy (N)",
+        "meaning": "快乐的",
+        "recycled": false
+      },
+      {
+        "word": "Memorable",
+        "forms": "Memory (N)",
+        "meaning": "难忘的",
+        "recycled": true
+      },
+      {
+        "word": "Captivating",
+        "forms": "Captivate (V)",
+        "meaning": "迷人的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Burst into laughter",
+        "usage": "Burst (V2)",
+        "meaning": "突然大笑",
+        "cn_idiom": "哄堂大笑",
+        "example": "The whole class burst into laughter at his joke."
+      },
+      {
+        "idiom": "Crack a joke",
+        "usage": "Cracked (V2)",
+        "meaning": "讲笑话",
+        "cn_idiom": "讲笑话",
+        "example": "He loves to crack a joke during serious meetings."
+      },
+      {
+        "idiom": "Laughter is the best medicine",
+        "usage": "Proverb",
+        "meaning": "笑是最好的良药",
+        "cn_idiom": "笑一笑十年少",
+        "example": "They say laughter is the best medicine for sadness."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Expressive",
+        "forms": "Express (V) - Expression (N)",
+        "meaning": "表现力丰富的",
+        "recycled": false
+      },
+      {
+        "word": "Suppression",
+        "forms": "Suppress (V)",
+        "meaning": "压抑 (emotions)",
+        "recycled": false
+      },
+      {
+        "word": "Universal",
+        "forms": "Universe (N)",
+        "meaning": "普遍的",
+        "recycled": false
+      },
+      {
+        "word": "Psychological",
+        "forms": "Psychology (N)",
+        "meaning": "心理的",
+        "recycled": false
+      },
+      {
+        "word": "Bonding",
+        "forms": "Bond (V/N)",
+        "meaning": "建立纽带",
+        "recycled": false
+      },
+      {
+        "word": "Literacy",
+        "forms": "Literate (Adj)",
+        "meaning": "素养 (emotional)",
+        "recycled": true
+      },
+      {
+        "word": "Accessibility",
+        "forms": "Accessible (Adj)",
+        "meaning": "可接近性",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Wear one's heart on one's sleeve",
+        "usage": "Wore (V2)",
+        "meaning": "情感外露",
+        "cn_idiom": "真情流露",
+        "example": "She always wears her heart on her sleeve."
+      },
+      {
+        "idiom": "Keep a straight face",
+        "usage": "Kept (V2)",
+        "meaning": "板着脸 / 忍住不笑",
+        "cn_idiom": "一本正经",
+        "example": "I couldn't keep a straight face when he fell."
+      },
+      {
+        "idiom": "Sense of humor",
+        "usage": "Noun Phrase",
+        "meaning": "幽默感",
+        "cn_idiom": "幽默感",
+        "example": "He has a great sense of humor."
+      }
+    ]
+  },
+  {
+    "week": 17,
+    "l1_vocab": [
+      {
+        "word": "Supportive",
+        "forms": "Support (V/N)",
+        "meaning": "支持的",
+        "recycled": false
+      },
+      {
+        "word": "Intimate",
+        "forms": "Intimacy (N)",
+        "meaning": "亲密的",
+        "recycled": false
+      },
+      {
+        "word": "Childhood",
+        "forms": "Noun",
+        "meaning": "童年",
+        "recycled": false
+      },
+      {
+        "word": "Inseparable",
+        "forms": "Separate (V)",
+        "meaning": "形影不离的",
+        "recycled": false
+      },
+      {
+        "word": "Considerate",
+        "forms": "Consider (V)",
+        "meaning": "体贴的",
+        "recycled": false
+      },
+      {
+        "word": "Hilarious",
+        "forms": "Hilarity (N)",
+        "meaning": "极滑稽的",
+        "recycled": true
+      },
+      {
+        "word": "Joyful",
+        "forms": "Joy (N)",
+        "meaning": "快乐的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Through thick and thin",
+        "usage": "Fixed Phrase",
+        "meaning": "风雨同舟",
+        "cn_idiom": "风雨同舟",
+        "example": "We have been best friends through thick and thin."
+      },
+      {
+        "idiom": "Hit it off",
+        "usage": "Hit (V2)",
+        "meaning": "一见如故",
+        "cn_idiom": "一见如故",
+        "example": "They hit it off as soon as they met."
+      },
+      {
+        "idiom": "Drift apart",
+        "usage": "Drifted (V2)",
+        "meaning": "逐渐疏远",
+        "cn_idiom": "渐行渐远",
+        "example": "Over the years, the two friends began to drift apart."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Companionship",
+        "forms": "Companion (N)",
+        "meaning": "陪伴 / 友谊",
+        "recycled": false
+      },
+      {
+        "word": "Superficial",
+        "forms": "Adjective",
+        "meaning": "肤浅的",
+        "recycled": false
+      },
+      {
+        "word": "Colleague",
+        "forms": "Colleagues (Pl)",
+        "meaning": "同事",
+        "recycled": false
+      },
+      {
+        "word": "Interaction",
+        "forms": "Interact (V)",
+        "meaning": "互动",
+        "recycled": false
+      },
+      {
+        "word": "Lifelong",
+        "forms": "Adjective",
+        "meaning": "终身的",
+        "recycled": false
+      },
+      {
+        "word": "Psychological",
+        "forms": "Psychology (N)",
+        "meaning": "心理的",
+        "recycled": true
+      },
+      {
+        "word": "Universal",
+        "forms": "Universe (N)",
+        "meaning": "普遍的",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Fair-weather friend",
+        "usage": "Noun Phrase",
+        "meaning": "酒肉朋友",
+        "cn_idiom": "酒肉朋友",
+        "example": "I realized he was just a fair-weather friend when I lost my job."
+      },
+      {
+        "idiom": "See eye to eye",
+        "usage": "Saw (V2)",
+        "meaning": "看法一致",
+        "cn_idiom": "所见略同",
+        "example": "We don't always see eye to eye on politics."
+      },
+      {
+        "idiom": "A friend in need is a friend indeed",
+        "usage": "Proverb",
+        "meaning": "患难见真情",
+        "cn_idiom": "患难见真情",
+        "example": "She helped me when I was broke; a friend in need is a friend indeed."
+      }
+    ]
+  },
+  {
+    "week": 18,
+    "l1_vocab": [
+      {
+        "word": "Cozy",
+        "forms": "Coziness (N)",
+        "meaning": "舒适的 / 温馨的",
+        "recycled": false
+      },
+      {
+        "word": "Spacious",
+        "forms": "Space (N)",
+        "meaning": "宽敞的",
+        "recycled": false
+      },
+      {
+        "word": "Decorated",
+        "forms": "Decorate (V) - Decoration (N)",
+        "meaning": "装饰过的",
+        "recycled": false
+      },
+      {
+        "word": "Modern",
+        "forms": "Modernize (V)",
+        "meaning": "现代的",
+        "recycled": false
+      },
+      {
+        "word": "Messy",
+        "forms": "Mess (N)",
+        "meaning": "凌乱的",
+        "recycled": false
+      },
+      {
+        "word": "Supportive",
+        "forms": "Support (V)",
+        "meaning": "支持的 (environment)",
+        "recycled": true
+      },
+      {
+        "word": "Intimate",
+        "forms": "Intimacy (N)",
+        "meaning": "私密的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Home sweet home",
+        "usage": "Fixed Phrase",
+        "meaning": "温馨的家",
+        "cn_idiom": "金窝银窝不如自己的狗窝",
+        "example": "It feels so good to be back, home sweet home."
+      },
+      {
+        "idiom": "Make oneself at home",
+        "usage": "Made (V2)",
+        "meaning": "不拘束 / 像在自己家一样",
+        "cn_idiom": "宾至如归",
+        "example": "Please come in, sit down, and make yourself at home."
+      },
+      {
+        "idiom": "Peace and quiet",
+        "usage": "Noun Phrase",
+        "meaning": "宁静",
+        "cn_idiom": "清静",
+        "example": "I moved to the countryside for some peace and quiet."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Affordability",
+        "forms": "Afford (V) - Affordable (Adj)",
+        "meaning": "可负担性",
+        "recycled": false
+      },
+      {
+        "word": "Urban",
+        "forms": "Urbanization (N)",
+        "meaning": "城市的",
+        "recycled": false
+      },
+      {
+        "word": "Shortage",
+        "forms": "Short (Adj)",
+        "meaning": "短缺",
+        "recycled": false
+      },
+      {
+        "word": "Investment",
+        "forms": "Invest (V)",
+        "meaning": "投资",
+        "recycled": false
+      },
+      {
+        "word": "Regulation",
+        "forms": "Regulate (V)",
+        "meaning": "法规 / 管制",
+        "recycled": false
+      },
+      {
+        "word": "Lifelong",
+        "forms": "Adjective",
+        "meaning": "终身的 (mortgage)",
+        "recycled": true
+      },
+      {
+        "word": "Superficial",
+        "forms": "Adjective",
+        "meaning": "表面的 (decoration)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Get on the property ladder",
+        "usage": "Got (V2)",
+        "meaning": "买第一套房",
+        "cn_idiom": "置业",
+        "example": "It is difficult for young people to get on the property ladder."
+      },
+      {
+        "idiom": "Go through the roof",
+        "usage": "Went (V2)",
+        "meaning": "飞涨 (价格)",
+        "cn_idiom": "飞涨",
+        "example": "House prices in this city have gone through the roof."
+      },
+      {
+        "idiom": "A roof over one's head",
+        "usage": "Noun Phrase",
+        "meaning": "栖身之处",
+        "cn_idiom": "栖身之处",
+        "example": "Everyone deserves to have a roof over their head."
+      }
+    ]
+  },
+  {
+    "week": 19,
+    "l1_vocab": [
+      {
+        "word": "Sentimental",
+        "forms": "Sentiment (N)",
+        "meaning": "情感的 / 怀旧的",
+        "recycled": false
+      },
+      {
+        "word": "Valuable",
+        "forms": "Value (N/V)",
+        "meaning": "宝贵的",
+        "recycled": false
+      },
+      {
+        "word": "Antique",
+        "forms": "Noun / Adj",
+        "meaning": "古董 / 古老的",
+        "recycled": false
+      },
+      {
+        "word": "Irreplaceable",
+        "forms": "Replace (V)",
+        "meaning": "不可替代的",
+        "recycled": false
+      },
+      {
+        "word": "Fragile",
+        "forms": "Fragility (N)",
+        "meaning": "易碎的",
+        "recycled": false
+      },
+      {
+        "word": "Cozy",
+        "forms": "Coziness (N)",
+        "meaning": "温馨的",
+        "recycled": true
+      },
+      {
+        "word": "Decorated",
+        "forms": "Decorate (V)",
+        "meaning": "装饰的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Blast from the past",
+        "usage": "Noun Phrase",
+        "meaning": "勾起往事的事物",
+        "cn_idiom": "往事重现",
+        "example": "Hearing that old song on the radio was a blast from the past."
+      },
+      {
+        "idiom": "Hold dear",
+        "usage": "Held (V2)",
+        "meaning": "珍视",
+        "cn_idiom": "珍视",
+        "example": "She holds her grandmother's necklace dear."
+      },
+      {
+        "idiom": "Pass down",
+        "usage": "Passed (V2)",
+        "meaning": "传下来",
+        "cn_idiom": "传承",
+        "example": "This recipe has been passed down for generations."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Consumerism",
+        "forms": "Consume (V)",
+        "meaning": "消费主义",
+        "recycled": false
+      },
+      {
+        "word": "Materialistic",
+        "forms": "Materialism (N)",
+        "meaning": "物质主义的",
+        "recycled": false
+      },
+      {
+        "word": "Nostalgia",
+        "forms": "Nostalgic (Adj)",
+        "meaning": "怀旧",
+        "recycled": false
+      },
+      {
+        "word": "Sustainability",
+        "forms": "Sustain (V)",
+        "meaning": "可持续性",
+        "recycled": false
+      },
+      {
+        "word": "Accumulate",
+        "forms": "Accumulation (N)",
+        "meaning": "积累",
+        "recycled": false
+      },
+      {
+        "word": "Investment",
+        "forms": "Invest (V)",
+        "meaning": "投资",
+        "recycled": true
+      },
+      {
+        "word": "Affordability",
+        "forms": "Afford (V)",
+        "meaning": "购买力",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "One man's trash is another man's treasure",
+        "usage": "Proverb",
+        "meaning": "变废为宝",
+        "cn_idiom": "彼之砒霜吾之蜜糖",
+        "example": "I found this beautiful lamp at a yard sale; one man's trash is another man's treasure."
+      },
+      {
+        "idiom": "Hoarder",
+        "usage": "Noun Phrase",
+        "meaning": "囤积狂",
+        "cn_idiom": "松鼠症 / 囤积狂",
+        "example": "My uncle is a hoarder who keeps every old newspaper."
+      },
+      {
+        "idiom": "Throwaway society",
+        "usage": "Noun Phrase",
+        "meaning": "用完即弃的社会",
+        "cn_idiom": "一次性消费社会",
+        "example": "We live in a throwaway society where nothing is repaired."
+      }
+    ]
+  },
+  {
+    "week": 20,
+    "l1_vocab": [
+      {
+        "word": "Exhausting",
+        "forms": "Exhaust (V) - Exhausted (Adj)",
+        "meaning": "筋疲力尽的",
+        "recycled": false
+      },
+      {
+        "word": "Scenic",
+        "forms": "Scenery (N)",
+        "meaning": "风景优美的",
+        "recycled": false
+      },
+      {
+        "word": "Adventurous",
+        "forms": "Adventure (N)",
+        "meaning": "爱冒险的",
+        "recycled": false
+      },
+      {
+        "word": "Spontaneous",
+        "forms": "Spontaneity (N)",
+        "meaning": "自发的 / 随性的",
+        "recycled": false
+      },
+      {
+        "word": "Delayed",
+        "forms": "Delay (N/V)",
+        "meaning": "延误的",
+        "recycled": false
+      },
+      {
+        "word": "Sentimental",
+        "forms": "Sentiment (N)",
+        "meaning": "情感的 (journey)",
+        "recycled": true
+      },
+      {
+        "word": "Valuable",
+        "forms": "Value (N)",
+        "meaning": "宝贵的 (experience)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Hit the road",
+        "usage": "Hit (V2)",
+        "meaning": "上路 / 出发",
+        "cn_idiom": "上路",
+        "example": "We need to hit the road early tomorrow morning."
+      },
+      {
+        "idiom": "Travel light",
+        "usage": "Traveled (V2)",
+        "meaning": "轻装上阵",
+        "cn_idiom": "轻装上阵",
+        "example": "I prefer to travel light and only take a backpack."
+      },
+      {
+        "idiom": "Bumpy ride",
+        "usage": "Noun Phrase",
+        "meaning": "颠簸的旅程 / 坎坷",
+        "cn_idiom": "坎坷",
+        "example": "The project was a bumpy ride, but we finished it."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Eco-tourism",
+        "forms": "Tourist (N)",
+        "meaning": "生态旅游",
+        "recycled": false
+      },
+      {
+        "word": "Emission",
+        "forms": "Emit (V)",
+        "meaning": "排放",
+        "recycled": false
+      },
+      {
+        "word": "Commute",
+        "forms": "Commuter (N)",
+        "meaning": "通勤",
+        "recycled": false
+      },
+      {
+        "word": "Congestion",
+        "forms": "Congest (V)",
+        "meaning": "拥堵",
+        "recycled": false
+      },
+      {
+        "word": "Preparation",
+        "forms": "Prepare (V)",
+        "meaning": "准备",
+        "recycled": false
+      },
+      {
+        "word": "Sustainability",
+        "forms": "Sustainable (Adj)",
+        "meaning": "可持续性",
+        "recycled": true
+      },
+      {
+        "word": "Accumulate",
+        "forms": "Accumulation (N)",
+        "meaning": "积累 (miles)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Carbon footprint",
+        "usage": "Noun Phrase",
+        "meaning": "碳足迹",
+        "cn_idiom": "碳足迹",
+        "example": "We should reduce our carbon footprint by flying less."
+      },
+      {
+        "idiom": "Hustle and bustle",
+        "usage": "Noun Phrase",
+        "meaning": "熙熙攘攘",
+        "cn_idiom": "熙熙攘攘",
+        "example": "She moved to escape the hustle and bustle of the city."
+      },
+      {
+        "idiom": "Rush hour",
+        "usage": "Noun Phrase",
+        "meaning": "高峰期",
+        "cn_idiom": "高峰期",
+        "example": "Traffic is terrible during the morning rush hour."
+      }
+    ]
+  },
+  {
+    "week": 21,
+    "l1_vocab": [
+      {
+        "word": "Exceptional",
+        "forms": "Exception (N)",
+        "meaning": "杰出的 / 异常的",
+        "recycled": false
+      },
+      {
+        "word": "Innovative",
+        "forms": "Innovation (N)",
+        "meaning": "创新的",
+        "recycled": false
+      },
+      {
+        "word": "Dedicated",
+        "forms": "Dedicate (V) - Dedication (N)",
+        "meaning": "专注的 / 献身的",
+        "recycled": false
+      },
+      {
+        "word": "Versatile",
+        "forms": "Versatility (N)",
+        "meaning": "多才多艺的",
+        "recycled": false
+      },
+      {
+        "word": "Visionary",
+        "forms": "Vision (N)",
+        "meaning": "有远见的",
+        "recycled": false
+      },
+      {
+        "word": "Adventurous",
+        "forms": "Adventure (N)",
+        "meaning": "敢于创新的",
+        "recycled": true
+      },
+      {
+        "word": "Spontaneous",
+        "forms": "Spontaneity (N)",
+        "meaning": "自发的 (creativity)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Born with a silver spoon",
+        "usage": "Adjective Phrase",
+        "meaning": "含着金汤匙出生 (context of luck vs talent)",
+        "cn_idiom": "含着金汤匙出生",
+        "example": "He didn't have to work hard because he was born with a silver spoon."
+      },
+      {
+        "idiom": "Think on one's feet",
+        "usage": "Thought (V2)",
+        "meaning": "反应敏捷",
+        "cn_idiom": "随机应变",
+        "example": "A good debater must be able to think on their feet."
+      },
+      {
+        "idiom": "A natural",
+        "usage": "Noun Phrase",
+        "meaning": "天生好手",
+        "cn_idiom": "天生好手",
+        "example": "She had never skied before, but she proved to be a natural."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Innate",
+        "forms": "Adjective",
+        "meaning": "天生的",
+        "recycled": false
+      },
+      {
+        "word": "Potential",
+        "forms": "Adjective / Noun",
+        "meaning": "潜力",
+        "recycled": false
+      },
+      {
+        "word": "Nurture",
+        "forms": "Nurtured (V2)",
+        "meaning": "培养 / 后天教育",
+        "recycled": false
+      },
+      {
+        "word": "Academic",
+        "forms": "Academy (N)",
+        "meaning": "学术的",
+        "recycled": false
+      },
+      {
+        "word": "Intelligence",
+        "forms": "Intelligent (Adj)",
+        "meaning": "智力",
+        "recycled": false
+      },
+      {
+        "word": "Preparation",
+        "forms": "Prepare (V)",
+        "meaning": "准备",
+        "recycled": true
+      },
+      {
+        "word": "Emission",
+        "forms": "Emit (V)",
+        "meaning": "排放 (irrelevant here, swap)",
+        "recycled": false
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Practice makes perfect",
+        "usage": "Proverb",
+        "meaning": "熟能生巧",
+        "cn_idiom": "熟能生巧",
+        "example": "Don't give up on the guitar; practice makes perfect."
+      },
+      {
+        "idiom": "Brainy",
+        "usage": "Adjective",
+        "meaning": "聪明的",
+        "cn_idiom": "脑瓜灵",
+        "example": "My younger sister is very brainy and always gets top marks."
+      },
+      {
+        "idiom": "Jack of all trades",
+        "usage": "Noun Phrase",
+        "meaning": "万金油 (博而不精)",
+        "cn_idiom": "万金油",
+        "example": "He is a jack of all trades who can fix almost anything in the house."
+      }
+    ]
+  },
+  {
+    "week": 22,
+    "l1_vocab": [
+      {
+        "word": "Entrepreneurial",
+        "forms": "Entrepreneur (N)",
+        "meaning": "有创业精神的",
+        "recycled": false
+      },
+      {
+        "word": "Diligent",
+        "forms": "Diligence (N)",
+        "meaning": "勤奋的",
+        "recycled": false
+      },
+      {
+        "word": "Authentic",
+        "forms": "Authenticity (N)",
+        "meaning": "正宗的 / 真实的",
+        "recycled": false
+      },
+      {
+        "word": "Prosperous",
+        "forms": "Prosperity (N)",
+        "meaning": "繁荣的",
+        "recycled": false
+      },
+      {
+        "word": "Reputable",
+        "forms": "Reputation (N)",
+        "meaning": "声誉好的",
+        "recycled": false
+      },
+      {
+        "word": "Dedicated",
+        "forms": "Dedication (N)",
+        "meaning": "敬业的",
+        "recycled": true
+      },
+      {
+        "word": "Exceptional",
+        "forms": "Exception (N)",
+        "meaning": "杰出的 (service)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Run the show",
+        "usage": "Ran (V2)",
+        "meaning": "掌管 / 主持大局",
+        "cn_idiom": "当家作主",
+        "example": "She is the one who really runs the show in this department."
+      },
+      {
+        "idiom": "Pass the torch",
+        "usage": "Passed (V2)",
+        "meaning": "薪火相传 / 交接",
+        "cn_idiom": "薪火相传",
+        "example": "The retiring CEO is ready to pass the torch to his successor."
+      },
+      {
+        "idiom": "Mom and Pop store",
+        "usage": "Noun Phrase",
+        "meaning": "夫妻店",
+        "cn_idiom": "夫妻店",
+        "example": "We prefer buying our groceries from the local mom and pop store."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Corporation",
+        "forms": "Corporate (Adj)",
+        "meaning": "大公司 / 企业",
+        "recycled": false
+      },
+      {
+        "word": "Competition",
+        "forms": "Compete (V) - Competitive (Adj)",
+        "meaning": "竞争",
+        "recycled": false
+      },
+      {
+        "word": "Monopoly",
+        "forms": "Monopolize (V)",
+        "meaning": "垄断",
+        "recycled": false
+      },
+      {
+        "word": "Economy",
+        "forms": "Economic (Adj)",
+        "meaning": "经济",
+        "recycled": false
+      },
+      {
+        "word": "Startup",
+        "forms": "Noun",
+        "meaning": "初创公司",
+        "recycled": false
+      },
+      {
+        "word": "Innate",
+        "forms": "Adjective",
+        "meaning": "固有的 (risk)",
+        "recycled": true
+      },
+      {
+        "word": "Potential",
+        "forms": "Noun",
+        "meaning": "潜力",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Cut-throat",
+        "usage": "Adjective",
+        "meaning": "残酷的 (竞争)",
+        "cn_idiom": "你死我活",
+        "example": "The advertising industry can be extremely cut-throat."
+      },
+      {
+        "idiom": "Go out of business",
+        "usage": "Went (V2)",
+        "meaning": "破产 / 倒闭",
+        "cn_idiom": "倒闭",
+        "example": "Many small shops went out of business during the pandemic."
+      },
+      {
+        "idiom": "Big fish eat little fish",
+        "usage": "Proverb",
+        "meaning": "大鱼吃小鱼",
+        "cn_idiom": "弱肉强食",
+        "example": "In the corporate world, big fish eat little fish."
+      }
+    ]
+  },
+  {
+    "week": 23,
+    "l1_vocab": [
+      {
+        "word": "Nostalgic",
+        "forms": "Nostalgia (N)",
+        "meaning": "怀旧的",
+        "recycled": false
+      },
+      {
+        "word": "Imaginative",
+        "forms": "Imagination (N)",
+        "meaning": "富于想象的",
+        "recycled": false
+      },
+      {
+        "word": "Durable",
+        "forms": "Durability (N)",
+        "meaning": "耐用的",
+        "recycled": false
+      },
+      {
+        "word": "Precious",
+        "forms": "Adjective",
+        "meaning": "珍贵的",
+        "recycled": false
+      },
+      {
+        "word": "Educational",
+        "forms": "Educate (V)",
+        "meaning": "有教育意义的",
+        "recycled": false
+      },
+      {
+        "word": "Authentic",
+        "forms": "Authenticity (N)",
+        "meaning": "真实的 (memories)",
+        "recycled": true
+      },
+      {
+        "word": "Prosperous",
+        "forms": "Prosperity (N)",
+        "meaning": "富裕的 (childhood)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Child's play",
+        "usage": "Noun Phrase",
+        "meaning": "小儿科 / 极容易的事",
+        "cn_idiom": "小儿科",
+        "example": "For an expert like him, fixing this engine is child's play."
+      },
+      {
+        "idiom": "Trip down memory lane",
+        "usage": "Noun Phrase",
+        "meaning": "追忆往昔",
+        "cn_idiom": "追忆往昔",
+        "example": "Looking through old photo albums was a real trip down memory lane."
+      },
+      {
+        "idiom": "Pride and joy",
+        "usage": "Noun Phrase",
+        "meaning": "掌上明珠 / 最得意的珍宝",
+        "cn_idiom": "掌上明珠",
+        "example": "His newly restored vintage car is his pride and joy."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Creativity",
+        "forms": "Create (V) - Creative (Adj)",
+        "meaning": "创造力",
+        "recycled": false
+      },
+      {
+        "word": "Development",
+        "forms": "Develop (V)",
+        "meaning": "发展",
+        "recycled": false
+      },
+      {
+        "word": "Socialization",
+        "forms": "Socialize (V)",
+        "meaning": "社会化",
+        "recycled": false
+      },
+      {
+        "word": "Cognitive",
+        "forms": "Cognition (N)",
+        "meaning": "认知的",
+        "recycled": false
+      },
+      {
+        "word": "Interaction",
+        "forms": "Interact (V)",
+        "meaning": "互动",
+        "recycled": false
+      },
+      {
+        "word": "Competition",
+        "forms": "Compete (V)",
+        "meaning": "竞争",
+        "recycled": true
+      },
+      {
+        "word": "Economy",
+        "forms": "Economic (Adj)",
+        "meaning": "经济 (cost of toys)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Spoiled brat",
+        "usage": "Noun Phrase",
+        "meaning": "被宠坏的孩子",
+        "cn_idiom": "被宠坏的孩子",
+        "example": "She acts like a spoiled brat when she doesn't get her way."
+      },
+      {
+        "idiom": "Wrap someone in cotton wool",
+        "usage": "Wrapped (V2)",
+        "meaning": "过分保护",
+        "cn_idiom": "娇生惯养",
+        "example": "You cannot wrap your children in cotton wool forever."
+      },
+      {
+        "idiom": "Play by the rules",
+        "usage": "Played (V2)",
+        "meaning": "遵守规则",
+        "cn_idiom": "循规蹈矩",
+        "example": "It is important that everyone learns to play by the rules."
+      }
+    ]
+  },
+  {
+    "week": 24,
+    "l1_vocab": [
+      {
+        "word": "Frustrated",
+        "forms": "Frustrate (V) - Frustration (N)",
+        "meaning": "沮丧的 / 挫败的",
+        "recycled": false
+      },
+      {
+        "word": "Helpless",
+        "forms": "Helplessness (N)",
+        "meaning": "无助的",
+        "recycled": false
+      },
+      {
+        "word": "Unexpected",
+        "forms": "Expect (V)",
+        "meaning": "意想不到的",
+        "recycled": false
+      },
+      {
+        "word": "Inconvenient",
+        "forms": "Inconvenience (N)",
+        "meaning": "不便的",
+        "recycled": false
+      },
+      {
+        "word": "Urgent",
+        "forms": "Urgency (N)",
+        "meaning": "紧急的",
+        "recycled": false
+      },
+      {
+        "word": "Durable",
+        "forms": "Durability (N)",
+        "meaning": "耐用的 (not durable)",
+        "recycled": true
+      },
+      {
+        "word": "Precious",
+        "forms": "Adjective",
+        "meaning": "宝贵的 (time)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "In the dark",
+        "usage": "Fixed Phrase",
+        "meaning": "蒙在鼓里 / 在黑暗中",
+        "cn_idiom": "两眼一抹黑",
+        "example": "They kept me in the dark about the surprise party."
+      },
+      {
+        "idiom": "Out of order",
+        "usage": "Adjective Phrase",
+        "meaning": "故障",
+        "cn_idiom": "坏了",
+        "example": "The vending machine is currently out of order."
+      },
+      {
+        "idiom": "Save the day",
+        "usage": "Saved (V2)",
+        "meaning": "挽救局面",
+        "cn_idiom": "力挽狂澜",
+        "example": "Her quick thinking really saved the day."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Dependency",
+        "forms": "Depend (V)",
+        "meaning": "依赖",
+        "recycled": false
+      },
+      {
+        "word": "Obsolescence",
+        "forms": "Obsolete (Adj)",
+        "meaning": "废弃 / 淘汰",
+        "recycled": false
+      },
+      {
+        "word": "Reliability",
+        "forms": "Reliable (Adj)",
+        "meaning": "可靠性",
+        "recycled": false
+      },
+      {
+        "word": "Manufacturing",
+        "forms": "Manufacture (V)",
+        "meaning": "制造业",
+        "recycled": false
+      },
+      {
+        "word": "Sustainability",
+        "forms": "Sustainable (Adj)",
+        "meaning": "可持续性",
+        "recycled": false
+      },
+      {
+        "word": "Development",
+        "forms": "Develop (V)",
+        "meaning": "发展",
+        "recycled": true
+      },
+      {
+        "word": "Creativity",
+        "forms": "Creative (Adj)",
+        "meaning": "创造力 (solving problems)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Throwaway culture",
+        "usage": "Noun Phrase",
+        "meaning": "用完即弃的文化",
+        "cn_idiom": "快餐文化",
+        "example": "Environmentalists are fighting against the throwaway culture."
+      },
+      {
+        "idiom": "Wear and tear",
+        "usage": "Noun Phrase",
+        "meaning": "磨损",
+        "cn_idiom": "磨损",
+        "example": "The carpet is showing signs of normal wear and tear."
+      },
+      {
+        "idiom": "Don't fix what isn't broken",
+        "usage": "Proverb",
+        "meaning": "没坏就别修 (多一事不如少一事)",
+        "cn_idiom": "画蛇添足",
+        "example": "The system works fine, so don't fix what isn't broken."
+      }
+    ]
+  },
+  {
+    "week": 25,
+    "l1_vocab": [
+      {
+        "word": "Persuasive",
+        "forms": "Persuade (V) - Persuasion (N)",
+        "meaning": "有说服力的",
+        "recycled": false
+      },
+      {
+        "word": "Reluctant",
+        "forms": "Reluctance (N)",
+        "meaning": "不情愿的",
+        "recycled": false
+      },
+      {
+        "word": "Supportive",
+        "forms": "Support (V)",
+        "meaning": "支持的",
+        "recycled": false
+      },
+      {
+        "word": "Appreciative",
+        "forms": "Appreciate (V)",
+        "meaning": "感激的",
+        "recycled": false
+      },
+      {
+        "word": "Wise",
+        "forms": "Wisdom (N)",
+        "meaning": "明智的",
+        "recycled": false
+      },
+      {
+        "word": "Frustrated",
+        "forms": "Frustration (N)",
+        "meaning": "沮丧的",
+        "recycled": true
+      },
+      {
+        "word": "Urgent",
+        "forms": "Urgency (N)",
+        "meaning": "紧急的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Talk someone into something",
+        "usage": "Talked (V2)",
+        "meaning": "说服某人做某事",
+        "cn_idiom": "说服",
+        "example": "I managed to talk him into joining our gym."
+      },
+      {
+        "idiom": "Give it a shot",
+        "usage": "Gave (V2)",
+        "meaning": "试一试",
+        "cn_idiom": "试一试",
+        "example": "I have never played tennis, but I'll give it a shot."
+      },
+      {
+        "idiom": "Two heads are better than one",
+        "usage": "Proverb",
+        "meaning": "三个臭皮匠顶个诸葛亮",
+        "cn_idiom": "集思广益",
+        "example": "Let's solve this puzzle together; two heads are better than one."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Guidance",
+        "forms": "Guide (V)",
+        "meaning": "指导",
+        "recycled": false
+      },
+      {
+        "word": "Mentorship",
+        "forms": "Mentor (N)",
+        "meaning": "导师制度",
+        "recycled": false
+      },
+      {
+        "word": "Motivation",
+        "forms": "Motivate (V)",
+        "meaning": "动力",
+        "recycled": false
+      },
+      {
+        "word": "Criticism",
+        "forms": "Criticize (V) - Critical (Adj)",
+        "meaning": "批评",
+        "recycled": false
+      },
+      {
+        "word": "Leadership",
+        "forms": "Leader (N)",
+        "meaning": "领导力",
+        "recycled": false
+      },
+      {
+        "word": "Reliability",
+        "forms": "Reliable (Adj)",
+        "meaning": "可靠性",
+        "recycled": true
+      },
+      {
+        "word": "Dependency",
+        "forms": "Depend (V)",
+        "meaning": "依赖",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Peer pressure",
+        "usage": "Noun Phrase",
+        "meaning": "同伴压力",
+        "cn_idiom": "同辈压力",
+        "example": "He only started drinking because of peer pressure."
+      },
+      {
+        "idiom": "Lead by example",
+        "usage": "Led (V2)",
+        "meaning": "以身作则",
+        "cn_idiom": "以身作则",
+        "example": "A truly great manager knows how to lead by example."
+      },
+      {
+        "idiom": "Constructive criticism",
+        "usage": "Noun Phrase",
+        "meaning": "建设性批评",
+        "cn_idiom": "建设性意见",
+        "example": "I always welcome constructive criticism to improve my work."
+      }
+    ]
+  },
+  {
+    "week": 26,
+    "l1_vocab": [
+      {
+        "word": "Attentive",
+        "forms": "Attention (N)",
+        "meaning": "体贴的 / 殷勤的",
+        "recycled": false
+      },
+      {
+        "word": "Impeccable",
+        "forms": "Adjective",
+        "meaning": "无懈可击的 / 完美的",
+        "recycled": false
+      },
+      {
+        "word": "Satisfied",
+        "forms": "Satisfy (V) - Satisfaction (N)",
+        "meaning": "满意的",
+        "recycled": false
+      },
+      {
+        "word": "Courteous",
+        "forms": "Courtesy (N)",
+        "meaning": "礼貌的",
+        "recycled": false
+      },
+      {
+        "word": "Efficient",
+        "forms": "Efficiency (N)",
+        "meaning": "高效的",
+        "recycled": false
+      },
+      {
+        "word": "Persuasive",
+        "forms": "Persuade (V)",
+        "meaning": "有说服力的 (sales)",
+        "recycled": true
+      },
+      {
+        "word": "Appreciative",
+        "forms": "Appreciate (V)",
+        "meaning": "感激的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Go above and beyond",
+        "usage": "Went (V2)",
+        "meaning": "超越期望 / 尽心尽力",
+        "cn_idiom": "尽职尽责",
+        "example": "The hotel staff really go above and beyond for their guests."
+      },
+      {
+        "idiom": "With a smile",
+        "usage": "Fixed Phrase",
+        "meaning": "面带微笑",
+        "cn_idiom": "笑脸相迎",
+        "example": "He always serves his customers with a smile."
+      },
+      {
+        "idiom": "Treat someone like royalty",
+        "usage": "Treated (V2)",
+        "meaning": "奉若上宾",
+        "cn_idiom": "奉若上宾",
+        "example": "My grandparents always treat me like royalty when I visit."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Automation",
+        "forms": "Automate (V)",
+        "meaning": "自动化",
+        "recycled": false
+      },
+      {
+        "word": "Transaction",
+        "forms": "Transact (V)",
+        "meaning": "交易",
+        "recycled": false
+      },
+      {
+        "word": "Budgeting",
+        "forms": "Budget (N/V)",
+        "meaning": "预算",
+        "recycled": false
+      },
+      {
+        "word": "Consumption",
+        "forms": "Consume (V)",
+        "meaning": "消费",
+        "recycled": false
+      },
+      {
+        "word": "Hospitality",
+        "forms": "Hospitable (Adj)",
+        "meaning": "好客 / 服务业",
+        "recycled": false
+      },
+      {
+        "word": "Guidance",
+        "forms": "Guide (V)",
+        "meaning": "指导",
+        "recycled": true
+      },
+      {
+        "word": "Motivation",
+        "forms": "Motivate (V)",
+        "meaning": "动机 (to buy)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "The customer is always right",
+        "usage": "Proverb",
+        "meaning": "顾客就是上帝",
+        "cn_idiom": "顾客至上",
+        "example": "In the retail business, they say the customer is always right."
+      },
+      {
+        "idiom": "Human touch",
+        "usage": "Noun Phrase",
+        "meaning": "人情味",
+        "cn_idiom": "人情味",
+        "example": "Automated messages can never replace the human touch."
+      },
+      {
+        "idiom": "Bang for your buck",
+        "usage": "Noun Phrase",
+        "meaning": "物超所值",
+        "cn_idiom": "物超所值",
+        "example": "This budget smartphone gives you a lot of bang for your buck."
+      }
+    ]
+  },
+  {
+    "week": 27,
+    "l1_vocab": [
+      {
+        "word": "Entertaining",
+        "forms": "Entertain (V) - Entertainment (N)",
+        "meaning": "有趣的 / 娱乐的",
+        "recycled": false
+      },
+      {
+        "word": "Informative",
+        "forms": "Information (N) - Inform (V)",
+        "meaning": "信息量大的",
+        "recycled": false
+      },
+      {
+        "word": "Addictive",
+        "forms": "Addiction (N)",
+        "meaning": "令人上瘾的",
+        "recycled": false
+      },
+      {
+        "word": "Viral",
+        "forms": "Virus (N)",
+        "meaning": "病毒式传播的 / 爆火的",
+        "recycled": false
+      },
+      {
+        "word": "Engaging",
+        "forms": "Engage (V) - Engagement (N)",
+        "meaning": "引人入胜的",
+        "recycled": false
+      },
+      {
+        "word": "Attentive",
+        "forms": "Attention (N)",
+        "meaning": "专注的",
+        "recycled": true
+      },
+      {
+        "word": "Impeccable",
+        "forms": "Adjective",
+        "meaning": "完美的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Binge-watch",
+        "usage": "Binge-watched (V2)",
+        "meaning": "刷剧",
+        "cn_idiom": "刷剧",
+        "example": "We decided to binge-watch the entire season on Sunday."
+      },
+      {
+        "idiom": "Scroll through",
+        "usage": "Scrolled (V2)",
+        "meaning": "浏览 / 滑动 (手机)",
+        "cn_idiom": "刷屏",
+        "example": "I waste too much time scrolling through social media."
+      },
+      {
+        "idiom": "Blow up",
+        "usage": "Blew (V2)",
+        "meaning": "突然爆红",
+        "cn_idiom": "爆红",
+        "example": "Her comedy video blew up overnight."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Censorship",
+        "forms": "Censor (V)",
+        "meaning": "审查",
+        "recycled": false
+      },
+      {
+        "word": "Misinformation",
+        "forms": "Inform (V)",
+        "meaning": "错误信息 / 谣言",
+        "recycled": false
+      },
+      {
+        "word": "Algorithm",
+        "forms": "Algorithmic (Adj)",
+        "meaning": "算法",
+        "recycled": false
+      },
+      {
+        "word": "Connectivity",
+        "forms": "Connect (V)",
+        "meaning": "连接性",
+        "recycled": false
+      },
+      {
+        "word": "Mainstream",
+        "forms": "Adjective",
+        "meaning": "主流的",
+        "recycled": false
+      },
+      {
+        "word": "Consumption",
+        "forms": "Consume (V)",
+        "meaning": "消费 (media)",
+        "recycled": true
+      },
+      {
+        "word": "Automation",
+        "forms": "Automate (V)",
+        "meaning": "自动化",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Fake news",
+        "usage": "Noun Phrase",
+        "meaning": "假新闻",
+        "cn_idiom": "假新闻",
+        "example": "You must be careful not to share fake news."
+      },
+      {
+        "idiom": "Go viral",
+        "usage": "Went (V2)",
+        "meaning": "疯传",
+        "cn_idiom": "疯传",
+        "example": "His funny cat video went viral within hours."
+      },
+      {
+        "idiom": "Couch potato",
+        "usage": "Noun Phrase",
+        "meaning": "电视迷 (懒惰的人)",
+        "cn_idiom": "懒骨头",
+        "example": "He is such a couch potato on the weekends."
+      }
+    ]
+  },
+  {
+    "week": 28,
+    "l1_vocab": [
+      {
+        "word": "Lively",
+        "forms": "Liveliness (N)",
+        "meaning": "热闹的",
+        "recycled": false
+      },
+      {
+        "word": "Delicious",
+        "forms": "Delicacy (N)",
+        "meaning": "美味的",
+        "recycled": false
+      },
+      {
+        "word": "Memorable",
+        "forms": "Memory (N)",
+        "meaning": "难忘的",
+        "recycled": false
+      },
+      {
+        "word": "Sociable",
+        "forms": "Society (N)",
+        "meaning": "善于交际的",
+        "recycled": false
+      },
+      {
+        "word": "Awkward",
+        "forms": "Awkwardness (N)",
+        "meaning": "尴尬的",
+        "recycled": false
+      },
+      {
+        "word": "Entertaining",
+        "forms": "Entertainment (N)",
+        "meaning": "有趣的",
+        "recycled": true
+      },
+      {
+        "word": "Engaging",
+        "forms": "Engage (V)",
+        "meaning": "吸引人的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Break the ice",
+        "usage": "Broke (V2)",
+        "meaning": "打破僵局",
+        "cn_idiom": "破冰",
+        "example": "He told a funny story to break the ice at the party."
+      },
+      {
+        "idiom": "Life of the party",
+        "usage": "Noun Phrase",
+        "meaning": "聚会的灵魂人物",
+        "cn_idiom": "活跃气氛的人",
+        "example": "My cousin is always the life of the party."
+      },
+      {
+        "idiom": "Have a blast",
+        "usage": "Had (V2)",
+        "meaning": "玩得很开心",
+        "cn_idiom": "玩得尽兴",
+        "example": "We really had a blast at the music festival."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Tradition",
+        "forms": "Traditional (Adj)",
+        "meaning": "传统",
+        "recycled": false
+      },
+      {
+        "word": "Community",
+        "forms": "Communal (Adj)",
+        "meaning": "社区 / 群体",
+        "recycled": false
+      },
+      {
+        "word": "Celebration",
+        "forms": "Celebrate (V)",
+        "meaning": "庆祝",
+        "recycled": false
+      },
+      {
+        "word": "Isolation",
+        "forms": "Isolate (V)",
+        "meaning": "孤立",
+        "recycled": false
+      },
+      {
+        "word": "Etiquette",
+        "forms": "Noun",
+        "meaning": "礼节",
+        "recycled": false
+      },
+      {
+        "word": "Connectivity",
+        "forms": "Connect (V)",
+        "meaning": "联系",
+        "recycled": true
+      },
+      {
+        "word": "Mainstream",
+        "forms": "Adjective",
+        "meaning": "主流的",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Let one's hair down",
+        "usage": "Let (V2)",
+        "meaning": "放松 / 尽情享受",
+        "cn_idiom": "尽情放松",
+        "example": "It's Friday night, time to let your hair down."
+      },
+      {
+        "idiom": "Quality time",
+        "usage": "Noun Phrase",
+        "meaning": "珍贵的相处时光",
+        "cn_idiom": "黄金时间",
+        "example": "I try to spend quality time with my children every evening."
+      },
+      {
+        "idiom": "The more the merrier",
+        "usage": "Proverb",
+        "meaning": "人越多越好",
+        "cn_idiom": "多多益善",
+        "example": "Of course you can invite your friends; the more the merrier!"
+      }
+    ]
+  },
+  {
+    "week": 29,
+    "l1_vocab": [
+      {
+        "word": "Sincere",
+        "forms": "Sincerity (N)",
+        "meaning": "真诚的",
+        "recycled": false
+      },
+      {
+        "word": "Regretful",
+        "forms": "Regret (V/N)",
+        "meaning": "后悔的",
+        "recycled": false
+      },
+      {
+        "word": "Honest",
+        "forms": "Honesty (N)",
+        "meaning": "诚实的",
+        "recycled": false
+      },
+      {
+        "word": "Forgiving",
+        "forms": "Forgive (V) - Forgiveness (N)",
+        "meaning": "宽容的",
+        "recycled": false
+      },
+      {
+        "word": "Courageous",
+        "forms": "Courage (N)",
+        "meaning": "勇敢的",
+        "recycled": false
+      },
+      {
+        "word": "Awkward",
+        "forms": "Awkwardness (N)",
+        "meaning": "尴尬的",
+        "recycled": true
+      },
+      {
+        "word": "Sociable",
+        "forms": "Society (N)",
+        "meaning": "善交际的 (but made mistake)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Swallow one's pride",
+        "usage": "Swallowed (V2)",
+        "meaning": "放下自尊",
+        "cn_idiom": "忍气吞声 / 放下脸面",
+        "example": "He had to swallow his pride and ask for a loan."
+      },
+      {
+        "idiom": "Clear the air",
+        "usage": "Cleared (V2)",
+        "meaning": "消除误会",
+        "cn_idiom": "消除隔阂",
+        "example": "We had a long talk to clear the air."
+      },
+      {
+        "idiom": "Get something off one's chest",
+        "usage": "Got (V2)",
+        "meaning": "吐露心声 / 一吐为快",
+        "cn_idiom": "一吐为快",
+        "example": "I really need to get this secret off my chest."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Integrity",
+        "forms": "Noun",
+        "meaning": "正直 / 诚信",
+        "recycled": false
+      },
+      {
+        "word": "Deception",
+        "forms": "Deceive (V) - Deceptive (Adj)",
+        "meaning": "欺骗",
+        "recycled": false
+      },
+      {
+        "word": "Morality",
+        "forms": "Moral (Adj)",
+        "meaning": "道德",
+        "recycled": false
+      },
+      {
+        "word": "Conflict",
+        "forms": "Conflicted (Adj)",
+        "meaning": "冲突",
+        "recycled": false
+      },
+      {
+        "word": "Resolution",
+        "forms": "Resolve (V)",
+        "meaning": "解决",
+        "recycled": false
+      },
+      {
+        "word": "Etiquette",
+        "forms": "Noun",
+        "meaning": "礼节",
+        "recycled": true
+      },
+      {
+        "word": "Community",
+        "forms": "Communal (Adj)",
+        "meaning": "社区",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "White lie",
+        "usage": "Noun Phrase",
+        "meaning": "善意的谎言",
+        "cn_idiom": "善意的谎言",
+        "example": "I told a white lie so I wouldn't ruin the surprise."
+      },
+      {
+        "idiom": "Honesty is the best policy",
+        "usage": "Proverb",
+        "meaning": "诚实是上策",
+        "cn_idiom": "诚实是上策",
+        "example": "Just tell her the truth; honesty is the best policy."
+      },
+      {
+        "idiom": "Bury the hatchet",
+        "usage": "Buried (V2)",
+        "meaning": "言归于好 / 泯恩仇",
+        "cn_idiom": "握手言和",
+        "example": "After fighting for years, the brothers finally buried the hatchet."
+      }
+    ]
+  },
+  {
+    "week": 30,
+    "l1_vocab": [
+      {
+        "word": "Fascinating",
+        "forms": "Fascinate (V) - Fascination (N)",
+        "meaning": "迷人的",
+        "recycled": false
+      },
+      {
+        "word": "Endangered",
+        "forms": "Danger (N)",
+        "meaning": "濒危的",
+        "recycled": false
+      },
+      {
+        "word": "Wild",
+        "forms": "Wilderness (N)",
+        "meaning": "野生的",
+        "recycled": false
+      },
+      {
+        "word": "Majestic",
+        "forms": "Majesty (N)",
+        "meaning": "雄伟的 / 威严的",
+        "recycled": false
+      },
+      {
+        "word": "Unique",
+        "forms": "Uniqueness (N)",
+        "meaning": "独特的",
+        "recycled": false
+      },
+      {
+        "word": "Courageous",
+        "forms": "Courage (N)",
+        "meaning": "勇敢的 (to approach)",
+        "recycled": true
+      },
+      {
+        "word": "Sincere",
+        "forms": "Sincerity (N)",
+        "meaning": "真诚的 (interest)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Face to face",
+        "usage": "Fixed Phrase",
+        "meaning": "面对面",
+        "cn_idiom": "面对面",
+        "example": "We finally met face to face after years of calling."
+      },
+      {
+        "idiom": "In the wild",
+        "usage": "Prepositional Phrase",
+        "meaning": "在野外",
+        "cn_idiom": "在野外",
+        "example": "Pandas are rarely seen in the wild anymore."
+      },
+      {
+        "idiom": "King of the jungle",
+        "usage": "Noun Phrase",
+        "meaning": "丛林之王 (狮子)",
+        "cn_idiom": "百兽之王",
+        "example": "The lion is widely known as the king of the jungle."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Ecosystem",
+        "forms": "System (N)",
+        "meaning": "生态系统",
+        "recycled": false
+      },
+      {
+        "word": "Extinction",
+        "forms": "Extinct (Adj)",
+        "meaning": "灭绝",
+        "recycled": false
+      },
+      {
+        "word": "Captivity",
+        "forms": "Captive (Adj/N)",
+        "meaning": "圈养 / 囚禁",
+        "recycled": false
+      },
+      {
+        "word": "Biodiversity",
+        "forms": "Diverse (Adj)",
+        "meaning": "生物多样性",
+        "recycled": false
+      },
+      {
+        "word": "Conservation",
+        "forms": "Conserve (V)",
+        "meaning": "保护",
+        "recycled": false
+      },
+      {
+        "word": "Morality",
+        "forms": "Moral (Adj)",
+        "meaning": "道德 (of zoos)",
+        "recycled": true
+      },
+      {
+        "word": "Conflict",
+        "forms": "Conflicted (Adj)",
+        "meaning": "冲突 (human-animal)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Survival of the fittest",
+        "usage": "Noun Phrase",
+        "meaning": "适者生存",
+        "cn_idiom": "适者生存",
+        "example": "In nature, it is all about the survival of the fittest."
+      },
+      {
+        "idiom": "Crocodile tears",
+        "usage": "Noun Phrase",
+        "meaning": "鳄鱼的眼泪 (假慈悲)",
+        "cn_idiom": "猫哭耗子",
+        "example": "He didn't really care; he was just shedding crocodile tears."
+      },
+      {
+        "idiom": "Let sleeping dogs lie",
+        "usage": "Proverb",
+        "meaning": "莫惹是非 / 别自找麻烦",
+        "cn_idiom": "别自找麻烦",
+        "example": "I didn't bring up the old argument because I wanted to let sleeping dogs lie."
+      }
+    ]
+  },
+  {
+    "week": 31,
+    "l1_vocab": [
+      {
+        "word": "Complex",
+        "forms": "Complexity (N)",
+        "meaning": "复杂的",
+        "recycled": false
+      },
+      {
+        "word": "Fascinating",
+        "forms": "Fascination (N)",
+        "meaning": "迷人的",
+        "recycled": true
+      },
+      {
+        "word": "Logical",
+        "forms": "Logic (N)",
+        "meaning": "合乎逻辑的",
+        "recycled": false
+      },
+      {
+        "word": "Creative",
+        "forms": "Creativity (N)",
+        "meaning": "有创造力的",
+        "recycled": false
+      },
+      {
+        "word": "Theoretical",
+        "forms": "Theory (N)",
+        "meaning": "理论的",
+        "recycled": false
+      },
+      {
+        "word": "Groundbreaking",
+        "forms": "Adjective",
+        "meaning": "开创性的",
+        "recycled": false
+      },
+      {
+        "word": "Unique",
+        "forms": "Uniqueness (N)",
+        "meaning": "独特的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Rocket science",
+        "usage": "Noun Phrase",
+        "meaning": "高深学问 (usually negative: not rocket science)",
+        "cn_idiom": "高深莫测的事",
+        "example": "Just read the instructions; assembling this desk isn't rocket science."
+      },
+      {
+        "idiom": "Food for thought",
+        "usage": "Noun Phrase",
+        "meaning": "引人深思的事",
+        "cn_idiom": "精神食粮 / 耐人寻味",
+        "example": "The professor's lecture gave us a lot of food for thought."
+      },
+      {
+        "idiom": "Light bulb moment",
+        "usage": "Noun Phrase",
+        "meaning": "顿悟时刻",
+        "cn_idiom": "灵机一动",
+        "example": "I had a light bulb moment and suddenly knew how to solve the math problem."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Innovation",
+        "forms": "Innovate (V)",
+        "meaning": "创新",
+        "recycled": false
+      },
+      {
+        "word": "Curiosity",
+        "forms": "Curious (Adj)",
+        "meaning": "好奇心",
+        "recycled": false
+      },
+      {
+        "word": "Hypothesis",
+        "forms": "Hypothetical (Adj)",
+        "meaning": "假设",
+        "recycled": false
+      },
+      {
+        "word": "Experiment",
+        "forms": "Experimental (Adj)",
+        "meaning": "实验",
+        "recycled": false
+      },
+      {
+        "word": "Breakthrough",
+        "forms": "Noun",
+        "meaning": "突破",
+        "recycled": false
+      },
+      {
+        "word": "Ecosystem",
+        "forms": "System (N)",
+        "meaning": "生态系统 (irrelevant, swap)",
+        "recycled": true
+      },
+      {
+        "word": "Extinction",
+        "forms": "Extinct (Adj)",
+        "meaning": "灭绝 (irrelevant, swap)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Reinvent the wheel",
+        "usage": "Reinvented (V2)",
+        "meaning": "做无用功 / 重复发明",
+        "cn_idiom": "多此一举",
+        "example": "There is already a good tool for this, so don't reinvent the wheel."
+      },
+      {
+        "idiom": "Blind with science",
+        "usage": "Blinded (V2)",
+        "meaning": "用专业术语迷惑人",
+        "cn_idiom": "故弄玄虚",
+        "example": "The salesman tried to blind us with science."
+      },
+      {
+        "idiom": "Great minds think alike",
+        "usage": "Proverb",
+        "meaning": "英雄所见略同",
+        "cn_idiom": "英雄所见略同",
+        "example": "We both bought the exact same gift; great minds think alike."
+      }
+    ]
+  },
+  {
+    "week": 32,
+    "l1_vocab": [
+      {
+        "word": "Challenging",
+        "forms": "Challenge (N)",
+        "meaning": "充满挑战的",
+        "recycled": false
+      },
+      {
+        "word": "Rewarding",
+        "forms": "Reward (N/V)",
+        "meaning": "值得的 / 有回报的",
+        "recycled": false
+      },
+      {
+        "word": "Nerve-wracking",
+        "forms": "Adjective",
+        "meaning": "令人紧张的",
+        "recycled": false
+      },
+      {
+        "word": "Exhilarating",
+        "forms": "Exhilaration (N)",
+        "meaning": "令人兴奋的",
+        "recycled": false
+      },
+      {
+        "word": "Determined",
+        "forms": "Determination (N)",
+        "meaning": "下定决心的",
+        "recycled": false
+      },
+      {
+        "word": "Complex",
+        "forms": "Complexity (N)",
+        "meaning": "复杂的",
+        "recycled": true
+      },
+      {
+        "word": "Logical",
+        "forms": "Logic (N)",
+        "meaning": "合乎逻辑的 (approach)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Give it a go",
+        "usage": "Gave (V2)",
+        "meaning": "试一试",
+        "cn_idiom": "尝试一下",
+        "example": "I've never cooked Thai food, but I'll give it a go."
+      },
+      {
+        "idiom": "Learning curve",
+        "usage": "Noun Phrase",
+        "meaning": "学习曲线 (上手难度)",
+        "cn_idiom": "学习曲线",
+        "example": "This video editing software has a steep learning curve."
+      },
+      {
+        "idiom": "Get the hang of it",
+        "usage": "Got (V2)",
+        "meaning": "掌握窍门",
+        "cn_idiom": "得心应手",
+        "example": "Driving a manual car is hard at first, but you'll soon get the hang of it."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Acquisition",
+        "forms": "Acquire (V)",
+        "meaning": "习得 / 获得",
+        "recycled": false
+      },
+      {
+        "word": "Proficiency",
+        "forms": "Proficient (Adj)",
+        "meaning": "熟练程度",
+        "recycled": false
+      },
+      {
+        "word": "Globalization",
+        "forms": "Global (Adj)",
+        "meaning": "全球化",
+        "recycled": false
+      },
+      {
+        "word": "Barrier",
+        "forms": "Barriers (Pl)",
+        "meaning": "障碍",
+        "recycled": false
+      },
+      {
+        "word": "Adaptability",
+        "forms": "Adapt (V)",
+        "meaning": "适应能力",
+        "recycled": false
+      },
+      {
+        "word": "Curiosity",
+        "forms": "Curious (Adj)",
+        "meaning": "好奇心",
+        "recycled": true
+      },
+      {
+        "word": "Innovation",
+        "forms": "Innovate (V)",
+        "meaning": "创新",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Practice makes perfect",
+        "usage": "Proverb",
+        "meaning": "熟能生巧",
+        "cn_idiom": "熟能生巧",
+        "example": "Keep practicing your piano scales; practice makes perfect."
+      },
+      {
+        "idiom": "Learn the ropes",
+        "usage": "Learned (V2)",
+        "meaning": "摸清门道",
+        "cn_idiom": "入门",
+        "example": "It will take a few weeks to learn the ropes at your new job."
+      },
+      {
+        "idiom": "Broaden one's horizons",
+        "usage": "Broadened (V2)",
+        "meaning": "开阔眼界",
+        "cn_idiom": "开阔眼界",
+        "example": "Learning a new language will broaden your horizons."
+      }
+    ]
+  },
+  {
+    "week": 33,
+    "l1_vocab": [
+      {
+        "word": "Disciplined",
+        "forms": "Discipline (N)",
+        "meaning": "自律的",
+        "recycled": false
+      },
+      {
+        "word": "Productive",
+        "forms": "Produce (V) - Productivity (N)",
+        "meaning": "高效的 / 多产的",
+        "recycled": false
+      },
+      {
+        "word": "Detrimental",
+        "forms": "Detriment (N)",
+        "meaning": "有害的",
+        "recycled": false
+      },
+      {
+        "word": "Beneficial",
+        "forms": "Benefit (N/V)",
+        "meaning": "有益的",
+        "recycled": false
+      },
+      {
+        "word": "Persistent",
+        "forms": "Persist (V) - Persistence (N)",
+        "meaning": "坚持不懈的",
+        "recycled": false
+      },
+      {
+        "word": "Determined",
+        "forms": "Determination (N)",
+        "meaning": "下定决心的",
+        "recycled": true
+      },
+      {
+        "word": "Rewarding",
+        "forms": "Reward (N)",
+        "meaning": "有回报的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Turn over a new leaf",
+        "usage": "Turned (V2)",
+        "meaning": "改过自新 / 重新开始",
+        "cn_idiom": "改头换面",
+        "example": "He turned over a new leaf and stopped smoking."
+      },
+      {
+        "idiom": "Kick the habit",
+        "usage": "Kicked (V2)",
+        "meaning": "戒除恶习",
+        "cn_idiom": "戒掉习惯",
+        "example": "I'm trying to kick the habit of eating junk food late at night."
+      },
+      {
+        "idiom": "Creature of habit",
+        "usage": "Noun Phrase",
+        "meaning": "墨守成规的人",
+        "cn_idiom": "墨守成规者",
+        "example": "My dad is a creature of habit who eats the exact same breakfast every day."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Lifestyle",
+        "forms": "Lifestyles (Pl)",
+        "meaning": "生活方式",
+        "recycled": false
+      },
+      {
+        "word": "Influence",
+        "forms": "Influential (Adj)",
+        "meaning": "影响",
+        "recycled": false
+      },
+      {
+        "word": "Routine",
+        "forms": "Adjective / Noun",
+        "meaning": "常规 / 例行公事",
+        "recycled": false
+      },
+      {
+        "word": "Willpower",
+        "forms": "Noun",
+        "meaning": "意志力",
+        "recycled": false
+      },
+      {
+        "word": "Consequence",
+        "forms": "Consequent (Adj)",
+        "meaning": "后果",
+        "recycled": false
+      },
+      {
+        "word": "Acquisition",
+        "forms": "Acquire (V)",
+        "meaning": "养成 (habit)",
+        "recycled": true
+      },
+      {
+        "word": "Proficiency",
+        "forms": "Proficient (Adj)",
+        "meaning": "熟练",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Old habits die hard",
+        "usage": "Proverb",
+        "meaning": "积习难改",
+        "cn_idiom": "江山易改本性难移",
+        "example": "I still bite my nails when I'm nervous; old habits die hard."
+      },
+      {
+        "idiom": "Set in one's ways",
+        "usage": "Adjective Phrase",
+        "meaning": "固执己见 / 墨守成规",
+        "cn_idiom": "固步自封",
+        "example": "He is too set in his ways to use a modern smartphone."
+      },
+      {
+        "idiom": "Early bird",
+        "usage": "Noun Phrase",
+        "meaning": "早起的人",
+        "cn_idiom": "早起鸟",
+        "example": "My mother is an early bird who wakes up at 5 AM."
+      }
+    ]
+  },
+  {
+    "week": 34,
+    "l1_vocab": [
+      {
+        "word": "Prohibited",
+        "forms": "Prohibit (V) - Prohibition (N)",
+        "meaning": "禁止的",
+        "recycled": false
+      },
+      {
+        "word": "Strict",
+        "forms": "Strictly (Adv)",
+        "meaning": "严格的",
+        "recycled": false
+      },
+      {
+        "word": "Respectful",
+        "forms": "Respect (N/V)",
+        "meaning": "尊重的",
+        "recycled": false
+      },
+      {
+        "word": "Disruptive",
+        "forms": "Disrupt (V) - Disruption (N)",
+        "meaning": "破坏性的 / 扰乱的",
+        "recycled": false
+      },
+      {
+        "word": "Considerate",
+        "forms": "Consideration (N)",
+        "meaning": "体贴的",
+        "recycled": false
+      },
+      {
+        "word": "Disciplined",
+        "forms": "Discipline (N)",
+        "meaning": "守纪律的",
+        "recycled": true
+      },
+      {
+        "word": "Detrimental",
+        "forms": "Detriment (N)",
+        "meaning": "有害的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Follow the rules",
+        "usage": "Followed (V2)",
+        "meaning": "遵守规则",
+        "cn_idiom": "循规蹈矩",
+        "example": "If you want to play the game, you must follow the rules."
+      },
+      {
+        "idiom": "Bend the rules",
+        "usage": "Bent (V2)",
+        "meaning": "通融 / 变通",
+        "cn_idiom": "变通",
+        "example": "The teacher bent the rules to give him an extra day for the assignment."
+      },
+      {
+        "idiom": "Keep one's voice down",
+        "usage": "Kept (V2)",
+        "meaning": "小声说话",
+        "cn_idiom": "低声细语",
+        "example": "Please keep your voice down while the baby is sleeping."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Etiquette",
+        "forms": "Noun",
+        "meaning": "礼仪",
+        "recycled": false
+      },
+      {
+        "word": "Restriction",
+        "forms": "Restrict (V)",
+        "meaning": "限制",
+        "recycled": false
+      },
+      {
+        "word": "Authority",
+        "forms": "Authoritative (Adj)",
+        "meaning": "权威",
+        "recycled": false
+      },
+      {
+        "word": "Compliance",
+        "forms": "Comply (V)",
+        "meaning": "服从",
+        "recycled": false
+      },
+      {
+        "word": "Freedom",
+        "forms": "Free (Adj)",
+        "meaning": "自由",
+        "recycled": false
+      },
+      {
+        "word": "Consequence",
+        "forms": "Consequent (Adj)",
+        "meaning": "后果",
+        "recycled": true
+      },
+      {
+        "word": "Influence",
+        "forms": "Influential (Adj)",
+        "meaning": "影响",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Law and order",
+        "usage": "Noun Phrase",
+        "meaning": "法律与秩序",
+        "cn_idiom": "治安",
+        "example": "The military was brought in to restore law and order."
+      },
+      {
+        "idiom": "Cross the line",
+        "usage": "Crossed (V2)",
+        "meaning": "过分 / 越界",
+        "cn_idiom": "越界",
+        "example": "Your joke about his family really crossed the line."
+      },
+      {
+        "idiom": "Common courtesy",
+        "usage": "Noun Phrase",
+        "meaning": "基本礼貌",
+        "cn_idiom": "基本礼貌",
+        "example": "Saying please and thank you is just common courtesy."
+      }
+    ]
+  },
+  {
+    "week": 35,
+    "l1_vocab": [
+      {
+        "word": "Organized",
+        "forms": "Organize (V) - Organization (N)",
+        "meaning": "有条理的",
+        "recycled": false
+      },
+      {
+        "word": "Punctual",
+        "forms": "Punctuality (N)",
+        "meaning": "守时的",
+        "recycled": false
+      },
+      {
+        "word": "Hectic",
+        "forms": "Adjective",
+        "meaning": "忙乱的",
+        "recycled": false
+      },
+      {
+        "word": "Anxious",
+        "forms": "Anxiety (N)",
+        "meaning": "焦虑的",
+        "recycled": false
+      },
+      {
+        "word": "Impatient",
+        "forms": "Patience (N)",
+        "meaning": "不耐烦的",
+        "recycled": false
+      },
+      {
+        "word": "Strict",
+        "forms": "Strictness (N)",
+        "meaning": "严格的 (schedule)",
+        "recycled": true
+      },
+      {
+        "word": "Disruptive",
+        "forms": "Disruption (N)",
+        "meaning": "扰乱的 (delay)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Kill time",
+        "usage": "Killed (V2)",
+        "meaning": "消磨时间",
+        "cn_idiom": "消磨时间",
+        "example": "We played mobile games to kill time while waiting for the train."
+      },
+      {
+        "idiom": "Plan ahead",
+        "usage": "Planned (V2)",
+        "meaning": "未雨绸缪",
+        "cn_idiom": "未雨绸缪",
+        "example": "If you want to save money on flights, you need to plan ahead."
+      },
+      {
+        "idiom": "Worth the wait",
+        "usage": "Adjective Phrase",
+        "meaning": "值得等待",
+        "cn_idiom": "物有所值",
+        "example": "The line was long, but the delicious food was definitely worth the wait."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Management",
+        "forms": "Manage (V)",
+        "meaning": "管理",
+        "recycled": false
+      },
+      {
+        "word": "Priority",
+        "forms": "Prioritize (V)",
+        "meaning": "优先事项",
+        "recycled": false
+      },
+      {
+        "word": "Schedule",
+        "forms": "Scheduled (Adj)",
+        "meaning": "日程安排",
+        "recycled": false
+      },
+      {
+        "word": "Efficiency",
+        "forms": "Efficient (Adj)",
+        "meaning": "效率",
+        "recycled": false
+      },
+      {
+        "word": "Procrastination",
+        "forms": "Procrastinate (V)",
+        "meaning": "拖延症",
+        "recycled": false
+      },
+      {
+        "word": "Compliance",
+        "forms": "Comply (V)",
+        "meaning": "遵守 (deadlines)",
+        "recycled": true
+      },
+      {
+        "word": "Restriction",
+        "forms": "Restrict (V)",
+        "meaning": "限制 (time)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Time flies",
+        "usage": "Proverb",
+        "meaning": "光阴似箭",
+        "cn_idiom": "光阴似箭",
+        "example": "Time flies when you are having fun with friends."
+      },
+      {
+        "idiom": "Better late than never",
+        "usage": "Proverb",
+        "meaning": "亡羊补牢 / 迟做总比不做好",
+        "cn_idiom": "亡羊补牢",
+        "example": "He finally submitted his homework; well, better late than never."
+      },
+      {
+        "idiom": "Beat the clock",
+        "usage": "Beat (V2)",
+        "meaning": "赶时间完成",
+        "cn_idiom": "争分夺秒",
+        "example": "They managed to beat the clock and finish the exam right before the bell."
+      }
+    ]
+  },
+  {
+    "week": 36,
+    "l1_vocab": [
+      {
+        "word": "Competitive",
+        "forms": "Compete (V) - Competition (N)",
+        "meaning": "好胜的 / 竞争激烈的",
+        "recycled": false
+      },
+      {
+        "word": "Victorious",
+        "forms": "Victory (N)",
+        "meaning": "胜利的",
+        "recycled": false
+      },
+      {
+        "word": "Intense",
+        "forms": "Intensity (N)",
+        "meaning": "激烈的",
+        "recycled": false
+      },
+      {
+        "word": "Prestigious",
+        "forms": "Prestige (N)",
+        "meaning": "享有声望的",
+        "recycled": false
+      },
+      {
+        "word": "Triumphant",
+        "forms": "Triumph (N)",
+        "meaning": "欢欣鼓舞的 (胜利)",
+        "recycled": false
+      },
+      {
+        "word": "Anxious",
+        "forms": "Anxiety (N)",
+        "meaning": "焦虑的",
+        "recycled": true
+      },
+      {
+        "word": "Organized",
+        "forms": "Organization (N)",
+        "meaning": "有组织的 (event)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Win hands down",
+        "usage": "Won (V2)",
+        "meaning": "赢得轻松",
+        "cn_idiom": "轻而易举获胜",
+        "example": "Our team was so well prepared that we won hands down."
+      },
+      {
+        "idiom": "Be in it to win it",
+        "usage": "Fixed Phrase",
+        "meaning": "志在必得",
+        "cn_idiom": "志在必得",
+        "example": "She trained every day because she is in it to win it."
+      },
+      {
+        "idiom": "Give it your all",
+        "usage": "Gave (V2)",
+        "meaning": "全力以赴",
+        "cn_idiom": "全力以赴",
+        "example": "Go out on that field and give it your all."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Sportsmanship",
+        "forms": "Sport (N)",
+        "meaning": "体育精神",
+        "recycled": false
+      },
+      {
+        "word": "Teamwork",
+        "forms": "Team (N)",
+        "meaning": "团队合作",
+        "recycled": false
+      },
+      {
+        "word": "Rivalry",
+        "forms": "Rival (N)",
+        "meaning": "竞争 / 敌对状态",
+        "recycled": false
+      },
+      {
+        "word": "Determination",
+        "forms": "Determined (Adj)",
+        "meaning": "决心",
+        "recycled": false
+      },
+      {
+        "word": "Cooperation",
+        "forms": "Cooperate (V)",
+        "meaning": "合作",
+        "recycled": false
+      },
+      {
+        "word": "Priority",
+        "forms": "Prioritize (V)",
+        "meaning": "优先 (winning vs fun)",
+        "recycled": true
+      },
+      {
+        "word": "Management",
+        "forms": "Manage (V)",
+        "meaning": "管理 (pressure)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Level playing field",
+        "usage": "Noun Phrase",
+        "meaning": "公平竞争的环境",
+        "cn_idiom": "公平竞争",
+        "example": "The new regulations ensure a level playing field for all teams."
+      },
+      {
+        "idiom": "Keep one's eye on the ball",
+        "usage": "Kept (V2)",
+        "meaning": "保持专注",
+        "cn_idiom": "全神贯注",
+        "example": "In business, you must keep your eye on the ball to succeed."
+      },
+      {
+        "idiom": "Win-win situation",
+        "usage": "Noun Phrase",
+        "meaning": "双赢局面",
+        "cn_idiom": "双赢",
+        "example": "This trade agreement is a win-win situation for both countries."
+      }
+    ]
+  },
+  {
+    "week": 37,
+    "l1_vocab": [
+      {
+        "word": "Neighborly",
+        "forms": "Neighbor (N)",
+        "meaning": "睦邻友好的",
+        "recycled": false
+      },
+      {
+        "word": "Helpful",
+        "forms": "Helpfulness (N)",
+        "meaning": "乐于助人的",
+        "recycled": false
+      },
+      {
+        "word": "Generous",
+        "forms": "Generosity (N)",
+        "meaning": "慷慨的",
+        "recycled": false
+      },
+      {
+        "word": "Nosy",
+        "forms": "Adjective",
+        "meaning": "爱管闲事的 (negative)",
+        "recycled": false
+      },
+      {
+        "word": "Considerate",
+        "forms": "Consideration (N)",
+        "meaning": "体贴的",
+        "recycled": false
+      },
+      {
+        "word": "Competitive",
+        "forms": "Competition (N)",
+        "meaning": "爱攀比的",
+        "recycled": true
+      },
+      {
+        "word": "Intense",
+        "forms": "Intensity (N)",
+        "meaning": "强烈的 (dislike)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Lend a hand",
+        "usage": "Lent (V2)",
+        "meaning": "伸出援手",
+        "cn_idiom": "助一臂之力",
+        "example": "Could you lend a hand moving this heavy sofa?"
+      },
+      {
+        "idiom": "Keep an eye on",
+        "usage": "Kept (V2)",
+        "meaning": "照看 / 留意",
+        "cn_idiom": "照看",
+        "example": "Please keep an eye on my dog while I go inside the store."
+      },
+      {
+        "idiom": "Next-door neighbor",
+        "usage": "Noun Phrase",
+        "meaning": "隔壁邻居",
+        "cn_idiom": "隔壁邻居",
+        "example": "My next-door neighbor baked me some cookies yesterday."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Community",
+        "forms": "Communal (Adj)",
+        "meaning": "社区",
+        "recycled": false
+      },
+      {
+        "word": "Isolation",
+        "forms": "Isolate (V)",
+        "meaning": "孤立 / 隔绝",
+        "recycled": false
+      },
+      {
+        "word": "Security",
+        "forms": "Secure (Adj)",
+        "meaning": "安全",
+        "recycled": false
+      },
+      {
+        "word": "Interaction",
+        "forms": "Interact (V)",
+        "meaning": "互动",
+        "recycled": false
+      },
+      {
+        "word": "Urbanization",
+        "forms": "Urban (Adj)",
+        "meaning": "城市化",
+        "recycled": false
+      },
+      {
+        "word": "Cooperation",
+        "forms": "Cooperate (V)",
+        "meaning": "合作",
+        "recycled": true
+      },
+      {
+        "word": "Rivalry",
+        "forms": "Rival (N)",
+        "meaning": "对立",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Good fences make good neighbors",
+        "usage": "Proverb",
+        "meaning": "保持距离才能和睦相处",
+        "cn_idiom": "君子之交淡如水",
+        "example": "We respect their privacy because good fences make good neighbors."
+      },
+      {
+        "idiom": "Look out for each other",
+        "usage": "Looked (V2)",
+        "meaning": "互相照应",
+        "cn_idiom": "守望相助",
+        "example": "In this small village, everyone looks out for each other."
+      },
+      {
+        "idiom": "Close to home",
+        "usage": "Adjective Phrase",
+        "meaning": "触及痛处 / 离家近",
+        "cn_idiom": "切身相关",
+        "example": "That sad movie hit a little too close to home."
+      }
+    ]
+  },
+  {
+    "week": 38,
+    "l1_vocab": [
+      {
+        "word": "Serene",
+        "forms": "Serenity (N)",
+        "meaning": "宁静的",
+        "recycled": false
+      },
+      {
+        "word": "Breathtaking",
+        "forms": "Adjective",
+        "meaning": "美得惊人的",
+        "recycled": false
+      },
+      {
+        "word": "Refreshing",
+        "forms": "Refresh (V)",
+        "meaning": "令人耳目一新的",
+        "recycled": false
+      },
+      {
+        "word": "Coastal",
+        "forms": "Coast (N)",
+        "meaning": "沿海的",
+        "recycled": false
+      },
+      {
+        "word": "Polluted",
+        "forms": "Pollute (V) - Pollution (N)",
+        "meaning": "被污染的",
+        "recycled": false
+      },
+      {
+        "word": "Neighborly",
+        "forms": "Neighbor (N)",
+        "meaning": "友好的 (people)",
+        "recycled": true
+      },
+      {
+        "word": "Generous",
+        "forms": "Generosity (N)",
+        "meaning": "慷慨的 (nature)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "A stone's throw away",
+        "usage": "Noun Phrase",
+        "meaning": "近在咫尺",
+        "cn_idiom": "一箭之遥",
+        "example": "Our hotel is just a stone's throw away from the beach."
+      },
+      {
+        "idiom": "Soak up the sun",
+        "usage": "Soaked (V2)",
+        "meaning": "享受阳光",
+        "cn_idiom": "沐浴阳光",
+        "example": "We spent the entire afternoon soaking up the sun."
+      },
+      {
+        "idiom": "Crystal clear",
+        "usage": "Adjective Phrase",
+        "meaning": "清澈见底 / 一清二楚",
+        "cn_idiom": "晶莹剔透",
+        "example": "The ocean water in the Maldives is crystal clear."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Maritime",
+        "forms": "Adjective",
+        "meaning": "海事的",
+        "recycled": false
+      },
+      {
+        "word": "Conservation",
+        "forms": "Conserve (V)",
+        "meaning": "保护",
+        "recycled": false
+      },
+      {
+        "word": "Resource",
+        "forms": "Resources (Pl)",
+        "meaning": "资源",
+        "recycled": false
+      },
+      {
+        "word": "Transportation",
+        "forms": "Transport (V)",
+        "meaning": "运输",
+        "recycled": false
+      },
+      {
+        "word": "Biodiversity",
+        "forms": "Diverse (Adj)",
+        "meaning": "生物多样性",
+        "recycled": false
+      },
+      {
+        "word": "Urbanization",
+        "forms": "Urban (Adj)",
+        "meaning": "城市化",
+        "recycled": true
+      },
+      {
+        "word": "Security",
+        "forms": "Secure (Adj)",
+        "meaning": "安全 (water security)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Drop in the ocean",
+        "usage": "Noun Phrase",
+        "meaning": "沧海一粟",
+        "cn_idiom": "九牛一毛",
+        "example": "My $10 donation is just a drop in the ocean, but I want to help."
+      },
+      {
+        "idiom": "Make waves",
+        "usage": "Made (V2)",
+        "meaning": "兴风作浪 / 引起轰动",
+        "cn_idiom": "兴风作浪",
+        "example": "The young politician is already making waves in the capital."
+      },
+      {
+        "idiom": "Turn the tide",
+        "usage": "Turned (V2)",
+        "meaning": "扭转局势",
+        "cn_idiom": "力挽狂澜",
+        "example": "The coach's speech at halftime really helped turn the tide."
+      }
+    ]
+  },
+  {
+    "week": 39,
+    "l1_vocab": [
+      {
+        "word": "Stylish",
+        "forms": "Style (N)",
+        "meaning": "时髦的",
+        "recycled": false
+      },
+      {
+        "word": "Formal",
+        "forms": "Formality (N)",
+        "meaning": "正式的",
+        "recycled": false
+      },
+      {
+        "word": "Comfortable",
+        "forms": "Comfort (N)",
+        "meaning": "舒适的",
+        "recycled": false
+      },
+      {
+        "word": "Elegant",
+        "forms": "Elegance (N)",
+        "meaning": "优雅的",
+        "recycled": false
+      },
+      {
+        "word": "Outdated",
+        "forms": "Date (N)",
+        "meaning": "过时的",
+        "recycled": false
+      },
+      {
+        "word": "Refreshing",
+        "forms": "Refresh (V)",
+        "meaning": "清爽的 (look)",
+        "recycled": true
+      },
+      {
+        "word": "Serene",
+        "forms": "Serenity (N)",
+        "meaning": "宁静的 (color)",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Dressed to kill",
+        "usage": "Adjective Phrase",
+        "meaning": "盛装打扮 / 迷死人",
+        "cn_idiom": "盛装打扮",
+        "example": "She walked into the party dressed to kill."
+      },
+      {
+        "idiom": "Fit like a glove",
+        "usage": "Fit (V2)",
+        "meaning": "极其合身",
+        "cn_idiom": "天衣无缝",
+        "example": "This tailored suit fits like a glove."
+      },
+      {
+        "idiom": "Trendsetter",
+        "usage": "Noun Phrase",
+        "meaning": "引领潮流的人",
+        "cn_idiom": "潮流引领者",
+        "example": "As a popular singer, she is a true fashion trendsetter."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Uniformity",
+        "forms": "Uniform (Adj/N)",
+        "meaning": "一致性",
+        "recycled": false
+      },
+      {
+        "word": "Identity",
+        "forms": "Identify (V)",
+        "meaning": "身份",
+        "recycled": false
+      },
+      {
+        "word": "Status",
+        "forms": "Noun",
+        "meaning": "地位",
+        "recycled": false
+      },
+      {
+        "word": "Expression",
+        "forms": "Express (V)",
+        "meaning": "表达",
+        "recycled": false
+      },
+      {
+        "word": "Textile",
+        "forms": "Textiles (Pl)",
+        "meaning": "纺织品",
+        "recycled": false
+      },
+      {
+        "word": "Resource",
+        "forms": "Resources (Pl)",
+        "meaning": "资源 (waste)",
+        "recycled": true
+      },
+      {
+        "word": "Conservation",
+        "forms": "Conserve (V)",
+        "meaning": "节约 (clothes)",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Fashion victim",
+        "usage": "Noun Phrase",
+        "meaning": "盲目追求时尚的人",
+        "cn_idiom": "盲目追赶潮流者",
+        "example": "He wears expensive but ugly clothes; he is a complete fashion victim."
+      },
+      {
+        "idiom": "Judge a book by its cover",
+        "usage": "Proverb",
+        "meaning": "以貌取人",
+        "cn_idiom": "以貌取人",
+        "example": "She dressed plainly, but she was a genius; never judge a book by its cover."
+      },
+      {
+        "idiom": "Slave to fashion",
+        "usage": "Noun Phrase",
+        "meaning": "时尚的奴隶",
+        "cn_idiom": "时尚奴隶",
+        "example": "She buys a new wardrobe every season; she is a slave to fashion."
+      }
+    ]
+  },
+  {
+    "week": 40,
+    "l1_vocab": [
+      {
+        "word": "Festive",
+        "forms": "Festival (N)",
+        "meaning": "节日的 / 喜庆的",
+        "recycled": false
+      },
+      {
+        "word": "Traditional",
+        "forms": "Tradition (N)",
+        "meaning": "传统的",
+        "recycled": false
+      },
+      {
+        "word": "Meaningful",
+        "forms": "Meaning (N)",
+        "meaning": "有意义的",
+        "recycled": false
+      },
+      {
+        "word": "Vibrant",
+        "forms": "Vibrancy (N)",
+        "meaning": "充满活力的",
+        "recycled": false
+      },
+      {
+        "word": "Ceremonial",
+        "forms": "Ceremony (N)",
+        "meaning": "仪式的",
+        "recycled": false
+      },
+      {
+        "word": "Elegant",
+        "forms": "Elegance (N)",
+        "meaning": "优雅的",
+        "recycled": true
+      },
+      {
+        "word": "Formal",
+        "forms": "Formality (N)",
+        "meaning": "正式的",
+        "recycled": true
+      }
+    ],
+    "l1_idioms": [
+      {
+        "idiom": "Paint the town red",
+        "usage": "Painted (V2)",
+        "meaning": "狂欢",
+        "cn_idiom": "狂欢",
+        "example": "After passing our exams, we went out to paint the town red."
+      },
+      {
+        "idiom": "Have a ball",
+        "usage": "Had (V2)",
+        "meaning": "玩得极开心",
+        "cn_idiom": "尽情狂欢",
+        "example": "The kids had a ball at the amusement park."
+      },
+      {
+        "idiom": "The more the merrier",
+        "usage": "Proverb",
+        "meaning": "人越多越热闹",
+        "cn_idiom": "人多热闹",
+        "example": "Bring your whole family to the dinner; the more the merrier."
+      }
+    ],
+    "l2_vocab": [
+      {
+        "word": "Commercialization",
+        "forms": "Commercial (Adj)",
+        "meaning": "商业化",
+        "recycled": false
+      },
+      {
+        "word": "Preservation",
+        "forms": "Preserve (V)",
+        "meaning": "保存",
+        "recycled": false
+      },
+      {
+        "word": "Integration",
+        "forms": "Integrate (V)",
+        "meaning": "融合",
+        "recycled": false
+      },
+      {
+        "word": "Heritage",
+        "forms": "Noun",
+        "meaning": "遗产",
+        "recycled": false
+      },
+      {
+        "word": "Globalization",
+        "forms": "Global (Adj)",
+        "meaning": "全球化",
+        "recycled": false
+      },
+      {
+        "word": "Identity",
+        "forms": "Identify (V)",
+        "meaning": "认同感",
+        "recycled": true
+      },
+      {
+        "word": "Expression",
+        "forms": "Express (V)",
+        "meaning": "表达",
+        "recycled": true
+      }
+    ],
+    "l2_idioms": [
+      {
+        "idiom": "Keep tradition alive",
+        "usage": "Kept (V2)",
+        "meaning": "传承传统",
+        "cn_idiom": "薪火相传",
+        "example": "We bake these cookies every year to keep the tradition alive."
+      },
+      {
+        "idiom": "Melting pot",
+        "usage": "Noun Phrase",
+        "meaning": "大熔炉",
+        "cn_idiom": "大熔炉",
+        "example": "This neighborhood is a melting pot of different cultures."
+      },
+      {
+        "idiom": "In high spirits",
+        "usage": "Fixed Phrase",
+        "meaning": "兴高采烈",
+        "cn_idiom": "兴高采烈",
+        "example": "Everyone at the wedding was in high spirits."
+      }
+    ]
+  }
+]
