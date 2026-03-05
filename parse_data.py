@@ -34,7 +34,7 @@ def get_week_data_from_dict(filepath, target_week):
 
 def get_all_week_data(week_number):
     week_curriculum = get_week_data_from_json('master Curiculum.json', week_number)
-    week_vocab = get_week_data_from_json('vocab_plan.json', week_number)
+    week_vocab = get_week_data_from_json('vocab_plan_new.json', week_number)
     week_homework = get_week_data_from_json('homework_plan.json', week_number)
     week_ai_data = get_week_data_from_dict('ai_dynamic_content.json', week_number)
     week_teacher_content = get_week_data_from_dict('teacher_dynamic_content.json', week_number)
@@ -62,6 +62,7 @@ def compile_base_template():
     .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
     .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
     .cover-box { display: none; }
+    .spider-center { color: black !important; }
     """
     for tag in soup.head.find_all('style'):
         if tag.string and "OVERRIDES FOR COVER PAGE" in tag.string:
@@ -70,7 +71,29 @@ def compile_base_template():
     style_tag.string = css_overrides
     soup.head.append(style_tag)
 
+
+
+    # Remove Q1 (Continued)
+    q1_cont = soup.find('div', id='p6-q1-cont')
+    if q1_cont:
+        q1_cont.decompose()
+
+    # Expand Q2 and Q3 to fill the space
+    q2_card = soup.find('div', id='p6-q2')
+    q3_card = soup.find('div', id='p6-q3')
+    if q2_card:
+        q2_card['style'] = q2_card.get('style', '') + '; flex: 1; min-height: 400px;'
+    if q3_card:
+        q3_card['style'] = q3_card.get('style', '') + '; flex: 1; min-height: 400px;'
+
+    # Remove blank page
+
+    blank_page = soup.find('div', class_='page blank-page')
+    if blank_page:
+        blank_page.decompose()
+
     # Reorder Page 2 / Extract Writing Block to End
+
     hw_page = soup.find('div', class_='page hw')
     draft_div = None
     if hw_page:
@@ -79,10 +102,23 @@ def compile_base_template():
             draft_container = diff_box.find_next_sibling('div')
             if draft_container and "Draft:" in draft_container.text:
                 draft_div = draft_container.extract()
-                diff_box.string = "Instructions: Write first draft: Go to the next Page (that woul be page 10)"
+                diff_box.clear()
+                diff_box.append(BeautifulSoup('''
+                <ol style="margin: 0; padding-left: 20px;">
+                    <li>Go to Page 10 ("Writing Homework").</li>
+                    <li>Write your first draft in the top box.</li>
+                    <li>Use AI to correct grammar/vocabulary.</li>
+                    <li>Write the polished version in the bottom box</li>
+                </ol>
+                ''', 'html.parser'))
 
     if draft_div:
+        # Add large drop shadow to the writing boxes
+        for box in draft_div.find_all('div', style=lambda s: s and 'border:1px solid #eee' in s):
+            box['style'] = box.get('style', '') + '; box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; border: none !important;'
+
         new_page = soup.new_tag('div', attrs={'class': 'page draft-page'})
+
         h1 = soup.new_tag('h1')
         h1.string = "Writing Homework: Draft & Polished Rewrite"
         new_page.append(h1)
@@ -116,7 +152,7 @@ def extract_keyword(text):
         phrase = match_noun.group(1).strip()
         words = [w for w in phrase.split() if w.lower() not in stopwords]
         if words: return "<br>".join(words[:2]).upper()
-        
+
     match_simple = re.search(r'Describe ([A-Za-z\s]+)', text, re.IGNORECASE)
     if match_simple:
         phrase = match_simple.group(1).strip()
@@ -145,9 +181,13 @@ def format_bullet_text(html_content):
                 found = True
                 break
         if not found:
-            return html_content
+            return f"<strong>{html_content}</strong>"
+
+    # Make the main question bold
+    main_text = f"<strong>{main_text}</strong>"
 
     formatted_bullets = []
+
     for line in bullet_lines:
         clean_line = BeautifulSoup(line, 'html.parser').get_text().strip()
         if not clean_line: continue
@@ -541,7 +581,56 @@ def process_week(week_number):
             writing_card = hw_page.find('h3', string=re.compile(r'Writing Task'))
             if writing_card: writing_card.string = f"3. Writing Task: {week_homework.get('writing_task', '')} (10 minutes)"
 
+            # Task 9: Format colors and themes for sections 3 and 4
+            theme_colors = [
+                ('#e8f8f5', '#1abc9c'), # Teal
+                ('#fdf2e9', '#f39c12'), # Orange
+                ('#f4ecf7', '#9b59b6'), # Purple
+                ('#e8f6f3', '#16a085'), # Sea Green
+                ('#ebdef0', '#8e44ad'), # Deep Purple
+                ('#fcf3cf', '#f39c12')  # Yellow Orange
+            ]
+            color_idx = (week_number - 1) % len(theme_colors)
+            bg_color, accent_color = theme_colors[color_idx]
+
+            if writing_card and writing_card.parent:
+                writing_card.parent['style'] = f"flex-grow:1; border-left:5px solid {accent_color}; background:{bg_color}; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;"
+
+            # Task 8 & 9: Update Recording Challenge Instructions & Style
+            recording_card = hw_page.find('div', style=lambda x: x and 'background:#eafaf1' in x)
+            if not recording_card:
+                 # Fallback if style changed
+                 for d in hw_page.find_all('div', class_='card'):
+                     if 'Recording' in d.text:
+                         recording_card = d
+                         break
+
+            if recording_card:
+                recording_card.clear()
+                recording_card['style'] = f"background:{bg_color}; border:2px dashed {accent_color}; padding:15px; border-radius:8px; margin-top:10px;"
+                new_recording_html = f'''
+                <h3 style="color:{accent_color}; margin:0;">🎙️ 4. Recording Challenge</h3>
+                <div style="font-size:0.9em; text-align:left; margin-top:10px;">
+                    <strong>Part 1: AI Shadow Reading (20 mins)</strong><br>
+                    <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br>
+                    <strong>Task B</strong> - Memorise next week's part 2 Model Answer (5 mins).<br>
+                    <strong>Task C - Tongue Twisters:</strong> Use the AI APP for Pronunciation Practice (5 mins).<br><br>
+
+                    <strong>Part 2: Speaking Practice (20 Minutes)</strong><br>
+                    <strong>Task A</strong> - Use the AI APP to record and submit your answers for all 3 Part 2 Speaking questions for this week (3 X 2 Minutes)<br>
+                    <strong>Task B</strong> - Use the AI APP to record and submit your answers for all Part 3 Question (6 X 1 minute)<br><br>
+
+                    <em>DO NOT READ YOUR ANSWERS INTO THE APP.</em><br>
+                    Use complex sentences, transition phrases and this week's vocabulary and idioms.<br><br>
+
+                    <strong style="color:#e74c3c;">IELTS Band 7 Challenge:</strong> Do additional shadowing free practice to perfect your pronunciation faster.
+                </div>
+                '''
+                recording_card.append(BeautifulSoup(new_recording_html, 'html.parser'))
+
             key_div = hw_page.find('div', style=lambda x: x and 'transform:rotate(180deg)' in x)
+
+
             if key_div: key_div.string = week_homework.get('answer_key', '')
 
         # The Writing page has already been moved to the end, and its text has already been updated in the base template.
@@ -565,7 +654,7 @@ def main():
     success_count = 0
     errors = []
 
-    batch_size = 5
+    batch_size = 10
     for start in range(1, 41, batch_size):
         end = min(start + batch_size - 1, 40)
         print(f"--- Processing Batch: Weeks {start} to {end} ---")
