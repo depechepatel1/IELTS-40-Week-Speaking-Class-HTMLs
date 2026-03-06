@@ -120,7 +120,16 @@ def compile_base_template():
             writing_box.append(peer_div)
 
 
+
+    # Fix Page 8 padding issue
+    l2_pages = soup.find_all('div', class_='l2')
+    if len(l2_pages) >= 4:
+        page_8 = l2_pages[3]
+        if page_8.has_attr('style'):
+            page_8['style'] = page_8['style'].replace('padding-top:0 !important;', 'padding-top:5mm !important;')
+
     # Remove blank page
+
 
     blank_page = soup.find('div', class_='page blank-page')
     if blank_page:
@@ -137,14 +146,19 @@ def compile_base_template():
             if draft_container and "Draft:" in draft_container.text:
                 draft_div = draft_container.extract()
                 diff_box.clear()
+                # Apply textbook quality styling: subtle background, nice spacing, clean borders.
+                diff_box['style'] = "background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;"
+
                 diff_box.append(BeautifulSoup('''
-                <ol style="margin: 0; padding-left: 20px;">
-                    <li>Go to Page 10 ("Writing Homework").</li>
-                    <li>Write your first draft in the top box.</li>
-                    <li>Use AI to correct grammar/vocabulary.</li>
-                    <li>Write the polished version in the bottom box</li>
+                <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
+                <ol style="margin: 0; padding-left: 20px; line-height: 1.5;">
+                    <li><strong>Go to Page 10</strong> ("Writing Homework").</li>
+                    <li>Write your <strong>first draft</strong> in the top box.</li>
+                    <li>Use <strong>AI</strong> to correct grammar/vocabulary.</li>
+                    <li>Write the <strong>polished version</strong> in the bottom box.</li>
                 </ol>
                 ''', 'html.parser'))
+
 
     if draft_div:
         # Add large drop shadow to the writing boxes
@@ -156,11 +170,11 @@ def compile_base_template():
         h1 = soup.new_tag('h1')
         h1.string = "Writing Homework: Draft & Polished Rewrite"
 
-        # Create a container div for the heading with pastel orange background and shadow
-        h1_container = soup.new_tag('div', attrs={'style': 'background: #fdf2e9; border: 2px dashed #e67e22; padding: 15px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); text-align: center;'})
+        # Create a container div for the heading with pastel orange background, left border accent, and shadow
+        h1_container = soup.new_tag('div', attrs={'style': 'background: #fdf2e9; border: 1px solid rgba(0,0,0,0.05); border-left: 6px solid #e67e22; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); text-align: left;'})
 
         # Apply specific inline styles to override the CSS rule
-        h1['style'] = "margin: 0; padding: 0; border: none; font-size: 1.5em; color: #e67e22; text-transform: uppercase; letter-spacing: 2px;"
+        h1['style'] = "margin: 0; padding: 0; border: none; font-size: 1.2em; font-weight: 700; color: #d35400; text-transform: uppercase; letter-spacing: 1px;"
 
         h1_container.append(h1)
         new_page.append(h1_container)
@@ -649,7 +663,8 @@ def process_week(week_number):
 
             if recording_card:
                 recording_card.clear()
-                recording_card['style'] = f"background:{bg_color}; border:2px dashed {accent_color}; padding:15px; border-radius:8px; margin-top:10px;"
+                recording_card['style'] = f"background:{bg_color}; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid {accent_color}; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);"
+
                 new_recording_html = f'''
                 <h3 style="color:{accent_color}; margin:0;">🎙️ 4. Recording Challenge</h3>
                 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
