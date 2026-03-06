@@ -41,7 +41,17 @@ def get_all_week_data(week_number):
     week_peer_data = get_week_data_from_json('peer_check_questions.json', week_number)
     week_phrase_data = get_week_data_from_json('noun_or_verb_phrases_for_weekly_topics.json', week_number)
 
-    return week_curriculum, week_vocab, week_homework, week_ai_data, week_teacher_content, week_peer_data, week_phrase_data
+    # Custom load for mindmap_labels which is nested
+    week_mindmap_labels = {}
+    try:
+        with open('mindmap_labels.json', 'r', encoding='utf-8') as f:
+            labels_data = json.load(f)
+            week_mindmap_labels = labels_data.get('mindmap_labels', {}).get(f'week_{week_number}', {}).get('lesson_1', {})
+    except Exception as e:
+        print(f"Error loading mindmap labels: {e}")
+
+    return week_curriculum, week_vocab, week_homework, week_ai_data, week_teacher_content, week_peer_data, week_phrase_data, week_mindmap_labels
+
 
 def compile_base_template():
     """Builds a cached base template string with the correct Page 10 structural fixes."""
@@ -85,6 +95,30 @@ def compile_base_template():
         q2_card['style'] = q2_card.get('style', '') + '; flex: 1; min-height: 400px;'
     if q3_card:
         q3_card['style'] = q3_card.get('style', '') + '; flex: 1; min-height: 400px;'
+        # Fix the Q3 box structure
+        writing_box = q3_card.find('div', style=lambda x: x and 'border-top:1px dashed' in x)
+        if writing_box:
+            # Change to solid border to match Q2
+            writing_box['style'] = "margin-top:10px; border:1px solid #ddd; padding:10px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column;"
+
+            # Remove existing lines/peer div and rebuild
+            for el in writing_box.find_all('div', class_='lines'):
+                el.decompose()
+            for el in writing_box.find_all('div', style=lambda x: x and 'border-top:1px dotted' in x):
+                el.decompose()
+
+            write_prompt = writing_box.find('span', class_='write-prompt')
+            if write_prompt:
+                write_prompt.string = "Write your answer (Use O.R.E.):"
+
+            # Add flex lines
+            lines_div = soup.new_tag('div', attrs={'class': 'lines', 'style': 'height:100%; flex-grow:1;'})
+            writing_box.append(lines_div)
+
+            # Add peer div
+            peer_div = soup.new_tag('div', attrs={'style': 'margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;'})
+            writing_box.append(peer_div)
+
 
     # Remove blank page
 
@@ -121,7 +155,15 @@ def compile_base_template():
 
         h1 = soup.new_tag('h1')
         h1.string = "Writing Homework: Draft & Polished Rewrite"
-        new_page.append(h1)
+
+        # Create a container div for the heading with pastel orange background and shadow
+        h1_container = soup.new_tag('div', attrs={'style': 'background: #fdf2e9; border: 2px dashed #e67e22; padding: 15px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); text-align: center;'})
+
+        # Apply specific inline styles to override the CSS rule
+        h1['style'] = "margin: 0; padding: 0; border: none; font-size: 1.5em; color: #e67e22; text-transform: uppercase; letter-spacing: 2px;"
+
+        h1_container.append(h1)
+        new_page.append(h1_container)
         new_page.append(draft_div)
         soup.body.append(new_page)
 
@@ -206,7 +248,7 @@ BASE_TEMPLATE = compile_base_template()
 def process_week(week_number):
     try:
         # Load the data for this week only using ijson to stay extremely memory efficient
-        week_curriculum, week_vocab, week_homework, ai_content, week_teacher_content, week_peer_data, week_phrase_data = get_all_week_data(week_number)
+        week_curriculum, week_vocab, week_homework, ai_content, week_teacher_content, week_peer_data, week_phrase_data, week_mindmap_labels = get_all_week_data(week_number)
 
         if not week_curriculum:
             print(f"Skipping Week {week_number}: No curriculum data found.")
@@ -286,7 +328,7 @@ def process_week(week_number):
                 band6_div = diff_card.find('div', style=lambda x: x and 'background:#fef9e7' in x)
                 if band6_div:
                     band6_div.clear()
-                    band6_div.append(BeautifulSoup(f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: {b6_data.get('transitions', '')}<br>• Peer Check: Ask specific questions about {target_phrase}.", 'html.parser'))
+                    band6_div.append(BeautifulSoup(f"<strong>📈 Band 6.0+ (Stretch)</strong><br>• Transitions: {b6_data.get('transitions', '')}<br>• Peer Check: Ask abstract questions about {target_phrase}.", 'html.parser'))
 
             l1_table = l1_page.find('table', class_='lp-table')
             if l1_table:
@@ -455,7 +497,7 @@ def process_week(week_number):
         spider_centers = soup.find_all('div', class_='spider-center')
         if len(spider_centers) > 0:
             spider_centers[0].clear()
-            spider_centers[0].append(BeautifulSoup(extract_keyword(q1_soup.get_text()), 'html.parser'))
+            spider_centers[0].append(BeautifulSoup(week_mindmap_labels.get('q1', extract_keyword(q1_soup.get_text())), 'html.parser'))
 
         l1_practice_page = soup.find_all('div', class_='l1')[2] if len(soup.find_all('div', class_='l1')) > 2 else None
         if l1_practice_page:
@@ -483,7 +525,7 @@ def process_week(week_number):
                 center = spider_container.find('div', class_='spider-center')
                 if center:
                     center.clear()
-                    center.append(BeautifulSoup(extract_keyword(q2_soup.get_text()), 'html.parser'))
+                    center.append(BeautifulSoup(week_mindmap_labels.get('q2', extract_keyword(q2_soup.get_text())), 'html.parser'))
                 for i, leg in enumerate(spider_container.find_all('div', class_='spider-leg')):
                     if i < len(l1_data_s.get('q2', {}).get('spider_diagram_hints', [])):
                         leg.contents[0].replace_with(l1_data_s.get('q2', {}).get('spider_diagram_hints', [])[i])
@@ -499,7 +541,7 @@ def process_week(week_number):
                 center = spider_container.find('div', class_='spider-center')
                 if center:
                     center.clear()
-                    center.append(BeautifulSoup(extract_keyword(q3_soup.get_text()), 'html.parser'))
+                    center.append(BeautifulSoup(week_mindmap_labels.get('q3', extract_keyword(q3_soup.get_text())), 'html.parser'))
                 for i, leg in enumerate(spider_container.find_all('div', class_='spider-leg')):
                     if i < len(l1_data_s.get('q3', {}).get('spider_diagram_hints', [])):
                         leg.contents[0].replace_with(l1_data_s.get('q3', {}).get('spider_diagram_hints', [])[i])
