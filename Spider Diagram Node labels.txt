@@ -1,0 +1,284 @@
+{
+  "mindmap_labels": {
+    "week_1": {
+      "lesson_1": {
+        "q1": "Proud Family",
+        "q2": "Great Achiever",
+        "q3": "Admired Character"
+      }
+    },
+    "week_2": {
+      "lesson_1": {
+        "q1": "Foreign Work",
+        "q2": "Work City",
+        "q3": "Workplace Visited"
+      }
+    },
+    "week_3": {
+      "lesson_1": {
+        "q1": "Perfect Job",
+        "q2": "Future Job",
+        "q3": "Well-paid Job"
+      }
+    },
+    "week_4": {
+      "lesson_1": {
+        "q1": "Disappointing Movie",
+        "q2": "Failed Film",
+        "q3": "Regretted Show"
+      }
+    },
+    "week_5": {
+      "lesson_1": {
+        "q1": "Nature Advocate",
+        "q2": "Eco Enthusiast",
+        "q3": "Eco Activist"
+      }
+    },
+    "week_6": {
+      "lesson_1": {
+        "q1": "Tree Place",
+        "q2": "City Park",
+        "q3": "Impressive Nature"
+      }
+    },
+    "week_7": {
+      "lesson_1": {
+        "q1": "Daily App",
+        "q2": "Helpful App",
+        "q3": "Learning App"
+      }
+    },
+    "week_8": {
+      "lesson_1": {
+        "q1": "Gave Advice",
+        "q2": "Received Advice",
+        "q3": "Tough Decision"
+      }
+    },
+    "week_9": {
+      "lesson_1": {
+        "q1": "Artistic Child",
+        "q2": "Creative Child",
+        "q3": "Talented Youth"
+      }
+    },
+    "week_10": {
+      "lesson_1": {
+        "q1": "Interesting Building",
+        "q2": "Historical Building",
+        "q3": "Modern Building"
+      }
+    },
+    "week_11": {
+      "lesson_1": {
+        "q1": "Desired Tech",
+        "q2": "Time-saving Tech",
+        "q3": "World-changing Invention"
+      }
+    },
+    "week_12": {
+      "lesson_1": {
+        "q1": "Lost Way",
+        "q2": "Late Arrival",
+        "q3": "Helped Lost"
+      }
+    },
+    "week_13": {
+      "lesson_1": {
+        "q1": "Famous Person",
+        "q2": "Admired Athlete",
+        "q3": "Global Icon"
+      }
+    },
+    "week_14": {
+      "lesson_1": {
+        "q1": "Favorite Mall",
+        "q2": "Street Market",
+        "q3": "Recommended Shop"
+      }
+    },
+    "week_15": {
+      "lesson_1": {
+        "q1": "Useful Book",
+        "q2": "Recent Story",
+        "q3": "Traditional Story"
+      }
+    },
+    "week_16": {
+      "lesson_1": {
+        "q1": "Shared Laughter",
+        "q2": "Open Emotions",
+        "q3": "Comedy Show"
+      }
+    },
+    "week_17": {
+      "lesson_1": {
+        "q1": "Old Friend",
+        "q2": "Important Friend",
+        "q3": "Musical Friend"
+      }
+    },
+    "week_18": {
+      "lesson_1": {
+        "q1": "Relaxing Spot",
+        "q2": "Dream Home",
+        "q3": "Liked Home"
+      }
+    },
+    "week_19": {
+      "lesson_1": {
+        "q1": "Vital Item",
+        "q2": "Family Heirloom",
+        "q3": "Treasured Gift"
+      }
+    },
+    "week_20": {
+      "lesson_1": {
+        "q1": "Long Journey",
+        "q2": "Road Trip",
+        "q3": "Delayed Trip"
+      }
+    },
+    "week_21": {
+      "lesson_1": {
+        "q1": "Admired Creator",
+        "q2": "Talented Person",
+        "q3": "Clever Solver"
+      }
+    },
+    "week_22": {
+      "lesson_1": {
+        "q1": "Family Business",
+        "q2": "Successful Shop",
+        "q3": "Dream Company"
+      }
+    },
+    "week_23": {
+      "lesson_1": {
+        "q1": "Childhood Toy",
+        "q2": "Childhood Game",
+        "q3": "Modern Toy"
+      }
+    },
+    "week_24": {
+      "lesson_1": {
+        "q1": "Power Cut",
+        "q2": "Broken Equipment",
+        "q3": "Accidental Break"
+      }
+    },
+    "week_25": {
+      "lesson_1": {
+        "q1": "Encouraged Action",
+        "q2": "Guided Decision",
+        "q3": "Eager Learner"
+      }
+    },
+    "week_26": {
+      "lesson_1": {
+        "q1": "Good Service",
+        "q2": "Expensive Purchase",
+        "q3": "New Shop"
+      }
+    },
+    "week_27": {
+      "lesson_1": {
+        "q1": "Online Program",
+        "q2": "Social Media",
+        "q3": "Info Website"
+      }
+    },
+    "week_28": {
+      "lesson_1": {
+        "q1": "Friend Dinner",
+        "q2": "Bad Event",
+        "q3": "Recent Celebration"
+      }
+    },
+    "week_29": {
+      "lesson_1": {
+        "q1": "Received Apology",
+        "q2": "Important Truth",
+        "q3": "Honest Person"
+      }
+    },
+    "week_30": {
+      "lesson_1": {
+        "q1": "Wild Animal",
+        "q2": "Animal Park",
+        "q3": "Wildlife Habitat"
+      }
+    },
+    "week_31": {
+      "lesson_1": {
+        "q1": "Science Area",
+        "q2": "Used Imagination",
+        "q3": "Important Invention"
+      }
+    },
+    "week_32": {
+      "lesson_1": {
+        "q1": "New Activity",
+        "q2": "Foreign Language",
+        "q3": "Learning Challenge"
+      }
+    },
+    "week_33": {
+      "lesson_1": {
+        "q1": "Good Habit",
+        "q2": "Broken Habit",
+        "q3": "Disciplined Person"
+      }
+    },
+    "week_34": {
+      "lesson_1": {
+        "q1": "No Phones",
+        "q2": "Quiet Place",
+        "q3": "Strict Rules"
+      }
+    },
+    "week_35": {
+      "lesson_1": {
+        "q1": "Regular Plan",
+        "q2": "Special Wait",
+        "q3": "Busy Period"
+      }
+    },
+    "week_36": {
+      "lesson_1": {
+        "q1": "Competition Entered",
+        "q2": "Won Prize",
+        "q3": "Watched Match"
+      }
+    },
+    "week_37": {
+      "lesson_1": {
+        "q1": "Helpful Neighbor",
+        "q2": "Community Helper",
+        "q3": "Helped Neighbor"
+      }
+    },
+    "week_38": {
+      "lesson_1": {
+        "q1": "Water Place",
+        "q2": "Dream Holiday",
+        "q3": "Natural Beauty"
+      }
+    },
+    "week_39": {
+      "lesson_1": {
+        "q1": "Worn Uniform",
+        "q2": "Special Clothing",
+        "q3": "Traditional Clothes"
+      }
+    },
+    "week_40": {
+      "lesson_1": {
+        "q1": "Traditional Festival",
+        "q2": "Attended Party",
+        "q3": "National Holiday"
+      }
+    }
+  }
+}

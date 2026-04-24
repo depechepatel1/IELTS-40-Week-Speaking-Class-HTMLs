@@ -1,0 +1,484 @@
+{
+  "curriculum": [
+    {
+      "id": 221,
+      "module": 10,
+      "target_sound": "Vowel-to-Vowel Linking",
+      "sentence": "Go out and see it all."
+    },
+    {
+      "id": 222,
+      "module": 10,
+      "target_sound": "Vowel-to-Vowel Linking",
+      "sentence": "He asked me to do it."
+    },
+    {
+      "id": 223,
+      "module": 10,
+      "target_sound": "Vowel-to-Vowel Linking",
+      "sentence": "The tree is too old to cut."
+    },
+    {
+      "id": 224,
+      "module": 10,
+      "target_sound": "Vowel-to-Vowel Linking",
+      "sentence": "They are staying at the inn."
+    },
+    {
+      "id": 225,
+      "module": 10,
+      "target_sound": "Vowel-to-Vowel Linking",
+      "sentence": "I am ready to go out."
+    },
+    {
+      "id": 226,
+      "module": 10,
+      "target_sound": "Vowel-to-Vowel Linking",
+      "sentence": "She always eats early in the evening."
+    },
+    {
+      "id": 227,
+      "module": 10,
+      "target_sound": "Vowel-to-Vowel Linking",
+      "sentence": "Who is the boy in the blue overcoat?"
+    },
+    {
+      "id": 228,
+      "module": 10,
+      "target_sound": "Vowel-to-Vowel Linking",
+      "sentence": "Two apples fell from the apple tree."
+    },
+    {
+      "id": 229,
+      "module": 10,
+      "target_sound": "Consonant-to-Consonant Linking",
+      "sentence": "The bad dog dug a deep pit."
+    },
+    {
+      "id": 230,
+      "module": 10,
+      "target_sound": "Consonant-to-Consonant Linking",
+      "sentence": "A black cat sat on the top step."
+    },
+    {
+      "id": 231,
+      "module": 10,
+      "target_sound": "Consonant-to-Consonant Linking",
+      "sentence": "Some men make cold drinks."
+    },
+    {
+      "id": 232,
+      "module": 10,
+      "target_sound": "Consonant-to-Consonant Linking",
+      "sentence": "Stop playing with the cheap paper."
+    },
+    {
+      "id": 233,
+      "module": 10,
+      "target_sound": "Consonant-to-Consonant Linking",
+      "sentence": "Grab both those red dresses."
+    },
+    {
+      "id": 234,
+      "module": 10,
+      "target_sound": "Consonant-to-Consonant Linking",
+      "sentence": "We need ten new white tables."
+    },
+    {
+      "id": 235,
+      "module": 10,
+      "target_sound": "Consonant-to-Consonant Linking",
+      "sentence": "Keep pushing the heavy yellow cart."
+    },
+    {
+      "id": 236,
+      "module": 10,
+      "target_sound": "Sentence Stress & Rhythm",
+      "sentence": "Cups of tea are on the table."
+    },
+    {
+      "id": 237,
+      "module": 10,
+      "target_sound": "Sentence Stress & Rhythm",
+      "sentence": "He bought a book for his best friend."
+    },
+    {
+      "id": 238,
+      "module": 10,
+      "target_sound": "Sentence Stress & Rhythm",
+      "sentence": "She went to the bank to get some cash."
+    },
+    {
+      "id": 239,
+      "module": 10,
+      "target_sound": "Sentence Stress & Rhythm",
+      "sentence": "Birds fly in the sky during the day."
+    },
+    {
+      "id": 240,
+      "module": 10,
+      "target_sound": "Sentence Stress & Rhythm",
+      "sentence": "Kids love to play in the large park."
+    },
+    {
+      "id": 241,
+      "module": 10,
+      "target_sound": "Sentence Stress & Rhythm",
+      "sentence": "Trains and buses leave right on time."
+    },
+    {
+      "id": 242,
+      "module": 10,
+      "target_sound": "Sentence Stress & Rhythm",
+      "sentence": "Fish swim deep in the big blue sea."
+    },
+    {
+      "id": 243,
+      "module": 10,
+      "target_sound": "Sentence Stress & Rhythm",
+      "sentence": "Men and women work hard all week."
+    },
+    {
+      "id": 244,
+      "module": 10,
+      "target_sound": "Common Reductions (wanna, gonna)",
+      "sentence": "I am going to buy a new fast car."
+    },
+    {
+      "id": 245,
+      "module": 10,
+      "target_sound": "Common Reductions (wanna, gonna)",
+      "sentence": "Do you want to get a cup of coffee?"
+    },
+    {
+      "id": 246,
+      "module": 10,
+      "target_sound": "Common Reductions (gotta, lemme)",
+      "sentence": "You have got to tell me the strict truth."
+    },
+    {
+      "id": 247,
+      "module": 10,
+      "target_sound": "Common Reductions (gotta, lemme)",
+      "sentence": "Let me see what you have in your hand."
+    },
+    {
+      "id": 248,
+      "module": 10,
+      "target_sound": "Common Reductions (gimme, shoulda)",
+      "sentence": "Give me a break from all this hard work."
+    },
+    {
+      "id": 249,
+      "module": 10,
+      "target_sound": "Common Reductions (gimme, shoulda)",
+      "sentence": "He should have known much better than that."
+    },
+    {
+      "id": 250,
+      "module": 10,
+      "target_sound": "Common Reductions (coulda, mighta)",
+      "sentence": "I could have helped you with those heavy bags."
+    },
+    {
+      "id": 251,
+      "module": 10,
+      "target_sound": "Intonation - Rising/Falling",
+      "sentence": "Are you coming with us to the park today?"
+    },
+    {
+      "id": 252,
+      "module": 10,
+      "target_sound": "Intonation - Rising/Falling",
+      "sentence": "Where did you put the remote control?"
+    },
+    {
+      "id": 253,
+      "module": 10,
+      "target_sound": "Intonation - Question Tags",
+      "sentence": "That was a fantastic movie, was it not?"
+    },
+    {
+      "id": 254,
+      "module": 10,
+      "target_sound": "Intonation - Lists",
+      "sentence": "I need milk, fresh eggs, bread, and cheese."
+    },
+    {
+      "id": 255,
+      "module": 10,
+      "target_sound": "Intonation - Conditional",
+      "sentence": "If it rains heavily, we will stay inside."
+    },
+    {
+      "id": 256,
+      "module": 10,
+      "target_sound": "Intonation - Clarification",
+      "sentence": "Did you say Tuesday or did you say Thursday?"
+    },
+    {
+      "id": 257,
+      "module": 10,
+      "target_sound": "Intonation - Exclamation",
+      "sentence": "I simply cannot believe we finally won the game!"
+    },
+    {
+      "id": 258,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - Consonants",
+      "sentence": "Peter Piper picked a peck of pickled peppers."
+    },
+    {
+      "id": 259,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - Fricatives",
+      "sentence": "She sells seashells by the seashore."
+    },
+    {
+      "id": 260,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /w/ vs /v/",
+      "sentence": "How much wood would a woodchuck chuck."
+    },
+    {
+      "id": 261,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - Fricatives",
+      "sentence": "Fuzzy Wuzzy was a bear, Fuzzy Wuzzy had no hair."
+    },
+    {
+      "id": 262,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - Clusters & /r/",
+      "sentence": "I scream, you scream, we all scream for ice cream."
+    },
+    {
+      "id": 263,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - Plosives",
+      "sentence": "A big black bug bit a big black dog."
+    },
+    {
+      "id": 264,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /s/ & /l/",
+      "sentence": "Six slippery snails slid slowly seaward."
+    },
+    {
+      "id": 265,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /r/ vs /l/",
+      "sentence": "Red lorry, yellow lorry, red lorry, yellow lorry."
+    },
+    {
+      "id": 266,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - Plosives",
+      "sentence": "Betty Botter bought some bitter butter."
+    },
+    {
+      "id": 267,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - Fricatives & Flaps",
+      "sentence": "Fresh fried fish, fish fresh fried, fried fish fresh."
+    },
+    {
+      "id": 268,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /s/ vs /ʃ/",
+      "sentence": "I saw Susie sitting in a shoeshine shop."
+    },
+    {
+      "id": 269,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - Affricates",
+      "sentence": "Chester cheetah chews a chunk of cheap cheddar cheese."
+    },
+    {
+      "id": 270,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /f/ vs /v/",
+      "sentence": "Four fine fresh fish for you."
+    },
+    {
+      "id": 271,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /g/ & /r/",
+      "sentence": "Greek grapes are great green grapes."
+    },
+    {
+      "id": 272,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - Nasals",
+      "sentence": "Nine nice night nurses nursing nicely."
+    },
+    {
+      "id": 273,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /s/ & /ʃ/",
+      "sentence": "We surely shall see the sun shine soon."
+    },
+    {
+      "id": 274,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - Plosives & Nasals",
+      "sentence": "Can you can a can as a canner can can a can?"
+    },
+    {
+      "id": 275,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /θ/ & /s/",
+      "sentence": "Six thick thistle sticks."
+    },
+    {
+      "id": 276,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /h/ & Plosives",
+      "sentence": "A happy hippo hopped and hiccupped."
+    },
+    {
+      "id": 277,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /s/ & /w/",
+      "sentence": "Swan swam over the sea, swim, swan, swim."
+    },
+    {
+      "id": 278,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /t/ & /w/",
+      "sentence": "Twelve twins twirled twelve twigs."
+    },
+    {
+      "id": 279,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /b/ & /r/ clusters",
+      "sentence": "Brisk brave brigadiers brandished broad bright blades."
+    },
+    {
+      "id": 280,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /w/",
+      "sentence": "Wayne went to Wales to watch walruses."
+    },
+    {
+      "id": 281,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /f/ & /t/",
+      "sentence": "Fred fed Ted bread, and Ted fed Fred bread."
+    },
+    {
+      "id": 282,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /w/ & /ð/",
+      "sentence": "Lesser leather never weathered wetter weather better."
+    },
+    {
+      "id": 283,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - Linking & Flaps",
+      "sentence": "Eddie edited it."
+    },
+    {
+      "id": 284,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /w/, /r/, /s/",
+      "sentence": "Which wristwatches are Swiss wristwatches?"
+    },
+    {
+      "id": 285,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /t/ & /θ/",
+      "sentence": "Tom threw Tim three thumbtacks."
+    },
+    {
+      "id": 286,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /θ/ & Vowels",
+      "sentence": "I thought a thought, but the thought I thought was not the thought."
+    },
+    {
+      "id": 287,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /j/ & /n/",
+      "sentence": "Unique New York, you know you need unique New York."
+    },
+    {
+      "id": 288,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /tʃ/ & /dʒ/",
+      "sentence": "Which witch is which when choosing a cheese sandwich?"
+    },
+    {
+      "id": 289,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - Consonants",
+      "sentence": "Double bubble gum bubbles double."
+    },
+    {
+      "id": 290,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /p/ & /l/",
+      "sentence": "Please pay promptly for the purple plastic plates."
+    },
+    {
+      "id": 291,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /g/ & /l/",
+      "sentence": "Global gladiators gladly gather golden globes."
+    },
+    {
+      "id": 292,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /m/ & /n/",
+      "sentence": "Many mumbling mice are making midnight music in the moonlight."
+    },
+    {
+      "id": 293,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /k/ & /l/",
+      "sentence": "Clara carefully cleaned the clear crystal clock."
+    },
+    {
+      "id": 294,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /v/ & /w/ again",
+      "sentence": "Vivid views of the valley are visible from the wide window."
+    },
+    {
+      "id": 295,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - Complex Clusters",
+      "sentence": "The sixth sick sheik's sixth sheep's sick."
+    },
+    {
+      "id": 296,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /b/ & /v/",
+      "sentence": "Big brave bears brave biting blizzards."
+    },
+    {
+      "id": 297,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /t/ & /r/",
+      "sentence": "Truly rural trains travel through the trees."
+    },
+    {
+      "id": 298,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /s/ & /p/",
+      "sentence": "Spooky spiders spin sticky silk spirals."
+    },
+    {
+      "id": 299,
+      "module": "Capstone Review",
+      "target_sound": "Mixed - /k/ & /r/",
+      "sentence": "Crazy crickets crawl across the cracked concrete."
+    },
+    {
+      "id": 300,
+      "module": "Capstone Review",
+      "target_sound": "Final Mastery",
+      "sentence": "Congratulations, you have completed the final pronunciation challenge."
+    }
+  ]
+}
