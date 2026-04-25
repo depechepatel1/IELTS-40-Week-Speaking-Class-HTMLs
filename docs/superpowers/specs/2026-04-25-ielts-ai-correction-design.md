@@ -136,7 +136,7 @@ In-memory `Map<ip, { count, windowStart }>`:
 |---|---|
 | Endpoint | `https://open.bigmodel.cn/api/paas/v4/chat/completions` |
 | Auth | `Authorization: Bearer ${ZHIPU_API_KEY}` |
-| Model | **Resolved at deploy time** by querying Zhipu's model list endpoint and selecting the latest free chat model in the GLM family. Hard-coded in `index.js` at deploy time. Likely `glm-4.7-flash` or newer (`glm-5-flash` etc.). |
+| Model | **Resolved at deploy time** (see §5.8.1). Hard-coded as a constant in `index.js`. Likely `glm-4.7-flash` or newer (`glm-5-flash` etc.). |
 | `max_tokens` | 500 |
 | `temperature` | 0.3 |
 | `messages` | `[{role:'system', content: SYSTEM_PROMPT}, {role:'user', content: draft}]` |
@@ -178,6 +178,17 @@ One retry on network errors with 500ms delay. No retry on quota errors.
   ```
 - Prerequisites (user-side): `npm i -g @serverless-devs/s`, `s config add` with the `claude-mcp-user` Aliyun AccessKey/SecretKey.
 - Output: a `*.fcapp.run` URL printed by `s deploy`. Stored in `function-compute/DEPLOYED_URL.txt` (gitignored) and used as the `--endpoint` argument to `make_interactive.py`.
+
+### 5.8.1 Deploy-time model resolution
+
+Before `s deploy`, the operator runs:
+
+```bash
+curl -s -H "Authorization: Bearer $ZHIPU_API_KEY" \
+  https://open.bigmodel.cn/api/paas/v4/models | jq -r '.data[].id' | grep -i flash
+```
+
+The latest free GLM `*-flash` model ID is selected and pasted into the `MODEL_ID` constant near the top of `function-compute/index.js`. Documented in `function-compute/README.md`. If Zhipu doesn't expose a public model-list endpoint, the operator checks https://open.bigmodel.cn/dev/howuse/model and uses the latest documented free flash model.
 
 ### 5.9 Health check
 
@@ -422,7 +433,7 @@ On `DOMContentLoaded`:
 Runs on `DOMContentLoaded`:
 1. For each `.model-box` element, prepend a positioned button row with 🇬🇧/🇺🇸/🐢/⏹ buttons. Position absolute, top right, slotted into the box's existing padding so no content shifts.
 2. For each `<strong>` element inside `.vocab-table` or `.model-box`, attach a click handler that calls `lookupIPA(word)` (which speaks + tooltips).
-3. Skip `.model-box` content within Chinese-gloss spans (those are wrapped in `<span style="color: #7f8c8d">…</span>` per the existing pattern, or specifically `<span lang="zh">` if present) — TTS skips the gloss text.
+3. Skip `.model-box` content within Chinese-gloss spans. Detection: an element is treated as a gloss if **either** of these applies — (a) `style` attribute contains `color: #7f8c8d` (the existing gray-gloss pattern), **or** (b) `lang="zh"` attribute is present. TTS does not read these elements, and click handlers are not attached to bolded text inside them.
 
 ### 8.10 `editAgain()` and `clearDraft()`
 
@@ -551,6 +562,7 @@ Dev never asks for these until the gate.
 | WeChat in-app browser blocks Web Speech API | Certain (it does block) | Bilingual fallback alert directs students to Safari/Chrome |
 | Bucket bandwidth quota | Low at 40 students | Existing AI School plan has headroom; monitor |
 | FC concurrency cap at 100 | Low at 40 students | Default cap is enough; can bump if needed |
+| Mixed-content warning if bucket only serves HTTP and pages embed external HTTPS resources (e.g. Google Fonts) | Medium | Verify Aliyun Supabase Storage exposes HTTPS for the public bucket before Phase C upload. If only HTTP available, host fonts locally or use a self-hosted CDN at the same scheme. |
 
 ## 15. Branch and merge strategy
 
