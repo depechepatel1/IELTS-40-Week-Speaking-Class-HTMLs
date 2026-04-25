@@ -1,0 +1,20 @@
+# Aliyun Function Compute deploy artifacts
+function-compute/DEPLOYED_URL.txt
+function-compute/.s/
+function-compute/node_modules/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
