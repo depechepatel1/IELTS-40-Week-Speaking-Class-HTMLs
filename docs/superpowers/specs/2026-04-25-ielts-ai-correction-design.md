@@ -141,18 +141,34 @@ In-memory `Map<ip, { count, windowStart }>`:
 | `temperature` | 0.3 |
 | `messages` | `[{role:'system', content: SYSTEM_PROMPT}, {role:'user', content: draft}]` |
 
-### 5.6 System prompt (verbatim from user spec)
+### 5.6 System prompt — minimal correction
 
 ```
-You are an IELTS writing tutor correcting a Chinese student's 50-word
-speaking-practice answer. Fix grammar, spelling, tense, articles, and
-word-choice mistakes. Replace weak vocabulary with realistic upgrades a
-14-16 year old can use. Keep the student's original ideas intact. Keep
-length within plus-or-minus 10 words. Return ONLY the polished rewrite
-as plain prose — no preamble, no markdown, no bullet points.
+You are a careful English teacher correcting a 14-16 year old Chinese student's
+short written answer (50-150 words) for an IELTS speaking lesson.
+
+Make the MINIMUM changes needed for the writing to be grammatically correct and
+to use words correctly. Your job is correction, not enhancement.
+
+Fix:
+- Grammar errors (verb tense, articles, subject-verb agreement, prepositions,
+  word order, plurals, capitalization, punctuation)
+- Spelling
+- Wrong word choice ONLY when a word is genuinely incorrect (mistranslation,
+  wrong sense, non-existent word)
+
+Do NOT:
+- Replace words that are already correct, even if simple or basic
+- Add new ideas, examples, details, opinions, or sentences not in the student's draft
+- Delete the student's ideas
+- Restructure sentences unless grammar requires it
+- Change length by more than 10 words from the student's original
+
+Return ONLY the corrected text as plain prose. No preamble, no markdown,
+no commentary, no quotes, no bullet points.
 ```
 
-> **Note:** the system prompt mentions "50-word" but validation accepts 50–150. This is intentional for v1: the prompt anchors the AI's expectations to short answers; the wider validation lets longer drafts through. If quality on long drafts (120–150 words) is poor, consider revising the prompt in v2.
+**Design rationale.** The earlier draft prompt instructed Zhipu to "replace weak vocabulary with realistic upgrades", which produced unnecessarily aggressive rewrites. The revised prompt is surgical: a draft with five errors yields five fixes, not five fixes plus eight unrequested vocabulary upgrades. This (a) keeps the diff view focused on real mistakes the student can learn from, (b) respects the student's voice, and (c) avoids implying simple-but-correct words are "wrong".
 
 ### 5.7 Error handling for upstream Zhipu failures
 
@@ -217,11 +233,23 @@ The script does three byte-deterministic transformations on each original HTML:
 
 **Insertion 1 — CSS block.** Inserted in the `<style>` element immediately after the closing `}` of the existing `.lines { … }` rule. Contains styles for: `.tts-btn` (and `.uk`, `.us`, `.slow`, `.stop` variants), `.writing-draft`, `.writing-output`, `.correct-btn`, `.word-count` (with `.short`, `.ok`, `.long` traffic-light variants), `.ai-status` (with `.error`, `.success`), `.spinner` (with `@keyframes spin`), `.speaking` (highlight class for word being read), `.draft-markup`, `.draft-markup ins`, `.draft-markup del`, `.ai-only` print suppression, model-box absolute-positioned listen buttons, and the Caveat handwriting font import.
 
-**Insertion 2 — `.draft-page` body replacement.** Scoped to inside `<div class="page draft-page">…</div>`. Replaces:
-- The `<div class="lines">` immediately under `<strong>Draft:</strong>` with: `<textarea id="student-draft" class="writing-draft" placeholder="…">`, `<span id="word-count" class="word-count">0 / 50–150</span>`, `<button id="correct-btn" class="correct-btn" onclick="correctEssay()">Correct with AI</button>`, `<div id="ai-status" class="ai-status"></div>`, `<div id="draft-markup" class="draft-markup" hidden></div>`, `<button id="edit-again-btn" class="ai-only" hidden onclick="editAgain()">Edit again</button>`, `<button id="clear-draft-btn" class="ai-only" onclick="clearDraft()">Clear draft</button>`.
-- The `<div class="lines">` immediately under `<strong>Polished Rewrite:</strong>` with: a button row `[🇬🇧 Listen][🇺🇸 Listen][🐢 Slow][⏹ Stop]` (initially disabled) and `<div id="polished-output" class="writing-output empty"></div>`.
+**Insertion 2 — `.draft-page` overlay augmentation.** Scoped to inside `<div class="page draft-page">…</div>`. The original `<div class="lines">` elements stay in the HTML (so the file structure remains regular). Each one is wrapped in a `class="lines-overlay-host"` parent so its sibling overlay elements can position absolutely against it, and additional UI nodes are appended INSIDE the host.
 
-Other `.lines` divs in the file (spider-leg notes, framework slots, etc.) are NOT touched. The replacement is anchored to the `.draft-page` parent.
+Specifically, in the Draft section: the `<div class="lines">` under `<strong>Draft:</strong>` is wrapped, and the wrapper additionally contains:
+- `<textarea id="student-draft" class="writing-draft" placeholder="Type your answer here / 在此处输入你的答案">` — the typing surface, transparent with its own scrolling lined background.
+- `<div id="draft-markup" class="draft-markup" hidden>` — the post-correction red-pen view (replaces textarea visually after Correct is clicked).
+- `<span id="word-count" class="word-count">0 / 50–150</span>` — absolute-positioned in the top-right corner of the box.
+- `<button id="correct-btn" class="correct-btn" onclick="correctEssay()">Correct with AI ✎</button>` — absolute-positioned in the top-right.
+- `<button id="edit-again-btn" class="ai-only" hidden onclick="editAgain()">Edit again ✎</button>` and `<button id="clear-draft-btn" class="ai-only" onclick="clearDraft()">Clear ✕</button>` — absolute-positioned in the top-right, mutually exclusive with #correct-btn.
+- `<div id="ai-status" class="ai-status"></div>` — absolute-positioned at the bottom-right of the box, transient bilingual status messages.
+
+In the Polished Rewrite section: the `<div class="lines">` under `<strong>Polished Rewrite:</strong>` is wrapped, and the wrapper additionally contains:
+- `<div id="polished-output" class="writing-output empty"></div>` — the AI's clean output, transparent overlay with its own scrolling lined background, in the printed Lato font.
+- A `<div class="listen-row">` containing buttons `[🇬🇧 Listen][🇺🇸 Listen][🐢 Slow][⏹ Stop]` — absolute-positioned in the top-right corner. Initially disabled until correction completes.
+
+Other `.lines` divs in the file (spider-leg notes, framework slots, etc.) are NOT touched. The replacement is anchored to the `.draft-page` parent only.
+
+**Why "augment" rather than "replace":** the original `.lines` divs are kept in HTML so our pattern-matching script remains anchored to a regular structure across all 40 files. They are made visually invisible by an `.draft-page .lines { display: none; }` rule in the inserted CSS — the overlay elements provide their own (scroll-aware) lined background that replaces what the original `.lines` rendered. See §8.12.
 
 **Insertion 3 — `<script>` block before `</body>`.** Contains:
 - `const AI_ENDPOINT = '<deploy-time URL>';`
@@ -367,15 +395,9 @@ For original `"I has went to park"` and polished `"I went to the park"`:
 <span class="kept">park</span>
 ```
 
-**CSS:**
+**CSS** (full overlay/scroll/font behavior is in §8.12; the diff-specific rules are):
+
 ```css
-.draft-markup {
-  font-family: 'Caveat', cursive;
-  font-size: 1.4em;
-  line-height: 2.2;       /* extra space for superscript insertions */
-  color: #1a4d80;          /* dark blue, like ink */
-  white-space: pre-wrap;
-}
 .draft-markup .del {
   color: #c0392b;
   text-decoration: line-through;
@@ -383,21 +405,15 @@ For original `"I has went to park"` and polished `"I went to the park"`:
 }
 .draft-markup .ins {
   color: #c0392b;
-  font-size: 0.7em;
+  font-size: 0.65em;
   vertical-align: super;
   margin-left: 2px;
-}
-.writing-draft {
-  font-family: 'Caveat', cursive;
-  font-size: 1.4em;
-  line-height: 1.8;
-  color: #1a4d80;
-  background: #fefefe;
-  border: 1px dashed #ccc;
+  margin-right: 2px;
+  font-weight: 700;
 }
 ```
 
-`@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');` added to the inserted CSS block.
+The Caveat font import (`@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');`) is added once to the inserted CSS block.
 
 ### 8.6 localStorage persistence
 
@@ -439,6 +455,118 @@ Runs on `DOMContentLoaded`:
 
 - `editAgain()`: hides `#draft-markup`, hides `#edit-again-btn`, clears `#polished-output`, shows `#student-draft` with its previous content, focuses it. Updates localStorage to clear `polished` + `markupHtml`.
 - `clearDraft()`: as above plus empties `#student-draft` value and deletes localStorage entry.
+
+### 8.12 Lined-paper overlay and scrolling
+
+The pastel-green Draft and Polished Rewrite boxes have a fixed visible height (the existing flex layout). Student input or AI output that exceeds this height must scroll **inside** the box, not push the box taller, and must keep its line alignment intact while scrolling.
+
+**Layout model.**
+
+```
+┌── pastel-green box (fixed height, never grows) ──┐
+│  Draft:                  [count] [Correct] [Clear]│  ← labels & buttons absolute, top-right
+│  ┌─ .lines-overlay-host (position: relative) ─┐  │
+│  │  <div class="lines">  ← still in HTML,     │  │  display:none via CSS;
+│  │                          covered visually   │  │  retained for script anchoring
+│  │  <textarea> OR <div.draft-markup>           │  │  ← absolute, fills host
+│  │    own lined background, scroll-aware       │  │
+│  │  </…>                                       │  │
+│  └─────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────┘
+```
+
+**CSS:**
+
+```css
+/* Inserted CSS block adds these rules */
+
+/* Hide the original .lines divs only inside .draft-page; they remain
+   in HTML so make_interactive.py can anchor to them, and other .lines
+   on spider-pages etc. are unaffected. */
+.draft-page .lines { display: none; }
+
+/* The wrapper sibling becomes the positioning context. */
+.draft-page .lines-overlay-host {
+  position: relative;
+  flex-grow: 1;
+  min-height: 0;             /* allow flex parent to constrain height */
+  overflow: hidden;          /* clip overlay children to box bounds */
+}
+
+/* The three overlay elements share base layout. */
+.writing-draft,
+.draft-markup,
+.writing-output {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0 4px;            /* small horizontal breathing room */
+  border: none;
+  outline: none;
+  resize: none;              /* applies to textarea */
+  white-space: pre-wrap;
+  overflow-y: auto;          /* SCROLL — fixed height, content overflows vertically */
+  overflow-x: hidden;
+  word-wrap: break-word;
+  /* Lined background that scrolls WITH content. */
+  background: repeating-linear-gradient(transparent, transparent 23px, #e0e0e0 24px);
+  background-attachment: local;
+  line-height: 24px;         /* MATCH the gradient stride so baselines sit on rules */
+}
+
+/* Caveat handwriting for student-typed and marked-up draft. */
+.writing-draft,
+.draft-markup {
+  font-family: 'Caveat', cursive;
+  font-size: 22px;            /* visually tuned so baseline sits on the rule */
+  color: #1a4d80;             /* dark blue handwriting ink */
+}
+
+/* Lato printed font for the AI's polished output. */
+.writing-output {
+  font-family: 'Lato', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 14px;
+  color: #2c3e50;
+}
+.writing-output.empty::before {
+  content: "AI 修改后的版本会显示在这里 / The AI-corrected version will appear here.";
+  color: #95a5a6;
+  font-style: italic;
+}
+
+/* Buttons absolute-positioned so they don't claim vertical space. */
+.draft-page .word-count,
+.draft-page .correct-btn,
+.draft-page .ai-only,
+.draft-page .listen-row {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  z-index: 2;
+}
+.draft-page .ai-status {
+  position: absolute;
+  bottom: 4px;
+  right: 8px;
+  z-index: 2;
+  font-size: 0.85em;
+}
+```
+
+**Scroll behavior:**
+
+| Element | Behavior |
+|---|---|
+| `<textarea class="writing-draft">` | Browser-native textarea scroll. As the student types past the visible bottom, the textarea auto-scrolls to keep the caret in view. Scrollbar appears only when content overflows. |
+| `<div class="draft-markup">` | Standard div scroll via `overflow-y: auto`. Student can scroll up/down through the marked-up draft after correction. |
+| `<div class="writing-output">` | Same. The polished AI output scrolls if longer than the visible Polished Rewrite box. |
+
+In all three cases, `background-attachment: local` ensures the gray rule lines scroll with the content — text always sits on a rule, never between rules due to scroll offset.
+
+**Why the original `.lines` div stays in HTML even though it's hidden:** `make_interactive.py` pattern-matches against the existing structure. Hiding via CSS rather than removing keeps the regex anchors stable and makes the script trivially reversible. If a future change wants to fall back to the original (non-scrolling) lines, deleting our `display: none` rule restores the original visual.
 
 ### 8.11 Print suppression
 
