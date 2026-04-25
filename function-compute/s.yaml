@@ -13,7 +13,8 @@ resources:
       functionName: ielts-ai-correction
       description: "IELTS interactive HTML — Zhipu-backed minimum-correction AI"
       runtime: nodejs18
-      handler: index.handler
+      handler: index.fc
+      cpu: 0.1
       memorySize: 128
       timeout: 60
       diskSize: 512

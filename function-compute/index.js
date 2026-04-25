@@ -106,10 +106,11 @@ export function __resetRateLimit() {
   RATE_LIMIT.clear();
 }
 
-function getClientIP(event) {
-  const xff = event.headers?.['x-forwarded-for'] || event.headers?.['X-Forwarded-For'];
+function getClientIP(reqLike) {
+  const headers = reqLike.headers || {};
+  const xff = headers['x-forwarded-for'] || headers['X-Forwarded-For'];
   if (xff) return xff.split(',')[0].trim();
-  return event.clientIP || event.requestContext?.identity?.sourceIp || 'unknown';
+  return reqLike.clientIP || reqLike.requestContext?.identity?.sourceIp || 'unknown';
 }
 
 function checkRateLimit(ip) {
@@ -142,26 +143,32 @@ function respond(statusCode, body) {
   };
 }
 
-export async function handler(event) {
-  const method = (event.httpMethod || event.method || '').toUpperCase();
-  const path = event.path || event.rawPath || '/';
+/**
+ * Pure request processor — invocation-style-agnostic.
+ * Takes a normalized request, returns { statusCode, headers, body }.
+ *
+ * Test entry point. Adapters below translate from FC v3 (req, resp) and
+ * legacy (event) shapes into this signature.
+ */
+export async function processRequest({ method, path, headers, body, clientIP }) {
+  const m = (method || '').toUpperCase();
+  const p = path || '/';
 
-  if (method === 'OPTIONS') {
+  if (m === 'OPTIONS') {
     return { statusCode: 204, headers: { ...CORS_HEADERS }, body: '' };
   }
 
-  if (method === 'GET' && path === '/health') {
+  if (m === 'GET' && p === '/health') {
     return respond(200, { ok: true });
   }
 
-  if (method !== 'POST') {
+  if (m !== 'POST') {
     return respond(405, { error: '方法不允许 / Method not allowed.' });
   }
 
-  // ---- POST handling ----
   let parsed;
   try {
-    parsed = JSON.parse(event.body || '{}');
+    parsed = JSON.parse(body || '{}');
   } catch {
     return respond(400, { error: '请求格式错误 / Invalid request format.' });
   }
@@ -185,7 +192,7 @@ export async function handler(event) {
     });
   }
 
-  const ip = getClientIP(event);
+  const ip = getClientIP({ headers, clientIP });
   const rl = checkRateLimit(ip);
   if (!rl.ok) {
     return respond(429, {
@@ -200,4 +207,91 @@ export async function handler(event) {
   return respond(200, { corrected: result.corrected });
 }
 
-export default handler;
+/**
+ * Legacy event-style adapter (kept for compatibility / older tests).
+ * Tests call this with `{httpMethod, path, headers, body, clientIP}`.
+ */
+export async function handler(event) {
+  return processRequest({
+    method: event.httpMethod || event.method,
+    path: event.path || event.rawPath,
+    headers: event.headers,
+    body: event.body,
+    clientIP: event.clientIP
+  });
+}
+
+/**
+ * Aliyun Function Compute v3 HTTP-trigger adapter (event-style).
+ *
+ * FC v3 invokes HTTP-trigger functions with `(event, context)` where the
+ * event shape resembles AWS Lambda HTTP API v2:
+ *
+ *   event.rawPath                                  — request path
+ *   event.body                                     — string (or base64 if isBase64Encoded)
+ *   event.isBase64Encoded                          — bool
+ *   event.headers                                  — lowercase keys
+ *   event.requestContext.http.method               — HTTP method
+ *   event.requestContext.http.sourceIp             — client IP
+ *
+ * The function must return `{ statusCode, headers, body, isBase64Encoded? }`.
+ * This is the runtime entry point — do NOT rename without updating s.yaml's `handler:`.
+ */
+export const fc = async (event /*, context */) => {
+  // FC v3 HTTP-trigger nodejs runtime delivers `event` as a Buffer (or string) holding
+  // a JSON document with the AWS-Lambda-HTTP-API-v2-shaped event. Parse it.
+  let parsed;
+  if (Buffer.isBuffer(event)) {
+    parsed = JSON.parse(event.toString('utf8'));
+  } else if (typeof event === 'string') {
+    parsed = JSON.parse(event);
+  } else {
+    parsed = event; // tests pass an already-parsed object
+  }
+
+  // Headers come back Title-Cased from FC; normalize to lowercase for stable lookup.
+  const rawHeaders = parsed.headers || {};
+  const headers = {};
+  for (const [k, v] of Object.entries(rawHeaders)) headers[k.toLowerCase()] = v;
+
+  let bodyString = '';
+  if (parsed.body !== undefined && parsed.body !== null) {
+    if (parsed.isBase64Encoded) {
+      bodyString = Buffer.from(parsed.body, 'base64').toString('utf8');
+    } else if (Buffer.isBuffer(parsed.body)) {
+      bodyString = parsed.body.toString('utf8');
+    } else if (typeof parsed.body === 'string') {
+      bodyString = parsed.body;
+    } else {
+      bodyString = JSON.stringify(parsed.body);
+    }
+  }
+
+  const result = await processRequest({
+    method:
+      parsed.requestContext?.http?.method ||
+      parsed.httpMethod ||
+      parsed.method,
+    path:
+      parsed.rawPath ||
+      parsed.requestContext?.http?.path ||
+      parsed.path ||
+      '/',
+    headers,
+    body: bodyString,
+    clientIP:
+      parsed.requestContext?.http?.sourceIp ||
+      (headers['x-forwarded-for'] || '').split(',')[0].trim() ||
+      parsed.clientIP ||
+      ''
+  });
+
+  return {
+    statusCode: result.statusCode,
+    headers: result.headers || {},
+    body: result.body || '',
+    isBase64Encoded: false
+  };
+};
+
+export default fc;

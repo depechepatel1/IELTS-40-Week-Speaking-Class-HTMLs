@@ -1,6 +1,27 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { handler, __resetRateLimit, __setZhipuFetcher, __resetZhipuFetcher } from '../index.js';
+import { handler, fc, __resetRateLimit, __setZhipuFetcher, __resetZhipuFetcher } from '../index.js';
+
+// Build a mock FC v3 HTTP-trigger event (AWS-Lambda-HTTPv2-shaped).
+function fcEvent(method, path = '/', body = null, extraHeaders = {}) {
+  return {
+    version: 'v1',
+    rawPath: path,
+    body: body == null ? null : (typeof body === 'string' ? body : JSON.stringify(body)),
+    isBase64Encoded: false,
+    headers: { 'content-type': 'application/json', ...extraHeaders },
+    queryParameters: {},
+    requestContext: {
+      http: {
+        method,
+        path,
+        protocol: 'HTTP/1.1',
+        sourceIp: '203.0.113.1',
+        userAgent: 'test'
+      }
+    }
+  };
+}
 
 function makeZhipuOk(text = 'Polished sentence here.') {
   return async () => ({
@@ -173,6 +194,75 @@ test('Zhipu network error → 503 service unavailable (after retry)', async () =
   assert.equal(res.statusCode, 503);
   const body = JSON.parse(res.body);
   assert.match(body.error, /AI 服务暂时不可用|service temporarily unavailable/i);
+});
+
+test('FC v3 adapter: OPTIONS returns 204 with CORS', async () => {
+  const r = await fc(fcEvent('OPTIONS'));
+  assert.equal(r.statusCode, 204);
+  assert.equal(r.headers['Access-Control-Allow-Origin'], '*');
+  assert.equal(r.body, '');
+});
+
+test('FC v3 adapter: GET /health returns 200 ok:true', async () => {
+  const r = await fc(fcEvent('GET', '/health'));
+  assert.equal(r.statusCode, 200);
+  assert.equal(JSON.parse(r.body).ok, true);
+});
+
+test('FC v3 adapter: POST too-short returns 400 bilingual', async () => {
+  __resetRateLimit();
+  const r = await fc(fcEvent('POST', '/', { draft: 'one two three four five' }));
+  assert.equal(r.statusCode, 400);
+  assert.match(JSON.parse(r.body).error, /至少写 50/);
+});
+
+test('FC v3 adapter: base64-encoded body is decoded', async () => {
+  __resetRateLimit();
+  const e = fcEvent('POST', '/', null);
+  e.body = Buffer.from(JSON.stringify({ draft: 'too short' }), 'utf8').toString('base64');
+  e.isBase64Encoded = true;
+  const r = await fc(e);
+  assert.equal(r.statusCode, 400);
+  assert.match(JSON.parse(r.body).error, /至少写 50/);
+});
+
+test('FC v3 adapter: clientIP comes from requestContext.http.sourceIp', async () => {
+  __resetRateLimit();
+  const e = fcEvent('POST', '/', { draft: 'word '.repeat(50).trim() });
+  e.requestContext.http.sourceIp = '198.51.100.99';
+  __setZhipuFetcher(async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content: 'ok' } }] }) }));
+  const r = await fc(e);
+  __resetZhipuFetcher();
+  assert.equal(r.statusCode, 200);
+});
+
+test('FC v3 adapter: parses Buffer-of-JSON event (real runtime shape)', async () => {
+  __resetRateLimit();
+  const eventObj = fcEvent('POST', '/', { draft: 'one two three four five' });
+  const eventBuffer = Buffer.from(JSON.stringify(eventObj), 'utf8');
+  const r = await fc(eventBuffer);
+  assert.equal(r.statusCode, 400);
+  assert.match(JSON.parse(r.body).error, /至少写 50/);
+});
+
+test('FC v3 adapter: parses string event', async () => {
+  __resetRateLimit();
+  const eventObj = fcEvent('GET', '/health');
+  const r = await fc(JSON.stringify(eventObj));
+  assert.equal(r.statusCode, 200);
+  assert.equal(JSON.parse(r.body).ok, true);
+});
+
+test('FC v3 adapter: Title-Cased headers normalize to lowercase', async () => {
+  __resetRateLimit();
+  const e = fcEvent('POST', '/', { draft: 'word '.repeat(50).trim() });
+  // FC actually sends Title-Cased headers; simulate
+  e.headers = { 'Content-Type': 'application/json', 'X-Forwarded-For': '198.51.100.50, 10.0.0.1' };
+  e.requestContext.http.sourceIp = ''; // force the X-Forwarded-For path
+  __setZhipuFetcher(async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content: 'ok' } }] }) }));
+  const r = await fc(e);
+  __resetZhipuFetcher();
+  assert.equal(r.statusCode, 200, 'X-Forwarded-For should still be readable after lowercase normalization');
 });
 
 test('Zhipu transient network error: succeeds on retry (spec §5.7)', async () => {
