@@ -421,6 +421,107 @@
     }
   }
 
+  // ====================================================================
+  // Listen-button injection + clickable vocab + IPA tooltip
+  // (spec §8.7, §8.9)
+  // ====================================================================
+
+  /** True if `node` is a Chinese-gloss element we should NOT read aloud. */
+  function isChineseGloss(node) {
+    if (!node || node.nodeType !== Node.ELEMENT_NODE) return false;
+    if (node.lang === 'zh' || node.getAttribute('lang') === 'zh') return true;
+    const style = node.getAttribute('style') || '';
+    return /color\s*:\s*#7f8c8d/i.test(style);
+  }
+
+  /** Recursively collect text from a node, skipping any Chinese-gloss subtree
+   *  and the listen-row itself (so we don't read button labels). */
+  function extractReadableText(node) {
+    if (!node) return '';
+    if (node.nodeType === Node.TEXT_NODE) return node.textContent;
+    if (node.nodeType !== Node.ELEMENT_NODE) return '';
+    if (isChineseGloss(node)) return '';
+    if (node.classList && node.classList.contains('listen-row')) return '';
+    return Array.from(node.childNodes).map(extractReadableText).join(' ');
+  }
+
+  function injectListenButtons() {
+    document.querySelectorAll('.model-box').forEach((box) => {
+      // Idempotent — skip if a row already exists.
+      if (box.querySelector(':scope > .listen-row')) return;
+
+      const row = document.createElement('div');
+      row.className = 'listen-row';
+      row.innerHTML = `
+        <button class="tts-btn uk" title="UK voice">🇬🇧</button>
+        <button class="tts-btn us" title="US voice">🇺🇸</button>
+        <button class="tts-btn slow" title="Slow">🐢</button>
+        <button class="tts-btn stop" title="Stop">⏹</button>
+      `;
+      const [btnUK, btnUS, btnSlow, btnStop] = row.children;
+      const textOf = () => extractReadableText(box).replace(/\s+/g, ' ').trim();
+      btnUK.onclick   = () => ns.speakText(textOf(), 'en-GB', 1.0);
+      btnUS.onclick   = () => ns.speakText(textOf(), 'en-US', 1.0);
+      btnSlow.onclick = () => ns.speakText(textOf(), 'en-GB', 0.7);
+      btnStop.onclick = () => ns.stopSpeaking();
+      box.insertBefore(row, box.firstChild);
+    });
+  }
+
+  function attachWordClicks() {
+    document.querySelectorAll('.vocab-table strong, .model-box strong').forEach((el) => {
+      // Skip <strong> inside any Chinese-gloss ancestor.
+      let p = el.parentElement;
+      while (p) { if (isChineseGloss(p)) return; p = p.parentElement; }
+      // Skip <strong> inside the listen-row buttons.
+      if (el.closest('.listen-row')) return;
+
+      el.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const word = el.textContent.trim();
+        if (!word) return;
+        ns.speakText(word, 'en-GB');
+        showIpaTooltip(word, ev.pageX, ev.pageY);
+      });
+    });
+  }
+
+  // ---- IPA tooltip (lazy-loaded once per session) ----
+
+  let _pronunciationsCache = null;
+  async function loadPronunciations() {
+    if (_pronunciationsCache) return _pronunciationsCache;
+    try {
+      const cached = sessionStorage.getItem('ielts:pronunciations');
+      if (cached) { _pronunciationsCache = JSON.parse(cached); return _pronunciationsCache; }
+    } catch { /* fall through */ }
+    try {
+      const resp = await fetch(PRONUNCIATIONS_URL);
+      if (!resp.ok) return null;
+      const json = await resp.json();
+      _pronunciationsCache = json;
+      try { sessionStorage.setItem('ielts:pronunciations', JSON.stringify(json)); }
+      catch { /* quota exceeded — keep in-memory cache only */ }
+      return json;
+    } catch {
+      return null;
+    }
+  }
+
+  async function showIpaTooltip(word, x, y) {
+    const dict = await loadPronunciations();
+    if (!dict) return;
+    const ipa = dict[word.toLowerCase()];
+    if (!ipa) return;
+    const tip = document.createElement('div');
+    tip.className = 'ipa-tooltip';
+    tip.textContent = `${word} ${ipa}`;
+    tip.style.left = (x + 8) + 'px';
+    tip.style.top = (y + 8) + 'px';
+    document.body.appendChild(tip);
+    setTimeout(() => tip.remove(), 3000);
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     if (typeof ns.__init === 'function') ns.__init();
   });
