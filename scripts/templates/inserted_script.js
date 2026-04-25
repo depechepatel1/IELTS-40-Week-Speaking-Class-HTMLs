@@ -51,10 +51,9 @@
   };
 
   ns.speakText = function (text, lang = 'en-GB', rate = 1.0) {
-    if (!('speechSynthesis' in window)) {
-      if (isWeChatBrowser()) wechatFallbackAlert();
-      return;
-    }
+    // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
+    if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
+    if (!('speechSynthesis' in window)) return;
     if (!text || !String(text).trim()) return;
     ns.stopSpeaking();
     const u = new SpeechSynthesisUtterance(String(text));
@@ -67,10 +66,9 @@
 
   // Wraps each word in <span> for karaoke highlighting on `boundary` events.
   ns.speakElement = function (el, lang = 'en-GB', rate = 1.0) {
-    if (!('speechSynthesis' in window)) {
-      if (isWeChatBrowser()) wechatFallbackAlert();
-      return;
-    }
+    // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
+    if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
+    if (!('speechSynthesis' in window)) return;
     if (!el) return;
     const text = el.textContent.trim();
     if (!text) return;

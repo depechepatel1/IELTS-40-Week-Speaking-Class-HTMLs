@@ -256,16 +256,35 @@
     pointer-events: none;
 }
 
-/* === Print suppression === */
+/* === Print suppression ===
+ * Goal: print output looks like the un-modified original lesson plan —
+ * the original 8-rule writing space reappears, AI buttons/textareas/markup vanish.
+ *
+ * Important: we must NOT hide `.lines-overlay-host`, because make_interactive.py
+ * wraps the original `<div class="lines">` *inside* it. Hiding the host would
+ * also visually hide the wrapped .lines (parent display:none cascades to all
+ * children regardless of their own display). Instead we hide only the OVERLAY
+ * elements (textarea, markup, polished output, buttons) that are siblings of
+ * the original .lines inside the host, then re-show the original .lines.
+ */
 
 @media print {
     .ai-only, .tts-btn, .correct-btn, .word-count, .ai-status,
     #ai-status, #word-count, #correct-btn, #draft-markup, #polished-output,
+    .writing-draft, .draft-markup, .writing-output,
     .button-row, .listen-row, .health-badge-offline, .ipa-tooltip,
-    #student-draft, .lines-overlay-host {
+    #student-draft {
         display: none !important;
     }
-    .draft-page .lines { display: block !important; } /* restore original 8-rule writing space */
+    /* Keep the host visible so its inner original `.lines` can render. */
+    .draft-page .lines-overlay-host {
+        display: block !important;
+        position: static !important;
+        overflow: visible !important;
+    }
+    .draft-page .lines {
+        display: block !important;
+    }
 }
 
 /* === Footer note about local-only persistence === */
