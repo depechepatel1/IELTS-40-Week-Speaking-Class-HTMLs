@@ -5,6 +5,89 @@ const CORS_HEADERS = {
   'Content-Type': 'application/json'
 };
 
+// Zhipu integration — model resolved at deploy time per spec §5.8.1.
+const ZHIPU_MODEL_ID = process.env.ZHIPU_MODEL_ID || 'glm-4.7-flash';
+const ZHIPU_URL = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
+const SYSTEM_PROMPT = `You are a careful English teacher correcting a 14-16 year old Chinese student's
+short written answer (50-150 words) for an IELTS speaking lesson.
+
+Make the MINIMUM changes needed for the writing to be grammatically correct and
+to use words correctly. Your job is correction, not enhancement.
+
+Fix:
+- Grammar errors (verb tense, articles, subject-verb agreement, prepositions,
+  word order, plurals, capitalization, punctuation)
+- Spelling
+- Wrong word choice ONLY when a word is genuinely incorrect (mistranslation,
+  wrong sense, non-existent word)
+
+Do NOT:
+- Replace words that are already correct, even if simple or basic
+- Add new ideas, examples, details, opinions, or sentences not in the student's draft
+- Delete the student's ideas
+- Restructure sentences unless grammar requires it
+- Change length by more than 10 words from the student's original
+
+Return ONLY the corrected text as plain prose. No preamble, no markdown,
+no commentary, no quotes, no bullet points.`;
+
+// Injectable for tests — production path uses native fetch.
+let _zhipuFetcher = (url, opts) => fetch(url, opts);
+export function __setZhipuFetcher(fn) { _zhipuFetcher = fn; }
+export function __resetZhipuFetcher() { _zhipuFetcher = (url, opts) => fetch(url, opts); }
+
+function isZhipuQuotaError(parsed) {
+  if (!parsed) return false;
+  const code = parsed.error?.code;
+  if (code === 1113 || code === 1301) return true;
+  const msg = (parsed.error?.message || '').toLowerCase();
+  return msg.includes('quota') || msg.includes('limit') || msg.includes('余额');
+}
+
+async function callZhipu(draft) {
+  const apiKey = process.env.ZHIPU_API_KEY;
+  if (!apiKey) {
+    return { ok: false, status: 503, error: 'AI 服务暂时不可用 / AI service temporarily unavailable.' };
+  }
+  let upstream;
+  try {
+    upstream = await _zhipuFetcher(ZHIPU_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: ZHIPU_MODEL_ID,
+        temperature: 0.3,
+        max_tokens: 500,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: draft }
+        ]
+      })
+    });
+  } catch {
+    return { ok: false, status: 503, error: 'AI 服务暂时不可用 / AI service temporarily unavailable.' };
+  }
+
+  let parsed;
+  try { parsed = await upstream.json(); } catch { parsed = null; }
+
+  if (!upstream.ok) {
+    if (isZhipuQuotaError(parsed)) {
+      return { ok: false, status: 503, error: 'AI 今日额度已用完，请明天再试 / AI quota exhausted today. Try again tomorrow.' };
+    }
+    return { ok: false, status: 503, error: 'AI 服务出错，请稍后再试 / AI service error. Please try later.' };
+  }
+
+  const content = parsed?.choices?.[0]?.message?.content;
+  if (typeof content !== 'string' || !content.trim()) {
+    return { ok: false, status: 500, error: 'AI 返回了意外的响应 / AI returned an unexpected response.' };
+  }
+  return { ok: true, corrected: content.trim() };
+}
+
 // In-memory rate limiter — Map<ip, { count, windowStart }>.
 // Resets when the FC instance recycles, which is acceptable per spec §5.4.
 const RATE_LIMIT = new Map();
@@ -94,8 +177,11 @@ export async function handler(event) {
     });
   }
 
-  // Zhipu call lives in the next task
-  return respond(501, { error: '未实现 / Not implemented yet.' });
+  const result = await callZhipu(draft);
+  if (!result.ok) {
+    return respond(result.status, { error: result.error });
+  }
+  return respond(200, { corrected: result.corrected });
 }
 
 export default handler;

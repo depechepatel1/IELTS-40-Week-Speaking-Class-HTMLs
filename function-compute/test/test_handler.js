@@ -1,6 +1,31 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { handler, __resetRateLimit } from '../index.js';
+import { handler, __resetRateLimit, __setZhipuFetcher, __resetZhipuFetcher } from '../index.js';
+
+function makeZhipuOk(text = 'Polished sentence here.') {
+  return async () => ({
+    ok: true,
+    status: 200,
+    json: async () => ({ choices: [{ message: { content: text } }] })
+  });
+}
+function makeZhipuQuota() {
+  return async () => ({
+    ok: false,
+    status: 429,
+    json: async () => ({ error: { code: 1113, message: 'quota exhausted' } })
+  });
+}
+function makeZhipuNetworkError() {
+  return async () => { throw new Error('ECONNRESET'); };
+}
+function makeZhipuBadShape() {
+  return async () => ({
+    ok: true,
+    status: 200,
+    json: async () => ({ choices: [] })
+  });
+}
 
 function ev(method, path = '/', body = null, headers = {}) {
   return {
@@ -101,4 +126,68 @@ test('rate limit: distinct IPs get distinct buckets', async () => {
   }
   const res = await handler(ev('POST', '/', { draft }, { 'x-forwarded-for': '198.51.100.4' }));
   assert.notEqual(res.statusCode, 429);
+});
+
+test('happy path: Zhipu returns corrected text', async () => {
+  __resetRateLimit();
+  __setZhipuFetcher(makeZhipuOk('I went to the park.'));
+  const res = await handler(ev('POST', '/', { draft: 'word '.repeat(50).trim() }));
+  __resetZhipuFetcher();
+  assert.equal(res.statusCode, 200);
+  const body = JSON.parse(res.body);
+  assert.equal(body.corrected, 'I went to the park.');
+});
+
+test('Zhipu quota exhausted → 503 bilingual quota message', async () => {
+  __resetRateLimit();
+  __setZhipuFetcher(makeZhipuQuota());
+  const res = await handler(ev('POST', '/', { draft: 'word '.repeat(50).trim() }));
+  __resetZhipuFetcher();
+  assert.equal(res.statusCode, 503);
+  const body = JSON.parse(res.body);
+  assert.match(body.error, /AI 今日额度已用完/);
+  assert.match(body.error, /quota exhausted today/i);
+});
+
+test('Zhipu network error → 503 service unavailable', async () => {
+  __resetRateLimit();
+  __setZhipuFetcher(makeZhipuNetworkError());
+  const res = await handler(ev('POST', '/', { draft: 'word '.repeat(50).trim() }));
+  __resetZhipuFetcher();
+  assert.equal(res.statusCode, 503);
+  const body = JSON.parse(res.body);
+  assert.match(body.error, /AI 服务暂时不可用|service temporarily unavailable/i);
+});
+
+test('Zhipu bad shape → 500 unexpected response', async () => {
+  __resetRateLimit();
+  __setZhipuFetcher(makeZhipuBadShape());
+  const res = await handler(ev('POST', '/', { draft: 'word '.repeat(50).trim() }));
+  __resetZhipuFetcher();
+  assert.equal(res.statusCode, 500);
+  const body = JSON.parse(res.body);
+  assert.match(body.error, /AI 返回了意外的响应|unexpected response/i);
+});
+
+test('Zhipu request shape: posts JSON with system+user messages, model, temp 0.3, max_tokens 500', async () => {
+  __resetRateLimit();
+  let captured = null;
+  __setZhipuFetcher(async (url, opts) => {
+    captured = { url, opts };
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: 'ok' } }] }) };
+  });
+  await handler(ev('POST', '/', { draft: 'word '.repeat(50).trim() }));
+  __resetZhipuFetcher();
+
+  assert.equal(captured.url, 'https://open.bigmodel.cn/api/paas/v4/chat/completions');
+  assert.equal(captured.opts.method, 'POST');
+  assert.match(captured.opts.headers.Authorization, /^Bearer /);
+  const body = JSON.parse(captured.opts.body);
+  assert.ok(body.model, 'model is set');
+  assert.equal(body.temperature, 0.3);
+  assert.equal(body.max_tokens, 500);
+  assert.equal(body.messages.length, 2);
+  assert.equal(body.messages[0].role, 'system');
+  assert.match(body.messages[0].content, /minimum changes needed/i);
+  assert.equal(body.messages[1].role, 'user');
 });
