@@ -33,3 +33,39 @@ test('GET / (no body, not health) returns 405', async () => {
   const res = await handler(ev('GET', '/'));
   assert.equal(res.statusCode, 405);
 });
+
+test('POST with missing body returns 400 invalid format', async () => {
+  const res = await handler({ httpMethod: 'POST', path: '/', headers: {}, body: null });
+  assert.equal(res.statusCode, 400);
+  const body = JSON.parse(res.body);
+  assert.match(body.error, /请求格式|Invalid request/);
+});
+
+test('POST with non-string draft returns 400 invalid format', async () => {
+  const res = await handler(ev('POST', '/', { draft: 12345 }));
+  assert.equal(res.statusCode, 400);
+});
+
+test('POST with too-short draft (5 words) returns 400 with bilingual min message', async () => {
+  const res = await handler(ev('POST', '/', { draft: 'one two three four five' }));
+  assert.equal(res.statusCode, 400);
+  const body = JSON.parse(res.body);
+  assert.match(body.error, /至少写 50/);
+  assert.match(body.error, /at least 50 words/i);
+  assert.match(body.error, /Currently 5/);
+});
+
+test('POST with too-long draft (200 words) returns 400 with bilingual max message', async () => {
+  const longDraft = 'word '.repeat(200).trim();
+  const res = await handler(ev('POST', '/', { draft: longDraft }));
+  assert.equal(res.statusCode, 400);
+  const body = JSON.parse(res.body);
+  assert.match(body.error, /150 个词以内/);
+  assert.match(body.error, /under 150 words/i);
+});
+
+test('a 49-word draft is rejected', async () => {
+  const fortyNine = 'word '.repeat(49).trim();
+  const res = await handler(ev('POST', '/', { draft: fortyNine }));
+  assert.equal(res.statusCode, 400);
+});
