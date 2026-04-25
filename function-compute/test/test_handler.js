@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { handler } from '../index.js';
+import { handler, __resetRateLimit } from '../index.js';
 
 function ev(method, path = '/', body = null, headers = {}) {
   return {
@@ -68,4 +68,37 @@ test('a 49-word draft is rejected', async () => {
   const fortyNine = 'word '.repeat(49).trim();
   const res = await handler(ev('POST', '/', { draft: fortyNine }));
   assert.equal(res.statusCode, 400);
+});
+
+test('rate limit: 30 reqs from same IP all OK in window', async () => {
+  __resetRateLimit();
+  const draft = 'word '.repeat(50).trim();
+  for (let i = 0; i < 30; i++) {
+    const res = await handler(ev('POST', '/', { draft }, { 'x-forwarded-for': '198.51.100.1' }));
+    assert.notEqual(res.statusCode, 429, `Request ${i+1} should not be rate-limited`);
+  }
+});
+
+test('rate limit: 31st request from same IP returns 429', async () => {
+  __resetRateLimit();
+  const draft = 'word '.repeat(50).trim();
+  for (let i = 0; i < 30; i++) {
+    await handler(ev('POST', '/', { draft }, { 'x-forwarded-for': '198.51.100.2' }));
+  }
+  const res = await handler(ev('POST', '/', { draft }, { 'x-forwarded-for': '198.51.100.2' }));
+  assert.equal(res.statusCode, 429);
+  const body = JSON.parse(res.body);
+  assert.match(body.error, /稍后再试/);
+  assert.match(body.error, /Rate limit/i);
+  assert.match(body.error, /30/);
+});
+
+test('rate limit: distinct IPs get distinct buckets', async () => {
+  __resetRateLimit();
+  const draft = 'word '.repeat(50).trim();
+  for (let i = 0; i < 30; i++) {
+    await handler(ev('POST', '/', { draft }, { 'x-forwarded-for': '198.51.100.3' }));
+  }
+  const res = await handler(ev('POST', '/', { draft }, { 'x-forwarded-for': '198.51.100.4' }));
+  assert.notEqual(res.statusCode, 429);
 });

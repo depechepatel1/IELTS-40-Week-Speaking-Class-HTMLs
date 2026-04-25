@@ -5,6 +5,36 @@ const CORS_HEADERS = {
   'Content-Type': 'application/json'
 };
 
+// In-memory rate limiter — Map<ip, { count, windowStart }>.
+// Resets when the FC instance recycles, which is acceptable per spec §5.4.
+const RATE_LIMIT = new Map();
+const RATE_LIMIT_MAX = 30;
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
+
+export function __resetRateLimit() {
+  RATE_LIMIT.clear();
+}
+
+function getClientIP(event) {
+  const xff = event.headers?.['x-forwarded-for'] || event.headers?.['X-Forwarded-For'];
+  if (xff) return xff.split(',')[0].trim();
+  return event.clientIP || event.requestContext?.identity?.sourceIp || 'unknown';
+}
+
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const entry = RATE_LIMIT.get(ip);
+  if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+    RATE_LIMIT.set(ip, { count: 1, windowStart: now });
+    return { ok: true };
+  }
+  if (entry.count >= RATE_LIMIT_MAX) {
+    return { ok: false };
+  }
+  entry.count += 1;
+  return { ok: true };
+}
+
 function respond(statusCode, body) {
   return {
     statusCode,
@@ -56,7 +86,15 @@ export async function handler(event) {
     });
   }
 
-  // Rate limit + Zhipu call live in the next tasks
+  const ip = getClientIP(event);
+  const rl = checkRateLimit(ip);
+  if (!rl.ok) {
+    return respond(429, {
+      error: '请稍后再试，每小时最多 30 次 / Rate limit reached. Max 30 requests per hour.'
+    });
+  }
+
+  // Zhipu call lives in the next task
   return respond(501, { error: '未实现 / Not implemented yet.' });
 }
 
