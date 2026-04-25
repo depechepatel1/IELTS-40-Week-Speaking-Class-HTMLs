@@ -522,6 +522,25 @@
     setTimeout(() => tip.remove(), 3000);
   }
 
+  // ====================================================================
+  // __init — wires everything together on DOMContentLoaded
+  // ====================================================================
+
+  ns.__init = function () {
+    const draft = document.getElementById('student-draft');
+    if (draft) {
+      draft.addEventListener('input', () => {
+        ns.updateWordCount();
+        debouncedSave();
+      });
+    }
+    ns.updateWordCount();
+    loadDraft();          // restore previous session before adding behavior
+    injectListenButtons();
+    attachWordClicks();
+    checkHealth();
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     if (typeof ns.__init === 'function') ns.__init();
   });
