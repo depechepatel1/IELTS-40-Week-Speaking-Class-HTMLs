@@ -423,44 +423,117 @@ Wired to textarea `input` event. Display format: `{n} / 50–150` with class set
 
 ### 8.5 Diff rendering — red-pen markup
 
-**Algorithm:** word-level LCS diff. Output: array of `{op: 'keep'|'delete'|'insert', word}`. Adjacent delete+insert pairs are coalesced and rendered as a single replace unit with the deletion strikethrough and the insertion superscript above.
+**Algorithm: two stages.**
 
-**HTML output example:**
+**Stage 1 — word-level LCS diff.** Standard longest-common-subsequence over the word arrays of the original draft and the polished output. Produces an array of `{op: 'keep'|'delete'|'insert', word}` segments.
 
-For original `"I has went to park"` and polished `"I went to the park"`:
+**Stage 2 — pair classification.** A second pass walks the segments and groups adjacent `delete`+`insert` pairs into one of five rendering "shapes":
 
-```html
-<span class="kept">I </span>
-<del class="del">has </del>
-<span class="kept">went to </span>
-<ins class="ins">the </ins>
-<span class="kept">park</span>
+| Shape | Trigger | Example pair | Rendered as |
+|---|---|---|---|
+| **A. delete only** | `delete X` with no immediately adjacent `insert` | `delete "very"` | `<del>very</del>` inline strikethrough |
+| **B. insert only** | `insert Y` with no immediately adjacent `delete` | `insert "the"` | `<span class="gap-anchor"><ins class="ins-above">the</ins></span>` — zero-width anchor between the surrounding kept words; the `<ins>` floats above the gap via absolute positioning |
+| **C. replacement** | `delete X, insert Y` where neither `Y.startsWith(X)` nor `Y.endsWith(X)` | `delete "good", insert "well"` | `<span class="replace-pair"><del>good</del><ins class="ins-above">well</ins></span>` — `<del>` stays in flow with strikethrough; `<ins>` floats above it via absolute positioning over the same horizontal range |
+| **D. suffix add** | `delete X, insert Y` where `Y.startsWith(X)` | `delete "child", insert "children"` | `child<ins class="ins-suffix">ren</ins>` — the kept stem flows in Caveat blue, the appended letters render inline in Indie Flower red, no strikethrough |
+| **E. prefix add** | `delete X, insert Y` where `Y.endsWith(X)` | `delete "go", insert "ago"` | `<ins class="ins-prefix">a</ins>go` — prepended letters in Indie Flower red, kept stem in Caveat blue |
+
+**Why this matters pedagogically.** A standard diff would render every plural fix (`girl → girls`, `child → children`, `play → played`) as a full strikethrough + replacement. That's both visually noisy and pedagogically misleading — it tells the student "you wrote the wrong word" when in fact they wrote the right word missing a letter. Shapes D and E preserve the student's correct stem and call attention only to the actual missing/extra letters.
+
+**Worked example.**
+
+Original draft:
+> *I has went to park yesterday and I see lots of childrens playing very good.*
+
+Polished:
+> *I went to the park yesterday and I saw lots of children playing very well.*
+
+Stage 1 LCS output (compacted):
+```
+keep "I", delete "has", keep "went to", insert "the", keep "park yesterday and I",
+delete "see", insert "saw", keep "lots of", delete "childrens", insert "children",
+keep "playing very", delete "good", insert "well".
 ```
 
-**CSS** (full overlay/scroll/font behavior is in §8.12; the diff-specific rules are):
+Stage 2 classification + render:
+```
+keep "I "
+A. <del>has</del>
+keep " went to "
+B. <span class="gap-anchor"><ins class="ins-above">the</ins></span>
+keep " park yesterday and I "
+C. <span class="replace-pair"><del>see</del><ins class="ins-above">saw</ins></span>
+keep " lots of "
+D-ish (variant): childrens has 's' suffix that polished lacks → handled as
+  inverse: kept stem "children" + struck "s". For symmetry, classify as a
+  "trailing-letter delete" (sub-case of A): render "children" + <del>s</del>.
+keep " playing very "
+C. <span class="replace-pair"><del>good</del><ins class="ins-above">well</ins></span>
+keep "."
+```
+
+**CSS** (paired with the overlay/scroll/font rules in §8.12 and the embedded fonts in §8.13):
 
 ```css
+/* A. simple deletion — strikethrough in place, retains horizontal flow */
 .draft-markup .del {
   font-family: 'Indie Flower', 'Comic Sans MS', cursive;
-  font-size: 0.9em;
+  font-size: 0.95em;
   color: #c0392b;
   text-decoration: line-through;
   text-decoration-color: #c0392b;
+  text-decoration-thickness: 1.5px;
 }
-.draft-markup .ins {
+
+/* C. replacement — the <del> stays in flow; the <ins> floats above it. */
+.draft-markup .replace-pair {
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+/* B. pure insertion — zero-width anchor in the gap between two kept words.
+   The <ins> floats above the gap. */
+.draft-markup .gap-anchor {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: baseline;
+}
+
+/* C/B shared — the floating insertion above the line. */
+.draft-markup .ins-above {
+  position: absolute;
+  bottom: 0.85em;          /* lift above the host's text baseline; visually tuned in Phase B */
+  left: 0;
+  white-space: nowrap;
   font-family: 'Indie Flower', 'Comic Sans MS', cursive;
   font-size: 0.7em;
   color: #c0392b;
-  vertical-align: super;
-  margin-left: 2px;
-  margin-right: 2px;
-  font-weight: 400;
+  line-height: 1;          /* prevent the floating insertion from expanding line height */
+}
+
+/* D, E — letter additions inline as part of the kept stem. */
+.draft-markup .ins-suffix,
+.draft-markup .ins-prefix {
+  font-family: 'Indie Flower', 'Comic Sans MS', cursive;
+  color: #c0392b;
+  font-size: 1em;          /* same size as surrounding text — looks like the student wrote it */
+  text-decoration: none;
 }
 ```
 
-Both `Caveat` and `Indie Flower` are loaded from base64-embedded `@font-face` rules in the same inserted CSS block (§8.13) — no Google Fonts CDN dependency. `.kept` segments deliberately have no rule — they inherit `font-family: Caveat`, `color: #1a4d80`, and weight 400 from `.draft-markup`, which is exactly what the visual calls for.
+`.kept` segments deliberately have no rule — they inherit `font-family: Caveat`, `color: #1a4d80`, and weight 400 from `.draft-markup`.
 
-**Visual design choice:** Indie Flower is a noticeably more childlike, casual handwriting — distinct enough from Caveat that a quick glance immediately distinguishes the student's words (Caveat blue) from the teacher's red-pen edits (Indie Flower red). The size step-down (0.9em for strikethroughs, 0.7em for superscript insertions) keeps the corrections visually subordinate to the original draft so the student still reads their own words first, with the corrections layered over.
+**Layout invariants enforced by this CSS:**
+
+1. **No horizontal expansion**: kept words flow normally; `.replace-pair` occupies the same horizontal width as its `<del>` child (the absolute-positioned `<ins>` doesn't claim flow space); `.gap-anchor` is zero-width.
+2. **No paragraph height increase**: `.ins-above` uses `position: absolute` and `line-height: 1`, never participating in line height calculations. The 24px line stride is preserved.
+3. **No new gaps between existing words**: the only gaps are the ones already present in the kept text. Inserted words slot above existing gaps, not beside them.
+
+**Visual design choice on font/color/size pairing.** Indie Flower is a noticeably more childlike, casual handwriting than Caveat — distinct enough that a quick glance immediately separates "what the student wrote" from "what the teacher wrote on top". Size scaling: strikethroughs at 0.95em (close to natural reading size, since the student needs to see what they wrote), floating insertions at 0.7em (smaller because they live in the gap between lines and need to stay subordinate visually), inline suffix/prefix at 1em (looks like the missing letter is part of the original word).
+
+**Visual tuning gates in Phase B.** Three values may need a small adjustment when first viewed in a browser on Week_1: (a) the `.del` strikethrough thickness (1.5px → 1px or 2px depending on legibility), (b) the `.ins-above` `bottom: 0.85em` offset (too low overlaps the kept text; too high overlaps the previous line), (c) the `.ins-above` font-size (0.7em → 0.65em if the gap above the line is too small). These are tuned once on Week_1 and propagated to all 40 files on the next script run.
 
 ### 8.6 localStorage persistence
 
