@@ -432,7 +432,7 @@ Wired to textarea `input` event. Display format: `{n} / 50–150` with class set
 | Shape | Trigger | Example pair | Rendered as |
 |---|---|---|---|
 | **A. delete only** | `delete X` with no immediately adjacent `insert` | `delete "very"` | `<del>very</del>` inline strikethrough |
-| **B. insert only** | `insert Y` with no immediately adjacent `delete` | `insert "the"` | `<span class="gap-anchor"><ins class="ins-above">the</ins></span>` — zero-width anchor between the surrounding kept words; the `<ins>` floats above the gap via absolute positioning |
+| **B. insert only** | `insert Y` with no immediately adjacent `delete` | `insert "the"` | `<span class="gap-anchor"><ins class="ins-above">the</ins></span>` — zero-width anchor between the surrounding kept words; the `<ins>` floats above the gap via absolute positioning, and a red caret (`^`) is rendered at baseline level in the gap to indicate exactly where the inserted chunk belongs (see §8.5.1) |
 | **C. replacement** | `delete X, insert Y` where neither `Y.startsWith(X)` nor `Y.endsWith(X)` | `delete "good", insert "well"` | `<span class="replace-pair"><del>good</del><ins class="ins-above">well</ins></span>` — `<del>` stays in flow with strikethrough; `<ins>` floats above it via absolute positioning over the same horizontal range |
 | **D. suffix add** | `delete X, insert Y` where `Y.startsWith(X)` | `delete "child", insert "children"` | `child<ins class="ins-suffix">ren</ins>` — the kept stem flows in Caveat blue, the appended letters render inline in Indie Flower red, no strikethrough |
 | **E. prefix add** | `delete X, insert Y` where `Y.endsWith(X)` | `delete "go", insert "ago"` | `<ins class="ins-prefix">a</ins>go` — prepended letters in Indie Flower red, kept stem in Caveat blue |
@@ -492,13 +492,27 @@ keep "."
 }
 
 /* B. pure insertion — zero-width anchor in the gap between two kept words.
-   The <ins> floats above the gap. */
+   The <ins> floats above the gap; a red caret (^) renders at baseline
+   to anchor the inserted chunk to its exact insertion point.
+   See §8.5.1 for rationale. */
 .draft-markup .gap-anchor {
   position: relative;
   display: inline-block;
   width: 0;
   height: 0;
   vertical-align: baseline;
+}
+.draft-markup .gap-anchor::before {
+  content: "^";
+  position: absolute;
+  bottom: -0.15em;          /* sit at the baseline; visually tuned in Phase B */
+  left: -0.3em;             /* center over the zero-width anchor */
+  color: #c0392b;
+  font-family: 'Indie Flower', 'Comic Sans MS', cursive;
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 0;
+  pointer-events: none;     /* never intercepts a click */
 }
 
 /* C/B shared — the floating insertion above the line. */
@@ -533,7 +547,21 @@ keep "."
 
 **Visual design choice on font/color/size pairing.** Indie Flower is a noticeably more childlike, casual handwriting than Caveat — distinct enough that a quick glance immediately separates "what the student wrote" from "what the teacher wrote on top". Size scaling: strikethroughs at 0.95em (close to natural reading size, since the student needs to see what they wrote), floating insertions at 0.7em (smaller because they live in the gap between lines and need to stay subordinate visually), inline suffix/prefix at 1em (looks like the missing letter is part of the original word).
 
-**Visual tuning gates in Phase B.** Three values may need a small adjustment when first viewed in a browser on Week_1: (a) the `.del` strikethrough thickness (1.5px → 1px or 2px depending on legibility), (b) the `.ins-above` `bottom: 0.85em` offset (too low overlaps the kept text; too high overlaps the previous line), (c) the `.ins-above` font-size (0.7em → 0.65em if the gap above the line is too small). These are tuned once on Week_1 and propagated to all 40 files on the next script run.
+**Visual tuning gates in Phase B.** Four values may need a small adjustment when first viewed in a browser on Week_1: (a) the `.del` strikethrough thickness (1.5px → 1px or 2px depending on legibility), (b) the `.ins-above` `bottom: 0.85em` offset (too low overlaps the kept text; too high overlaps the previous line), (c) the `.ins-above` font-size (0.7em → 0.65em if the gap above the line is too small), (d) the `.gap-anchor::before` caret position (`bottom: -0.15em` and `left: -0.3em`) so the `^` sits cleanly between the two surrounding words at baseline level. These are tuned once on Week_1 and propagated to all 40 files on the next script run.
+
+### 8.5.1 Why a caret on Case B but not Case C
+
+For **Case C (replacement)**, the strikethrough on the `<del>` already anchors the floating insertion to its exact horizontal position — no ambiguity about where the replacement word belongs. Adding a caret would be redundant visual noise.
+
+For **Case B (pure insertion)**, the floating insertion sits above a *gap* with no strikethrough underneath. Without a baseline marker, a multi-word inserted chunk like `"in the morning"` floating above the line could plausibly belong to any of several adjacent gaps. The caret resolves the ambiguity instantly:
+
+```
+                    "in the morning"          ← inserted chunk
+                          ^                   ← caret marks the exact gap
+─ I went to school^before lunch ─             ← caret sits at the insertion point
+```
+
+The caret is generated by a CSS `::before` pseudo-element on `.gap-anchor`, not by the diff renderer — the JS output is unchanged. This means the caret automatically appears for every Case-B insertion (and only those) without renderer logic, and removing/restyling the caret in v2 is a one-rule CSS change.
 
 ### 8.6 localStorage persistence
 
