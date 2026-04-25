@@ -49,26 +49,34 @@ async function callZhipu(draft) {
   if (!apiKey) {
     return { ok: false, status: 503, error: 'AI 服务暂时不可用 / AI service temporarily unavailable.' };
   }
+  const requestOpts = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model: ZHIPU_MODEL_ID,
+      temperature: 0.3,
+      max_tokens: 500,
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'user', content: draft }
+      ]
+    })
+  };
+
+  // Spec §5.7: one retry on network errors with 500ms delay. Quota errors are NOT retried.
   let upstream;
   try {
-    upstream = await _zhipuFetcher(ZHIPU_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: ZHIPU_MODEL_ID,
-        temperature: 0.3,
-        max_tokens: 500,
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: draft }
-        ]
-      })
-    });
+    upstream = await _zhipuFetcher(ZHIPU_URL, requestOpts);
   } catch {
-    return { ok: false, status: 503, error: 'AI 服务暂时不可用 / AI service temporarily unavailable.' };
+    await new Promise(r => setTimeout(r, 500));
+    try {
+      upstream = await _zhipuFetcher(ZHIPU_URL, requestOpts);
+    } catch {
+      return { ok: false, status: 503, error: 'AI 服务暂时不可用 / AI service temporarily unavailable.' };
+    }
   }
 
   let parsed;
@@ -106,6 +114,14 @@ function getClientIP(event) {
 
 function checkRateLimit(ip) {
   const now = Date.now();
+
+  // Opportunistic pruning so a long-lived FC instance doesn't accumulate stale entries forever.
+  if (RATE_LIMIT.size > 100) {
+    for (const [k, v] of RATE_LIMIT) {
+      if (now - v.windowStart > RATE_LIMIT_WINDOW_MS) RATE_LIMIT.delete(k);
+    }
+  }
+
   const entry = RATE_LIMIT.get(ip);
   if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
     RATE_LIMIT.set(ip, { count: 1, windowStart: now });

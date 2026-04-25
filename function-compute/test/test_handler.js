@@ -95,6 +95,22 @@ test('a 49-word draft is rejected', async () => {
   assert.equal(res.statusCode, 400);
 });
 
+test('a 150-word draft is accepted (boundary, passes validation)', async () => {
+  __resetRateLimit();
+  __setZhipuFetcher(async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content: 'ok' } }] }) }));
+  const exactly150 = 'word '.repeat(150).trim();
+  const res = await handler(ev('POST', '/', { draft: exactly150 }));
+  __resetZhipuFetcher();
+  assert.equal(res.statusCode, 200);
+});
+
+test('a 151-word draft is rejected (boundary)', async () => {
+  __resetRateLimit();
+  const res = await handler(ev('POST', '/', { draft: 'word '.repeat(151).trim() }));
+  assert.equal(res.statusCode, 400);
+  assert.match(JSON.parse(res.body).error, /Currently 151/);
+});
+
 test('rate limit: 30 reqs from same IP all OK in window', async () => {
   __resetRateLimit();
   const draft = 'word '.repeat(50).trim();
@@ -149,7 +165,7 @@ test('Zhipu quota exhausted → 503 bilingual quota message', async () => {
   assert.match(body.error, /quota exhausted today/i);
 });
 
-test('Zhipu network error → 503 service unavailable', async () => {
+test('Zhipu network error → 503 service unavailable (after retry)', async () => {
   __resetRateLimit();
   __setZhipuFetcher(makeZhipuNetworkError());
   const res = await handler(ev('POST', '/', { draft: 'word '.repeat(50).trim() }));
@@ -157,6 +173,21 @@ test('Zhipu network error → 503 service unavailable', async () => {
   assert.equal(res.statusCode, 503);
   const body = JSON.parse(res.body);
   assert.match(body.error, /AI 服务暂时不可用|service temporarily unavailable/i);
+});
+
+test('Zhipu transient network error: succeeds on retry (spec §5.7)', async () => {
+  __resetRateLimit();
+  let calls = 0;
+  __setZhipuFetcher(async () => {
+    calls += 1;
+    if (calls === 1) throw new Error('ECONNRESET');
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: 'retried ok' } }] }) };
+  });
+  const res = await handler(ev('POST', '/', { draft: 'word '.repeat(50).trim() }));
+  __resetZhipuFetcher();
+  assert.equal(res.statusCode, 200);
+  assert.equal(calls, 2, 'must retry exactly once');
+  assert.equal(JSON.parse(res.body).corrected, 'retried ok');
 });
 
 test('Zhipu bad shape → 500 unexpected response', async () => {
