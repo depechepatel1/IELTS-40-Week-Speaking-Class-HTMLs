@@ -251,6 +251,43 @@ Other `.lines` divs in the file (spider-leg notes, framework slots, etc.) are NO
 
 **Why "augment" rather than "replace":** the original `.lines` divs are kept in HTML so our pattern-matching script remains anchored to a regular structure across all 40 files. They are made visually invisible by an `.draft-page .lines { display: none; }` rule in the inserted CSS — the overlay elements provide their own (scroll-aware) lined background that replaces what the original `.lines` rendered. See §8.12.
 
+**Concrete HTML transformation** (Draft section shown; Polished section is structurally identical with appropriate ID/class swaps):
+
+*Before* (originals at line ~890–894 of Week_1):
+
+```html
+<div style="border:1px solid #eee; padding:10px; border-radius:6px;
+            background:var(--bg-pastel-green); flex:1; ...">
+  <strong>Draft:</strong>
+  <div class="lines" style="flex-grow:1; height:auto;"></div>
+</div>
+```
+
+*After*:
+
+```html
+<div style="border:1px solid #eee; padding:10px; border-radius:6px;
+            background:var(--bg-pastel-green); flex:1; ...">
+  <strong>Draft:</strong>
+  <div class="lines-overlay-host">
+    <div class="lines" style="flex-grow:1; height:auto;"></div>  <!-- hidden via CSS -->
+    <textarea id="student-draft" class="writing-draft"
+              placeholder="Type your answer here / 在此处输入你的答案"></textarea>
+    <div id="draft-markup" class="draft-markup" hidden></div>
+    <div class="button-row">
+      <span id="word-count" class="word-count">0 / 50–150</span>
+      <button id="correct-btn" class="correct-btn"
+              onclick="correctEssay()">Correct with AI ✎</button>
+      <button id="edit-again-btn" class="ai-only" hidden
+              onclick="editAgain()">Edit again ✎</button>
+      <button id="clear-draft-btn" class="ai-only"
+              onclick="clearDraft()">Clear ✕</button>
+    </div>
+    <div id="ai-status" class="ai-status"></div>
+  </div>
+</div>
+```
+
 **Insertion 3 — `<script>` block before `</body>`.** Contains:
 - `const AI_ENDPOINT = '<deploy-time URL>';`
 - `const PRONUNCIATIONS_URL = '<bucket URL>/pronunciations.json';`
@@ -413,7 +450,7 @@ For original `"I has went to park"` and polished `"I went to the park"`:
 }
 ```
 
-The Caveat font import (`@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');`) is added once to the inserted CSS block.
+The Caveat font import (`@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');`) is added once to the inserted CSS block. `.kept` segments deliberately have no rule — they inherit `font-family: Caveat`, `color: #1a4d80`, and weight 400 from `.draft-markup`, which is exactly what the visual calls for.
 
 ### 8.6 localStorage persistence
 
@@ -537,15 +574,16 @@ The pastel-green Draft and Polished Rewrite boxes have a fixed visible height (t
   font-style: italic;
 }
 
-/* Buttons absolute-positioned so they don't claim vertical space. */
-.draft-page .word-count,
-.draft-page .correct-btn,
-.draft-page .ai-only,
-.draft-page .listen-row {
+/* Buttons live in a single absolute-positioned row so they never overlap. */
+.draft-page .button-row {
   position: absolute;
   top: 4px;
   right: 8px;
   z-index: 2;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
 }
 .draft-page .ai-status {
   position: absolute;
@@ -554,7 +592,18 @@ The pastel-green Draft and Polished Rewrite boxes have a fixed visible height (t
   z-index: 2;
   font-size: 0.85em;
 }
+
+/* Defensive: ensure the pastel-green parent box is a column flex container.
+   The originals already use this pattern (verified across all 40 files), but
+   we re-assert it so the overlay model is robust against future template
+   edits. */
+.draft-page > div > div {
+  display: flex;
+  flex-direction: column;
+}
 ```
+
+The Draft section's button row contains, in order: `<span id="word-count">`, `<button id="correct-btn">`, then later (after correction) `<button id="edit-again-btn">`, `<button id="clear-draft-btn">` (with `#correct-btn` hiding when `#edit-again-btn` shows). The Polished section's `.button-row` contains the four `[🇬🇧][🇺🇸][🐢][⏹]` buttons.
 
 **Scroll behavior:**
 
@@ -666,9 +715,9 @@ User signs off before propagating to other 39 files.
 
 ## 12. Open questions
 
-1. **System prompt wording.** It says "50-word speaking-practice answer" but the section is "Writing Homework" and the validation accepts 50–150 words. Worth a one-line revision once Phase A is deployed and we see a 130-word draft come back trimmed to 50? **Decision: keep verbatim for v1; revise in v2 if needed.**
-2. **`Microsoft Sonia` etc. voice availability.** Voice names in the waterfall are matched at runtime; if a device lacks named neural voices, the waterfall falls through to "any en-GB" / "any en-US" cleanly. No pre-deploy verification needed.
-3. **`pronunciations.json` size.** Final size depends on vocabulary breadth across 40 lessons. Target <500 KB. If it exceeds 1 MB, gzip the bucket file or ship a smaller core set + on-demand fetch. **Verify before Phase C.**
+1. **`Microsoft Sonia` etc. voice availability.** Voice names in the waterfall are matched at runtime; if a device lacks named neural voices, the waterfall falls through to "any en-GB" / "any en-US" cleanly. No pre-deploy verification needed.
+2. **`pronunciations.json` size.** Final size depends on vocabulary breadth across 40 lessons. Target <500 KB. If it exceeds 1 MB, gzip the bucket file or ship a smaller core set + on-demand fetch. **Verify before Phase C.**
+3. **Caveat font-size visual tuning.** The 22px starting value in §8.12 may need adjustment to put text baselines exactly on the 24px gray rules — verified visually on Week_1 in Phase B before propagation.
 
 ## 13. Required secrets, gating
 
