@@ -306,6 +306,121 @@
     return parts.join('');
   }
 
+  // ====================================================================
+  // correctEssay flow + status messages + edit-again  (spec §8.4, §8.10)
+  // ====================================================================
+
+  function setStatus(text, kind) {
+    const s = document.getElementById('ai-status');
+    if (!s) return;
+    s.className = 'ai-status' + (kind ? ' ' + kind : '');
+    s.innerHTML = text;
+    if (kind === 'success') {
+      setTimeout(() => { s.innerHTML = ''; s.className = 'ai-status'; }, 3000);
+    }
+  }
+
+  ns.correctEssay = async function () {
+    const draft = document.getElementById('student-draft');
+    const markup = document.getElementById('draft-markup');
+    const polished = document.getElementById('polished-output');
+    const correctBtn = document.getElementById('correct-btn');
+    const editBtn = document.getElementById('edit-again-btn');
+    if (!draft || !markup || !polished || !correctBtn) return;
+
+    const text = draft.value.trim();
+    const n = text.split(/\s+/).filter(Boolean).length;
+    if (n < 50) {
+      setStatus(`请至少写 50 个词 / Please write at least 50 words. (Currently ${n})`, 'error');
+      return;
+    }
+    if (n > 150) {
+      setStatus(`请控制在 150 个词以内 / Please keep it under 150 words. (Currently ${n})`, 'error');
+      return;
+    }
+
+    correctBtn.disabled = true;
+    setStatus('<span class="spinner"></span>正在修改 / Correcting…');
+
+    let resp;
+    try {
+      resp = await fetch(AI_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ draft: text })
+      });
+    } catch (e) {
+      setStatus('网络错误 / Network error. ' + (e && e.message ? e.message : ''), 'error');
+      correctBtn.disabled = false;
+      return;
+    }
+
+    let body = null;
+    try { body = await resp.json(); } catch { /* leave body null */ }
+    if (!resp.ok) {
+      setStatus((body && body.error) || `请求失败 / Request failed (${resp.status})`, 'error');
+      correctBtn.disabled = false;
+      return;
+    }
+
+    const corrected = (body && body.corrected) || '';
+    polished.classList.remove('empty');
+    polished.textContent = corrected;
+    enablePolishedListenButtons();
+
+    // Render the red-pen diff over the original draft text.
+    const segs = wordDiff(text, corrected);
+    const classified = classifyPairs(segs);
+    markup.innerHTML = renderMarkup(classified);
+    markup.hidden = false;
+    draft.style.display = 'none';
+    correctBtn.hidden = true;
+    if (editBtn) editBtn.hidden = false;
+
+    saveDraft();
+    setStatus('已修改 / Corrected ✓', 'success');
+    correctBtn.disabled = false;
+  };
+
+  ns.editAgain = function () {
+    const draft = document.getElementById('student-draft');
+    const markup = document.getElementById('draft-markup');
+    const polished = document.getElementById('polished-output');
+    const correctBtn = document.getElementById('correct-btn');
+    const editBtn = document.getElementById('edit-again-btn');
+    if (markup) { markup.hidden = true; markup.innerHTML = ''; }
+    if (polished) {
+      polished.textContent = '';
+      polished.classList.add('empty');
+      disablePolishedListenButtons();
+    }
+    if (draft) {
+      draft.style.display = '';
+      draft.focus();
+    }
+    if (correctBtn) correctBtn.hidden = false;
+    if (editBtn) editBtn.hidden = true;
+    saveDraft();
+  };
+
+  // ====================================================================
+  // Health-check badge  (spec §8.8)
+  // ====================================================================
+
+  async function checkHealth() {
+    const badge = document.getElementById('health-badge');
+    if (!badge) return;
+    try {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 3000);
+      const resp = await fetch(AI_ENDPOINT.replace(/\/$/, '') + '/health', { signal: ctrl.signal });
+      clearTimeout(t);
+      badge.hidden = !!resp.ok;
+    } catch {
+      badge.hidden = false;
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     if (typeof ns.__init === 'function') ns.__init();
   });
