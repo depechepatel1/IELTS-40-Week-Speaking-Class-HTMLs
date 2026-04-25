@@ -224,6 +224,7 @@ Spec ref: [§5.1 Runtime config](../specs/2026-04-25-ielts-ai-correction-design.
 {
   "name": "ielts-ai-correction-fc",
   "version": "1.0.0",
+  "type": "module",
   "description": "Aliyun Function Compute endpoint: Zhipu-backed minimum-correction AI for IELTS interactive HTMLs",
   "main": "index.js",
   "engines": { "node": ">=18.0.0" },
@@ -234,6 +235,8 @@ Spec ref: [§5.1 Runtime config](../specs/2026-04-25-ielts-ai-correction-design.
   "private": true
 }
 ```
+
+**Note:** `"type": "module"` is required so Node 18 treats `index.js` as ESM (the file uses `export`/`import` syntax). Without this, `node --test` will fail to load the handler.
 
 - [ ] **Step 2: Commit**
 
@@ -938,9 +941,15 @@ s deploy --use-local --assume-yes
 
 ## Rotating the Zhipu key
 
+Re-export the env var and redeploy:
+
 ```bash
-s set env ZHIPU_API_KEY="<new key>"
+export ZHIPU_API_KEY="<new key>"
+cd function-compute
+s deploy --use-local --assume-yes
 ```
+
+(`s.yaml` references `${env('ZHIPU_API_KEY')}`, so `s deploy` picks up the new value from the shell environment and pushes it as the function's environment variable.)
 ```
 
 - [ ] **Step 2: Commit**
@@ -1327,28 +1336,25 @@ Spec ref: [§6.2 Insertion 2 — concrete HTML transformation](../specs/2026-04-
 
 - [ ] **Step 1: Write the snippet**
 
-This snippet replaces what's currently between `<strong>Draft:</strong>` and the closing `</div>` of the parent green box. It contains the entire interior of `.lines-overlay-host`.
+This snippet contains the *interior* of `.lines-overlay-host` minus the original `<div class="lines">`. The script in Task 27 wraps the original `<div class="lines">` together with this snippet inside a new `<div class="lines-overlay-host">` parent. This keeps the original `.lines` element intact in the HTML (per spec §6.2: "augment rather than replace").
 
 ```html
-<!-- AI-INTERACTIVE-V1: draft section overlay -->
-<div class="lines-overlay-host">
-  <div class="lines" style="flex-grow:1; height:auto;"></div>
-  <textarea id="student-draft" class="writing-draft"
-            placeholder="Type your answer here / 在此处输入你的答案"
-            spellcheck="false"></textarea>
-  <div id="draft-markup" class="draft-markup" hidden></div>
-  <div class="button-row">
-    <span id="word-count" class="word-count short">0 / 50–150</span>
-    <button id="correct-btn" class="correct-btn"
-            onclick="window.__ielts.correctEssay()">Correct with AI ✎</button>
-    <button id="edit-again-btn" class="ai-only" hidden
-            onclick="window.__ielts.editAgain()">Edit again ✎</button>
-    <button id="clear-draft-btn" class="ai-only"
-            onclick="window.__ielts.clearDraft()">Clear ✕</button>
-  </div>
-  <div id="ai-status" class="ai-status"></div>
-  <div id="health-badge" class="health-badge-offline" hidden>🔴 AI 离线 / AI offline</div>
+<!-- AI-INTERACTIVE-V1: draft section overlay (interior; original .lines is wrapped at Task 27) -->
+<textarea id="student-draft" class="writing-draft"
+          placeholder="Type your answer here / 在此处输入你的答案"
+          spellcheck="false"></textarea>
+<div id="draft-markup" class="draft-markup" hidden></div>
+<div class="button-row">
+  <span id="word-count" class="word-count short">0 / 50–150</span>
+  <button id="correct-btn" class="correct-btn"
+          onclick="window.__ielts.correctEssay()">Correct with AI ✎</button>
+  <button id="edit-again-btn" class="ai-only" hidden
+          onclick="window.__ielts.editAgain()">Edit again ✎</button>
+  <button id="clear-draft-btn" class="ai-only"
+          onclick="window.__ielts.clearDraft()">Clear ✕</button>
 </div>
+<div id="ai-status" class="ai-status"></div>
+<div id="health-badge" class="health-badge-offline" hidden>🔴 AI 离线 / AI offline</div>
 ```
 
 - [ ] **Step 2: Commit**
@@ -1367,21 +1373,20 @@ Spec ref: [§6.2 Insertion 2](../specs/2026-04-25-ielts-ai-correction-design.md#
 
 - [ ] **Step 1: Write the snippet**
 
+This snippet contains the *interior* of `.lines-overlay-host` minus the original `<div class="lines">`. The script in Task 27 wraps the original `<div class="lines">` and this snippet inside `.lines-overlay-host`.
+
 ```html
-<!-- AI-INTERACTIVE-V1: polished section overlay -->
-<div class="lines-overlay-host">
-  <div class="lines" style="flex-grow:1; height:auto;"></div>
-  <div id="polished-output" class="writing-output empty"></div>
-  <div class="button-row">
-    <button class="tts-btn uk" disabled
-            onclick="window.__ielts.speakElementById('polished-output','en-GB')">🇬🇧 Listen</button>
-    <button class="tts-btn us" disabled
-            onclick="window.__ielts.speakElementById('polished-output','en-US')">🇺🇸 Listen</button>
-    <button class="tts-btn slow" disabled
-            onclick="window.__ielts.speakElementById('polished-output','en-GB',0.7)">🐢</button>
-    <button class="tts-btn stop"
-            onclick="window.__ielts.stopSpeaking()">⏹</button>
-  </div>
+<!-- AI-INTERACTIVE-V1: polished section overlay (interior; original .lines is wrapped at Task 27) -->
+<div id="polished-output" class="writing-output empty"></div>
+<div class="button-row">
+  <button class="tts-btn uk" disabled
+          onclick="window.__ielts.speakElementById('polished-output','en-GB')">🇬🇧 Listen</button>
+  <button class="tts-btn us" disabled
+          onclick="window.__ielts.speakElementById('polished-output','en-US')">🇺🇸 Listen</button>
+  <button class="tts-btn slow" disabled
+          onclick="window.__ielts.speakElementById('polished-output','en-GB',0.7)">🐢</button>
+  <button class="tts-btn stop"
+          onclick="window.__ielts.stopSpeaking()">⏹</button>
 </div>
 ```
 
@@ -2418,11 +2423,11 @@ Spec ref: [§6.2 Insertion 2 concrete HTML transformation](../specs/2026-04-25-i
 
 ```python
 DRAFT_LINES_RE = re.compile(
-    r"(<strong>Draft:</strong>)\s*<div class=\"lines\"[^>]*></div>",
+    r"(<strong>Draft:</strong>)\s*(<div class=\"lines\"[^>]*></div>)",
     re.IGNORECASE,
 )
 POLISHED_LINES_RE = re.compile(
-    r"(<strong>Polished Rewrite:</strong>)\s*<div class=\"lines\"[^>]*></div>",
+    r"(<strong>Polished Rewrite:</strong>)\s*(<div class=\"lines\"[^>]*></div>)",
     re.IGNORECASE,
 )
 
@@ -2432,18 +2437,27 @@ def _load_overlay(name: str) -> str:
 
 
 def insertion_2_draft_page(html: str) -> str:
+    """Wrap the original .lines inside a new .lines-overlay-host along with overlay UI.
+
+    Per spec §6.2: the original `<div class="lines">` is KEPT in HTML (becomes a child
+    of the new wrapper) so the file structure remains regular. The .lines is then
+    hidden via `.draft-page .lines { display: none; }` in the inserted CSS.
+    """
     draft_overlay = _load_overlay("draft_section_overlay.html")
     polished_overlay = _load_overlay("polished_section_overlay.html")
-    new_html, c1 = DRAFT_LINES_RE.subn(
-        lambda m: m.group(1) + "\n" + draft_overlay,
-        html, count=1,
-    )
+
+    def wrap_draft(m: re.Match) -> str:
+        label, lines_div = m.group(1), m.group(2)
+        return f'{label}\n<div class="lines-overlay-host">\n  {lines_div}\n  {draft_overlay}\n</div>'
+
+    def wrap_polished(m: re.Match) -> str:
+        label, lines_div = m.group(1), m.group(2)
+        return f'{label}\n<div class="lines-overlay-host">\n  {lines_div}\n  {polished_overlay}\n</div>'
+
+    new_html, c1 = DRAFT_LINES_RE.subn(wrap_draft, html, count=1)
     if c1 != 1:
         raise SkipFile("Could not find `<strong>Draft:</strong>` + .lines anchor.")
-    new_html, c2 = POLISHED_LINES_RE.subn(
-        lambda m: m.group(1) + "\n" + polished_overlay,
-        new_html, count=1,
-    )
+    new_html, c2 = POLISHED_LINES_RE.subn(wrap_polished, new_html, count=1)
     if c2 != 1:
         raise SkipFile("Could not find `<strong>Polished Rewrite:</strong>` + .lines anchor.")
     return new_html
@@ -2708,8 +2722,11 @@ git commit -m "feat(scripts): build_pronunciations.py + initial pronunciations.j
 
 - [ ] **Step 1: Delete placeholder Interactive/ output and regenerate**
 
+`Interactive/*.html` is generated and contains nothing the script can't recreate. Delete and regenerate. (If you've made manual edits to interactive HTMLs outside of `scripts/templates/`, stash or commit them first — they will be lost.)
+
 ```bash
-rm -rf Interactive/*
+git status -s Interactive/   # confirm nothing important is there
+rm -f Interactive/Week_*_Lesson_Plan.html
 URL=$(cat function-compute/DEPLOYED_URL.txt)
 BUCKET="http://8.168.22.242/storage/v1/object/public/ielts-interactive"
 python scripts/make_interactive.py \
@@ -2803,23 +2820,73 @@ Expected: at least one of the two returns 200. If only HTTP works, document this
 
 Expected: `ielts-interactive` now in the list.
 
-### Task 36: Upload the 40 interactive HTMLs + `pronunciations.json`
+### Task 35.5: Verify bucket CORS allows GETs from anywhere
 
-- [ ] **Step 1: Upload all files**
+Spec ref: [§7.1 Bucket setup](../specs/2026-04-25-ielts-ai-correction-design.md#71-bucket-setup), [§14 mixed-content risk](../specs/2026-04-25-ielts-ai-correction-design.md#14-risks).
 
-Loop through `Interactive/Week_*_Lesson_Plan.html` and `pronunciations.json`. For each, use the Supabase Storage upload MCP / API to put the file at the same name in `ielts-interactive`. Set Content-Type to `text/html` for `.html` files and `application/json` for the JSON.
-
-If only manual upload via the console is available, note this in the README and proceed.
-
-- [ ] **Step 2: Verify**
+- [ ] **Step 1: After Task 36's first upload, check CORS headers**
 
 ```bash
 BASE="http://8.168.22.242/storage/v1/object/public/ielts-interactive"
-curl -sI "$BASE/Week_1_Lesson_Plan.html" | head -5
-curl -sI "$BASE/Week_40_Lesson_Plan.html" | head -5
-curl -s "$BASE/pronunciations.json" | head -c 100
+curl -I -H "Origin: https://example.com" "$BASE/Week_1_Lesson_Plan.html"
 ```
-Expected: 200 for both HTMLs and JSON content visible.
+Expected: `Access-Control-Allow-Origin: *` in response. (Aliyun Supabase Storage public buckets default to allowing all origins; if missing, configure via console → Storage → ielts-interactive → CORS rules → add `*` for GET/HEAD.)
+
+- [ ] **Step 2: Check HTTPS availability**
+
+```bash
+curl -sI "https://8.168.22.242/storage/v1/object/public/ielts-interactive/Week_1_Lesson_Plan.html" | head -1
+```
+If 200 over HTTPS works: prefer the HTTPS scheme in `--bucket-base` for the make_interactive re-run, to avoid mixed-content warnings when pages load Caveat font (also embedded base64 so this is purely belt-and-braces). If only HTTP, document and proceed.
+
+### Task 36: Upload the 40 interactive HTMLs + `pronunciations.json`
+
+The `aliyun-supabase` MCP exposes `list_storage_buckets` and `list_storage_objects` but not (as of writing) a direct upload tool. Two viable paths:
+
+**Path 1 — curl via the Supabase Storage REST API** (preferred; deterministic and scriptable):
+
+- [ ] **Step 1: Upload all 40 HTMLs and pronunciations.json**
+
+```bash
+SR_KEY="<service role key from Task 33>"
+BASE="http://8.168.22.242/storage/v1/object/ielts-interactive"   # NOTE: not /public/ for upload
+
+# HTML files
+for f in Interactive/Week_*_Lesson_Plan.html; do
+  name=$(basename "$f")
+  http=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$BASE/$name" \
+    -H "Authorization: Bearer $SR_KEY" \
+    -H "Content-Type: text/html; charset=utf-8" \
+    -H "x-upsert: true" \
+    --data-binary "@$f")
+  echo "$http  $name"
+done
+
+# pronunciations.json
+http=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$BASE/pronunciations.json" \
+  -H "Authorization: Bearer $SR_KEY" \
+  -H "Content-Type: application/json" \
+  -H "x-upsert: true" \
+  --data-binary "@pronunciations.json")
+echo "$http  pronunciations.json"
+```
+Expected: every line shows 200 or 201. The `x-upsert: true` header allows overwriting on re-upload.
+
+If the upload returns 4xx, double-check (a) the service role key is correct, (b) the bucket name in the URL is right, (c) Content-Type matches the file.
+
+**Path 2 — manual via Aliyun Supabase console** (fallback if curl auth doesn't work):
+
+Open https://rdsnext.console.aliyun.com/cn-beijing/rdsAI/ra-supabase-eer8m96pab9mh2/basic → Storage → ielts-interactive → Upload. Drag all 40 HTML files + `pronunciations.json`. Confirm they appear in the file list.
+
+- [ ] **Step 2: Verify public access**
+
+```bash
+PUBLIC_BASE="http://8.168.22.242/storage/v1/object/public/ielts-interactive"
+curl -sI "$PUBLIC_BASE/Week_1_Lesson_Plan.html" | head -3
+curl -sI "$PUBLIC_BASE/Week_40_Lesson_Plan.html" | head -3
+curl -s "$PUBLIC_BASE/pronunciations.json" | head -c 100
+```
+Expected: 200 for both HTMLs and the first ~100 bytes of the JSON visible.
 
 ### Task 37: Live end-to-end browser test
 
