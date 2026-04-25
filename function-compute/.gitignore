@@ -1,0 +1,9 @@
+# Serverless Devs cache
+.s/
+
+# Captured deploy URL (gitignored — get from `s deploy` output)
+DEPLOYED_URL.txt
+
+# Node
+node_modules/
+package-lock.json
