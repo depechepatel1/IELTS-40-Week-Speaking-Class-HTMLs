@@ -222,7 +222,10 @@ IELTS-40-Week-Speaking-Class-HTMLs/
 │   └── Week_*_Lesson_Plan.html   (40 generated, AI-feature-enabled)
 ├── function-compute/             ← NEW
 ├── scripts/
-│   └── make_interactive.py       ← NEW
+│   ├── make_interactive.py       ← NEW
+│   └── fonts/                    ← NEW (woff2 files for base64 embed)
+│       ├── Caveat-400.woff2
+│       └── IndieFlower-400.woff2
 ├── docs/superpowers/specs/       ← THIS doc
 └── pronunciations.json           (uploaded to bucket; not committed if oversized)
 ```
@@ -231,7 +234,9 @@ IELTS-40-Week-Speaking-Class-HTMLs/
 
 The script does three byte-deterministic transformations on each original HTML:
 
-**Insertion 1 — CSS block.** Inserted in the `<style>` element immediately after the closing `}` of the existing `.lines { … }` rule. Contains styles for: `.tts-btn` (and `.uk`, `.us`, `.slow`, `.stop` variants), `.writing-draft`, `.writing-output`, `.correct-btn`, `.word-count` (with `.short`, `.ok`, `.long` traffic-light variants), `.ai-status` (with `.error`, `.success`), `.spinner` (with `@keyframes spin`), `.speaking` (highlight class for word being read), `.draft-markup`, `.draft-markup ins`, `.draft-markup del`, `.ai-only` print suppression, model-box absolute-positioned listen buttons, and the Caveat handwriting font import.
+**Insertion 1 — CSS block.** Inserted in the `<style>` element immediately after the closing `}` of the existing `.lines { … }` rule. Contains:
+- Two `@font-face` rules embedding **Caveat 400** and **Indie Flower 400** as base64-encoded woff2 (see §8.13). No Google Fonts CDN dependency — required because the CDN is unreachable from mainland China where the students are.
+- Style rules for: `.tts-btn` (and `.uk`, `.us`, `.slow`, `.stop` variants), `.writing-draft`, `.writing-output`, `.correct-btn`, `.button-row`, `.word-count` (with `.short`, `.ok`, `.long` traffic-light variants), `.ai-status` (with `.error`, `.success`), `.spinner` (with `@keyframes spin`), `.speaking` (highlight class for word being read), `.draft-markup`, `.draft-markup .del`, `.draft-markup .ins`, `.lines-overlay-host`, `.ai-only` print suppression, and model-box absolute-positioned listen buttons.
 
 **Insertion 2 — `.draft-page` overlay augmentation.** Scoped to inside `<div class="page draft-page">…</div>`. The original `<div class="lines">` elements stay in the HTML (so the file structure remains regular). Each one is wrapped in a `class="lines-overlay-host"` parent so its sibling overlay elements can position absolutely against it, and additional UI nodes are appended INSIDE the host.
 
@@ -436,21 +441,26 @@ For original `"I has went to park"` and polished `"I went to the park"`:
 
 ```css
 .draft-markup .del {
+  font-family: 'Indie Flower', 'Comic Sans MS', cursive;
+  font-size: 0.9em;
   color: #c0392b;
   text-decoration: line-through;
   text-decoration-color: #c0392b;
 }
 .draft-markup .ins {
+  font-family: 'Indie Flower', 'Comic Sans MS', cursive;
+  font-size: 0.7em;
   color: #c0392b;
-  font-size: 0.65em;
   vertical-align: super;
   margin-left: 2px;
   margin-right: 2px;
-  font-weight: 700;
+  font-weight: 400;
 }
 ```
 
-The Caveat font import (`@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');`) is added once to the inserted CSS block. `.kept` segments deliberately have no rule — they inherit `font-family: Caveat`, `color: #1a4d80`, and weight 400 from `.draft-markup`, which is exactly what the visual calls for.
+Both `Caveat` and `Indie Flower` are loaded from base64-embedded `@font-face` rules in the same inserted CSS block (§8.13) — no Google Fonts CDN dependency. `.kept` segments deliberately have no rule — they inherit `font-family: Caveat`, `color: #1a4d80`, and weight 400 from `.draft-markup`, which is exactly what the visual calls for.
+
+**Visual design choice:** Indie Flower is a noticeably more childlike, casual handwriting — distinct enough from Caveat that a quick glance immediately distinguishes the student's words (Caveat blue) from the teacher's red-pen edits (Indie Flower red). The size step-down (0.9em for strikethroughs, 0.7em for superscript insertions) keeps the corrections visually subordinate to the original draft so the student still reads their own words first, with the corrections layered over.
 
 ### 8.6 localStorage persistence
 
@@ -554,24 +564,21 @@ The pastel-green Draft and Polished Rewrite boxes have a fixed visible height (t
   line-height: 24px;         /* MATCH the gradient stride so baselines sit on rules */
 }
 
-/* Caveat handwriting for student-typed and marked-up draft. */
+/* Caveat handwriting for student input, marked-up draft, AND polished output —
+   identical font, size, and ink color so both boxes feel like the same notebook. */
 .writing-draft,
-.draft-markup {
-  font-family: 'Caveat', cursive;
+.draft-markup,
+.writing-output {
+  font-family: 'Caveat', 'Bradley Hand', 'Comic Sans MS', cursive;
   font-size: 22px;            /* visually tuned so baseline sits on the rule */
   color: #1a4d80;             /* dark blue handwriting ink */
-}
-
-/* Lato printed font for the AI's polished output. */
-.writing-output {
-  font-family: 'Lato', 'Segoe UI', Tahoma, sans-serif;
-  font-size: 14px;
-  color: #2c3e50;
 }
 .writing-output.empty::before {
   content: "AI 修改后的版本会显示在这里 / The AI-corrected version will appear here.";
   color: #95a5a6;
   font-style: italic;
+  font-family: 'Lato', sans-serif;   /* placeholder reads as printed prompt */
+  font-size: 14px;
 }
 
 /* Buttons live in a single absolute-positioned row so they never overlap. */
@@ -616,6 +623,48 @@ The Draft section's button row contains, in order: `<span id="word-count">`, `<b
 In all three cases, `background-attachment: local` ensures the gray rule lines scroll with the content — text always sits on a rule, never between rules due to scroll offset.
 
 **Why the original `.lines` div stays in HTML even though it's hidden:** `make_interactive.py` pattern-matches against the existing structure. Hiding via CSS rather than removing keeps the regex anchors stable and makes the script trivially reversible. If a future change wants to fall back to the original (non-scrolling) lines, deleting our `display: none` rule restores the original visual.
+
+### 8.13 Font embedding (no CDN dependency)
+
+**Why embed:** Google Fonts (`fonts.googleapis.com`) is unreachable from mainland China without VPN. The interactive HTMLs are served to Chinese students from an Aliyun bucket; relying on Google's CDN would silently degrade to system fallbacks for the entire target audience. The handwriting visual is core to the pedagogy, so we embed.
+
+**Mechanism:** two `@font-face` rules at the top of the inserted CSS block. Each `src:` is a `data:font/woff2;base64,...` URL containing the full woff2 file. No external HTTP request for fonts.
+
+**CSS shape (truncated for spec):**
+
+```css
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(data:font/woff2;base64,d09GMgABAAAAA...AAA==) format('woff2');
+}
+@font-face {
+  font-family: 'Indie Flower';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(data:font/woff2;base64,d09GMgABAAAAA...AAA==) format('woff2');
+}
+```
+
+**Font files** (committed to the repo at `scripts/fonts/`, fetched once from Google Fonts and stored as woff2):
+
+| File | Source | Size (approx) |
+|---|---|---|
+| `Caveat-400.woff2` | https://fonts.gstatic.com/s/caveat/v18/Wnz6HAc5bAfYB2QRah7pcpNvOx-pjcB-tzJ7e3.woff2 | ~30 KB |
+| `IndieFlower-400.woff2` | https://fonts.gstatic.com/s/indieflower/v22/m8JVjfNVeKWVnh3QMuKkFcZlbkGG1dKEDw.woff2 | ~26 KB |
+
+**License:** SIL Open Font License (OFL). Free to embed and redistribute.
+
+**Per-HTML size impact:** ~75 KB base64 inflation per file (Caveat ~40 KB + Indie Flower ~35 KB after base64 encoding). Acceptable for a 40-file static site; total bucket footprint ≈ 3 MB.
+
+**make_interactive.py role:** at runtime, the script reads the two woff2 files from `scripts/fonts/`, base64-encodes them, and substitutes the `data:` URLs into the `@font-face` template. Output HTMLs are fully self-contained — they will render correctly with full handwriting fonts even on a network with zero external connectivity. The script raises a clear error if the font files are missing.
+
+**Fallback chain in `font-family` declarations** (still used, defensively, in case the @font-face fails to parse for any reason):
+- Caveat: `'Caveat', 'Bradley Hand', 'Comic Sans MS', cursive`
+- Indie Flower: `'Indie Flower', 'Comic Sans MS', cursive`
 
 ### 8.11 Print suppression
 
