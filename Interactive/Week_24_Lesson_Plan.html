@@ -364,91 +364,87 @@
     position: absolute;
     bottom: 6px; right: 12px;
     z-index: 2;
-    font-size: 0.85em;
+    font-size: 0.78em;
     font-family: 'Lato', sans-serif;
     pointer-events: none;
 }
 .draft-page .ai-status.error { color: #c0392b; }
 .draft-page .ai-status.success { color: #27ae60; }
+
+/* Bottom-left so it doesn't overlap the <strong>Draft:</strong> heading
+ * (which lives at the top-left of the green box). */
 .draft-page .health-badge-offline {
     position: absolute;
-    top: 6px; left: 12px;
+    bottom: 6px; left: 12px;
     z-index: 2;
 }
 
-/* === Modern button design: rounded, soft shadow, hover lift === */
+/* === Compact button design: rounded pill, no layout shift === */
 
 .correct-btn, .ai-only, .tts-btn, .word-count {
     font-family: 'Lato', 'Segoe UI', sans-serif;
     font-weight: 600;
-    font-size: 0.78em;
+    font-size: 0.7em;
     letter-spacing: 0.02em;
-    line-height: 1.3;
-    padding: 5px 12px;
-    border: none;
-    border-radius: 14px;
+    line-height: 1.2;
+    padding: 2px 8px;
+    border: 1px solid transparent;
+    border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+    transition: background 0.12s ease, border-color 0.12s ease;
+    box-shadow: none;
     user-select: none;
 }
-.correct-btn:hover, .ai-only:hover, .tts-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.14);
-}
-.correct-btn:active, .ai-only:active, .tts-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.1);
-}
 
-/* Primary action — Correct with AI: indigo→violet gradient */
+/* Primary action — Correct with AI: solid indigo */
 .correct-btn {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    background: #4f46e5;
     color: white;
-    padding: 6px 14px;
+    border-color: #4338ca;
+    padding: 3px 10px;
 }
-.correct-btn:hover { box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4); }
+.correct-btn:hover { background: #4338ca; }
 
 /* Secondary actions — Edit again / Clear */
 .ai-only {
     background: white;
     color: #475569;
-    border: 1.5px solid #e2e8f0;
+    border-color: #cbd5e1;
 }
-.ai-only:hover { background: #f8fafc; border-color: #cbd5e1; }
+.ai-only:hover { background: #f1f5f9; }
 
-/* TTS buttons — distinct color per accent / function */
+/* TTS buttons — distinct subtle color per accent / function */
 .tts-btn {
     background: white;
-    border: 1.5px solid #e2e8f0;
+    border-color: #cbd5e1;
     color: #475569;
-    padding: 5px 11px;
-    font-size: 0.95em;
+    padding: 1px 6px;
+    font-size: 0.85em;
+    border-radius: 8px;
 }
 .tts-btn.uk    { background: #eff6ff; border-color: #93c5fd; color: #1e40af; }
 .tts-btn.us    { background: #fef2f2; border-color: #fca5a5; color: #b91c1c; }
 .tts-btn.slow  { background: #faf5ff; border-color: #d8b4fe; color: #6b21a8; }
 .tts-btn.pause { background: #fffbeb; border-color: #fcd34d; color: #b45309; }
 .tts-btn.stop  { background: #fafafa; border-color: #d4d4d4; color: #525252; }
+.tts-btn:hover { filter: brightness(0.97); }
+
+/* Highlighted accent — when user picks UK or US, that button stays
+   highlighted to indicate which voice the Slow button will use. */
+.tts-btn.uk.active { background: #2563eb; color: white; border-color: #1d4ed8; }
+.tts-btn.us.active { background: #dc2626; color: white; border-color: #b91c1c; }
 
 .tts-btn:disabled, .correct-btn:disabled, .ai-only:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
-}
-.tts-btn:disabled:hover, .correct-btn:disabled:hover, .ai-only:disabled:hover {
-    transform: none;
-    box-shadow: none;
 }
 
 /* Word-count traffic light — same pill shape as buttons */
 .word-count {
     background: white;
-    border: 1.5px solid #e2e8f0;
+    border-color: #cbd5e1;
     color: #475569;
     cursor: default;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
 }
 .word-count.short { color: #dc2626; border-color: #fca5a5; background: #fef2f2; }
 .word-count.ok    { color: #15803d; border-color: #86efac; background: #f0fdf4; }
@@ -544,17 +540,22 @@
     border-radius: 12px;
 }
 
-/* === Listen-button row above .model-box (sibling, NOT inside) ===
- * Injected by JS as the previous-sibling of each .model-box. Right-aligned
- * within the parent floating-window's content width, with 2px breathing
- * room before the orange/pastel .model-box renders below it. */
+/* === Listen-button row inside .model-box (top-right, no layout shift) ===
+ * Injected by JS as a child of each .model-box, absolute-positioned in the
+ * top-right corner inside the existing top padding. Buttons are tiny enough
+ * (font-size ≤ 0.85em, padding 1px 6px) to fit within natural whitespace
+ * before the first line of body text wraps to the right edge. */
 
-.listen-row {
+.model-box { position: relative; }
+.model-box .listen-row {
+    position: absolute;
+    top: 4px; right: 6px;
     display: flex;
-    flex-direction: row;
-    gap: 6px;
-    justify-content: flex-end;
-    margin-bottom: 2px;
+    gap: 3px;
+    z-index: 5;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 2px 3px;
+    border-radius: 8px;
 }
 
 /* Clickable bolded words in vocab tables and model boxes. */
@@ -1250,9 +1251,9 @@
 <div class="page draft-page"><div style="background: #fdf2e9; border: 1px solid rgba(0,0,0,0.05); border-left: 6px solid #e67e22; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); text-align: left;"><h1 style="margin: 0; padding: 0; border: none; font-size: 1.2em; font-weight: 700; color: #d35400; text-transform: uppercase; letter-spacing: 1px;">Writing Homework: Draft &amp; Polished Rewrite</h1></div><div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;">
 <div style="border:1px solid #eee; padding:10px; border-radius:6px; background:var(--bg-pastel-green); flex:1; display:flex; flex-direction:column;; box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; border: none !important;">
 <strong>Draft:</strong>
-<!-- AI-INTERACTIVE-V1: draft section overlay (button-row + status sit above
-     the lines area, anchored to the green box's top-right via CSS;
-     <div class="lines" style="flex-grow:1; height:auto;"></div> is replaced by the captured original .lines element). -->
+<!-- AI-INTERACTIVE-V1: draft section overlay (button-row + status sit
+     anchored to the green box's top-right via CSS; the placeholder
+     inside .lines-overlay-host is replaced at runtime). -->
 <div class="button-row">
   <span id="word-count" class="word-count short">0 / 50–150</span>
   <button id="correct-btn" class="correct-btn"
@@ -1265,7 +1266,7 @@
 <div id="ai-status" class="ai-status"></div>
 <div id="health-badge" class="health-badge-offline" hidden>🔴 AI 离线 / AI offline</div>
 <div class="lines-overlay-host">
-  __ORIG_LINES__
+  <div class="lines" style="flex-grow:1; height:auto;"></div>
   <textarea id="student-draft" class="writing-draft"
             placeholder="Type your answer here / 在此处输入你的答案"
             spellcheck="false"></textarea>
@@ -1276,22 +1277,22 @@
 <div style="border:1px solid #eee; padding:10px; border-radius:6px; background:var(--bg-pastel-green); flex:1; display:flex; flex-direction:column;; box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; border: none !important;">
 <strong>Polished Rewrite:</strong>
 <!-- AI-INTERACTIVE-V1: polished section overlay (button-row sits at the
-     green box's top-right via CSS; <div class="lines" style="flex-grow:1; height:auto;"></div> is replaced by the
-     captured original .lines element). -->
-<div class="button-row">
-  <button class="tts-btn uk" disabled title="UK voice"
-          onclick="window.__ielts.speakElementById('polished-output','en-GB')">🇬🇧 Listen</button>
+     green box's top-right via CSS; the placeholder inside
+     .lines-overlay-host is replaced at runtime). -->
+<div class="button-row" id="polished-listen-row">
+  <button class="tts-btn uk active" disabled title="UK voice"
+          onclick="window.__ielts.listenPolished('en-GB')">🇬🇧</button>
   <button class="tts-btn us" disabled title="US voice"
-          onclick="window.__ielts.speakElementById('polished-output','en-US')">🇺🇸 Listen</button>
-  <button class="tts-btn slow" disabled title="Slow"
-          onclick="window.__ielts.speakElementById('polished-output','en-GB',0.7)">🐢</button>
+          onclick="window.__ielts.listenPolished('en-US')">🇺🇸</button>
+  <button class="tts-btn slow" disabled title="Slow (uses selected accent)"
+          onclick="window.__ielts.listenPolished('slow')">🐢</button>
   <button class="tts-btn pause" disabled title="Pause / resume"
           onclick="window.__ielts.pauseSpeaking()">⏸</button>
   <button class="tts-btn stop" title="Stop"
           onclick="window.__ielts.stopSpeaking()">⏹</button>
 </div>
 <div class="lines-overlay-host">
-  __ORIG_LINES__
+  <div class="lines" style="flex-grow:1; height:auto;"></div>
   <div id="polished-output" class="writing-output empty"></div>
 </div>
 
@@ -1358,6 +1359,37 @@
       window.speechSynthesis.resume();
     } else if (window.speechSynthesis.speaking) {
       window.speechSynthesis.pause();
+    }
+  };
+
+  // Tracks the last accent the student picked on each listen-row. Slow
+  // playback uses this so it matches whichever voice is currently selected.
+  // Map<rowEl, 'en-GB' | 'en-US'>.
+  const _lastLangByRow = new WeakMap();
+
+  function setActiveAccent(rowEl, lang) {
+    if (!rowEl) return;
+    _lastLangByRow.set(rowEl, lang);
+    rowEl.querySelectorAll('.tts-btn.uk, .tts-btn.us').forEach(b => b.classList.remove('active'));
+    const sel = lang === 'en-US' ? '.tts-btn.us' : '.tts-btn.uk';
+    const btn = rowEl.querySelector(sel);
+    if (btn) btn.classList.add('active');
+  }
+
+  function lastLangFor(rowEl) {
+    return _lastLangByRow.get(rowEl) || 'en-GB';
+  }
+
+  /** Centralised handler for the polished-output Listen buttons.
+   *  Tracks the selected accent on #polished-listen-row so the slow button
+   *  uses whichever accent was last picked. */
+  ns.listenPolished = function (which) {
+    const row = document.getElementById('polished-listen-row');
+    if (which === 'en-GB' || which === 'en-US') {
+      setActiveAccent(row, which);
+      ns.speakElementById('polished-output', which, 1.0);
+    } else if (which === 'slow') {
+      ns.speakElementById('polished-output', lastLangFor(row), 0.85);
     }
   };
 
@@ -1778,32 +1810,33 @@
 
   function injectListenButtons() {
     document.querySelectorAll('.model-box').forEach((box) => {
-      // Idempotent — skip if a row already sits right above this box.
-      const prev = box.previousElementSibling;
-      if (prev && prev.classList && prev.classList.contains('listen-row')) return;
-      // Skip if there's no parent to insert into (shouldn't happen, defensive).
-      if (!box.parentElement) return;
+      // Idempotent — skip if a row already exists inside this box.
+      if (box.querySelector(':scope > .listen-row')) return;
 
       const row = document.createElement('div');
       row.className = 'listen-row';
       row.innerHTML = `
-        <button class="tts-btn uk" title="UK voice">🇬🇧</button>
+        <button class="tts-btn uk active" title="UK voice">🇬🇧</button>
         <button class="tts-btn us" title="US voice">🇺🇸</button>
-        <button class="tts-btn slow" title="Slow">🐢</button>
+        <button class="tts-btn slow" title="Slow (uses selected accent)">🐢</button>
         <button class="tts-btn pause" title="Pause / resume">⏸</button>
         <button class="tts-btn stop" title="Stop">⏹</button>
       `;
       const [btnUK, btnUS, btnSlow, btnPause, btnStop] = row.children;
       const textOf = () => stripChineseGloss(extractReadableText(box));
-      btnUK.onclick    = () => ns.speakText(textOf(), 'en-GB', 1.0);
-      btnUS.onclick    = () => ns.speakText(textOf(), 'en-US', 1.0);
-      btnSlow.onclick  = () => ns.speakText(textOf(), 'en-GB', 0.7);
+
+      // Default accent is UK (matches the .active class in markup above).
+      _lastLangByRow.set(row, 'en-GB');
+
+      btnUK.onclick    = () => { setActiveAccent(row, 'en-GB'); ns.speakText(textOf(), 'en-GB', 1.0); };
+      btnUS.onclick    = () => { setActiveAccent(row, 'en-US'); ns.speakText(textOf(), 'en-US', 1.0); };
+      btnSlow.onclick  = () => ns.speakText(textOf(), lastLangFor(row), 0.85);
       btnPause.onclick = () => ns.pauseSpeaking();
       btnStop.onclick  = () => ns.stopSpeaking();
-      // Insert as the immediate previous sibling of the .model-box, in the
-      // parent floating window. CSS `.listen-row { margin-bottom: 2px }`
-      // gives the 2px gap requested.
-      box.parentElement.insertBefore(row, box);
+
+      // Inject INSIDE the .model-box, top-right corner, absolute-positioned
+      // via CSS so the existing text content is not pushed down.
+      box.insertBefore(row, box.firstChild);
     });
   }
 

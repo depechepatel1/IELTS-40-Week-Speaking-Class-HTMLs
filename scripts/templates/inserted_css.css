@@ -95,91 +95,87 @@
     position: absolute;
     bottom: 6px; right: 12px;
     z-index: 2;
-    font-size: 0.85em;
+    font-size: 0.78em;
     font-family: 'Lato', sans-serif;
     pointer-events: none;
 }
 .draft-page .ai-status.error { color: #c0392b; }
 .draft-page .ai-status.success { color: #27ae60; }
+
+/* Bottom-left so it doesn't overlap the <strong>Draft:</strong> heading
+ * (which lives at the top-left of the green box). */
 .draft-page .health-badge-offline {
     position: absolute;
-    top: 6px; left: 12px;
+    bottom: 6px; left: 12px;
     z-index: 2;
 }
 
-/* === Modern button design: rounded, soft shadow, hover lift === */
+/* === Compact button design: rounded pill, no layout shift === */
 
 .correct-btn, .ai-only, .tts-btn, .word-count {
     font-family: 'Lato', 'Segoe UI', sans-serif;
     font-weight: 600;
-    font-size: 0.78em;
+    font-size: 0.7em;
     letter-spacing: 0.02em;
-    line-height: 1.3;
-    padding: 5px 12px;
-    border: none;
-    border-radius: 14px;
+    line-height: 1.2;
+    padding: 2px 8px;
+    border: 1px solid transparent;
+    border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+    transition: background 0.12s ease, border-color 0.12s ease;
+    box-shadow: none;
     user-select: none;
 }
-.correct-btn:hover, .ai-only:hover, .tts-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.14);
-}
-.correct-btn:active, .ai-only:active, .tts-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.1);
-}
 
-/* Primary action — Correct with AI: indigo→violet gradient */
+/* Primary action — Correct with AI: solid indigo */
 .correct-btn {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    background: #4f46e5;
     color: white;
-    padding: 6px 14px;
+    border-color: #4338ca;
+    padding: 3px 10px;
 }
-.correct-btn:hover { box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4); }
+.correct-btn:hover { background: #4338ca; }
 
 /* Secondary actions — Edit again / Clear */
 .ai-only {
     background: white;
     color: #475569;
-    border: 1.5px solid #e2e8f0;
+    border-color: #cbd5e1;
 }
-.ai-only:hover { background: #f8fafc; border-color: #cbd5e1; }
+.ai-only:hover { background: #f1f5f9; }
 
-/* TTS buttons — distinct color per accent / function */
+/* TTS buttons — distinct subtle color per accent / function */
 .tts-btn {
     background: white;
-    border: 1.5px solid #e2e8f0;
+    border-color: #cbd5e1;
     color: #475569;
-    padding: 5px 11px;
-    font-size: 0.95em;
+    padding: 1px 6px;
+    font-size: 0.85em;
+    border-radius: 8px;
 }
 .tts-btn.uk    { background: #eff6ff; border-color: #93c5fd; color: #1e40af; }
 .tts-btn.us    { background: #fef2f2; border-color: #fca5a5; color: #b91c1c; }
 .tts-btn.slow  { background: #faf5ff; border-color: #d8b4fe; color: #6b21a8; }
 .tts-btn.pause { background: #fffbeb; border-color: #fcd34d; color: #b45309; }
 .tts-btn.stop  { background: #fafafa; border-color: #d4d4d4; color: #525252; }
+.tts-btn:hover { filter: brightness(0.97); }
+
+/* Highlighted accent — when user picks UK or US, that button stays
+   highlighted to indicate which voice the Slow button will use. */
+.tts-btn.uk.active { background: #2563eb; color: white; border-color: #1d4ed8; }
+.tts-btn.us.active { background: #dc2626; color: white; border-color: #b91c1c; }
 
 .tts-btn:disabled, .correct-btn:disabled, .ai-only:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
-}
-.tts-btn:disabled:hover, .correct-btn:disabled:hover, .ai-only:disabled:hover {
-    transform: none;
-    box-shadow: none;
 }
 
 /* Word-count traffic light — same pill shape as buttons */
 .word-count {
     background: white;
-    border: 1.5px solid #e2e8f0;
+    border-color: #cbd5e1;
     color: #475569;
     cursor: default;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
 }
 .word-count.short { color: #dc2626; border-color: #fca5a5; background: #fef2f2; }
 .word-count.ok    { color: #15803d; border-color: #86efac; background: #f0fdf4; }
@@ -275,17 +271,22 @@
     border-radius: 12px;
 }
 
-/* === Listen-button row above .model-box (sibling, NOT inside) ===
- * Injected by JS as the previous-sibling of each .model-box. Right-aligned
- * within the parent floating-window's content width, with 2px breathing
- * room before the orange/pastel .model-box renders below it. */
+/* === Listen-button row inside .model-box (top-right, no layout shift) ===
+ * Injected by JS as a child of each .model-box, absolute-positioned in the
+ * top-right corner inside the existing top padding. Buttons are tiny enough
+ * (font-size ≤ 0.85em, padding 1px 6px) to fit within natural whitespace
+ * before the first line of body text wraps to the right edge. */
 
-.listen-row {
+.model-box { position: relative; }
+.model-box .listen-row {
+    position: absolute;
+    top: 4px; right: 6px;
     display: flex;
-    flex-direction: row;
-    gap: 6px;
-    justify-content: flex-end;
-    margin-bottom: 2px;
+    gap: 3px;
+    z-index: 5;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 2px 3px;
+    border-radius: 8px;
 }
 
 /* Clickable bolded words in vocab tables and model boxes. */

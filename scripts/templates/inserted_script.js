@@ -60,6 +60,37 @@
     }
   };
 
+  // Tracks the last accent the student picked on each listen-row. Slow
+  // playback uses this so it matches whichever voice is currently selected.
+  // Map<rowEl, 'en-GB' | 'en-US'>.
+  const _lastLangByRow = new WeakMap();
+
+  function setActiveAccent(rowEl, lang) {
+    if (!rowEl) return;
+    _lastLangByRow.set(rowEl, lang);
+    rowEl.querySelectorAll('.tts-btn.uk, .tts-btn.us').forEach(b => b.classList.remove('active'));
+    const sel = lang === 'en-US' ? '.tts-btn.us' : '.tts-btn.uk';
+    const btn = rowEl.querySelector(sel);
+    if (btn) btn.classList.add('active');
+  }
+
+  function lastLangFor(rowEl) {
+    return _lastLangByRow.get(rowEl) || 'en-GB';
+  }
+
+  /** Centralised handler for the polished-output Listen buttons.
+   *  Tracks the selected accent on #polished-listen-row so the slow button
+   *  uses whichever accent was last picked. */
+  ns.listenPolished = function (which) {
+    const row = document.getElementById('polished-listen-row');
+    if (which === 'en-GB' || which === 'en-US') {
+      setActiveAccent(row, which);
+      ns.speakElementById('polished-output', which, 1.0);
+    } else if (which === 'slow') {
+      ns.speakElementById('polished-output', lastLangFor(row), 0.85);
+    }
+  };
+
   ns.speakText = function (text, lang = 'en-GB', rate = 1.0) {
     // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
     if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
@@ -477,32 +508,33 @@
 
   function injectListenButtons() {
     document.querySelectorAll('.model-box').forEach((box) => {
-      // Idempotent — skip if a row already sits right above this box.
-      const prev = box.previousElementSibling;
-      if (prev && prev.classList && prev.classList.contains('listen-row')) return;
-      // Skip if there's no parent to insert into (shouldn't happen, defensive).
-      if (!box.parentElement) return;
+      // Idempotent — skip if a row already exists inside this box.
+      if (box.querySelector(':scope > .listen-row')) return;
 
       const row = document.createElement('div');
       row.className = 'listen-row';
       row.innerHTML = `
-        <button class="tts-btn uk" title="UK voice">🇬🇧</button>
+        <button class="tts-btn uk active" title="UK voice">🇬🇧</button>
         <button class="tts-btn us" title="US voice">🇺🇸</button>
-        <button class="tts-btn slow" title="Slow">🐢</button>
+        <button class="tts-btn slow" title="Slow (uses selected accent)">🐢</button>
         <button class="tts-btn pause" title="Pause / resume">⏸</button>
         <button class="tts-btn stop" title="Stop">⏹</button>
       `;
       const [btnUK, btnUS, btnSlow, btnPause, btnStop] = row.children;
       const textOf = () => stripChineseGloss(extractReadableText(box));
-      btnUK.onclick    = () => ns.speakText(textOf(), 'en-GB', 1.0);
-      btnUS.onclick    = () => ns.speakText(textOf(), 'en-US', 1.0);
-      btnSlow.onclick  = () => ns.speakText(textOf(), 'en-GB', 0.7);
+
+      // Default accent is UK (matches the .active class in markup above).
+      _lastLangByRow.set(row, 'en-GB');
+
+      btnUK.onclick    = () => { setActiveAccent(row, 'en-GB'); ns.speakText(textOf(), 'en-GB', 1.0); };
+      btnUS.onclick    = () => { setActiveAccent(row, 'en-US'); ns.speakText(textOf(), 'en-US', 1.0); };
+      btnSlow.onclick  = () => ns.speakText(textOf(), lastLangFor(row), 0.85);
       btnPause.onclick = () => ns.pauseSpeaking();
       btnStop.onclick  = () => ns.stopSpeaking();
-      // Insert as the immediate previous sibling of the .model-box, in the
-      // parent floating window. CSS `.listen-row { margin-bottom: 2px }`
-      // gives the 2px gap requested.
-      box.parentElement.insertBefore(row, box);
+
+      // Inject INSIDE the .model-box, top-right corner, absolute-positioned
+      // via CSS so the existing text content is not pushed down.
+      box.insertBefore(row, box.firstChild);
     });
   }
 
