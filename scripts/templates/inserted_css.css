@@ -436,3 +436,103 @@
     margin-top: 4px;
 }
 @media print { .draft-page::after { display: none; } }
+
+/* === Voice-recorder widget — feature-flagged by DOM presence ===
+ * Compact horizontal strip at the bottom of the Polished Rewrite pastel
+ * box. Records via MediaRecorder, persists Blob to IndexedDB keyed by
+ * lesson, 3-min hard cap. The native <audio> control bar is suppressed;
+ * playback uses the widget's own ▶ button. Hidden entirely in print.
+ *
+ * Defensive `!important` on the layout rules: the container sits inside
+ * a flex-column pastel box — this prevents inherited flex behaviour from
+ * collapsing the row layout into a vertical stack. */
+
+.voice-recorder-container {
+    margin: 2px 0 0 0 !important;
+    padding: 1px 4px !important;
+    background: transparent !important;
+    border: none !important;
+    border-top: 1px dashed #d6dbdf !important;
+    font-family: 'Lato', 'Segoe UI', sans-serif;
+    font-size: 0.7em;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 4px !important;
+    flex-wrap: nowrap !important;
+    width: 100%;
+    line-height: 1 !important;
+    min-height: 0 !important;
+}
+.voice-recorder-container audio { display: none !important; }
+.voice-recorder-container .vr-controls {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    gap: 2px !important;
+    flex-shrink: 0 !important;
+    align-items: center !important;
+}
+.voice-recorder-container .vr-btn {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    flex: 0 0 18px !important;
+    border-radius: 50% !important;
+    border: 1px solid #95a5a6;
+    background: white;
+    color: #475569;
+    cursor: pointer;
+    font-size: 0.65em;
+    line-height: 1;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.12s ease, transform 0.08s ease;
+}
+.voice-recorder-container .vr-btn:hover:not(:disabled) {
+    background: #f1f5f9;
+    transform: scale(1.08);
+}
+.voice-recorder-container .vr-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+.voice-recorder-container .vr-record { color: #c0392b; border-color: #c0392b; }
+.voice-recorder-container .vr-record.recording {
+    background: #c0392b; color: white;
+    animation: vr-pulse 1.4s ease-in-out infinite;
+}
+@keyframes vr-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(192,57,43,0.55); }
+    50%      { box-shadow: 0 0 0 5px rgba(192,57,43,0); }
+}
+.voice-recorder-container .vr-pause.paused {
+    background: #fef3c7; border-color: #f59e0b; color: #92400e;
+}
+.voice-recorder-container .vr-time {
+    font-family: 'Lato', monospace;
+    font-weight: 600;
+    color: #475569;
+    min-width: 38px;
+    text-align: center;
+    font-size: 0.95em;
+    line-height: 1;
+}
+.voice-recorder-container .vr-time.over { color: #c0392b; }
+.voice-recorder-container .vr-label {
+    color: #7f8c8d;
+    font-size: 0.9em;
+    line-height: 1;
+    flex: 1 1 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.voice-recorder-container .vr-label.error { color: #c0392b; font-weight: 600; }
+
+@media print {
+    .voice-recorder-container { display: none !important; }
+}
