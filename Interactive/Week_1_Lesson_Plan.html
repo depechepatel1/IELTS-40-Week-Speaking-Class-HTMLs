@@ -540,22 +540,26 @@
     border-radius: 12px;
 }
 
-/* === Listen-button row inside .model-box (top-right, no layout shift) ===
- * Injected by JS as a child of each .model-box, absolute-positioned in the
- * top-right corner inside the existing top padding. Buttons are tiny enough
- * (font-size ≤ 0.85em, padding 1px 6px) to fit within natural whitespace
- * before the first line of body text wraps to the right edge. */
+/* === Listen-button row inside .model-box (float: right, text wraps around) ===
+ * Injected by JS as the FIRST child of each .model-box. Using `float: right`
+ * (not absolute positioning) means the buttons claim a small top-right
+ * area and the body text naturally wraps around them — no overlap, no
+ * extra line, no layout shift. */
 
-.model-box { position: relative; }
 .model-box .listen-row {
-    position: absolute;
-    top: 4px; right: 6px;
+    float: right;
     display: flex;
+    flex-direction: row;
     gap: 3px;
+    margin: 0 0 2px 8px;
     z-index: 5;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 2px 3px;
-    border-radius: 8px;
+}
+.model-box .listen-row .tts-btn {
+    padding: 1px 5px;
+    font-size: 0.7em;
+    line-height: 1.3;
+    border-radius: 6px;
+    border-width: 1px;
 }
 
 /* Clickable bolded words in vocab tables and model boxes. */
