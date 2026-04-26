@@ -271,18 +271,33 @@
     border-radius: 12px;
 }
 
-/* === Listen-button row inside the WHITE PARENT card, NOT in the colored
- * .model-box. Anchored absolutely at the top-right corner of the card so
- * it sits in the empty right side of the section heading row (h2/h3) —
- * fully outside the colored model-box, no overlap with model text. */
+/* === Listen-button row sits at the BOTTOM-RIGHT of the section-heading
+ * row, just above the colored .model-box. Implemented by wrapping the
+ * heading + listen-row in a flex container with `align-items: flex-end`,
+ * so the buttons stay anchored to the heading's bottom edge regardless
+ * of whether the heading text wraps to 1, 2, or N lines. */
 
+.card .listen-row-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0 0 6px 0;
+}
+.card .listen-row-wrapper > h1,
+.card .listen-row-wrapper > h2,
+.card .listen-row-wrapper > h3,
+.card .listen-row-wrapper > h4 {
+    margin: 0 !important;
+    flex: 1 1 auto;
+    min-width: 0;
+}
 .card .listen-row {
-    position: absolute;
-    top: 6px;
-    right: 8px;
     display: flex;
     flex-direction: row;
     gap: 3px;
+    flex-shrink: 0;
     z-index: 5;
 }
 .card .listen-row .tts-btn {

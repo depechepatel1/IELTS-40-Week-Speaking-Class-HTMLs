@@ -508,13 +508,10 @@
 
   function injectListenButtons() {
     document.querySelectorAll('.model-box').forEach((box) => {
-      // Anchor the listen-row to the closest WHITE parent .card (not the
-      // colored .model-box itself), so the buttons sit in the empty right
-      // side of the section heading row, well outside the model-box body.
       const card = box.closest('.card');
       if (!card) return;
-      // Idempotent — one listen-row per card (controls the first .model-box).
-      if (card.querySelector(':scope > .listen-row')) return;
+      // Idempotent — one wrapper/row per card (controls the first .model-box).
+      if (card.querySelector(':scope > .listen-row-wrapper, :scope > .listen-row')) return;
 
       const row = document.createElement('div');
       row.className = 'listen-row';
@@ -537,12 +534,26 @@
       btnPause.onclick = () => ns.pauseSpeaking();
       btnStop.onclick  = () => ns.stopSpeaking();
 
-      // Make the white card a positioning context (no-op if already set)
-      // and inject the listen-row as its first child. The CSS positions it
-      // absolutely in the top-right of the card.
-      const computedPos = getComputedStyle(card).position;
-      if (computedPos === 'static') card.style.position = 'relative';
-      card.insertBefore(row, card.firstChild);
+      // Find the heading (h1-h4) immediately preceding this .model-box in
+      // the .card. Walk back through siblings until we hit one or run out.
+      let heading = box.previousElementSibling;
+      while (heading && !/^H[1-6]$/.test(heading.tagName)) {
+        heading = heading.previousElementSibling;
+      }
+
+      if (heading) {
+        // Wrap heading + listen-row in a flex container so the row sits at
+        // the bottom-right of the heading area (right above the .model-box),
+        // regardless of whether the heading wraps to 1 or N lines.
+        const wrapper = document.createElement('div');
+        wrapper.className = 'listen-row-wrapper';
+        card.insertBefore(wrapper, heading);
+        wrapper.appendChild(heading);
+        wrapper.appendChild(row);
+      } else {
+        // No heading — fall back to inserting just before the .model-box.
+        box.parentElement.insertBefore(row, box);
+      }
     });
   }
 

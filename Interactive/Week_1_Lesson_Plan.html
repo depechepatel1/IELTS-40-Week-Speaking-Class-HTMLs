@@ -540,18 +540,33 @@
     border-radius: 12px;
 }
 
-/* === Listen-button row inside the WHITE PARENT card, NOT in the colored
- * .model-box. Anchored absolutely at the top-right corner of the card so
- * it sits in the empty right side of the section heading row (h2/h3) —
- * fully outside the colored model-box, no overlap with model text. */
+/* === Listen-button row sits at the BOTTOM-RIGHT of the section-heading
+ * row, just above the colored .model-box. Implemented by wrapping the
+ * heading + listen-row in a flex container with `align-items: flex-end`,
+ * so the buttons stay anchored to the heading's bottom edge regardless
+ * of whether the heading text wraps to 1, 2, or N lines. */
 
+.card .listen-row-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0 0 6px 0;
+}
+.card .listen-row-wrapper > h1,
+.card .listen-row-wrapper > h2,
+.card .listen-row-wrapper > h3,
+.card .listen-row-wrapper > h4 {
+    margin: 0 !important;
+    flex: 1 1 auto;
+    min-width: 0;
+}
 .card .listen-row {
-    position: absolute;
-    top: 6px;
-    right: 8px;
     display: flex;
     flex-direction: row;
     gap: 3px;
+    flex-shrink: 0;
     z-index: 5;
 }
 .card .listen-row .tts-btn {
@@ -1814,13 +1829,10 @@
 
   function injectListenButtons() {
     document.querySelectorAll('.model-box').forEach((box) => {
-      // Anchor the listen-row to the closest WHITE parent .card (not the
-      // colored .model-box itself), so the buttons sit in the empty right
-      // side of the section heading row, well outside the model-box body.
       const card = box.closest('.card');
       if (!card) return;
-      // Idempotent — one listen-row per card (controls the first .model-box).
-      if (card.querySelector(':scope > .listen-row')) return;
+      // Idempotent — one wrapper/row per card (controls the first .model-box).
+      if (card.querySelector(':scope > .listen-row-wrapper, :scope > .listen-row')) return;
 
       const row = document.createElement('div');
       row.className = 'listen-row';
@@ -1843,12 +1855,26 @@
       btnPause.onclick = () => ns.pauseSpeaking();
       btnStop.onclick  = () => ns.stopSpeaking();
 
-      // Make the white card a positioning context (no-op if already set)
-      // and inject the listen-row as its first child. The CSS positions it
-      // absolutely in the top-right of the card.
-      const computedPos = getComputedStyle(card).position;
-      if (computedPos === 'static') card.style.position = 'relative';
-      card.insertBefore(row, card.firstChild);
+      // Find the heading (h1-h4) immediately preceding this .model-box in
+      // the .card. Walk back through siblings until we hit one or run out.
+      let heading = box.previousElementSibling;
+      while (heading && !/^H[1-6]$/.test(heading.tagName)) {
+        heading = heading.previousElementSibling;
+      }
+
+      if (heading) {
+        // Wrap heading + listen-row in a flex container so the row sits at
+        // the bottom-right of the heading area (right above the .model-box),
+        // regardless of whether the heading wraps to 1 or N lines.
+        const wrapper = document.createElement('div');
+        wrapper.className = 'listen-row-wrapper';
+        card.insertBefore(wrapper, heading);
+        wrapper.appendChild(heading);
+        wrapper.appendChild(row);
+      } else {
+        // No heading — fall back to inserting just before the .model-box.
+        box.parentElement.insertBefore(row, box);
+      }
     });
   }
 
