@@ -1,8 +1,6 @@
-<!-- AI-INTERACTIVE-V1: draft section overlay (interior; original .lines is wrapped at runtime by make_interactive.py) -->
-<textarea id="student-draft" class="writing-draft"
-          placeholder="Type your answer here / 在此处输入你的答案"
-          spellcheck="false"></textarea>
-<div id="draft-markup" class="draft-markup" hidden></div>
+<!-- AI-INTERACTIVE-V1: draft section overlay (button-row + status sit above
+     the lines area, anchored to the green box's top-right via CSS;
+     __ORIG_LINES__ is replaced by the captured original .lines element). -->
 <div class="button-row">
   <span id="word-count" class="word-count short">0 / 50–150</span>
   <button id="correct-btn" class="correct-btn"
@@ -14,3 +12,10 @@
 </div>
 <div id="ai-status" class="ai-status"></div>
 <div id="health-badge" class="health-badge-offline" hidden>🔴 AI 离线 / AI offline</div>
+<div class="lines-overlay-host">
+  __ORIG_LINES__
+  <textarea id="student-draft" class="writing-draft"
+            placeholder="Type your answer here / 在此处输入你的答案"
+            spellcheck="false"></textarea>
+  <div id="draft-markup" class="draft-markup" hidden></div>
+</div>

@@ -108,23 +108,33 @@ def _load_overlay(name: str) -> str:
 
 
 def insertion_2_draft_page(html: str) -> str:
-    """Wrap the original `.lines` inside `.lines-overlay-host` along with overlay UI.
+    """Augment the .draft-page Draft and Polished Rewrite sections in place.
 
     Per spec §6.2: the original `<div class="lines">` is KEPT in HTML so the
     file structure remains regular and is hidden via `.draft-page .lines
-    { display: none; }` in the inserted CSS. The new wrapper is the
-    positioning/scrolling host for the overlay textarea/markup/output.
+    { display: none; }` in the inserted CSS.
+
+    The overlay snippets define the FULL post-heading structure (button-row
+    + status + lines-overlay-host wrapper). The script substitutes
+    `__ORIG_LINES__` inside each snippet with the captured original `.lines`
+    div so it ends up nested inside `.lines-overlay-host`. This lets the
+    button-row sit OUTSIDE the lines area (next to the `<strong>Draft:</strong>`
+    heading) while the original `.lines` stays in the markup.
     """
     draft_overlay = _load_overlay("draft_section_overlay.html")
     polished_overlay = _load_overlay("polished_section_overlay.html")
+    if "__ORIG_LINES__" not in draft_overlay:
+        raise SkipFile("draft_section_overlay.html missing __ORIG_LINES__ placeholder.")
+    if "__ORIG_LINES__" not in polished_overlay:
+        raise SkipFile("polished_section_overlay.html missing __ORIG_LINES__ placeholder.")
 
     def wrap_draft(m: re.Match) -> str:
         label, lines_div = m.group(1), m.group(2)
-        return f'{label}\n<div class="lines-overlay-host">\n  {lines_div}\n  {draft_overlay}\n</div>'
+        return f"{label}\n{draft_overlay.replace('__ORIG_LINES__', lines_div, 1)}"
 
     def wrap_polished(m: re.Match) -> str:
         label, lines_div = m.group(1), m.group(2)
-        return f'{label}\n<div class="lines-overlay-host">\n  {lines_div}\n  {polished_overlay}\n</div>'
+        return f"{label}\n{polished_overlay.replace('__ORIG_LINES__', lines_div, 1)}"
 
     new_html, c1 = DRAFT_LINES_RE.subn(wrap_draft, html, count=1)
     if c1 != 1:

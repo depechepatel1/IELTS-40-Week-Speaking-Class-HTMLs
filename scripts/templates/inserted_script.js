@@ -50,6 +50,16 @@
     _currentSpans = null;
   };
 
+  // Toggle pause/resume on whichever utterance is currently speaking.
+  ns.pauseSpeaking = function () {
+    if (!('speechSynthesis' in window)) return;
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+    } else if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.pause();
+    }
+  };
+
   ns.speakText = function (text, lang = 'en-GB', rate = 1.0) {
     // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
     if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
@@ -432,21 +442,46 @@
     return /color\s*:\s*#7f8c8d/i.test(style);
   }
 
-  /** Recursively collect text from a node, skipping any Chinese-gloss subtree
-   *  and the listen-row itself (so we don't read button labels). */
+  /** True if `node` is a marker badge we should NOT read aloud (Op/Re/Ex etc.). */
+  function isMarkerBadge(node) {
+    if (!node || node.nodeType !== Node.ELEMENT_NODE || !node.classList) return false;
+    return node.classList.contains('badge-ore');
+  }
+
+  /** Strip parenthesized blocks containing CJK chars (e.g. "(有造诣的 / 成功的)")
+   *  AND any standalone CJK runs. Multi-pass to handle nested cases like
+   *  "instill (灌输 (价值观))". Used for inline-Chinese-gloss removal that the
+   *  element-level skip can't catch. */
+  function stripChineseGloss(s) {
+    if (!s) return '';
+    let prev;
+    do {
+      prev = s;
+      s = s.replace(/\([^()]*[一-鿿][^()]*\)/g, '');
+    } while (s !== prev);
+    s = s.replace(/[一-鿿　-〿＀-￯]+/g, '');
+    return s.replace(/\s+/g, ' ').trim();
+  }
+
+  /** Recursively collect text from a node, skipping Chinese-gloss subtrees,
+   *  marker badges (Op/Re/Ex), and the listen-row itself. */
   function extractReadableText(node) {
     if (!node) return '';
     if (node.nodeType === Node.TEXT_NODE) return node.textContent;
     if (node.nodeType !== Node.ELEMENT_NODE) return '';
     if (isChineseGloss(node)) return '';
+    if (isMarkerBadge(node)) return '';
     if (node.classList && node.classList.contains('listen-row')) return '';
     return Array.from(node.childNodes).map(extractReadableText).join(' ');
   }
 
   function injectListenButtons() {
     document.querySelectorAll('.model-box').forEach((box) => {
-      // Idempotent — skip if a row already exists.
-      if (box.querySelector(':scope > .listen-row')) return;
+      // Idempotent — skip if a row already sits right above this box.
+      const prev = box.previousElementSibling;
+      if (prev && prev.classList && prev.classList.contains('listen-row')) return;
+      // Skip if there's no parent to insert into (shouldn't happen, defensive).
+      if (!box.parentElement) return;
 
       const row = document.createElement('div');
       row.className = 'listen-row';
@@ -454,15 +489,20 @@
         <button class="tts-btn uk" title="UK voice">🇬🇧</button>
         <button class="tts-btn us" title="US voice">🇺🇸</button>
         <button class="tts-btn slow" title="Slow">🐢</button>
+        <button class="tts-btn pause" title="Pause / resume">⏸</button>
         <button class="tts-btn stop" title="Stop">⏹</button>
       `;
-      const [btnUK, btnUS, btnSlow, btnStop] = row.children;
-      const textOf = () => extractReadableText(box).replace(/\s+/g, ' ').trim();
-      btnUK.onclick   = () => ns.speakText(textOf(), 'en-GB', 1.0);
-      btnUS.onclick   = () => ns.speakText(textOf(), 'en-US', 1.0);
-      btnSlow.onclick = () => ns.speakText(textOf(), 'en-GB', 0.7);
-      btnStop.onclick = () => ns.stopSpeaking();
-      box.insertBefore(row, box.firstChild);
+      const [btnUK, btnUS, btnSlow, btnPause, btnStop] = row.children;
+      const textOf = () => stripChineseGloss(extractReadableText(box));
+      btnUK.onclick    = () => ns.speakText(textOf(), 'en-GB', 1.0);
+      btnUS.onclick    = () => ns.speakText(textOf(), 'en-US', 1.0);
+      btnSlow.onclick  = () => ns.speakText(textOf(), 'en-GB', 0.7);
+      btnPause.onclick = () => ns.pauseSpeaking();
+      btnStop.onclick  = () => ns.stopSpeaking();
+      // Insert as the immediate previous sibling of the .model-box, in the
+      // parent floating window. CSS `.listen-row { margin-bottom: 2px }`
+      // gives the 2px gap requested.
+      box.parentElement.insertBefore(row, box);
     });
   }
 
@@ -471,12 +511,13 @@
       // Skip <strong> inside any Chinese-gloss ancestor.
       let p = el.parentElement;
       while (p) { if (isChineseGloss(p)) return; p = p.parentElement; }
-      // Skip <strong> inside the listen-row buttons.
-      if (el.closest('.listen-row')) return;
+      // Skip <strong> inside the listen-row buttons or marker badges.
+      if (el.closest('.listen-row') || el.closest('.badge-ore')) return;
 
       el.addEventListener('click', (ev) => {
         ev.stopPropagation();
-        const word = el.textContent.trim();
+        // Strip any inline CJK gloss like "accomplished (有造诣的 / 成功的)" → "accomplished"
+        const word = stripChineseGloss(el.textContent);
         if (!word) return;
         ns.speakText(word, 'en-GB');
         showIpaTooltip(word, ev.pageX, ev.pageY);

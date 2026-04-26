@@ -293,11 +293,14 @@
    .lines on spider-pages etc. are unaffected. */
 .draft-page .lines { display: none; }
 
-/* Defensive: ensure the pastel-green Draft / Polished parent boxes are
-   column flex containers, so .lines-overlay-host can flex-grow inside them. */
+/* The pastel-green Draft / Polished boxes become positioning contexts so
+   the absolute-positioned `.button-row` sits at THEIR top-right (next to
+   the <strong>Draft:</strong> heading), NOT over the lines area. They are
+   also column flex containers so `.lines-overlay-host` can flex-grow. */
 .draft-page > div > div {
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .draft-page .lines-overlay-host {
@@ -343,11 +346,14 @@
     font-size: 14px;
 }
 
-/* === Buttons (top-right corner of each box, single .button-row, no flow) === */
+/* === Buttons (top-right of each green box, at heading height) ===
+ * Anchored to the green pastel box (which is `position: relative` above),
+ * so they sit next to the <strong>Draft:</strong> / <strong>Polished
+ * Rewrite:</strong> heading, not over the lines area. */
 
 .draft-page .button-row {
     position: absolute;
-    top: 4px; right: 8px;
+    top: 6px; right: 10px;
     z-index: 2;
     display: flex;
     flex-direction: row;
@@ -356,48 +362,97 @@
 }
 .draft-page .ai-status {
     position: absolute;
-    bottom: 4px; right: 8px;
+    bottom: 6px; right: 12px;
     z-index: 2;
     font-size: 0.85em;
     font-family: 'Lato', sans-serif;
+    pointer-events: none;
 }
 .draft-page .ai-status.error { color: #c0392b; }
 .draft-page .ai-status.success { color: #27ae60; }
-
-/* Word-count traffic light */
-.word-count {
-    font-family: 'Lato', sans-serif;
-    font-size: 0.8em;
-    padding: 2px 6px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-    background: white;
+.draft-page .health-badge-offline {
+    position: absolute;
+    top: 6px; left: 12px;
+    z-index: 2;
 }
-.word-count.short { color: #c0392b; border-color: #c0392b; }
-.word-count.ok    { color: #27ae60; border-color: #27ae60; }
-.word-count.long  { color: #d68910; border-color: #d68910; }
 
-/* Buttons */
-.correct-btn, .ai-only, .tts-btn {
-    font-family: 'Lato', sans-serif;
-    font-size: 0.8em;
-    padding: 3px 8px;
-    border: 1px solid #2c3e50;
-    background: white;
-    color: #2c3e50;
-    border-radius: 3px;
+/* === Modern button design: rounded, soft shadow, hover lift === */
+
+.correct-btn, .ai-only, .tts-btn, .word-count {
+    font-family: 'Lato', 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: 0.78em;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 14px;
     cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+    user-select: none;
 }
-.correct-btn { background: #2c3e50; color: white; }
-.correct-btn:hover { background: #1a252f; }
-.ai-only:hover, .tts-btn:hover { background: #ecf0f1; }
-.tts-btn.uk { border-color: #1f538d; }
-.tts-btn.us { border-color: #b03a2e; }
-.tts-btn.slow { border-color: #7d3c98; }
-.tts-btn.stop { border-color: #555; }
+.correct-btn:hover, .ai-only:hover, .tts-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.14);
+}
+.correct-btn:active, .ai-only:active, .tts-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.1);
+}
+
+/* Primary action — Correct with AI: indigo→violet gradient */
+.correct-btn {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    padding: 6px 14px;
+}
+.correct-btn:hover { box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4); }
+
+/* Secondary actions — Edit again / Clear */
+.ai-only {
+    background: white;
+    color: #475569;
+    border: 1.5px solid #e2e8f0;
+}
+.ai-only:hover { background: #f8fafc; border-color: #cbd5e1; }
+
+/* TTS buttons — distinct color per accent / function */
+.tts-btn {
+    background: white;
+    border: 1.5px solid #e2e8f0;
+    color: #475569;
+    padding: 5px 11px;
+    font-size: 0.95em;
+}
+.tts-btn.uk    { background: #eff6ff; border-color: #93c5fd; color: #1e40af; }
+.tts-btn.us    { background: #fef2f2; border-color: #fca5a5; color: #b91c1c; }
+.tts-btn.slow  { background: #faf5ff; border-color: #d8b4fe; color: #6b21a8; }
+.tts-btn.pause { background: #fffbeb; border-color: #fcd34d; color: #b45309; }
+.tts-btn.stop  { background: #fafafa; border-color: #d4d4d4; color: #525252; }
+
 .tts-btn:disabled, .correct-btn:disabled, .ai-only:disabled {
-    opacity: 0.5; cursor: not-allowed;
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
+.tts-btn:disabled:hover, .correct-btn:disabled:hover, .ai-only:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Word-count traffic light — same pill shape as buttons */
+.word-count {
+    background: white;
+    border: 1.5px solid #e2e8f0;
+    color: #475569;
+    cursor: default;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+.word-count.short { color: #dc2626; border-color: #fca5a5; background: #fef2f2; }
+.word-count.ok    { color: #15803d; border-color: #86efac; background: #f0fdf4; }
+.word-count.long  { color: #c2410c; border-color: #fdba74; background: #fff7ed; }
 
 /* Spinner shown next to ai-status while correcting */
 .spinner {
@@ -480,25 +535,26 @@
 /* === Health-offline badge === */
 
 .health-badge-offline {
-    position: absolute;
-    top: 4px; left: 8px;
-    z-index: 2;
     font-size: 0.75em;
     font-family: 'Lato', sans-serif;
+    font-weight: 600;
     color: #c0392b;
     background: #fadbd8;
-    padding: 2px 6px;
-    border-radius: 3px;
+    padding: 3px 9px;
+    border-radius: 12px;
 }
 
-/* === Listen-button row inside .model-box (non-shifting; uses existing top padding) === */
+/* === Listen-button row above .model-box (sibling, NOT inside) ===
+ * Injected by JS as the previous-sibling of each .model-box. Right-aligned
+ * within the parent floating-window's content width, with 2px breathing
+ * room before the orange/pastel .model-box renders below it. */
 
-.model-box { position: relative; }
-.model-box .listen-row {
-    position: absolute;
-    top: 6px; right: 8px;
-    display: flex; gap: 4px;
-    z-index: 2;
+.listen-row {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    justify-content: flex-end;
+    margin-bottom: 2px;
 }
 
 /* Clickable bolded words in vocab tables and model boxes. */
@@ -1194,13 +1250,9 @@
 <div class="page draft-page"><div style="background: #fdf2e9; border: 1px solid rgba(0,0,0,0.05); border-left: 6px solid #e67e22; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); text-align: left;"><h1 style="margin: 0; padding: 0; border: none; font-size: 1.2em; font-weight: 700; color: #d35400; text-transform: uppercase; letter-spacing: 1px;">Writing Homework: Draft &amp; Polished Rewrite</h1></div><div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;">
 <div style="border:1px solid #eee; padding:10px; border-radius:6px; background:var(--bg-pastel-green); flex:1; display:flex; flex-direction:column;; box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; border: none !important;">
 <strong>Draft:</strong>
-<div class="lines-overlay-host">
-  <div class="lines" style="flex-grow:1; height:auto;"></div>
-  <!-- AI-INTERACTIVE-V1: draft section overlay (interior; original .lines is wrapped at runtime by make_interactive.py) -->
-<textarea id="student-draft" class="writing-draft"
-          placeholder="Type your answer here / 在此处输入你的答案"
-          spellcheck="false"></textarea>
-<div id="draft-markup" class="draft-markup" hidden></div>
+<!-- AI-INTERACTIVE-V1: draft section overlay (button-row + status sit above
+     the lines area, anchored to the green box's top-right via CSS;
+     <div class="lines" style="flex-grow:1; height:auto;"></div> is replaced by the captured original .lines element). -->
 <div class="button-row">
   <span id="word-count" class="word-count short">0 / 50–150</span>
   <button id="correct-btn" class="correct-btn"
@@ -1212,27 +1264,37 @@
 </div>
 <div id="ai-status" class="ai-status"></div>
 <div id="health-badge" class="health-badge-offline" hidden>🔴 AI 离线 / AI offline</div>
-
+<div class="lines-overlay-host">
+  __ORIG_LINES__
+  <textarea id="student-draft" class="writing-draft"
+            placeholder="Type your answer here / 在此处输入你的答案"
+            spellcheck="false"></textarea>
+  <div id="draft-markup" class="draft-markup" hidden></div>
 </div>
+
 </div>
 <div style="border:1px solid #eee; padding:10px; border-radius:6px; background:var(--bg-pastel-green); flex:1; display:flex; flex-direction:column;; box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; border: none !important;">
 <strong>Polished Rewrite:</strong>
-<div class="lines-overlay-host">
-  <div class="lines" style="flex-grow:1; height:auto;"></div>
-  <!-- AI-INTERACTIVE-V1: polished section overlay (interior; original .lines is wrapped at runtime by make_interactive.py) -->
-<div id="polished-output" class="writing-output empty"></div>
+<!-- AI-INTERACTIVE-V1: polished section overlay (button-row sits at the
+     green box's top-right via CSS; <div class="lines" style="flex-grow:1; height:auto;"></div> is replaced by the
+     captured original .lines element). -->
 <div class="button-row">
-  <button class="tts-btn uk" disabled
+  <button class="tts-btn uk" disabled title="UK voice"
           onclick="window.__ielts.speakElementById('polished-output','en-GB')">🇬🇧 Listen</button>
-  <button class="tts-btn us" disabled
+  <button class="tts-btn us" disabled title="US voice"
           onclick="window.__ielts.speakElementById('polished-output','en-US')">🇺🇸 Listen</button>
-  <button class="tts-btn slow" disabled
+  <button class="tts-btn slow" disabled title="Slow"
           onclick="window.__ielts.speakElementById('polished-output','en-GB',0.7)">🐢</button>
-  <button class="tts-btn stop"
+  <button class="tts-btn pause" disabled title="Pause / resume"
+          onclick="window.__ielts.pauseSpeaking()">⏸</button>
+  <button class="tts-btn stop" title="Stop"
           onclick="window.__ielts.stopSpeaking()">⏹</button>
 </div>
-
+<div class="lines-overlay-host">
+  __ORIG_LINES__
+  <div id="polished-output" class="writing-output empty"></div>
 </div>
+
 </div>
 </div></div>
 <script>
@@ -1287,6 +1349,16 @@
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     if (_currentSpans) _currentSpans.forEach(s => s.classList.remove('speaking'));
     _currentSpans = null;
+  };
+
+  // Toggle pause/resume on whichever utterance is currently speaking.
+  ns.pauseSpeaking = function () {
+    if (!('speechSynthesis' in window)) return;
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+    } else if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.pause();
+    }
   };
 
   ns.speakText = function (text, lang = 'en-GB', rate = 1.0) {
@@ -1671,21 +1743,46 @@
     return /color\s*:\s*#7f8c8d/i.test(style);
   }
 
-  /** Recursively collect text from a node, skipping any Chinese-gloss subtree
-   *  and the listen-row itself (so we don't read button labels). */
+  /** True if `node` is a marker badge we should NOT read aloud (Op/Re/Ex etc.). */
+  function isMarkerBadge(node) {
+    if (!node || node.nodeType !== Node.ELEMENT_NODE || !node.classList) return false;
+    return node.classList.contains('badge-ore');
+  }
+
+  /** Strip parenthesized blocks containing CJK chars (e.g. "(有造诣的 / 成功的)")
+   *  AND any standalone CJK runs. Multi-pass to handle nested cases like
+   *  "instill (灌输 (价值观))". Used for inline-Chinese-gloss removal that the
+   *  element-level skip can't catch. */
+  function stripChineseGloss(s) {
+    if (!s) return '';
+    let prev;
+    do {
+      prev = s;
+      s = s.replace(/\([^()]*[一-鿿][^()]*\)/g, '');
+    } while (s !== prev);
+    s = s.replace(/[一-鿿　-〿＀-￯]+/g, '');
+    return s.replace(/\s+/g, ' ').trim();
+  }
+
+  /** Recursively collect text from a node, skipping Chinese-gloss subtrees,
+   *  marker badges (Op/Re/Ex), and the listen-row itself. */
   function extractReadableText(node) {
     if (!node) return '';
     if (node.nodeType === Node.TEXT_NODE) return node.textContent;
     if (node.nodeType !== Node.ELEMENT_NODE) return '';
     if (isChineseGloss(node)) return '';
+    if (isMarkerBadge(node)) return '';
     if (node.classList && node.classList.contains('listen-row')) return '';
     return Array.from(node.childNodes).map(extractReadableText).join(' ');
   }
 
   function injectListenButtons() {
     document.querySelectorAll('.model-box').forEach((box) => {
-      // Idempotent — skip if a row already exists.
-      if (box.querySelector(':scope > .listen-row')) return;
+      // Idempotent — skip if a row already sits right above this box.
+      const prev = box.previousElementSibling;
+      if (prev && prev.classList && prev.classList.contains('listen-row')) return;
+      // Skip if there's no parent to insert into (shouldn't happen, defensive).
+      if (!box.parentElement) return;
 
       const row = document.createElement('div');
       row.className = 'listen-row';
@@ -1693,15 +1790,20 @@
         <button class="tts-btn uk" title="UK voice">🇬🇧</button>
         <button class="tts-btn us" title="US voice">🇺🇸</button>
         <button class="tts-btn slow" title="Slow">🐢</button>
+        <button class="tts-btn pause" title="Pause / resume">⏸</button>
         <button class="tts-btn stop" title="Stop">⏹</button>
       `;
-      const [btnUK, btnUS, btnSlow, btnStop] = row.children;
-      const textOf = () => extractReadableText(box).replace(/\s+/g, ' ').trim();
-      btnUK.onclick   = () => ns.speakText(textOf(), 'en-GB', 1.0);
-      btnUS.onclick   = () => ns.speakText(textOf(), 'en-US', 1.0);
-      btnSlow.onclick = () => ns.speakText(textOf(), 'en-GB', 0.7);
-      btnStop.onclick = () => ns.stopSpeaking();
-      box.insertBefore(row, box.firstChild);
+      const [btnUK, btnUS, btnSlow, btnPause, btnStop] = row.children;
+      const textOf = () => stripChineseGloss(extractReadableText(box));
+      btnUK.onclick    = () => ns.speakText(textOf(), 'en-GB', 1.0);
+      btnUS.onclick    = () => ns.speakText(textOf(), 'en-US', 1.0);
+      btnSlow.onclick  = () => ns.speakText(textOf(), 'en-GB', 0.7);
+      btnPause.onclick = () => ns.pauseSpeaking();
+      btnStop.onclick  = () => ns.stopSpeaking();
+      // Insert as the immediate previous sibling of the .model-box, in the
+      // parent floating window. CSS `.listen-row { margin-bottom: 2px }`
+      // gives the 2px gap requested.
+      box.parentElement.insertBefore(row, box);
     });
   }
 
@@ -1710,12 +1812,13 @@
       // Skip <strong> inside any Chinese-gloss ancestor.
       let p = el.parentElement;
       while (p) { if (isChineseGloss(p)) return; p = p.parentElement; }
-      // Skip <strong> inside the listen-row buttons.
-      if (el.closest('.listen-row')) return;
+      // Skip <strong> inside the listen-row buttons or marker badges.
+      if (el.closest('.listen-row') || el.closest('.badge-ore')) return;
 
       el.addEventListener('click', (ev) => {
         ev.stopPropagation();
-        const word = el.textContent.trim();
+        // Strip any inline CJK gloss like "accomplished (有造诣的 / 成功的)" → "accomplished"
+        const word = stripChineseGloss(el.textContent);
         if (!word) return;
         ns.speakText(word, 'en-GB');
         showIpaTooltip(word, ev.pageX, ev.pageY);
