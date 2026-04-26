@@ -42,11 +42,13 @@
 }
 
 /* Three overlay elements share base layout: own scroll-aware lined background
-   (so lines move with text on scroll) and identical 24px line-height to keep
+   (so lines move with text on scroll) and identical 32px line-height to keep
    text baselines on the rules.
-   `padding-top: 24px` reserves the first ruled line as headroom so red
-   Indie Flower superscript corrections (.ins-above) on what would otherwise
-   be the first text line don't get clipped by the container's overflow.
+   The 32px stride is intentional: at 24px the red Indie Flower superscript
+   corrections felt cramped against the line above. 32px gives ~13px clear
+   space between an .ins-above and the previous line's baseline.
+   `padding-top: 32px` reserves the first ruled line as headroom so first-
+   line superscripts aren't clipped by the container's overflow.
    `background-attachment: local` means the gradient origin shifts with the
    padding, so text baselines and gray rules stay aligned. */
 .writing-draft,
@@ -54,14 +56,14 @@
 .writing-output {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    margin: 0; padding: 24px 4px 0 4px;
+    margin: 0; padding: 32px 4px 0 4px;
     border: none; outline: none; resize: none;
     white-space: pre-wrap;
     overflow-y: auto; overflow-x: hidden;
     word-wrap: break-word;
-    background: repeating-linear-gradient(transparent, transparent 23px, #e0e0e0 24px);
+    background: repeating-linear-gradient(transparent, transparent 31px, #e0e0e0 32px);
     background-attachment: local;
-    line-height: 24px;
+    line-height: 32px;
 }
 
 /* Caveat handwriting for student input, marked-up draft, AND polished output —
