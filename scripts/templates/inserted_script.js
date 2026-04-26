@@ -14,24 +14,47 @@
   // ====================================================================
 
   // Common female-neural voice names across Edge/Chrome (Windows), Safari/iOS,
-  // and Android system voices. Spec §8.1 voice waterfall.
-  const FEMALE_NEURAL_UK = /Sonia|Libby|Mia|Maisie|Jenny.*GB|Kate|Serena/i;
-  const MALE_NEURAL_UK   = /Ryan|Thomas.*GB|Noah|Daniel/i;
-  const FEMALE_NEURAL_US = /Aria|Jenny|Ana|Michelle|Emma|Samantha|Allison|Ava/i;
-  const MALE_NEURAL_US   = /Guy|Tony|Jason|Eric|Davis|Alex|Aaron/i;
+  // and Android system voices. The regex covers both modern Edge "Natural"
+  // voices and legacy macOS / iOS / Android voices known to sound natural.
+  const FEMALE_NEURAL_UK = /Sonia|Libby|Mia|Maisie|Kate|Serena|Sienna|Tessa|Karen|Hazel|Susan|Stephanie/i;
+  const MALE_NEURAL_UK   = /Ryan|Thomas.*GB|Noah|Daniel|George|Oliver/i;
+  const FEMALE_NEURAL_US = /Aria|Jenny|Ana|Michelle|Emma|Samantha|Allison|Ava|Joanna|Salli|Kendra|Kimberly|Ivy|Nora|Susan.*US|Zira/i;
+  const MALE_NEURAL_US   = /Guy|Tony|Jason|Eric|Davis|Alex|Aaron|Brandon|Steffan|Roger/i;
 
+  // Score-based picker: prefers high-quality engines (Edge "Online (Natural)",
+  // Google network voices, macOS Premium/Enhanced) over legacy local voices.
+  // Without scoring, browsers like Chrome on Windows often surface the older
+  // "Microsoft Hazel" (low-quality concatenative) ahead of "Microsoft Sonia
+  // Online (Natural)" — and Array.find() would return Hazel even though both
+  // names match the female regex.
   function pickVoice(lang) {
     if (!('speechSynthesis' in window)) return null;
     const all = window.speechSynthesis.getVoices();
     if (!all.length) return null;
+
     const langPrefix = lang === 'en-GB' ? 'en-GB' : 'en-US';
-    const inLang = all.filter(v => v.lang === langPrefix);
+    let pool = all.filter(v => v.lang === langPrefix);
+    if (!pool.length) pool = all.filter(v => v.lang && v.lang.startsWith('en'));
+    if (!pool.length) return all[0];
+
     const female = lang === 'en-GB' ? FEMALE_NEURAL_UK : FEMALE_NEURAL_US;
     const male   = lang === 'en-GB' ? MALE_NEURAL_UK   : MALE_NEURAL_US;
-    return inLang.find(v => female.test(v.name))
-        || inLang.find(v => male.test(v.name))
-        || inLang[0]
-        || all[0];
+
+    const score = (v) => {
+      const tag = (v.name || '') + ' ' + (v.voiceURI || '');
+      let s = 0;
+      if (/Natural/i.test(tag))           s += 100;  // Edge neural voices (best)
+      if (/Online/i.test(tag))            s +=  80;  // Microsoft cloud voices
+      if (/Google/i.test(tag))            s +=  60;  // Google network voices
+      if (/Premium|Enhanced/i.test(tag))  s +=  50;  // macOS / iOS premium
+      if (!v.localService)                s +=  30;  // network > local generally
+      if (female.test(v.name))            s +=  25;  // female preference
+      else if (male.test(v.name))         s +=   5;  // male as fallback
+      if (v.lang === langPrefix)          s +=  10;  // exact lang > prefix match
+      return s;
+    };
+
+    return pool.slice().sort((a, b) => score(b) - score(a))[0];
   }
 
   function isWeChatBrowser() {
@@ -334,12 +357,18 @@
     ns.updateWordCount();
   };
 
+  // Target the polished-section TTS row by its ID. The earlier selector
+  // `#polished-output ~ .button-row .tts-btn:not(.stop)` was broken: the
+  // general-sibling combinator `~` requires both selectors to share a
+  // parent, but #polished-output is inside .lines-overlay-host while the
+  // button-row is one DOM level up — they're never siblings, so the query
+  // matched zero elements and the TTS buttons stayed disabled forever.
   function enablePolishedListenButtons() {
-    document.querySelectorAll('#polished-output ~ .button-row .tts-btn:not(.stop)')
+    document.querySelectorAll('#polished-listen-row .tts-btn:not(.stop)')
       .forEach(b => { b.disabled = false; });
   }
   function disablePolishedListenButtons() {
-    document.querySelectorAll('#polished-output ~ .button-row .tts-btn:not(.stop)')
+    document.querySelectorAll('#polished-listen-row .tts-btn:not(.stop)')
       .forEach(b => { b.disabled = true; });
   }
 
@@ -371,6 +400,22 @@
     return out;
   }
 
+  // Merge consecutive same-op `delete`/`insert` segments into one multi-word
+  // segment so phrase-level rewrites render as a single replace-pair instead
+  // of multiple fragments. See diff_engine.mjs comments for the rationale.
+  function coalesceAdjacentSameOp(segs) {
+    const out = [];
+    for (const s of segs) {
+      const last = out[out.length - 1];
+      if (last && last.op === s.op && (s.op === 'delete' || s.op === 'insert')) {
+        last.word = last.word + ' ' + s.word;
+      } else {
+        out.push({ op: s.op, word: s.word });
+      }
+    }
+    return out;
+  }
+
   function classifyPairs(segs) {
     const out = [];
     let i = 0;
@@ -383,6 +428,12 @@
           out.push({ op: 'suffix-add', kept: x, added: y.slice(x.length) });
         } else if (y !== x && y.endsWith(x)) {
           out.push({ op: 'prefix-add', added: y.slice(0, y.length - x.length), kept: x });
+        } else if (y !== x && x.startsWith(y)) {
+          // F. suffix-delete — understanding → understand
+          out.push({ op: 'suffix-delete', kept: y, deleted: x.slice(y.length) });
+        } else if (y !== x && x.endsWith(y)) {
+          // G. prefix-delete — ago → go
+          out.push({ op: 'prefix-delete', deleted: x.slice(0, x.length - y.length), kept: y });
         } else {
           out.push({ op: 'replace', deleted: x, inserted: y });
         }
@@ -416,6 +467,10 @@
           parts.push(`${space}${escHtml(seg.kept)}<ins class="ins-suffix">${escHtml(seg.added)}</ins>`); break;
         case 'prefix-add':
           parts.push(`${space}<ins class="ins-prefix">${escHtml(seg.added)}</ins>${escHtml(seg.kept)}`); break;
+        case 'suffix-delete':
+          parts.push(`${space}${escHtml(seg.kept)}<del class="del-suffix">${escHtml(seg.deleted)}</del>`); break;
+        case 'prefix-delete':
+          parts.push(`${space}<del class="del-prefix">${escHtml(seg.deleted)}</del>${escHtml(seg.kept)}`); break;
       }
     });
     return parts.join('');
@@ -483,9 +538,13 @@
     polished.textContent = corrected;
     enablePolishedListenButtons();
 
-    // Render the red-pen diff over the original draft text.
+    // Render the red-pen diff over the original draft text. The coalesce
+    // step collapses runs of consecutive deletes/inserts into multi-word
+    // segments — without it, phrase-level rewrites fragment into multiple
+    // visual elements (chevron clusters, split corrections).
     const segs = wordDiff(text, corrected);
-    const classified = classifyPairs(segs);
+    const coalesced = coalesceAdjacentSameOp(segs);
+    const classified = classifyPairs(coalesced);
     markup.innerHTML = renderMarkup(classified);
     markup.hidden = false;
     draft.style.display = 'none';
@@ -523,14 +582,24 @@
   // ====================================================================
 
   async function checkHealth() {
+    // The original implementation showed the offline badge whenever the
+    // FC's /health route returned non-2xx. But the FC handler only
+    // accepts POST and routes all paths to the correction function — a
+    // GET /health returns 4xx/405. resp.ok was false → false offline
+    // indicator, even though POST corrections work fine.
+    //
+    // Fix: any HTTP response (200, 4xx, 5xx) means the network is
+    // reachable to the FC; only an actual fetch failure (DNS, timeout,
+    // CORS, no-network) constitutes "offline". So we hide the badge as
+    // long as fetch resolves at all, regardless of status code.
     const badge = document.getElementById('health-badge');
     if (!badge) return;
     try {
       const ctrl = new AbortController();
       const t = setTimeout(() => ctrl.abort(), 3000);
-      const resp = await fetch(AI_ENDPOINT.replace(/\/$/, '') + '/health', { signal: ctrl.signal });
+      await fetch(AI_ENDPOINT.replace(/\/$/, '') + '/health', { signal: ctrl.signal });
       clearTimeout(t);
-      badge.hidden = !!resp.ok;
+      badge.hidden = true;
     } catch {
       badge.hidden = false;
     }

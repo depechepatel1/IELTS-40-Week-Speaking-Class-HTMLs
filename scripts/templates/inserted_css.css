@@ -203,34 +203,55 @@
 /* TTS karaoke highlight */
 .speaking { background: #fff9c4; transition: background 0.1s linear; }
 
-/* === Diff markup (the 5 correction shapes) === */
+/* === Diff markup (the 7 correction shapes A-G) ===
+ *
+ * Pedagogical principle: minimal red ink. A struck word stays in the
+ * student's own Caveat-blue handwriting — only the strike LINE is red,
+ * so the student can still read what they originally wrote. The teacher's
+ * suggested replacement appears small in red Indie Flower. For changes
+ * that are letter-level only (verb endings, plurals, prefix changes) we
+ * mark only the changed letters via shapes D-G, never the whole word. */
 
-/* A. simple deletion — strikethrough in place, retains horizontal flow. */
-.draft-markup .del {
-    font-family: 'Indie Flower', 'Comic Sans MS', cursive;
-    font-size: 0.95em;
-    color: #c0392b;
+/* A. simple deletion — red strike on the original word, keeping its blue
+ * Caveat font and size. Same approach for the new "del-suffix" and
+ * "del-prefix" classes used by Cases F + G. */
+.draft-markup .del,
+.draft-markup .del-suffix,
+.draft-markup .del-prefix {
     text-decoration: line-through;
     text-decoration-color: #c0392b;
     text-decoration-thickness: 1.5px;
+    /* No font-family / color / font-size override — the struck text keeps
+       its surrounding handwriting style; only the strike is red. */
 }
 
-/* C. replacement (host) — display:inline so <ins class="ins-above"> flows
-   as a browser-native superscript in the normal inline stream.
-   Previously display:inline-block gave the element a height equal to the
-   32px line-height; bottom:0.85em then landed the correction in the MIDDLE
-   of the text, not above it. inline removes that height artefact. */
+/* C. replacement (host) — inline-block + position:relative so the
+   absolutely-positioned `.ins-above` child can hover *directly above*
+   the struck word without claiming any horizontal flow space.
+   `line-height: 1` overrides the inherited 32px line-height of the
+   surrounding writing area: without it, the inline-block's computed
+   height would be 32px and the correction would sit too high above. */
 .draft-markup .replace-pair {
-    display: inline;
+    display: inline-block;
+    position: relative;
+    vertical-align: baseline;
+    line-height: 1;
 }
 
-/* B. pure insertion — display:inline so the ^ caret and the superscript
-   are both in the inline flow and each adjacent anchor occupies its own
-   horizontal slot, fixing the "merged corrections" overlap. */
+/* B. pure insertion — same recipe so the `.ins-above` floats centered
+   above the `^` chevron mark. The chevron itself stays inline at the
+   baseline (it's the ::before pseudo-element below). */
 .draft-markup .gap-anchor {
-    display: inline;
+    display: inline-block;
+    position: relative;
+    vertical-align: baseline;
+    line-height: 1;
 }
-/* Red caret rendered inline at baseline — marks the insertion point. */
+
+/* Red caret rendered inline — marks the insertion point on the writing
+   line. The `^` glyph sits high in its em box by default (its base at
+   roughly cap-height, not baseline), so we push it down 6px so the
+   visible mark lands on the writing rule, like a teacher's caret. */
 .draft-markup .gap-anchor::before {
     content: "^";
     color: #c0392b;
@@ -238,38 +259,39 @@
     font-size: 0.85em;
     font-weight: 700;
     pointer-events: none;
+    position: relative;
+    top: 6px;
 }
 
-/* B/C — superscript correction.
-   - position:relative + top:-0.85em gives an EXPLICIT lift in the child's
-     own em units. (vertical-align:super was inconsistent because the
-     browser computes the super-shift from the parent inline's local font
-     metrics — and those metrics differ between .replace-pair (parent
-     contains a 0.95em <del>) and .gap-anchor (parent contains a 0.85em
-     ^ pseudo-element). With position:relative the lift is identical in
-     both contexts.)
-   - display:inline-block reserves real horizontal space in the line, so
-     consecutive corrections at the same anchor point flow side-by-side
-     instead of stacking on top of one another.
-   - margin:0 0.1em adds ~1.4px of breathing room between adjacent
-     corrections so they cannot touch.
-   - text-decoration:none removes the browser's default <ins> underline
-     (the red ink colour is enough to mark a correction). */
+/* B/C — the correction word sits *directly above* its anchor (the struck
+   word in C, or the ^ chevron mark in B). Centered horizontally over the
+   anchor's natural width, claiming NO horizontal flow space — the
+   neighbouring words don't shift sideways when a correction is added.
+   - position:absolute + bottom:100% places the bottom edge of the
+     correction at the top edge of the anchor → it sits ENTIRELY above.
+   - left:50% + translate(-50%, 5px) centers horizontally and nudges 5px
+     down so the correction sits closer to the line it's correcting
+     rather than floating high near the line above.
+   - Parents (.replace-pair / .gap-anchor) provide the positioning context
+     via their `position:relative; line-height:1` (see rules above).
+   - text-decoration:none kills the browser default <ins> underline. */
 .draft-markup .ins-above {
-    display: inline-block;
-    position: relative;
-    top: -0.85em;
-    margin: 0 0.1em;
-    vertical-align: baseline;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, 5px);
     white-space: nowrap;
     font-family: 'Indie Flower', 'Comic Sans MS', cursive;
     font-size: 0.65em;
     color: #c0392b;
     text-decoration: none;
     line-height: 1;
+    pointer-events: none;
 }
 
-/* D, E — letter additions inline as part of the kept stem. */
+/* D, E — letter additions inline as part of the kept stem.
+   text-decoration:none is essential — without it the browser's default
+   <ins> underline draws under the inserted letters. */
 .draft-markup .ins-suffix,
 .draft-markup .ins-prefix {
     font-family: 'Indie Flower', 'Comic Sans MS', cursive;
