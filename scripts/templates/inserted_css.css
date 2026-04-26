@@ -1,0 +1,397 @@
+/* === IELTS Interactive AI Correction — injected CSS block === */
+
+/* === Embedded fonts (no Google CDN dependency; works in mainland China) === */
+
+@font-face {
+    font-family: 'Caveat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(data:font/woff2;base64,__CAVEAT_400_BASE64__) format('woff2');
+}
+@font-face {
+    font-family: 'Indie Flower';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(data:font/woff2;base64,__INDIE_FLOWER_400_BASE64__) format('woff2');
+}
+
+/* === Lined-paper overlay model === */
+
+/* Hide the original .lines divs only inside .draft-page; they remain in
+   HTML so make_interactive.py can anchor to them and wrap them, and other
+   .lines on spider-pages etc. are unaffected. */
+.draft-page .lines { display: none; }
+
+/* The pastel-green Draft / Polished boxes become positioning contexts so
+   the absolute-positioned `.button-row` sits at THEIR top-right (next to
+   the <strong>Draft:</strong> heading), NOT over the lines area. They are
+   also column flex containers so `.lines-overlay-host` can flex-grow. */
+.draft-page > div > div {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.draft-page .lines-overlay-host {
+    position: relative;
+    flex-grow: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* Three overlay elements share base layout: own scroll-aware lined background
+   (so lines move with text on scroll) and identical 24px line-height to keep
+   text baselines on the rules. */
+.writing-draft,
+.draft-markup,
+.writing-output {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: 0; padding: 0 4px;
+    border: none; outline: none; resize: none;
+    white-space: pre-wrap;
+    overflow-y: auto; overflow-x: hidden;
+    word-wrap: break-word;
+    background: repeating-linear-gradient(transparent, transparent 23px, #e0e0e0 24px);
+    background-attachment: local;
+    line-height: 24px;
+}
+
+/* Caveat handwriting for student input, marked-up draft, AND polished output —
+   identical font, size, and ink color so both boxes feel like the same notebook. */
+.writing-draft,
+.draft-markup,
+.writing-output {
+    font-family: 'Caveat', 'Bradley Hand', 'Comic Sans MS', cursive;
+    font-size: 22px;
+    color: #1a4d80;
+}
+
+.writing-output.empty::before {
+    content: "AI 修改后的版本会显示在这里 / The AI-corrected version will appear here.";
+    color: #95a5a6;
+    font-style: italic;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+}
+
+/* === Buttons (top-right of each green box, at heading height) ===
+ * Anchored to the green pastel box (which is `position: relative` above),
+ * so they sit next to the <strong>Draft:</strong> / <strong>Polished
+ * Rewrite:</strong> heading, not over the lines area. */
+
+.draft-page .button-row {
+    position: absolute;
+    top: 6px; right: 10px;
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    align-items: center;
+}
+.draft-page .ai-status {
+    position: absolute;
+    bottom: 6px; right: 12px;
+    z-index: 2;
+    font-size: 0.78em;
+    font-family: 'Lato', sans-serif;
+    pointer-events: none;
+}
+.draft-page .ai-status.error { color: #c0392b; }
+.draft-page .ai-status.success { color: #27ae60; }
+
+/* Bottom-left so it doesn't overlap the <strong>Draft:</strong> heading
+ * (which lives at the top-left of the green box). */
+.draft-page .health-badge-offline {
+    position: absolute;
+    bottom: 6px; left: 12px;
+    z-index: 2;
+}
+
+/* === Compact button design: rounded pill, no layout shift === */
+
+.correct-btn, .ai-only, .tts-btn, .word-count {
+    font-family: 'Lato', 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: 0.7em;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    padding: 2px 8px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.12s ease, border-color 0.12s ease;
+    box-shadow: none;
+    user-select: none;
+}
+
+/* Primary action — Correct with AI: solid indigo */
+.correct-btn {
+    background: #4f46e5;
+    color: white;
+    border-color: #4338ca;
+    padding: 3px 10px;
+}
+.correct-btn:hover { background: #4338ca; }
+
+/* Secondary actions — Edit again / Clear */
+.ai-only {
+    background: white;
+    color: #475569;
+    border-color: #cbd5e1;
+}
+.ai-only:hover { background: #f1f5f9; }
+
+/* TTS buttons — distinct subtle color per accent / function */
+.tts-btn {
+    background: white;
+    border-color: #cbd5e1;
+    color: #475569;
+    padding: 1px 6px;
+    font-size: 0.85em;
+    border-radius: 8px;
+}
+.tts-btn.uk    { background: #eff6ff; border-color: #93c5fd; color: #1e40af; }
+.tts-btn.us    { background: #fef2f2; border-color: #fca5a5; color: #b91c1c; }
+.tts-btn.slow  { background: #faf5ff; border-color: #d8b4fe; color: #6b21a8; }
+.tts-btn.pause { background: #fffbeb; border-color: #fcd34d; color: #b45309; }
+.tts-btn.stop  { background: #fafafa; border-color: #d4d4d4; color: #525252; }
+.tts-btn:hover { filter: brightness(0.97); }
+
+/* Highlighted accent — when user picks UK or US, that button stays
+   highlighted to indicate which voice the Slow button will use. */
+.tts-btn.uk.active { background: #2563eb; color: white; border-color: #1d4ed8; }
+.tts-btn.us.active { background: #dc2626; color: white; border-color: #b91c1c; }
+
+.tts-btn:disabled, .correct-btn:disabled, .ai-only:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Word-count traffic light — same pill shape as buttons */
+.word-count {
+    background: white;
+    border-color: #cbd5e1;
+    color: #475569;
+    cursor: default;
+}
+.word-count.short { color: #dc2626; border-color: #fca5a5; background: #fef2f2; }
+.word-count.ok    { color: #15803d; border-color: #86efac; background: #f0fdf4; }
+.word-count.long  { color: #c2410c; border-color: #fdba74; background: #fff7ed; }
+
+/* Spinner shown next to ai-status while correcting */
+.spinner {
+    display: inline-block; width: 12px; height: 12px;
+    border: 2px solid #ccc;
+    border-top-color: #2c3e50;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* TTS karaoke highlight */
+.speaking { background: #fff9c4; transition: background 0.1s linear; }
+
+/* === Diff markup (the 5 correction shapes) === */
+
+/* A. simple deletion — strikethrough in place, retains horizontal flow. */
+.draft-markup .del {
+    font-family: 'Indie Flower', 'Comic Sans MS', cursive;
+    font-size: 0.95em;
+    color: #c0392b;
+    text-decoration: line-through;
+    text-decoration-color: #c0392b;
+    text-decoration-thickness: 1.5px;
+}
+
+/* C. replacement (host) — relative anchor for the absolute <ins>. */
+.draft-markup .replace-pair {
+    position: relative;
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+/* B. pure insertion — zero-width anchor in the gap between two kept words.
+   The <ins> floats above; a red caret (^) renders at baseline so a
+   multi-word inserted chunk is unambiguously anchored. */
+.draft-markup .gap-anchor {
+    position: relative;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: baseline;
+}
+.draft-markup .gap-anchor::before {
+    content: "^";
+    position: absolute;
+    bottom: -0.15em;
+    left: -0.3em;
+    color: #c0392b;
+    font-family: 'Indie Flower', 'Comic Sans MS', cursive;
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 0;
+    pointer-events: none;
+}
+
+/* B/C — the floating insertion above the line. Tuned in Phase B. */
+.draft-markup .ins-above {
+    position: absolute;
+    bottom: 0.85em;
+    left: 0;
+    white-space: nowrap;
+    font-family: 'Indie Flower', 'Comic Sans MS', cursive;
+    font-size: 0.7em;
+    color: #c0392b;
+    line-height: 1;
+}
+
+/* D, E — letter additions inline as part of the kept stem. */
+.draft-markup .ins-suffix,
+.draft-markup .ins-prefix {
+    font-family: 'Indie Flower', 'Comic Sans MS', cursive;
+    color: #c0392b;
+    font-size: 1em;
+    text-decoration: none;
+}
+
+/* === Health-offline badge === */
+
+.health-badge-offline {
+    font-size: 0.75em;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    color: #c0392b;
+    background: #fadbd8;
+    padding: 3px 9px;
+    border-radius: 12px;
+}
+
+/* === Listen-button row sits at the BOTTOM-RIGHT of the section-heading
+ * row, just above the colored .model-box. Implemented by wrapping the
+ * heading + listen-row in a flex container with `align-items: flex-end`,
+ * so the buttons stay anchored to the heading's bottom edge regardless
+ * of whether the heading text wraps to 1, 2, or N lines. */
+
+.card .listen-row-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0 0 6px 0;
+}
+.card .listen-row-wrapper > h1,
+.card .listen-row-wrapper > h2,
+.card .listen-row-wrapper > h3,
+.card .listen-row-wrapper > h4 {
+    margin: 0 !important;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.card .listen-row {
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+    flex-shrink: 0;
+    z-index: 5;
+}
+.card .listen-row .tts-btn {
+    padding: 1px 5px;
+    font-size: 0.7em;
+    line-height: 1.3;
+    border-radius: 6px;
+    border-width: 1px;
+}
+
+/* Pause-button toggles to a "Resume" play-style button when paused.
+ * Visually distinct so the student knows tapping it again will resume. */
+.tts-btn.pause.paused {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+}
+
+/* Subtle pulsing ring on the listen-row whose audio is currently playing.
+ * Helps the student locate the active row when scrolling through a page
+ * with multiple model-boxes. */
+.listen-row.speaking-now {
+    border-radius: 8px;
+    animation: ielts-listen-pulse 1.6s ease-in-out infinite;
+}
+@keyframes ielts-listen-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+    50%      { box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18); }
+}
+
+/* Clickable bolded words in vocab tables and model boxes. */
+.vocab-table strong,
+.model-box strong {
+    cursor: pointer;
+    border-bottom: 1px dotted #2c3e50;
+}
+.vocab-table strong:hover,
+.model-box strong:hover {
+    background: #fff9c4;
+}
+
+/* IPA tooltip (lazy-loaded from bucket on first vocab click). */
+.ipa-tooltip {
+    position: absolute;
+    z-index: 100;
+    background: #2c3e50;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85em;
+    pointer-events: none;
+}
+
+/* === Print suppression ===
+ * Goal: print output looks like the un-modified original lesson plan —
+ * the original 8-rule writing space reappears, AI buttons/textareas/markup vanish.
+ *
+ * Important: we must NOT hide `.lines-overlay-host`, because make_interactive.py
+ * wraps the original `<div class="lines">` *inside* it. Hiding the host would
+ * also visually hide the wrapped .lines (parent display:none cascades to all
+ * children regardless of their own display). Instead we hide only the OVERLAY
+ * elements (textarea, markup, polished output, buttons) that are siblings of
+ * the original .lines inside the host, then re-show the original .lines.
+ */
+
+@media print {
+    .ai-only, .tts-btn, .correct-btn, .word-count, .ai-status,
+    #ai-status, #word-count, #correct-btn, #draft-markup, #polished-output,
+    .writing-draft, .draft-markup, .writing-output,
+    .button-row, .listen-row, .health-badge-offline, .ipa-tooltip,
+    #student-draft {
+        display: none !important;
+    }
+    /* Keep the host visible so its inner original `.lines` can render. */
+    .draft-page .lines-overlay-host {
+        display: block !important;
+        position: static !important;
+        overflow: visible !important;
+    }
+    .draft-page .lines {
+        display: block !important;
+    }
+}
+
+/* === Footer note about local-only persistence === */
+
+.draft-page::after {
+    content: "*Your work is saved on this device only / 您的作业仅保存在本设备*";
+    display: block;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7em;
+    color: #95a5a6;
+    margin-top: 4px;
+}
+@media print { .draft-page::after { display: none; } }

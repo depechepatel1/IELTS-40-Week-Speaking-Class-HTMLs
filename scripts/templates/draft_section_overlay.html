@@ -1,0 +1,21 @@
+<!-- AI-INTERACTIVE-V1: draft section overlay (button-row + status sit
+     anchored to the green box's top-right via CSS; the placeholder
+     inside .lines-overlay-host is replaced at runtime). -->
+<div class="button-row">
+  <span id="word-count" class="word-count short">0 / 50–150</span>
+  <button id="correct-btn" class="correct-btn"
+          onclick="window.__ielts.correctEssay()">Correct with AI ✎</button>
+  <button id="edit-again-btn" class="ai-only" hidden
+          onclick="window.__ielts.editAgain()">Edit again ✎</button>
+  <button id="clear-draft-btn" class="ai-only"
+          onclick="window.__ielts.clearDraft()">Clear ✕</button>
+</div>
+<div id="ai-status" class="ai-status"></div>
+<div id="health-badge" class="health-badge-offline" hidden>🔴 AI 离线 / AI offline</div>
+<div class="lines-overlay-host">
+  __ORIG_LINES__
+  <textarea id="student-draft" class="writing-draft"
+            placeholder="Type your answer here / 在此处输入你的答案"
+            spellcheck="false"></textarea>
+  <div id="draft-markup" class="draft-markup" hidden></div>
+</div>

@@ -1,0 +1,33 @@
+edition: 3.0.0
+name: ielts-ai-correction
+access: default
+
+vars:
+  region: cn-beijing
+
+resources:
+  ielts-ai-fc:
+    component: fc3
+    props:
+      region: ${vars.region}
+      functionName: ielts-ai-correction
+      description: "IELTS interactive HTML — Zhipu-backed minimum-correction AI"
+      runtime: nodejs18
+      handler: index.fc
+      cpu: 0.1
+      memorySize: 128
+      timeout: 60
+      diskSize: 512
+      code: ./
+      environmentVariables:
+        ZHIPU_API_KEY: ${env('ZHIPU_API_KEY')}
+        ZHIPU_MODEL_ID: ${env('ZHIPU_MODEL_ID')}
+      triggers:
+        - triggerName: http
+          triggerType: http
+          triggerConfig:
+            authType: anonymous
+            methods:
+              - POST
+              - OPTIONS
+              - GET

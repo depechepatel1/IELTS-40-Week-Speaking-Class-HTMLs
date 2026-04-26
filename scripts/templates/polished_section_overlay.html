@@ -1,0 +1,19 @@
+<!-- AI-INTERACTIVE-V1: polished section overlay (button-row sits at the
+     green box's top-right via CSS; the placeholder inside
+     .lines-overlay-host is replaced at runtime). -->
+<div class="button-row" id="polished-listen-row">
+  <button class="tts-btn uk active" disabled title="UK voice"
+          onclick="window.__ielts.listenPolished('en-GB')">🇬🇧</button>
+  <button class="tts-btn us" disabled title="US voice"
+          onclick="window.__ielts.listenPolished('en-US')">🇺🇸</button>
+  <button class="tts-btn slow" disabled title="Slow (uses selected accent)"
+          onclick="window.__ielts.listenPolished('slow')">🐢</button>
+  <button class="tts-btn pause" disabled title="Pause / resume"
+          onclick="window.__ielts.pauseSpeaking()">⏸</button>
+  <button class="tts-btn stop" title="Stop"
+          onclick="window.__ielts.stopSpeaking()">⏹</button>
+</div>
+<div class="lines-overlay-host">
+  __ORIG_LINES__
+  <div id="polished-output" class="writing-output empty"></div>
+</div>
