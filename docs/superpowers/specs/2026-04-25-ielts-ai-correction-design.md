@@ -471,9 +471,32 @@ C. <span class="replace-pair"><del>good</del><ins class="ins-above">well</ins></
 keep "."
 ```
 
-**CSS** (paired with the overlay/scroll/font rules in §8.12 and the embedded fonts in §8.13):
+**CSS** (paired with the overlay/scroll/font rules in §8.12 and the embedded fonts in §8.13).
+
+> ⚠ **This block is the source of truth for the diff markup.** It evolved
+> through several rounds of debugging — see §8.5.2 for the bugs that were
+> fixed and why the current approach (in-flow `position: relative` lifts
+> rather than `position: absolute`) was chosen. **When porting this work
+> to a new lesson set (e.g. IGCSE), copy this CSS verbatim and DO NOT
+> regress to `position: absolute` for `.ins-above`.**
 
 ```css
+/* === Lined-paper layout — 32px stride with first-line headroom ===
+ * The 32px line-height (bumped from an initial 24px) gives ~13px of clear
+ * space above each ruled line for red-pen superscript corrections.
+ * `padding-top: 32px` reserves the very first ruled line as headroom so
+ * a first-line correction is not clipped by the container's overflow. */
+.writing-draft,
+.draft-markup,
+.writing-output {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  margin: 0; padding: 32px 4px 0 4px;
+  line-height: 32px;
+  overflow-y: auto; overflow-x: hidden;
+  background: repeating-linear-gradient(transparent, transparent 31px, #e0e0e0 32px);
+  background-attachment: local;
+}
+
 /* A. simple deletion — strikethrough in place, retains horizontal flow */
 .draft-markup .del {
   font-family: 'Indie Flower', 'Comic Sans MS', cursive;
@@ -484,55 +507,69 @@ keep "."
   text-decoration-thickness: 1.5px;
 }
 
-/* C. replacement — the <del> stays in flow; the <ins> floats above it. */
+/* C. replacement (host) — display:inline so <ins.ins-above> flows as a
+   superscript right after the strikethrough word in the inline stream.
+   (display:inline-block was tried first and FAILED — see §8.5.2 bug 2.) */
 .draft-markup .replace-pair {
-  position: relative;
-  display: inline-block;
-  vertical-align: baseline;
+  display: inline;
 }
 
-/* B. pure insertion — zero-width anchor in the gap between two kept words.
-   The <ins> floats above the gap; a red caret (^) renders at baseline
-   to anchor the inserted chunk to its exact insertion point.
-   See §8.5.1 for rationale. */
+/* B. pure insertion — display:inline so the ^ caret and the superscript
+   are both in the inline flow with their own horizontal slot.
+   (width:0/height:0 zero-width anchor was tried first and FAILED — it
+   caused consecutive insertions to stack at identical pixel coordinates.
+   See §8.5.2 bug 3.) */
 .draft-markup .gap-anchor {
-  position: relative;
-  display: inline-block;
-  width: 0;
-  height: 0;
-  vertical-align: baseline;
+  display: inline;
 }
+
+/* Red caret marks the insertion point inline at baseline.
+   (position:absolute on this pseudo-element was tried first; switched to
+   plain inline flow once .gap-anchor stopped being a positioned ancestor.) */
 .draft-markup .gap-anchor::before {
   content: "^";
-  position: absolute;
-  bottom: -0.15em;          /* sit at the baseline; visually tuned in Phase B */
-  left: -0.3em;             /* center over the zero-width anchor */
   color: #c0392b;
   font-family: 'Indie Flower', 'Comic Sans MS', cursive;
-  font-size: 1em;
+  font-size: 0.85em;
   font-weight: 700;
-  line-height: 0;
-  pointer-events: none;     /* never intercepts a click */
+  pointer-events: none;
 }
 
-/* C/B shared — the floating insertion above the line. */
+/* B/C — the superscript correction itself. Three properties earn their place:
+   - position:relative + top:-0.85em — explicit lift in the CHILD's em.
+     Replaces vertical-align:super (inconsistent across .replace-pair vs
+     .gap-anchor — the browser super-shift is computed from the parent
+     inline's local font metrics, which differ when the sibling is a
+     <del> at 0.95em vs a ^ at 0.85em). The explicit lift is identical
+     in both contexts. (See §8.5.2 bug 4.)
+   - display:inline-block — reserves real horizontal space so adjacent
+     corrections at the same anchor point flow side-by-side instead of
+     stacking.
+   - margin:0 0.1em — ~1.4px of breathing room between adjacent corrections.
+   - text-decoration:none — removes the browser's default <ins> underline.
+     Red ink colour alone is enough to mark a correction. */
 .draft-markup .ins-above {
-  position: absolute;
-  bottom: 0.85em;          /* lift above the host's text baseline; visually tuned in Phase B */
-  left: 0;
+  display: inline-block;
+  position: relative;
+  top: -0.85em;
+  margin: 0 0.1em;
+  vertical-align: baseline;
   white-space: nowrap;
   font-family: 'Indie Flower', 'Comic Sans MS', cursive;
-  font-size: 0.7em;
+  font-size: 0.65em;
   color: #c0392b;
-  line-height: 1;          /* prevent the floating insertion from expanding line height */
+  text-decoration: none;
+  line-height: 1;
 }
 
-/* D, E — letter additions inline as part of the kept stem. */
+/* D, E — letter additions inline as part of the kept stem.
+   text-decoration:none is essential — without it, the browser's default
+   <ins> underline draws under "ren" in "child<ins>ren</ins>". */
 .draft-markup .ins-suffix,
 .draft-markup .ins-prefix {
   font-family: 'Indie Flower', 'Comic Sans MS', cursive;
   color: #c0392b;
-  font-size: 1em;          /* same size as surrounding text — looks like the student wrote it */
+  font-size: 1em;
   text-decoration: none;
 }
 ```
@@ -541,13 +578,25 @@ keep "."
 
 **Layout invariants enforced by this CSS:**
 
-1. **No horizontal expansion**: kept words flow normally; `.replace-pair` occupies the same horizontal width as its `<del>` child (the absolute-positioned `<ins>` doesn't claim flow space); `.gap-anchor` is zero-width.
-2. **No paragraph height increase**: `.ins-above` uses `position: absolute` and `line-height: 1`, never participating in line height calculations. The 24px line stride is preserved.
-3. **No new gaps between existing words**: the only gaps are the ones already present in the kept text. Inserted words slot above existing gaps, not beside them.
+1. **Text baselines stay on the ruled lines.** `line-height: 32px` is fixed; `position: relative` shifts on `.ins-above` are visual-only and do not change line-box height. So a paragraph with no corrections and a paragraph with many corrections are the same overall height — the ruled grid never warps.
+2. **Corrections render in the inter-line whitespace.** The ~13 px above each line of text (the gap between the previous descender and the current cap) is the canvas for `.ins-above`; nothing is hidden by `overflow-y: auto` because `padding-top: 32px` reserves a full line of headroom for the first-line case.
+3. **No two corrections occupy the same pixel slot.** Every diff shape (`.del`, `.replace-pair > .ins-above`, `.gap-anchor > .ins-above`, `.ins-suffix`, `.ins-prefix`) flows in the inline stream and reserves real horizontal width — consecutive insertions at the same anchor stagger across the line instead of stacking.
 
-**Visual design choice on font/color/size pairing.** Indie Flower is a noticeably more childlike, casual handwriting than Caveat — distinct enough that a quick glance immediately separates "what the student wrote" from "what the teacher wrote on top". Size scaling: strikethroughs at 0.95em (close to natural reading size, since the student needs to see what they wrote), floating insertions at 0.7em (smaller because they live in the gap between lines and need to stay subordinate visually), inline suffix/prefix at 1em (looks like the missing letter is part of the original word).
+**Visual design choice on font/color/size pairing.** Indie Flower is a noticeably more childlike, casual handwriting than Caveat — distinct enough that a quick glance immediately separates "what the student wrote" from "what the teacher wrote on top". Size scaling: strikethroughs at 0.95em (close to natural reading size, since the student needs to see what they wrote), floating insertions at 0.65em (smaller because they live in the gap between lines and need to stay subordinate visually), inline suffix/prefix at 1em (looks like the missing letter is part of the original word).
 
-**Visual tuning gates in Phase B.** Four values may need a small adjustment when first viewed in a browser on Week_1: (a) the `.del` strikethrough thickness (1.5px → 1px or 2px depending on legibility), (b) the `.ins-above` `bottom: 0.85em` offset (too low overlaps the kept text; too high overlaps the previous line), (c) the `.ins-above` font-size (0.7em → 0.65em if the gap above the line is too small), (d) the `.gap-anchor::before` caret position (`bottom: -0.15em` and `left: -0.3em`) so the `^` sits cleanly between the two surrounding words at baseline level. These are tuned once on Week_1 and propagated to all 40 files on the next script run.
+### 8.5.2 Lessons learned during debugging
+
+The CSS above is the SECOND iteration. The original spec used `position: absolute` for `.ins-above` with a `bottom: 0.85em` offset and zero-width `inline-block` anchors. That produced four bugs that surfaced once real student drafts were corrected, and each one is documented here so the next port doesn't repeat them.
+
+| # | Bug | Root cause | Fix |
+|---|---|---|---|
+| 1 | First-line corrections clipped at the top of the writing box. | `.draft-markup` has `overflow-y: auto`, and absolutely-positioned `.ins-above` extending above the first line of text was outside the scroll viewport. | `padding-top: 32px` (one line of headroom) on `.writing-draft / .draft-markup / .writing-output`. The padding-area is part of the scrollable content, so superscripts above the first line render in it. |
+| 2 | Corrections appeared *inside* the text below them, not above. | `display: inline-block` on `.replace-pair` caused the browser to give it a height equal to the container's `line-height` (32px), not the inline content's font-size (~22px). With `bottom: 0.85em ≈ 13px`, the `.ins-above` landed at `32 − 13 = 19px` from the parent's top — squarely in the middle of the text run. | Change `.replace-pair` to `display: inline`. The element no longer has its height inflated by line-height, and the correction floats above the actual text instead of inside it. |
+| 3 | Consecutive insertions at the same gap rendered on top of each other (visually merged). | Adjacent `.gap-anchor` elements had `width: 0; height: 0` — they all sat at the *same* pixel position. Their `.ins-above` children all had `position: absolute; left: 0`, so they all started at the same x-coordinate and stacked. | Drop the zero-width trick; make `.gap-anchor` `display: inline` and let its `^` ::before pseudo-element occupy real width. Make `.ins-above` `display: inline-block` so each consecutive correction reserves its own horizontal slot in the line. |
+| 4 | Replacement-superscripts (`.replace-pair > .ins-above`) were rendered at a slightly different vertical height than insertion-superscripts (`.gap-anchor > .ins-above`). | `vertical-align: super` (the first attempted fix) computes the shift from the parent inline's local font metrics. In `.replace-pair` the sibling `<del>` is `font-size: 0.95em`; in `.gap-anchor` the sibling `^` pseudo is `font-size: 0.85em`. Different sibling metrics → different super-shift → different visible heights. | Replace `vertical-align: super` with `position: relative; top: -0.85em`. The `0.85em` is the CHILD's em (so it depends only on `.ins-above`'s own font-size of `0.65em`), giving a constant shift across both contexts. |
+| 5 | Superscripts rendered with an underline. | The HTML `<ins>` element has a browser default of `text-decoration: underline`. We had set `text-decoration: none` on `.ins-suffix` / `.ins-prefix` but forgotten it on `.ins-above`. | Add `text-decoration: none` to `.ins-above`. (Red ink colour is enough; the underline added visual noise without information.) |
+
+**Visual tuning gates that survived the rewrite.** Three values may still need a small adjustment when porting to a new font or font-size: (a) `.del` strikethrough thickness (1.5px is right for Indie Flower at 0.95em; thinner fonts may need 1px), (b) `.ins-above` `top: -0.85em` lift (more-negative pushes higher into the inter-line gap), (c) `.ins-above` `font-size: 0.65em` (smaller if the inter-line gap shrinks; larger if it grows). Tune once on Week_1 and propagate.
 
 ### 8.5.1 Why a caret on Case B but not Case C
 

@@ -240,20 +240,32 @@
     pointer-events: none;
 }
 
-/* B/C — superscript correction using browser-native vertical-align:super.
-   Each <ins class="ins-above"> lives in the normal inline flow at the
-   superscript position: it cannot overlap text below its anchor line, and
-   consecutive corrections are naturally separated horizontally.
-   The fixed 32px line-height is preserved so text baselines stay on the
-   ruled lines; corrections render in the whitespace between the rules —
-   exactly where a teacher writes red-pen marks on real lined paper. */
+/* B/C — superscript correction.
+   - position:relative + top:-0.85em gives an EXPLICIT lift in the child's
+     own em units. (vertical-align:super was inconsistent because the
+     browser computes the super-shift from the parent inline's local font
+     metrics — and those metrics differ between .replace-pair (parent
+     contains a 0.95em <del>) and .gap-anchor (parent contains a 0.85em
+     ^ pseudo-element). With position:relative the lift is identical in
+     both contexts.)
+   - display:inline-block reserves real horizontal space in the line, so
+     consecutive corrections at the same anchor point flow side-by-side
+     instead of stacking on top of one another.
+   - margin:0 0.1em adds ~1.4px of breathing room between adjacent
+     corrections so they cannot touch.
+   - text-decoration:none removes the browser's default <ins> underline
+     (the red ink colour is enough to mark a correction). */
 .draft-markup .ins-above {
-    display: inline;
-    vertical-align: super;
+    display: inline-block;
+    position: relative;
+    top: -0.85em;
+    margin: 0 0.1em;
+    vertical-align: baseline;
     white-space: nowrap;
     font-family: 'Indie Flower', 'Comic Sans MS', cursive;
     font-size: 0.65em;
     color: #c0392b;
+    text-decoration: none;
     line-height: 1;
 }
 
