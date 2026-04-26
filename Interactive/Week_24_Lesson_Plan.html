@@ -484,44 +484,44 @@
     text-decoration-thickness: 1.5px;
 }
 
-/* C. replacement (host) — relative anchor for the absolute <ins>. */
+/* C. replacement (host) — display:inline so <ins class="ins-above"> flows
+   as a browser-native superscript in the normal inline stream.
+   Previously display:inline-block gave the element a height equal to the
+   32px line-height; bottom:0.85em then landed the correction in the MIDDLE
+   of the text, not above it. inline removes that height artefact. */
 .draft-markup .replace-pair {
-    position: relative;
-    display: inline-block;
-    vertical-align: baseline;
+    display: inline;
 }
 
-/* B. pure insertion — zero-width anchor in the gap between two kept words.
-   The <ins> floats above; a red caret (^) renders at baseline so a
-   multi-word inserted chunk is unambiguously anchored. */
+/* B. pure insertion — display:inline so the ^ caret and the superscript
+   are both in the inline flow and each adjacent anchor occupies its own
+   horizontal slot, fixing the "merged corrections" overlap. */
 .draft-markup .gap-anchor {
-    position: relative;
-    display: inline-block;
-    width: 0;
-    height: 0;
-    vertical-align: baseline;
+    display: inline;
 }
+/* Red caret rendered inline at baseline — marks the insertion point. */
 .draft-markup .gap-anchor::before {
     content: "^";
-    position: absolute;
-    bottom: -0.15em;
-    left: -0.3em;
     color: #c0392b;
     font-family: 'Indie Flower', 'Comic Sans MS', cursive;
-    font-size: 1em;
+    font-size: 0.85em;
     font-weight: 700;
-    line-height: 0;
     pointer-events: none;
 }
 
-/* B/C — the floating insertion above the line. Tuned in Phase B. */
+/* B/C — superscript correction using browser-native vertical-align:super.
+   Each <ins class="ins-above"> lives in the normal inline flow at the
+   superscript position: it cannot overlap text below its anchor line, and
+   consecutive corrections are naturally separated horizontally.
+   The fixed 32px line-height is preserved so text baselines stay on the
+   ruled lines; corrections render in the whitespace between the rules —
+   exactly where a teacher writes red-pen marks on real lined paper. */
 .draft-markup .ins-above {
-    position: absolute;
-    bottom: 0.85em;
-    left: 0;
+    display: inline;
+    vertical-align: super;
     white-space: nowrap;
     font-family: 'Indie Flower', 'Comic Sans MS', cursive;
-    font-size: 0.7em;
+    font-size: 0.65em;
     color: #c0392b;
     line-height: 1;
 }
