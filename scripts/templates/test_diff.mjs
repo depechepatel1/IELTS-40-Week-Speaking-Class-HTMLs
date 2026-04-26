@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { wordDiff, classifyPairs, renderMarkup } from './diff_engine.mjs';
+import { wordDiff, classifyPairs, renderMarkup, coalesceAdjacentSameOp } from './diff_engine.mjs';
 
 test('wordDiff: identical strings → all keep', () => {
   const r = wordDiff('hello world', 'hello world');
@@ -111,11 +111,133 @@ test('end-to-end: child → children renders as suffix-add (Case D)', () => {
   assert.match(html, /child<ins class="ins-suffix">ren<\/ins>/);
 });
 
-test('end-to-end: childrens → children falls through to replace-pair (Case C)', () => {
-  // childrens → children is a "suffix-delete" not covered by the 5-case spec.
-  // It correctly renders as a Case C replacement (full strikethrough + above-line).
+test('classifyPairs: suffix-delete understanding → understand (Case F)', () => {
+  const segs = [{ op: 'delete', word: 'understanding' }, { op: 'insert', word: 'understand' }];
+  const r = classifyPairs(segs);
+  assert.equal(r[0].op, 'suffix-delete');
+  assert.equal(r[0].kept, 'understand');
+  assert.equal(r[0].deleted, 'ing');
+});
+
+test('classifyPairs: prefix-delete ago → go (Case G)', () => {
+  const segs = [{ op: 'delete', word: 'ago' }, { op: 'insert', word: 'go' }];
+  const r = classifyPairs(segs);
+  assert.equal(r[0].op, 'prefix-delete');
+  assert.equal(r[0].deleted, 'a');
+  assert.equal(r[0].kept, 'go');
+});
+
+test('renderMarkup: suffix-delete renders kept stem + del-suffix', () => {
+  const html = renderMarkup([{ op: 'suffix-delete', kept: 'understand', deleted: 'ing' }]);
+  assert.match(html, /understand<del class="del-suffix">ing<\/del>/);
+});
+
+test('renderMarkup: prefix-delete renders del-prefix + kept stem', () => {
+  const html = renderMarkup([{ op: 'prefix-delete', deleted: 'a', kept: 'go' }]);
+  assert.match(html, /<del class="del-prefix">a<\/del>go/);
+});
+
+test('end-to-end: childrens → children renders as suffix-delete (Case F)', () => {
+  // Previously fell through to Case C replace-pair (full strike + above-line).
+  // Now correctly classified as suffix-delete: keep "children", strike "s".
   const segs = wordDiff('lots of childrens', 'lots of children');
   const classified = classifyPairs(segs);
   const html = renderMarkup(classified);
-  assert.match(html, /replace-pair/);
+  assert.match(html, /children<del class="del-suffix">s<\/del>/);
+  assert.doesNotMatch(html, /replace-pair/);
+});
+
+test('end-to-end: understanding → understand renders as suffix-delete (Case F)', () => {
+  const segs = wordDiff('I am understanding', 'I am understand');
+  const classified = classifyPairs(segs);
+  const html = renderMarkup(classified);
+  assert.match(html, /understand<del class="del-suffix">ing<\/del>/);
+});
+
+// === coalesceAdjacentSameOp tests ===
+
+test('coalesceAdjacentSameOp: merges consecutive deletes', () => {
+  const r = coalesceAdjacentSameOp([
+    { op: 'delete', word: 'Next' },
+    { op: 'delete', word: 'day,' },
+    { op: 'keep',   word: 'I' }
+  ]);
+  assert.equal(r.length, 2);
+  assert.equal(r[0].op, 'delete');
+  assert.equal(r[0].word, 'Next day,');
+  assert.equal(r[1].op, 'keep');
+});
+
+test('coalesceAdjacentSameOp: merges consecutive inserts', () => {
+  const r = coalesceAdjacentSameOp([
+    { op: 'insert', word: 'the' },
+    { op: 'insert', word: 'next' },
+    { op: 'insert', word: 'day,' }
+  ]);
+  assert.equal(r.length, 1);
+  assert.equal(r[0].op, 'insert');
+  assert.equal(r[0].word, 'the next day,');
+});
+
+test('coalesceAdjacentSameOp: does NOT merge consecutive keeps (no value)', () => {
+  const r = coalesceAdjacentSameOp([
+    { op: 'keep', word: 'a' },
+    { op: 'keep', word: 'b' }
+  ]);
+  assert.equal(r.length, 2);
+});
+
+test('coalesceAdjacentSameOp: del-del-ins-ins becomes del + ins', () => {
+  // not understanding → didn't understand
+  const r = coalesceAdjacentSameOp([
+    { op: 'delete', word: 'not' },
+    { op: 'delete', word: 'understanding' },
+    { op: 'insert', word: "didn't" },
+    { op: 'insert', word: 'understand' }
+  ]);
+  assert.equal(r.length, 2);
+  assert.equal(r[0].word, 'not understanding');
+  assert.equal(r[1].word, "didn't understand");
+});
+
+test('coalesceAdjacentSameOp: does not mutate input array', () => {
+  const input = [{ op: 'delete', word: 'a' }, { op: 'delete', word: 'b' }];
+  const r = coalesceAdjacentSameOp(input);
+  assert.equal(input[0].word, 'a');
+  assert.equal(input[1].word, 'b');
+  assert.equal(r[0].word, 'a b');
+});
+
+test('end-to-end: not understanding → didn\'t understand renders as ONE replace-pair, no chevron', () => {
+  const segs = wordDiff('I am not understanding the rules', "I am didn't understand the rules");
+  const coalesced = coalesceAdjacentSameOp(segs);
+  const classified = classifyPairs(coalesced);
+  const html = renderMarkup(classified);
+  // ONE replace-pair containing both deleted words struck together
+  assert.match(html, /<del class="del">not understanding<\/del>/);
+  // ONE correction phrase above
+  assert.match(html, /<ins class="ins-above">didn't understand<\/ins>/);
+  // ZERO chevrons (no standalone gap-anchor)
+  assert.equal(html.includes('gap-anchor'), false);
+});
+
+test('end-to-end: I have → I had a renders as ONE replace-pair', () => {
+  const segs = wordDiff('I have very big', 'I had a very big');
+  const coalesced = coalesceAdjacentSameOp(segs);
+  const classified = classifyPairs(coalesced);
+  const html = renderMarkup(classified);
+  assert.match(html, /<del class="del">have<\/del><ins class="ins-above">had a<\/ins>/);
+  assert.equal(html.includes('gap-anchor'), false);
+});
+
+test('end-to-end: triple insertion the+next+day, becomes one insert with one chevron', () => {
+  const segs = wordDiff('long. day, I', 'long. the next day, I');
+  const coalesced = coalesceAdjacentSameOp(segs);
+  const classified = classifyPairs(coalesced);
+  const html = renderMarkup(classified);
+  // Exactly one gap-anchor
+  const matches = html.match(/<span class="gap-anchor">/g) || [];
+  assert.equal(matches.length, 1);
+  // The single gap-anchor contains the multi-word insertion
+  assert.match(html, /<ins class="ins-above">the next<\/ins>/);
 });
