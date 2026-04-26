@@ -48,9 +48,12 @@
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     if (_currentSpans) _currentSpans.forEach(s => s.classList.remove('speaking'));
     _currentSpans = null;
+    setSpeakingRow(null);
+    updatePauseButtons();
   };
 
   // Toggle pause/resume on whichever utterance is currently speaking.
+  // After toggling, sync every pause button's icon to the new global state.
   ns.pauseSpeaking = function () {
     if (!('speechSynthesis' in window)) return;
     if (window.speechSynthesis.paused) {
@@ -58,7 +61,27 @@
     } else if (window.speechSynthesis.speaking) {
       window.speechSynthesis.pause();
     }
+    updatePauseButtons();
   };
+
+  /** Sync every .tts-btn.pause across the page to the current global
+   *  speechSynthesis state. ⏸ when speaking, ▶ when paused, ⏸ when idle. */
+  function updatePauseButtons() {
+    const ss = window.speechSynthesis;
+    const paused = !!(ss && ss.paused);
+    document.querySelectorAll('.tts-btn.pause').forEach(b => {
+      b.textContent = paused ? '▶' : '⏸';
+      b.title = paused ? 'Resume' : 'Pause';
+      b.classList.toggle('paused', paused);
+    });
+  }
+
+  /** Mark a single .listen-row as the one currently speaking (for the
+   *  pulsing indicator). Pass `null` to clear. */
+  function setSpeakingRow(rowEl) {
+    document.querySelectorAll('.listen-row.speaking-now').forEach(r => r.classList.remove('speaking-now'));
+    if (rowEl) rowEl.classList.add('speaking-now');
+  }
 
   // Tracks the last accent the student picked on each listen-row. Slow
   // playback uses this so it matches whichever voice is currently selected.
@@ -91,7 +114,7 @@
     }
   };
 
-  ns.speakText = function (text, lang = 'en-GB', rate = 1.0) {
+  ns.speakText = function (text, lang = 'en-GB', rate = 1.0, sourceRow = null) {
     // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
     if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
     if (!('speechSynthesis' in window)) return;
@@ -102,6 +125,10 @@
     u.rate = rate;
     const v = pickVoice(lang);
     if (v) u.voice = v;
+    u.onstart = () => { setSpeakingRow(sourceRow); updatePauseButtons(); };
+    u.onend   = () => { setSpeakingRow(null); updatePauseButtons(); };
+    u.onpause = () => updatePauseButtons();
+    u.onresume = () => updatePauseButtons();
     window.speechSynthesis.speak(u);
   };
 
@@ -141,6 +168,11 @@
     u.rate = rate;
     const v = pickVoice(lang);
     if (v) u.voice = v;
+    // For #polished-output, the speaking row is the polished-listen-row.
+    const sourceRow = (el.id === 'polished-output')
+      ? document.getElementById('polished-listen-row')
+      : null;
+    u.onstart = () => { setSpeakingRow(sourceRow); updatePauseButtons(); };
     u.onboundary = function (ev) {
       if (ev.name && ev.name !== 'word') return;
       const idx = ev.charIndex;
@@ -150,7 +182,11 @@
     };
     u.onend = function () {
       spans.forEach(s => s.classList.remove('speaking'));
+      setSpeakingRow(null);
+      updatePauseButtons();
     };
+    u.onpause = () => updatePauseButtons();
+    u.onresume = () => updatePauseButtons();
     window.speechSynthesis.speak(u);
   };
 
@@ -528,9 +564,9 @@
       // Default accent is UK (matches the .active class in markup above).
       _lastLangByRow.set(row, 'en-GB');
 
-      btnUK.onclick    = () => { setActiveAccent(row, 'en-GB'); ns.speakText(textOf(), 'en-GB', 1.0); };
-      btnUS.onclick    = () => { setActiveAccent(row, 'en-US'); ns.speakText(textOf(), 'en-US', 1.0); };
-      btnSlow.onclick  = () => ns.speakText(textOf(), lastLangFor(row), 0.85);
+      btnUK.onclick    = () => { setActiveAccent(row, 'en-GB'); ns.speakText(textOf(), 'en-GB', 1.0, row); };
+      btnUS.onclick    = () => { setActiveAccent(row, 'en-US'); ns.speakText(textOf(), 'en-US', 1.0, row); };
+      btnSlow.onclick  = () => ns.speakText(textOf(), lastLangFor(row), 0.85, row);
       btnPause.onclick = () => ns.pauseSpeaking();
       btnStop.onclick  = () => ns.stopSpeaking();
 

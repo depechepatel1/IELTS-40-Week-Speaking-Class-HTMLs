@@ -308,6 +308,26 @@
     border-width: 1px;
 }
 
+/* Pause-button toggles to a "Resume" play-style button when paused.
+ * Visually distinct so the student knows tapping it again will resume. */
+.tts-btn.pause.paused {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+}
+
+/* Subtle pulsing ring on the listen-row whose audio is currently playing.
+ * Helps the student locate the active row when scrolling through a page
+ * with multiple model-boxes. */
+.listen-row.speaking-now {
+    border-radius: 8px;
+    animation: ielts-listen-pulse 1.6s ease-in-out infinite;
+}
+@keyframes ielts-listen-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+    50%      { box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18); }
+}
+
 /* Clickable bolded words in vocab tables and model boxes. */
 .vocab-table strong,
 .model-box strong {
