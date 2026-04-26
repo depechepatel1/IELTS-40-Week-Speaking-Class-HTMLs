@@ -1383,39 +1383,19 @@
     alert("微信浏览器不支持语音播放，请用 Safari 或 Chrome 打开本页 / WeChat browser doesn't support audio playback. Please open this page in Safari or Chrome.");
   }
 
-  let _currentSpans = null;
-
-  ns.stopSpeaking = function () {
-    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-    if (_currentSpans) _currentSpans.forEach(s => s.classList.remove('speaking'));
-    _currentSpans = null;
-    setSpeakingRow(null);
-    updatePauseButtons();
-  };
-
-  // Toggle pause/resume on whichever utterance is currently speaking.
-  // After toggling, sync every pause button's icon to the new global state.
-  ns.pauseSpeaking = function () {
-    if (!('speechSynthesis' in window)) return;
-    if (window.speechSynthesis.paused) {
-      window.speechSynthesis.resume();
-    } else if (window.speechSynthesis.speaking) {
-      window.speechSynthesis.pause();
-    }
-    updatePauseButtons();
-  };
-
-  /** Sync every .tts-btn.pause across the page to the current global
-   *  speechSynthesis state. ⏸ when speaking, ▶ when paused, ⏸ when idle. */
-  function updatePauseButtons() {
-    const ss = window.speechSynthesis;
-    const paused = !!(ss && ss.paused);
-    document.querySelectorAll('.tts-btn.pause').forEach(b => {
-      b.textContent = paused ? '▶' : '⏸';
-      b.title = paused ? 'Resume' : 'Pause';
-      b.classList.toggle('paused', paused);
-    });
-  }
+  // === Speech state — owned by us, NOT by the (flaky) Web Speech API ===
+  // Chrome's speechSynthesis.pause()/resume() is unreliable across long
+  // utterances and after >5s pauses. Instead of trusting it, we track text
+  // + current word offset ourselves and on "resume" we cancel + restart
+  // from the saved offset. This works reliably across all browsers.
+  let _currentText = '';
+  let _currentLang = 'en-GB';
+  let _currentRate = 1.0;
+  let _currentWordOffset = 0;
+  let _currentSourceRow = null;
+  let _currentSpans = null;     // for karaoke highlight (speakElement)
+  let _currentOffsets = null;   // for karaoke highlight (speakElement)
+  let _isPaused = false;        // OUR truth, not speechSynthesis.paused
 
   /** Mark a single .listen-row as the one currently speaking (for the
    *  pulsing indicator). Pass `null` to clear. */
@@ -1423,6 +1403,81 @@
     document.querySelectorAll('.listen-row.speaking-now').forEach(r => r.classList.remove('speaking-now'));
     if (rowEl) rowEl.classList.add('speaking-now');
   }
+
+  /** Sync every .tts-btn.pause to OUR _isPaused state.
+   *  ▶ + .paused class when paused, ⏸ when speaking/idle. */
+  function updatePauseButtons() {
+    document.querySelectorAll('.tts-btn.pause').forEach(b => {
+      b.textContent = _isPaused ? '▶' : '⏸';
+      b.title = _isPaused ? 'Resume' : 'Pause';
+      b.classList.toggle('paused', _isPaused);
+    });
+  }
+
+  /** Internal: launch a fresh utterance starting at `offset` characters
+   *  into _currentText. Used by both speakText/speakElement (offset=0)
+   *  and pauseSpeaking (offset=_currentWordOffset on resume). */
+  function _speakFromOffset(offset) {
+    const remaining = _currentText.slice(offset);
+    if (!remaining.trim()) return;
+    const u = new SpeechSynthesisUtterance(remaining);
+    u.lang = _currentLang;
+    u.rate = _currentRate;
+    const v = pickVoice(_currentLang);
+    if (v) u.voice = v;
+    u.onstart = () => { setSpeakingRow(_currentSourceRow); };
+    u.onboundary = (ev) => {
+      if (ev.name && ev.name !== 'word') return;
+      _currentWordOffset = offset + ev.charIndex;
+      // Karaoke highlight if spans were registered (speakElement path).
+      if (_currentSpans && _currentOffsets) {
+        _currentSpans.forEach(s => s.classList.remove('speaking'));
+        const hit = _currentOffsets.find(o => _currentWordOffset >= o.start && _currentWordOffset < o.end);
+        if (hit) hit.span.classList.add('speaking');
+      }
+    };
+    u.onend = () => {
+      // Natural end (NOT a user-initiated pause). Reset state.
+      if (_isPaused) return;
+      _currentText = '';
+      _currentWordOffset = 0;
+      if (_currentSpans) _currentSpans.forEach(s => s.classList.remove('speaking'));
+      _currentSpans = null;
+      _currentOffsets = null;
+      setSpeakingRow(null);
+      updatePauseButtons();
+    };
+    window.speechSynthesis.speak(u);
+  }
+
+  ns.stopSpeaking = function () {
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    if (_currentSpans) _currentSpans.forEach(s => s.classList.remove('speaking'));
+    _currentSpans = null;
+    _currentOffsets = null;
+    _currentText = '';
+    _currentWordOffset = 0;
+    _currentSourceRow = null;
+    _isPaused = false;
+    setSpeakingRow(null);
+    updatePauseButtons();
+  };
+
+  // Toggle pause/resume. Pause = cancel + remember offset; Resume =
+  // restart utterance from the saved offset (avoids Chrome resume bug).
+  ns.pauseSpeaking = function () {
+    if (!('speechSynthesis' in window)) return;
+    if (_isPaused) {
+      _isPaused = false;
+      updatePauseButtons();
+      _speakFromOffset(_currentWordOffset);
+    } else if (_currentText && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
+      _isPaused = true;
+      window.speechSynthesis.cancel();
+      // Keep _currentText and _currentWordOffset so resume works.
+      updatePauseButtons();
+    }
+  };
 
   // Tracks the last accent the student picked on each listen-row. Slow
   // playback uses this so it matches whichever voice is currently selected.
@@ -1461,16 +1516,16 @@
     if (!('speechSynthesis' in window)) return;
     if (!text || !String(text).trim()) return;
     ns.stopSpeaking();
-    const u = new SpeechSynthesisUtterance(String(text));
-    u.lang = lang;
-    u.rate = rate;
-    const v = pickVoice(lang);
-    if (v) u.voice = v;
-    u.onstart = () => { setSpeakingRow(sourceRow); updatePauseButtons(); };
-    u.onend   = () => { setSpeakingRow(null); updatePauseButtons(); };
-    u.onpause = () => updatePauseButtons();
-    u.onresume = () => updatePauseButtons();
-    window.speechSynthesis.speak(u);
+    _currentText = String(text);
+    _currentLang = lang;
+    _currentRate = rate;
+    _currentWordOffset = 0;
+    _currentSourceRow = sourceRow;
+    _currentSpans = null;
+    _currentOffsets = null;
+    _isPaused = false;
+    updatePauseButtons();
+    _speakFromOffset(0);
   };
 
   // Wraps each word in <span> for karaoke highlighting on `boundary` events.
@@ -1502,33 +1557,18 @@
     });
 
     ns.stopSpeaking();
-    _currentSpans = spans;
-
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = lang;
-    u.rate = rate;
-    const v = pickVoice(lang);
-    if (v) u.voice = v;
-    // For #polished-output, the speaking row is the polished-listen-row.
-    const sourceRow = (el.id === 'polished-output')
+    _currentText = text;
+    _currentLang = lang;
+    _currentRate = rate;
+    _currentWordOffset = 0;
+    _currentSourceRow = (el.id === 'polished-output')
       ? document.getElementById('polished-listen-row')
       : null;
-    u.onstart = () => { setSpeakingRow(sourceRow); updatePauseButtons(); };
-    u.onboundary = function (ev) {
-      if (ev.name && ev.name !== 'word') return;
-      const idx = ev.charIndex;
-      spans.forEach(s => s.classList.remove('speaking'));
-      const hit = offsets.find(o => idx >= o.start && idx < o.end);
-      if (hit) hit.span.classList.add('speaking');
-    };
-    u.onend = function () {
-      spans.forEach(s => s.classList.remove('speaking'));
-      setSpeakingRow(null);
-      updatePauseButtons();
-    };
-    u.onpause = () => updatePauseButtons();
-    u.onresume = () => updatePauseButtons();
-    window.speechSynthesis.speak(u);
+    _currentSpans = spans;
+    _currentOffsets = offsets;
+    _isPaused = false;
+    updatePauseButtons();
+    _speakFromOffset(0);
   };
 
   ns.speakElementById = function (id, lang = 'en-GB', rate = 1.0) {
