@@ -1,7 +1,9 @@
+// CORS headers are added automatically by Aliyun FC's HTTP-trigger gateway
+// (it echoes the request Origin into Access-Control-Allow-Origin and adds
+// Access-Control-Allow-Credentials: true). Setting our own ACAO causes a
+// duplicate-header error in browsers ("only one is allowed"). So we ONLY
+// set Content-Type and let FC handle the CORS preamble.
 const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS, GET',
-  'Access-Control-Allow-Headers': 'Content-Type',
   'Content-Type': 'application/json'
 };
 

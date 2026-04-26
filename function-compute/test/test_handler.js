@@ -58,19 +58,20 @@ function ev(method, path = '/', body = null, headers = {}) {
   };
 }
 
-test('OPTIONS preflight returns 204 with CORS headers', async () => {
+test('OPTIONS preflight returns 204 with empty body (CORS added by FC gateway)', async () => {
   const res = await handler(ev('OPTIONS'));
   assert.equal(res.statusCode, 204);
-  assert.equal(res.headers['Access-Control-Allow-Origin'], '*');
-  assert.match(res.headers['Access-Control-Allow-Methods'], /POST/);
-  assert.match(res.headers['Access-Control-Allow-Methods'], /OPTIONS/);
-  assert.match(res.headers['Access-Control-Allow-Headers'], /Content-Type/i);
+  assert.equal(res.body, '');
+  // We deliberately do NOT set Access-Control-Allow-Origin — Aliyun FC's
+  // HTTP-trigger gateway adds it automatically by echoing the request
+  // Origin header. Setting it ourselves caused a duplicate-header error
+  // in browsers ("only one is allowed").
+  assert.equal(res.headers['Access-Control-Allow-Origin'], undefined);
 });
 
-test('GET /health returns 200 ok:true with CORS', async () => {
+test('GET /health returns 200 ok:true', async () => {
   const res = await handler(ev('GET', '/health'));
   assert.equal(res.statusCode, 200);
-  assert.equal(res.headers['Access-Control-Allow-Origin'], '*');
   const body = JSON.parse(res.body);
   assert.equal(body.ok, true);
 });
@@ -196,11 +197,11 @@ test('Zhipu network error → 503 service unavailable (after retry)', async () =
   assert.match(body.error, /AI 服务暂时不可用|service temporarily unavailable/i);
 });
 
-test('FC v3 adapter: OPTIONS returns 204 with CORS', async () => {
+test('FC v3 adapter: OPTIONS returns 204 with empty body (CORS added by gateway)', async () => {
   const r = await fc(fcEvent('OPTIONS'));
   assert.equal(r.statusCode, 204);
-  assert.equal(r.headers['Access-Control-Allow-Origin'], '*');
   assert.equal(r.body, '');
+  assert.equal(r.headers['Access-Control-Allow-Origin'], undefined);
 });
 
 test('FC v3 adapter: GET /health returns 200 ok:true', async () => {
