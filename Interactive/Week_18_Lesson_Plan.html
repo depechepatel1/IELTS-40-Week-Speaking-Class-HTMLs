@@ -540,22 +540,61 @@
     border-radius: 12px;
 }
 
-/* === Listen-button row inside .model-box (top-right, no layout shift) ===
- * Injected by JS as a child of each .model-box, absolute-positioned in the
- * top-right corner inside the existing top padding. Buttons are tiny enough
- * (font-size ≤ 0.85em, padding 1px 6px) to fit within natural whitespace
- * before the first line of body text wraps to the right edge. */
+/* === Listen-button row sits at the BOTTOM-RIGHT of the section-heading
+ * row, just above the colored .model-box. Implemented by wrapping the
+ * heading + listen-row in a flex container with `align-items: flex-end`,
+ * so the buttons stay anchored to the heading's bottom edge regardless
+ * of whether the heading text wraps to 1, 2, or N lines. */
 
-.model-box { position: relative; }
-.model-box .listen-row {
-    position: absolute;
-    top: 4px; right: 6px;
+.card .listen-row-wrapper {
     display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0 0 6px 0;
+}
+.card .listen-row-wrapper > h1,
+.card .listen-row-wrapper > h2,
+.card .listen-row-wrapper > h3,
+.card .listen-row-wrapper > h4 {
+    margin: 0 !important;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.card .listen-row {
+    display: flex;
+    flex-direction: row;
     gap: 3px;
+    flex-shrink: 0;
     z-index: 5;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 2px 3px;
+}
+.card .listen-row .tts-btn {
+    padding: 1px 5px;
+    font-size: 0.7em;
+    line-height: 1.3;
+    border-radius: 6px;
+    border-width: 1px;
+}
+
+/* Pause-button toggles to a "Resume" play-style button when paused.
+ * Visually distinct so the student knows tapping it again will resume. */
+.tts-btn.pause.paused {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+}
+
+/* Subtle pulsing ring on the listen-row whose audio is currently playing.
+ * Helps the student locate the active row when scrolling through a page
+ * with multiple model-boxes. */
+.listen-row.speaking-now {
     border-radius: 8px;
+    animation: ielts-listen-pulse 1.6s ease-in-out infinite;
+}
+@keyframes ielts-listen-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+    50%      { box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18); }
 }
 
 /* Clickable bolded words in vocab tables and model boxes. */
@@ -1350,9 +1389,12 @@
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     if (_currentSpans) _currentSpans.forEach(s => s.classList.remove('speaking'));
     _currentSpans = null;
+    setSpeakingRow(null);
+    updatePauseButtons();
   };
 
   // Toggle pause/resume on whichever utterance is currently speaking.
+  // After toggling, sync every pause button's icon to the new global state.
   ns.pauseSpeaking = function () {
     if (!('speechSynthesis' in window)) return;
     if (window.speechSynthesis.paused) {
@@ -1360,7 +1402,27 @@
     } else if (window.speechSynthesis.speaking) {
       window.speechSynthesis.pause();
     }
+    updatePauseButtons();
   };
+
+  /** Sync every .tts-btn.pause across the page to the current global
+   *  speechSynthesis state. ⏸ when speaking, ▶ when paused, ⏸ when idle. */
+  function updatePauseButtons() {
+    const ss = window.speechSynthesis;
+    const paused = !!(ss && ss.paused);
+    document.querySelectorAll('.tts-btn.pause').forEach(b => {
+      b.textContent = paused ? '▶' : '⏸';
+      b.title = paused ? 'Resume' : 'Pause';
+      b.classList.toggle('paused', paused);
+    });
+  }
+
+  /** Mark a single .listen-row as the one currently speaking (for the
+   *  pulsing indicator). Pass `null` to clear. */
+  function setSpeakingRow(rowEl) {
+    document.querySelectorAll('.listen-row.speaking-now').forEach(r => r.classList.remove('speaking-now'));
+    if (rowEl) rowEl.classList.add('speaking-now');
+  }
 
   // Tracks the last accent the student picked on each listen-row. Slow
   // playback uses this so it matches whichever voice is currently selected.
@@ -1393,7 +1455,7 @@
     }
   };
 
-  ns.speakText = function (text, lang = 'en-GB', rate = 1.0) {
+  ns.speakText = function (text, lang = 'en-GB', rate = 1.0, sourceRow = null) {
     // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
     if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
     if (!('speechSynthesis' in window)) return;
@@ -1404,6 +1466,10 @@
     u.rate = rate;
     const v = pickVoice(lang);
     if (v) u.voice = v;
+    u.onstart = () => { setSpeakingRow(sourceRow); updatePauseButtons(); };
+    u.onend   = () => { setSpeakingRow(null); updatePauseButtons(); };
+    u.onpause = () => updatePauseButtons();
+    u.onresume = () => updatePauseButtons();
     window.speechSynthesis.speak(u);
   };
 
@@ -1443,6 +1509,11 @@
     u.rate = rate;
     const v = pickVoice(lang);
     if (v) u.voice = v;
+    // For #polished-output, the speaking row is the polished-listen-row.
+    const sourceRow = (el.id === 'polished-output')
+      ? document.getElementById('polished-listen-row')
+      : null;
+    u.onstart = () => { setSpeakingRow(sourceRow); updatePauseButtons(); };
     u.onboundary = function (ev) {
       if (ev.name && ev.name !== 'word') return;
       const idx = ev.charIndex;
@@ -1452,7 +1523,11 @@
     };
     u.onend = function () {
       spans.forEach(s => s.classList.remove('speaking'));
+      setSpeakingRow(null);
+      updatePauseButtons();
     };
+    u.onpause = () => updatePauseButtons();
+    u.onresume = () => updatePauseButtons();
     window.speechSynthesis.speak(u);
   };
 
@@ -1810,8 +1885,10 @@
 
   function injectListenButtons() {
     document.querySelectorAll('.model-box').forEach((box) => {
-      // Idempotent — skip if a row already exists inside this box.
-      if (box.querySelector(':scope > .listen-row')) return;
+      const card = box.closest('.card');
+      if (!card) return;
+      // Idempotent — one wrapper/row per card (controls the first .model-box).
+      if (card.querySelector(':scope > .listen-row-wrapper, :scope > .listen-row')) return;
 
       const row = document.createElement('div');
       row.className = 'listen-row';
@@ -1828,15 +1905,32 @@
       // Default accent is UK (matches the .active class in markup above).
       _lastLangByRow.set(row, 'en-GB');
 
-      btnUK.onclick    = () => { setActiveAccent(row, 'en-GB'); ns.speakText(textOf(), 'en-GB', 1.0); };
-      btnUS.onclick    = () => { setActiveAccent(row, 'en-US'); ns.speakText(textOf(), 'en-US', 1.0); };
-      btnSlow.onclick  = () => ns.speakText(textOf(), lastLangFor(row), 0.85);
+      btnUK.onclick    = () => { setActiveAccent(row, 'en-GB'); ns.speakText(textOf(), 'en-GB', 1.0, row); };
+      btnUS.onclick    = () => { setActiveAccent(row, 'en-US'); ns.speakText(textOf(), 'en-US', 1.0, row); };
+      btnSlow.onclick  = () => ns.speakText(textOf(), lastLangFor(row), 0.85, row);
       btnPause.onclick = () => ns.pauseSpeaking();
       btnStop.onclick  = () => ns.stopSpeaking();
 
-      // Inject INSIDE the .model-box, top-right corner, absolute-positioned
-      // via CSS so the existing text content is not pushed down.
-      box.insertBefore(row, box.firstChild);
+      // Find the heading (h1-h4) immediately preceding this .model-box in
+      // the .card. Walk back through siblings until we hit one or run out.
+      let heading = box.previousElementSibling;
+      while (heading && !/^H[1-6]$/.test(heading.tagName)) {
+        heading = heading.previousElementSibling;
+      }
+
+      if (heading) {
+        // Wrap heading + listen-row in a flex container so the row sits at
+        // the bottom-right of the heading area (right above the .model-box),
+        // regardless of whether the heading wraps to 1 or N lines.
+        const wrapper = document.createElement('div');
+        wrapper.className = 'listen-row-wrapper';
+        card.insertBefore(wrapper, heading);
+        wrapper.appendChild(heading);
+        wrapper.appendChild(row);
+      } else {
+        // No heading — fall back to inserting just before the .model-box.
+        box.parentElement.insertBefore(row, box);
+      }
     });
   }
 
