@@ -508,8 +508,13 @@
 
   function injectListenButtons() {
     document.querySelectorAll('.model-box').forEach((box) => {
-      // Idempotent — skip if a row already exists inside this box.
-      if (box.querySelector(':scope > .listen-row')) return;
+      // Anchor the listen-row to the closest WHITE parent .card (not the
+      // colored .model-box itself), so the buttons sit in the empty right
+      // side of the section heading row, well outside the model-box body.
+      const card = box.closest('.card');
+      if (!card) return;
+      // Idempotent — one listen-row per card (controls the first .model-box).
+      if (card.querySelector(':scope > .listen-row')) return;
 
       const row = document.createElement('div');
       row.className = 'listen-row';
@@ -532,9 +537,12 @@
       btnPause.onclick = () => ns.pauseSpeaking();
       btnStop.onclick  = () => ns.stopSpeaking();
 
-      // Inject INSIDE the .model-box, top-right corner, absolute-positioned
-      // via CSS so the existing text content is not pushed down.
-      box.insertBefore(row, box.firstChild);
+      // Make the white card a positioning context (no-op if already set)
+      // and inject the listen-row as its first child. The CSS positions it
+      // absolutely in the top-right of the card.
+      const computedPos = getComputedStyle(card).position;
+      if (computedPos === 'static') card.style.position = 'relative';
+      card.insertBefore(row, card.firstChild);
     });
   }
 

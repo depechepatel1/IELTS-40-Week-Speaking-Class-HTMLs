@@ -271,21 +271,21 @@
     border-radius: 12px;
 }
 
-/* === Listen-button row inside .model-box (float: right, text wraps around) ===
- * Injected by JS as the FIRST child of each .model-box. Using `float: right`
- * (not absolute positioning) means the buttons claim a small top-right
- * area and the body text naturally wraps around them — no overlap, no
- * extra line, no layout shift. */
+/* === Listen-button row inside the WHITE PARENT card, NOT in the colored
+ * .model-box. Anchored absolutely at the top-right corner of the card so
+ * it sits in the empty right side of the section heading row (h2/h3) —
+ * fully outside the colored model-box, no overlap with model text. */
 
-.model-box .listen-row {
-    float: right;
+.card .listen-row {
+    position: absolute;
+    top: 6px;
+    right: 8px;
     display: flex;
     flex-direction: row;
     gap: 3px;
-    margin: 0 0 2px 8px;
     z-index: 5;
 }
-.model-box .listen-row .tts-btn {
+.card .listen-row .tts-btn {
     padding: 1px 5px;
     font-size: 0.7em;
     line-height: 1.3;
