@@ -61,6 +61,12 @@ async function callZhipu(draft) {
       model: ZHIPU_MODEL_ID,
       temperature: 0.3,
       max_tokens: 500,
+      // GLM-4.7+ models default to thinking/CoT mode, which can consume the
+      // entire max_tokens budget on reasoning and leave `content` empty,
+      // tripping the "unexpected response" branch below. We don't need
+      // chain-of-thought for grammar correction — disable it.
+      // (Older models like glm-4-flash ignore this field.)
+      thinking: { type: 'disabled' },
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         { role: 'user', content: draft }
