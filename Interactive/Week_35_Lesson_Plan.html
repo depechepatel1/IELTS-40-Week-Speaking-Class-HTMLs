@@ -517,6 +517,18 @@
     line-height: 1;
 }
 
+/* H. stem-change — wraps the struck tail + above-line correction so the
+   .ins-above can absolute-position centered over the strike (NOT over the
+   kept stem prefix, which sits to the left in normal flow as plain text).
+   Same `display:inline-block; position:relative; line-height:1` recipe as
+   .replace-pair so the absolute child centers naturally. */
+.draft-markup .stem-change-pair {
+    display: inline-block;
+    position: relative;
+    vertical-align: baseline;
+    line-height: 1;
+}
+
 /* Red caret rendered inline — marks the insertion point on the writing
    line. The `^` glyph sits high in its em box by default (its base at
    roughly cap-height, not baseline), so we push it down 6px so the
@@ -1518,6 +1530,13 @@
   const FEMALE_NEURAL_US = /Aria|Jenny|Ana|Michelle|Emma|Samantha|Allison|Ava|Joanna|Salli|Kendra|Kimberly|Ivy|Nora|Susan.*US|Zira/i;
   const MALE_NEURAL_US   = /Guy|Tony|Jason|Eric|Davis|Alex|Aaron|Brandon|Steffan|Roger/i;
 
+  // Speech rates. Tuned for Chinese L2 listeners — 0.85 is the comfortable
+  // default (matches what was previously the "slow" button rate); 0.72 is
+  // the new "slow" — about 15% slower than the new default, useful when a
+  // student wants to copy pronunciation word-by-word.
+  const DEFAULT_RATE = 0.85;
+  const SLOW_RATE    = 0.72;
+
   // Score-based picker: prefers high-quality engines (Edge "Online (Natural)",
   // Google network voices, macOS Premium/Enhanced) over legacy local voices.
   // Without scoring, browsers like Chrome on Windows often surface the older
@@ -1683,13 +1702,13 @@
     const row = document.getElementById('polished-listen-row');
     if (which === 'en-GB' || which === 'en-US') {
       setActiveAccent(row, which);
-      ns.speakElementById('polished-output', which, 1.0);
+      ns.speakElementById('polished-output', which, DEFAULT_RATE);
     } else if (which === 'slow') {
-      ns.speakElementById('polished-output', lastLangFor(row), 0.85);
+      ns.speakElementById('polished-output', lastLangFor(row), SLOW_RATE);
     }
   };
 
-  ns.speakText = function (text, lang = 'en-GB', rate = 1.0, sourceRow = null) {
+  ns.speakText = function (text, lang = 'en-GB', rate = DEFAULT_RATE, sourceRow = null) {
     // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
     if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
     if (!('speechSynthesis' in window)) return;
@@ -1708,7 +1727,7 @@
   };
 
   // Wraps each word in <span> for karaoke highlighting on `boundary` events.
-  ns.speakElement = function (el, lang = 'en-GB', rate = 1.0) {
+  ns.speakElement = function (el, lang = 'en-GB', rate = DEFAULT_RATE) {
     // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
     if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
     if (!('speechSynthesis' in window)) return;
@@ -1750,7 +1769,7 @@
     _speakFromOffset(0);
   };
 
-  ns.speakElementById = function (id, lang = 'en-GB', rate = 1.0) {
+  ns.speakElementById = function (id, lang = 'en-GB', rate = DEFAULT_RATE) {
     const el = document.getElementById(id);
     if (el) ns.speakElement(el, lang, rate);
   };
@@ -1913,6 +1932,14 @@
     return out;
   }
 
+  // Longest common prefix of two strings (case-sensitive). Used by Case H
+  // (stem-change) to detect word-form transformations like tired→tiring.
+  function longestCommonPrefix(a, b) {
+    let i = 0;
+    while (i < a.length && i < b.length && a[i] === b[i]) i++;
+    return a.slice(0, i);
+  }
+
   function classifyPairs(segs) {
     const out = [];
     let i = 0;
@@ -1932,7 +1959,17 @@
           // G. prefix-delete — ago → go
           out.push({ op: 'prefix-delete', deleted: x.slice(0, x.length - y.length), kept: y });
         } else {
-          out.push({ op: 'replace', deleted: x, inserted: y });
+          const lcp = longestCommonPrefix(x, y);
+          const xTail = x.slice(lcp.length);
+          const yTail = y.slice(lcp.length);
+          if (lcp.length >= 3
+              && xTail.length >= 1 && xTail.length <= 5
+              && yTail.length >= 1 && yTail.length <= 5) {
+            // H. stem-change — tired→tiring, heavy→heavily, make→making
+            out.push({ op: 'stem-change', kept: lcp, deleted: xTail, inserted: yTail });
+          } else {
+            out.push({ op: 'replace', deleted: x, inserted: y });
+          }
         }
         i += 2;
       } else {
@@ -1968,6 +2005,8 @@
           parts.push(`${space}${escHtml(seg.kept)}<del class="del-suffix">${escHtml(seg.deleted)}</del>`); break;
         case 'prefix-delete':
           parts.push(`${space}<del class="del-prefix">${escHtml(seg.deleted)}</del>${escHtml(seg.kept)}`); break;
+        case 'stem-change':
+          parts.push(`${space}${escHtml(seg.kept)}<span class="stem-change-pair"><del class="del-suffix">${escHtml(seg.deleted)}</del><ins class="ins-above">${escHtml(seg.inserted)}</ins></span>`); break;
       }
     });
     return parts.join('');
@@ -2173,9 +2212,9 @@
       // Default accent is UK (matches the .active class in markup above).
       _lastLangByRow.set(row, 'en-GB');
 
-      btnUK.onclick    = () => { setActiveAccent(row, 'en-GB'); ns.speakText(textOf(), 'en-GB', 1.0, row); };
-      btnUS.onclick    = () => { setActiveAccent(row, 'en-US'); ns.speakText(textOf(), 'en-US', 1.0, row); };
-      btnSlow.onclick  = () => ns.speakText(textOf(), lastLangFor(row), 0.85, row);
+      btnUK.onclick    = () => { setActiveAccent(row, 'en-GB'); ns.speakText(textOf(), 'en-GB', DEFAULT_RATE, row); };
+      btnUS.onclick    = () => { setActiveAccent(row, 'en-US'); ns.speakText(textOf(), 'en-US', DEFAULT_RATE, row); };
+      btnSlow.onclick  = () => ns.speakText(textOf(), lastLangFor(row), SLOW_RATE, row);
       btnPause.onclick = () => ns.pauseSpeaking();
       btnStop.onclick  = () => ns.stopSpeaking();
 
