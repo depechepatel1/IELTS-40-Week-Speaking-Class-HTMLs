@@ -241,3 +241,94 @@ test('end-to-end: triple insertion the+next+day, becomes one insert with one che
   // The single gap-anchor contains the multi-word insertion
   assert.match(html, /<ins class="ins-above">the next<\/ins>/);
 });
+
+// === Case H: stem-change tests ===
+
+test('classifyPairs: stem-change tired → tiring (Case H)', () => {
+  const segs = [{ op: 'delete', word: 'tired' }, { op: 'insert', word: 'tiring' }];
+  const r = classifyPairs(segs);
+  assert.equal(r.length, 1);
+  assert.equal(r[0].op, 'stem-change');
+  assert.equal(r[0].kept, 'tir');
+  assert.equal(r[0].deleted, 'ed');
+  assert.equal(r[0].inserted, 'ing');
+});
+
+test('classifyPairs: stem-change heavy → heavily (Case H)', () => {
+  const segs = [{ op: 'delete', word: 'heavy' }, { op: 'insert', word: 'heavily' }];
+  const r = classifyPairs(segs);
+  assert.equal(r[0].op, 'stem-change');
+  assert.equal(r[0].kept, 'heav');
+  assert.equal(r[0].deleted, 'y');
+  assert.equal(r[0].inserted, 'ily');
+});
+
+test('classifyPairs: stem-change make → making (Case H)', () => {
+  const segs = [{ op: 'delete', word: 'make' }, { op: 'insert', word: 'making' }];
+  const r = classifyPairs(segs);
+  assert.equal(r[0].op, 'stem-change');
+  assert.equal(r[0].kept, 'mak');
+  assert.equal(r[0].deleted, 'e');
+  assert.equal(r[0].inserted, 'ing');
+});
+
+test('classifyPairs: stem-change writing → writes (Case H)', () => {
+  const segs = [{ op: 'delete', word: 'writing' }, { op: 'insert', word: 'writes' }];
+  const r = classifyPairs(segs);
+  assert.equal(r[0].op, 'stem-change');
+  assert.equal(r[0].kept, 'writ');
+  assert.equal(r[0].deleted, 'ing');
+  assert.equal(r[0].inserted, 'es');
+});
+
+test('classifyPairs: smooth → smoothly is suffix-add NOT stem-change (Case D wins, no strike)', () => {
+  // smooth → smoothly: y starts with x → already Case D, NO red ink at all
+  const segs = [{ op: 'delete', word: 'smooth' }, { op: 'insert', word: 'smoothly' }];
+  const r = classifyPairs(segs);
+  assert.equal(r[0].op, 'suffix-add');
+  assert.equal(r[0].kept, 'smooth');
+  assert.equal(r[0].added, 'ly');
+});
+
+test('classifyPairs: good → well is replace NOT stem-change (LCP=0, < 3 threshold)', () => {
+  const segs = [{ op: 'delete', word: 'good' }, { op: 'insert', word: 'well' }];
+  const r = classifyPairs(segs);
+  assert.equal(r[0].op, 'replace');
+});
+
+test('classifyPairs: use → using is replace NOT stem-change (LCP=2, < 3 threshold)', () => {
+  // "us" is only 2 chars common — below the threshold; stays as full replace
+  // (acceptable tradeoff: rules out false positives like good→god)
+  const segs = [{ op: 'delete', word: 'use' }, { op: 'insert', word: 'using' }];
+  const r = classifyPairs(segs);
+  assert.equal(r[0].op, 'replace');
+});
+
+test('classifyPairs: category → catastrophic is replace NOT stem-change (tail too long)', () => {
+  // LCP="cat" (3), but yTail="astrophic" (9) > 5 — not a word-form change
+  const segs = [{ op: 'delete', word: 'category' }, { op: 'insert', word: 'catastrophic' }];
+  const r = classifyPairs(segs);
+  assert.equal(r[0].op, 'replace');
+});
+
+test('renderMarkup: stem-change renders kept stem + .stem-change-pair span', () => {
+  const html = renderMarkup([{ op: 'stem-change', kept: 'tir', deleted: 'ed', inserted: 'ing' }]);
+  assert.match(html, /tir<span class="stem-change-pair"><del class="del-suffix">ed<\/del><ins class="ins-above">ing<\/ins><\/span>/);
+});
+
+test('end-to-end: tired → tiring renders as stem-change (no replace-pair, no chevron)', () => {
+  const segs = wordDiff('I am tired', 'I am tiring');
+  const coalesced = coalesceAdjacentSameOp(segs);
+  const classified = classifyPairs(coalesced);
+  const html = renderMarkup(classified);
+  assert.match(html, /tir<span class="stem-change-pair"><del class="del-suffix">ed<\/del><ins class="ins-above">ing<\/ins><\/span>/);
+  assert.equal(html.includes('replace-pair'), false);
+  assert.equal(html.includes('gap-anchor'), false);
+});
+
+test('end-to-end: heavy → heavily renders as stem-change', () => {
+  const segs = wordDiff('the box is heavy', 'the box is heavily');
+  const classified = classifyPairs(coalesceAdjacentSameOp(segs));
+  const html = renderMarkup(classified);
+  assert.match(html, /heav<span class="stem-change-pair"><del class="del-suffix">y<\/del><ins class="ins-above">ily<\/ins><\/span>/);
+});

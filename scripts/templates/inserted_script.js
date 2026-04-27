@@ -416,6 +416,14 @@
     return out;
   }
 
+  // Longest common prefix of two strings (case-sensitive). Used by Case H
+  // (stem-change) to detect word-form transformations like tired→tiring.
+  function longestCommonPrefix(a, b) {
+    let i = 0;
+    while (i < a.length && i < b.length && a[i] === b[i]) i++;
+    return a.slice(0, i);
+  }
+
   function classifyPairs(segs) {
     const out = [];
     let i = 0;
@@ -435,7 +443,17 @@
           // G. prefix-delete — ago → go
           out.push({ op: 'prefix-delete', deleted: x.slice(0, x.length - y.length), kept: y });
         } else {
-          out.push({ op: 'replace', deleted: x, inserted: y });
+          const lcp = longestCommonPrefix(x, y);
+          const xTail = x.slice(lcp.length);
+          const yTail = y.slice(lcp.length);
+          if (lcp.length >= 3
+              && xTail.length >= 1 && xTail.length <= 5
+              && yTail.length >= 1 && yTail.length <= 5) {
+            // H. stem-change — tired→tiring, heavy→heavily, make→making
+            out.push({ op: 'stem-change', kept: lcp, deleted: xTail, inserted: yTail });
+          } else {
+            out.push({ op: 'replace', deleted: x, inserted: y });
+          }
         }
         i += 2;
       } else {
@@ -471,6 +489,8 @@
           parts.push(`${space}${escHtml(seg.kept)}<del class="del-suffix">${escHtml(seg.deleted)}</del>`); break;
         case 'prefix-delete':
           parts.push(`${space}<del class="del-prefix">${escHtml(seg.deleted)}</del>${escHtml(seg.kept)}`); break;
+        case 'stem-change':
+          parts.push(`${space}${escHtml(seg.kept)}<span class="stem-change-pair"><del class="del-suffix">${escHtml(seg.deleted)}</del><ins class="ins-above">${escHtml(seg.inserted)}</ins></span>`); break;
       }
     });
     return parts.join('');

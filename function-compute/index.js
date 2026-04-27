@@ -23,12 +23,42 @@ Fix:
 - Wrong word choice ONLY when a word is genuinely incorrect (mistranslation,
   wrong sense, non-existent word)
 
+Word-form preference: when fixing a word form, prefer the correction that
+shares the most letters with the student's original word. For example:
+"tired" used as adjective → "tiring" (NOT "exhausting"); "smooth" used
+adverbially → "smoothly" (NOT "in a smooth manner"); "heavy" used
+adverbially → "heavily" (NOT "intensely"). Stem-preserving corrections
+look like minimal teacher edits.
+
 Do NOT:
 - Replace words that are already correct, even if simple or basic
 - Add new ideas, examples, details, opinions, or sentences not in the student's draft
 - Delete the student's ideas
 - Restructure sentences unless grammar requires it
-- Change length by more than 10 words from the student's original
+- Change length by more than 20 words from the student's original
+
+Two STRUCTURAL requirements every corrected draft must satisfy. If the
+student's draft already meets a requirement, leave it untouched.
+
+1. AT LEAST ONE complex sentence with a subordinating conjunction OTHER
+   than "because". If the corrected draft has none, JOIN two adjacent
+   simple sentences (with a logical relationship) by:
+     - Replace the period+space between them with ", " + the most fitting
+       subordinating conjunction from this list + " ":
+       while, although, even though, since, after, as soon as, before,
+       until, whenever, if, even if, unless, provided that, so that,
+       in order that, in order to
+     - Lowercase the first letter of the second sentence after the join
+   DO NOT rewrite the sentences themselves. Only the period→conjunction
+   substitution + lowercasing.
+
+2. AT LEAST TWO transition phrases (e.g. "However,", "In addition,",
+   "Therefore,", "For example,", "Moreover,", "Finally,", "In conclusion,",
+   "Nevertheless,", "As a result,", "Meanwhile,", "On the other hand,").
+   If the corrected draft has fewer than 2, prepend a fitting transition
+   to the start of a suitable existing sentence — format: "Transition, "
+   followed by the lowercased first letter of that sentence.
+   DO NOT rewrite the sentence itself. Only insert at sentence starts.
 
 Return ONLY the corrected text as plain prose. No preamble, no markdown,
 no commentary, no quotes, no bullet points.`;

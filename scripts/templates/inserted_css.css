@@ -248,6 +248,18 @@
     line-height: 1;
 }
 
+/* H. stem-change — wraps the struck tail + above-line correction so the
+   .ins-above can absolute-position centered over the strike (NOT over the
+   kept stem prefix, which sits to the left in normal flow as plain text).
+   Same `display:inline-block; position:relative; line-height:1` recipe as
+   .replace-pair so the absolute child centers naturally. */
+.draft-markup .stem-change-pair {
+    display: inline-block;
+    position: relative;
+    vertical-align: baseline;
+    line-height: 1;
+}
+
 /* Red caret rendered inline — marks the insertion point on the writing
    line. The `^` glyph sits high in its em box by default (its base at
    roughly cap-height, not baseline), so we push it down 6px so the
