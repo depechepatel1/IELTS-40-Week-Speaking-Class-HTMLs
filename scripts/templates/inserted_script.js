@@ -274,10 +274,10 @@
     const span = document.getElementById('word-count');
     if (!draft || !span) return;
     const n = draft.value.trim().split(/\s+/).filter(Boolean).length;
-    span.textContent = `${n} / 50–150`;
+    span.textContent = `${n} / 50–300`;
     span.classList.remove('short', 'ok', 'long');
     if (n < 50) span.classList.add('short');
-    else if (n <= 150) span.classList.add('ok');
+    else if (n <= 300) span.classList.add('ok');
     else span.classList.add('long');
   };
 
@@ -504,8 +504,8 @@
       setStatus(`请至少写 50 个词 / Please write at least 50 words. (Currently ${n})`, 'error');
       return;
     }
-    if (n > 150) {
-      setStatus(`请控制在 150 个词以内 / Please keep it under 150 words. (Currently ${n})`, 'error');
+    if (n > 300) {
+      setStatus(`请控制在 300 个词以内 / Please keep it under 300 words. (Currently ${n})`, 'error');
       return;
     }
 
