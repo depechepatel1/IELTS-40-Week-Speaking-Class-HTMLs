@@ -577,11 +577,26 @@
     min-width: 32px !important;
     font-size: 0.85em !important;
 }
-.spider-container .voice-recorder-container.vr-inline {
+/* The map recorder is now a SIBLING of .spider-container (both children of
+   the parent .card), so it anchors to the card's top-right via :has(). The
+   :has() selector is supported in all evergreen browsers (Chrome 105+,
+   Safari 15.4+, Firefox 121+) — same compatibility floor we already require
+   for the rest of the AI-interactive layer. */
+.card:has(> .voice-recorder-container.vr-inline) {
+    position: relative;
+}
+.card > .voice-recorder-container.vr-inline {
     top: 4px;
     right: 4px;
 }
-.q-write-host .voice-recorder-container.vr-inline {
+
+/* The Q1-Q6 recorder is a SIBLING of .q-write-host (both children of the
+   inner green writing window), so it anchors to the green window's
+   bottom-right corner without competing with the textarea's `inset: 0`. */
+*:has(> .q-write-host) {
+    position: relative;
+}
+*:has(> .q-write-host) > .voice-recorder-container.vr-inline {
     bottom: 4px;
     right: 4px;
 }
@@ -596,6 +611,30 @@
     cursor: text;
     -webkit-user-select: text;
     user-select: text;
+
+    /* Make each quadrant scroll its OWN content rather than overflowing
+       past the spider-container border. The leg already has
+       `display:flex; flex-direction:column; justify-content:center` —
+       we override justify-content to flex-start so when content
+       overflows, the scrollbar appears from the top of the box (not from
+       a vertically-centered overflow that would clip both ends).
+       `min-height: 0` is critical: without it, flex/grid auto-sizing
+       lets the leg expand to fit content rather than honouring the
+       parent grid row's bounded height, which kills scrolling. */
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+    justify-content: flex-start;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+/* Bound the spider grid rows so each .spider-leg gets a fixed slice of
+   the 160px container — without this the implicit rows auto-size to
+   content and a leg with lots of text just pushes the others smaller,
+   defeating the per-leg scroll. */
+.spider-legs:has(.spider-leg[contenteditable="plaintext-only"]) {
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
 }
 .spider-leg[contenteditable="plaintext-only"]:focus {
     outline: 2px dashed #3498db;
@@ -641,4 +680,44 @@
 @media print {
     .q-write-host > .lines { display: block !important; }
     .q-write-textarea { display: none !important; }
+}
+
+/* === Horizontal scaffold-text bullets above Q1-Q6 writing windows ===
+ * In the original lesson HTML, scaffold-text is a stacked <ul> taking 3
+ * vertical lines (one per cue word). Inside Q1-Q6 cards we have very
+ * little vertical real estate, so the cues should run horizontally on a
+ * single line. We scope this rule to scaffold-text that's a sibling of a
+ * .q-write-host (i.e. inside a Q1-Q6 writing card), leaving non-Q
+ * scaffold-text usage untouched. */
+ul.scaffold-text:has(~ .q-write-host) {
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 14px;
+    margin: 0 0 4px 0;
+    padding: 0;
+    list-style: none;
+}
+ul.scaffold-text:has(~ .q-write-host) li {
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.2;
+}
+ul.scaffold-text:has(~ .q-write-host) li::before {
+    content: "•";
+    color: #999;
+    margin-right: 4px;
+}
+
+/* === Q6: 20px taller to fill the trailing whitespace at the page bottom ===
+ * Q4-Q6 are siblings each with `flex:1` (=> flex: 1 1 0%) sharing the
+ * page-bottom region equally. Bumping Q6's flex-basis from 0% to 20px
+ * means Q6 starts 20px ahead before the 1:1:1 grow-share, so its final
+ * height is +20px relative to Q4/Q5 — exactly the requested adjustment.
+ * `!important` is needed to beat the inline `style="flex:1;..."` on the
+ * card (inline-style specificity is higher than a regular class rule). */
+.card.compact:has([data-q-id="q6"]) {
+    flex-basis: 20px !important;
 }

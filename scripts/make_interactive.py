@@ -175,9 +175,13 @@ def insertion_3_script(html: str, endpoint: str, bucket_base: str, lesson_key: s
 SPIDER_LEG_OPEN_RE = re.compile(
     r'(<div class="spider-leg")(\s|>)',
 )
-# Each <div class="spider-container"> gets a small recorder widget at top-right.
-# The widget is absolute-positioned, so injection point is right inside the
-# container (anywhere works visually). We inject at the END of the opening tag.
+# Each <div class="spider-container"> gets a small recorder widget at top-right
+# of the PARENT card (not inside the spider-container itself, since the spider
+# layout is a fixed-aspect grid that would clip absolute children at its top).
+# We inject the widget as a SIBLING immediately BEFORE the spider-container
+# opening tag — the parent card's `:has(> .voice-recorder-container.vr-inline)`
+# CSS rule promotes that card to `position: relative` so the recorder anchors
+# to the card's top-right corner.
 SPIDER_CONTAINER_OPEN_RE = re.compile(
     r'(<div class="spider-container"[^>]*>)',
 )
@@ -209,7 +213,10 @@ def insertion_4_brainstorming_maps(html: str) -> str:
         map_counter["n"] += 1
         recorder_id = f"map-{map_counter['n']}"
         widget = inline_template.replace("__RECORDER_ID__", recorder_id, 1)
-        return m.group(1) + "\n" + widget
+        # Inject BEFORE the spider-container opening tag so the recorder is a
+        # sibling (anchored to the parent card's top-right via CSS), NOT a
+        # child of the fixed-aspect spider grid which would clip it.
+        return widget + "\n" + m.group(1)
 
     new_html, _ = SPIDER_CONTAINER_OPEN_RE.subn(inject_map_recorder, new_html)
     return new_html
@@ -220,10 +227,14 @@ def insertion_4_brainstorming_maps(html: str) -> str:
 # Each <h3>QN: ...</h3> heading marks a Q1..Q6 writing-box card. Inside that
 # card is a single empty `<div class="lines" ...></div>`. We replace it with:
 #   <div class="q-write-host">
-#     <textarea class="q-write-textarea" data-q-id="qN" placeholder="..."></textarea>
+#     <textarea class="q-write-textarea" data-q-id="qN"></textarea>
 #     <ORIGINAL .lines></ORIGINAL>     <!-- preserved for print fallback -->
-#     <recorder widget data-recorder-id="qN" />
 #   </div>
+#   <recorder widget data-recorder-id="qN" />   <!-- SIBLING, not child -->
+# The recorder sits OUTSIDE .q-write-host so it can be absolute-positioned
+# against the parent green writing window's bottom-right corner without
+# fighting the textarea's `top:0; bottom:0` fill. The parent gains
+# `position: relative` via the CSS `:has(> .q-write-host)` rule.
 # Use a non-greedy regex that captures from the QN heading to the next .lines
 # div within the same card.
 Q_WRITE_RE = re.compile(
@@ -249,13 +260,16 @@ def insertion_5_q_writing(html: str) -> str:
         orig_lines = m.group(4)
         recorder_id = f"q{n}"
         recorder = inline_template.replace("__RECORDER_ID__", recorder_id, 1)
+        # Recorder is a SIBLING of .q-write-host (both children of the green
+        # writing-window card) so the textarea can fill .q-write-host without
+        # clashing with the recorder's bottom-right anchor.
         host = (
             f'<div class="q-write-host">\n'
             f'  <textarea class="q-write-textarea" data-q-id="{recorder_id}" '
-            f'placeholder="Type or scribble your answer here…" spellcheck="false"></textarea>\n'
+            f'spellcheck="false"></textarea>\n'
             f'  {orig_lines}\n'
-            f'  {recorder}\n'
-            f'</div>'
+            f'</div>\n'
+            f'{recorder}'
         )
         return f'{head}{between}{host}'
 
