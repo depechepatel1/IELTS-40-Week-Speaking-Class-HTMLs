@@ -596,7 +596,10 @@
     if (!badge) return;
     try {
       const ctrl = new AbortController();
-      const t = setTimeout(() => ctrl.abort(), 3000);
+      // 8s — Aliyun FC cold-start can take 4-6s on first request; the prior
+      // 3s timeout was firing the AbortController during cold-start and
+      // showing a false "AI offline" badge to the user.
+      const t = setTimeout(() => ctrl.abort(), 8000);
       await fetch(AI_ENDPOINT.replace(/\/$/, '') + '/health', { signal: ctrl.signal });
       clearTimeout(t);
       badge.hidden = true;

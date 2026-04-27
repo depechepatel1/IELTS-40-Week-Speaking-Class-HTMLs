@@ -11,7 +11,7 @@ const CORS_HEADERS = {
 const ZHIPU_MODEL_ID = process.env.ZHIPU_MODEL_ID || 'glm-4.7-flash';
 const ZHIPU_URL = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
 const SYSTEM_PROMPT = `You are a careful English teacher correcting a 14-16 year old Chinese student's
-short written answer (50-150 words) for an IELTS speaking lesson.
+short written answer (50-300 words) for an IELTS speaking lesson.
 
 Make the MINIMUM changes needed for the writing to be grammatically correct and
 to use words correctly. Your job is correction, not enhancement.
@@ -188,9 +188,9 @@ export async function processRequest({ method, path, headers, body, clientIP }) 
       error: `请至少写 50 个词 / Please write at least 50 words. (Currently ${n})`
     });
   }
-  if (n > 150) {
+  if (n > 300) {
     return respond(400, {
-      error: `请控制在 150 个词以内 / Please keep it under 150 words. (Currently ${n})`
+      error: `请控制在 300 个词以内 / Please keep it under 300 words. (Currently ${n})`
     });
   }
 
