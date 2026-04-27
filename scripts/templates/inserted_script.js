@@ -21,6 +21,13 @@
   const FEMALE_NEURAL_US = /Aria|Jenny|Ana|Michelle|Emma|Samantha|Allison|Ava|Joanna|Salli|Kendra|Kimberly|Ivy|Nora|Susan.*US|Zira/i;
   const MALE_NEURAL_US   = /Guy|Tony|Jason|Eric|Davis|Alex|Aaron|Brandon|Steffan|Roger/i;
 
+  // Speech rates. Tuned for Chinese L2 listeners — 0.85 is the comfortable
+  // default (matches what was previously the "slow" button rate); 0.72 is
+  // the new "slow" — about 15% slower than the new default, useful when a
+  // student wants to copy pronunciation word-by-word.
+  const DEFAULT_RATE = 0.85;
+  const SLOW_RATE    = 0.72;
+
   // Score-based picker: prefers high-quality engines (Edge "Online (Natural)",
   // Google network voices, macOS Premium/Enhanced) over legacy local voices.
   // Without scoring, browsers like Chrome on Windows often surface the older
@@ -186,13 +193,13 @@
     const row = document.getElementById('polished-listen-row');
     if (which === 'en-GB' || which === 'en-US') {
       setActiveAccent(row, which);
-      ns.speakElementById('polished-output', which, 1.0);
+      ns.speakElementById('polished-output', which, DEFAULT_RATE);
     } else if (which === 'slow') {
-      ns.speakElementById('polished-output', lastLangFor(row), 0.85);
+      ns.speakElementById('polished-output', lastLangFor(row), SLOW_RATE);
     }
   };
 
-  ns.speakText = function (text, lang = 'en-GB', rate = 1.0, sourceRow = null) {
+  ns.speakText = function (text, lang = 'en-GB', rate = DEFAULT_RATE, sourceRow = null) {
     // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
     if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
     if (!('speechSynthesis' in window)) return;
@@ -211,7 +218,7 @@
   };
 
   // Wraps each word in <span> for karaoke highlighting on `boundary` events.
-  ns.speakElement = function (el, lang = 'en-GB', rate = 1.0) {
+  ns.speakElement = function (el, lang = 'en-GB', rate = DEFAULT_RATE) {
     // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
     if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
     if (!('speechSynthesis' in window)) return;
@@ -253,7 +260,7 @@
     _speakFromOffset(0);
   };
 
-  ns.speakElementById = function (id, lang = 'en-GB', rate = 1.0) {
+  ns.speakElementById = function (id, lang = 'en-GB', rate = DEFAULT_RATE) {
     const el = document.getElementById(id);
     if (el) ns.speakElement(el, lang, rate);
   };
@@ -696,9 +703,9 @@
       // Default accent is UK (matches the .active class in markup above).
       _lastLangByRow.set(row, 'en-GB');
 
-      btnUK.onclick    = () => { setActiveAccent(row, 'en-GB'); ns.speakText(textOf(), 'en-GB', 1.0, row); };
-      btnUS.onclick    = () => { setActiveAccent(row, 'en-US'); ns.speakText(textOf(), 'en-US', 1.0, row); };
-      btnSlow.onclick  = () => ns.speakText(textOf(), lastLangFor(row), 0.85, row);
+      btnUK.onclick    = () => { setActiveAccent(row, 'en-GB'); ns.speakText(textOf(), 'en-GB', DEFAULT_RATE, row); };
+      btnUS.onclick    = () => { setActiveAccent(row, 'en-US'); ns.speakText(textOf(), 'en-US', DEFAULT_RATE, row); };
+      btnSlow.onclick  = () => ns.speakText(textOf(), lastLangFor(row), SLOW_RATE, row);
       btnPause.onclick = () => ns.pauseSpeaking();
       btnStop.onclick  = () => ns.stopSpeaking();
 
