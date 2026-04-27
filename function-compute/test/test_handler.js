@@ -102,13 +102,13 @@ test('POST with too-short draft (5 words) returns 400 with bilingual min message
   assert.match(body.error, /Currently 5/);
 });
 
-test('POST with too-long draft (200 words) returns 400 with bilingual max message', async () => {
-  const longDraft = 'word '.repeat(200).trim();
+test('POST with too-long draft (350 words) returns 400 with bilingual max message', async () => {
+  const longDraft = 'word '.repeat(350).trim();
   const res = await handler(ev('POST', '/', { draft: longDraft }));
   assert.equal(res.statusCode, 400);
   const body = JSON.parse(res.body);
-  assert.match(body.error, /150 个词以内/);
-  assert.match(body.error, /under 150 words/i);
+  assert.match(body.error, /300 个词以内/);
+  assert.match(body.error, /under 300 words/i);
 });
 
 test('a 49-word draft is rejected', async () => {
@@ -117,20 +117,20 @@ test('a 49-word draft is rejected', async () => {
   assert.equal(res.statusCode, 400);
 });
 
-test('a 150-word draft is accepted (boundary, passes validation)', async () => {
+test('a 300-word draft is accepted (boundary, passes validation)', async () => {
   __resetRateLimit();
   __setZhipuFetcher(async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content: 'ok' } }] }) }));
-  const exactly150 = 'word '.repeat(150).trim();
-  const res = await handler(ev('POST', '/', { draft: exactly150 }));
+  const exactly300 = 'word '.repeat(300).trim();
+  const res = await handler(ev('POST', '/', { draft: exactly300 }));
   __resetZhipuFetcher();
   assert.equal(res.statusCode, 200);
 });
 
-test('a 151-word draft is rejected (boundary)', async () => {
+test('a 301-word draft is rejected (boundary)', async () => {
   __resetRateLimit();
-  const res = await handler(ev('POST', '/', { draft: 'word '.repeat(151).trim() }));
+  const res = await handler(ev('POST', '/', { draft: 'word '.repeat(301).trim() }));
   assert.equal(res.statusCode, 400);
-  assert.match(JSON.parse(res.body).error, /Currently 151/);
+  assert.match(JSON.parse(res.body).error, /Currently 301/);
 });
 
 test('rate limit: 30 reqs from same IP all OK in window', async () => {
