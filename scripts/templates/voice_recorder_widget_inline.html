@@ -1,0 +1,20 @@
+<!-- AI-INTERACTIVE-V1 inline voice-recorder widget — used for the
+     brainstorming-map (top-right) and Q1-Q6 writing boxes (bottom-right).
+     Each instance MUST have a unique data-recorder-id so its recordings
+     get their own IndexedDB key (LESSON_KEY:recorder-id) and don't get
+     mixed up with other widgets' recordings on the same page. The JS in
+     inserted_script.js wires the buttons via initVoiceRecorder().
+     Compared to the polished-section recorder, this inline form has:
+     no <span class="vr-label"> (saves horizontal space), and a smaller
+     overall footprint via the .vr-inline class. -->
+<div class="voice-recorder-container vr-inline" data-recorder-id="__RECORDER_ID__">
+  <div class="vr-controls">
+    <button class="vr-btn vr-record" title="Record / 录音">⏺</button>
+    <button class="vr-btn vr-pause"  title="Pause / 暂停"  hidden>⏸</button>
+    <button class="vr-btn vr-stop"   title="Stop / 停止"   hidden>⏹</button>
+    <button class="vr-btn vr-play"   title="Play / 播放"   hidden>▶</button>
+    <button class="vr-btn vr-delete" title="Re-record / 重录" hidden>🗑</button>
+  </div>
+  <span class="vr-time">--:--</span>
+  <audio></audio>
+</div>

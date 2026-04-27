@@ -817,6 +817,101 @@
     .voice-recorder-container { display: none !important; }
 }
 
+/* === Inline recorder (brainstorming maps + Q1-Q6 writing boxes) ===
+ * The .vr-inline variant is absolute-positioned over a corner of its
+ * parent (top-right for spider-containers, bottom-right for Q1-Q6 green
+ * inner boxes). It's smaller than the full polished-section recorder
+ * (no text label, tighter padding) so it doesn't crowd the content. */
+.voice-recorder-container.vr-inline {
+    position: absolute !important;
+    margin: 0 !important;
+    padding: 1px 3px !important;
+    background: rgba(255,255,255,0.92) !important;
+    border: 1px solid #d6dbdf !important;
+    border-radius: 6px !important;
+    z-index: 5;
+    width: auto !important;
+    gap: 3px !important;
+    font-size: 0.72em;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+.voice-recorder-container.vr-inline .vr-btn {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    flex: 0 0 18px !important;
+    font-size: 0.62em !important;
+}
+.voice-recorder-container.vr-inline .vr-time {
+    min-width: 32px !important;
+    font-size: 0.85em !important;
+}
+.spider-container .voice-recorder-container.vr-inline {
+    top: 4px;
+    right: 4px;
+}
+.q-write-host .voice-recorder-container.vr-inline {
+    bottom: 4px;
+    right: 4px;
+}
+
+/* === Brainstorming-map quadrant editing (.spider-leg becomes contenteditable) ===
+ * iPad Apple Pencil Scribble works in any contenteditable element in
+ * Safari, so making each quadrant editable gives students the option to
+ * either type with a keyboard or handwrite with the pencil. The
+ * `plaintext-only` value prevents formatting glitches (no inline bold,
+ * italics, etc., from accidental keystrokes). */
+.spider-leg[contenteditable="plaintext-only"] {
+    cursor: text;
+    -webkit-user-select: text;
+    user-select: text;
+}
+.spider-leg[contenteditable="plaintext-only"]:focus {
+    outline: 2px dashed #3498db;
+    outline-offset: -2px;
+}
+@media print {
+    .spider-leg[contenteditable] { outline: none !important; }
+}
+
+/* === Q1-Q6 writing windows: lined-paper textarea overlay ===
+ * Each Q's `.lines` div gets wrapped in a `.q-write-host` (positioning
+ * context for the textarea overlay AND for the inline recorder at
+ * bottom-right). The textarea fills the host via `inset: 0` and has the
+ * same handwriting-style ruled-paper background as the IGCSE Section 7+8
+ * (Caveat font, 32px stride, blue ink). iPad Scribble works in textarea
+ * too. */
+.q-write-host {
+    position: relative;
+    flex-grow: 1;
+    min-height: 90px;
+    overflow: hidden;
+}
+.q-write-host > .lines { display: none; }   /* hide the original print-only ruled lines */
+.q-write-textarea {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: 0;
+    padding: 4px 6px 4px 6px;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: 'Caveat', 'Bradley Hand', 'Comic Sans MS', cursive;
+    font-size: 22px;
+    color: #1a4d80;
+    line-height: 32px;
+    background: repeating-linear-gradient(transparent, transparent 31px, #95a5a6 32px);
+    background-attachment: local;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+@media print {
+    .q-write-host > .lines { display: block !important; }
+    .q-write-textarea { display: none !important; }
+}
+
 
 
     .diff-box {
@@ -1072,12 +1167,33 @@
 <h2>🧠 Brainstorming Map</h2>
 <div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a family member who you are proud of. You should say:</strong> <strong>Who</strong> this person is, <strong>When</strong> this happened, <strong>What</strong> this person did, <strong>And</strong> explain why you felt proud.</div>
 <div class="spider-container" style="height:180px;">
+<!-- AI-INTERACTIVE-V1 inline voice-recorder widget — used for the
+     brainstorming-map (top-right) and Q1-Q6 writing boxes (bottom-right).
+     Each instance MUST have a unique data-recorder-id so its recordings
+     get their own IndexedDB key (LESSON_KEY:recorder-id) and don't get
+     mixed up with other widgets' recordings on the same page. The JS in
+     inserted_script.js wires the buttons via initVoiceRecorder().
+     Compared to the polished-section recorder, this inline form has:
+     no <span class="vr-label"> (saves horizontal space), and a smaller
+     overall footprint via the .vr-inline class. -->
+<div class="voice-recorder-container vr-inline" data-recorder-id="map-1">
+  <div class="vr-controls">
+    <button class="vr-btn vr-record" title="Record / 录音">⏺</button>
+    <button class="vr-btn vr-pause"  title="Pause / 暂停"  hidden>⏸</button>
+    <button class="vr-btn vr-stop"   title="Stop / 停止"   hidden>⏹</button>
+    <button class="vr-btn vr-play"   title="Play / 播放"   hidden>▶</button>
+    <button class="vr-btn vr-delete" title="Re-record / 重录" hidden>🗑</button>
+  </div>
+  <span class="vr-time">--:--</span>
+  <audio></audio>
+</div>
+
 <div class="spider-center">Proud Family</div>
 <div class="spider-legs">
-<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Older sister</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Last month</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Graduated college</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Felt inspired</span></div>
+<div class="spider-leg" contenteditable="plaintext-only"><strong>1. WHO:</strong><br/><span style="color:#777;">Older sister</span></div>
+<div class="spider-leg" contenteditable="plaintext-only"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Last month</span></div>
+<div class="spider-leg" contenteditable="plaintext-only"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Graduated college</span></div>
+<div class="spider-leg" contenteditable="plaintext-only"><strong>4. FEELING:</strong><br/><span style="color:#777;">Felt inspired</span></div>
 </div>
 </div>
 </div>
@@ -1089,12 +1205,33 @@
 <h3>Part 2: Q2</h3>
 <div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a family member who has achieved something great. You should say:</strong> <strong>Who</strong> the person is, <strong>What</strong> the achievement was, <strong>How</strong> they achieved it, <strong>And</strong> explain how their achievement influenced you.</div>
 <div class="spider-container" style="flex-grow:1;">
+<!-- AI-INTERACTIVE-V1 inline voice-recorder widget — used for the
+     brainstorming-map (top-right) and Q1-Q6 writing boxes (bottom-right).
+     Each instance MUST have a unique data-recorder-id so its recordings
+     get their own IndexedDB key (LESSON_KEY:recorder-id) and don't get
+     mixed up with other widgets' recordings on the same page. The JS in
+     inserted_script.js wires the buttons via initVoiceRecorder().
+     Compared to the polished-section recorder, this inline form has:
+     no <span class="vr-label"> (saves horizontal space), and a smaller
+     overall footprint via the .vr-inline class. -->
+<div class="voice-recorder-container vr-inline" data-recorder-id="map-2">
+  <div class="vr-controls">
+    <button class="vr-btn vr-record" title="Record / 录音">⏺</button>
+    <button class="vr-btn vr-pause"  title="Pause / 暂停"  hidden>⏸</button>
+    <button class="vr-btn vr-stop"   title="Stop / 停止"   hidden>⏹</button>
+    <button class="vr-btn vr-play"   title="Play / 播放"   hidden>▶</button>
+    <button class="vr-btn vr-delete" title="Re-record / 重录" hidden>🗑</button>
+  </div>
+  <span class="vr-time">--:--</span>
+  <audio></audio>
+</div>
+
 <div class="spider-center">Great Achiever</div>
 <div class="spider-legs">
-<div class="spider-leg">Younger brother<div class="lines"></div></div>
-<div class="spider-leg">Won tournament<div class="lines"></div></div>
-<div class="spider-leg">Practiced daily<div class="lines"></div></div>
-<div class="spider-leg">Very proud<div class="lines"></div></div>
+<div class="spider-leg" contenteditable="plaintext-only">Younger brother<div class="lines"></div></div>
+<div class="spider-leg" contenteditable="plaintext-only">Won tournament<div class="lines"></div></div>
+<div class="spider-leg" contenteditable="plaintext-only">Practiced daily<div class="lines"></div></div>
+<div class="spider-leg" contenteditable="plaintext-only">Very proud<div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -1102,12 +1239,33 @@
 <h3>Part 2: Q3</h3>
 <div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a family member you admire for their personality. You should say:</strong> <strong>Who</strong> this person is, <strong>What</strong> kind of personality they have, <strong>How</strong> they treat others, <strong>And</strong> explain why you admire their character.</div>
 <div class="spider-container" style="flex-grow:1;">
+<!-- AI-INTERACTIVE-V1 inline voice-recorder widget — used for the
+     brainstorming-map (top-right) and Q1-Q6 writing boxes (bottom-right).
+     Each instance MUST have a unique data-recorder-id so its recordings
+     get their own IndexedDB key (LESSON_KEY:recorder-id) and don't get
+     mixed up with other widgets' recordings on the same page. The JS in
+     inserted_script.js wires the buttons via initVoiceRecorder().
+     Compared to the polished-section recorder, this inline form has:
+     no <span class="vr-label"> (saves horizontal space), and a smaller
+     overall footprint via the .vr-inline class. -->
+<div class="voice-recorder-container vr-inline" data-recorder-id="map-3">
+  <div class="vr-controls">
+    <button class="vr-btn vr-record" title="Record / 录音">⏺</button>
+    <button class="vr-btn vr-pause"  title="Pause / 暂停"  hidden>⏸</button>
+    <button class="vr-btn vr-stop"   title="Stop / 停止"   hidden>⏹</button>
+    <button class="vr-btn vr-play"   title="Play / 播放"   hidden>▶</button>
+    <button class="vr-btn vr-delete" title="Re-record / 重录" hidden>🗑</button>
+  </div>
+  <span class="vr-time">--:--</span>
+  <audio></audio>
+</div>
+
 <div class="spider-center">Admired Character</div>
 <div class="spider-legs">
-<div class="spider-leg">My father<div class="lines"></div></div>
-<div class="spider-leg">Very humorous<div class="lines"></div></div>
-<div class="spider-leg">Makes jokes<div class="lines"></div></div>
-<div class="spider-leg">Reduces stress<div class="lines"></div></div>
+<div class="spider-leg" contenteditable="plaintext-only">My father<div class="lines"></div></div>
+<div class="spider-leg" contenteditable="plaintext-only">Very humorous<div class="lines"></div></div>
+<div class="spider-leg" contenteditable="plaintext-only">Makes jokes<div class="lines"></div></div>
+<div class="spider-leg" contenteditable="plaintext-only">Reduces stress<div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -1216,7 +1374,31 @@
 <div style="margin-top:5px; border:1px solid #ddd; padding:10px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column;">
 <ul class="scaffold-text"><li>Help with chores</li><li>Shows great maturity</li><li>Washing the dishes</li></ul>
 <span class="write-prompt">Write your answer (Use O.R.E.):</span>
-<div class="lines" style="height:auto; flex-grow:1;"></div>
+<div class="q-write-host">
+  <textarea class="q-write-textarea" data-q-id="q1" placeholder="Type or scribble your answer here…" spellcheck="false"></textarea>
+  <div class="lines" style="height:auto; flex-grow:1;"></div>
+  <!-- AI-INTERACTIVE-V1 inline voice-recorder widget — used for the
+     brainstorming-map (top-right) and Q1-Q6 writing boxes (bottom-right).
+     Each instance MUST have a unique data-recorder-id so its recordings
+     get their own IndexedDB key (LESSON_KEY:recorder-id) and don't get
+     mixed up with other widgets' recordings on the same page. The JS in
+     inserted_script.js wires the buttons via initVoiceRecorder().
+     Compared to the polished-section recorder, this inline form has:
+     no <span class="vr-label"> (saves horizontal space), and a smaller
+     overall footprint via the .vr-inline class. -->
+<div class="voice-recorder-container vr-inline" data-recorder-id="q1">
+  <div class="vr-controls">
+    <button class="vr-btn vr-record" title="Record / 录音">⏺</button>
+    <button class="vr-btn vr-pause"  title="Pause / 暂停"  hidden>⏸</button>
+    <button class="vr-btn vr-stop"   title="Stop / 停止"   hidden>⏹</button>
+    <button class="vr-btn vr-play"   title="Play / 播放"   hidden>▶</button>
+    <button class="vr-btn vr-delete" title="Re-record / 重录" hidden>🗑</button>
+  </div>
+  <span class="vr-time">--:--</span>
+  <audio></audio>
+</div>
+
+</div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'When did you make your parents proud?'</div>
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Is getting good grades the only way to make parents proud?'</div>
@@ -1239,7 +1421,31 @@
 <div style="margin-top:10px; border:1px solid #ddd; padding:10px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column;">
 <ul class="scaffold-text"><li>Won sports medal</li><li>Required hard training</li><li>Swimming competition victory</li></ul>
 <span class="write-prompt">Write your answer (Use O.R.E.):</span>
-<div class="lines" style="height:100%; flex-grow:1;"></div>
+<div class="q-write-host">
+  <textarea class="q-write-textarea" data-q-id="q2" placeholder="Type or scribble your answer here…" spellcheck="false"></textarea>
+  <div class="lines" style="height:100%; flex-grow:1;"></div>
+  <!-- AI-INTERACTIVE-V1 inline voice-recorder widget — used for the
+     brainstorming-map (top-right) and Q1-Q6 writing boxes (bottom-right).
+     Each instance MUST have a unique data-recorder-id so its recordings
+     get their own IndexedDB key (LESSON_KEY:recorder-id) and don't get
+     mixed up with other widgets' recordings on the same page. The JS in
+     inserted_script.js wires the buttons via initVoiceRecorder().
+     Compared to the polished-section recorder, this inline form has:
+     no <span class="vr-label"> (saves horizontal space), and a smaller
+     overall footprint via the .vr-inline class. -->
+<div class="voice-recorder-container vr-inline" data-recorder-id="q2">
+  <div class="vr-controls">
+    <button class="vr-btn vr-record" title="Record / 录音">⏺</button>
+    <button class="vr-btn vr-pause"  title="Pause / 暂停"  hidden>⏸</button>
+    <button class="vr-btn vr-stop"   title="Stop / 停止"   hidden>⏹</button>
+    <button class="vr-btn vr-play"   title="Play / 播放"   hidden>▶</button>
+    <button class="vr-btn vr-delete" title="Re-record / 重录" hidden>🗑</button>
+  </div>
+  <span class="vr-time">--:--</span>
+  <audio></audio>
+</div>
+
+</div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How did your parents show they were proud?'</div>
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Does praise make children more confident?'</div>
@@ -1256,7 +1462,31 @@
 <div style="margin-top:10px; border:1px solid #ddd; padding:10px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column;">
 <ul class="scaffold-text"><li>Fast language learner</li><li>Opens career paths</li><li>Passing English exams</li></ul>
 <span class="write-prompt">Write your answer (Use O.R.E.):</span>
-<div class="lines" style="height:100%; flex-grow:1;"></div><div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
+<div class="q-write-host">
+  <textarea class="q-write-textarea" data-q-id="q3" placeholder="Type or scribble your answer here…" spellcheck="false"></textarea>
+  <div class="lines" style="height:100%; flex-grow:1;"></div>
+  <!-- AI-INTERACTIVE-V1 inline voice-recorder widget — used for the
+     brainstorming-map (top-right) and Q1-Q6 writing boxes (bottom-right).
+     Each instance MUST have a unique data-recorder-id so its recordings
+     get their own IndexedDB key (LESSON_KEY:recorder-id) and don't get
+     mixed up with other widgets' recordings on the same page. The JS in
+     inserted_script.js wires the buttons via initVoiceRecorder().
+     Compared to the polished-section recorder, this inline form has:
+     no <span class="vr-label"> (saves horizontal space), and a smaller
+     overall footprint via the .vr-inline class. -->
+<div class="voice-recorder-container vr-inline" data-recorder-id="q3">
+  <div class="vr-controls">
+    <button class="vr-btn vr-record" title="Record / 录音">⏺</button>
+    <button class="vr-btn vr-pause"  title="Pause / 暂停"  hidden>⏸</button>
+    <button class="vr-btn vr-stop"   title="Stop / 停止"   hidden>⏹</button>
+    <button class="vr-btn vr-play"   title="Play / 播放"   hidden>▶</button>
+    <button class="vr-btn vr-delete" title="Re-record / 重录" hidden>🗑</button>
+  </div>
+  <span class="vr-time">--:--</span>
+  <audio></audio>
+</div>
+
+</div><div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does this help you every day?'</div>
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Is it bad to be too proud of yourself?'</div>
 </div></div>
@@ -1278,7 +1508,31 @@
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
 <ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
-<div class="lines" style="height:100%;"></div>
+<div class="q-write-host">
+  <textarea class="q-write-textarea" data-q-id="q4" placeholder="Type or scribble your answer here…" spellcheck="false"></textarea>
+  <div class="lines" style="height:100%;"></div>
+  <!-- AI-INTERACTIVE-V1 inline voice-recorder widget — used for the
+     brainstorming-map (top-right) and Q1-Q6 writing boxes (bottom-right).
+     Each instance MUST have a unique data-recorder-id so its recordings
+     get their own IndexedDB key (LESSON_KEY:recorder-id) and don't get
+     mixed up with other widgets' recordings on the same page. The JS in
+     inserted_script.js wires the buttons via initVoiceRecorder().
+     Compared to the polished-section recorder, this inline form has:
+     no <span class="vr-label"> (saves horizontal space), and a smaller
+     overall footprint via the .vr-inline class. -->
+<div class="voice-recorder-container vr-inline" data-recorder-id="q4">
+  <div class="vr-controls">
+    <button class="vr-btn vr-record" title="Record / 录音">⏺</button>
+    <button class="vr-btn vr-pause"  title="Pause / 暂停"  hidden>⏸</button>
+    <button class="vr-btn vr-stop"   title="Stop / 停止"   hidden>⏹</button>
+    <button class="vr-btn vr-play"   title="Play / 播放"   hidden>▶</button>
+    <button class="vr-btn vr-delete" title="Re-record / 重录" hidden>🗑</button>
+  </div>
+  <span class="vr-time">--:--</span>
+  <audio></audio>
+</div>
+
+</div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
@@ -1291,7 +1545,31 @@
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
 <ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
-<div class="lines" style="height:100%;"></div>
+<div class="q-write-host">
+  <textarea class="q-write-textarea" data-q-id="q5" placeholder="Type or scribble your answer here…" spellcheck="false"></textarea>
+  <div class="lines" style="height:100%;"></div>
+  <!-- AI-INTERACTIVE-V1 inline voice-recorder widget — used for the
+     brainstorming-map (top-right) and Q1-Q6 writing boxes (bottom-right).
+     Each instance MUST have a unique data-recorder-id so its recordings
+     get their own IndexedDB key (LESSON_KEY:recorder-id) and don't get
+     mixed up with other widgets' recordings on the same page. The JS in
+     inserted_script.js wires the buttons via initVoiceRecorder().
+     Compared to the polished-section recorder, this inline form has:
+     no <span class="vr-label"> (saves horizontal space), and a smaller
+     overall footprint via the .vr-inline class. -->
+<div class="voice-recorder-container vr-inline" data-recorder-id="q5">
+  <div class="vr-controls">
+    <button class="vr-btn vr-record" title="Record / 录音">⏺</button>
+    <button class="vr-btn vr-pause"  title="Pause / 暂停"  hidden>⏸</button>
+    <button class="vr-btn vr-stop"   title="Stop / 停止"   hidden>⏹</button>
+    <button class="vr-btn vr-play"   title="Play / 播放"   hidden>▶</button>
+    <button class="vr-btn vr-delete" title="Re-record / 重录" hidden>🗑</button>
+  </div>
+  <span class="vr-time">--:--</span>
+  <audio></audio>
+</div>
+
+</div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
@@ -1304,7 +1582,31 @@
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
 <ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
-<div class="lines" style="height:100%;"></div>
+<div class="q-write-host">
+  <textarea class="q-write-textarea" data-q-id="q6" placeholder="Type or scribble your answer here…" spellcheck="false"></textarea>
+  <div class="lines" style="height:100%;"></div>
+  <!-- AI-INTERACTIVE-V1 inline voice-recorder widget — used for the
+     brainstorming-map (top-right) and Q1-Q6 writing boxes (bottom-right).
+     Each instance MUST have a unique data-recorder-id so its recordings
+     get their own IndexedDB key (LESSON_KEY:recorder-id) and don't get
+     mixed up with other widgets' recordings on the same page. The JS in
+     inserted_script.js wires the buttons via initVoiceRecorder().
+     Compared to the polished-section recorder, this inline form has:
+     no <span class="vr-label"> (saves horizontal space), and a smaller
+     overall footprint via the .vr-inline class. -->
+<div class="voice-recorder-container vr-inline" data-recorder-id="q6">
+  <div class="vr-controls">
+    <button class="vr-btn vr-record" title="Record / 录音">⏺</button>
+    <button class="vr-btn vr-pause"  title="Pause / 暂停"  hidden>⏸</button>
+    <button class="vr-btn vr-stop"   title="Stop / 停止"   hidden>⏹</button>
+    <button class="vr-btn vr-play"   title="Play / 播放"   hidden>▶</button>
+    <button class="vr-btn vr-delete" title="Re-record / 重录" hidden>🗑</button>
+  </div>
+  <span class="vr-time">--:--</span>
+  <audio></audio>
+</div>
+
+</div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
@@ -1490,7 +1792,7 @@
      Polished Rewrite pastel box. JS in inserted_script.js wires the buttons
      (record/pause/stop/play/re-record), persists Blob to IndexedDB keyed by
      lesson, 3-min hard cap. -->
-<div class="voice-recorder-container">
+<div class="voice-recorder-container" data-recorder-id="polished">
   <div class="vr-controls">
     <button class="vr-btn vr-record" title="Record / 录音">⏺</button>
     <button class="vr-btn vr-pause" title="Pause / resume" hidden>⏸</button>
@@ -2328,6 +2630,10 @@
   const VR_DB_NAME    = 'ielts-recordings';
   const VR_STORE      = 'recordings';
   const VR_MAX_MS     = 3 * 60 * 1000;
+
+  // Singleton recording state — only one mic recording at a time.
+  // `_activeContainer` tracks WHICH container is currently recording so we
+  // know where to save the blob and update the UI on stop.
   let _vrMediaRecorder = null;
   let _vrChunks        = [];
   let _vrStartedAt     = 0;
@@ -2335,7 +2641,20 @@
   let _vrPausedAt      = 0;
   let _vrTimerId       = 0;
   let _vrStream        = null;
-  let _vrSavedBlobUrl  = null;
+  let _activeContainer = null;
+
+  // Per-container blob URL for playback (keep separate per widget so
+  // pressing ▶ on Q1 plays Q1's recording, not whichever was last loaded).
+  const _vrSavedBlobUrls = new WeakMap();
+
+  // IndexedDB key per container. Each .voice-recorder-container needs a
+  // `data-recorder-id` attribute (e.g. "polished", "q1", "map-1") so its
+  // recording is stored at a unique key like "Week_1_Lesson_Plan:q1".
+  // Falls back to "default" for backward compatibility with old widgets.
+  function vrKey(container) {
+    const id = (container && container.dataset && container.dataset.recorderId) || 'default';
+    return `${LESSON_KEY}:${id}`;
+  }
 
   function vrOpenDB() {
     return new Promise((resolve, reject) => {
@@ -2345,29 +2664,29 @@
       req.onerror = () => reject(req.error);
     });
   }
-  async function vrSaveBlob(blob, durationMs) {
+  async function vrSaveBlob(container, blob, durationMs) {
     const db = await vrOpenDB();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(VR_STORE, 'readwrite');
-      tx.objectStore(VR_STORE).put({ blob, duration: durationMs, createdAt: Date.now() }, LESSON_KEY);
+      tx.objectStore(VR_STORE).put({ blob, duration: durationMs, createdAt: Date.now() }, vrKey(container));
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
   }
-  async function vrLoadBlob() {
+  async function vrLoadBlob(container) {
     const db = await vrOpenDB();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(VR_STORE, 'readonly');
-      const req = tx.objectStore(VR_STORE).get(LESSON_KEY);
+      const req = tx.objectStore(VR_STORE).get(vrKey(container));
       req.onsuccess = () => resolve(req.result || null);
       req.onerror = () => reject(req.error);
     });
   }
-  async function vrDeleteBlob() {
+  async function vrDeleteBlob(container) {
     const db = await vrOpenDB();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(VR_STORE, 'readwrite');
-      tx.objectStore(VR_STORE).delete(LESSON_KEY);
+      tx.objectStore(VR_STORE).delete(vrKey(container));
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
@@ -2385,61 +2704,66 @@
     const btnStop   = $('.vr-stop');
     const btnPlay   = $('.vr-play');
     const btnDelete = $('.vr-delete');
-    const label    = $('.vr-label');
+    const label    = $('.vr-label');  // optional — inline widgets omit it
 
     [btnRec, btnPause, btnStop, btnPlay, btnDelete].forEach(b => b && (b.hidden = true));
-    btnRec.classList.remove('recording');
-    btnPause.classList.remove('paused');
-    label.classList.remove('error');
+    if (btnRec) btnRec.classList.remove('recording');
+    if (btnPause) btnPause.classList.remove('paused');
+    if (label) label.classList.remove('error');
 
     if (state === 'idle') {
-      btnRec.hidden = false;
-      label.textContent = 'Click ⏺ to record (3:00 max)';
+      if (btnRec) { btnRec.hidden = false; btnRec.disabled = false; }
+      if (label) label.textContent = 'Click ⏺ to record (3:00 max)';
     } else if (state === 'recording') {
-      btnRec.hidden = false; btnRec.classList.add('recording');
-      btnPause.hidden = false; btnStop.hidden = false;
-      btnRec.disabled = true;
-      label.textContent = 'Recording…';
+      if (btnRec) { btnRec.hidden = false; btnRec.classList.add('recording'); btnRec.disabled = true; }
+      if (btnPause) btnPause.hidden = false;
+      if (btnStop) btnStop.hidden = false;
+      if (label) label.textContent = 'Recording…';
     } else if (state === 'paused') {
-      btnRec.hidden = false; btnRec.classList.add('recording');
-      btnPause.hidden = false; btnPause.classList.add('paused');
-      btnStop.hidden = false;
-      btnRec.disabled = true;
-      btnPause.title = 'Resume';
-      btnPause.textContent = '▶';
-      label.textContent = 'Paused — tap ▶ to resume';
+      if (btnRec) { btnRec.hidden = false; btnRec.classList.add('recording'); btnRec.disabled = true; }
+      if (btnPause) { btnPause.hidden = false; btnPause.classList.add('paused'); btnPause.title = 'Resume'; btnPause.textContent = '▶'; }
+      if (btnStop) btnStop.hidden = false;
+      if (label) label.textContent = 'Paused — tap ▶ to resume';
     } else if (state === 'saved') {
-      btnPlay.hidden = false; btnDelete.hidden = false;
-      btnRec.disabled = false;
-      label.textContent = 'Saved — tap ▶ to play, 🗑 to re-record';
-      btnPause.textContent = '⏸';
-      btnPause.title = 'Pause / resume';
+      if (btnRec) { btnRec.hidden = false; btnRec.disabled = false; }
+      if (btnPlay) btnPlay.hidden = false;
+      if (btnDelete) btnDelete.hidden = false;
+      if (btnPause) { btnPause.textContent = '⏸'; btnPause.title = 'Pause / resume'; }
+      if (label) label.textContent = 'Saved — tap ▶ to play, 🗑 to re-record';
     } else if (state === 'error') {
-      btnRec.hidden = false; btnRec.disabled = true;
-      label.classList.add('error');
+      if (btnRec) { btnRec.hidden = false; btnRec.disabled = true; }
+      if (label) label.classList.add('error');
     }
   }
 
   function vrUpdateTimer(container) {
+    if (_activeContainer !== container) return;
     const elapsed = Date.now() - _vrStartedAt - _vrPausedTotal -
                     (_vrPausedAt ? (Date.now() - _vrPausedAt) : 0);
     const timeEl = container.querySelector('.vr-time');
-    timeEl.textContent = `${vrFormatTime(elapsed)} / 3:00`;
+    if (timeEl) timeEl.textContent = `${vrFormatTime(elapsed)} / 3:00`;
     if (elapsed >= VR_MAX_MS) {
-      timeEl.classList.add('over');
+      if (timeEl) timeEl.classList.add('over');
       vrStop(container);
     }
   }
 
   async function vrStart(container) {
+    // If another widget is recording, stop it first so we don't get two
+    // active MediaRecorder instances (the browser only allows one anyway).
+    if (_activeContainer && _activeContainer !== container && _vrMediaRecorder
+        && _vrMediaRecorder.state !== 'inactive') {
+      _vrMediaRecorder.stop();
+    }
     try {
       _vrStream = await navigator.mediaDevices.getUserMedia({ audio: true });
     } catch (err) {
       const label = container.querySelector('.vr-label');
-      label.textContent = 'Microphone permission denied / 麦克风权限被拒绝';
+      if (label) label.textContent = 'Microphone permission denied / 麦克风权限被拒绝';
       vrSetState(container, 'error');
       return;
     }
+    _activeContainer = container;
     _vrChunks = [];
     _vrStartedAt = Date.now();
     _vrPausedTotal = 0;
@@ -2449,9 +2773,10 @@
     _vrMediaRecorder.onstop = async () => {
       const blob = new Blob(_vrChunks, { type: _vrMediaRecorder.mimeType || 'audio/webm' });
       const elapsed = Date.now() - _vrStartedAt - _vrPausedTotal;
-      try { await vrSaveBlob(blob, elapsed); } catch (e) { console.error('vrSave', e); }
+      try { await vrSaveBlob(container, blob, elapsed); } catch (e) { console.error('vrSave', e); }
       if (_vrStream) { _vrStream.getTracks().forEach(t => t.stop()); _vrStream = null; }
       clearInterval(_vrTimerId); _vrTimerId = 0;
+      _activeContainer = null;
       vrLoadIntoUi(container);
     };
     _vrMediaRecorder.start();
@@ -2460,7 +2785,7 @@
   }
 
   function vrPauseToggle(container) {
-    if (!_vrMediaRecorder) return;
+    if (!_vrMediaRecorder || _activeContainer !== container) return;
     if (_vrMediaRecorder.state === 'recording') {
       _vrMediaRecorder.pause();
       _vrPausedAt = Date.now();
@@ -2474,33 +2799,41 @@
   }
 
   function vrStop(container) {
-    if (!_vrMediaRecorder) return;
+    if (!_vrMediaRecorder || _activeContainer !== container) return;
     if (_vrMediaRecorder.state !== 'inactive') _vrMediaRecorder.stop();
   }
 
   async function vrLoadIntoUi(container) {
-    const rec = await vrLoadBlob();
+    const rec = await vrLoadBlob(container);
     const audioEl = container.querySelector('audio');
-    if (_vrSavedBlobUrl) { URL.revokeObjectURL(_vrSavedBlobUrl); _vrSavedBlobUrl = null; }
+    // Per-widget blob URL — revoke ONLY this container's old URL.
+    const oldUrl = _vrSavedBlobUrls.get(container);
+    if (oldUrl) { URL.revokeObjectURL(oldUrl); _vrSavedBlobUrls.delete(container); }
     if (rec && rec.blob) {
-      _vrSavedBlobUrl = URL.createObjectURL(rec.blob);
-      if (audioEl) audioEl.src = _vrSavedBlobUrl;
+      const url = URL.createObjectURL(rec.blob);
+      _vrSavedBlobUrls.set(container, url);
+      if (audioEl) audioEl.src = url;
       const timeEl = container.querySelector('.vr-time');
-      timeEl.textContent = vrFormatTime(rec.duration || 0);
-      timeEl.classList.remove('over');
+      if (timeEl) {
+        timeEl.textContent = vrFormatTime(rec.duration || 0);
+        timeEl.classList.remove('over');
+      }
       vrSetState(container, 'saved');
     } else {
       const timeEl = container.querySelector('.vr-time');
-      timeEl.textContent = '--:--';
-      timeEl.classList.remove('over');
+      if (timeEl) {
+        timeEl.textContent = '--:--';
+        timeEl.classList.remove('over');
+      }
       vrSetState(container, 'idle');
     }
   }
 
   async function vrDelete(container) {
     if (!confirm('Delete recording? / 删除录音？')) return;
-    await vrDeleteBlob();
-    if (_vrSavedBlobUrl) { URL.revokeObjectURL(_vrSavedBlobUrl); _vrSavedBlobUrl = null; }
+    await vrDeleteBlob(container);
+    const oldUrl = _vrSavedBlobUrls.get(container);
+    if (oldUrl) { URL.revokeObjectURL(oldUrl); _vrSavedBlobUrls.delete(container); }
     vrLoadIntoUi(container);
   }
 
@@ -2512,11 +2845,13 @@
   function initVoiceRecorder() {
     if (!('mediaDevices' in navigator) || !window.MediaRecorder) return;
     document.querySelectorAll('.voice-recorder-container').forEach((container) => {
-      container.querySelector('.vr-record').onclick = () => vrStart(container);
-      container.querySelector('.vr-pause').onclick  = () => vrPauseToggle(container);
-      container.querySelector('.vr-stop').onclick   = () => vrStop(container);
-      container.querySelector('.vr-play').onclick   = () => vrPlay(container);
-      container.querySelector('.vr-delete').onclick = () => vrDelete(container);
+      const q = (sel) => container.querySelector(sel);
+      const onIf = (sel, handler) => { const el = q(sel); if (el) el.onclick = handler; };
+      onIf('.vr-record', () => vrStart(container));
+      onIf('.vr-pause',  () => vrPauseToggle(container));
+      onIf('.vr-stop',   () => vrStop(container));
+      onIf('.vr-play',   () => vrPlay(container));
+      onIf('.vr-delete', () => vrDelete(container));
       vrLoadIntoUi(container);
     });
   }

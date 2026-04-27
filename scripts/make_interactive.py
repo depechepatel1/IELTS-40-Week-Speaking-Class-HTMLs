@@ -168,11 +168,108 @@ def insertion_3_script(html: str, endpoint: str, bucket_base: str, lesson_key: s
 
 # ---------- Compose ----------
 
+# ---------- Insertion 4: brainstorming-map quadrants editable + recorder ----------
+
+# Each <div class="spider-leg"> becomes contenteditable so students can
+# type or scribble (iPad Scribble) their own notes in each quadrant.
+SPIDER_LEG_OPEN_RE = re.compile(
+    r'(<div class="spider-leg")(\s|>)',
+)
+# Each <div class="spider-container"> gets a small recorder widget at top-right.
+# The widget is absolute-positioned, so injection point is right inside the
+# container (anywhere works visually). We inject at the END of the opening tag.
+SPIDER_CONTAINER_OPEN_RE = re.compile(
+    r'(<div class="spider-container"[^>]*>)',
+)
+
+
+def insertion_4_brainstorming_maps(html: str) -> str:
+    """Make spider-legs contenteditable + add a unique recorder per spider-container."""
+    # Idempotency check: look for the actual SPIDER-LEG markup with the
+    # contenteditable attribute applied — NOT just the bare attribute string,
+    # which also occurs inside the injected CSS rule
+    # `.spider-leg[contenteditable="plaintext-only"] { ... }`.
+    if re.search(r'<div class="spider-leg"[^>]*\bcontenteditable\b', html):
+        return html
+
+    # 1. spider-leg → contenteditable
+    new_html, leg_count = SPIDER_LEG_OPEN_RE.subn(
+        lambda m: m.group(1) + ' contenteditable="plaintext-only"' + m.group(2),
+        html,
+    )
+    if leg_count == 0:
+        # No spider-legs at all — skip silently, this insertion is best-effort.
+        return html
+
+    # 2. spider-container → inject recorder widget with unique recorder-id
+    inline_template = (TEMPLATE_DIR / "voice_recorder_widget_inline.html").read_text(encoding="utf-8")
+    map_counter = {"n": 0}
+
+    def inject_map_recorder(m: re.Match) -> str:
+        map_counter["n"] += 1
+        recorder_id = f"map-{map_counter['n']}"
+        widget = inline_template.replace("__RECORDER_ID__", recorder_id, 1)
+        return m.group(1) + "\n" + widget
+
+    new_html, _ = SPIDER_CONTAINER_OPEN_RE.subn(inject_map_recorder, new_html)
+    return new_html
+
+
+# ---------- Insertion 5: Q1-Q6 writing boxes — textarea overlay + recorder ----------
+
+# Each <h3>QN: ...</h3> heading marks a Q1..Q6 writing-box card. Inside that
+# card is a single empty `<div class="lines" ...></div>`. We replace it with:
+#   <div class="q-write-host">
+#     <textarea class="q-write-textarea" data-q-id="qN" placeholder="..."></textarea>
+#     <ORIGINAL .lines></ORIGINAL>     <!-- preserved for print fallback -->
+#     <recorder widget data-recorder-id="qN" />
+#   </div>
+# Use a non-greedy regex that captures from the QN heading to the next .lines
+# div within the same card.
+Q_WRITE_RE = re.compile(
+    r'(<h3[^>]*>Q(\d+):)(.*?)(<div class="lines"[^>]*></div>)',
+    re.DOTALL,
+)
+
+
+def insertion_5_q_writing(html: str) -> str:
+    """Convert each Q1-Q6 .lines div into a textarea+recorder-host."""
+    # Idempotency check: look for an actual <div class="q-write-host"> in the
+    # body — NOT the bare class name, which also appears in the injected CSS
+    # rule `.q-write-host { ... }`.
+    if '<div class="q-write-host">' in html:
+        return html
+
+    inline_template = (TEMPLATE_DIR / "voice_recorder_widget_inline.html").read_text(encoding="utf-8")
+
+    def wrap(m: re.Match) -> str:
+        head = m.group(1)
+        n = m.group(2)
+        between = m.group(3)
+        orig_lines = m.group(4)
+        recorder_id = f"q{n}"
+        recorder = inline_template.replace("__RECORDER_ID__", recorder_id, 1)
+        host = (
+            f'<div class="q-write-host">\n'
+            f'  <textarea class="q-write-textarea" data-q-id="{recorder_id}" '
+            f'placeholder="Type or scribble your answer here…" spellcheck="false"></textarea>\n'
+            f'  {orig_lines}\n'
+            f'  {recorder}\n'
+            f'</div>'
+        )
+        return f'{head}{between}{host}'
+
+    new_html, count = Q_WRITE_RE.subn(wrap, html)
+    return new_html
+
+
 def transform(orig_path: Path, endpoint: str, bucket_base: str) -> str:
-    """Apply the three insertions and return the new HTML."""
+    """Apply the five insertions and return the new HTML."""
     html = orig_path.read_text(encoding="utf-8")
     html = insertion_1_css(html)
     html = insertion_2_draft_page(html)
+    html = insertion_4_brainstorming_maps(html)
+    html = insertion_5_q_writing(html)
     html = insertion_3_script(html, endpoint, bucket_base, orig_path.stem)
     return html
 

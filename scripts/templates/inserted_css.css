@@ -547,3 +547,98 @@
 @media print {
     .voice-recorder-container { display: none !important; }
 }
+
+/* === Inline recorder (brainstorming maps + Q1-Q6 writing boxes) ===
+ * The .vr-inline variant is absolute-positioned over a corner of its
+ * parent (top-right for spider-containers, bottom-right for Q1-Q6 green
+ * inner boxes). It's smaller than the full polished-section recorder
+ * (no text label, tighter padding) so it doesn't crowd the content. */
+.voice-recorder-container.vr-inline {
+    position: absolute !important;
+    margin: 0 !important;
+    padding: 1px 3px !important;
+    background: rgba(255,255,255,0.92) !important;
+    border: 1px solid #d6dbdf !important;
+    border-radius: 6px !important;
+    z-index: 5;
+    width: auto !important;
+    gap: 3px !important;
+    font-size: 0.72em;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+.voice-recorder-container.vr-inline .vr-btn {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    flex: 0 0 18px !important;
+    font-size: 0.62em !important;
+}
+.voice-recorder-container.vr-inline .vr-time {
+    min-width: 32px !important;
+    font-size: 0.85em !important;
+}
+.spider-container .voice-recorder-container.vr-inline {
+    top: 4px;
+    right: 4px;
+}
+.q-write-host .voice-recorder-container.vr-inline {
+    bottom: 4px;
+    right: 4px;
+}
+
+/* === Brainstorming-map quadrant editing (.spider-leg becomes contenteditable) ===
+ * iPad Apple Pencil Scribble works in any contenteditable element in
+ * Safari, so making each quadrant editable gives students the option to
+ * either type with a keyboard or handwrite with the pencil. The
+ * `plaintext-only` value prevents formatting glitches (no inline bold,
+ * italics, etc., from accidental keystrokes). */
+.spider-leg[contenteditable="plaintext-only"] {
+    cursor: text;
+    -webkit-user-select: text;
+    user-select: text;
+}
+.spider-leg[contenteditable="plaintext-only"]:focus {
+    outline: 2px dashed #3498db;
+    outline-offset: -2px;
+}
+@media print {
+    .spider-leg[contenteditable] { outline: none !important; }
+}
+
+/* === Q1-Q6 writing windows: lined-paper textarea overlay ===
+ * Each Q's `.lines` div gets wrapped in a `.q-write-host` (positioning
+ * context for the textarea overlay AND for the inline recorder at
+ * bottom-right). The textarea fills the host via `inset: 0` and has the
+ * same handwriting-style ruled-paper background as the IGCSE Section 7+8
+ * (Caveat font, 32px stride, blue ink). iPad Scribble works in textarea
+ * too. */
+.q-write-host {
+    position: relative;
+    flex-grow: 1;
+    min-height: 90px;
+    overflow: hidden;
+}
+.q-write-host > .lines { display: none; }   /* hide the original print-only ruled lines */
+.q-write-textarea {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: 0;
+    padding: 4px 6px 4px 6px;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: 'Caveat', 'Bradley Hand', 'Comic Sans MS', cursive;
+    font-size: 22px;
+    color: #1a4d80;
+    line-height: 32px;
+    background: repeating-linear-gradient(transparent, transparent 31px, #95a5a6 32px);
+    background-attachment: local;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+@media print {
+    .q-write-host > .lines { display: block !important; }
+    .q-write-textarea { display: none !important; }
+}

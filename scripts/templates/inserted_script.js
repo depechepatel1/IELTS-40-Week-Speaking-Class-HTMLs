@@ -819,6 +819,10 @@
   const VR_DB_NAME    = 'ielts-recordings';
   const VR_STORE      = 'recordings';
   const VR_MAX_MS     = 3 * 60 * 1000;
+
+  // Singleton recording state — only one mic recording at a time.
+  // `_activeContainer` tracks WHICH container is currently recording so we
+  // know where to save the blob and update the UI on stop.
   let _vrMediaRecorder = null;
   let _vrChunks        = [];
   let _vrStartedAt     = 0;
@@ -826,7 +830,20 @@
   let _vrPausedAt      = 0;
   let _vrTimerId       = 0;
   let _vrStream        = null;
-  let _vrSavedBlobUrl  = null;
+  let _activeContainer = null;
+
+  // Per-container blob URL for playback (keep separate per widget so
+  // pressing ▶ on Q1 plays Q1's recording, not whichever was last loaded).
+  const _vrSavedBlobUrls = new WeakMap();
+
+  // IndexedDB key per container. Each .voice-recorder-container needs a
+  // `data-recorder-id` attribute (e.g. "polished", "q1", "map-1") so its
+  // recording is stored at a unique key like "Week_1_Lesson_Plan:q1".
+  // Falls back to "default" for backward compatibility with old widgets.
+  function vrKey(container) {
+    const id = (container && container.dataset && container.dataset.recorderId) || 'default';
+    return `${LESSON_KEY}:${id}`;
+  }
 
   function vrOpenDB() {
     return new Promise((resolve, reject) => {
@@ -836,29 +853,29 @@
       req.onerror = () => reject(req.error);
     });
   }
-  async function vrSaveBlob(blob, durationMs) {
+  async function vrSaveBlob(container, blob, durationMs) {
     const db = await vrOpenDB();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(VR_STORE, 'readwrite');
-      tx.objectStore(VR_STORE).put({ blob, duration: durationMs, createdAt: Date.now() }, LESSON_KEY);
+      tx.objectStore(VR_STORE).put({ blob, duration: durationMs, createdAt: Date.now() }, vrKey(container));
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
   }
-  async function vrLoadBlob() {
+  async function vrLoadBlob(container) {
     const db = await vrOpenDB();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(VR_STORE, 'readonly');
-      const req = tx.objectStore(VR_STORE).get(LESSON_KEY);
+      const req = tx.objectStore(VR_STORE).get(vrKey(container));
       req.onsuccess = () => resolve(req.result || null);
       req.onerror = () => reject(req.error);
     });
   }
-  async function vrDeleteBlob() {
+  async function vrDeleteBlob(container) {
     const db = await vrOpenDB();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(VR_STORE, 'readwrite');
-      tx.objectStore(VR_STORE).delete(LESSON_KEY);
+      tx.objectStore(VR_STORE).delete(vrKey(container));
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
@@ -876,61 +893,66 @@
     const btnStop   = $('.vr-stop');
     const btnPlay   = $('.vr-play');
     const btnDelete = $('.vr-delete');
-    const label    = $('.vr-label');
+    const label    = $('.vr-label');  // optional — inline widgets omit it
 
     [btnRec, btnPause, btnStop, btnPlay, btnDelete].forEach(b => b && (b.hidden = true));
-    btnRec.classList.remove('recording');
-    btnPause.classList.remove('paused');
-    label.classList.remove('error');
+    if (btnRec) btnRec.classList.remove('recording');
+    if (btnPause) btnPause.classList.remove('paused');
+    if (label) label.classList.remove('error');
 
     if (state === 'idle') {
-      btnRec.hidden = false;
-      label.textContent = 'Click ⏺ to record (3:00 max)';
+      if (btnRec) { btnRec.hidden = false; btnRec.disabled = false; }
+      if (label) label.textContent = 'Click ⏺ to record (3:00 max)';
     } else if (state === 'recording') {
-      btnRec.hidden = false; btnRec.classList.add('recording');
-      btnPause.hidden = false; btnStop.hidden = false;
-      btnRec.disabled = true;
-      label.textContent = 'Recording…';
+      if (btnRec) { btnRec.hidden = false; btnRec.classList.add('recording'); btnRec.disabled = true; }
+      if (btnPause) btnPause.hidden = false;
+      if (btnStop) btnStop.hidden = false;
+      if (label) label.textContent = 'Recording…';
     } else if (state === 'paused') {
-      btnRec.hidden = false; btnRec.classList.add('recording');
-      btnPause.hidden = false; btnPause.classList.add('paused');
-      btnStop.hidden = false;
-      btnRec.disabled = true;
-      btnPause.title = 'Resume';
-      btnPause.textContent = '▶';
-      label.textContent = 'Paused — tap ▶ to resume';
+      if (btnRec) { btnRec.hidden = false; btnRec.classList.add('recording'); btnRec.disabled = true; }
+      if (btnPause) { btnPause.hidden = false; btnPause.classList.add('paused'); btnPause.title = 'Resume'; btnPause.textContent = '▶'; }
+      if (btnStop) btnStop.hidden = false;
+      if (label) label.textContent = 'Paused — tap ▶ to resume';
     } else if (state === 'saved') {
-      btnPlay.hidden = false; btnDelete.hidden = false;
-      btnRec.disabled = false;
-      label.textContent = 'Saved — tap ▶ to play, 🗑 to re-record';
-      btnPause.textContent = '⏸';
-      btnPause.title = 'Pause / resume';
+      if (btnRec) { btnRec.hidden = false; btnRec.disabled = false; }
+      if (btnPlay) btnPlay.hidden = false;
+      if (btnDelete) btnDelete.hidden = false;
+      if (btnPause) { btnPause.textContent = '⏸'; btnPause.title = 'Pause / resume'; }
+      if (label) label.textContent = 'Saved — tap ▶ to play, 🗑 to re-record';
     } else if (state === 'error') {
-      btnRec.hidden = false; btnRec.disabled = true;
-      label.classList.add('error');
+      if (btnRec) { btnRec.hidden = false; btnRec.disabled = true; }
+      if (label) label.classList.add('error');
     }
   }
 
   function vrUpdateTimer(container) {
+    if (_activeContainer !== container) return;
     const elapsed = Date.now() - _vrStartedAt - _vrPausedTotal -
                     (_vrPausedAt ? (Date.now() - _vrPausedAt) : 0);
     const timeEl = container.querySelector('.vr-time');
-    timeEl.textContent = `${vrFormatTime(elapsed)} / 3:00`;
+    if (timeEl) timeEl.textContent = `${vrFormatTime(elapsed)} / 3:00`;
     if (elapsed >= VR_MAX_MS) {
-      timeEl.classList.add('over');
+      if (timeEl) timeEl.classList.add('over');
       vrStop(container);
     }
   }
 
   async function vrStart(container) {
+    // If another widget is recording, stop it first so we don't get two
+    // active MediaRecorder instances (the browser only allows one anyway).
+    if (_activeContainer && _activeContainer !== container && _vrMediaRecorder
+        && _vrMediaRecorder.state !== 'inactive') {
+      _vrMediaRecorder.stop();
+    }
     try {
       _vrStream = await navigator.mediaDevices.getUserMedia({ audio: true });
     } catch (err) {
       const label = container.querySelector('.vr-label');
-      label.textContent = 'Microphone permission denied / 麦克风权限被拒绝';
+      if (label) label.textContent = 'Microphone permission denied / 麦克风权限被拒绝';
       vrSetState(container, 'error');
       return;
     }
+    _activeContainer = container;
     _vrChunks = [];
     _vrStartedAt = Date.now();
     _vrPausedTotal = 0;
@@ -940,9 +962,10 @@
     _vrMediaRecorder.onstop = async () => {
       const blob = new Blob(_vrChunks, { type: _vrMediaRecorder.mimeType || 'audio/webm' });
       const elapsed = Date.now() - _vrStartedAt - _vrPausedTotal;
-      try { await vrSaveBlob(blob, elapsed); } catch (e) { console.error('vrSave', e); }
+      try { await vrSaveBlob(container, blob, elapsed); } catch (e) { console.error('vrSave', e); }
       if (_vrStream) { _vrStream.getTracks().forEach(t => t.stop()); _vrStream = null; }
       clearInterval(_vrTimerId); _vrTimerId = 0;
+      _activeContainer = null;
       vrLoadIntoUi(container);
     };
     _vrMediaRecorder.start();
@@ -951,7 +974,7 @@
   }
 
   function vrPauseToggle(container) {
-    if (!_vrMediaRecorder) return;
+    if (!_vrMediaRecorder || _activeContainer !== container) return;
     if (_vrMediaRecorder.state === 'recording') {
       _vrMediaRecorder.pause();
       _vrPausedAt = Date.now();
@@ -965,33 +988,41 @@
   }
 
   function vrStop(container) {
-    if (!_vrMediaRecorder) return;
+    if (!_vrMediaRecorder || _activeContainer !== container) return;
     if (_vrMediaRecorder.state !== 'inactive') _vrMediaRecorder.stop();
   }
 
   async function vrLoadIntoUi(container) {
-    const rec = await vrLoadBlob();
+    const rec = await vrLoadBlob(container);
     const audioEl = container.querySelector('audio');
-    if (_vrSavedBlobUrl) { URL.revokeObjectURL(_vrSavedBlobUrl); _vrSavedBlobUrl = null; }
+    // Per-widget blob URL — revoke ONLY this container's old URL.
+    const oldUrl = _vrSavedBlobUrls.get(container);
+    if (oldUrl) { URL.revokeObjectURL(oldUrl); _vrSavedBlobUrls.delete(container); }
     if (rec && rec.blob) {
-      _vrSavedBlobUrl = URL.createObjectURL(rec.blob);
-      if (audioEl) audioEl.src = _vrSavedBlobUrl;
+      const url = URL.createObjectURL(rec.blob);
+      _vrSavedBlobUrls.set(container, url);
+      if (audioEl) audioEl.src = url;
       const timeEl = container.querySelector('.vr-time');
-      timeEl.textContent = vrFormatTime(rec.duration || 0);
-      timeEl.classList.remove('over');
+      if (timeEl) {
+        timeEl.textContent = vrFormatTime(rec.duration || 0);
+        timeEl.classList.remove('over');
+      }
       vrSetState(container, 'saved');
     } else {
       const timeEl = container.querySelector('.vr-time');
-      timeEl.textContent = '--:--';
-      timeEl.classList.remove('over');
+      if (timeEl) {
+        timeEl.textContent = '--:--';
+        timeEl.classList.remove('over');
+      }
       vrSetState(container, 'idle');
     }
   }
 
   async function vrDelete(container) {
     if (!confirm('Delete recording? / 删除录音？')) return;
-    await vrDeleteBlob();
-    if (_vrSavedBlobUrl) { URL.revokeObjectURL(_vrSavedBlobUrl); _vrSavedBlobUrl = null; }
+    await vrDeleteBlob(container);
+    const oldUrl = _vrSavedBlobUrls.get(container);
+    if (oldUrl) { URL.revokeObjectURL(oldUrl); _vrSavedBlobUrls.delete(container); }
     vrLoadIntoUi(container);
   }
 
@@ -1003,11 +1034,13 @@
   function initVoiceRecorder() {
     if (!('mediaDevices' in navigator) || !window.MediaRecorder) return;
     document.querySelectorAll('.voice-recorder-container').forEach((container) => {
-      container.querySelector('.vr-record').onclick = () => vrStart(container);
-      container.querySelector('.vr-pause').onclick  = () => vrPauseToggle(container);
-      container.querySelector('.vr-stop').onclick   = () => vrStop(container);
-      container.querySelector('.vr-play').onclick   = () => vrPlay(container);
-      container.querySelector('.vr-delete').onclick = () => vrDelete(container);
+      const q = (sel) => container.querySelector(sel);
+      const onIf = (sel, handler) => { const el = q(sel); if (el) el.onclick = handler; };
+      onIf('.vr-record', () => vrStart(container));
+      onIf('.vr-pause',  () => vrPauseToggle(container));
+      onIf('.vr-stop',   () => vrStop(container));
+      onIf('.vr-play',   () => vrPlay(container));
+      onIf('.vr-delete', () => vrDelete(container));
       vrLoadIntoUi(container);
     });
   }
