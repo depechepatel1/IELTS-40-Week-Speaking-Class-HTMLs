@@ -68,6 +68,68 @@ let _zhipuFetcher = (url, opts) => fetch(url, opts);
 export function __setZhipuFetcher(fn) { _zhipuFetcher = fn; }
 export function __resetZhipuFetcher() { _zhipuFetcher = (url, opts) => fetch(url, opts); }
 
+// === AI correction cache (in-memory LRU) =====================================
+// At start-of-class scale (200+ students within minutes), many drafts collide
+// on common errors ("I am go to school", "He don't like…", canned shadowing
+// phrases). Caching the corrected output keyed by hash(normalized_draft)
+// short-circuits the Zhipu round-trip entirely on a hit (~2-3s saved + 1
+// Zhipu API call avoided).
+//
+// Why in-memory and not Redis/OSS: FC instances stay warm during traffic
+// spikes, which is the exact window where cache hit-rate matters most. When
+// the instance recycles after idle, the cache resets — that's fine, the
+// next class will warm it up again. No external service to provision, no
+// extra latency, no extra ops surface.
+//
+// LRU via JS Map insertion-order: on hit we delete + re-set so the key
+// lands at the end (most-recent). When size cap reached, delete the first
+// entry (oldest). O(1) per op.
+//
+// Privacy note: cache keys are the normalized draft text itself. Two
+// students typing literally identical 50-300-word drafts is vanishingly
+// rare in practice; in the unlikely event it happens, the second student
+// receives the same grammar correction the first received. No personal
+// information flows between students because the cached value is just
+// the corrected sentence the second student would have received anyway.
+const AI_CACHE_MAX = 1000;
+const _aiCache = new Map();
+
+import { createHash } from 'node:crypto';
+
+function _normalizeForCache(draft) {
+  return draft.trim().replace(/\s+/g, ' ').toLowerCase();
+}
+
+function _aiCacheKey(draft) {
+  return createHash('sha256').update(_normalizeForCache(draft)).digest('hex');
+}
+
+function aiCacheGet(draft) {
+  const k = _aiCacheKey(draft);
+  if (!_aiCache.has(k)) return null;
+  const v = _aiCache.get(k);
+  // Bump to most-recent.
+  _aiCache.delete(k);
+  _aiCache.set(k, v);
+  return v;
+}
+
+function aiCacheSet(draft, corrected) {
+  const k = _aiCacheKey(draft);
+  if (_aiCache.has(k)) _aiCache.delete(k);
+  _aiCache.set(k, corrected);
+  // Evict oldest until under cap.
+  while (_aiCache.size > AI_CACHE_MAX) {
+    const firstKey = _aiCache.keys().next().value;
+    _aiCache.delete(firstKey);
+  }
+}
+
+// Test hooks — allow unit tests to inspect / reset the cache.
+export function __resetAICache() { _aiCache.clear(); }
+export function __aiCacheSize() { return _aiCache.size; }
+// =============================================================================
+
 function isZhipuQuotaError(parsed) {
   if (!parsed) return false;
   const code = parsed.error?.code;
@@ -238,10 +300,21 @@ export async function processRequest({ method, path, headers, body, clientIP }) 
     });
   }
 
+  // Cache check BEFORE Zhipu — if another student (or this same student
+  // re-clicking Correct) submitted the same draft recently, return the
+  // cached result instantly. Saves ~2-3s + 1 Zhipu API call per hit.
+  const cached = aiCacheGet(draft);
+  if (cached !== null) {
+    return respond(200, { corrected: cached, cached: true });
+  }
+
   const result = await callZhipu(draft);
   if (!result.ok) {
     return respond(result.status, { error: result.error });
   }
+  // Populate cache on success only — never cache error responses (those
+  // might be transient: rate limits, quota exhausted, network blips).
+  aiCacheSet(draft, result.corrected);
   return respond(200, { corrected: result.corrected });
 }
 

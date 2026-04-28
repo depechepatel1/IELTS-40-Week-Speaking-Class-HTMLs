@@ -48,6 +48,41 @@
         line-height: 1.2;
     }
     .scaffold-text li { margin-bottom: 1px; }
+    /* PRINT-LAYOUT-V2 */
+    /* Horizontal scaffold-text bullets in Q1-Q6 writing-box cards. Q1+Q2
+       use class="card", Q3-Q6 use class="card compact" — both share this
+       rule because all 6 boxes have `<ul class="scaffold-text">` cue lists
+       inside them. Across the 40-week course, scaffold-text only appears
+       inside Q-boxes (audited 2026-04-28), so `.card ul.scaffold-text`
+       is selective enough without needing per-Q-id overrides.
+       Saves vertical space on both PRINT and digital. */
+    .card ul.scaffold-text {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0 14px;
+        margin: 0 0 4px 0;
+        padding: 0;
+        list-style: none;
+    }
+    .card ul.scaffold-text li {
+        margin: 0;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        line-height: 1.2;
+    }
+    .card ul.scaffold-text li::before {
+        content: "\2022";
+        color: #999;
+        margin-right: 4px;
+    }
+    /* Q6 +20px taller — gives the bottom card a 20px head-start over Q4/Q5
+       in the equal-grow flex distribution. Triggered by the `q-tall`
+       marker class on the Q6 card div (added by migrate_print_css.py). */
+    .card.compact.q-tall {
+        flex-basis: 20px !important;
+    }
 
     @page { size: A4 portrait; margin: 0; }
 
@@ -746,7 +781,7 @@
 </div></div>
 </div>
 <!-- Q6 -->
-<div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
+<div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
 <h3>Q6: To what extent does professional counseling differ from advice given by friends or family?</h3>
 <div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> professional advice is strictly evidence-based, whereas friends offer purely emotional support.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This is necessary since,</span> trained experts use proven psychological strategies for proper <strong>intervention (干预)</strong> in serious crises. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For example,</span> a family member might just agree with you, but a professional will challenge your thoughts.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">

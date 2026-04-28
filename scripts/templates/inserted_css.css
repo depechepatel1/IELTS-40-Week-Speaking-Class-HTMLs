@@ -682,42 +682,12 @@
     .q-write-textarea { display: none !important; }
 }
 
-/* === Horizontal scaffold-text bullets above Q1-Q6 writing windows ===
- * In the original lesson HTML, scaffold-text is a stacked <ul> taking 3
- * vertical lines (one per cue word). Inside Q1-Q6 cards we have very
- * little vertical real estate, so the cues should run horizontally on a
- * single line. We scope this rule to scaffold-text that's a sibling of a
- * .q-write-host (i.e. inside a Q1-Q6 writing card), leaving non-Q
- * scaffold-text usage untouched. */
-ul.scaffold-text:has(~ .q-write-host) {
-    display: flex !important;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0 14px;
-    margin: 0 0 4px 0;
-    padding: 0;
-    list-style: none;
-}
-ul.scaffold-text:has(~ .q-write-host) li {
-    margin: 0;
-    padding: 0;
-    display: inline-flex;
-    align-items: center;
-    line-height: 1.2;
-}
-ul.scaffold-text:has(~ .q-write-host) li::before {
-    content: "•";
-    color: #999;
-    margin-right: 4px;
-}
-
-/* === Q6: 20px taller to fill the trailing whitespace at the page bottom ===
- * Q4-Q6 are siblings each with `flex:1` (=> flex: 1 1 0%) sharing the
- * page-bottom region equally. Bumping Q6's flex-basis from 0% to 20px
- * means Q6 starts 20px ahead before the 1:1:1 grow-share, so its final
- * height is +20px relative to Q4/Q5 — exactly the requested adjustment.
- * `!important` is needed to beat the inline `style="flex:1;..."` on the
- * card (inline-style specificity is higher than a regular class rule). */
-.card.compact:has([data-q-id="q6"]) {
-    flex-basis: 20px !important;
-}
+/* NOTE — horizontal scaffold-text bullets and the Q6 +20px height rule
+ * USED to live here, anchored to interactive-only markup
+ * (`:has(~ .q-write-host)`, `:has([data-q-id="q6"])`). They were migrated
+ * to the BASE template's <style> block by `scripts/migrate_print_css.py`
+ * so the printed PDFs (rendered from base files via Playwright) inherit
+ * the same horizontal-bullet / tall-Q6 layout the digital interactive
+ * HTMLs show. Don't re-add them here — that would create two sources of
+ * truth for the same visual rule. See WORKFLOW.md for the full
+ * print-vs-digital CSS partitioning convention. */

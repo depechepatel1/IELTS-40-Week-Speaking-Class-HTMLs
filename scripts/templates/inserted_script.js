@@ -28,6 +28,68 @@
   const DEFAULT_RATE = 0.85;
   const SLOW_RATE    = 0.72;
 
+  // ====================================================================
+  // AI fetch — jitter + exponential backoff retry
+  // ====================================================================
+  // Designed for the start-of-class scenario: 200 students click "Correct
+  // with AI" within the same second. Without intervention, the FC instance
+  // pool (default ~100 concurrent) queues half the requests and Zhipu's
+  // rate limiter rejects the herd. With this helper:
+  //   - Pre-request jitter (0..500ms) spreads the herd across half a second,
+  //     enough to fit under typical FC concurrency caps.
+  //   - On 429/503/5xx or network error, retry with exponential backoff
+  //     (1s, 2s, 4s) plus per-retry jitter so retries don't re-stampede.
+  //   - Per-attempt AbortController timeout (45s) prevents a hung TCP
+  //     connection from leaving the user stuck on an infinite spinner.
+  //   - Max 3 attempts total — beyond that, we surface the error to the
+  //     user rather than retry forever (Zhipu rarely recovers within 10s+
+  //     and the student would rather know).
+  const AI_FETCH_MAX_ATTEMPTS = 3;
+  const AI_FETCH_BASE_BACKOFF_MS = 1000;
+  const AI_FETCH_JITTER_MS = 500;
+  const AI_FETCH_TIMEOUT_MS = 45000;
+
+  function _aiSleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function _aiJitter() { return Math.floor(Math.random() * AI_FETCH_JITTER_MS); }
+
+  async function aiCorrectFetchWithRetry(draftText) {
+    let lastErr = null;
+    // Pre-request jitter — spreads the start-of-class herd.
+    await _aiSleep(_aiJitter());
+
+    for (let attempt = 0; attempt < AI_FETCH_MAX_ATTEMPTS; attempt++) {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), AI_FETCH_TIMEOUT_MS);
+      try {
+        const resp = await fetch(AI_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ draft: draftText }),
+          signal: ctrl.signal,
+        });
+        clearTimeout(timer);
+        // Treat 429 (Zhipu / FC rate-limited), 503 (FC saturated), and any
+        // 5xx as retriable. 4xx other than 429 are NOT retried — they
+        // indicate a client-side problem (bad input, missing field, etc.)
+        // that won't fix itself by waiting.
+        if (resp.status === 429 || resp.status === 503 || resp.status >= 500) {
+          lastErr = new Error(`server ${resp.status}`);
+          // fall through to backoff
+        } else {
+          return resp;  // success or non-retriable error — caller handles body
+        }
+      } catch (e) {
+        clearTimeout(timer);
+        lastErr = e;
+        // Network errors (DNS, TLS, abort) are retriable.
+      }
+      // Exponential backoff with jitter: 1s, 2s, 4s + 0-500ms each.
+      const backoff = AI_FETCH_BASE_BACKOFF_MS * Math.pow(2, attempt) + _aiJitter();
+      if (attempt < AI_FETCH_MAX_ATTEMPTS - 1) await _aiSleep(backoff);
+    }
+    throw lastErr || new Error('AI fetch failed after retries');
+  }
+
   // Score-based picker: prefers high-quality engines (Edge "Online (Natural)",
   // Google network voices, macOS Premium/Enhanced) over legacy local voices.
   // Without scoring, browsers like Chrome on Windows often surface the older
@@ -541,11 +603,7 @@
 
     let resp;
     try {
-      resp = await fetch(AI_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ draft: text })
-      });
+      resp = await aiCorrectFetchWithRetry(text);
     } catch (e) {
       setStatus('网络错误 / Network error. ' + (e && e.message ? e.message : ''), 'error');
       correctBtn.disabled = false;
@@ -853,8 +911,122 @@
       req.onerror = () => reject(req.error);
     });
   }
+
+  // === Quota management — one-and-done LRU eviction ============================
+  // Goal: never blow past the browser's IndexedDB quota even if a viral cohort
+  // of students records 3-min answers in every recorder of every Week. Two
+  // belt-and-suspenders mechanisms run together:
+  //
+  //  1. Persistent storage request: tells the browser "don't auto-evict our
+  //     data when disk fills up." Granted automatically in most cases on
+  //     desktop Chrome; iOS Safari ignores it but it's still cheap to ask.
+  //  2. LRU eviction: enforced via TWO ceilings — a HARD COUNT cap (always
+  //     in effect) and a SOFT QUOTA cap (kicks in when the browser tells us
+  //     usage is approaching its quota). On iOS Safari (~1 GB origin cap),
+  //     the quota ceiling protects against the cap; on Chrome desktop (~60%
+  //     of disk), the count cap keeps things tidy regardless.
+  //
+  // Eviction is FIFO by `createdAt` (oldest recording removed first). The
+  // student never sees an error — recordings just silently disappear in age
+  // order, which is the right UX for a long-running classroom course.
+  const VR_MAX_RECORDINGS = 60;          // hard cap — never exceed this regardless of free quota
+  const VR_QUOTA_HEADROOM = 0.20;        // start evicting when free quota < 20% of usable
+  let _vrPersistRequested = false;
+
+  async function vrRequestPersistentStorage() {
+    if (_vrPersistRequested) return;
+    _vrPersistRequested = true;
+    try {
+      if (navigator.storage && typeof navigator.storage.persist === 'function') {
+        await navigator.storage.persist();
+      }
+    } catch (e) {
+      // Older Safari / Firefox quirks — ignore, we have LRU as the safety net.
+    }
+  }
+
+  // Walk every entry in the store and return [{key, createdAt}, ...] sorted
+  // ascending so index 0 is the OLDEST recording (first to evict).
+  async function vrListEntriesByAge(db) {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(VR_STORE, 'readonly');
+      const req = tx.objectStore(VR_STORE).openCursor();
+      const out = [];
+      req.onsuccess = () => {
+        const cur = req.result;
+        if (cur) {
+          const v = cur.value || {};
+          out.push({ key: cur.key, createdAt: v.createdAt || 0 });
+          cur.continue();
+        } else {
+          out.sort((a, b) => a.createdAt - b.createdAt);
+          resolve(out);
+        }
+      };
+      req.onerror = () => reject(req.error);
+    });
+  }
+
+  async function vrDeleteByKey(db, key) {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(VR_STORE, 'readwrite');
+      tx.objectStore(VR_STORE).delete(key);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  }
+
+  // Returns a number 0..1 representing fraction of quota currently in use,
+  // or null if the API isn't available (fallback: rely solely on count cap).
+  async function vrQuotaUsageRatio() {
+    try {
+      if (navigator.storage && typeof navigator.storage.estimate === 'function') {
+        const { usage, quota } = await navigator.storage.estimate();
+        if (quota && quota > 0) return usage / quota;
+      }
+    } catch (e) { /* ignore */ }
+    return null;
+  }
+
+  // Run BEFORE saving a new recording. Evicts oldest recordings until BOTH
+  // the hard count cap and the soft quota cap are satisfied. Skips the
+  // currently-active container's existing key (which the upcoming put() will
+  // overwrite anyway — no point evicting it just to write it).
+  async function vrEvictIfNeeded(db, exemptKey) {
+    let entries = await vrListEntriesByAge(db);
+    let evicted = 0;
+
+    // Pass 1 — hard count cap.
+    while (entries.length > VR_MAX_RECORDINGS) {
+      const oldest = entries.shift();
+      if (oldest.key === exemptKey) continue;
+      await vrDeleteByKey(db, oldest.key);
+      evicted++;
+    }
+
+    // Pass 2 — soft quota cap (only if API tells us we're tight).
+    let ratio = await vrQuotaUsageRatio();
+    while (ratio !== null && ratio > (1 - VR_QUOTA_HEADROOM) && entries.length > 1) {
+      const oldest = entries.shift();
+      if (oldest.key === exemptKey) continue;
+      await vrDeleteByKey(db, oldest.key);
+      evicted++;
+      ratio = await vrQuotaUsageRatio();
+    }
+
+    if (evicted > 0) {
+      try { console.info(`[recorder] LRU evicted ${evicted} oldest recording(s) to stay under quota.`); } catch {}
+    }
+  }
+
+  // Kick off persistent-storage request once at module load — non-blocking.
+  vrRequestPersistentStorage();
+  // ============================================================================
+
   async function vrSaveBlob(container, blob, durationMs) {
     const db = await vrOpenDB();
+    // Evict before write so a near-full quota doesn't reject our put().
+    try { await vrEvictIfNeeded(db, vrKey(container)); } catch (e) { console.warn('vrEvict', e); }
     return new Promise((resolve, reject) => {
       const tx = db.transaction(VR_STORE, 'readwrite');
       tx.objectStore(VR_STORE).put({ blob, duration: durationMs, createdAt: Date.now() }, vrKey(container));
