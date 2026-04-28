@@ -361,12 +361,42 @@
     border-width: 1px;
 }
 
-/* Pause-button toggles to a "Resume" play-style button when paused.
- * Visually distinct so the student knows tapping it again will resume. */
-.tts-btn.pause.paused {
-    background: #fef3c7;
-    border-color: #f59e0b;
-    color: #92400e;
+/* Sentence-paced transport buttons — Prev / Replay / Next.
+ * Distinct blue tone so the navigation cluster reads as one group;
+ * sits to the right of the accent picker + slow button. */
+.tts-btn.prev,
+.tts-btn.replay,
+.tts-btn.next {
+    background: #f0f9ff;
+    border-color: #93c5fd;
+    color: #1e40af;
+}
+.tts-btn.prev:hover:not(:disabled),
+.tts-btn.replay:hover:not(:disabled),
+.tts-btn.next:hover:not(:disabled) {
+    background: #dbeafe;
+}
+/* Replay glows during in-flight playback so the student can see which
+ * sentence the audio came from (mirrors the .speaking word highlight). */
+.tts-btn.replay.speaking {
+    background: #2563eb;
+    border-color: #1d4ed8;
+    color: white;
+}
+
+/* Sentence counter (e.g. "2/5") — sits between the slow button and the
+ * sentence-transport cluster. Pure UX feedback; no click target. */
+.sentence-counter {
+    font-family: 'Lato', monospace;
+    font-size: 0.7em;
+    font-weight: 600;
+    color: #475569;
+    padding: 0 4px;
+    min-width: 22px;
+    text-align: center;
+    user-select: none;
+    pointer-events: none;
+    line-height: 1.4;
 }
 
 /* Subtle pulsing ring on the listen-row whose audio is currently playing.

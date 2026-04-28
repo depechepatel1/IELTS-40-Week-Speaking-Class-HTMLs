@@ -134,197 +134,301 @@
     alert("微信浏览器不支持语音播放，请用 Safari 或 Chrome 打开本页 / WeChat browser doesn't support audio playback. Please open this page in Safari or Chrome.");
   }
 
-  // === Speech state — owned by us, NOT by the (flaky) Web Speech API ===
-  // Chrome's speechSynthesis.pause()/resume() is unreliable across long
-  // utterances and after >5s pauses. Instead of trusting it, we track text
-  // + current word offset ourselves and on "resume" we cancel + restart
-  // from the saved offset. This works reliably across all browsers.
-  let _currentText = '';
-  let _currentLang = 'en-GB';
-  let _currentRate = 1.0;
-  let _currentWordOffset = 0;
-  let _currentSourceRow = null;
-  let _currentSpans = null;     // for karaoke highlight (speakElement)
-  let _currentOffsets = null;   // for karaoke highlight (speakElement)
-  let _isPaused = false;        // OUR truth, not speechSynthesis.paused
+  // === Sentence-paced TTS state ============================================
+  //
+  // Pedagogical model: TTS plays ONE sentence at a time and auto-pauses on
+  // completion. Students press transport buttons (Replay / Prev / Next /
+  // Slow) to advance, repeat, or slow-down the current sentence. This is
+  // the standard listen-and-repeat shadowing flow used in language classes.
+  //
+  // Per-row state (sentence list + index + accent + karaoke spans) is kept
+  // in a WeakMap keyed by the .listen-row DOM element. Multiple rows on
+  // the same page each retain their own independent state — pressing Next
+  // on row A and then returning to row B picks up where row B left off.
+  //
+  // _currentRow is the SINGLE row producing audio right now (only one mic
+  // can play at a time across the whole page). It's just a pointer to
+  // whichever WeakMap entry owns the in-flight utterance.
+
+  const _rowState = new WeakMap();
+  let   _currentRow = null;
+
+  function getRowState(rowEl) {
+    if (!rowEl) return null;
+    let s = _rowState.get(rowEl);
+    if (!s) {
+      s = {
+        sentences:    [],          // string[] — one entry per sentence
+        sourceText:   '',          // original full text, pre-normalize
+        currentIndex: 0,           // 0-based index into sentences
+        lang:         'en-GB',     // 'en-GB' | 'en-US' — last-selected accent
+        rate:         DEFAULT_RATE,// inherited from initial play; overridden by 🐢
+        // Karaoke (only populated for sentence-paced playback over an
+        // element that's been word-wrapped, e.g. #polished-output):
+        targetEl:     null,
+        spans:        null,
+        offsets:      null,        // [{ span, start, end }] over wrappedText
+        wrappedText:  null,        // the text snapshot that spans correspond to
+      };
+      _rowState.set(rowEl, s);
+    }
+    return s;
+  }
+
+  // Char index where sentence i begins in the joined source. Trimmed
+  // sentences plus single-space joins matches the normalize() output of
+  // splitSentences(), so karaoke offsets line up.
+  function sentenceCharStart(sentences, i) {
+    let n = 0;
+    for (let k = 0; k < i; k++) n += sentences[k].length + 1;
+    return n;
+  }
+
+  /** Pragmatic sentence splitter — punctuation lookbehind + capital
+   *  lookahead. Imperfect on abbreviations like "Mr. Smith" or "U.S.A."
+   *  but the IELTS / IGCSE model-answer corpus rarely uses them. */
+  function splitSentences(text) {
+    const norm = String(text || '').replace(/\s+/g, ' ').trim();
+    if (!norm) return [];
+    return norm
+      .split(/(?<=[.!?])\s+(?=[A-Z"'(])/)
+      .map(s => s.trim())
+      .filter(Boolean);
+  }
+  ns.__splitSentences = splitSentences;  // exposed for tests
 
   /** Mark a single .listen-row as the one currently speaking (for the
    *  pulsing indicator). Pass `null` to clear. */
   function setSpeakingRow(rowEl) {
-    document.querySelectorAll('.listen-row.speaking-now').forEach(r => r.classList.remove('speaking-now'));
+    document.querySelectorAll('.listen-row.speaking-now, .button-row.speaking-now')
+      .forEach(r => r.classList.remove('speaking-now'));
     if (rowEl) rowEl.classList.add('speaking-now');
   }
 
-  /** Sync every .tts-btn.pause to OUR _isPaused state.
-   *  ▶ + .paused class when paused, ⏸ when speaking/idle. */
-  function updatePauseButtons() {
-    document.querySelectorAll('.tts-btn.pause').forEach(b => {
-      b.textContent = _isPaused ? '▶' : '⏸';
-      b.title = _isPaused ? 'Resume' : 'Pause';
-      b.classList.toggle('paused', _isPaused);
-    });
+  /** Sync transport-button enabled state + sentence counter for a row. */
+  function updateTransportButtons(rowEl) {
+    if (!rowEl) return;
+    const st = getRowState(rowEl);
+    const total = st.sentences ? st.sentences.length : 0;
+    const idx   = st.currentIndex || 0;
+    const prev   = rowEl.querySelector('.tts-btn.prev');
+    const next   = rowEl.querySelector('.tts-btn.next');
+    const slow   = rowEl.querySelector('.tts-btn.slow');
+    const replay = rowEl.querySelector('.tts-btn.replay');
+    const counter = rowEl.querySelector('.sentence-counter');
+    if (slow)   slow.disabled   = (total === 0);
+    if (replay) replay.disabled = (total === 0);
+    if (prev)   prev.disabled   = (idx <= 0 || total === 0);
+    if (next)   next.disabled   = (idx + 1 >= total || total === 0);
+    if (counter) counter.textContent = total > 0 ? `${idx + 1}/${total}` : '';
   }
-
-  /** Internal: launch a fresh utterance starting at `offset` characters
-   *  into _currentText. Used by both speakText/speakElement (offset=0)
-   *  and pauseSpeaking (offset=_currentWordOffset on resume). */
-  function _speakFromOffset(offset) {
-    const remaining = _currentText.slice(offset);
-    if (!remaining.trim()) return;
-    const u = new SpeechSynthesisUtterance(remaining);
-    u.lang = _currentLang;
-    u.rate = _currentRate;
-    const v = pickVoice(_currentLang);
-    if (v) u.voice = v;
-    u.onstart = () => { setSpeakingRow(_currentSourceRow); };
-    u.onboundary = (ev) => {
-      if (ev.name && ev.name !== 'word') return;
-      _currentWordOffset = offset + ev.charIndex;
-      // Karaoke highlight if spans were registered (speakElement path).
-      if (_currentSpans && _currentOffsets) {
-        _currentSpans.forEach(s => s.classList.remove('speaking'));
-        const hit = _currentOffsets.find(o => _currentWordOffset >= o.start && _currentWordOffset < o.end);
-        if (hit) hit.span.classList.add('speaking');
-      }
-    };
-    u.onend = () => {
-      // Natural end (NOT a user-initiated pause). Reset state.
-      if (_isPaused) return;
-      _currentText = '';
-      _currentWordOffset = 0;
-      if (_currentSpans) _currentSpans.forEach(s => s.classList.remove('speaking'));
-      _currentSpans = null;
-      _currentOffsets = null;
-      setSpeakingRow(null);
-      updatePauseButtons();
-    };
-    window.speechSynthesis.speak(u);
-  }
-
-  ns.stopSpeaking = function () {
-    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-    if (_currentSpans) _currentSpans.forEach(s => s.classList.remove('speaking'));
-    _currentSpans = null;
-    _currentOffsets = null;
-    _currentText = '';
-    _currentWordOffset = 0;
-    _currentSourceRow = null;
-    _isPaused = false;
-    setSpeakingRow(null);
-    updatePauseButtons();
-  };
-
-  // Toggle pause/resume. Pause = cancel + remember offset; Resume =
-  // restart utterance from the saved offset (avoids Chrome resume bug).
-  ns.pauseSpeaking = function () {
-    if (!('speechSynthesis' in window)) return;
-    if (_isPaused) {
-      _isPaused = false;
-      updatePauseButtons();
-      _speakFromOffset(_currentWordOffset);
-    } else if (_currentText && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
-      _isPaused = true;
-      window.speechSynthesis.cancel();
-      // Keep _currentText and _currentWordOffset so resume works.
-      updatePauseButtons();
-    }
-  };
-
-  // Tracks the last accent the student picked on each listen-row. Slow
-  // playback uses this so it matches whichever voice is currently selected.
-  // Map<rowEl, 'en-GB' | 'en-US'>.
-  const _lastLangByRow = new WeakMap();
 
   function setActiveAccent(rowEl, lang) {
     if (!rowEl) return;
-    _lastLangByRow.set(rowEl, lang);
     rowEl.querySelectorAll('.tts-btn.uk, .tts-btn.us').forEach(b => b.classList.remove('active'));
     const sel = lang === 'en-US' ? '.tts-btn.us' : '.tts-btn.uk';
     const btn = rowEl.querySelector(sel);
     if (btn) btn.classList.add('active');
   }
 
-  function lastLangFor(rowEl) {
-    return _lastLangByRow.get(rowEl) || 'en-GB';
+  /** Internal: speak the current sentence of the row. On end, do NOT
+   *  advance — the student decides what comes next. */
+  function _playCurrentSentence(rowEl, rateOverride) {
+    if (!rowEl) return;
+    const st = getRowState(rowEl);
+    if (!st.sentences || !st.sentences.length) return;
+    if (st.currentIndex < 0) st.currentIndex = 0;
+    if (st.currentIndex >= st.sentences.length) return;
+
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+    _currentRow = rowEl;
+    setSpeakingRow(rowEl);
+
+    const sentence      = st.sentences[st.currentIndex];
+    const sentenceStart = sentenceCharStart(st.sentences, st.currentIndex);
+
+    const u = new SpeechSynthesisUtterance(sentence);
+    u.lang = st.lang;
+    u.rate = rateOverride || st.rate || DEFAULT_RATE;
+    const v = pickVoice(st.lang);
+    if (v) u.voice = v;
+
+    // Karaoke: only when this row owns word-wrapped spans (polished-output path).
+    const activeOffsets = (st.spans && st.offsets)
+      ? st.offsets.filter(o => o.start >= sentenceStart && o.end <= sentenceStart + sentence.length)
+      : null;
+
+    u.onstart = () => setSpeakingRow(rowEl);
+    u.onboundary = (ev) => {
+      if (ev.name && ev.name !== 'word') return;
+      if (!activeOffsets) return;
+      activeOffsets.forEach(o => o.span.classList.remove('speaking'));
+      const globalIdx = sentenceStart + ev.charIndex;
+      const hit = activeOffsets.find(o => globalIdx >= o.start && globalIdx < o.end);
+      if (hit) hit.span.classList.add('speaking');
+    };
+    u.onend = () => {
+      if (activeOffsets) activeOffsets.forEach(o => o.span.classList.remove('speaking'));
+      // Auto-pause: leave currentIndex where it is; clear pulse; refresh buttons.
+      if (_currentRow === rowEl) _currentRow = null;
+      setSpeakingRow(null);
+      updateTransportButtons(rowEl);
+    };
+
+    speechSynthesis.speak(u);
+    updateTransportButtons(rowEl);
   }
 
-  /** Centralised handler for the polished-output Listen buttons.
-   *  Tracks the selected accent on #polished-listen-row so the slow button
-   *  uses whichever accent was last picked. */
-  ns.listenPolished = function (which) {
-    const row = document.getElementById('polished-listen-row');
-    if (which === 'en-GB' || which === 'en-US') {
-      setActiveAccent(row, which);
-      ns.speakElementById('polished-output', which, DEFAULT_RATE);
-    } else if (which === 'slow') {
-      ns.speakElementById('polished-output', lastLangFor(row), SLOW_RATE);
-    }
-  };
-
-  ns.speakText = function (text, lang = 'en-GB', rate = DEFAULT_RATE, sourceRow = null) {
-    // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
+  ns.speakText = function (text, lang = 'en-GB', rate = DEFAULT_RATE, rowEl = null) {
     if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
     if (!('speechSynthesis' in window)) return;
     if (!text || !String(text).trim()) return;
-    ns.stopSpeaking();
-    _currentText = String(text);
-    _currentLang = lang;
-    _currentRate = rate;
-    _currentWordOffset = 0;
-    _currentSourceRow = sourceRow;
-    _currentSpans = null;
-    _currentOffsets = null;
-    _isPaused = false;
-    updatePauseButtons();
-    _speakFromOffset(0);
+
+    // No row → vocab-click / single-shot path. Speak as one utterance,
+    // no sentence pacing, no row state. Matches old behaviour for
+    // attachWordClicks().
+    if (!rowEl) {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(String(text));
+      u.lang = lang;
+      u.rate = rate;
+      const v = pickVoice(lang);
+      if (v) u.voice = v;
+      speechSynthesis.speak(u);
+      return;
+    }
+
+    // Row-bound → split into sentences, store state, play sentence 0.
+    const st = getRowState(rowEl);
+    st.sentences   = splitSentences(text);
+    st.sourceText  = String(text);
+    st.currentIndex = 0;
+    st.lang  = lang;
+    st.rate  = rate || DEFAULT_RATE;
+    st.targetEl    = null;
+    st.spans       = null;
+    st.offsets     = null;
+    st.wrappedText = null;
+    setActiveAccent(rowEl, lang);
+    _playCurrentSentence(rowEl);
   };
 
-  // Wraps each word in <span> for karaoke highlighting on `boundary` events.
+  /** Replay the current sentence. `slow=true` → SLOW_RATE for this one
+   *  utterance only; the row's stored rate is unchanged. */
+  ns.replaySentence = function (rowEl, slow) {
+    if (!rowEl) return;
+    const st = getRowState(rowEl);
+    if (!st.sentences || !st.sentences.length) return;
+    _playCurrentSentence(rowEl, slow ? SLOW_RATE : st.rate);
+  };
+
+  ns.nextSentence = function (rowEl) {
+    if (!rowEl) return;
+    const st = getRowState(rowEl);
+    if (!st.sentences || st.currentIndex + 1 >= st.sentences.length) return;
+    st.currentIndex++;
+    _playCurrentSentence(rowEl);
+  };
+
+  ns.prevSentence = function (rowEl) {
+    if (!rowEl) return;
+    const st = getRowState(rowEl);
+    if (!st.sentences || st.currentIndex <= 0) return;
+    st.currentIndex--;
+    _playCurrentSentence(rowEl);
+  };
+
+  // speakElement / speakElementById — wrap words in <span> for karaoke,
+  // split text into sentences, and play sentence 0. Subsequent transport
+  // commands (replay / next / prev / slow) re-use the wrapped spans.
   ns.speakElement = function (el, lang = 'en-GB', rate = DEFAULT_RATE) {
-    // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
     if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
     if (!('speechSynthesis' in window)) return;
     if (!el) return;
     const text = el.textContent.trim();
     if (!text) return;
 
-    // Re-wrap text in per-word spans so we can highlight by character offset.
-    const tokens = text.split(/(\s+)/);
-    el.innerHTML = '';
-    const spans = [];
-    const offsets = [];
-    let charIdx = 0;
-    tokens.forEach(tok => {
-      if (/^\s+$/.test(tok)) {
-        el.appendChild(document.createTextNode(tok));
-      } else if (tok.length) {
-        const s = document.createElement('span');
-        s.textContent = tok;
-        offsets.push({ span: s, start: charIdx, end: charIdx + tok.length });
-        spans.push(s);
-        el.appendChild(s);
-      }
-      charIdx += tok.length;
-    });
-
-    ns.stopSpeaking();
-    _currentText = text;
-    _currentLang = lang;
-    _currentRate = rate;
-    _currentWordOffset = 0;
-    _currentSourceRow = (el.id === 'polished-output')
+    // The polished overlay's listen-row is the natural row for el.id === 'polished-output'.
+    // For other elements, fall back to a synthetic row state keyed off the element itself
+    // (the element doubles as the WeakMap key — same lifecycle).
+    const rowEl = (el.id === 'polished-output')
       ? document.getElementById('polished-listen-row')
-      : null;
-    _currentSpans = spans;
-    _currentOffsets = offsets;
-    _isPaused = false;
-    updatePauseButtons();
-    _speakFromOffset(0);
+      : el;
+
+    const st = getRowState(rowEl);
+
+    // Re-wrap only if text changed (e.g. after a fresh AI correction).
+    if (st.wrappedText !== text) {
+      const tokens = text.split(/(\s+)/);
+      el.innerHTML = '';
+      const spans = [];
+      const offsets = [];
+      let charIdx = 0;
+      tokens.forEach(tok => {
+        if (/^\s+$/.test(tok)) {
+          el.appendChild(document.createTextNode(tok));
+        } else if (tok.length) {
+          const s = document.createElement('span');
+          s.textContent = tok;
+          offsets.push({ span: s, start: charIdx, end: charIdx + tok.length });
+          spans.push(s);
+          el.appendChild(s);
+        }
+        charIdx += tok.length;
+      });
+      st.wrappedText = text;
+      st.spans = spans;
+      st.offsets = offsets;
+      st.sentences = splitSentences(text);
+    } else {
+      // Same text — just re-split in case the splitter logic was upgraded.
+      st.sentences = splitSentences(text);
+    }
+    st.sourceText  = text;
+    st.targetEl    = el;
+    st.currentIndex = 0;
+    st.lang = lang;
+    st.rate = rate || DEFAULT_RATE;
+    setActiveAccent(rowEl, lang);
+    _playCurrentSentence(rowEl);
   };
 
   ns.speakElementById = function (id, lang = 'en-GB', rate = DEFAULT_RATE) {
     const el = document.getElementById(id);
     if (el) ns.speakElement(el, lang, rate);
+  };
+
+  /** Polished-output button router. Six modes: en-GB / en-US (start over
+   *  in chosen accent), slow / replay (re-speak current sentence), prev /
+   *  next (sentence navigation). */
+  ns.listenPolished = function (which) {
+    const row = document.getElementById('polished-listen-row');
+    if (!row) return;
+    switch (which) {
+      case 'en-GB':
+      case 'en-US':
+        ns.speakElementById('polished-output', which, DEFAULT_RATE);
+        break;
+      case 'slow':   ns.replaySentence(row, true);  break;
+      case 'replay': ns.replaySentence(row, false); break;
+      case 'prev':   ns.prevSentence(row);          break;
+      case 'next':   ns.nextSentence(row);          break;
+    }
+  };
+
+  // Compat stubs — nothing in the new UI calls these, but preserving them
+  // keeps any older injected snippet, browser-extension shortcut, or
+  // user script from throwing if it references the old API.
+  ns.stopSpeaking = function () {
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+    document.querySelectorAll('.speaking').forEach(s => s.classList.remove('speaking'));
+    _currentRow = null;
+    setSpeakingRow(null);
+  };
+  ns.pauseSpeaking = function () {
+    // No-op in sentence-paced mode (sentences auto-pause). Provided for
+    // backwards compatibility with anything that still references it.
+    ns.stopSpeaking();
   };
 
   // Voice list loads asynchronously on Chrome. Touching it here primes the cache
@@ -748,24 +852,31 @@
 
       const row = document.createElement('div');
       row.className = 'listen-row';
+      // Six-button sentence-paced transport — pedagogical listen-and-repeat.
+      // Layout: [accent picker | slow] [sentence counter] [prev | replay | next]
       row.innerHTML = `
-        <button class="tts-btn uk active" title="UK voice">🇬🇧</button>
-        <button class="tts-btn us" title="US voice">🇺🇸</button>
-        <button class="tts-btn slow" title="Slow (uses selected accent)">🐢</button>
-        <button class="tts-btn pause" title="Pause / resume">⏸</button>
-        <button class="tts-btn stop" title="Stop">⏹</button>
+        <button class="tts-btn uk active" title="UK voice / 英音">🇬🇧</button>
+        <button class="tts-btn us"        title="US voice / 美音">🇺🇸</button>
+        <button class="tts-btn slow"      title="Slow replay / 慢速重播本句" disabled>🐢</button>
+        <span    class="sentence-counter" title="Current sentence / 当前句"></span>
+        <button class="tts-btn prev"      title="Previous sentence / 上一句" disabled>⏮</button>
+        <button class="tts-btn replay"    title="Replay this sentence / 重播本句" disabled>▶</button>
+        <button class="tts-btn next"      title="Next sentence / 下一句" disabled>⏭</button>
       `;
-      const [btnUK, btnUS, btnSlow, btnPause, btnStop] = row.children;
+      const btnUK     = row.querySelector('.tts-btn.uk');
+      const btnUS     = row.querySelector('.tts-btn.us');
+      const btnSlow   = row.querySelector('.tts-btn.slow');
+      const btnPrev   = row.querySelector('.tts-btn.prev');
+      const btnReplay = row.querySelector('.tts-btn.replay');
+      const btnNext   = row.querySelector('.tts-btn.next');
       const textOf = () => stripChineseGloss(extractReadableText(box));
 
-      // Default accent is UK (matches the .active class in markup above).
-      _lastLangByRow.set(row, 'en-GB');
-
-      btnUK.onclick    = () => { setActiveAccent(row, 'en-GB'); ns.speakText(textOf(), 'en-GB', DEFAULT_RATE, row); };
-      btnUS.onclick    = () => { setActiveAccent(row, 'en-US'); ns.speakText(textOf(), 'en-US', DEFAULT_RATE, row); };
-      btnSlow.onclick  = () => ns.speakText(textOf(), lastLangFor(row), SLOW_RATE, row);
-      btnPause.onclick = () => ns.pauseSpeaking();
-      btnStop.onclick  = () => ns.stopSpeaking();
+      btnUK.onclick     = () => ns.speakText(textOf(), 'en-GB', DEFAULT_RATE, row);
+      btnUS.onclick     = () => ns.speakText(textOf(), 'en-US', DEFAULT_RATE, row);
+      btnSlow.onclick   = () => ns.replaySentence(row, /* slow= */ true);
+      btnPrev.onclick   = () => ns.prevSentence(row);
+      btnReplay.onclick = () => ns.replaySentence(row, /* slow= */ false);
+      btnNext.onclick   = () => ns.nextSentence(row);
 
       // Find the heading (h1-h4) immediately preceding this .model-box in
       // the .card. Walk back through siblings until we hit one or run out.

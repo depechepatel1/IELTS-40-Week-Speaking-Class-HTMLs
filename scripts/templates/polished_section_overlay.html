@@ -1,17 +1,26 @@
 <!-- AI-INTERACTIVE-V1: polished section overlay (button-row sits at the
      green box's top-right via CSS; the placeholder inside
      .lines-overlay-host is replaced at runtime). -->
+<!-- Six-button sentence-paced transport — pedagogical listen-and-repeat.
+     Layout: [accent picker | slow] [sentence counter] [prev | replay | next].
+     All start disabled — `enablePolishedListenButtons()` flips them after
+     a successful AI correction populates the polished output. The active
+     row's transport state then rides on per-row state (managed by the
+     TTS subsystem in inserted_script.js). -->
 <div class="button-row" id="polished-listen-row">
-  <button class="tts-btn uk active" disabled title="UK voice"
+  <button class="tts-btn uk active" disabled title="UK voice / 英音"
           onclick="window.__ielts.listenPolished('en-GB')">🇬🇧</button>
-  <button class="tts-btn us" disabled title="US voice"
+  <button class="tts-btn us" disabled title="US voice / 美音"
           onclick="window.__ielts.listenPolished('en-US')">🇺🇸</button>
-  <button class="tts-btn slow" disabled title="Slow (uses selected accent)"
+  <button class="tts-btn slow" disabled title="Slow replay / 慢速重播本句"
           onclick="window.__ielts.listenPolished('slow')">🐢</button>
-  <button class="tts-btn pause" disabled title="Pause / resume"
-          onclick="window.__ielts.pauseSpeaking()">⏸</button>
-  <button class="tts-btn stop" title="Stop"
-          onclick="window.__ielts.stopSpeaking()">⏹</button>
+  <span class="sentence-counter" title="Current sentence / 当前句"></span>
+  <button class="tts-btn prev" disabled title="Previous sentence / 上一句"
+          onclick="window.__ielts.listenPolished('prev')">⏮</button>
+  <button class="tts-btn replay" disabled title="Replay this sentence / 重播本句"
+          onclick="window.__ielts.listenPolished('replay')">▶</button>
+  <button class="tts-btn next" disabled title="Next sentence / 下一句"
+          onclick="window.__ielts.listenPolished('next')">⏭</button>
 </div>
 <div class="lines-overlay-host">
   __ORIG_LINES__
