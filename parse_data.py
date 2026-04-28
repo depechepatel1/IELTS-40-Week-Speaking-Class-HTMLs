@@ -741,13 +741,65 @@ def extract_keyword(text):
 
     return "TOPIC"
 
+# Valid IELTS Part 2 cue interrogatives. Anything outside this set in the
+# extracted cue means the bullet started with a low-content word (article,
+# preposition, etc.) — extract_cue_words walks past those to find a real
+# interrogative. Mirrored in audit_lesson_labels.py's VALID_CUES set.
+_VALID_CUES = {
+    "WHO", "WHAT", "WHEN", "WHERE", "WHY", "HOW", "WHICH", "WHOSE", "WHOM",
+    "WHETHER",
+}
+_LOW_CONTENT_WORDS = {
+    # Articles
+    "THE", "A", "AN",
+    # Prepositions
+    "TO", "ON", "IN", "AT", "FOR", "BY", "WITH", "FROM", "OF", "ABOUT",
+    "AROUND", "DURING", "AFTER", "BEFORE", "INTO", "ONTO", "OUT", "OVER",
+    "UNDER", "THROUGH", "WITHIN",
+    # Pronouns / determiners
+    "I", "YOU", "IT", "HE", "SHE", "WE", "THEY", "THIS", "THAT", "THESE",
+    "THOSE", "MY", "YOUR", "HIS", "HER", "ITS", "OUR", "THEIR",
+    # Connectors / conjunctions (not used as cue words)
+    "BUT", "OR", "SO", "YET",
+    # Low-content verbs
+    "IS", "WAS", "ARE", "WERE", "BE", "BEEN", "BEING", "DO", "DID", "DOES",
+}
+
+
+def _cue_from_bullet_text(text):
+    """Extract the cue interrogative from a single bullet's text.
+
+    Walks word-by-word: skip low-content leading words (articles,
+    prepositions, pronouns), return the first cue interrogative we hit.
+    Falls back to the literal first word if neither rule fires (caller
+    will validate via _VALID_CUES and may further repair).
+    """
+    if not text:
+        return None
+    words = re.findall(r'[A-Za-z/]+', text)  # /-aware so HOW/WHERE survives
+    for raw in words:
+        upper = raw.upper().rstrip('.,:;')
+        # Compound cue (e.g. HOW/WHERE) — accept if every segment is valid.
+        segments = upper.split('/')
+        if segments and all(s in _VALID_CUES for s in segments):
+            return upper
+        if upper in _LOW_CONTENT_WORDS:
+            continue
+        # Hit a content word that isn't an interrogative (noun/verb/adj).
+        # IELTS bullets don't bury cues that deep — return what we have.
+        return upper  # caller will see this fail _VALID_CUES check
+    return None
+
+
 def extract_cue_words(prompt_html):
     """Extract 4 cue words from a Part 2 prompt's bullet structure.
 
     Cue words live as PLAIN TEXT in the source data — they're not wrapped
     in <strong> tags until format_bullet_text() runs later in the
     pipeline. We mirror format_bullet_text()'s own splitting algorithm so
-    we read the cues directly from the bullet lines.
+    we read the cues directly from the bullet lines, then apply the
+    smarter "skip low-content leading words" rule so prompts like
+    "On what occasion ..." correctly resolve to WHAT (not ON).
 
     Source-data prompt shape:
 
@@ -757,28 +809,26 @@ def extract_cue_words(prompt_html):
         When you would like to go<br>
         And explain why you want to work in that place</p>
 
-    The cue word is the FIRST WORD of each bullet line after "You should
-    say:". The 4th cue is almost always "And" (a connector); we
-    substitute it with the interrogative from the trailing
-    "explain (why|how|...)" phrase. Falls back to "WHY" if no pattern
-    matches (the most common case in this corpus).
+    The 4th cue is almost always "And" (connector); we substitute it
+    with the interrogative from the trailing "explain (why|how|...)"
+    phrase. Falls back to "WHY" if no pattern matches.
+
+    Output cues are validated against _VALID_CUES; any cue outside the
+    allowlist is left as the extracted token (downstream audit will
+    flag and repair via audit_lesson_labels.py).
 
     NOTE: q1.html in the source data contains BOTH the cue-card prompt
     <p> AND the model-answer <p> (with vocabulary words bolded as
-    <strong> for highlighting). Iterating <p> tags and selecting the one
-    that contains "You should say:" sidesteps that ambiguity — only the
-    prompt <p> ever has those cue lines.
+    <strong> for highlighting). Iterating <p> tags and selecting the
+    one that contains "You should say:" sidesteps that ambiguity.
 
-    Returns a 4-element uppercase list, or None if the structure doesn't
-    match (caller falls back to whatever label is already in the
-    template).
+    Returns a 4-element uppercase list, or None if the structure
+    doesn't match.
     """
     if not prompt_html:
         return None
     soup = BeautifulSoup(prompt_html, 'html.parser')
 
-    # Find the <p> that contains the cue-card prompt — distinct from
-    # the model-answer <p> which doesn't contain "You should say".
     prompt_p = None
     for p in soup.find_all('p'):
         if "You should say" in p.get_text():
@@ -793,25 +843,28 @@ def extract_cue_words(prompt_html):
     after = p_content.split("You should say:", 1)[1]
     bullet_lines = re.split(r'<br\s*/?>', after)
 
-    cues = []
+    bullet_texts = []
     for line in bullet_lines:
         text = BeautifulSoup(line, 'html.parser').get_text().strip()
-        if not text:
-            continue
-        first_word = text.split(' ', 1)[0].rstrip('.,:;').upper()
-        cues.append(first_word)
-        if len(cues) == 4:
+        if text:
+            bullet_texts.append(text)
+        if len(bullet_texts) == 4:
             break
-    if len(cues) < 4:
+    if len(bullet_texts) < 4:
         return None
 
+    cues = []
+    for text in bullet_texts:
+        cue = _cue_from_bullet_text(text)
+        cues.append(cue if cue else 'WHAT')
+
+    # Resolve "AND" connector to the trailing interrogative.
     if cues[3] == 'AND':
         cues[3] = 'WHY'  # safe fallback
-        for line in bullet_lines:
-            text = BeautifulSoup(line, 'html.parser').get_text().strip()
+        for text in bullet_texts:
             if text.upper().startswith('AND '):
                 m = re.match(
-                    r'and\s+explain\s+(why|how|what|when|where|who|which)\b',
+                    r'and\s+explain\s+(why|how|what|when|where|who|whom|whose|which|whether)\b',
                     text, flags=re.IGNORECASE,
                 )
                 if m:
