@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like science and imagination because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about science and imagination.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about science and imagination.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Complex</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Complexity (N)</td><td><span class="vocab-cn">复杂的</span></td></tr><tr><td><strong>Fascinating</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Fascination (N)</td><td><span class="vocab-cn">迷人的</span></td></tr><tr><td><strong>Logical</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Logic (N)</td><td><span class="vocab-cn">合乎逻辑的</span></td></tr><tr><td><strong>Creative</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Creativity (N)</td><td><span class="vocab-cn">有创造力的</span></td></tr><tr><td><strong>Theoretical</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Theory (N)</td><td><span class="vocab-cn">理论的</span></td></tr><tr><td><strong>Groundbreaking</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">开创性的</span></td></tr><tr><td><strong>Unique</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Uniqueness (N)</td><td><span class="vocab-cn">独特的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Rocket science</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">高深莫测的事</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Just read the instructions; assembling this desk isn't rocket science."</td></tr><tr><td><strong>Food for thought</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">精神食粮 / 耐人寻味</span></td></tr><tr class="vocab-example-row"><td colspan="3">"The professor's lecture gave us a lot of food for thought."</td></tr><tr><td><strong>Light bulb moment</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">灵机一动</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I had a light bulb moment and suddenly knew how to solve the math problem."</td></tr></tbody>
+<tbody><tr><td><strong>Complex</strong></td><td>Complexity (N)</td><td><span class="vocab-cn">复杂的</span></td></tr><tr><td><strong>Fascinating</strong> <span class="recycled-tag">Recycled</span></td><td>Fascination (N)</td><td><span class="vocab-cn">迷人的</span></td></tr><tr><td><strong>Logical</strong></td><td>Logic (N)</td><td><span class="vocab-cn">合乎逻辑的</span></td></tr><tr><td><strong>Creative</strong></td><td>Creativity (N)</td><td><span class="vocab-cn">有创造力的</span></td></tr><tr><td><strong>Theoretical</strong></td><td>Theory (N)</td><td><span class="vocab-cn">理论的</span></td></tr><tr><td><strong>Groundbreaking</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">开创性的</span></td></tr><tr><td><strong>Unique</strong> <span class="recycled-tag">Recycled</span></td><td>Uniqueness (N)</td><td><span class="vocab-cn">独特的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Rocket science</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">高深莫测的事</span></td></tr><tr><td><strong>Food for thought</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">精神食粮 / 耐人寻味</span></td></tr><tr><td><strong>Light bulb moment</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">灵机一动</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe an area of science (physics, biology, psychology, etc.) that interests you. You should say:</strong> <strong>What</strong> it is, <strong>When</strong> you knew about it, <strong>How</strong> you learnt it, <strong>And</strong> explain why you are interested.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe an area of science (physics, biology, psychology, etc.) that interests you. You should say: <strong>What</strong> it is, <strong>When</strong> you knew about it, <strong>How</strong> you learnt it, <strong>And</strong> explain why you are interested.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Science Area</div>
+<div class="spider-center">AREA<br/>SCIENCE</div>
 <div class="spider-legs">
-<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Biology class</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Human body</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">High school</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Read books</span></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Biology class</span></div>
+<div class="spider-leg"><strong>2. WHEN:</strong><br/><span style="color:#777;">Human body</span></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">High school</span></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Read books</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a time when you needed to use your imagination. You should say:</strong> <strong>When</strong> it was, <strong>Why</strong> you needed to use your imagination, <strong>How</strong> you used it, <strong>And</strong> explain how you felt about the result.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a time when you needed to use your imagination. You should say: <strong>When</strong> it was, <strong>Why</strong> you needed to use your imagination, <strong>How</strong> you used it, <strong>And</strong> explain how you felt about the result.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Used Imagination</div>
+<div class="spider-center">NEEDED<br/>USE</div>
 <div class="spider-legs">
-<div class="spider-leg">Art class<div class="lines"></div></div>
-<div class="spider-leg">Draw picture<div class="lines"></div></div>
-<div class="spider-leg">No ideas<div class="lines"></div></div>
-<div class="spider-leg">Felt proud<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHEN:</strong><br/><span style="color:#777;">Art class</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHY:</strong><br/><span style="color:#777;">Draw picture</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">No ideas</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Felt proud</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a scientific invention that you think is very important. You should say:</strong> <strong>What</strong> it is, <strong>Who</strong> invented it (if you know), <strong>How</strong> it helps people, <strong>And</strong> explain why the world would be different without it.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a scientific invention that you think is very important. You should say: <strong>What</strong> it is, <strong>Who</strong> invented it (if you know), <strong>How</strong> it helps people, <strong>And</strong> explain why the world would be different without it.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Important Invention</div>
+<div class="spider-center">SCIENTIFIC<br/>INVENTION</div>
 <div class="spider-legs">
-<div class="spider-leg">The lightbulb<div class="lines"></div></div>
-<div class="spider-leg">Bright light<div class="lines"></div></div>
-<div class="spider-leg">Read night<div class="lines"></div></div>
-<div class="spider-leg">Changed world<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">The lightbulb</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHO:</strong><br/><span style="color:#777;">Bright light</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">Read night</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Changed world</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Innovation</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Innovate (V)</td><td><span class="vocab-cn">创新</span></td></tr><tr><td><strong>Curiosity</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Curious (Adj)</td><td><span class="vocab-cn">好奇心</span></td></tr><tr><td><strong>Hypothesis</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Hypothetical (Adj)</td><td><span class="vocab-cn">假设</span></td></tr><tr><td><strong>Experiment</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Experimental (Adj)</td><td><span class="vocab-cn">实验</span></td></tr><tr><td><strong>Breakthrough</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">突破</span></td></tr><tr><td><strong>Ecosystem</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>System (N)</td><td><span class="vocab-cn">生态系统 (irrelevant, swap)</span></td></tr><tr><td><strong>Extinction</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Extinct (Adj)</td><td><span class="vocab-cn">灭绝 (irrelevant, swap)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Reinvent the wheel</strong></td><td>(Reinvented (V2))</td><td><span class="vocab-cn">多此一举</span></td></tr><tr class="vocab-example-row"><td colspan="3">"There is already a good tool for this, so don't reinvent the wheel."</td></tr><tr><td><strong>Blind with science</strong></td><td>(Blinded (V2))</td><td><span class="vocab-cn">故弄玄虚</span></td></tr><tr class="vocab-example-row"><td colspan="3">"The salesman tried to blind us with science."</td></tr><tr><td><strong>Great minds think alike</strong></td><td>(Proverb)</td><td><span class="vocab-cn">英雄所见略同</span></td></tr><tr class="vocab-example-row"><td colspan="3">"We both bought the exact same gift; great minds think alike."</td></tr></tbody>
+<tbody><tr><td><strong>Innovation</strong></td><td>Innovate (V)</td><td><span class="vocab-cn">创新</span></td></tr><tr><td><strong>Curiosity</strong></td><td>Curious (Adj)</td><td><span class="vocab-cn">好奇心</span></td></tr><tr><td><strong>Hypothesis</strong></td><td>Hypothetical (Adj)</td><td><span class="vocab-cn">假设</span></td></tr><tr><td><strong>Experiment</strong></td><td>Experimental (Adj)</td><td><span class="vocab-cn">实验</span></td></tr><tr><td><strong>Breakthrough</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">突破</span></td></tr><tr><td><strong>Ecosystem</strong></td><td>System (N)</td><td><span class="vocab-cn">生态系统 (irrelevant, swap)</span></td></tr><tr><td><strong>Extinction</strong></td><td>Extinct (Adj)</td><td><span class="vocab-cn">灭绝 (irrelevant, swap)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Reinvent the wheel</strong></td><td>(Reinvented (V2))</td><td><span class="vocab-cn">多此一举</span></td></tr><tr><td><strong>Blind with science</strong></td><td>(Blinded (V2))</td><td><span class="vocab-cn">故弄玄虚</span></td></tr><tr><td><strong>Great minds think alike</strong></td><td>(Proverb)</td><td><span class="vocab-cn">英雄所见略同</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Which occupations (or jobs) require a high degree of imagination?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> architects and writers need immense creativity, but scientists do too.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Fundamentally,</span> researchers must formulate a unique <strong>hypothesis (假设)</strong> before they can discover anything new. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Consequently,</span> an ecologist studying a complex <strong>ecosystem (生态系统)</strong> must imagine unseen connections to solve environmental puzzles.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Write books</li><li>Build homes</li><li>Test ideas</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Why does a bridge builder need good ideas?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Do scientists need a lot of imagination to discover new things?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: Does the current education system encourage or kill creativity?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Sadly,</span> rigid schooling often stifles creativity, because it focuses heavily on standardized testing.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Unfortunately,</span> students are taught to memorize facts rather than explore new ideas, forcing them to <strong>reinvent the wheel (多此一举)</strong> unnecessarily. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> strict grading rubrics penalize students who solve math problems using unconventional methods.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Kills it</li><li>Test scores</li><li>No fun</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Do too many exams stop students from having fun ideas?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Do strict school tests kill a student's ability to be creative?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: Is scientific progress always good for society, or are there ethical risks?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Admittedly,</span> progress brings huge benefits, yet it also carries severe ethical dangers.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Sometimes,</span> corporations try to <strong>blind with science (故弄玄虚)</strong> to hide the devastating environmental impacts of their inventions. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Therefore,</span> unregulated genetic modification might eventually lead to the terrifying <strong>extinction (灭绝)</strong> of natural plant species.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Has risks</li><li>Bad weapons</li><li>Hurt nature</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Can inventing a new machine cause environmental damage?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why do we need strict laws to control new scientific inventions?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Creative</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Abstract</td></tr><tr><td style="padding: 10px 5px;">2. Logical</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Rational</td></tr><tr><td style="padding: 10px 5px;">3. Theoretical</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Imaginative</td></tr><tr><td style="padding: 10px 5px;">4. Complex</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Innovative</td></tr><tr><td style="padding: 10px 5px;">5. Groundbreaking</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Complicated</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Creative</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Imaginative</td></tr><tr><td style="padding: 10px 5px;">2. Logical</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Innovative</td></tr><tr><td style="padding: 10px 5px;">3. Theoretical</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Abstract</td></tr><tr><td style="padding: 10px 5px;">4. Complex</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Rational</td></tr><tr><td style="padding: 10px 5px;">5. Groundbreaking</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Complicated</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->

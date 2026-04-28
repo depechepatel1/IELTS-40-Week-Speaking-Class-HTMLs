@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like clothing and fashion because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about clothing and fashion.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about clothing and fashion.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Stylish</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Style (N)</td><td><span class="vocab-cn">时髦的</span></td></tr><tr><td><strong>Formal</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Formality (N)</td><td><span class="vocab-cn">正式的</span></td></tr><tr><td><strong>Comfortable</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Comfort (N)</td><td><span class="vocab-cn">舒适的</span></td></tr><tr><td><strong>Elegant</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Elegance (N)</td><td><span class="vocab-cn">优雅的</span></td></tr><tr><td><strong>Outdated</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Date (N)</td><td><span class="vocab-cn">过时的</span></td></tr><tr><td><strong>Refreshing</strong> <span class="recycled-tag">Recycled</span></td><td>Refresh (V)</td><td><span class="vocab-cn">清爽的 (look)</span></td></tr><tr><td><strong>Serene</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Serenity (N)</td><td><span class="vocab-cn">宁静的 (color)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Dressed to kill</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">盛装打扮</span></td></tr><tr class="vocab-example-row"><td colspan="3">"She walked into the party dressed to kill."</td></tr><tr><td><strong>Fit like a glove</strong></td><td>(Fit (V2))</td><td><span class="vocab-cn">天衣无缝</span></td></tr><tr class="vocab-example-row"><td colspan="3">"This tailored suit fits like a glove."</td></tr><tr><td><strong>Trendsetter</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">潮流引领者</span></td></tr><tr class="vocab-example-row"><td colspan="3">"As a popular singer, she is a true fashion trendsetter."</td></tr></tbody>
+<tbody><tr><td><strong>Stylish</strong></td><td>Style (N)</td><td><span class="vocab-cn">时髦的</span></td></tr><tr><td><strong>Formal</strong></td><td>Formality (N)</td><td><span class="vocab-cn">正式的</span></td></tr><tr><td><strong>Comfortable</strong></td><td>Comfort (N)</td><td><span class="vocab-cn">舒适的</span></td></tr><tr><td><strong>Elegant</strong></td><td>Elegance (N)</td><td><span class="vocab-cn">优雅的</span></td></tr><tr><td><strong>Outdated</strong></td><td>Date (N)</td><td><span class="vocab-cn">过时的</span></td></tr><tr><td><strong>Refreshing</strong> <span class="recycled-tag">Recycled</span></td><td>Refresh (V)</td><td><span class="vocab-cn">清爽的 (look)</span></td></tr><tr><td><strong>Serene</strong> <span class="recycled-tag">Recycled</span></td><td>Serenity (N)</td><td><span class="vocab-cn">宁静的 (color)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Dressed to kill</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">盛装打扮</span></td></tr><tr><td><strong>Fit like a glove</strong></td><td>(Fit (V2))</td><td><span class="vocab-cn">天衣无缝</span></td></tr><tr><td><strong>Trendsetter</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">潮流引领者</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a uniform you have worn (e.g., at school or work). You should say:</strong> <strong>When</strong> you wore it, <strong>What</strong> it looked like, <strong>Who</strong> provided it, <strong>And</strong> explain how you felt about wearing it.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a uniform you have worn (e.g., at school or work). You should say: <strong>When</strong> you wore it, <strong>What</strong> it looked like, <strong>Who</strong> provided it, <strong>And</strong> explain how you felt about wearing it.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Worn Uniform</div>
+<div class="spider-center">UNIFORM<br/>HAVE</div>
 <div class="spider-legs">
-<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Work shirt</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Black pants</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Wore daily</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Looked neat</span></div>
+<div class="spider-leg"><strong>1. WHEN:</strong><br/><span style="color:#777;">Work shirt</span></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Black pants</span></div>
+<div class="spider-leg"><strong>3. WHO:</strong><br/><span style="color:#777;">Wore daily</span></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Looked neat</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a piece of clothing you like to wear on special occasions. You should say:</strong> <strong>What</strong> it is, <strong>Where</strong> you bought it, <strong>When</strong> you wear it, <strong>And</strong> explain why you like it.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a piece of clothing you like to wear on special occasions. You should say: <strong>What</strong> it is, <strong>Where</strong> you bought it, <strong>When</strong> you wear it, <strong>And</strong> explain why you like it.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Special Clothing</div>
+<div class="spider-center">PIECE<br/>CLOTHING</div>
 <div class="spider-legs">
-<div class="spider-leg">Red tie<div class="lines"></div></div>
-<div class="spider-leg">Wedding day<div class="lines"></div></div>
-<div class="spider-leg">Very sharp<div class="lines"></div></div>
-<div class="spider-leg">Felt good<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Red tie</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHERE:</strong><br/><span style="color:#777;">Wedding day</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHEN:</strong><br/><span style="color:#777;">Very sharp</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Felt good</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a traditional piece of clothing from your country. You should say:</strong> <strong>What</strong> it is called, <strong>Who</strong> wears it, <strong>When</strong> people usually wear it, <strong>And</strong> explain the cultural significance of this clothing.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a traditional piece of clothing from your country. You should say: <strong>What</strong> it is called, <strong>Who</strong> wears it, <strong>When</strong> people usually wear it, <strong>And</strong> explain the cultural significance of this clothing.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Traditional Clothes</div>
+<div class="spider-center">TRADITIONAL<br/>PIECE</div>
 <div class="spider-legs">
-<div class="spider-leg">Old dress<div class="lines"></div></div>
-<div class="spider-leg">Silk cloth<div class="lines"></div></div>
-<div class="spider-leg">Spring fest<div class="lines"></div></div>
-<div class="spider-leg">Looks nice<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Old dress</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHO:</strong><br/><span style="color:#777;">Silk cloth</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHEN:</strong><br/><span style="color:#777;">Spring fest</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Looks nice</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Uniformity</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Uniform (Adj/N)</td><td><span class="vocab-cn">一致性</span></td></tr><tr><td><strong>Identity</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Identify (V)</td><td><span class="vocab-cn">身份</span></td></tr><tr><td><strong>Status</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">地位</span></td></tr><tr><td><strong>Expression</strong></td><td>Express (V)</td><td><span class="vocab-cn">表达</span></td></tr><tr><td><strong>Textile</strong></td><td>Textiles (Pl)</td><td><span class="vocab-cn">纺织品</span></td></tr><tr><td><strong>Resource</strong></td><td>Resources (Pl)</td><td><span class="vocab-cn">资源 (waste)</span></td></tr><tr><td><strong>Conservation</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Conserve (V)</td><td><span class="vocab-cn">节约 (clothes)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Fashion victim</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">盲目追赶潮流者</span></td></tr><tr class="vocab-example-row"><td colspan="3">"He wears expensive but ugly clothes; he is a complete fashion victim."</td></tr><tr><td><strong>Judge a book by its cover</strong></td><td>(Proverb)</td><td><span class="vocab-cn">以貌取人</span></td></tr><tr class="vocab-example-row"><td colspan="3">"She dressed plainly, but she was a genius; never judge a book by its cover."</td></tr><tr><td><strong>Slave to fashion</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">时尚奴隶</span></td></tr><tr class="vocab-example-row"><td colspan="3">"She buys a new wardrobe every season; she is a slave to fashion."</td></tr></tbody>
+<tbody><tr><td><strong>Uniformity</strong></td><td>Uniform (Adj/N)</td><td><span class="vocab-cn">一致性</span></td></tr><tr><td><strong>Identity</strong></td><td>Identify (V)</td><td><span class="vocab-cn">身份</span></td></tr><tr><td><strong>Status</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">地位</span></td></tr><tr><td><strong>Expression</strong></td><td>Express (V)</td><td><span class="vocab-cn">表达</span></td></tr><tr><td><strong>Textile</strong></td><td>Textiles (Pl)</td><td><span class="vocab-cn">纺织品</span></td></tr><tr><td><strong>Resource</strong></td><td>Resources (Pl)</td><td><span class="vocab-cn">资源 (waste)</span></td></tr><tr><td><strong>Conservation</strong></td><td>Conserve (V)</td><td><span class="vocab-cn">节约 (clothes)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Fashion victim</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">盲目追赶潮流者</span></td></tr><tr><td><strong>Judge a book by its cover</strong></td><td>(Proverb)</td><td><span class="vocab-cn">以貌取人</span></td></tr><tr><td><strong>Slave to fashion</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">时尚奴隶</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Is it necessary to follow the latest fashion trends?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">In my opinion,</span> chasing trends is completely unnecessary, as personal comfort matters more.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Actually,</span> being a <strong>slave to fashion (时尚奴隶)</strong> is exhausting and extremely expensive over time. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Consequently,</span> a <strong>fashion victim (盲目追求时尚的人)</strong> will waste thousands of dollars buying bizarre clothes they only wear once.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Waste money</li><li>Just follow</li><li>Wear comfy</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Is it silly to spend all your money to look like a singer?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is blindly following fast fashion trends a bad idea financially?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: Do you think expensive designer clothes are worth the money?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Honestly,</span> luxury brands are rarely worth the huge price tag, though their quality is good.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Essentially,</span> you are mostly paying for the famous logo rather than the actual <strong>textile (纺织品)</strong> itself. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Therefore,</span> you can easily find durable, stylish clothes at normal stores for a fraction of the cost.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Too costly</li><li>Pay logo</li><li>Buy cheap</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Would you pay ten times more for a shirt just for a logo?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Are expensive designer clothes actually better quality, or just famous?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: Does the "fast fashion" industry (cheap, disposable clothing) harm the environment?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Absolutely,</span> fast fashion is disastrous, because it pollutes rivers and creates massive waste.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Fundamentally,</span> throwing away cheap shirts constantly drains every natural <strong>resource (资源)</strong> we have left. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Instead,</span> promoting clothing recycling and mindful <strong>conservation (节约)</strong> is the only way to save our planet.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Bad waste</li><li>Dirty water</li><li>Must recycle</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What happens if millions throw cheap shirts in the garbage?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How does cheap, disposable fashion permanently damage the environment?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Comfortable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Old-fashioned</td></tr><tr><td style="padding: 10px 5px;">2. Outdated</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Graceful</td></tr><tr><td style="padding: 10px 5px;">3. Elegant</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Fashionable</td></tr><tr><td style="padding: 10px 5px;">4. Formal</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Official</td></tr><tr><td style="padding: 10px 5px;">5. Stylish</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Relaxing</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Comfortable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Fashionable</td></tr><tr><td style="padding: 10px 5px;">2. Outdated</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Graceful</td></tr><tr><td style="padding: 10px 5px;">3. Elegant</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Relaxing</td></tr><tr><td style="padding: 10px 5px;">4. Formal</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Official</td></tr><tr><td style="padding: 10px 5px;">5. Stylish</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Old-fashioned</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -823,7 +897,7 @@
 <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;"><div class="grammar-sent">1. I wear uniform at school.</div><div class="grammar-sent">2. It is uncomfortable.</div><div class="grammar-sent">3. I like wear jeans.</div><div class="grammar-sent">4. Fashion is important.</div><div class="grammar-sent">5. I bought a new shirt.</div></div>
 </div>
 </div>
-<div class="card" style="flex-grow:1; border-left:5px solid #9b59b6; background:#f4ecf7; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
+<div class="card" style="flex-grow:1; border-left:5px solid #1abc9c; background:#e8f8f5; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
 <h3>3. Writing Task: What clothes do you like to wear? (Write 50 words) (10 minutes)</h3>
 <div class="diff-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;">
 <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
@@ -835,8 +909,8 @@
 </ol>
 </div>
 </div>
-<div class="card" style="background:#f4ecf7; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #9b59b6; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-<h3 style="color:#9b59b6; margin:0;">🎙️ 4. Recording Challenge</h3>
+<div class="card" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
 <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br/>

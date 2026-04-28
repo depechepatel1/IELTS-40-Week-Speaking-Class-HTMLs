@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like shopping malls because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about shopping malls.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about shopping malls.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Bustling</strong></td><td>Bustle (V)</td><td><span class="vocab-cn">熙熙攘攘的</span></td></tr><tr><td><strong>Affordable</strong></td><td>Afford (V)</td><td><span class="vocab-cn">负担得起的</span></td></tr><tr><td><strong>Trendy</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Trend (N)</td><td><span class="vocab-cn">时髦的</span></td></tr><tr><td><strong>Convenient</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Convenience (N)</td><td><span class="vocab-cn">方便的</span></td></tr><tr><td><strong>Overcrowded</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Crowd (N)</td><td><span class="vocab-cn">拥挤的</span></td></tr><tr><td><strong>Influential</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Influence (N)</td><td><span class="vocab-cn">有影响力的 (brands)</span></td></tr><tr><td><strong>Charismatic</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Charisma (N)</td><td><span class="vocab-cn">有魅力的 (salesperson)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Shop till you drop</strong></td><td>(Shopped (V2))</td><td><span class="vocab-cn">血拼到底</span></td></tr><tr class="vocab-example-row"><td colspan="3">"On Black Friday, we always shop till we drop."</td></tr><tr><td><strong>Window shopping</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">橱窗购物</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I don't have money, so I am just window shopping."</td></tr><tr><td><strong>Bargain hunter</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">捡漏者</span></td></tr><tr class="vocab-example-row"><td colspan="3">"She is a keen bargain hunter who loves sales."</td></tr></tbody>
+<tbody><tr><td><strong>Bustling</strong></td><td>Bustle (V)</td><td><span class="vocab-cn">熙熙攘攘的</span></td></tr><tr><td><strong>Affordable</strong></td><td>Afford (V)</td><td><span class="vocab-cn">负担得起的</span></td></tr><tr><td><strong>Trendy</strong></td><td>Trend (N)</td><td><span class="vocab-cn">时髦的</span></td></tr><tr><td><strong>Convenient</strong></td><td>Convenience (N)</td><td><span class="vocab-cn">方便的</span></td></tr><tr><td><strong>Overcrowded</strong></td><td>Crowd (N)</td><td><span class="vocab-cn">拥挤的</span></td></tr><tr><td><strong>Influential</strong> <span class="recycled-tag">Recycled</span></td><td>Influence (N)</td><td><span class="vocab-cn">有影响力的 (brands)</span></td></tr><tr><td><strong>Charismatic</strong> <span class="recycled-tag">Recycled</span></td><td>Charisma (N)</td><td><span class="vocab-cn">有魅力的 (salesperson)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Shop till you drop</strong></td><td>(Shopped (V2))</td><td><span class="vocab-cn">血拼到底</span></td></tr><tr><td><strong>Window shopping</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">橱窗购物</span></td></tr><tr><td><strong>Bargain hunter</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">捡漏者</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a shopping mall you often visit. You should say:</strong> <strong>Where</strong> it is, <strong>Who</strong> you usually go with, <strong>What</strong> you do there, <strong>And</strong> explain why you like going to this mall so often.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a shopping mall you often visit. You should say: <strong>Where</strong> it is, <strong>Who</strong> you usually go with, <strong>What</strong> you do there, <strong>And</strong> explain why you like going to this mall so often.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Favorite Mall</div>
+<div class="spider-center">SHOPPING<br/>MALL</div>
 <div class="spider-legs">
-<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Wanda Plaza</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">With sister</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Buying clothes</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Lots of restaurants</span></div>
+<div class="spider-leg"><strong>1. WHERE:</strong><br/><span style="color:#777;">Wanda Plaza</span></div>
+<div class="spider-leg"><strong>2. WHO:</strong><br/><span style="color:#777;">With sister</span></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">Buying clothes</span></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Lots of restaurants</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a traditional street market you enjoy visiting. You should say:</strong> <strong>Where</strong> it is located, <strong>What</strong> kinds of things they sell, <strong>How</strong> the atmosphere differs from a mall, <strong>And</strong> explain why you like shopping there.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a traditional street market you enjoy visiting. You should say: <strong>Where</strong> it is located, <strong>What</strong> kinds of things they sell, <strong>How</strong> the atmosphere differs from a mall, <strong>And</strong> explain why you like shopping there.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Street Market</div>
+<div class="spider-center">TRADITIONAL<br/>STREET</div>
 <div class="spider-legs">
-<div class="spider-leg">Night market<div class="lines"></div></div>
-<div class="spider-leg">Fresh street food<div class="lines"></div></div>
-<div class="spider-leg">Noisy and fun<div class="lines"></div></div>
-<div class="spider-leg">Very authentic<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHERE:</strong><br/><span style="color:#777;">Night market</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Fresh street food</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">Noisy and fun</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Very authentic</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a shop that you recently recommended to a friend. You should say:</strong> <strong>What</strong> the shop sells, <strong>Where</strong> it is, <strong>Why</strong> you recommended it, <strong>And</strong> explain what makes this shop special.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a shop that you recently recommended to a friend. You should say: <strong>What</strong> the shop sells, <strong>Where</strong> it is, <strong>Why</strong> you recommended it, <strong>And</strong> explain what makes this shop special.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Recommended Shop</div>
+<div class="spider-center">SHOP</div>
 <div class="spider-legs">
-<div class="spider-leg">Used bookstore<div class="lines"></div></div>
-<div class="spider-leg">Quiet alleyway<div class="lines"></div></div>
-<div class="spider-leg">Friend loves reading<div class="lines"></div></div>
-<div class="spider-leg">Knowledgeable owner<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Used bookstore</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHERE:</strong><br/><span style="color:#777;">Quiet alleyway</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHY:</strong><br/><span style="color:#777;">Friend loves reading</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHAT:</strong><br/><span style="color:#777;">Knowledgeable owner</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Consumerism</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Consumer (N) - Consume (V)</td><td><span class="vocab-cn">消费主义</span></td></tr><tr><td><strong>Transaction</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Transact (V)</td><td><span class="vocab-cn">交易</span></td></tr><tr><td><strong>E-commerce</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">电子商务</span></td></tr><tr><td><strong>Retail</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Retailer (N)</td><td><span class="vocab-cn">零售</span></td></tr><tr><td><strong>Impulsive</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Impulse (N)</td><td><span class="vocab-cn">冲动的</span></td></tr><tr><td><strong>Reputation</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Reputable (Adj)</td><td><span class="vocab-cn">声誉</span></td></tr><tr><td><strong>Privacy</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Private (Adj)</td><td><span class="vocab-cn">隐私 (data)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Retail therapy</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">购物解压</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I felt sad, so I engaged in some retail therapy."</td></tr><tr><td><strong>Break the bank</strong></td><td>(Broke (V2))</td><td><span class="vocab-cn">倾家荡产</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Buying that fancy dress will definitely break the bank."</td></tr><tr><td><strong>Catch one's eye</strong></td><td>(Caught (V2))</td><td><span class="vocab-cn">引人注目</span></td></tr><tr class="vocab-example-row"><td colspan="3">"The bright neon sign caught my eye."</td></tr></tbody>
+<tbody><tr><td><strong>Consumerism</strong></td><td>Consumer (N) - Consume (V)</td><td><span class="vocab-cn">消费主义</span></td></tr><tr><td><strong>Transaction</strong></td><td>Transact (V)</td><td><span class="vocab-cn">交易</span></td></tr><tr><td><strong>E-commerce</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">电子商务</span></td></tr><tr><td><strong>Retail</strong></td><td>Retailer (N)</td><td><span class="vocab-cn">零售</span></td></tr><tr><td><strong>Impulsive</strong></td><td>Impulse (N)</td><td><span class="vocab-cn">冲动的</span></td></tr><tr><td><strong>Reputation</strong></td><td>Reputable (Adj)</td><td><span class="vocab-cn">声誉</span></td></tr><tr><td><strong>Privacy</strong></td><td>Private (Adj)</td><td><span class="vocab-cn">隐私 (data)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Retail therapy</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">购物解压</span></td></tr><tr><td><strong>Break the bank</strong></td><td>(Broke (V2))</td><td><span class="vocab-cn">倾家荡产</span></td></tr><tr><td><strong>Catch one's eye</strong></td><td>(Caught (V2))</td><td><span class="vocab-cn">引人注目</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: What are the downsides of mobile payments?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Admittedly,</span> digital payments heavily encourage extremely <strong>Impulsive (冲动的)</strong> buying, as spending invisible digital money feels entirely painless.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Furthermore,</span> continuously linking your bank card to numerous phone applications actively threatens your personal <strong>Privacy (隐私)</strong> and online security. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Consequently,</span> a simple hacker attack could easily steal your passwords and completely <strong>Break the bank (花费太高 / 倾家荡产)</strong> in mere seconds.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Spend money blindly</li><li>Hackers steal data</li><li>Phone battery dies</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What happens if you want lunch but your phone is dead?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Does paying by phone make people spend too much money?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: Has the rise of e-commerce (online shopping) caused the death of local small businesses?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Without a doubt,</span> online shopping has widely devastated local stores, because internet platforms offer significantly cheaper retail prices.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This is crucial since,</span> small family shops cannot realistically afford the highly expensive rent required to maintain a physical street presence. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Therefore,</span> many traditional bookstores have sadly gone bankrupt because customers vastly prefer ordering cheaper digital copies directly to their front door.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Yes online cheaper</li><li>High street rent</li><li>Fast home delivery</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Why do people buy shoes online instead of at a shop?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How can real street shops survive against internet shopping?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: Is consumerism (the desire to buy more things) beneficial or harmful to society?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> extreme consumerism is highly harmful, as it continuously destroys the natural fragile environment.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core issue is that,</span> rapidly manufacturing millions of cheap, disposable products creates massive amounts of toxic plastic waste. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> fast-fashion clothing brands have a terrible <strong>Reputation (声誉)</strong> for severely polluting rivers just to sell slightly cheaper t-shirts.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Very harmful totally</li><li>Creates plastic waste</li><li>Pollutes the environment</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Are you happy when you buy a new toy? Does it last?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How can we stop people from buying things and throwing them away?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Overcrowded</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Fashionable</td></tr><tr><td style="padding: 10px 5px;">2. Bustling</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Busy</td></tr><tr><td style="padding: 10px 5px;">3. Trendy</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Handy</td></tr><tr><td style="padding: 10px 5px;">4. Convenient</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Packed</td></tr><tr><td style="padding: 10px 5px;">5. Affordable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Cheap</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Overcrowded</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Cheap</td></tr><tr><td style="padding: 10px 5px;">2. Bustling</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Fashionable</td></tr><tr><td style="padding: 10px 5px;">3. Trendy</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Handy</td></tr><tr><td style="padding: 10px 5px;">4. Convenient</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Busy</td></tr><tr><td style="padding: 10px 5px;">5. Affordable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Packed</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -823,7 +897,7 @@
 <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;"><div class="grammar-sent">1. I go to shopping every week.</div><div class="grammar-sent">2. There is too many people.</div><div class="grammar-sent">3. The clothes is very cheap.</div><div class="grammar-sent">4. I prefer buy online.</div><div class="grammar-sent">5. It locate in the city center.</div></div>
 </div>
 </div>
-<div class="card" style="flex-grow:1; border-left:5px solid #f39c12; background:#fdf2e9; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
+<div class="card" style="flex-grow:1; border-left:5px solid #1abc9c; background:#e8f8f5; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
 <h3>3. Writing Task: Do you prefer malls or street markets? (Write 50 words) (10 minutes)</h3>
 <div class="diff-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;">
 <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
@@ -835,8 +909,8 @@
 </ol>
 </div>
 </div>
-<div class="card" style="background:#fdf2e9; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #f39c12; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-<h3 style="color:#f39c12; margin:0;">🎙️ 4. Recording Challenge</h3>
+<div class="card" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
 <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br/>

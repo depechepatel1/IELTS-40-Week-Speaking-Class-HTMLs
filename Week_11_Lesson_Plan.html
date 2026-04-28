@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like desired technology because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about desired technology.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about desired technology.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Cutting-edge</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">尖端的 / 前沿的</span></td></tr><tr><td><strong>Pricey</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">昂贵的 (informal)</span></td></tr><tr><td><strong>Compact</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Compactness (N)</td><td><span class="vocab-cn">紧凑的 / 小巧的</span></td></tr><tr><td><strong>Versatile</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Versatility (N)</td><td><span class="vocab-cn">多功能的</span></td></tr><tr><td><strong>Obsolete</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">过时的 / 淘汰的</span></td></tr><tr><td><strong>Magnificent</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Magnificence (N)</td><td><span class="vocab-cn">宏伟的</span></td></tr><tr><td><strong>Spacious</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Space (N)</td><td><span class="vocab-cn">宽敞的 (storage)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Must-have</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">必备之物</span></td></tr><tr class="vocab-example-row"><td colspan="3">"This new smartphone is an absolute must-have."</td></tr><tr><td><strong>State-of-the-art</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">登峰造极 / 顶尖</span></td></tr><tr class="vocab-example-row"><td colspan="3">"The hospital uses state-of-the-art medical equipment."</td></tr><tr><td><strong>Cost an arm and a leg</strong></td><td>(Cost (V2))</td><td><span class="vocab-cn">价值连城 / 天价</span></td></tr><tr class="vocab-example-row"><td colspan="3">"That luxury watch cost an arm and a leg."</td></tr></tbody>
+<tbody><tr><td><strong>Cutting-edge</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">尖端的 / 前沿的</span></td></tr><tr><td><strong>Pricey</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">昂贵的 (informal)</span></td></tr><tr><td><strong>Compact</strong></td><td>Compactness (N)</td><td><span class="vocab-cn">紧凑的 / 小巧的</span></td></tr><tr><td><strong>Versatile</strong></td><td>Versatility (N)</td><td><span class="vocab-cn">多功能的</span></td></tr><tr><td><strong>Obsolete</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">过时的 / 淘汰的</span></td></tr><tr><td><strong>Magnificent</strong> <span class="recycled-tag">Recycled</span></td><td>Magnificence (N)</td><td><span class="vocab-cn">宏伟的</span></td></tr><tr><td><strong>Spacious</strong> <span class="recycled-tag">Recycled</span></td><td>Space (N)</td><td><span class="vocab-cn">宽敞的 (storage)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Must-have</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">必备之物</span></td></tr><tr><td><strong>State-of-the-art</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">登峰造极 / 顶尖</span></td></tr><tr><td><strong>Cost an arm and a leg</strong></td><td>(Cost (V2))</td><td><span class="vocab-cn">价值连城 / 天价</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a technology product you would like to own. You should say:</strong> <strong>What</strong> it is, <strong>How</strong> much it costs, <strong>What</strong> you will use it for, <strong>And</strong> explain why you would like to own it.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a technology product you would like to own. You should say: <strong>What</strong> it is, <strong>How</strong> much it costs, <strong>What</strong> you will use it for, <strong>And</strong> explain why you would like to own it.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Desired Tech</div>
+<div class="spider-center">TECHNOLOGY<br/>PRODUCT</div>
 <div class="spider-legs">
-<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Smart watch</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Quite expensive</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Track fitness</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Stay healthy</span></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Smart watch</span></div>
+<div class="spider-leg"><strong>2. HOW:</strong><br/><span style="color:#777;">Quite expensive</span></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">Track fitness</span></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Stay healthy</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a piece of modern technology that saves you time. You should say:</strong> <strong>What</strong> the device is, <strong>How</strong> often you use it, <strong>How</strong> it works, <strong>And</strong> explain why it is efficient.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a piece of modern technology that saves you time. You should say: <strong>What</strong> the device is, <strong>How</strong> often you use it, <strong>How</strong> it works, <strong>And</strong> explain why it is efficient.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Time-saving Tech</div>
+<div class="spider-center">PIECE<br/>MODERN</div>
 <div class="spider-legs">
-<div class="spider-leg">Dishwasher machine<div class="lines"></div></div>
-<div class="spider-leg">After dinner<div class="lines"></div></div>
-<div class="spider-leg">Sprays water<div class="lines"></div></div>
-<div class="spider-leg">No scrubbing<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Dishwasher machine</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. HOW:</strong><br/><span style="color:#777;">After dinner</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">Sprays water</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">No scrubbing</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe an invention that has changed the world significantly. You should say:</strong> <strong>What</strong> the invention is, <strong>When</strong> it was created, <strong>How</strong> it affects our daily lives, <strong>And</strong> explain whether you think the change is positive or negative.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe an invention that has changed the world significantly. You should say: <strong>What</strong> the invention is, <strong>When</strong> it was created, <strong>How</strong> it affects our daily lives, <strong>And</strong> explain whether you think the change is positive or negative.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">World-changing Invention</div>
+<div class="spider-center">INVENTION</div>
 <div class="spider-legs">
-<div class="spider-leg">The airplane<div class="lines"></div></div>
-<div class="spider-leg">Last century<div class="lines"></div></div>
-<div class="spider-leg">Fast travel<div class="lines"></div></div>
-<div class="spider-leg">Positive change<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">The airplane</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHEN:</strong><br/><span style="color:#777;">Last century</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">Fast travel</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Positive change</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Artificial Intelligence</strong></td><td>AI (Abbr)</td><td><span class="vocab-cn">人工智能</span></td></tr><tr><td><strong>Isolation</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Isolate (V) - Isolated (Adj)</td><td><span class="vocab-cn">孤立</span></td></tr><tr><td><strong>Distraction</strong></td><td>Distract (V)</td><td><span class="vocab-cn">干扰 / 分心</span></td></tr><tr><td><strong>Revolutionize</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Revolution (N)</td><td><span class="vocab-cn">彻底变革</span></td></tr><tr><td><strong>Virtual</strong></td><td>Virtually (Adv)</td><td><span class="vocab-cn">虚拟的</span></td></tr><tr><td><strong>Infrastructure</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">基础设施</span></td></tr><tr><td><strong>Heritage</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">遗产</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Silver lining</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">塞翁失马焉知非福</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Every cloud has a silver lining, even this mistake."</td></tr><tr><td><strong>At the click of a button</strong></td><td>(Fixed Phrase)</td><td><span class="vocab-cn">轻点鼠标</span></td></tr><tr class="vocab-example-row"><td colspan="3">"You can order dinner at the click of a button."</td></tr><tr><td><strong>Keep up with the times</strong></td><td>(Kept (V2))</td><td><span class="vocab-cn">与时俱进</span></td></tr><tr class="vocab-example-row"><td colspan="3">"We must upgrade our software to keep up with the times."</td></tr></tbody>
+<tbody><tr><td><strong>Artificial Intelligence</strong></td><td>AI (Abbr)</td><td><span class="vocab-cn">人工智能</span></td></tr><tr><td><strong>Isolation</strong></td><td>Isolate (V) - Isolated (Adj)</td><td><span class="vocab-cn">孤立</span></td></tr><tr><td><strong>Distraction</strong></td><td>Distract (V)</td><td><span class="vocab-cn">干扰 / 分心</span></td></tr><tr><td><strong>Revolutionize</strong></td><td>Revolution (N)</td><td><span class="vocab-cn">彻底变革</span></td></tr><tr><td><strong>Virtual</strong></td><td>Virtually (Adv)</td><td><span class="vocab-cn">虚拟的</span></td></tr><tr><td><strong>Infrastructure</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">基础设施</span></td></tr><tr><td><strong>Heritage</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">遗产</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Silver lining</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">塞翁失马焉知非福</span></td></tr><tr><td><strong>At the click of a button</strong></td><td>(Fixed Phrase)</td><td><span class="vocab-cn">轻点鼠标</span></td></tr><tr><td><strong>Keep up with the times</strong></td><td>(Kept (V2))</td><td><span class="vocab-cn">与时俱进</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Has technology widened the economic gap between the rich and the poor?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Admittedly,</span> technology has heavily widened the wealth gap, as expensive devices are strictly limited to affluent (富裕的) families.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">However,</span> a clear <strong>Silver lining (一线希望 / 坏事中的好事)</strong> is that cheap smartphones now give poor students excellent access to free education. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> upgrading digital <strong>Infrastructure (基础设施)</strong> in rural villages helps impoverished (贫困的) children finally learn critical skills online.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Yes widened gap</li><li>Poor lack access</li><li>Free online schools</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Is it unfair if some students cannot buy a laptop?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can free online classes help poor students succeed?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: Do you think people are losing their ability to communicate effectively due to screens?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Without a doubt,</span> heavy screen usage severely damages our social skills, because we practice real conversations much less frequently.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This is primarily since,</span> younger generations constantly text rather than speaking directly just to <strong>Keep up with the times (与时俱进)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Therefore,</span> many teenagers feel extremely awkward and painfully anxious when they have to order food face-to-face.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Losing social skills</li><li>Less speaking practice</li><li>Awkward in public</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Do you feel nervous calling a stranger on the phone?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Will people forget how to talk face-to-face in the future?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: To what extent should governments regulate the development of Artificial Intelligence?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> governments must strictly regulate <strong>Artificial Intelligence (人工智能)</strong>, as it possesses highly dangerous capabilities.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core issue is that,</span> unregulated algorithms (算法) could easily manipulate (操纵) public opinions or steal private user data. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For example,</span> creating strict international laws effectively prevents wealthy tech companies from secretly abusing these powerful new computer systems.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Needs strict laws</li><li>Can steal data</li><li>Prevent tech abuse</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Are you worried computers will become too smart?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How can governments stop AI from being dangerous?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Cutting-edge</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Outdated</td></tr><tr><td style="padding: 10px 5px;">2. Pricey</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Advanced</td></tr><tr><td style="padding: 10px 5px;">3. Obsolete</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Expensive</td></tr><tr><td style="padding: 10px 5px;">4. Compact</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Multi-purpose</td></tr><tr><td style="padding: 10px 5px;">5. Versatile</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Small</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Cutting-edge</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Outdated</td></tr><tr><td style="padding: 10px 5px;">2. Pricey</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Expensive</td></tr><tr><td style="padding: 10px 5px;">3. Obsolete</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Small</td></tr><tr><td style="padding: 10px 5px;">4. Compact</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Multi-purpose</td></tr><tr><td style="padding: 10px 5px;">5. Versatile</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Advanced</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -823,7 +897,7 @@
 <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;"><div class="grammar-sent">1. I bought a new computer yesterday.</div><div class="grammar-sent">2. It cost me many money.</div><div class="grammar-sent">3. The screen is more big than mine.</div><div class="grammar-sent">4. I use it to study English.</div><div class="grammar-sent">5. Technology change our lives.</div></div>
 </div>
 </div>
-<div class="card" style="flex-grow:1; border-left:5px solid #8e44ad; background:#ebdef0; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
+<div class="card" style="flex-grow:1; border-left:5px solid #1abc9c; background:#e8f8f5; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
 <h3>3. Writing Task: What is the most useful gadget you own? (Write 50 words) (10 minutes)</h3>
 <div class="diff-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;">
 <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
@@ -835,8 +909,8 @@
 </ol>
 </div>
 </div>
-<div class="card" style="background:#ebdef0; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #8e44ad; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-<h3 style="color:#8e44ad; margin:0;">🎙️ 4. Recording Challenge</h3>
+<div class="card" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
 <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br/>

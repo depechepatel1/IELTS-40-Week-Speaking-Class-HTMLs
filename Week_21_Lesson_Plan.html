@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like talent and intelligence because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about talent and intelligence.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about talent and intelligence.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Exceptional</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Exception (N)</td><td><span class="vocab-cn">杰出的 / 异常的</span></td></tr><tr><td><strong>Innovative</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Innovation (N)</td><td><span class="vocab-cn">创新的</span></td></tr><tr><td><strong>Dedicated</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Dedicate (V) - Dedication (N)</td><td><span class="vocab-cn">专注的 / 献身的</span></td></tr><tr><td><strong>Versatile</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Versatility (N)</td><td><span class="vocab-cn">多才多艺的</span></td></tr><tr><td><strong>Visionary</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Vision (N)</td><td><span class="vocab-cn">有远见的</span></td></tr><tr><td><strong>Adventurous</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Adventure (N)</td><td><span class="vocab-cn">敢于创新的</span></td></tr><tr><td><strong>Spontaneous</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Spontaneity (N)</td><td><span class="vocab-cn">自发的 (creativity)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Born with a silver spoon</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">含着金汤匙出生</span></td></tr><tr class="vocab-example-row"><td colspan="3">"He didn't have to work hard because he was born with a silver spoon."</td></tr><tr><td><strong>Think on one's feet</strong></td><td>(Thought (V2))</td><td><span class="vocab-cn">随机应变</span></td></tr><tr class="vocab-example-row"><td colspan="3">"A good debater must be able to think on their feet."</td></tr><tr><td><strong>A natural</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">天生好手</span></td></tr><tr class="vocab-example-row"><td colspan="3">"She had never skied before, but she proved to be a natural."</td></tr></tbody>
+<tbody><tr><td><strong>Exceptional</strong></td><td>Exception (N)</td><td><span class="vocab-cn">杰出的 / 异常的</span></td></tr><tr><td><strong>Innovative</strong></td><td>Innovation (N)</td><td><span class="vocab-cn">创新的</span></td></tr><tr><td><strong>Dedicated</strong></td><td>Dedicate (V) - Dedication (N)</td><td><span class="vocab-cn">专注的 / 献身的</span></td></tr><tr><td><strong>Versatile</strong></td><td>Versatility (N)</td><td><span class="vocab-cn">多才多艺的</span></td></tr><tr><td><strong>Visionary</strong></td><td>Vision (N)</td><td><span class="vocab-cn">有远见的</span></td></tr><tr><td><strong>Adventurous</strong> <span class="recycled-tag">Recycled</span></td><td>Adventure (N)</td><td><span class="vocab-cn">敢于创新的</span></td></tr><tr><td><strong>Spontaneous</strong> <span class="recycled-tag">Recycled</span></td><td>Spontaneity (N)</td><td><span class="vocab-cn">自发的 (creativity)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Born with a silver spoon</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">含着金汤匙出生</span></td></tr><tr><td><strong>Think on one's feet</strong></td><td>(Thought (V2))</td><td><span class="vocab-cn">随机应变</span></td></tr><tr><td><strong>A natural</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">天生好手</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a creative person whose work you admire (e.g., artist or musician). You should say:</strong> <strong>Who</strong> this person is, <strong>How</strong> you knew him/her, <strong>What</strong> creative work he/she does, <strong>And</strong> explain why you admire him/her.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a creative person whose work you admire (e.g., artist or musician). You should say: <strong>Who</strong> this person is, <strong>How</strong> you knew him/her, <strong>What</strong> creative work he/she does, <strong>And</strong> explain why you admire him/her.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Admired Creator</div>
+<div class="spider-center">CREATIVE<br/>PERSON</div>
 <div class="spider-legs">
 <div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Local painter</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Art exhibition</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Watercolors</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Unique style</span></div>
+<div class="spider-leg"><strong>2. HOW:</strong><br/><span style="color:#777;">Art exhibition</span></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">Watercolors</span></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Unique style</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a person who has a natural talent (e.g., for sports, music, or math). You should say:</strong> <strong>Who</strong> the person is, <strong>What</strong> talent they possess, <strong>When</strong> you discovered this talent, <strong>And</strong> explain whether you think they use this talent well.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a person who has a natural talent (e.g., for sports, music, or math). You should say: <strong>Who</strong> the person is, <strong>What</strong> talent they possess, <strong>When</strong> you discovered this talent, <strong>And</strong> explain whether you think they use this talent well.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Talented Person</div>
+<div class="spider-center">PERSON</div>
 <div class="spider-legs">
-<div class="spider-leg">Older sister<div class="lines"></div></div>
-<div class="spider-leg">Playing piano<div class="lines"></div></div>
-<div class="spider-leg">Childhood recital<div class="lines"></div></div>
-<div class="spider-leg">Teaches kids<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Older sister</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Playing piano</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHEN:</strong><br/><span style="color:#777;">Childhood recital</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Teaches kids</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a person who solved a problem in a clever way. You should say:</strong> <strong>Who</strong> the person is, <strong>What</strong> the problem was, <strong>How</strong> they solved it, <strong>And</strong> explain why you think their solution was intelligent.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a person who solved a problem in a clever way. You should say: <strong>Who</strong> the person is, <strong>What</strong> the problem was, <strong>How</strong> they solved it, <strong>And</strong> explain why you think their solution was intelligent.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Clever Solver</div>
+<div class="spider-center">PERSON</div>
 <div class="spider-legs">
-<div class="spider-leg">Classmate<div class="lines"></div></div>
-<div class="spider-leg">Lost presentation<div class="lines"></div></div>
-<div class="spider-leg">Cloud backup<div class="lines"></div></div>
-<div class="spider-leg">Quick thinking<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Classmate</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Lost presentation</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">Cloud backup</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Quick thinking</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Innate</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">天生的</span></td></tr><tr><td><strong>Potential</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective / Noun</td><td><span class="vocab-cn">潜力</span></td></tr><tr><td><strong>Nurture</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Nurtured (V2)</td><td><span class="vocab-cn">培养 / 后天教育</span></td></tr><tr><td><strong>Academic</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Academy (N)</td><td><span class="vocab-cn">学术的</span></td></tr><tr><td><strong>Intelligence</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Intelligent (Adj)</td><td><span class="vocab-cn">智力</span></td></tr><tr><td><strong>Preparation</strong></td><td>Prepare (V)</td><td><span class="vocab-cn">准备</span></td></tr><tr><td><strong>Emission</strong></td><td>Emit (V)</td><td><span class="vocab-cn">排放 (irrelevant here, swap)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Practice makes perfect</strong></td><td>(Proverb)</td><td><span class="vocab-cn">熟能生巧</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Don't give up on the guitar; practice makes perfect."</td></tr><tr><td><strong>Brainy</strong></td><td>(Adjective)</td><td><span class="vocab-cn">脑瓜灵</span></td></tr><tr class="vocab-example-row"><td colspan="3">"My younger sister is very brainy and always gets top marks."</td></tr><tr><td><strong>Jack of all trades</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">万金油</span></td></tr><tr class="vocab-example-row"><td colspan="3">"He is a jack of all trades who can fix almost anything in the house."</td></tr></tbody>
+<tbody><tr><td><strong>Innate</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">天生的</span></td></tr><tr><td><strong>Potential</strong></td><td>Adjective / Noun</td><td><span class="vocab-cn">潜力</span></td></tr><tr><td><strong>Nurture</strong></td><td>Nurtured (V2)</td><td><span class="vocab-cn">培养 / 后天教育</span></td></tr><tr><td><strong>Academic</strong></td><td>Academy (N)</td><td><span class="vocab-cn">学术的</span></td></tr><tr><td><strong>Intelligence</strong></td><td>Intelligent (Adj)</td><td><span class="vocab-cn">智力</span></td></tr><tr><td><strong>Preparation</strong></td><td>Prepare (V)</td><td><span class="vocab-cn">准备</span></td></tr><tr><td><strong>Emission</strong></td><td>Emit (V)</td><td><span class="vocab-cn">排放 (irrelevant here, swap)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Practice makes perfect</strong></td><td>(Proverb)</td><td><span class="vocab-cn">熟能生巧</span></td></tr><tr><td><strong>Brainy</strong></td><td>(Adjective)</td><td><span class="vocab-cn">脑瓜灵</span></td></tr><tr><td><strong>Jack of all trades</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">万金油</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Is being intelligent always a good thing? Are there limitations? </h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Admittedly,</span> high intellect is beneficial, yet it can cause social isolation.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Frequently,</span> brilliant individuals focus on one niche instead of being a <strong>jack of all trades (万金油 / 博而不精)</strong>, causing them to struggle socially. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For example,</span> a math prodigy (神童) might feel completely misunderstood by regular classmates.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Social issues</li><li>Overthinking</li><li>Feeling lonely</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Do very smart students sometimes struggle to make friends?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why do super smart people sometimes feel lonely?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: Do you think the education system stifles creativity by focusing too much on academic scores? </h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Absolutely,</span> strict testing restricts imagination, and it limits independent thought.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Consequently,</span> schools reward memorization (死记硬背) rather than original problem-solving skills. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> art and music programs are often canceled to make more time for standardized test preparation.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Yes it does</li><li>Rote memorization</li><li>Canceling art</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Do school tests let you show your creative ideas?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Do strict school tests stop kids from thinking outside the box?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: Can creativity be learned, or is it an innate quality? </h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Personally,</span> I believe it can be developed, although some have natural inclinations (倾向).</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Fundamentally,</span> being exposed to diverse experiences teaches the brain to form new connections. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For example,</span> taking painting classes can unlock a person's hidden artistic abilities over time.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Can be learned</li><li>New experiences</li><li>Taking classes</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Can anyone paint beautifully if they practice daily?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can trying new hobbies actually change how your brain thinks?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Visionary</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Committed</td></tr><tr><td style="padding: 10px 5px;">2. Exceptional</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Flexible</td></tr><tr><td style="padding: 10px 5px;">3. Dedicated</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Creative</td></tr><tr><td style="padding: 10px 5px;">4. Versatile</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Outstanding</td></tr><tr><td style="padding: 10px 5px;">5. Innovative</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Farsighted</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Visionary</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Farsighted</td></tr><tr><td style="padding: 10px 5px;">2. Exceptional</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Flexible</td></tr><tr><td style="padding: 10px 5px;">3. Dedicated</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Committed</td></tr><tr><td style="padding: 10px 5px;">4. Versatile</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Creative</td></tr><tr><td style="padding: 10px 5px;">5. Innovative</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Outstanding</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -823,7 +897,7 @@
 <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;"><div class="grammar-sent">1. He has a talent in drawing.</div><div class="grammar-sent">2. He plays piano very good.</div><div class="grammar-sent">3. She is naturally singer.</div><div class="grammar-sent">4. I admire at his skill.</div><div class="grammar-sent">5. He work hard to succeed.</div></div>
 </div>
 </div>
-<div class="card" style="flex-grow:1; border-left:5px solid #9b59b6; background:#f4ecf7; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
+<div class="card" style="flex-grow:1; border-left:5px solid #1abc9c; background:#e8f8f5; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
 <h3>3. Writing Task: Who is the most talented person you know? (Write 50 words) (10 minutes)</h3>
 <div class="diff-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;">
 <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
@@ -835,8 +909,8 @@
 </ol>
 </div>
 </div>
-<div class="card" style="background:#f4ecf7; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #9b59b6; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-<h3 style="color:#9b59b6; margin:0;">🎙️ 4. Recording Challenge</h3>
+<div class="card" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
 <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br/>

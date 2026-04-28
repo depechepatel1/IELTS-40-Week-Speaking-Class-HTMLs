@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like friendships because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about friendships.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about friendships.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Supportive</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Support (V/N)</td><td><span class="vocab-cn">支持的</span></td></tr><tr><td><strong>Intimate</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Intimacy (N)</td><td><span class="vocab-cn">亲密的</span></td></tr><tr><td><strong>Childhood</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">童年</span></td></tr><tr><td><strong>Inseparable</strong></td><td>Separate (V)</td><td><span class="vocab-cn">形影不离的</span></td></tr><tr><td><strong>Considerate</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Consider (V)</td><td><span class="vocab-cn">体贴的</span></td></tr><tr><td><strong>Hilarious</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Hilarity (N)</td><td><span class="vocab-cn">极滑稽的</span></td></tr><tr><td><strong>Joyful</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Joy (N)</td><td><span class="vocab-cn">快乐的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Through thick and thin</strong></td><td>(Fixed Phrase)</td><td><span class="vocab-cn">风雨同舟</span></td></tr><tr class="vocab-example-row"><td colspan="3">"We have been best friends through thick and thin."</td></tr><tr><td><strong>Hit it off</strong></td><td>(Hit (V2))</td><td><span class="vocab-cn">一见如故</span></td></tr><tr class="vocab-example-row"><td colspan="3">"They hit it off as soon as they met."</td></tr><tr><td><strong>Drift apart</strong></td><td>(Drifted (V2))</td><td><span class="vocab-cn">渐行渐远</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Over the years, the two friends began to drift apart."</td></tr></tbody>
+<tbody><tr><td><strong>Supportive</strong></td><td>Support (V/N)</td><td><span class="vocab-cn">支持的</span></td></tr><tr><td><strong>Intimate</strong></td><td>Intimacy (N)</td><td><span class="vocab-cn">亲密的</span></td></tr><tr><td><strong>Childhood</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">童年</span></td></tr><tr><td><strong>Inseparable</strong></td><td>Separate (V)</td><td><span class="vocab-cn">形影不离的</span></td></tr><tr><td><strong>Considerate</strong></td><td>Consider (V)</td><td><span class="vocab-cn">体贴的</span></td></tr><tr><td><strong>Hilarious</strong> <span class="recycled-tag">Recycled</span></td><td>Hilarity (N)</td><td><span class="vocab-cn">极滑稽的</span></td></tr><tr><td><strong>Joyful</strong> <span class="recycled-tag">Recycled</span></td><td>Joy (N)</td><td><span class="vocab-cn">快乐的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Through thick and thin</strong></td><td>(Fixed Phrase)</td><td><span class="vocab-cn">风雨同舟</span></td></tr><tr><td><strong>Hit it off</strong></td><td>(Hit (V2))</td><td><span class="vocab-cn">一见如故</span></td></tr><tr><td><strong>Drift apart</strong></td><td>(Drifted (V2))</td><td><span class="vocab-cn">渐行渐远</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a friend you have known for a long time. You should say:</strong> <strong>Where</strong> you met this friend, <strong>When</strong> you met this friend, <strong>What</strong> he/she is like, <strong>And</strong> explain why you have remained friends for so long.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a friend you have known for a long time. You should say: <strong>Where</strong> you met this friend, <strong>When</strong> you met this friend, <strong>What</strong> he/she is like, <strong>And</strong> explain why you have remained friends for so long.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Old Friend</div>
+<div class="spider-center">FRIEND<br/>HAVE</div>
 <div class="spider-legs">
-<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">High school</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Met in class</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Loyal friend</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Always helping</span></div>
+<div class="spider-leg"><strong>1. WHERE:</strong><br/><span style="color:#777;">High school</span></div>
+<div class="spider-leg"><strong>2. WHEN:</strong><br/><span style="color:#777;">Met in class</span></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">Loyal friend</span></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Always helping</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a friend who has played an important role in your life. You should say:</strong> <strong>Who</strong> they are, <strong>How</strong> they helped or influenced you, <strong>What</strong> you admire about them, <strong>And</strong> explain why they are important to you.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a friend who has played an important role in your life. You should say: <strong>Who</strong> they are, <strong>How</strong> they helped or influenced you, <strong>What</strong> you admire about them, <strong>And</strong> explain why they are important to you.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Important Friend</div>
+<div class="spider-center">FRIEND</div>
 <div class="spider-legs">
-<div class="spider-leg">College friend<div class="lines"></div></div>
-<div class="spider-leg">Study partner<div class="lines"></div></div>
-<div class="spider-leg">Gave good advice<div class="lines"></div></div>
-<div class="spider-leg">Very important<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">College friend</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. HOW:</strong><br/><span style="color:#777;">Study partner</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">Gave good advice</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Very important</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a friend who is talented at music or singing. You should say:</strong> <strong>Who</strong> they are, <strong>What</strong> instrument they play or how they sing, <strong>When</strong> you listen to them, <strong>And</strong> explain how you feel when you hear them perform.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a friend who is talented at music or singing. You should say: <strong>Who</strong> they are, <strong>What</strong> instrument they play or how they sing, <strong>When</strong> you listen to them, <strong>And</strong> explain how you feel when you hear them perform.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Musical Friend</div>
+<div class="spider-center">FRIEND</div>
 <div class="spider-legs">
-<div class="spider-leg">Choir singer<div class="lines"></div></div>
-<div class="spider-leg">Beautiful voice<div class="lines"></div></div>
-<div class="spider-leg">Sings pop<div class="lines"></div></div>
-<div class="spider-leg">Felt amazed<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Choir singer</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Beautiful voice</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHEN:</strong><br/><span style="color:#777;">Sings pop</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Felt amazed</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Companionship</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Companion (N)</td><td><span class="vocab-cn">陪伴 / 友谊</span></td></tr><tr><td><strong>Superficial</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">肤浅的</span></td></tr><tr><td><strong>Colleague</strong></td><td>Colleagues (Pl)</td><td><span class="vocab-cn">同事</span></td></tr><tr><td><strong>Interaction</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Interact (V)</td><td><span class="vocab-cn">互动</span></td></tr><tr><td><strong>Lifelong</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">终身的</span></td></tr><tr><td><strong>Psychological</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Psychology (N)</td><td><span class="vocab-cn">心理的</span></td></tr><tr><td><strong>Universal</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Universe (N)</td><td><span class="vocab-cn">普遍的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Fair-weather friend</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">酒肉朋友</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I realized he was just a fair-weather friend when I lost my job."</td></tr><tr><td><strong>See eye to eye</strong></td><td>(Saw (V2))</td><td><span class="vocab-cn">所见略同</span></td></tr><tr class="vocab-example-row"><td colspan="3">"We don't always see eye to eye on politics."</td></tr><tr><td><strong>A friend in need is a friend indeed</strong></td><td>(Proverb)</td><td><span class="vocab-cn">患难见真情</span></td></tr><tr class="vocab-example-row"><td colspan="3">"She helped me when I was broke; a friend in need is a friend indeed."</td></tr></tbody>
+<tbody><tr><td><strong>Companionship</strong></td><td>Companion (N)</td><td><span class="vocab-cn">陪伴 / 友谊</span></td></tr><tr><td><strong>Superficial</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">肤浅的</span></td></tr><tr><td><strong>Colleague</strong></td><td>Colleagues (Pl)</td><td><span class="vocab-cn">同事</span></td></tr><tr><td><strong>Interaction</strong></td><td>Interact (V)</td><td><span class="vocab-cn">互动</span></td></tr><tr><td><strong>Lifelong</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">终身的</span></td></tr><tr><td><strong>Psychological</strong></td><td>Psychology (N)</td><td><span class="vocab-cn">心理的</span></td></tr><tr><td><strong>Universal</strong></td><td>Universe (N)</td><td><span class="vocab-cn">普遍的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Fair-weather friend</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">酒肉朋友</span></td></tr><tr><td><strong>See eye to eye</strong></td><td>(Saw (V2))</td><td><span class="vocab-cn">所见略同</span></td></tr><tr><td><strong>A friend in need is a friend indeed</strong></td><td>(Proverb)</td><td><span class="vocab-cn">患难见真情</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Do you think a child's relationship with friends can be replaced by that with parents?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Admittedly,</span> strict parents provide essential physical safety, but they absolutely cannot entirely replace the unique equality found in peer friendships.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core issue is that,</span> an inherent (固有的) hierarchical power dynamic heavily exists between a demanding mother and a growing child. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Consequently,</span> anxious kids desperately need close friends of their own exact age to discuss private teenage secrets completely freely.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Need equal peers</li><li>Parents have authority</li><li>Sharing teenage secrets</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Are there secrets you only tell your friends?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it hard for teenagers to tell their parents everything?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: Has social media changed the definition of "friendship" in modern society?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> online social networks have cheaply altered friendship, as naive people now wrongly equate mere digital followers with actual true friends.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">As lonely individuals constantly scroll online,</span> they wildly prioritize collecting superficial internet likes rather than securely building profound offline relationships. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For example,</span> a depressed teenager might easily have thousands of virtual contacts but still feel devastatingly isolated in real life.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Cheapened the meaning</li><li>Focus on likes</li><li>More digital contacts</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Is someone a real friend if you only talk online?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Do internet 'likes' make real friendships feel less special?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: Is it possible to maintain a lifelong friendship despite living in different countries?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> vast long-distance friendships can survive beautifully, provided both parties put in continuous mutual effort.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This practically means that,</span> advanced communication technologies like video calling remarkably make maintaining daily emotional contact incredibly convenient globally. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> separated best friends will eagerly schedule weekly online chats to consistently share their ongoing personal lifestyle updates.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Yes with effort</li><li>Using video calls</li><li>Scheduling online chats</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How do you talk to friends who live far away?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can a video call replace a real hug from a friend?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Inseparable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Close</td></tr><tr><td style="padding: 10px 5px;">2. Intimate</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Kind</td></tr><tr><td style="padding: 10px 5px;">3. Considerate</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Youth</td></tr><tr><td style="padding: 10px 5px;">4. Childhood</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Helpful</td></tr><tr><td style="padding: 10px 5px;">5. Supportive</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Personal</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Inseparable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Youth</td></tr><tr><td style="padding: 10px 5px;">2. Intimate</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Helpful</td></tr><tr><td style="padding: 10px 5px;">3. Considerate</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Personal</td></tr><tr><td style="padding: 10px 5px;">4. Childhood</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Close</td></tr><tr><td style="padding: 10px 5px;">5. Supportive</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Kind</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -823,7 +897,7 @@
 <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;"><div class="grammar-sent">1. I know him since primary school.</div><div class="grammar-sent">2. We always play together.</div><div class="grammar-sent">3. He is my one of best friends.</div><div class="grammar-sent">4. We have same hobbies.</div><div class="grammar-sent">5. I can trust on him.</div></div>
 </div>
 </div>
-<div class="card" style="flex-grow:1; border-left:5px solid #8e44ad; background:#ebdef0; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
+<div class="card" style="flex-grow:1; border-left:5px solid #1abc9c; background:#e8f8f5; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
 <h3>3. Writing Task: What qualities make a good friend? (Write 50 words) (10 minutes)</h3>
 <div class="diff-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;">
 <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
@@ -835,8 +909,8 @@
 </ol>
 </div>
 </div>
-<div class="card" style="background:#ebdef0; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #8e44ad; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-<h3 style="color:#8e44ad; margin:0;">🎙️ 4. Recording Challenge</h3>
+<div class="card" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
 <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br/>

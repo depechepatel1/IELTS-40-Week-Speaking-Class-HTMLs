@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like habits and character because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about habits and character.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about habits and character.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Disciplined</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Discipline (N)</td><td><span class="vocab-cn">自律的</span></td></tr><tr><td><strong>Productive</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Produce (V) - Productivity (N)</td><td><span class="vocab-cn">高效的 / 多产的</span></td></tr><tr><td><strong>Detrimental</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Detriment (N)</td><td><span class="vocab-cn">有害的</span></td></tr><tr><td><strong>Beneficial</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Benefit (N/V)</td><td><span class="vocab-cn">有益的</span></td></tr><tr><td><strong>Persistent</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Persist (V) - Persistence (N)</td><td><span class="vocab-cn">坚持不懈的</span></td></tr><tr><td><strong>Determined</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Determination (N)</td><td><span class="vocab-cn">下定决心的</span></td></tr><tr><td><strong>Rewarding</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Reward (N)</td><td><span class="vocab-cn">有回报的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Turn over a new leaf</strong></td><td>(Turned (V2))</td><td><span class="vocab-cn">改头换面</span></td></tr><tr class="vocab-example-row"><td colspan="3">"He turned over a new leaf and stopped smoking."</td></tr><tr><td><strong>Kick the habit</strong></td><td>(Kicked (V2))</td><td><span class="vocab-cn">戒掉习惯</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I'm trying to kick the habit of eating junk food late at night."</td></tr><tr><td><strong>Creature of habit</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">墨守成规者</span></td></tr><tr class="vocab-example-row"><td colspan="3">"My dad is a creature of habit who eats the exact same breakfast every day."</td></tr></tbody>
+<tbody><tr><td><strong>Disciplined</strong></td><td>Discipline (N)</td><td><span class="vocab-cn">自律的</span></td></tr><tr><td><strong>Productive</strong></td><td>Produce (V) - Productivity (N)</td><td><span class="vocab-cn">高效的 / 多产的</span></td></tr><tr><td><strong>Detrimental</strong></td><td>Detriment (N)</td><td><span class="vocab-cn">有害的</span></td></tr><tr><td><strong>Beneficial</strong></td><td>Benefit (N/V)</td><td><span class="vocab-cn">有益的</span></td></tr><tr><td><strong>Persistent</strong></td><td>Persist (V) - Persistence (N)</td><td><span class="vocab-cn">坚持不懈的</span></td></tr><tr><td><strong>Determined</strong> <span class="recycled-tag">Recycled</span></td><td>Determination (N)</td><td><span class="vocab-cn">下定决心的</span></td></tr><tr><td><strong>Rewarding</strong> <span class="recycled-tag">Recycled</span></td><td>Reward (N)</td><td><span class="vocab-cn">有回报的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Turn over a new leaf</strong></td><td>(Turned (V2))</td><td><span class="vocab-cn">改头换面</span></td></tr><tr><td><strong>Kick the habit</strong></td><td>(Kicked (V2))</td><td><span class="vocab-cn">戒掉习惯</span></td></tr><tr><td><strong>Creature of habit</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">墨守成规者</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a good habit your friend has and you want to develop. You should say:</strong> <strong>Who</strong> your friend is, <strong>What</strong> habit he/she has, <strong>When</strong> you noticed this habit, <strong>And</strong> explain why you want to develop this habit.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a good habit your friend has and you want to develop. You should say: <strong>Who</strong> your friend is, <strong>What</strong> habit he/she has, <strong>When</strong> you noticed this habit, <strong>And</strong> explain why you want to develop this habit.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Good Habit</div>
+<div class="spider-center">GOOD<br/>HABIT</div>
 <div class="spider-legs">
 <div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Read daily</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Read books</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Good grades</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Learn fast</span></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Read books</span></div>
+<div class="spider-leg"><strong>3. WHEN:</strong><br/><span style="color:#777;">Good grades</span></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Learn fast</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a bad habit you successfully got rid of. You should say:</strong> <strong>What</strong> the habit was, <strong>How</strong> long you had it, <strong>How</strong> you stopped it, <strong>And</strong> explain how your life improved afterwards.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a bad habit you successfully got rid of. You should say: <strong>What</strong> the habit was, <strong>How</strong> long you had it, <strong>How</strong> you stopped it, <strong>And</strong> explain how your life improved afterwards.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Broken Habit</div>
+<div class="spider-center">BAD<br/>HABIT</div>
 <div class="spider-legs">
-<div class="spider-leg">Stop smoking<div class="lines"></div></div>
-<div class="spider-leg">Smoke cigs<div class="lines"></div></div>
-<div class="spider-leg">Bad lungs<div class="lines"></div></div>
-<div class="spider-leg">Breathe better<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Stop smoking</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. HOW:</strong><br/><span style="color:#777;">Smoke cigs</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">Bad lungs</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Breathe better</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a person you know who is very disciplined. You should say:</strong> <strong>Who</strong> they are, <strong>What</strong> their daily routine is like, <strong>Why</strong> they are so disciplined, <strong>And</strong> explain what you admire about them.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a person you know who is very disciplined. You should say: <strong>Who</strong> they are, <strong>What</strong> their daily routine is like, <strong>Why</strong> they are so disciplined, <strong>And</strong> explain what you admire about them.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Disciplined Person</div>
+<div class="spider-center">PERSON<br/>KNOW</div>
 <div class="spider-legs">
-<div class="spider-leg">Gym coach<div class="lines"></div></div>
-<div class="spider-leg">Lift weights<div class="lines"></div></div>
-<div class="spider-leg">Eat clean<div class="lines"></div></div>
-<div class="spider-leg">Very strong<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Gym coach</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Lift weights</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHY:</strong><br/><span style="color:#777;">Eat clean</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHAT:</strong><br/><span style="color:#777;">Very strong</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Lifestyle</strong></td><td>Lifestyles (Pl)</td><td><span class="vocab-cn">生活方式</span></td></tr><tr><td><strong>Influence</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Influential (Adj)</td><td><span class="vocab-cn">影响</span></td></tr><tr><td><strong>Routine</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective / Noun</td><td><span class="vocab-cn">常规 / 例行公事</span></td></tr><tr><td><strong>Willpower</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">意志力</span></td></tr><tr><td><strong>Consequence</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Consequent (Adj)</td><td><span class="vocab-cn">后果</span></td></tr><tr><td><strong>Acquisition</strong></td><td>Acquire (V)</td><td><span class="vocab-cn">养成 (habit)</span></td></tr><tr><td><strong>Proficiency</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Proficient (Adj)</td><td><span class="vocab-cn">熟练</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Old habits die hard</strong></td><td>(Proverb)</td><td><span class="vocab-cn">江山易改本性难移</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I still bite my nails when I'm nervous; old habits die hard."</td></tr><tr><td><strong>Set in one's ways</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">固步自封</span></td></tr><tr class="vocab-example-row"><td colspan="3">"He is too set in his ways to use a modern smartphone."</td></tr><tr><td><strong>Early bird</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">早起鸟</span></td></tr><tr class="vocab-example-row"><td colspan="3">"My mother is an early bird who wakes up at 5 AM."</td></tr></tbody>
+<tbody><tr><td><strong>Lifestyle</strong></td><td>Lifestyles (Pl)</td><td><span class="vocab-cn">生活方式</span></td></tr><tr><td><strong>Influence</strong></td><td>Influential (Adj)</td><td><span class="vocab-cn">影响</span></td></tr><tr><td><strong>Routine</strong></td><td>Adjective / Noun</td><td><span class="vocab-cn">常规 / 例行公事</span></td></tr><tr><td><strong>Willpower</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">意志力</span></td></tr><tr><td><strong>Consequence</strong></td><td>Consequent (Adj)</td><td><span class="vocab-cn">后果</span></td></tr><tr><td><strong>Acquisition</strong></td><td>Acquire (V)</td><td><span class="vocab-cn">养成 (habit)</span></td></tr><tr><td><strong>Proficiency</strong></td><td>Proficient (Adj)</td><td><span class="vocab-cn">熟练</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Old habits die hard</strong></td><td>(Proverb)</td><td><span class="vocab-cn">江山易改本性难移</span></td></tr><tr><td><strong>Set in one's ways</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">固步自封</span></td></tr><tr><td><strong>Early bird</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">早起鸟</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: What can we do to get rid of bad habits?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">In my opinion,</span> substituting the bad action with a healthy alternative is highly effective.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Frankly,</span> relying purely on motivation fails; you must consciously change your environment to succeed. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> an <strong>early bird (早起的人)</strong> who wants to stop drinking coffee should drink green tea instead.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Change things</li><li>Drink tea</li><li>New habits</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Should you keep water in your fridge to stop drinking soda?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Is changing your environment the best way to break a bad habit?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: Do you think successful people always have strict daily routines?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Mostly yes,</span> top performers thrive on structure, though some creative geniuses prefer absolute chaos.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Normally,</span> having a predictable schedule saves mental energy for making extremely important business decisions. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">However,</span> some famous artists are deeply <strong>set in their ways (固执己见)</strong> and refuse any strict timetables completely.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Yes mostly</li><li>Save energy</li><li>Some messy</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Does waking up at the same time help you finish homework?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How does having a strict daily routine save your brain energy?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: Is self-discipline more important than natural talent for success?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Absolutely,</span> hard work consistently beats raw talent, especially when talent is lazy.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Fundamentally,</span> unyielding discipline guarantees continuous improvement, whereas natural gifts eventually plateau without strict practice. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For example,</span> a highly disciplined athlete will eventually outrun a naturally fast runner who skips daily training.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Work hard</li><li>Beat talent</li><li>Keep trying</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Can a lazy smart person be beaten by a hard worker?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why does hard work always beat natural talent in the end?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Persistent</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Harmful</td></tr><tr><td style="padding: 10px 5px;">2. Beneficial</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Helpful</td></tr><tr><td style="padding: 10px 5px;">3. Disciplined</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Determined</td></tr><tr><td style="padding: 10px 5px;">4. Productive</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Effective</td></tr><tr><td style="padding: 10px 5px;">5. Detrimental</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Controlled</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Persistent</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Controlled</td></tr><tr><td style="padding: 10px 5px;">2. Beneficial</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Harmful</td></tr><tr><td style="padding: 10px 5px;">3. Disciplined</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Effective</td></tr><tr><td style="padding: 10px 5px;">4. Productive</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Helpful</td></tr><tr><td style="padding: 10px 5px;">5. Detrimental</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Determined</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -823,7 +897,7 @@
 <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;"><div class="grammar-sent">1. He wake up early every day.</div><div class="grammar-sent">2. It is a good habit.</div><div class="grammar-sent">3. Smoking is bad for health.</div><div class="grammar-sent">4. I want to stop to smoke.</div><div class="grammar-sent">5. Habits are hard to change.</div></div>
 </div>
 </div>
-<div class="card" style="flex-grow:1; border-left:5px solid #9b59b6; background:#f4ecf7; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
+<div class="card" style="flex-grow:1; border-left:5px solid #1abc9c; background:#e8f8f5; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
 <h3>3. Writing Task: What is a good habit you have? (Write 50 words) (10 minutes)</h3>
 <div class="diff-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;">
 <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
@@ -835,8 +909,8 @@
 </ol>
 </div>
 </div>
-<div class="card" style="background:#f4ecf7; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #9b59b6; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-<h3 style="color:#9b59b6; margin:0;">🎙️ 4. Recording Challenge</h3>
+<div class="card" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
 <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br/>

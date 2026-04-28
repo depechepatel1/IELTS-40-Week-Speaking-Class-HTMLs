@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like mobile apps because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about mobile apps.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about mobile apps.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Indispensable</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">不可或缺的</span></td></tr><tr><td><strong>User-friendly</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">用户友好的 / 易用的</span></td></tr><tr><td><strong>Innovative</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Innovate (V) - Innovation (N)</td><td><span class="vocab-cn">创新的</span></td></tr><tr><td><strong>Addictive</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Addict (N) - Addiction (N)</td><td><span class="vocab-cn">令人上瘾的</span></td></tr><tr><td><strong>Efficient</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Efficiency (N) - Efficiently (Adv)</td><td><span class="vocab-cn">高效的</span></td></tr><tr><td><strong>Isolated</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Isolation (N)</td><td><span class="vocab-cn">孤立的</span></td></tr><tr><td><strong>Breathtaking</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span> <span class="recycled-tag">Recycled</span></td><td>Adjective</td><td><span class="vocab-cn">惊人的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Glued to the screen</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">目不转睛</span></td></tr><tr class="vocab-example-row"><td colspan="3">"My little brother is constantly glued to the screen."</td></tr><tr><td><strong>At your fingertips</strong></td><td>(Fixed Phrase)</td><td><span class="vocab-cn">触手可及</span></td></tr><tr class="vocab-example-row"><td colspan="3">"With this app, all the information is at your fingertips."</td></tr><tr><td><strong>Lose track of time</strong></td><td>(Lost (V2))</td><td><span class="vocab-cn">废寝忘食</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I often lose track of time when playing games."</td></tr></tbody>
+<tbody><tr><td><strong>Indispensable</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">不可或缺的</span></td></tr><tr><td><strong>User-friendly</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">用户友好的 / 易用的</span></td></tr><tr><td><strong>Innovative</strong></td><td>Innovate (V) - Innovation (N)</td><td><span class="vocab-cn">创新的</span></td></tr><tr><td><strong>Addictive</strong></td><td>Addict (N) - Addiction (N)</td><td><span class="vocab-cn">令人上瘾的</span></td></tr><tr><td><strong>Efficient</strong></td><td>Efficiency (N) - Efficiently (Adv)</td><td><span class="vocab-cn">高效的</span></td></tr><tr><td><strong>Isolated</strong> <span class="recycled-tag">Recycled</span></td><td>Isolation (N)</td><td><span class="vocab-cn">孤立的</span></td></tr><tr><td><strong>Breathtaking</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span> <span class="recycled-tag">Recycled</span></td><td>Adjective</td><td><span class="vocab-cn">惊人的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Glued to the screen</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">目不转睛</span></td></tr><tr><td><strong>At your fingertips</strong></td><td>(Fixed Phrase)</td><td><span class="vocab-cn">触手可及</span></td></tr><tr><td><strong>Lose track of time</strong></td><td>(Lost (V2))</td><td><span class="vocab-cn">废寝忘食</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe an application (app) you usually use on your phone or computer. You should say:</strong> <strong>What</strong> it is, <strong>When</strong> you use it, <strong>Why</strong> you use it often, <strong>And</strong> explain how you feel about it.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe an application (app) you usually use on your phone or computer. You should say: <strong>What</strong> it is, <strong>When</strong> you use it, <strong>Why</strong> you use it often, <strong>And</strong> explain how you feel about it.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Daily App</div>
+<div class="spider-center">APPLICATION</div>
 <div class="spider-legs">
-<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Dictionary app</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Every evening</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Helps study</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Very useful</span></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Dictionary app</span></div>
+<div class="spider-leg"><strong>2. WHEN:</strong><br/><span style="color:#777;">Every evening</span></div>
+<div class="spider-leg"><strong>3. WHY:</strong><br/><span style="color:#777;">Helps study</span></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Very useful</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a mobile app that has made your daily life easier. You should say:</strong> <strong>What</strong> the app is, <strong>How</strong> it functions, <strong>What</strong> specific problem it solves for you, <strong>And</strong> explain why you would recommend it to others.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a mobile app that has made your daily life easier. You should say: <strong>What</strong> the app is, <strong>How</strong> it functions, <strong>What</strong> specific problem it solves for you, <strong>And</strong> explain why you would recommend it to others.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Helpful App</div>
+<div class="spider-center">MOBILE<br/>APP</div>
 <div class="spider-legs">
-<div class="spider-leg">Fitness app<div class="lines"></div></div>
-<div class="spider-leg">Tracks running<div class="lines"></div></div>
-<div class="spider-leg">Saves time<div class="lines"></div></div>
-<div class="spider-leg">Highly recommended<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Fitness app</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. HOW:</strong><br/><span style="color:#777;">Tracks running</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">Saves time</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Highly recommended</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe an app you use for learning or self-improvement. You should say:</strong> <strong>What</strong> the app teaches, <strong>How</strong> often you use it, <strong>How</strong> effective it is, <strong>And</strong> explain why you prefer using an app over traditional methods.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe an app you use for learning or self-improvement. You should say: <strong>What</strong> the app teaches, <strong>How</strong> often you use it, <strong>How</strong> effective it is, <strong>And</strong> explain why you prefer using an app over traditional methods.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Learning App</div>
+<div class="spider-center">APP<br/>USE</div>
 <div class="spider-legs">
-<div class="spider-leg">Math app<div class="lines"></div></div>
-<div class="spider-leg">Every week<div class="lines"></div></div>
-<div class="spider-leg">Very helpful<div class="lines"></div></div>
-<div class="spider-leg">Fun games<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Math app</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. HOW:</strong><br/><span style="color:#777;">Every week</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">Very helpful</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Fun games</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Dependency</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Depend (V) - Dependent (Adj)</td><td><span class="vocab-cn">依赖</span></td></tr><tr><td><strong>Privacy</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Private (Adj)</td><td><span class="vocab-cn">隐私</span></td></tr><tr><td><strong>Cybersecurity</strong></td><td>Cyber (Prefix)</td><td><span class="vocab-cn">网络安全</span></td></tr><tr><td><strong>Digitalization</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Digital (Adj) - Digitize (V)</td><td><span class="vocab-cn">数字化</span></td></tr><tr><td><strong>Interaction</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Interact (V) - Interactive (Adj)</td><td><span class="vocab-cn">互动</span></td></tr><tr><td><strong>Urbanization</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Urban (Adj)</td><td><span class="vocab-cn">城市化</span></td></tr><tr><td><strong>Therapeutic</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Therapy (N)</td><td><span class="vocab-cn">有治疗作用的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Double-edged sword</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">双刃剑</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Technology is a double-edged sword; it connects and distracts us."</td></tr><tr><td><strong>Information overload</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">信息爆炸</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Social media often causes information overload."</td></tr><tr><td><strong>Social butterfly</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">交际花</span></td></tr><tr class="vocab-example-row"><td colspan="3">"She is a social butterfly online but shy in real life."</td></tr></tbody>
+<tbody><tr><td><strong>Dependency</strong></td><td>Depend (V) - Dependent (Adj)</td><td><span class="vocab-cn">依赖</span></td></tr><tr><td><strong>Privacy</strong></td><td>Private (Adj)</td><td><span class="vocab-cn">隐私</span></td></tr><tr><td><strong>Cybersecurity</strong></td><td>Cyber (Prefix)</td><td><span class="vocab-cn">网络安全</span></td></tr><tr><td><strong>Digitalization</strong></td><td>Digital (Adj) - Digitize (V)</td><td><span class="vocab-cn">数字化</span></td></tr><tr><td><strong>Interaction</strong></td><td>Interact (V) - Interactive (Adj)</td><td><span class="vocab-cn">互动</span></td></tr><tr><td><strong>Urbanization</strong></td><td>Urban (Adj)</td><td><span class="vocab-cn">城市化</span></td></tr><tr><td><strong>Therapeutic</strong></td><td>Therapy (N)</td><td><span class="vocab-cn">有治疗作用的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Double-edged sword</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">双刃剑</span></td></tr><tr><td><strong>Information overload</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">信息爆炸</span></td></tr><tr><td><strong>Social butterfly</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">交际花</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Are people becoming too dependent on mobile apps?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Admittedly,</span> society has become overly dependent, because apps now control almost every daily task.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This reliance is a <strong>double-edged sword (双刃剑)</strong>, as it brings great convenience but severely reduces basic survival skills.</span> <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> due to modern <strong>urbanization (城市化)</strong>, many young people cannot navigate their own city without maps.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Yes very dependent</li><li>Cannot live without</li><li>Forgetting basic skills</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What would you do without your phone for a week?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Do map apps make us bad at finding our way?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: To what extent do mobile applications compromise user privacy and data security?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Unfortunately,</span> mobile apps heavily compromise data security, as many platforms legally sell user information.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core issue is that,</span> greedy companies track our location and browsing habits to generate targeted advertising. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Therefore,</span> poor <strong>cybersecurity (网络安全)</strong> measures often leave individuals completely vulnerable to identity theft and financial fraud.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Selling user data</li><li>Tracking location</li><li>Targeted online ads</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Do you worry when an app tracks where you are?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Should companies be allowed to sell our phone data?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: Will digital tools eventually replace traditional face-to-face services entirely?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> digital tools will not replace humans, because physical contact remains vital.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This is necessary since,</span> humans naturally crave empathy and real emotional connection during difficult or stressful situations. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> speaking to a real doctor provides a <strong>therapeutic (有治疗作用的)</strong> comfort that an AI robot simply cannot replicate.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>No not entirely</li><li>Need human emotion</li><li>Doctors and teachers</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Do you prefer a real shop worker or a machine?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'What jobs can robots never do?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Innovative</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Obsessive</td></tr><tr><td style="padding: 10px 5px;">2. Addictive</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Essential</td></tr><tr><td style="padding: 10px 5px;">3. Efficient</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Easy to use</td></tr><tr><td style="padding: 10px 5px;">4. Indispensable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Creative</td></tr><tr><td style="padding: 10px 5px;">5. User-friendly</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Effective</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Innovative</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Effective</td></tr><tr><td style="padding: 10px 5px;">2. Addictive</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Creative</td></tr><tr><td style="padding: 10px 5px;">3. Efficient</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Essential</td></tr><tr><td style="padding: 10px 5px;">4. Indispensable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Obsessive</td></tr><tr><td style="padding: 10px 5px;">5. User-friendly</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Easy to use</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->

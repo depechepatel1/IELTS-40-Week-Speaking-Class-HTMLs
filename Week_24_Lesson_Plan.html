@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like technical mishaps because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about technical mishaps.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about technical mishaps.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Frustrated</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Frustrate (V) - Frustration (N)</td><td><span class="vocab-cn">沮丧的 / 挫败的</span></td></tr><tr><td><strong>Helpless</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Helplessness (N)</td><td><span class="vocab-cn">无助的</span></td></tr><tr><td><strong>Unexpected</strong></td><td>Expect (V)</td><td><span class="vocab-cn">意想不到的</span></td></tr><tr><td><strong>Inconvenient</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Inconvenience (N)</td><td><span class="vocab-cn">不便的</span></td></tr><tr><td><strong>Urgent</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Urgency (N)</td><td><span class="vocab-cn">紧急的</span></td></tr><tr><td><strong>Durable</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Durability (N)</td><td><span class="vocab-cn">耐用的 (not durable)</span></td></tr><tr><td><strong>Precious</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span> <span class="recycled-tag">Recycled</span></td><td>Adjective</td><td><span class="vocab-cn">宝贵的 (time)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>In the dark</strong></td><td>(Fixed Phrase)</td><td><span class="vocab-cn">两眼一抹黑</span></td></tr><tr class="vocab-example-row"><td colspan="3">"They kept me in the dark about the surprise party."</td></tr><tr><td><strong>Out of order</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">坏了</span></td></tr><tr class="vocab-example-row"><td colspan="3">"The vending machine is currently out of order."</td></tr><tr><td><strong>Save the day</strong></td><td>(Saved (V2))</td><td><span class="vocab-cn">力挽狂澜</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Her quick thinking really saved the day."</td></tr></tbody>
+<tbody><tr><td><strong>Frustrated</strong></td><td>Frustrate (V) - Frustration (N)</td><td><span class="vocab-cn">沮丧的 / 挫败的</span></td></tr><tr><td><strong>Helpless</strong></td><td>Helplessness (N)</td><td><span class="vocab-cn">无助的</span></td></tr><tr><td><strong>Unexpected</strong></td><td>Expect (V)</td><td><span class="vocab-cn">意想不到的</span></td></tr><tr><td><strong>Inconvenient</strong></td><td>Inconvenience (N)</td><td><span class="vocab-cn">不便的</span></td></tr><tr><td><strong>Urgent</strong></td><td>Urgency (N)</td><td><span class="vocab-cn">紧急的</span></td></tr><tr><td><strong>Durable</strong> <span class="recycled-tag">Recycled</span></td><td>Durability (N)</td><td><span class="vocab-cn">耐用的 (not durable)</span></td></tr><tr><td><strong>Precious</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span> <span class="recycled-tag">Recycled</span></td><td>Adjective</td><td><span class="vocab-cn">宝贵的 (time)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>In the dark</strong></td><td>(Fixed Phrase)</td><td><span class="vocab-cn">两眼一抹黑</span></td></tr><tr><td><strong>Out of order</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">坏了</span></td></tr><tr><td><strong>Save the day</strong></td><td>(Saved (V2))</td><td><span class="vocab-cn">力挽狂澜</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a time when the electricity suddenly went off where you live. You should say:</strong> <strong>When</strong> it happened, <strong>How</strong> long it lasted, <strong>What</strong> you did during that time, <strong>And</strong> explain how you felt about it.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a time when the electricity suddenly went off where you live. You should say: <strong>When</strong> it happened, <strong>How</strong> long it lasted, <strong>What</strong> you did during that time, <strong>And</strong> explain how you felt about it.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Power Cut</div>
+<div class="spider-center">ELECTRICITY<br/>SUDDENLY</div>
 <div class="spider-legs">
-<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Stormy night</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">No lights</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Lit candles</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Felt scared</span></div>
+<div class="spider-leg"><strong>1. WHEN:</strong><br/><span style="color:#777;">Stormy night</span></div>
+<div class="spider-leg"><strong>2. HOW:</strong><br/><span style="color:#777;">No lights</span></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">Lit candles</span></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Felt scared</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe an occasion when an important piece of equipment stopped working. You should say:</strong> <strong>What</strong> the equipment was, <strong>When</strong> it happened, <strong>How</strong> it affected you, <strong>And</strong> explain how you solved the problem.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe an occasion when an important piece of equipment stopped working. You should say: <strong>What</strong> the equipment was, <strong>When</strong> it happened, <strong>How</strong> it affected you, <strong>And</strong> explain how you solved the problem.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Broken Equipment</div>
+<div class="spider-center">IMPORTANT<br/>PIECE</div>
 <div class="spider-legs">
-<div class="spider-leg">Broken phone<div class="lines"></div></div>
-<div class="spider-leg">Missed call<div class="lines"></div></div>
-<div class="spider-leg">Lost map<div class="lines"></div></div>
-<div class="spider-leg">Felt lost<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Broken phone</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHEN:</strong><br/><span style="color:#777;">Missed call</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">Lost map</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Felt lost</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a time when you broke something by accident. You should say:</strong> <strong>What</strong> the item was, <strong>How</strong> the accident happened, <strong>How</strong> you felt immediately after, <strong>And</strong> explain what you did to fix the situation.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a time when you broke something by accident. You should say: <strong>What</strong> the item was, <strong>How</strong> the accident happened, <strong>How</strong> you felt immediately after, <strong>And</strong> explain what you did to fix the situation.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Accidental Break</div>
+<div class="spider-center">BROKE<br/>SOMETHING</div>
 <div class="spider-legs">
-<div class="spider-leg">Dropped cup<div class="lines"></div></div>
-<div class="spider-leg">Hot tea<div class="lines"></div></div>
-<div class="spider-leg">Burnt hand<div class="lines"></div></div>
-<div class="spider-leg">Said sorry<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Dropped cup</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. HOW:</strong><br/><span style="color:#777;">Hot tea</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">Burnt hand</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHAT:</strong><br/><span style="color:#777;">Said sorry</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Dependency</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Depend (V)</td><td><span class="vocab-cn">依赖</span></td></tr><tr><td><strong>Obsolescence</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Obsolete (Adj)</td><td><span class="vocab-cn">废弃 / 淘汰</span></td></tr><tr><td><strong>Reliability</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Reliable (Adj)</td><td><span class="vocab-cn">可靠性</span></td></tr><tr><td><strong>Manufacturing</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Manufacture (V)</td><td><span class="vocab-cn">制造业</span></td></tr><tr><td><strong>Sustainability</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Sustainable (Adj)</td><td><span class="vocab-cn">可持续性</span></td></tr><tr><td><strong>Development</strong></td><td>Develop (V)</td><td><span class="vocab-cn">发展</span></td></tr><tr><td><strong>Creativity</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Creative (Adj)</td><td><span class="vocab-cn">创造力 (solving problems)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Throwaway culture</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">快餐文化</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Environmentalists are fighting against the throwaway culture."</td></tr><tr><td><strong>Wear and tear</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">磨损</span></td></tr><tr class="vocab-example-row"><td colspan="3">"The carpet is showing signs of normal wear and tear."</td></tr><tr><td><strong>Don't fix what isn't broken</strong></td><td>(Proverb)</td><td><span class="vocab-cn">画蛇添足</span></td></tr><tr class="vocab-example-row"><td colspan="3">"The system works fine, so don't fix what isn't broken."</td></tr></tbody>
+<tbody><tr><td><strong>Dependency</strong></td><td>Depend (V)</td><td><span class="vocab-cn">依赖</span></td></tr><tr><td><strong>Obsolescence</strong></td><td>Obsolete (Adj)</td><td><span class="vocab-cn">废弃 / 淘汰</span></td></tr><tr><td><strong>Reliability</strong></td><td>Reliable (Adj)</td><td><span class="vocab-cn">可靠性</span></td></tr><tr><td><strong>Manufacturing</strong></td><td>Manufacture (V)</td><td><span class="vocab-cn">制造业</span></td></tr><tr><td><strong>Sustainability</strong></td><td>Sustainable (Adj)</td><td><span class="vocab-cn">可持续性</span></td></tr><tr><td><strong>Development</strong></td><td>Develop (V)</td><td><span class="vocab-cn">发展</span></td></tr><tr><td><strong>Creativity</strong></td><td>Creative (Adj)</td><td><span class="vocab-cn">创造力 (solving problems)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Throwaway culture</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">快餐文化</span></td></tr><tr><td><strong>Wear and tear</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">磨损</span></td></tr><tr><td><strong>Don't fix what isn't broken</strong></td><td>(Proverb)</td><td><span class="vocab-cn">画蛇添足</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Does the place where you live often experience power cuts?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Fortunately,</span> blackouts are incredibly rare here, because the local power grid is highly advanced.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Actually,</span> due to rapid urban <strong>development (发展)</strong>, the government strictly maintains the electrical infrastructure. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Therefore,</span> they follow the rule of <strong>don't fix what isn't broken (没坏就别修)</strong>, avoiding unnecessary disruptions.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Very rare</li><li>Good grid</li><li>Big city</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What do you do at home when the lights turn off?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Does a city with bad electricity have a weak economy?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: Are modern societies too dependent on electricity and technology?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Absolutely,</span> we are entirely reliant on power, and our lives halt without it.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Essentially,</span> this massive <strong>dependency (依赖)</strong> means that a simple power outage can shut down hospitals and banks. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As a result,</span> people cannot even buy food if the electronic payment systems crash.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Yes totally</li><li>Need phones</li><li>No cash</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Could you survive for three days without electricity?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'What would happen if a big city lost power for a whole month?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: Is the "throwaway culture" (buying new instead of repairing) sustainable for the environment?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Definitely not,</span> it is highly destructive, since it generates massive amounts of electronic waste.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Fundamentally,</span> constant garbage disposal actively ruins global ecological <strong>sustainability (可持续性)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Instead,</span> we must use our <strong>creativity (创造力)</strong> to recycle old materials and protect our fragile planet.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>No bad</li><li>Too much</li><li>Use recycling</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What happens to broken computers thrown in the trash?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Should the law force companies to make phones that last ten years?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Unexpected</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Pressing</td></tr><tr><td style="padding: 10px 5px;">2. Urgent</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Troublesome</td></tr><tr><td style="padding: 10px 5px;">3. Frustrated</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Annoyed</td></tr><tr><td style="padding: 10px 5px;">4. Helpless</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Powerless</td></tr><tr><td style="padding: 10px 5px;">5. Inconvenient</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Surprising</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Unexpected</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Powerless</td></tr><tr><td style="padding: 10px 5px;">2. Urgent</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Annoyed</td></tr><tr><td style="padding: 10px 5px;">3. Frustrated</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Surprising</td></tr><tr><td style="padding: 10px 5px;">4. Helpless</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Pressing</td></tr><tr><td style="padding: 10px 5px;">5. Inconvenient</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Troublesome</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -823,7 +897,7 @@
 <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;"><div class="grammar-sent">1. The light went out suddenly.</div><div class="grammar-sent">2. I didn't know what happen.</div><div class="grammar-sent">3. It was dark everywhere.</div><div class="grammar-sent">4. I waited the power to come back.</div><div class="grammar-sent">5. It is a terrible experience.</div></div>
 </div>
 </div>
-<div class="card" style="flex-grow:1; border-left:5px solid #f39c12; background:#fcf3cf; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
+<div class="card" style="flex-grow:1; border-left:5px solid #1abc9c; background:#e8f8f5; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
 <h3>3. Writing Task: Describe a time something broke. (Write 50 words) (10 minutes)</h3>
 <div class="diff-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;">
 <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
@@ -835,8 +909,8 @@
 </ol>
 </div>
 </div>
-<div class="card" style="background:#fcf3cf; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #f39c12; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-<h3 style="color:#f39c12; margin:0;">🎙️ 4. Recording Challenge</h3>
+<div class="card" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
 <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br/>

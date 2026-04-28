@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like books and stories because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about books and stories.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about books and stories.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Educational</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Education (N) - Educate (V)</td><td><span class="vocab-cn">有教育意义的</span></td></tr><tr><td><strong>Captivating</strong></td><td>Captivate (V)</td><td><span class="vocab-cn">迷人的 / 吸引人的</span></td></tr><tr><td><strong>Thought-provoking</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">发人深省的</span></td></tr><tr><td><strong>Memorable</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Memory (N)</td><td><span class="vocab-cn">难忘的</span></td></tr><tr><td><strong>Classic</strong></td><td>Classics (Pl)</td><td><span class="vocab-cn">经典的</span></td></tr><tr><td><strong>Trendy</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Trend (N)</td><td><span class="vocab-cn">时髦的</span></td></tr><tr><td><strong>Overcrowded</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Crowd (N)</td><td><span class="vocab-cn">拥挤的 (book fair)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Page-turner</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">引人入胜之作</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Her latest thriller is a real page-turner."</td></tr><tr><td><strong>Lose oneself in</strong></td><td>(Lost (V2))</td><td><span class="vocab-cn">陶醉其中</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I can easily lose myself in a good science fiction novel."</td></tr><tr><td><strong>Judge a book by its cover</strong></td><td>(Proverb)</td><td><span class="vocab-cn">以貌取人</span></td></tr><tr class="vocab-example-row"><td colspan="3">"He looks rough, but never judge a book by its cover."</td></tr></tbody>
+<tbody><tr><td><strong>Educational</strong></td><td>Education (N) - Educate (V)</td><td><span class="vocab-cn">有教育意义的</span></td></tr><tr><td><strong>Captivating</strong></td><td>Captivate (V)</td><td><span class="vocab-cn">迷人的 / 吸引人的</span></td></tr><tr><td><strong>Thought-provoking</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">发人深省的</span></td></tr><tr><td><strong>Memorable</strong></td><td>Memory (N)</td><td><span class="vocab-cn">难忘的</span></td></tr><tr><td><strong>Classic</strong></td><td>Classics (Pl)</td><td><span class="vocab-cn">经典的</span></td></tr><tr><td><strong>Trendy</strong> <span class="recycled-tag">Recycled</span></td><td>Trend (N)</td><td><span class="vocab-cn">时髦的</span></td></tr><tr><td><strong>Overcrowded</strong> <span class="recycled-tag">Recycled</span></td><td>Crowd (N)</td><td><span class="vocab-cn">拥挤的 (book fair)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Page-turner</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">引人入胜之作</span></td></tr><tr><td><strong>Lose oneself in</strong></td><td>(Lost (V2))</td><td><span class="vocab-cn">陶醉其中</span></td></tr><tr><td><strong>Judge a book by its cover</strong></td><td>(Proverb)</td><td><span class="vocab-cn">以貌取人</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a book you read that you found useful. You should say:</strong> <strong>What</strong> it is, <strong>When</strong> you read it, <strong>Why</strong> you think it is useful, <strong>And</strong> explain how you felt about it.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a book you read that you found useful. You should say: <strong>What</strong> it is, <strong>When</strong> you read it, <strong>Why</strong> you think it is useful, <strong>And</strong> explain how you felt about it.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Useful Book</div>
+<div class="spider-center">BOOK<br/>READ</div>
 <div class="spider-legs">
-<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Cooking guide</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Last summer</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Taught recipes</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Felt confident</span></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Cooking guide</span></div>
+<div class="spider-leg"><strong>2. WHEN:</strong><br/><span style="color:#777;">Last summer</span></div>
+<div class="spider-leg"><strong>3. WHY:</strong><br/><span style="color:#777;">Taught recipes</span></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Felt confident</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a story you read or heard recently. You should say:</strong> <strong>What</strong> the story was about, <strong>Where</strong> you read or heard it, <strong>Who</strong> the main characters were, <strong>And</strong> explain why this story stayed in your memory.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a story you read or heard recently. You should say: <strong>What</strong> the story was about, <strong>Where</strong> you read or heard it, <strong>Who</strong> the main characters were, <strong>And</strong> explain why this story stayed in your memory.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Recent Story</div>
+<div class="spider-center">STORY<br/>READ</div>
 <div class="spider-legs">
-<div class="spider-leg">Space adventure<div class="lines"></div></div>
-<div class="spider-leg">Science magazine<div class="lines"></div></div>
-<div class="spider-leg">Brave astronauts<div class="lines"></div></div>
-<div class="spider-leg">Very exciting<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Space adventure</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHERE:</strong><br/><span style="color:#777;">Science magazine</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHO:</strong><br/><span style="color:#777;">Brave astronauts</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Very exciting</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a traditional story from your country. You should say:</strong> <strong>What</strong> the story is, <strong>When</strong> you first heard it, <strong>What</strong> moral lesson it teaches, <strong>And</strong> explain why it is still popular today.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a traditional story from your country. You should say: <strong>What</strong> the story is, <strong>When</strong> you first heard it, <strong>What</strong> moral lesson it teaches, <strong>And</strong> explain why it is still popular today.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Traditional Story</div>
+<div class="spider-center">TRADITIONAL<br/>STORY</div>
 <div class="spider-legs">
-<div class="spider-leg">Mulan legend<div class="lines"></div></div>
-<div class="spider-leg">History class<div class="lines"></div></div>
-<div class="spider-leg">Family honor<div class="lines"></div></div>
-<div class="spider-leg">Inspires girls<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Mulan legend</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHEN:</strong><br/><span style="color:#777;">History class</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">Family honor</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Inspires girls</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Literacy</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Literate (Adj)</td><td><span class="vocab-cn">读写能力 / 素养</span></td></tr><tr><td><strong>Attention span</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun Phrase</td><td><span class="vocab-cn">注意力持续时间</span></td></tr><tr><td><strong>Preservation</strong></td><td>Preserve (V)</td><td><span class="vocab-cn">保存 (culture)</span></td></tr><tr><td><strong>Accessibility</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Access (V) - Accessible (Adj)</td><td><span class="vocab-cn">可访问性 / 便捷性</span></td></tr><tr><td><strong>Imagination</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Imagine (V) - Imaginative (Adj)</td><td><span class="vocab-cn">想象力</span></td></tr><tr><td><strong>Impulsive</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Impulse (N)</td><td><span class="vocab-cn">冲动的</span></td></tr><tr><td><strong>Consumerism</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Consume (V)</td><td><span class="vocab-cn">消费主义</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Read between the lines</strong></td><td>(Read (V2))</td><td><span class="vocab-cn">通过字里行间领会</span></td></tr><tr class="vocab-example-row"><td colspan="3">"You have to read between the lines to understand his true message."</td></tr><tr><td><strong>Bookworm</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">书虫</span></td></tr><tr class="vocab-example-row"><td colspan="3">"My sister is a total bookworm and reads daily."</td></tr><tr><td><strong>Hit the books</strong></td><td>(Hit (V2))</td><td><span class="vocab-cn">用功读书</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I have an exam tomorrow, so I need to hit the books."</td></tr></tbody>
+<tbody><tr><td><strong>Literacy</strong></td><td>Literate (Adj)</td><td><span class="vocab-cn">读写能力 / 素养</span></td></tr><tr><td><strong>Attention span</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Noun Phrase)</span></td><td>Noun Phrase</td><td><span class="vocab-cn">注意力持续时间</span></td></tr><tr><td><strong>Preservation</strong></td><td>Preserve (V)</td><td><span class="vocab-cn">保存 (culture)</span></td></tr><tr><td><strong>Accessibility</strong></td><td>Access (V) - Accessible (Adj)</td><td><span class="vocab-cn">可访问性 / 便捷性</span></td></tr><tr><td><strong>Imagination</strong></td><td>Imagine (V) - Imaginative (Adj)</td><td><span class="vocab-cn">想象力</span></td></tr><tr><td><strong>Impulsive</strong></td><td>Impulse (N)</td><td><span class="vocab-cn">冲动的</span></td></tr><tr><td><strong>Consumerism</strong></td><td>Consume (V)</td><td><span class="vocab-cn">消费主义</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Read between the lines</strong></td><td>(Read (V2))</td><td><span class="vocab-cn">通过字里行间领会</span></td></tr><tr><td><strong>Bookworm</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">书虫</span></td></tr><tr><td><strong>Hit the books</strong></td><td>(Hit (V2))</td><td><span class="vocab-cn">用功读书</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Do Chinese children prefer ancient stories or fairy tales?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Admittedly,</span> younger Chinese children strongly prefer magical fairy tales, whereas older students slowly appreciate ancient historical myths.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core issue is that,</span> little kids are naturally drawn to extremely colorful, highly <strong>Impulsive (冲动的)</strong> magical heroes. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Conversely (相反地),</span> understanding ancient dynasties actually requires them to successfully <strong>Read between the lines (读懂言外之意)</strong> to learn deep moral lessons.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Depends on age</li><li>Magic is fun</li><li>History is harder</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Do you prefer stories about dragons or real history?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Does liking history show that a teenager is growing up?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: Has the internet reduced the attention span required to read long novels?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the modern internet has severely ruined our ability to focus, because short videos deliver instant gratification (满足感).</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">As a result,</span> a teenager's natural <strong>Attention span (注意力持续时间)</strong> is completely shattered by constantly scrolling through endless social media feeds. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Consequently,</span> reading a huge thick novel now feels incredibly tedious (乏味的) and boring to many young internet users.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Yes drastically reduced</li><li>Short video apps</li><li>Cannot focus long</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Is it hard for you to sit and read for an hour?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Have short internet videos ruined our ability to read long books?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: Is storytelling an essential part of preserving a culture's history?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> vocal storytelling is absolutely essential, as it successfully guarantees the <strong>Preservation (保存)</strong> of local heritage.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This means that,</span> before written languages existed, tribal elders transferred vital survival wisdom through spoken poems. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Therefore,</span> verbal traditions beautifully keep ancient societal customs highly relevant and alive for the next generation.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Yes very essential</li><li>Passes down wisdom</li><li>Grandparents telling tales</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How do you learn about your grandparents' lives?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why are spoken stories sometimes better than history books?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Classic</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Unforgettable</td></tr><tr><td style="padding: 10px 5px;">2. Memorable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Instructive</td></tr><tr><td style="padding: 10px 5px;">3. Thought-provoking</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Fascinating</td></tr><tr><td style="padding: 10px 5px;">4. Captivating</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Inspiring</td></tr><tr><td style="padding: 10px 5px;">5. Educational</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Traditional</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Classic</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Unforgettable</td></tr><tr><td style="padding: 10px 5px;">2. Memorable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Traditional</td></tr><tr><td style="padding: 10px 5px;">3. Thought-provoking</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Fascinating</td></tr><tr><td style="padding: 10px 5px;">4. Captivating</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Instructive</td></tr><tr><td style="padding: 10px 5px;">5. Educational</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Inspiring</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -823,7 +897,7 @@
 <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;"><div class="grammar-sent">1. I read a book naming Harry Potter.</div><div class="grammar-sent">2. It writed by JK Rowling.</div><div class="grammar-sent">3. The story is interested.</div><div class="grammar-sent">4. I spent 3 days to read it.</div><div class="grammar-sent">5. I learn a lot from it.</div></div>
 </div>
 </div>
-<div class="card" style="flex-grow:1; border-left:5px solid #9b59b6; background:#f4ecf7; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
+<div class="card" style="flex-grow:1; border-left:5px solid #1abc9c; background:#e8f8f5; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
 <h3>3. Writing Task: What kind of books do you like? (Write 50 words) (10 minutes)</h3>
 <div class="diff-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;">
 <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
@@ -835,8 +909,8 @@
 </ol>
 </div>
 </div>
-<div class="card" style="background:#f4ecf7; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #9b59b6; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-<h3 style="color:#9b59b6; margin:0;">🎙️ 4. Recording Challenge</h3>
+<div class="card" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
 <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br/>

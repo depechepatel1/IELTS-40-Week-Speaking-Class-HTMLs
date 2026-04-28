@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like neighbors and communities because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about neighbors and communities.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about neighbors and communities.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Neighborly</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Neighbor (N)</td><td><span class="vocab-cn">睦邻友好的</span></td></tr><tr><td><strong>Helpful</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Helpfulness (N)</td><td><span class="vocab-cn">乐于助人的</span></td></tr><tr><td><strong>Generous</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Generosity (N)</td><td><span class="vocab-cn">慷慨的</span></td></tr><tr><td><strong>Nosy</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">爱管闲事的 (negative)</span></td></tr><tr><td><strong>Considerate</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Consideration (N)</td><td><span class="vocab-cn">体贴的</span></td></tr><tr><td><strong>Competitive</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Competition (N)</td><td><span class="vocab-cn">爱攀比的</span></td></tr><tr><td><strong>Intense</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Intensity (N)</td><td><span class="vocab-cn">强烈的 (dislike)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Lend a hand</strong></td><td>(Lent (V2))</td><td><span class="vocab-cn">助一臂之力</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Could you lend a hand moving this heavy sofa?"</td></tr><tr><td><strong>Keep an eye on</strong></td><td>(Kept (V2))</td><td><span class="vocab-cn">照看</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Please keep an eye on my dog while I go inside the store."</td></tr><tr><td><strong>Next-door neighbor</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">隔壁邻居</span></td></tr><tr class="vocab-example-row"><td colspan="3">"My next-door neighbor baked me some cookies yesterday."</td></tr></tbody>
+<tbody><tr><td><strong>Neighborly</strong></td><td>Neighbor (N)</td><td><span class="vocab-cn">睦邻友好的</span></td></tr><tr><td><strong>Helpful</strong></td><td>Helpfulness (N)</td><td><span class="vocab-cn">乐于助人的</span></td></tr><tr><td><strong>Generous</strong></td><td>Generosity (N)</td><td><span class="vocab-cn">慷慨的</span></td></tr><tr><td><strong>Nosy</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">爱管闲事的 (negative)</span></td></tr><tr><td><strong>Considerate</strong></td><td>Consideration (N)</td><td><span class="vocab-cn">体贴的</span></td></tr><tr><td><strong>Competitive</strong> <span class="recycled-tag">Recycled</span></td><td>Competition (N)</td><td><span class="vocab-cn">爱攀比的</span></td></tr><tr><td><strong>Intense</strong> <span class="recycled-tag">Recycled</span></td><td>Intensity (N)</td><td><span class="vocab-cn">强烈的 (dislike)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Lend a hand</strong></td><td>(Lent (V2))</td><td><span class="vocab-cn">助一臂之力</span></td></tr><tr><td><strong>Keep an eye on</strong></td><td>(Kept (V2))</td><td><span class="vocab-cn">照看</span></td></tr><tr><td><strong>Next-door neighbor</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">隔壁邻居</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a neighbor you have who is interesting or helpful. You should say:</strong> <strong>Who</strong> this person is, <strong>How</strong> long you have known them, <strong>How</strong> often you see them, <strong>And</strong> explain why you think they are interesting/helpful.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a neighbor you have who is interesting or helpful. You should say: <strong>Who</strong> this person is, <strong>How</strong> long you have known them, <strong>How</strong> often you see them, <strong>And</strong> explain why you think they are interesting/helpful.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Helpful Neighbor</div>
+<div class="spider-center">NEIGHBOR<br/>HAVE</div>
 <div class="spider-legs">
 <div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Old lady</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Bakes cake</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Next door</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Very sweet</span></div>
+<div class="spider-leg"><strong>2. HOW:</strong><br/><span style="color:#777;">Bakes cake</span></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">Next door</span></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Very sweet</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a person who contributes a lot to your local community. You should say:</strong> <strong>Who</strong> the person is, <strong>What</strong> they do for the community, <strong>Why</strong> they do it, <strong>And</strong> explain how their actions affect the neighborhood.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a person who contributes a lot to your local community. You should say: <strong>Who</strong> the person is, <strong>What</strong> they do for the community, <strong>Why</strong> they do it, <strong>And</strong> explain how their actions affect the neighborhood.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Community Helper</div>
+<div class="spider-center">PERSON</div>
 <div class="spider-legs">
-<div class="spider-leg">Park cleaner<div class="lines"></div></div>
-<div class="spider-leg">Picks trash<div class="lines"></div></div>
-<div class="spider-leg">Every week<div class="lines"></div></div>
-<div class="spider-leg">Looks nice<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Park cleaner</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Picks trash</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHY:</strong><br/><span style="color:#777;">Every week</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Looks nice</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a time you helped a neighbor. You should say:</strong> <strong>What</strong> the problem was, <strong>How</strong> you helped, <strong>What</strong> the result was, <strong>And</strong> explain how you felt about helping them.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a time you helped a neighbor. You should say: <strong>What</strong> the problem was, <strong>How</strong> you helped, <strong>What</strong> the result was, <strong>And</strong> explain how you felt about helping them.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Helped Neighbor</div>
+<div class="spider-center">HELPED<br/>NEIGHBOR</div>
 <div class="spider-legs">
-<div class="spider-leg">Car broke<div class="lines"></div></div>
-<div class="spider-leg">Flat tire<div class="lines"></div></div>
-<div class="spider-leg">Helped fix<div class="lines"></div></div>
-<div class="spider-leg">Felt glad<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Car broke</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. HOW:</strong><br/><span style="color:#777;">Flat tire</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">Helped fix</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Felt glad</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Community</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Communal (Adj)</td><td><span class="vocab-cn">社区</span></td></tr><tr><td><strong>Isolation</strong></td><td>Isolate (V)</td><td><span class="vocab-cn">孤立 / 隔绝</span></td></tr><tr><td><strong>Security</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Secure (Adj)</td><td><span class="vocab-cn">安全</span></td></tr><tr><td><strong>Interaction</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Interact (V)</td><td><span class="vocab-cn">互动</span></td></tr><tr><td><strong>Urbanization</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Urban (Adj)</td><td><span class="vocab-cn">城市化</span></td></tr><tr><td><strong>Cooperation</strong></td><td>Cooperate (V)</td><td><span class="vocab-cn">合作</span></td></tr><tr><td><strong>Rivalry</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Rival (N)</td><td><span class="vocab-cn">对立</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Good fences make good neighbors</strong></td><td>(Proverb)</td><td><span class="vocab-cn">君子之交淡如水</span></td></tr><tr class="vocab-example-row"><td colspan="3">"We respect their privacy because good fences make good neighbors."</td></tr><tr><td><strong>Look out for each other</strong></td><td>(Looked (V2))</td><td><span class="vocab-cn">守望相助</span></td></tr><tr class="vocab-example-row"><td colspan="3">"In this small village, everyone looks out for each other."</td></tr><tr><td><strong>Close to home</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">切身相关</span></td></tr><tr class="vocab-example-row"><td colspan="3">"That sad movie hit a little too close to home."</td></tr></tbody>
+<tbody><tr><td><strong>Community</strong></td><td>Communal (Adj)</td><td><span class="vocab-cn">社区</span></td></tr><tr><td><strong>Isolation</strong></td><td>Isolate (V)</td><td><span class="vocab-cn">孤立 / 隔绝</span></td></tr><tr><td><strong>Security</strong></td><td>Secure (Adj)</td><td><span class="vocab-cn">安全</span></td></tr><tr><td><strong>Interaction</strong></td><td>Interact (V)</td><td><span class="vocab-cn">互动</span></td></tr><tr><td><strong>Urbanization</strong></td><td>Urban (Adj)</td><td><span class="vocab-cn">城市化</span></td></tr><tr><td><strong>Cooperation</strong></td><td>Cooperate (V)</td><td><span class="vocab-cn">合作</span></td></tr><tr><td><strong>Rivalry</strong></td><td>Rival (N)</td><td><span class="vocab-cn">对立</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Good fences make good neighbors</strong></td><td>(Proverb)</td><td><span class="vocab-cn">君子之交淡如水</span></td></tr><tr><td><strong>Look out for each other</strong></td><td>(Looked (V2))</td><td><span class="vocab-cn">守望相助</span></td></tr><tr><td><strong>Close to home</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">切身相关</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Do you think community centers are important for a neighborhood?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Absolutely,</span> local centers are incredibly important, as they provide a shared gathering space.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Essentially,</span> they help build a strong <strong>community (社区)</strong> by hosting events that are <strong>close to home (切身相关的)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> a local hall offering free dance classes helps strangers become fast friends.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Yes needed</li><li>Meet folks</li><li>Dance class</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Do parks help neighbors become friends?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How important are public parks for building a friendly community?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: How can neighbors help each other in times of crisis or emergency?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">During disasters,</span> neighbors are the first responders, because they are physically closest.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Fundamentally,</span> when a storm hits, people must drop any petty <strong>rivalry (敌对)</strong> and quickly <strong>look out for each other (守望相助)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For example,</span> sharing emergency food supplies and checking on elderly residents ensures everyone's basic <strong>security (安全)</strong>.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Share food</li><li>Check elders</li><li>Help fast</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How can you help an older neighbor during a big storm?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why are neighbors the most important people during an emergency?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: Should there be laws to control noisy neighbors?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Definitely,</span> noise regulations are absolutely necessary, since constant loud sounds ruin mental health.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Actually,</span> everyone deserves a quiet place to sleep after a long, exhausting day of work. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Therefore,</span> police should be able to fine people who blast loud music at two in the morning.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Yes please</li><li>Need sleep</li><li>Stop music</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Is it fair if someone plays loud music when you need sleep?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why must the government make strict laws against noisy neighbors?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Nosy</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Friendly</td></tr><tr><td style="padding: 10px 5px;">2. Considerate</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Kind</td></tr><tr><td style="padding: 10px 5px;">3. Neighborly</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Useful</td></tr><tr><td style="padding: 10px 5px;">4. Helpful</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Giving</td></tr><tr><td style="padding: 10px 5px;">5. Generous</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Curious</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Nosy</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Friendly</td></tr><tr><td style="padding: 10px 5px;">2. Considerate</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Useful</td></tr><tr><td style="padding: 10px 5px;">3. Neighborly</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Kind</td></tr><tr><td style="padding: 10px 5px;">4. Helpful</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Giving</td></tr><tr><td style="padding: 10px 5px;">5. Generous</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Curious</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->

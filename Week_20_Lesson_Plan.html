@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like journeys and travel because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about journeys and travel.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about journeys and travel.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Exhausting</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Exhaust (V) - Exhausted (Adj)</td><td><span class="vocab-cn">筋疲力尽的</span></td></tr><tr><td><strong>Scenic</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Scenery (N)</td><td><span class="vocab-cn">风景优美的</span></td></tr><tr><td><strong>Adventurous</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Adventure (N)</td><td><span class="vocab-cn">爱冒险的</span></td></tr><tr><td><strong>Spontaneous</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Spontaneity (N)</td><td><span class="vocab-cn">自发的 / 随性的</span></td></tr><tr><td><strong>Delayed</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Delay (N/V)</td><td><span class="vocab-cn">延误的</span></td></tr><tr><td><strong>Sentimental</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Sentiment (N)</td><td><span class="vocab-cn">情感的 (journey)</span></td></tr><tr><td><strong>Valuable</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Value (N)</td><td><span class="vocab-cn">宝贵的 (experience)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Hit the road</strong></td><td>(Hit (V2))</td><td><span class="vocab-cn">上路</span></td></tr><tr class="vocab-example-row"><td colspan="3">"We need to hit the road early tomorrow morning."</td></tr><tr><td><strong>Travel light</strong></td><td>(Traveled (V2))</td><td><span class="vocab-cn">轻装上阵</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I prefer to travel light and only take a backpack."</td></tr><tr><td><strong>Bumpy ride</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">坎坷</span></td></tr><tr class="vocab-example-row"><td colspan="3">"The project was a bumpy ride, but we finished it."</td></tr></tbody>
+<tbody><tr><td><strong>Exhausting</strong></td><td>Exhaust (V) - Exhausted (Adj)</td><td><span class="vocab-cn">筋疲力尽的</span></td></tr><tr><td><strong>Scenic</strong></td><td>Scenery (N)</td><td><span class="vocab-cn">风景优美的</span></td></tr><tr><td><strong>Adventurous</strong></td><td>Adventure (N)</td><td><span class="vocab-cn">爱冒险的</span></td></tr><tr><td><strong>Spontaneous</strong></td><td>Spontaneity (N)</td><td><span class="vocab-cn">自发的 / 随性的</span></td></tr><tr><td><strong>Delayed</strong></td><td>Delay (N/V)</td><td><span class="vocab-cn">延误的</span></td></tr><tr><td><strong>Sentimental</strong> <span class="recycled-tag">Recycled</span></td><td>Sentiment (N)</td><td><span class="vocab-cn">情感的 (journey)</span></td></tr><tr><td><strong>Valuable</strong> <span class="recycled-tag">Recycled</span></td><td>Value (N)</td><td><span class="vocab-cn">宝贵的 (experience)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Hit the road</strong></td><td>(Hit (V2))</td><td><span class="vocab-cn">上路</span></td></tr><tr><td><strong>Travel light</strong></td><td>(Traveled (V2))</td><td><span class="vocab-cn">轻装上阵</span></td></tr><tr><td><strong>Bumpy ride</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">坎坷</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a long journey you want to enjoy again. You should say:</strong> <strong>When</strong> you took the journey, <strong>Where</strong> you went, <strong>Who</strong> you were with, <strong>And</strong> explain why you want to go again.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a long journey you want to enjoy again. You should say: <strong>When</strong> you took the journey, <strong>Where</strong> you went, <strong>Who</strong> you were with, <strong>And</strong> explain why you want to go again.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Long Journey</div>
+<div class="spider-center">LONG<br/>JOURNEY</div>
 <div class="spider-legs">
-<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Family roadtrip</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Last summer</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Driving interstate</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Bonding time</span></div>
+<div class="spider-leg"><strong>1. WHEN:</strong><br/><span style="color:#777;">Family roadtrip</span></div>
+<div class="spider-leg"><strong>2. WHERE:</strong><br/><span style="color:#777;">Last summer</span></div>
+<div class="spider-leg"><strong>3. WHO:</strong><br/><span style="color:#777;">Driving interstate</span></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Bonding time</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a bicycle, motorcycle, or car trip you would like to go on. You should say:</strong> <strong>Who</strong> you would like to go with, <strong>Where</strong> you would like to go, <strong>Which</strong> vehicle you would choose, <strong>And</strong> explain why you would like to travel this way.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a bicycle, motorcycle, or car trip you would like to go on. You should say: <strong>Who</strong> you would like to go with, <strong>Where</strong> you would like to go, <strong>Which</strong> vehicle you would choose, <strong>And</strong> explain why you would like to travel this way.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Road Trip</div>
+<div class="spider-center">BICYCLE</div>
 <div class="spider-legs">
-<div class="spider-leg">Mountain biking<div class="lines"></div></div>
-<div class="spider-leg">Forest trail<div class="lines"></div></div>
-<div class="spider-leg">Mountain bike<div class="lines"></div></div>
-<div class="spider-leg">Stay healthy<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Mountain biking</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHERE:</strong><br/><span style="color:#777;">Forest trail</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHICH:</strong><br/><span style="color:#777;">Mountain bike</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Stay healthy</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a time your travel plans were delayed or changed. You should say:</strong> <strong>Where</strong> you were going, <strong>What</strong> caused the delay, <strong>What</strong> you did while waiting, <strong>And</strong> explain how you felt about the change in plans.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a time your travel plans were delayed or changed. You should say: <strong>Where</strong> you were going, <strong>What</strong> caused the delay, <strong>What</strong> you did while waiting, <strong>And</strong> explain how you felt about the change in plans.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Delayed Trip</div>
+<div class="spider-center">TRAVEL<br/>PLANS</div>
 <div class="spider-legs">
-<div class="spider-leg">Train station<div class="lines"></div></div>
-<div class="spider-leg">Missed connection<div class="lines"></div></div>
-<div class="spider-leg">Ate lunch<div class="lines"></div></div>
-<div class="spider-leg">Felt annoyed<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHERE:</strong><br/><span style="color:#777;">Train station</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Missed connection</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">Ate lunch</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Felt annoyed</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Eco-tourism</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Tourist (N)</td><td><span class="vocab-cn">生态旅游</span></td></tr><tr><td><strong>Emission</strong></td><td>Emit (V)</td><td><span class="vocab-cn">排放</span></td></tr><tr><td><strong>Commute</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Commuter (N)</td><td><span class="vocab-cn">通勤</span></td></tr><tr><td><strong>Congestion</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Congest (V)</td><td><span class="vocab-cn">拥堵</span></td></tr><tr><td><strong>Preparation</strong></td><td>Prepare (V)</td><td><span class="vocab-cn">准备</span></td></tr><tr><td><strong>Sustainability</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Sustainable (Adj)</td><td><span class="vocab-cn">可持续性</span></td></tr><tr><td><strong>Accumulate</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Accumulation (N)</td><td><span class="vocab-cn">积累 (miles)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Carbon footprint</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">碳足迹</span></td></tr><tr class="vocab-example-row"><td colspan="3">"We should reduce our carbon footprint by flying less."</td></tr><tr><td><strong>Hustle and bustle</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">熙熙攘攘</span></td></tr><tr class="vocab-example-row"><td colspan="3">"She moved to escape the hustle and bustle of the city."</td></tr><tr><td><strong>Rush hour</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">高峰期</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Traffic is terrible during the morning rush hour."</td></tr></tbody>
+<tbody><tr><td><strong>Eco-tourism</strong></td><td>Tourist (N)</td><td><span class="vocab-cn">生态旅游</span></td></tr><tr><td><strong>Emission</strong></td><td>Emit (V)</td><td><span class="vocab-cn">排放</span></td></tr><tr><td><strong>Commute</strong></td><td>Commuter (N)</td><td><span class="vocab-cn">通勤</span></td></tr><tr><td><strong>Congestion</strong></td><td>Congest (V)</td><td><span class="vocab-cn">拥堵</span></td></tr><tr><td><strong>Preparation</strong></td><td>Prepare (V)</td><td><span class="vocab-cn">准备</span></td></tr><tr><td><strong>Sustainability</strong></td><td>Sustainable (Adj)</td><td><span class="vocab-cn">可持续性</span></td></tr><tr><td><strong>Accumulate</strong></td><td>Accumulation (N)</td><td><span class="vocab-cn">积累 (miles)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Carbon footprint</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">碳足迹</span></td></tr><tr><td><strong>Hustle and bustle</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">熙熙攘攘</span></td></tr><tr><td><strong>Rush hour</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">高峰期</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Do you think air pollution comes mostly from mobile vehicles? </h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To a certain extent,</span> cars are a major source, but factories contribute heavily too.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Evidently,</span> industrial exhaust and vehicular <strong>emission (排放)</strong> both <strong>accumulate (积累)</strong> in the atmosphere to cause severe smog. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> many manufacturing hubs have noticeably worse air quality than busy urban centers.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Partially true</li><li>Factory smog</li><li>Industrial zones</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Does the air smell bad near a busy road?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Do big factories make more dirty air than cars do?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: Do you think people need to change the way of transportation drastically to protect the environment? </h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Absolutely,</span> a significant shift is required if we want to save our planet.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Fundamentally,</span> our current reliance on fossil fuels completely undermines long-term environmental <strong>sustainability (可持续性)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Therefore,</span> switching globally to electric trains or hydrogen-powered buses will dramatically lower harmful pollution levels.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Strongly agree</li><li>Fossil fuels</li><li>Electric buses</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Would you ride a bike to school to help the earth?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'What can governments do to make people drive electric cars?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: Has the ability to travel cheaply (budget airlines) changed how people view the world? </h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Certainly,</span> budget travel has broadened perspectives, since more people can explore internationally.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Consequently,</span> average citizens can escape the daily <strong>rush hour (高峰期)</strong> to experience foreign cultures firsthand. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For example,</span> affordable flights allow students to witness global diversity, making them much more tolerant.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Broadens minds</li><li>Cultural exposure</li><li>Student exchanges</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Does traveling help you understand different people?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Do cheap airplane tickets help people learn about the world?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Spontaneous</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Late</td></tr><tr><td style="padding: 10px 5px;">2. Adventurous</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Daring</td></tr><tr><td style="padding: 10px 5px;">3. Exhausting</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Tiring</td></tr><tr><td style="padding: 10px 5px;">4. Delayed</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Beautiful</td></tr><tr><td style="padding: 10px 5px;">5. Scenic</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Unplanned</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Spontaneous</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Tiring</td></tr><tr><td style="padding: 10px 5px;">2. Adventurous</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Late</td></tr><tr><td style="padding: 10px 5px;">3. Exhausting</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Daring</td></tr><tr><td style="padding: 10px 5px;">4. Delayed</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Unplanned</td></tr><tr><td style="padding: 10px 5px;">5. Scenic</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Beautiful</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -823,7 +897,7 @@
 <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;"><div class="grammar-sent">1. I went to travel last month.</div><div class="grammar-sent">2. The scenery was wonderful.</div><div class="grammar-sent">3. We go there by car.</div><div class="grammar-sent">4. It took 5 hours to arrived.</div><div class="grammar-sent">5. I felt very exciting.</div></div>
 </div>
 </div>
-<div class="card" style="flex-grow:1; border-left:5px solid #f39c12; background:#fdf2e9; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
+<div class="card" style="flex-grow:1; border-left:5px solid #1abc9c; background:#e8f8f5; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
 <h3>3. Writing Task: Describe a trip you would like to take. (Write 50 words) (10 minutes)</h3>
 <div class="diff-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;">
 <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
@@ -835,8 +909,8 @@
 </ol>
 </div>
 </div>
-<div class="card" style="background:#fdf2e9; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #f39c12; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-<h3 style="color:#f39c12; margin:0;">🎙️ 4. Recording Challenge</h3>
+<div class="card" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
 <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br/>

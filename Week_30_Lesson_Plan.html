@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like wild animals and habitats because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about wild animals and habitats.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about wild animals and habitats.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Fascinating</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Fascinate (V) - Fascination (N)</td><td><span class="vocab-cn">迷人的</span></td></tr><tr><td><strong>Endangered</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Danger (N)</td><td><span class="vocab-cn">濒危的</span></td></tr><tr><td><strong>Wild</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Wilderness (N)</td><td><span class="vocab-cn">野生的</span></td></tr><tr><td><strong>Majestic</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Majesty (N)</td><td><span class="vocab-cn">雄伟的 / 威严的</span></td></tr><tr><td><strong>Unique</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Uniqueness (N)</td><td><span class="vocab-cn">独特的</span></td></tr><tr><td><strong>Courageous</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Courage (N)</td><td><span class="vocab-cn">勇敢的 (to approach)</span></td></tr><tr><td><strong>Sincere</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Sincerity (N)</td><td><span class="vocab-cn">真诚的 (interest)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Face to face</strong></td><td>(Fixed Phrase)</td><td><span class="vocab-cn">面对面</span></td></tr><tr class="vocab-example-row"><td colspan="3">"We finally met face to face after years of calling."</td></tr><tr><td><strong>In the wild</strong></td><td>(Prepositional Phrase)</td><td><span class="vocab-cn">在野外</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Pandas are rarely seen in the wild anymore."</td></tr><tr><td><strong>King of the jungle</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">百兽之王</span></td></tr><tr class="vocab-example-row"><td colspan="3">"The lion is widely known as the king of the jungle."</td></tr></tbody>
+<tbody><tr><td><strong>Fascinating</strong></td><td>Fascinate (V) - Fascination (N)</td><td><span class="vocab-cn">迷人的</span></td></tr><tr><td><strong>Endangered</strong></td><td>Danger (N)</td><td><span class="vocab-cn">濒危的</span></td></tr><tr><td><strong>Wild</strong></td><td>Wilderness (N)</td><td><span class="vocab-cn">野生的</span></td></tr><tr><td><strong>Majestic</strong></td><td>Majesty (N)</td><td><span class="vocab-cn">雄伟的 / 威严的</span></td></tr><tr><td><strong>Unique</strong></td><td>Uniqueness (N)</td><td><span class="vocab-cn">独特的</span></td></tr><tr><td><strong>Courageous</strong> <span class="recycled-tag">Recycled</span></td><td>Courage (N)</td><td><span class="vocab-cn">勇敢的 (to approach)</span></td></tr><tr><td><strong>Sincere</strong> <span class="recycled-tag">Recycled</span></td><td>Sincerity (N)</td><td><span class="vocab-cn">真诚的 (interest)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Face to face</strong></td><td>(Fixed Phrase)</td><td><span class="vocab-cn">面对面</span></td></tr><tr><td><strong>In the wild</strong></td><td>(Prepositional Phrase)</td><td><span class="vocab-cn">在野外</span></td></tr><tr><td><strong>King of the jungle</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">百兽之王</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a wild animal that you want to know more about. (Examiner Note: You may focus on where this animal lives) You should say:</strong> <strong>What</strong> it is, <strong>Where</strong> you saw it (or where it lives), <strong>Why</strong> you are interested in it, <strong>And</strong> explain why you want to know more about it.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a wild animal that you want to know more about. (Examiner Note: You may focus on where this animal lives) You should say: <strong>What</strong> it is, <strong>Where</strong> you saw it (or where it lives), <strong>Why</strong> you are interested in it, <strong>And</strong> explain why you want to know more about it.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Wild Animal</div>
+<div class="spider-center">WILD<br/>ANIMAL</div>
 <div class="spider-legs">
-<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Big bear</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Cold snow</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Thick fur</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Looks cute</span></div>
+<div class="spider-leg"><strong>1. WHAT:</strong><br/><span style="color:#777;">Big bear</span></div>
+<div class="spider-leg"><strong>2. WHERE:</strong><br/><span style="color:#777;">Cold snow</span></div>
+<div class="spider-leg"><strong>3. WHY:</strong><br/><span style="color:#777;">Thick fur</span></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Looks cute</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a place where you saw wild animals (e.g., Zoo, National Park). You should say:</strong> <strong>Where</strong> the place was, <strong>What</strong> animals you saw, <strong>How</strong> the animals were treated, <strong>And</strong> explain how you felt visiting this place.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a place where you saw wild animals (e.g., Zoo, National Park). You should say: <strong>Where</strong> the place was, <strong>What</strong> animals you saw, <strong>How</strong> the animals were treated, <strong>And</strong> explain how you felt visiting this place.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Animal Park</div>
+<div class="spider-center">PLACE</div>
 <div class="spider-legs">
-<div class="spider-leg">City zoo<div class="lines"></div></div>
-<div class="spider-leg">Tall giraffes<div class="lines"></div></div>
-<div class="spider-leg">Fed them<div class="lines"></div></div>
-<div class="spider-leg">Very fun<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHERE:</strong><br/><span style="color:#777;">City zoo</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Tall giraffes</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">Fed them</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Very fun</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a natural habitat you would like to visit to see wildlife. You should say:</strong> <strong>Where</strong> it is located, <strong>What</strong> kind of ecosystem it is, <strong>What</strong> animals live there, <strong>And</strong> explain why you want to go there.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a natural habitat you would like to visit to see wildlife. You should say: <strong>Where</strong> it is located, <strong>What</strong> kind of ecosystem it is, <strong>What</strong> animals live there, <strong>And</strong> explain why you want to go there.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Wildlife Habitat</div>
+<div class="spider-center">NATURAL<br/>HABITAT</div>
 <div class="spider-legs">
-<div class="spider-leg">Big forest<div class="lines"></div></div>
-<div class="spider-leg">Hot place<div class="lines"></div></div>
-<div class="spider-leg">See monkeys<div class="lines"></div></div>
-<div class="spider-leg">Take photos<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHERE:</strong><br/><span style="color:#777;">Big forest</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Hot place</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">See monkeys</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Take photos</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Ecosystem</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>System (N)</td><td><span class="vocab-cn">生态系统</span></td></tr><tr><td><strong>Extinction</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Extinct (Adj)</td><td><span class="vocab-cn">灭绝</span></td></tr><tr><td><strong>Captivity</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Captive (Adj/N)</td><td><span class="vocab-cn">圈养 / 囚禁</span></td></tr><tr><td><strong>Biodiversity</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Diverse (Adj)</td><td><span class="vocab-cn">生物多样性</span></td></tr><tr><td><strong>Conservation</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Conserve (V)</td><td><span class="vocab-cn">保护</span></td></tr><tr><td><strong>Morality</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Moral (Adj)</td><td><span class="vocab-cn">道德 (of zoos)</span></td></tr><tr><td><strong>Conflict</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Conflicted (Adj)</td><td><span class="vocab-cn">冲突 (human-animal)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Survival of the fittest</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">适者生存</span></td></tr><tr class="vocab-example-row"><td colspan="3">"In nature, it is all about the survival of the fittest."</td></tr><tr><td><strong>Crocodile tears</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">猫哭耗子</span></td></tr><tr class="vocab-example-row"><td colspan="3">"He didn't really care; he was just shedding crocodile tears."</td></tr><tr><td><strong>Let sleeping dogs lie</strong></td><td>(Proverb)</td><td><span class="vocab-cn">别自找麻烦</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I didn't bring up the old argument because I wanted to let sleeping dogs lie."</td></tr></tbody>
+<tbody><tr><td><strong>Ecosystem</strong></td><td>System (N)</td><td><span class="vocab-cn">生态系统</span></td></tr><tr><td><strong>Extinction</strong></td><td>Extinct (Adj)</td><td><span class="vocab-cn">灭绝</span></td></tr><tr><td><strong>Captivity</strong></td><td>Captive (Adj/N)</td><td><span class="vocab-cn">圈养 / 囚禁</span></td></tr><tr><td><strong>Biodiversity</strong></td><td>Diverse (Adj)</td><td><span class="vocab-cn">生物多样性</span></td></tr><tr><td><strong>Conservation</strong></td><td>Conserve (V)</td><td><span class="vocab-cn">保护</span></td></tr><tr><td><strong>Morality</strong></td><td>Moral (Adj)</td><td><span class="vocab-cn">道德 (of zoos)</span></td></tr><tr><td><strong>Conflict</strong></td><td>Conflicted (Adj)</td><td><span class="vocab-cn">冲突 (human-animal)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Survival of the fittest</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">适者生存</span></td></tr><tr><td><strong>Crocodile tears</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">猫哭耗子</span></td></tr><tr><td><strong>Let sleeping dogs lie</strong></td><td>(Proverb)</td><td><span class="vocab-cn">别自找麻烦</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Should animals be kept in captivity for entertainment purposes?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Absolutely not,</span> using animals for cheap amusement completely violates basic human <strong>morality (道德)</strong>.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Essentially,</span> forcing wild beasts to perform unnatural tricks in circuses is cruel and outdated. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Consequently,</span> it is much better to <strong>let sleeping dogs lie (莫惹是非)</strong> and leave animals undisturbed.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>No way</li><li>Very cruel</li><li>Let free</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Is it fair to make bears ride bikes in a circus?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why do people think using wild animals for entertainment is wrong?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: How does the extinction of a single species affect the wider environment?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> losing one species creates a massive chain reaction, which damages food webs.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In nature,</span> the harsh law of <strong>survival of the fittest (适者生存)</strong> maintains a very delicate environmental balance. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As a result,</span> if bees vanish, countless plants and other dependent animals will also die rapidly.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Chain reaction</li><li>Food web</li><li>Bees die</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'If all bees die, what happens to the flowers?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How does the death of one animal species hurt all the others?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: Is it the responsibility of rich nations to help poor nations protect their wildlife?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Certainly,</span> wealthy countries must provide funding, since environmental protection is a global duty.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Actually,</span> poorer nations often lack the necessary financial resources to fight illegal poaching effectively. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> donating advanced tracking technology helps developing countries save rare rhinos from armed hunters.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Yes they should</li><li>Give money</li><li>Stop poachers</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Should rich countries pay to stop bad hunters?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How can the world work together to stop illegal animal hunting?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Unique</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Interesting</td></tr><tr><td style="padding: 10px 5px;">2. Majestic</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Threatened</td></tr><tr><td style="padding: 10px 5px;">3. Fascinating</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Untamed</td></tr><tr><td style="padding: 10px 5px;">4. Wild</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Grand</td></tr><tr><td style="padding: 10px 5px;">5. Endangered</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Special</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Unique</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Untamed</td></tr><tr><td style="padding: 10px 5px;">2. Majestic</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Threatened</td></tr><tr><td style="padding: 10px 5px;">3. Fascinating</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Special</td></tr><tr><td style="padding: 10px 5px;">4. Wild</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Grand</td></tr><tr><td style="padding: 10px 5px;">5. Endangered</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Interesting</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -823,7 +897,7 @@
 <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;"><div class="grammar-sent">1. I saw a panda in the zoo.</div><div class="grammar-sent">2. It is very cute animal.</div><div class="grammar-sent">3. It eat bamboo.</div><div class="grammar-sent">4. We should protect animals.</div><div class="grammar-sent">5. They are in danger to extinct.</div></div>
 </div>
 </div>
-<div class="card" style="flex-grow:1; border-left:5px solid #f39c12; background:#fcf3cf; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
+<div class="card" style="flex-grow:1; border-left:5px solid #1abc9c; background:#e8f8f5; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
 <h3>3. Writing Task: Describe a wild animal you like. (Write 50 words) (10 minutes)</h3>
 <div class="diff-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;">
 <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
@@ -835,8 +909,8 @@
 </ol>
 </div>
 </div>
-<div class="card" style="background:#fcf3cf; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #f39c12; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-<h3 style="color:#f39c12; margin:0;">🎙️ 4. Recording Challenge</h3>
+<div class="card" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
 <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br/>

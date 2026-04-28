@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like working abroad because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about working abroad.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about working abroad.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Cosmopolitan</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Cosmopolite (N)</td><td><span class="vocab-cn">世界性的 / 国际化的</span></td></tr><tr><td><strong>Lucrative</strong></td><td>More lucrative (Comp)</td><td><span class="vocab-cn">利润丰厚的 / 赚钱的</span></td></tr><tr><td><strong>Immerse</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Immersion (N) - Immersed (Adj)</td><td><span class="vocab-cn">沉浸</span></td></tr><tr><td><strong>Adaptable</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Adapt (V) - Adaptability (N)</td><td><span class="vocab-cn">适应性强的</span></td></tr><tr><td><strong>Barrier</strong></td><td>Barriers (Pl)</td><td><span class="vocab-cn">障碍</span></td></tr><tr><td><strong>Diligent</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Diligence (N)</td><td><span class="vocab-cn">勤奋的</span></td></tr><tr><td><strong>Perspective</strong> <span class="recycled-tag">Recycled</span></td><td>Perspectives (Pl)</td><td><span class="vocab-cn">视角</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Culture shock</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">水土不服 (loosely)</span></td></tr><tr class="vocab-example-row"><td colspan="3">"She experienced severe culture shock when she moved to Tokyo."</td></tr><tr><td><strong>Broaden one's horizons</strong></td><td>(Broadened (V2))</td><td><span class="vocab-cn">大开眼界</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Traveling abroad is a great way to broaden your horizons."</td></tr><tr><td><strong>Start from scratch</strong></td><td>(Started (V2))</td><td><span class="vocab-cn">白手起家</span></td></tr><tr class="vocab-example-row"><td colspan="3">"After the fire, they had to rebuild their business and start from scratch."</td></tr></tbody>
+<tbody><tr><td><strong>Cosmopolitan</strong></td><td>Cosmopolite (N)</td><td><span class="vocab-cn">世界性的 / 国际化的</span></td></tr><tr><td><strong>Lucrative</strong></td><td>More lucrative (Comp)</td><td><span class="vocab-cn">利润丰厚的 / 赚钱的</span></td></tr><tr><td><strong>Immerse</strong></td><td>Immersion (N) - Immersed (Adj)</td><td><span class="vocab-cn">沉浸</span></td></tr><tr><td><strong>Adaptable</strong></td><td>Adapt (V) - Adaptability (N)</td><td><span class="vocab-cn">适应性强的</span></td></tr><tr><td><strong>Barrier</strong></td><td>Barriers (Pl)</td><td><span class="vocab-cn">障碍</span></td></tr><tr><td><strong>Diligent</strong> <span class="recycled-tag">Recycled</span></td><td>Diligence (N)</td><td><span class="vocab-cn">勤奋的</span></td></tr><tr><td><strong>Perspective</strong> <span class="recycled-tag">Recycled</span></td><td>Perspectives (Pl)</td><td><span class="vocab-cn">视角</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Culture shock</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">水土不服 (loosely)</span></td></tr><tr><td><strong>Broaden one's horizons</strong></td><td>(Broadened (V2))</td><td><span class="vocab-cn">大开眼界</span></td></tr><tr><td><strong>Start from scratch</strong></td><td>(Started (V2))</td><td><span class="vocab-cn">白手起家</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a foreign country where you'd like to work for a short time. You should say:</strong> <strong>Where</strong> you would like to go, <strong>What</strong> kind of work you want to do, <strong>When</strong> you would like to go, <strong>And</strong> explain why you want to work in that place.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a foreign country where you'd like to work for a short time. You should say: <strong>Where</strong> you would like to go, <strong>What</strong> kind of work you want to do, <strong>When</strong> you would like to go, <strong>And</strong> explain why you want to work in that place.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Foreign Work</div>
+<div class="spider-center">FOREIGN<br/>COUNTRY</div>
 <div class="spider-legs">
-<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Sydney Australia</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Graphic design</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Next summer</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Beautiful weather</span></div>
+<div class="spider-leg"><strong>1. WHERE:</strong><br/><span style="color:#777;">Sydney Australia</span></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Graphic design</span></div>
+<div class="spider-leg"><strong>3. WHEN:</strong><br/><span style="color:#777;">Next summer</span></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Beautiful weather</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a city you would like to live in for work purposes. You should say:</strong> <strong>Which</strong> city it is, <strong>What</strong> industry is popular there, <strong>How</strong> you know about this place, <strong>And</strong> explain why this place is good for your career.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a city you would like to live in for work purposes. You should say: <strong>Which</strong> city it is, <strong>What</strong> industry is popular there, <strong>How</strong> you know about this place, <strong>And</strong> explain why this place is good for your career.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Work City</div>
+<div class="spider-center">CITY<br/>WOULD</div>
 <div class="spider-legs">
-<div class="spider-leg">Paris France<div class="lines"></div></div>
-<div class="spider-leg">Fashion industry<div class="lines"></div></div>
-<div class="spider-leg">Magazine article<div class="lines"></div></div>
-<div class="spider-leg">Creative vibe<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHICH:</strong><br/><span style="color:#777;">Paris France</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Fashion industry</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. HOW:</strong><br/><span style="color:#777;">Magazine article</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Creative vibe</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a place you visited that you think would be a good place to work. You should say:</strong> <strong>Where</strong> the place is, <strong>When</strong> you visited it, <strong>What</strong> the lifestyle is like there, <strong>And</strong> explain why you think working there would be enjoyable.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a place you visited that you think would be a good place to work. You should say: <strong>Where</strong> the place is, <strong>When</strong> you visited it, <strong>What</strong> the lifestyle is like there, <strong>And</strong> explain why you think working there would be enjoyable.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Workplace Visited</div>
+<div class="spider-center">PLACE<br/>VISITED</div>
 <div class="spider-legs">
-<div class="spider-leg">Tokyo Japan<div class="lines"></div></div>
-<div class="spider-leg">Last spring<div class="lines"></div></div>
-<div class="spider-leg">Very polite<div class="lines"></div></div>
-<div class="spider-leg">Delicious food<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHERE:</strong><br/><span style="color:#777;">Tokyo Japan</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHEN:</strong><br/><span style="color:#777;">Last spring</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">Very polite</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Delicious food</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Globalization</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Global (Adj) - Globalize (V)</td><td><span class="vocab-cn">全球化</span></td></tr><tr><td><strong>Integration</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Integrate (V) - Integrated (Adj)</td><td><span class="vocab-cn">融合 / 一体化</span></td></tr><tr><td><strong>Discrimination</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Discriminate (V)</td><td><span class="vocab-cn">歧视</span></td></tr><tr><td><strong>Brain drain</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun Phrase</td><td><span class="vocab-cn">人才流失</span></td></tr><tr><td><strong>Prosperous</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Prosperity (N) - Prosper (V)</td><td><span class="vocab-cn">繁荣的</span></td></tr><tr><td><strong>Harmony</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Harmonious (Adj)</td><td><span class="vocab-cn">和谐</span></td></tr><tr><td><strong>Inspiring</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Inspire (V)</td><td><span class="vocab-cn">鼓舞人心的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>A melting pot</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">大熔炉</span></td></tr><tr class="vocab-example-row"><td colspan="3">"New York City has always been a cultural melting pot."</td></tr><tr><td><strong>When in Rome, do as the Romans do</strong></td><td>(Proverb)</td><td><span class="vocab-cn">入乡随俗</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I don't usually eat spicy food, but when in Rome, do as the Romans do."</td></tr><tr><td><strong>Language barrier</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">言语不通</span></td></tr><tr class="vocab-example-row"><td colspan="3">"They used a translation app to overcome the language barrier."</td></tr></tbody>
+<tbody><tr><td><strong>Globalization</strong></td><td>Global (Adj) - Globalize (V)</td><td><span class="vocab-cn">全球化</span></td></tr><tr><td><strong>Integration</strong></td><td>Integrate (V) - Integrated (Adj)</td><td><span class="vocab-cn">融合 / 一体化</span></td></tr><tr><td><strong>Discrimination</strong></td><td>Discriminate (V)</td><td><span class="vocab-cn">歧视</span></td></tr><tr><td><strong>Brain drain</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Noun Phrase)</span></td><td>Noun Phrase</td><td><span class="vocab-cn">人才流失</span></td></tr><tr><td><strong>Prosperous</strong></td><td>Prosperity (N) - Prosper (V)</td><td><span class="vocab-cn">繁荣的</span></td></tr><tr><td><strong>Harmony</strong></td><td>Harmonious (Adj)</td><td><span class="vocab-cn">和谐</span></td></tr><tr><td><strong>Inspiring</strong></td><td>Inspire (V)</td><td><span class="vocab-cn">鼓舞人心的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>A melting pot</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">大熔炉</span></td></tr><tr><td><strong>When in Rome, do as the Romans do</strong></td><td>(Proverb)</td><td><span class="vocab-cn">入乡随俗</span></td></tr><tr><td><strong>Language barrier</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">言语不通</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Why do some people not want to work overseas?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">On the other hand,</span> some individuals avoid working abroad, because they fear facing isolation or racial <strong>discrimination (歧视)</strong>.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Furthermore,</span> leaving behind family and friends can ruin their sense of emotional stability and social <strong>harmony (和谐)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For example,</span> many people strongly prefer the quiet comfort of their hometown rather than adapting (适应) overseas.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Miss their family</li><li>Homesickness is hard</li><li>Crying at night</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What do people miss most when they leave home?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How can companies help foreign workers feel less lonely?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: What are the benefits of working abroad?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Without a doubt,</span> working abroad offers immense benefits, as it helps individuals develop vital cross-cultural communication skills.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This is because,</span> employees must learn local customs, following the idea that <strong>when in Rome, do as the Romans do (入乡随俗)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Consequently,</span> this cultural flexibility makes them highly valuable to international corporations (大公司) in the long run.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Higher salary potential</li><li>Earn foreign currency</li><li>Saving money faster</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does working abroad help you learn a language?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How does working in another country make you a better leader?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: How does the migration of skilled workers (brain drain) affect the economy of the country they leave?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Unfortunately,</span> the phenomenon of <strong>brain drain (人才流失)</strong> severely impacts a developing nation, because it removes essential talent.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The primary issue is that,</span> losing highly educated professionals slows down domestic innovation and technological progress. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> when top engineers migrate (迁移) to wealthier countries, their home nation struggles to build modern infrastructure (基础设施).</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Hinders economic growth</li><li>Lack of doctors</li><li>Hospitals become crowded</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What happens if all local doctors leave a country?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How can governments stop smart workers from leaving?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Lucrative</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Submerge / Dive in</td></tr><tr><td style="padding: 10px 5px;">2. Barrier</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Flexible</td></tr><tr><td style="padding: 10px 5px;">3. Immerse</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Obstacle</td></tr><tr><td style="padding: 10px 5px;">4. Adaptable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. International</td></tr><tr><td style="padding: 10px 5px;">5. Cosmopolitan</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Profitable</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Lucrative</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. International</td></tr><tr><td style="padding: 10px 5px;">2. Barrier</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Submerge / Dive in</td></tr><tr><td style="padding: 10px 5px;">3. Immerse</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Flexible</td></tr><tr><td style="padding: 10px 5px;">4. Adaptable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Profitable</td></tr><tr><td style="padding: 10px 5px;">5. Cosmopolitan</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Obstacle</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -823,7 +897,7 @@
 <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;"><div class="grammar-sent">1. I want go to abroad.</div><div class="grammar-sent">2. There are many barriers for foreigners.</div><div class="grammar-sent">3. Wait, simpler error: I enjoy to travel.</div><div class="grammar-sent">4. Although it is hard, but I will try.</div><div class="grammar-sent">5. It is a lucrative work.</div><div class="grammar-sent">6. I faced a culture shocks.</div></div>
 </div>
 </div>
-<div class="card" style="flex-grow:1; border-left:5px solid #f39c12; background:#fdf2e9; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
+<div class="card" style="flex-grow:1; border-left:5px solid #1abc9c; background:#e8f8f5; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
 <h3>3. Writing Task: Why do you want to work abroad? (Write 50 words) (10 minutes)</h3>
 <div class="diff-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;">
 <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
@@ -835,8 +909,8 @@
 </ol>
 </div>
 </div>
-<div class="card" style="background:#fdf2e9; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #f39c12; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-<h3 style="color:#f39c12; margin:0;">🎙️ 4. Recording Challenge</h3>
+<div class="card" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
 <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br/>

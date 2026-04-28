@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like restricted areas and rules because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about restricted areas and rules.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about restricted areas and rules.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Prohibited</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Prohibit (V) - Prohibition (N)</td><td><span class="vocab-cn">禁止的</span></td></tr><tr><td><strong>Strict</strong></td><td>Strictly (Adv)</td><td><span class="vocab-cn">严格的</span></td></tr><tr><td><strong>Respectful</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Respect (N/V)</td><td><span class="vocab-cn">尊重的</span></td></tr><tr><td><strong>Disruptive</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Disrupt (V) - Disruption (N)</td><td><span class="vocab-cn">破坏性的 / 扰乱的</span></td></tr><tr><td><strong>Considerate</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Consideration (N)</td><td><span class="vocab-cn">体贴的</span></td></tr><tr><td><strong>Disciplined</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Discipline (N)</td><td><span class="vocab-cn">守纪律的</span></td></tr><tr><td><strong>Detrimental</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Detriment (N)</td><td><span class="vocab-cn">有害的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Follow the rules</strong></td><td>(Followed (V2))</td><td><span class="vocab-cn">循规蹈矩</span></td></tr><tr class="vocab-example-row"><td colspan="3">"If you want to play the game, you must follow the rules."</td></tr><tr><td><strong>Bend the rules</strong></td><td>(Bent (V2))</td><td><span class="vocab-cn">变通</span></td></tr><tr class="vocab-example-row"><td colspan="3">"The teacher bent the rules to give him an extra day for the assignment."</td></tr><tr><td><strong>Keep one's voice down</strong></td><td>(Kept (V2))</td><td><span class="vocab-cn">低声细语</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Please keep your voice down while the baby is sleeping."</td></tr></tbody>
+<tbody><tr><td><strong>Prohibited</strong></td><td>Prohibit (V) - Prohibition (N)</td><td><span class="vocab-cn">禁止的</span></td></tr><tr><td><strong>Strict</strong></td><td>Strictly (Adv)</td><td><span class="vocab-cn">严格的</span></td></tr><tr><td><strong>Respectful</strong></td><td>Respect (N/V)</td><td><span class="vocab-cn">尊重的</span></td></tr><tr><td><strong>Disruptive</strong></td><td>Disrupt (V) - Disruption (N)</td><td><span class="vocab-cn">破坏性的 / 扰乱的</span></td></tr><tr><td><strong>Considerate</strong></td><td>Consideration (N)</td><td><span class="vocab-cn">体贴的</span></td></tr><tr><td><strong>Disciplined</strong> <span class="recycled-tag">Recycled</span></td><td>Discipline (N)</td><td><span class="vocab-cn">守纪律的</span></td></tr><tr><td><strong>Detrimental</strong> <span class="recycled-tag">Recycled</span></td><td>Detriment (N)</td><td><span class="vocab-cn">有害的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Follow the rules</strong></td><td>(Followed (V2))</td><td><span class="vocab-cn">循规蹈矩</span></td></tr><tr><td><strong>Bend the rules</strong></td><td>(Bent (V2))</td><td><span class="vocab-cn">变通</span></td></tr><tr><td><strong>Keep one's voice down</strong></td><td>(Kept (V2))</td><td><span class="vocab-cn">低声细语</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe an occasion when you were not allowed to use your mobile phone. (Examiner Note: Focus your description on the place/setting where this rule applied) You should say:</strong> <strong>When</strong> it was, <strong>Where</strong> it happened, <strong>Why</strong> you were not allowed to use your phone, <strong>And</strong> explain how you felt about it.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe an occasion when you were not allowed to use your mobile phone. (Examiner Note: Focus your description on the place/setting where this rule applied) You should say: <strong>When</strong> it was, <strong>Where</strong> it happened, <strong>Why</strong> you were not allowed to use your phone, <strong>And</strong> explain how you felt about it.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">No Phones</div>
+<div class="spider-center">WERE<br/>NOT</div>
 <div class="spider-legs">
-<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Movie theater</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Dark room</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Turned off</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Felt calm</span></div>
+<div class="spider-leg"><strong>1. WHEN:</strong><br/><span style="color:#777;">Movie theater</span></div>
+<div class="spider-leg"><strong>2. WHERE:</strong><br/><span style="color:#777;">Dark room</span></div>
+<div class="spider-leg"><strong>3. WHY:</strong><br/><span style="color:#777;">Turned off</span></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Felt calm</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a public place where people must be quiet (e.g., Library, Hospital). You should say:</strong> <strong>Where</strong> it is, <strong>How</strong> often you go there, <strong>Why</strong> silence is important there, <strong>And</strong> explain how you behave when you are there.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a public place where people must be quiet (e.g., Library, Hospital). You should say: <strong>Where</strong> it is, <strong>How</strong> often you go there, <strong>Why</strong> silence is important there, <strong>And</strong> explain how you behave when you are there.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Quiet Place</div>
+<div class="spider-center">PUBLIC<br/>PLACE</div>
 <div class="spider-legs">
-<div class="spider-leg">Art gallery<div class="lines"></div></div>
-<div class="spider-leg">Look quiet<div class="lines"></div></div>
-<div class="spider-leg">No talking<div class="lines"></div></div>
-<div class="spider-leg">Enjoy art<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHERE:</strong><br/><span style="color:#777;">Art gallery</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. HOW:</strong><br/><span style="color:#777;">Look quiet</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHY:</strong><br/><span style="color:#777;">No talking</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Enjoy art</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a place you visited where there were strict rules. You should say:</strong> <strong>Where</strong> it was, <strong>What</strong> the rules were, <strong>Why</strong> the rules existed, <strong>And</strong> explain if you agreed with the rules.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a place you visited where there were strict rules. You should say: <strong>Where</strong> it was, <strong>What</strong> the rules were, <strong>Why</strong> the rules existed, <strong>And</strong> explain if you agreed with the rules.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Strict Rules</div>
+<div class="spider-center">PLACE<br/>VISITED</div>
 <div class="spider-legs">
-<div class="spider-leg">Old temple<div class="lines"></div></div>
-<div class="spider-leg">Take shoes<div class="lines"></div></div>
-<div class="spider-leg">Be polite<div class="lines"></div></div>
-<div class="spider-leg">Felt good<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHERE:</strong><br/><span style="color:#777;">Old temple</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Take shoes</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHY:</strong><br/><span style="color:#777;">Be polite</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Felt good</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Etiquette</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">礼仪</span></td></tr><tr><td><strong>Restriction</strong></td><td>Restrict (V)</td><td><span class="vocab-cn">限制</span></td></tr><tr><td><strong>Authority</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Authoritative (Adj)</td><td><span class="vocab-cn">权威</span></td></tr><tr><td><strong>Compliance</strong></td><td>Comply (V)</td><td><span class="vocab-cn">服从</span></td></tr><tr><td><strong>Freedom</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Free (Adj)</td><td><span class="vocab-cn">自由</span></td></tr><tr><td><strong>Consequence</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Consequent (Adj)</td><td><span class="vocab-cn">后果</span></td></tr><tr><td><strong>Influence</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Influential (Adj)</td><td><span class="vocab-cn">影响</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Law and order</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">治安</span></td></tr><tr class="vocab-example-row"><td colspan="3">"The military was brought in to restore law and order."</td></tr><tr><td><strong>Cross the line</strong></td><td>(Crossed (V2))</td><td><span class="vocab-cn">越界</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Your joke about his family really crossed the line."</td></tr><tr><td><strong>Common courtesy</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">基本礼貌</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Saying please and thank you is just common courtesy."</td></tr></tbody>
+<tbody><tr><td><strong>Etiquette</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">礼仪</span></td></tr><tr><td><strong>Restriction</strong></td><td>Restrict (V)</td><td><span class="vocab-cn">限制</span></td></tr><tr><td><strong>Authority</strong></td><td>Authoritative (Adj)</td><td><span class="vocab-cn">权威</span></td></tr><tr><td><strong>Compliance</strong></td><td>Comply (V)</td><td><span class="vocab-cn">服从</span></td></tr><tr><td><strong>Freedom</strong></td><td>Free (Adj)</td><td><span class="vocab-cn">自由</span></td></tr><tr><td><strong>Consequence</strong></td><td>Consequent (Adj)</td><td><span class="vocab-cn">后果</span></td></tr><tr><td><strong>Influence</strong></td><td>Influential (Adj)</td><td><span class="vocab-cn">影响</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Law and order</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">治安</span></td></tr><tr><td><strong>Cross the line</strong></td><td>(Crossed (V2))</td><td><span class="vocab-cn">越界</span></td></tr><tr><td><strong>Common courtesy</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">基本礼貌</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Should there be more "phone-free zones" in public spaces?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Definitely,</span> establishing quiet areas is a great idea, because it forces people to disconnect.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Actually,</span> proper social <strong>etiquette (礼节)</strong> is often forgotten in busy restaurants or cinemas. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For example,</span> a phone-free cafe allows customers to enjoy genuine conversations without any digital interruptions.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Yes please</li><li>Quiet cafes</li><li>Talk more</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Would a phone-free restaurant be nice for talking?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Should we have places where mobile phones are completely banned?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: How has constant connectivity (always being online) affected mental health?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Sadly,</span> being always online increases anxiety, and it disrupts normal sleeping patterns.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Essentially,</span> the negative <strong>consequence (后果)</strong> of checking notifications at night is chronic exhaustion. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Consequently,</span> many teenagers suffer from severe stress because they feel pressured to reply to messages instantly.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Feel stressed</li><li>Poor sleep</li><li>Always online</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Do you feel tired if you answer messages at night?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How does the pressure to always reply to messages cause stress?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: Do rules in society limit our freedom or protect us?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Ultimately,</span> well-designed laws protect citizens, even though they impose minor daily limits.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Basically,</span> without a strong <strong>authority (权威)</strong> enforcing safety guidelines, chaos would easily destroy communities. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">To illustrate,</span> traffic lights technically restrict movement, but they prevent fatal collisions at busy intersections.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Keeps safe</li><li>Stop chaos</li><li>Traffic lights</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Do traffic lights stop us from driving fast or stop crashes?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why are strict rules sometimes necessary to keep society safe?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Strict</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Firm</td></tr><tr><td style="padding: 10px 5px;">2. Respectful</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Thoughtful</td></tr><tr><td style="padding: 10px 5px;">3. Prohibited</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Banned</td></tr><tr><td style="padding: 10px 5px;">4. Disruptive</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Polite</td></tr><tr><td style="padding: 10px 5px;">5. Considerate</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Disturbing</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Strict</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Thoughtful</td></tr><tr><td style="padding: 10px 5px;">2. Respectful</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Firm</td></tr><tr><td style="padding: 10px 5px;">3. Prohibited</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Disturbing</td></tr><tr><td style="padding: 10px 5px;">4. Disruptive</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Polite</td></tr><tr><td style="padding: 10px 5px;">5. Considerate</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Banned</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -823,7 +897,7 @@
 <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;"><div class="grammar-sent">1. You must not to smoke here.</div><div class="grammar-sent">2. Please keep quiet.</div><div class="grammar-sent">3. We followed the rules.</div><div class="grammar-sent">4. The teacher is very strictly.</div><div class="grammar-sent">5. I was punished by teacher.</div></div>
 </div>
 </div>
-<div class="card" style="flex-grow:1; border-left:5px solid #16a085; background:#e8f6f3; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
+<div class="card" style="flex-grow:1; border-left:5px solid #1abc9c; background:#e8f8f5; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
 <h3>3. Writing Task: Are rules important? (Write 50 words) (10 minutes)</h3>
 <div class="diff-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;">
 <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
@@ -835,8 +909,8 @@
 </ol>
 </div>
 </div>
-<div class="card" style="background:#e8f6f3; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #16a085; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-<h3 style="color:#16a085; margin:0;">🎙️ 4. Recording Challenge</h3>
+<div class="card" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
 <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br/>

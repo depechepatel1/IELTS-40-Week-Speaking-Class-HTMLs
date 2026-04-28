@@ -415,16 +415,90 @@
 </style>
 <style id="cover-overrides">
     /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first { background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg'); background-size: cover; background-position: center; margin: 0; }
-    .cover-page { background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; background-size: cover !important; position: relative; width: 210mm; height: 296mm; color: black; padding: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; padding-bottom: 2cm !important; }
-    .cover-content { margin-right: 2cm; display: flex; flex-direction: column; align-items: flex-end; gap: 0px; }
-    .cover-title-large { font-size: 6em; font-weight: 900; line-height: 0.9; color: black; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; margin: 0; text-transform: uppercase; }
-    .cover-subtitle { font-size: 1.8em; font-weight: 700; color: black; background: transparent; padding: 5px 0; margin: 10px 0 0 0; text-transform: uppercase; letter-spacing: 2px; display: inline-block; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; box-shadow: none; }
-    .cover-top-label { font-size: 1.5em; font-weight: 800; color: black; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 0; -webkit-text-stroke: 1px white; text-shadow: 1px 1px 0 #fff; }
-    .cover-week { font-size: 5em; font-weight: 900; color: black; margin: 0; line-height: 1; -webkit-text-stroke: 2px white; text-shadow: 2px 2px 0 #fff; }
-    .cover-footer { position: absolute; bottom: 1cm; right: 2cm; font-size: 0.8em; color: black; font-weight: 600; -webkit-text-stroke: 0.5px white; text-shadow: 0.5px 0.5px 0 #fff; opacity: 1; }
-    .cover-box { display: none; }
-    .spider-center { color: black !important; } 
+    @page:first {
+        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+    }
+    .cover-page {
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background-size: cover !important;
+        position: relative;
+        width: 210mm; /* A4 Width */
+        height: 296mm; /* A4 Height */
+        color: black; 
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text at bottom */
+        align-items: flex-end; /* Text at right */
+        text-align: right;
+        padding-bottom: 2cm !important; /* Spacing from bottom */
+    }
+    .cover-content {
+        margin-right: 2cm;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0px; /* Compact lines */
+    }
+    .cover-title-large {
+        font-size: 6em;
+        font-weight: 900;
+        line-height: 0.9;
+        color: black;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .cover-subtitle {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: black;
+        background: transparent; /* Changed from white to transparent to show image */
+        padding: 5px 0; /* Adjusted padding */
+        margin: 10px 0 0 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-block;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+        box-shadow: none; /* Removed shadow box */
+    }
+    .cover-top-label {
+        font-size: 1.5em;
+        font-weight: 800;
+        color: black;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 0;
+        -webkit-text-stroke: 1px white; /* Thin white border */
+        text-shadow: 1px 1px 0 #fff;
+    }
+    .cover-week {
+        font-size: 5em;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+        line-height: 1;
+        -webkit-text-stroke: 2px white; /* Thin white border */
+        text-shadow: 2px 2px 0 #fff;
+    }
+    .cover-footer {
+        position: absolute;
+        bottom: 1cm;
+        right: 2cm;
+        font-size: 0.8em;
+        color: black;
+        font-weight: 600;
+        -webkit-text-stroke: 0.5px white; /* Very thin border */
+        text-shadow: 0.5px 0.5px 0 #fff;
+        opacity: 1;
+    }
+    /* Hide default elements we don't need */
+    .cover-box { display: none; } 
     </style></head>
 <body>
 <!-- =========================================
@@ -457,7 +531,7 @@
 <h2>🧩 Differentiation</h2>
 <div style="display:flex; gap:10px; font-size:0.8em;">
 <div style="flex:1; background:#e8f8f5; padding:5px; border-radius:6px;"><strong>📉 Band 5.0 (Support)</strong><br/>• Sentence Starter: 'I like ethics and interactions because...'<br/>• Peer Check: Specific personal questions</div>
-<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask abstract questions about ethics and interactions.</div>
+<div style="flex:1; background:#fef9e7; padding:5px; border-radius:6px;"><strong>📈 Band 6.0+ (Stretch)</strong><br/>• Transitions: 'Additionally...', 'Furthermore...'<br/>• Peer Check: Ask specific questions about ethics and interactions.</div>
 </div>
 </div>
 <!-- Procedure Table -->
@@ -539,7 +613,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Sincere</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Sincerity (N)</td><td><span class="vocab-cn">真诚的</span></td></tr><tr><td><strong>Regretful</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Regret (V/N)</td><td><span class="vocab-cn">后悔的</span></td></tr><tr><td><strong>Honest</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Honesty (N)</td><td><span class="vocab-cn">诚实的</span></td></tr><tr><td><strong>Forgiving</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Forgive (V) - Forgiveness (N)</td><td><span class="vocab-cn">宽容的</span></td></tr><tr><td><strong>Courageous</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Courage (N)</td><td><span class="vocab-cn">勇敢的</span></td></tr><tr><td><strong>Awkward</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Awkwardness (N)</td><td><span class="vocab-cn">尴尬的</span></td></tr><tr><td><strong>Sociable</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span> <span class="recycled-tag">Recycled</span></td><td>Society (N)</td><td><span class="vocab-cn">善交际的 (but made mistake)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Swallow one's pride</strong></td><td>(Swallowed (V2))</td><td><span class="vocab-cn">忍气吞声 / 放下脸面</span></td></tr><tr class="vocab-example-row"><td colspan="3">"He had to swallow his pride and ask for a loan."</td></tr><tr><td><strong>Clear the air</strong></td><td>(Cleared (V2))</td><td><span class="vocab-cn">消除隔阂</span></td></tr><tr class="vocab-example-row"><td colspan="3">"We had a long talk to clear the air."</td></tr><tr><td><strong>Get something off one's chest</strong></td><td>(Got (V2))</td><td><span class="vocab-cn">一吐为快</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I really need to get this secret off my chest."</td></tr></tbody>
+<tbody><tr><td><strong>Sincere</strong></td><td>Sincerity (N)</td><td><span class="vocab-cn">真诚的</span></td></tr><tr><td><strong>Regretful</strong></td><td>Regret (V/N)</td><td><span class="vocab-cn">后悔的</span></td></tr><tr><td><strong>Honest</strong></td><td>Honesty (N)</td><td><span class="vocab-cn">诚实的</span></td></tr><tr><td><strong>Forgiving</strong></td><td>Forgive (V) - Forgiveness (N)</td><td><span class="vocab-cn">宽容的</span></td></tr><tr><td><strong>Courageous</strong></td><td>Courage (N)</td><td><span class="vocab-cn">勇敢的</span></td></tr><tr><td><strong>Awkward</strong> <span class="recycled-tag">Recycled</span></td><td>Awkwardness (N)</td><td><span class="vocab-cn">尴尬的</span></td></tr><tr><td><strong>Sociable</strong> <span class="recycled-tag">Recycled</span></td><td>Society (N)</td><td><span class="vocab-cn">善交际的 (but made mistake)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Swallow one's pride</strong></td><td>(Swallowed (V2))</td><td><span class="vocab-cn">忍气吞声 / 放下脸面</span></td></tr><tr><td><strong>Clear the air</strong></td><td>(Cleared (V2))</td><td><span class="vocab-cn">消除隔阂</span></td></tr><tr><td><strong>Get something off one's chest</strong></td><td>(Got (V2))</td><td><span class="vocab-cn">一吐为快</span></td></tr></tbody>
 </table>
 </div>
 </div>
@@ -553,14 +627,14 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h2>🧠 Brainstorming Map</h2>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;"><strong>Describe a person who apologized to you. You should say:</strong> <strong>Who</strong> the person was, <strong>When</strong> it was, <strong>Why</strong> this person apologized, <strong>And</strong> explain how you felt about it.</div>
+<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a person who apologized to you. You should say: <strong>Who</strong> the person was, <strong>When</strong> it was, <strong>Why</strong> this person apologized, <strong>And</strong> explain how you felt about it.</div>
 <div class="spider-container" style="height:180px;">
-<div class="spider-center">Received Apology</div>
+<div class="spider-center">PERSON</div>
 <div class="spider-legs">
 <div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">School friend</span></div>
-<div class="spider-leg"><strong>2. TRAITS:</strong><br/><span style="color:#777;">Broke pen</span></div>
-<div class="spider-leg"><strong>3. EVIDENCE:</strong><br/><span style="color:#777;">Said sorry</span></div>
-<div class="spider-leg"><strong>4. FEELING:</strong><br/><span style="color:#777;">Felt okay</span></div>
+<div class="spider-leg"><strong>2. WHEN:</strong><br/><span style="color:#777;">Broke pen</span></div>
+<div class="spider-leg"><strong>3. WHY:</strong><br/><span style="color:#777;">Said sorry</span></div>
+<div class="spider-leg"><strong>4. HOW:</strong><br/><span style="color:#777;">Felt okay</span></div>
 </div>
 </div>
 </div>
@@ -570,27 +644,27 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a time when you told your friend an important truth. You should say:</strong> <strong>Who</strong> your friend is, <strong>What</strong> the truth was, <strong>What</strong> your friend's reaction was, <strong>And</strong> explain why you think it was important to be honest.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a time when you told your friend an important truth. You should say: <strong>Who</strong> your friend is, <strong>What</strong> the truth was, <strong>What</strong> your friend's reaction was, <strong>And</strong> explain why you think it was important to be honest.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Important Truth</div>
+<div class="spider-center">TOLD<br/>FRIEND</div>
 <div class="spider-legs">
-<div class="spider-leg">Best friend<div class="lines"></div></div>
-<div class="spider-leg">Bad hair<div class="lines"></div></div>
-<div class="spider-leg">Felt sad<div class="lines"></div></div>
-<div class="spider-leg">Helped her<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">Best friend</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. WHAT:</strong><br/><span style="color:#777;">Bad hair</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">Felt sad</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Helped her</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;"><strong>Describe a person you admire for their honesty. You should say:</strong> <strong>Who</strong> this person is, <strong>How</strong> they showed their honesty, <strong>What</strong> the result of their honesty was, <strong>And</strong> explain why you respect them.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a person you admire for their honesty. You should say: <strong>Who</strong> this person is, <strong>How</strong> they showed their honesty, <strong>What</strong> the result of their honesty was, <strong>And</strong> explain why you respect them.</div>
 <div class="spider-container" style="flex-grow:1;">
-<div class="spider-center">Honest Person</div>
+<div class="spider-center">PERSON<br/>ADMIRE</div>
 <div class="spider-legs">
-<div class="spider-leg">My mom<div class="lines"></div></div>
-<div class="spider-leg">Told truth<div class="lines"></div></div>
-<div class="spider-leg">Good role<div class="lines"></div></div>
-<div class="spider-leg">Deep respect<div class="lines"></div></div>
+<div class="spider-leg"><strong>1. WHO:</strong><br/><span style="color:#777;">My mom</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>2. HOW:</strong><br/><span style="color:#777;">Told truth</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>3. WHAT:</strong><br/><span style="color:#777;">Good role</span><div class="lines"></div></div>
+<div class="spider-leg"><strong>4. WHY:</strong><br/><span style="color:#777;">Deep respect</span><div class="lines"></div></div>
 </div>
 </div>
 </div>
@@ -683,7 +757,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Integrity</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">正直 / 诚信</span></td></tr><tr><td><strong>Deception</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Deceive (V) - Deceptive (Adj)</td><td><span class="vocab-cn">欺骗</span></td></tr><tr><td><strong>Morality</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Moral (Adj)</td><td><span class="vocab-cn">道德</span></td></tr><tr><td><strong>Conflict</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Conflicted (Adj)</td><td><span class="vocab-cn">冲突</span></td></tr><tr><td><strong>Resolution</strong></td><td>Resolve (V)</td><td><span class="vocab-cn">解决</span></td></tr><tr><td><strong>Etiquette</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">礼节</span></td></tr><tr><td><strong>Community</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Communal (Adj)</td><td><span class="vocab-cn">社区</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>White lie</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">善意的谎言</span></td></tr><tr class="vocab-example-row"><td colspan="3">"I told a white lie so I wouldn't ruin the surprise."</td></tr><tr><td><strong>Honesty is the best policy</strong></td><td>(Proverb)</td><td><span class="vocab-cn">诚实是上策</span></td></tr><tr class="vocab-example-row"><td colspan="3">"Just tell her the truth; honesty is the best policy."</td></tr><tr><td><strong>Bury the hatchet</strong></td><td>(Buried (V2))</td><td><span class="vocab-cn">握手言和</span></td></tr><tr class="vocab-example-row"><td colspan="3">"After fighting for years, the brothers finally buried the hatchet."</td></tr></tbody>
+<tbody><tr><td><strong>Integrity</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">正直 / 诚信</span></td></tr><tr><td><strong>Deception</strong></td><td>Deceive (V) - Deceptive (Adj)</td><td><span class="vocab-cn">欺骗</span></td></tr><tr><td><strong>Morality</strong></td><td>Moral (Adj)</td><td><span class="vocab-cn">道德</span></td></tr><tr><td><strong>Conflict</strong></td><td>Conflicted (Adj)</td><td><span class="vocab-cn">冲突</span></td></tr><tr><td><strong>Resolution</strong></td><td>Resolve (V)</td><td><span class="vocab-cn">解决</span></td></tr><tr><td><strong>Etiquette</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">礼节</span></td></tr><tr><td><strong>Community</strong></td><td>Communal (Adj)</td><td><span class="vocab-cn">社区</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>White lie</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">善意的谎言</span></td></tr><tr><td><strong>Honesty is the best policy</strong></td><td>(Proverb)</td><td><span class="vocab-cn">诚实是上策</span></td></tr><tr><td><strong>Bury the hatchet</strong></td><td>(Buried (V2))</td><td><span class="vocab-cn">握手言和</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -756,41 +830,41 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q4: Do you think we should tell the truth at all times?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Ultimately,</span> I firmly believe that <strong>honesty is the best policy (诚实是上策)</strong> in almost all situations.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Essentially,</span> personal <strong>integrity (正直 / 诚信)</strong> builds trust, which is the foundation of any healthy relationship. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Therefore,</span> constantly lying, even about small things, will eventually destroy a person's credibility and reputation completely.</div>
+<h3>Q4: When was the last time that you felt proud of yourself?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Most times</li><li>Build trust</li><li>Good friend</li></ul>
+<ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Is it hard to be honest when you make a mistake?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is honesty the most important part of business trust?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Who shared this proud moment with you?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Why is it good to feel proud of yourself?'</div>
 </div></div>
 </div>
 <!-- Q5 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q5: Is "honesty" still valued as a primary virtue in modern business?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Unfortunately,</span> profit often overshadows truth, though ethical companies still prioritize transparency.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Today,</span> corporate <strong>morality (道德)</strong> is frequently compromised by aggressive marketing and hidden fees. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">However,</span> brands that maintain absolute honesty usually secure much stronger, long-term loyalty from their dedicated customer base.</div>
+<h3>Q5: How does family pride contribute to the stability of a society?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Want money</li><li>Hide cost</li><li>Good shop</li></ul>
+<ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Do you trust shops that tell you the real price?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Do big companies often hide the truth to make more money?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'How does a happy family help the neighborhood?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Can too much family pride cause problems with others?'</div>
 </div></div>
 </div>
 <!-- Q6 -->
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
-<h3>Q6: How does a culture of forgiveness contribute to social harmony?</h3>
-<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> since forgiveness reduces societal tension, it effectively promotes peaceful coexistence.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">Basically,</span> without a clear path for conflict <strong>resolution (解决)</strong>, grudges would divide a local <strong>community (社区)</strong> permanently. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> restorative justice programs allow offenders to make amends, thereby healing the neighborhood collectively.</div>
+<h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
+<div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
 <div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
-<ul class="scaffold-text"><li>Less mad</li><li>Fix fights</li><li>Say sorry</li></ul>
+<ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
 <div style="margin-top:1px; border-top:1px dotted #ccc; padding-top:1px; line-height:1.1;">
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'Does saying 'I forgive you' make class happier?'</div>
-<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How does forgiving people help a neighborhood stay peaceful?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📉 <strong>Band 5 Peer Check:</strong> Ask: 'What did 'success' mean to your grandparents?'</div>
+<div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
 </div>
@@ -813,7 +887,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Regretful</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Sorry</td></tr><tr><td style="padding: 10px 5px;">2. Honest</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Brave</td></tr><tr><td style="padding: 10px 5px;">3. Sincere</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Truthful</td></tr><tr><td style="padding: 10px 5px;">4. Courageous</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Merciful</td></tr><tr><td style="padding: 10px 5px;">5. Forgiving</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Genuine</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Regretful</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Merciful</td></tr><tr><td style="padding: 10px 5px;">2. Honest</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Truthful</td></tr><tr><td style="padding: 10px 5px;">3. Sincere</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Brave</td></tr><tr><td style="padding: 10px 5px;">4. Courageous</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Sorry</td></tr><tr><td style="padding: 10px 5px;">5. Forgiving</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Genuine</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -823,7 +897,7 @@
 <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;"><div class="grammar-sent">1. He apologize to me.</div><div class="grammar-sent">2. I accepted his apologize.</div><div class="grammar-sent">3. He told me the true.</div><div class="grammar-sent">4. It is important to be honest.</div><div class="grammar-sent">5. I forgive him.</div></div>
 </div>
 </div>
-<div class="card" style="flex-grow:1; border-left:5px solid #8e44ad; background:#ebdef0; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
+<div class="card" style="flex-grow:1; border-left:5px solid #1abc9c; background:#e8f8f5; display:flex; flex-direction:column; padding:15px; margin-top:10px; border-radius:8px;">
 <h3>3. Writing Task: Is it always good to be honest? (Write 50 words) (10 minutes)</h3>
 <div class="diff-box" style="background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid var(--hw-accent, #3498db); padding: 12px 15px; border-radius: 6px; font-size: 0.95em; color: #444; margin-top: 8px;">
 <div style="font-weight: 600; margin-bottom: 6px; color: #2c3e50; font-size: 1.05em;">📝 Writing Instructions</div>
@@ -835,8 +909,8 @@
 </ol>
 </div>
 </div>
-<div class="card" style="background:#ebdef0; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #8e44ad; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
-<h3 style="color:#8e44ad; margin:0;">🎙️ 4. Recording Challenge</h3>
+<div class="card" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
 <strong>Task A - Pre Shadowing:</strong> Using the AI APP, Choose a US or UK accent and Shadow Read all model answers for next week (10 mins).<br/>

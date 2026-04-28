@@ -741,12 +741,126 @@ def extract_keyword(text):
 
     return "TOPIC"
 
+def extract_cue_words(prompt_html):
+    """Extract 4 cue words from a Part 2 prompt's bullet structure.
+
+    Cue words live as PLAIN TEXT in the source data — they're not wrapped
+    in <strong> tags until format_bullet_text() runs later in the
+    pipeline. We mirror format_bullet_text()'s own splitting algorithm so
+    we read the cues directly from the bullet lines.
+
+    Source-data prompt shape:
+
+        <p>Describe X. You should say:<br>
+        Where you would like to go<br>
+        What kind of work you want to do<br>
+        When you would like to go<br>
+        And explain why you want to work in that place</p>
+
+    The cue word is the FIRST WORD of each bullet line after "You should
+    say:". The 4th cue is almost always "And" (a connector); we
+    substitute it with the interrogative from the trailing
+    "explain (why|how|...)" phrase. Falls back to "WHY" if no pattern
+    matches (the most common case in this corpus).
+
+    NOTE: q1.html in the source data contains BOTH the cue-card prompt
+    <p> AND the model-answer <p> (with vocabulary words bolded as
+    <strong> for highlighting). Iterating <p> tags and selecting the one
+    that contains "You should say:" sidesteps that ambiguity — only the
+    prompt <p> ever has those cue lines.
+
+    Returns a 4-element uppercase list, or None if the structure doesn't
+    match (caller falls back to whatever label is already in the
+    template).
+    """
+    if not prompt_html:
+        return None
+    soup = BeautifulSoup(prompt_html, 'html.parser')
+
+    # Find the <p> that contains the cue-card prompt — distinct from
+    # the model-answer <p> which doesn't contain "You should say".
+    prompt_p = None
+    for p in soup.find_all('p'):
+        if "You should say" in p.get_text():
+            prompt_p = p
+            break
+    if not prompt_p:
+        return None
+
+    p_content = prompt_p.decode_contents()
+    if "You should say:" not in p_content:
+        return None
+    after = p_content.split("You should say:", 1)[1]
+    bullet_lines = re.split(r'<br\s*/?>', after)
+
+    cues = []
+    for line in bullet_lines:
+        text = BeautifulSoup(line, 'html.parser').get_text().strip()
+        if not text:
+            continue
+        first_word = text.split(' ', 1)[0].rstrip('.,:;').upper()
+        cues.append(first_word)
+        if len(cues) == 4:
+            break
+    if len(cues) < 4:
+        return None
+
+    if cues[3] == 'AND':
+        cues[3] = 'WHY'  # safe fallback
+        for line in bullet_lines:
+            text = BeautifulSoup(line, 'html.parser').get_text().strip()
+            if text.upper().startswith('AND '):
+                m = re.match(
+                    r'and\s+explain\s+(why|how|what|when|where|who|which)\b',
+                    text, flags=re.IGNORECASE,
+                )
+                if m:
+                    cues[3] = m.group(1).upper()
+                break
+    return cues
+
+
+def _apply_cue_labels_and_hints(legs, cue_words, hints):
+    """Update each spider-leg's <strong>N. CUE:</strong> + <span>example</span>.
+
+    Used by all 3 mind maps (Q1, Q2, Q3). Idempotent: legs without a
+    <strong>/<span> structure fall back to a no-op for the missing piece,
+    so legacy templates aren't broken if this function is called against
+    them. Legs that pre-date the span structure (bare-text + .lines) get
+    converted: we replace any leading text node with the new hint AND
+    leave the .lines in place for student writing.
+    """
+    for i, leg in enumerate(legs):
+        # Update label inside the <strong> tag (e.g. "2. WHEN:").
+        if cue_words and i < len(cue_words):
+            strong = leg.find('strong')
+            if strong:
+                strong.string = f"{i + 1}. {cue_words[i]}:"
+        # Update example content inside the <span>.
+        if hints and i < len(hints):
+            span = leg.find('span')
+            if span:
+                span.string = hints[i]
+            else:
+                # Backwards-compat for any leg still in pre-span form.
+                if leg.contents:
+                    leg.contents[0].replace_with(hints[i])
+
+
 def format_mind_maps(soup, week_data, ai_content):
     """Updates Mind Maps on Page 3."""
     l1_data = week_data.get('lesson_1_part_2', {})
     q1 = l1_data.get('q1', {})
     q2 = l1_data.get('q2', {})
     q3 = l1_data.get('q3', {})
+
+    # Per-prompt cue words → spider-leg labels. Each Q's prompt has 4
+    # <strong> cue words (Who/Where/What/When/How/Which + the 4th
+    # resolved from "And explain X"). These replace the hardcoded labels
+    # in the template so each week's labels track each week's prompt.
+    cue_words_q1 = extract_cue_words(q1.get('html', ''))
+    cue_words_q2 = extract_cue_words(q2.get('html', ''))
+    cue_words_q3 = extract_cue_words(q3.get('html', ''))
     
     # 1. Main Brainstorming Map
     q1_html = q1.get('html', '')
@@ -774,19 +888,12 @@ def format_mind_maps(soup, week_data, ai_content):
                     prompt_div.clear()
                     prompt_div.append(BeautifulSoup(fmt_html, 'html.parser'))
 
-    # Update Legs
+    # Update Legs (Q1 / Map 1) — labels from prompt cues + hints from data.
     hints = q1.get('spider_diagram_hints', ["", "", "", ""])
     spider_legs = soup.find_all('div', class_='spider-legs')
     if len(spider_legs) > 0:
         legs = spider_legs[0].find_all('div', class_='spider-leg')
-        for i, leg in enumerate(legs):
-            if i < len(hints):
-                # We need to preserve the bolding structure if possible, or just replace content
-                # Template: <strong>1. WHO:</strong><br/><span style="color:#777;">Older sister</span>
-                # We update the span.
-                span = leg.find('span')
-                if span:
-                    span.string = hints[i]
+        _apply_cue_labels_and_hints(legs, cue_words_q1, hints)
 
     # 2. Topic A (Q2) -> Part 2: Q2
     topic_a_card = soup.find('h3', string=re.compile(r'Part 2: Q2'))
@@ -813,10 +920,7 @@ def format_mind_maps(soup, week_data, ai_content):
                 
             q2_hints = q2.get('spider_diagram_hints', [])
             legs = spider_container.find_all('div', class_='spider-leg')
-            for i, leg in enumerate(legs):
-                # These legs are simpler: Text<div class="lines"></div>
-                if i < len(q2_hints):
-                    leg.contents[0].replace_with(q2_hints[i])
+            _apply_cue_labels_and_hints(legs, cue_words_q2, q2_hints)
 
     # 3. Topic B (Q3) -> Part 2: Q3
     topic_b_card = soup.find('h3', string=re.compile(r'Part 2: Q3'))
@@ -843,9 +947,7 @@ def format_mind_maps(soup, week_data, ai_content):
             
             q3_hints = q3.get('spider_diagram_hints', [])
             legs = spider_container.find_all('div', class_='spider-leg')
-            for i, leg in enumerate(legs):
-                if i < len(q3_hints):
-                    leg.contents[0].replace_with(q3_hints[i])
+            _apply_cue_labels_and_hints(legs, cue_words_q3, q3_hints)
 
 def process_student_l2(soup, week_data, ai_content, week_peer_data):
     """Updates Student Lesson 2 (Part 3) Q1-Q6."""
@@ -1082,7 +1184,7 @@ def main():
     if errors:
         print(f"Failed Weeks: {errors}")
     else:
-        print("🎉 All weeks generated successfully!")
+        print("All weeks generated successfully!")
     print("="*30)
 
 if __name__ == "__main__":
