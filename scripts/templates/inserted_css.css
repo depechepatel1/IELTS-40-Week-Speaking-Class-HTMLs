@@ -670,6 +670,18 @@
     outline: 2px dashed #3498db;
     outline-offset: -2px;
 }
+/* Force the cue label and example onto separate lines without depending
+ * on the <br/> in the markup. Some Chromium versions normalise the
+ * <br/> to whitespace inside a flex+contenteditable+align-items:flex-end
+ * container, fusing "WHEN:" and "Last month" into "WLast month" in the
+ * right-aligned legs (2 and 4 of each spider grid). Promoting <strong>
+ * and the inline-styled example <span> to block layout makes each
+ * occupy its own line regardless of how the browser interprets <br/>.
+ * The <br/> in the source markup is harmless in block context. */
+.spider-leg > strong,
+.spider-leg > span {
+    display: block;
+}
 @media print {
     .spider-leg[contenteditable] { outline: none !important; }
 }
