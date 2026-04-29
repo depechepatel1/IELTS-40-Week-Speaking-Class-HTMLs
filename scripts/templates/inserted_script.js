@@ -1178,6 +1178,12 @@
     const btnDelete = $('.vr-delete');
     const label    = $('.vr-label');  // optional — inline widgets omit it
 
+    // `has-recording` is a discrete visual indicator (small green dot via
+    // CSS ::after) showing students at-a-glance whether a saved recording
+    // exists for this section. Toggled here so every state transition
+    // updates the indicator atomically.
+    container.classList.toggle('has-recording', state === 'saved');
+
     [btnRec, btnPause, btnStop, btnPlay, btnDelete].forEach(b => b && (b.hidden = true));
     if (btnRec) btnRec.classList.remove('recording');
     if (btnPause) btnPause.classList.remove('paused');

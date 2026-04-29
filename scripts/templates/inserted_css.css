@@ -27,10 +27,28 @@
 /* The pastel-green Draft / Polished boxes become positioning contexts so
    the absolute-positioned `.button-row` sits at THEIR top-right (next to
    the <strong>Draft:</strong> heading), NOT over the lines area. They are
-   also column flex containers so `.lines-overlay-host` can flex-grow. */
-.draft-page > div > div {
+   also column flex containers so `.lines-overlay-host` can flex-grow.
+   `:has(> .lines-overlay-host)` scopes this strictly to the actual
+   pastel-box wrapper — without it, IGCSE's flatter structure would
+   accidentally hit `.draft-page > .lines-overlay-host > .draft-markup`,
+   blockifying .replace-pair / .gap-anchor children inside .draft-markup
+   and stacking each correction onto its own full-width row. */
+.draft-page > div > div:has(> .lines-overlay-host) {
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+/* IGCSE FLAVOR: Sections 7 and 8 use `.floating-window.draft-page` directly
+   — no nested .draft-page > div > div structure like IELTS. Without an
+   explicit positioning context on the floating-window itself, the
+   .button-row's `position: absolute` would escape to the nearest
+   positioned ancestor (often the .a4-page or body), causing Section 8's
+   polished-listen-row to overlay Section 7's "Correct with AI" buttons
+   at the same absolute coordinates. Promoting the floating-window to
+   position:relative anchors each section's button-row inside its own
+   box. */
+.floating-window.draft-page {
     position: relative;
 }
 
@@ -542,6 +560,36 @@
     cursor: not-allowed;
 }
 .voice-recorder-container .vr-record { color: #c0392b; border-color: #c0392b; }
+
+/* Discrete "recording exists" indicator — a small solid green dot
+ * appended to the recorder cluster whenever the student has a saved
+ * recording for this section. Toggled by vrSetState() in
+ * inserted_script.js when state transitions to 'saved'.
+ *
+ * Solid green = saved recording present; absent = no recording yet.
+ * Sits flush right of the .vr-time element inside .vr-controls flow,
+ * so it adds zero layout shift when toggling on/off (the ::after slot
+ * is just empty when there's no recording). Half-em dot keeps it
+ * discreet but immediately readable. */
+.voice-recorder-container.has-recording::after {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #27ae60;
+    margin-left: 4px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.7);
+    flex-shrink: 0;
+    align-self: center;
+}
+/* Inline-recorder variant: the cluster is more cramped, so we use a
+ * slightly smaller dot and tighter margin. */
+.voice-recorder-container.vr-inline.has-recording::after {
+    width: 6px;
+    height: 6px;
+    margin-left: 3px;
+}
 .voice-recorder-container .vr-record.recording {
     background: #c0392b; color: white;
     animation: vr-pulse 1.4s ease-in-out infinite;
@@ -618,6 +666,27 @@
 .card > .voice-recorder-container.vr-inline {
     top: 4px;
     right: 4px;
+}
+
+/* IGCSE Section 5 / Section 6 override: the IGCSE floating-window-style
+   .card holds a substantial paragraph of model-answer text — anchoring
+   the recorder at top-right would crowd the section heading and overlap
+   the model paragraph's first line on narrow viewports. Instead, sit it
+   at the BOTTOM-right of the floating-window. The `.floating-window.card`
+   selector is specific to IGCSE — IELTS brainstorming-map cards don't
+   have `.floating-window`, so they keep the top-right placement. */
+.floating-window.card > .voice-recorder-container.vr-inline {
+    top: auto;
+    right: 8px;
+    bottom: 8px;
+}
+/* Reserve enough bottom padding inside the Section 5 / Section 6 boxes
+   that the bottom-right-anchored recorder never overlaps the model text.
+   Without this, on long model paragraphs the last line of text would sit
+   directly under the recorder buttons. 36px = 24px button height + 8px
+   bottom + 4px breathing room. */
+.floating-window.card:has(> .voice-recorder-container.vr-inline) {
+    padding-bottom: 36px;
 }
 
 /* The Q1-Q6 recorder is a SIBLING of .q-write-host (both children of the
