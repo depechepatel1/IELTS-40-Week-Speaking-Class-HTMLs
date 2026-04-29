@@ -193,7 +193,25 @@ async function callZhipu(draft) {
   if (typeof content !== 'string' || !content.trim()) {
     return { ok: false, status: 500, error: 'AI 返回了意外的响应 / AI returned an unexpected response.' };
   }
-  return { ok: true, corrected: content.trim() };
+  // Strip markdown leakage. Despite the system prompt saying "no markdown",
+  // Zhipu sometimes wraps transition phrases in **bold** (e.g.
+  // "**However,** the food was great"). The diff engine treats `**` as
+  // literal characters and renders them as garbage in the corrected output.
+  // Sanitise here so cached responses also get the clean version.
+  const sanitised = content
+    .trim()
+    // Bold: **text** -> text (greedy match within asterisks)
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    // Stray paired asterisks at sentence boundaries (rare but seen)
+    .replace(/(^|\s)\*\*(\s|$)/g, '$1$2')
+    // Any remaining lone ** (defensive; should be 0 after the above)
+    .replace(/\*\*/g, '')
+    // Italic: *text* -> text (only when wrapping a word, avoid arithmetic)
+    .replace(/(^|\s)\*([^\s*][^*]*[^\s*]|[^\s*])\*(\s|$|[.,!?;:])/g, '$1$2$3')
+    // Markdown headings / list bullets at line starts (defensive)
+    .replace(/^[#\-*]\s+/gm, '')
+    .trim();
+  return { ok: true, corrected: sanitised };
 }
 
 // In-memory rate limiter — Map<ip, { count, windowStart }>.

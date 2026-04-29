@@ -722,7 +722,16 @@
       return;
     }
 
-    const corrected = (body && body.corrected) || '';
+    // Defense-in-depth markdown stripper. The FC sanitises Zhipu's
+    // response before sending, but old cached HTMLs or any other code
+    // path that injects into `body.corrected` could still contain
+    // markdown leakage like `**However,**` for transitions. Treat the
+    // boundary between FC and renderer as untrusted-w.r.t.-markdown.
+    const corrected = String((body && body.corrected) || '')
+        .replace(/\*\*([^*]+)\*\*/g, '$1')   // **bold** -> bold
+        .replace(/(^|\s)\*\*(\s|$)/g, '$1$2')// stray paired ** at boundaries
+        .replace(/\*\*/g, '')                // any remaining lone **
+        .trim();
     polished.classList.remove('empty');
     polished.textContent = corrected;
     enablePolishedListenButtons();

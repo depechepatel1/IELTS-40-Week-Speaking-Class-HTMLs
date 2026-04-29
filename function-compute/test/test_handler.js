@@ -392,3 +392,47 @@ test('AI cache: errored responses are NOT cached (transient quota recovers)', as
   assert.equal(zhipuCalls, 2, 'Zhipu called twice — error response was not cached');
   __resetZhipuFetcher();
 });
+
+// ============================================================================
+// Markdown sanitization — Zhipu sometimes returns **bold** transitions
+// despite the system prompt saying "no markdown". The handler must strip
+// these before returning, otherwise the diff renderer treats `**` as
+// literal characters and shows asterisks in the corrected output.
+// ============================================================================
+
+function fiftyWordDraftSan() {
+  return 'one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twentyone twentytwo twentythree twentyfour twentyfive twentysix twentyseven twentyeight twentynine thirty thirtyone thirtytwo thirtythree thirtyfour thirtyfive thirtysix thirtyseven thirtyeight thirtynine forty fortyone fortytwo fortythree fortyfour fortyfive fortysix fortyseven fortyeight fortynine fifty';
+}
+
+test('sanitise: strips **bold** wrappers from Zhipu output', async () => {
+  process.env.ZHIPU_API_KEY = 'test';
+  __setZhipuFetcher(makeZhipuOk('I went to school. **However,** the food was great. **In addition,** I learned a lot.'));
+  const r = await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft: fiftyWordDraftSan() }), headers: {}, clientIP: '203.0.113.40' });
+  assert.equal(r.statusCode, 200);
+  const body = JSON.parse(r.body);
+  assert.ok(!body.corrected.includes('**'), `expected no '**' in corrected, got: ${body.corrected}`);
+  assert.ok(body.corrected.includes('However,'), 'expected the transition word itself to remain');
+  assert.ok(body.corrected.includes('In addition,'), 'expected the second transition to remain');
+  __resetZhipuFetcher();
+});
+
+test('sanitise: strips lone ** with no content between (defensive)', async () => {
+  process.env.ZHIPU_API_KEY = 'test';
+  __setZhipuFetcher(makeZhipuOk('Sentence one. ** Sentence two with stray pair. **'));
+  const r = await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft: fiftyWordDraftSan() }), headers: {}, clientIP: '203.0.113.41' });
+  assert.equal(r.statusCode, 200);
+  const body = JSON.parse(r.body);
+  assert.ok(!body.corrected.includes('**'), `expected no '**' remaining, got: ${body.corrected}`);
+  __resetZhipuFetcher();
+});
+
+test('sanitise: leaves clean prose untouched (no false positives)', async () => {
+  process.env.ZHIPU_API_KEY = 'test';
+  const clean = 'I went to school. The food was great. I learned a lot. However, my friend was sick.';
+  __setZhipuFetcher(makeZhipuOk(clean));
+  const r = await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft: fiftyWordDraftSan() }), headers: {}, clientIP: '203.0.113.42' });
+  assert.equal(r.statusCode, 200);
+  const body = JSON.parse(r.body);
+  assert.equal(body.corrected, clean, 'clean prose should pass through identical');
+  __resetZhipuFetcher();
+});
