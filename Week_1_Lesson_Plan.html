@@ -192,6 +192,26 @@
     h2 { font-size: 1.0em; color: var(--primary-color); margin: 0 0 8px 0; border-bottom: 2px solid #f0f0f0; padding-bottom: 4px; }
     h3 { font-size: 0.9em; color: #555; margin: 4px 0; font-weight: 700; }
 
+    /* Page number footer — applied only to content pages (not the cover).
+       Cumulative numbering across all 40 weeks (Plan D, 2026). Cover
+       pages are excluded from the count entirely; content pages 1-9 of
+       Week N have numbers (N-1)*9+1 through (N-1)*9+9, so Week 1 shows
+       1-9, Week 40 shows 352-360 (40 * 9 = 360 numbered content pages
+       total across the bound volume). The page-number divs themselves
+       are injected by parse_data.py's process_page_numbers() at fan-out
+       time so the cumulative formula has access to week_number. */
+    .page-number {
+        position: absolute;
+        bottom: 4mm;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        font-size: 0.7em;
+        color: #95a5a6;
+        letter-spacing: 0.4px;
+    }
+
     /* =========================================
        3. TABLES (Vocab & Lesson Plan)
        ========================================= */
@@ -592,7 +612,7 @@
 </tbody>
 </table>
 </div>
-</div>
+<div class="page-number">1</div></div>
 <!-- =========================================
          PAGE 2: STUDENT LESSON 1
          ========================================= -->
@@ -627,7 +647,7 @@
 <tbody><tr><td><strong>Diligent</strong></td><td>Diligence (N) - Diligently (Adv)</td><td><span class="vocab-cn">勤奋的</span></td></tr><tr><td><strong>Inspiring</strong></td><td>Inspire (V) - Inspiration (N)</td><td><span class="vocab-cn">鼓舞人心的</span></td></tr><tr><td><strong>Selfless</strong></td><td>Selflessly (Adv) - Selflessness (N)</td><td><span class="vocab-cn">无私的</span></td></tr><tr><td><strong>Accomplished</strong></td><td>Accomplish (V) - Accomplishment (N)</td><td><span class="vocab-cn">有造诣的 / 成功的</span></td></tr><tr><td><strong>Considerate</strong></td><td>Consider (V) - Consideration (N)</td><td><span class="vocab-cn">体贴的</span></td></tr><tr><td><strong>Generous</strong></td><td>Generosity (N)</td><td><span class="vocab-cn">慷慨的</span></td></tr><tr><td><strong>Devoted</strong></td><td>Devotion (N) - Devote (V)</td><td><span class="vocab-cn">挚爱的 / 忠诚的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Go the extra mile</strong></td><td>(Went (V2))</td><td><span class="vocab-cn">再接再厉</span></td></tr><tr><td><strong>Look up to</strong></td><td>(Looked (V2))</td><td><span class="vocab-cn">仰视</span></td></tr><tr><td><strong>A heart of gold</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">菩萨心肠</span></td></tr></tbody>
 </table>
 </div>
-</div>
+<div class="page-number">2</div></div>
 <!-- =========================================
          PAGE 3: STUDENT PRACTICE
          ========================================= -->
@@ -680,7 +700,7 @@
 </div>
 </div>
 </div>
-</div>
+<div class="page-number">3</div></div>
 <!-- =========================================
          PAGE 4: TEACHER LESSON PLAN L2
          ========================================= -->
@@ -747,7 +767,7 @@
 </tbody>
 </table>
 </div>
-</div>
+<div class="page-number">4</div></div>
 <!-- =========================================
          PAGE 5: PART 3 INPUT (Student L2)
          ========================================= -->
@@ -791,7 +811,7 @@
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Is getting good grades the only way to make parents proud?'</div>
 </div></div>
 </div>
-</div>
+<div class="page-number">5</div></div>
 <!-- =========================================
          PAGE 6: PART 3 DEEP DIVE (Q2 & Q3)
          ========================================= -->
@@ -830,7 +850,7 @@
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Is it bad to be too proud of yourself?'</div>
 </div></div>
 </div>
-</div>
+<div class="page-number">6</div></div>
 <!-- =========================================
          PAGE 7: PART 3 RAPID FIRE (Q4-Q6)
          ========================================= -->
@@ -880,7 +900,7 @@
 </div></div>
 </div>
 </div>
-</div>
+<div class="page-number">7</div></div>
 <!-- =========================================
          PAGE 8: HOMEWORK
          ========================================= -->
@@ -899,7 +919,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Diligent</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Encouraging</td></tr><tr><td style="padding: 10px 5px;">2. Inspiring</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Successful</td></tr><tr><td style="padding: 10px 5px;">3. Selfless</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Hard-working</td></tr><tr><td style="padding: 10px 5px;">4. Accomplished</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Altruistic</td></tr><tr><td style="padding: 10px 5px;">5. Considerate</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Thoughtful</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Diligent</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Altruistic</td></tr><tr><td style="padding: 10px 5px;">2. Inspiring</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Hard-working</td></tr><tr><td style="padding: 10px 5px;">3. Selfless</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Encouraging</td></tr><tr><td style="padding: 10px 5px;">4. Accomplished</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Successful</td></tr><tr><td style="padding: 10px 5px;">5. Considerate</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Thoughtful</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -938,7 +958,7 @@
 </div>
 <div style="text-align:center; transform:rotate(180deg); color:#555; font-weight:bold; font-size:0.8em; margin-top:auto;">Key: 1. Diligent-C, 2. Inspiring-D, 3. Selfless-E, 4. Accomplished-A, 5. Considerate-B | 1. She is a very... 2. I admire... 3. heart of gold... 4. have been friends... 5. encourages me...</div>
 </div>
-</div>
+<div class="page-number">8</div></div>
 <script>
     window.onload = function() {
         // Elements
@@ -1017,5 +1037,5 @@
 <strong>Polished Rewrite:</strong>
 <div class="lines" style="flex-grow:1; height:auto;"></div>
 </div>
-</div></div></body>
+</div><div class="page-number">9</div></div></body>
 </html>

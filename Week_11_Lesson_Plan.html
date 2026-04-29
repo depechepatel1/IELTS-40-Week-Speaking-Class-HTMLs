@@ -138,28 +138,38 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 10px;                    /* space when items get tight */
+        flex-wrap: nowrap;            /* keep one line at A4 width */
         box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     }
-    
+
     .l1 .header-bar { background: linear-gradient(135deg, #2c3e50, #3498db); }
     .l2 .header-bar { background: linear-gradient(135deg, #d35400, #e67e22); }
     .hw .header-bar { background: linear-gradient(135deg, #27ae60, #2ecc71); }
 
-    .header-title { font-size: 1.0em; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
-    
-    .sh-badge { 
-        background: rgba(255,255,255,0.9); 
-        color: #333; 
-        padding: 2px 8px; 
-        border-radius: 4px; 
-        font-weight: 800; 
-        font-size: 0.8em;
-        margin-right: 10px;
+    /* Title font sizing: was 1.0em — too wide once "SPEAKING PRACTICE
+       CIRCUIT" + week-tag had to fit beside the STUDENT HANDOUT pill at
+       A4 width, causing the title to wrap to a 2nd line awkwardly. 0.85em
+       restores single-line layout for all 40 weeks' titles + week-tags. */
+    .header-title { font-size: 0.85em; font-weight: bold; text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .sh-badge {
+        background: rgba(255,255,255,0.9);
+        color: #333;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 800;
+        font-size: 0.72em;            /* was 0.8em — tighter pill */
+        margin-right: 8px;            /* was 10px */
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         vertical-align: middle;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 
-    .week-tag { font-size: 0.7em; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 20px; font-weight: 600; }
+    /* Tighter week-tag so the longest weekly topic ("A Family Member You
+       Are Proud Of (Part 3)" etc.) fits without wrapping. */
+    .week-tag { font-size: 0.62em; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 20px; font-weight: 600; white-space: nowrap; flex-shrink: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; }
     
     /* Bilibili Button */
     .bili-btn {
@@ -181,6 +191,26 @@
 
     h2 { font-size: 1.0em; color: var(--primary-color); margin: 0 0 8px 0; border-bottom: 2px solid #f0f0f0; padding-bottom: 4px; }
     h3 { font-size: 0.9em; color: #555; margin: 4px 0; font-weight: 700; }
+
+    /* Page number footer — applied only to content pages (not the cover).
+       Cumulative numbering across all 40 weeks (Plan D, 2026). Cover
+       pages are excluded from the count entirely; content pages 1-9 of
+       Week N have numbers (N-1)*9+1 through (N-1)*9+9, so Week 1 shows
+       1-9, Week 40 shows 352-360 (40 * 9 = 360 numbered content pages
+       total across the bound volume). The page-number divs themselves
+       are injected by parse_data.py's process_page_numbers() at fan-out
+       time so the cumulative formula has access to week_number. */
+    .page-number {
+        position: absolute;
+        bottom: 4mm;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        font-size: 0.7em;
+        color: #95a5a6;
+        letter-spacing: 0.4px;
+    }
 
     /* =========================================
        3. TABLES (Vocab & Lesson Plan)
@@ -513,6 +543,7 @@
          ========================================= -->
 <div class="page l1">
 <div class="header-bar">
+<span class="sh-badge">QTS ALIGNED</span>
 <span class="header-title">👨‍🏫 Teacher Lesson Plan</span>
 <span class="week-tag">Week 11 • Lesson 1 • Desired Technology</span>
 </div>
@@ -581,7 +612,7 @@
 </tbody>
 </table>
 </div>
-</div>
+<div class="page-number">91</div></div>
 <!-- =========================================
          PAGE 2: STUDENT LESSON 1
          ========================================= -->
@@ -616,7 +647,7 @@
 <tbody><tr><td><strong>Cutting-edge</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">尖端的 / 前沿的</span></td></tr><tr><td><strong>Pricey</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">昂贵的 (informal)</span></td></tr><tr><td><strong>Compact</strong></td><td>Compactness (N)</td><td><span class="vocab-cn">紧凑的 / 小巧的</span></td></tr><tr><td><strong>Versatile</strong></td><td>Versatility (N)</td><td><span class="vocab-cn">多功能的</span></td></tr><tr><td><strong>Obsolete</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">过时的 / 淘汰的</span></td></tr><tr><td><strong>Magnificent</strong> <span class="recycled-tag">Recycled</span></td><td>Magnificence (N)</td><td><span class="vocab-cn">宏伟的</span></td></tr><tr><td><strong>Spacious</strong> <span class="recycled-tag">Recycled</span></td><td>Space (N)</td><td><span class="vocab-cn">宽敞的 (storage)</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Must-have</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">必备之物</span></td></tr><tr><td><strong>State-of-the-art</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">登峰造极 / 顶尖</span></td></tr><tr><td><strong>Cost an arm and a leg</strong></td><td>(Cost (V2))</td><td><span class="vocab-cn">价值连城 / 天价</span></td></tr></tbody>
 </table>
 </div>
-</div>
+<div class="page-number">92</div></div>
 <!-- =========================================
          PAGE 3: STUDENT PRACTICE
          ========================================= -->
@@ -669,12 +700,13 @@
 </div>
 </div>
 </div>
-</div>
+<div class="page-number">93</div></div>
 <!-- =========================================
          PAGE 4: TEACHER LESSON PLAN L2
          ========================================= -->
 <div class="page l2">
 <div class="header-bar">
+<span class="sh-badge">QTS ALIGNED</span>
 <span class="header-title">👨‍🏫 Teacher Lesson Plan</span>
 <span class="week-tag">Week 11 • Lesson 2 • Desired Technology (Part 3)</span>
 </div>
@@ -735,7 +767,7 @@
 </tbody>
 </table>
 </div>
-</div>
+<div class="page-number">94</div></div>
 <!-- =========================================
          PAGE 5: PART 3 INPUT (Student L2)
          ========================================= -->
@@ -779,7 +811,7 @@
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How have VR games changed the way kids play?'</div>
 </div></div>
 </div>
-</div>
+<div class="page-number">95</div></div>
 <!-- =========================================
          PAGE 6: PART 3 DEEP DIVE (Q2 & Q3)
          ========================================= -->
@@ -818,7 +850,7 @@
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Does texting all the time make people feel lonely?'</div>
 </div></div>
 </div>
-</div>
+<div class="page-number">96</div></div>
 <!-- =========================================
          PAGE 7: PART 3 RAPID FIRE (Q4-Q6)
          ========================================= -->
@@ -868,7 +900,7 @@
 </div></div>
 </div>
 </div>
-</div>
+<div class="page-number">97</div></div>
 <!-- =========================================
          PAGE 8: HOMEWORK
          ========================================= -->
@@ -887,7 +919,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Cutting-edge</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Expensive</td></tr><tr><td style="padding: 10px 5px;">2. Pricey</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Small</td></tr><tr><td style="padding: 10px 5px;">3. Obsolete</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Advanced</td></tr><tr><td style="padding: 10px 5px;">4. Compact</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Outdated</td></tr><tr><td style="padding: 10px 5px;">5. Versatile</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Multi-purpose</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Cutting-edge</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Expensive</td></tr><tr><td style="padding: 10px 5px;">2. Pricey</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Small</td></tr><tr><td style="padding: 10px 5px;">3. Obsolete</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Outdated</td></tr><tr><td style="padding: 10px 5px;">4. Compact</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Advanced</td></tr><tr><td style="padding: 10px 5px;">5. Versatile</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Multi-purpose</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -926,7 +958,7 @@
 </div>
 <div style="text-align:center; transform:rotate(180deg); color:#555; font-weight:bold; font-size:0.8em; margin-top:auto;">Key: 1. Cutting-edge-E, 2. Pricey-A, 3. Obsolete-B, 4. Compact-C, 5. Versatile-D | 1. Correct 2. a lot of... 3. bigger... 4. Correct 5. changes...</div>
 </div>
-</div>
+<div class="page-number">98</div></div>
 <script>
     window.onload = function() {
         // Elements
@@ -1005,5 +1037,5 @@
 <strong>Polished Rewrite:</strong>
 <div class="lines" style="flex-grow:1; height:auto;"></div>
 </div>
-</div></div></body>
+</div><div class="page-number">99</div></div></body>
 </html>

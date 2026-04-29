@@ -138,28 +138,38 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 10px;                    /* space when items get tight */
+        flex-wrap: nowrap;            /* keep one line at A4 width */
         box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     }
-    
+
     .l1 .header-bar { background: linear-gradient(135deg, #2c3e50, #3498db); }
     .l2 .header-bar { background: linear-gradient(135deg, #d35400, #e67e22); }
     .hw .header-bar { background: linear-gradient(135deg, #27ae60, #2ecc71); }
 
-    .header-title { font-size: 1.0em; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
-    
-    .sh-badge { 
-        background: rgba(255,255,255,0.9); 
-        color: #333; 
-        padding: 2px 8px; 
-        border-radius: 4px; 
-        font-weight: 800; 
-        font-size: 0.8em;
-        margin-right: 10px;
+    /* Title font sizing: was 1.0em — too wide once "SPEAKING PRACTICE
+       CIRCUIT" + week-tag had to fit beside the STUDENT HANDOUT pill at
+       A4 width, causing the title to wrap to a 2nd line awkwardly. 0.85em
+       restores single-line layout for all 40 weeks' titles + week-tags. */
+    .header-title { font-size: 0.85em; font-weight: bold; text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .sh-badge {
+        background: rgba(255,255,255,0.9);
+        color: #333;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 800;
+        font-size: 0.72em;            /* was 0.8em — tighter pill */
+        margin-right: 8px;            /* was 10px */
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         vertical-align: middle;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 
-    .week-tag { font-size: 0.7em; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 20px; font-weight: 600; }
+    /* Tighter week-tag so the longest weekly topic ("A Family Member You
+       Are Proud Of (Part 3)" etc.) fits without wrapping. */
+    .week-tag { font-size: 0.62em; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 20px; font-weight: 600; white-space: nowrap; flex-shrink: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; }
     
     /* Bilibili Button */
     .bili-btn {
@@ -181,6 +191,26 @@
 
     h2 { font-size: 1.0em; color: var(--primary-color); margin: 0 0 8px 0; border-bottom: 2px solid #f0f0f0; padding-bottom: 4px; }
     h3 { font-size: 0.9em; color: #555; margin: 4px 0; font-weight: 700; }
+
+    /* Page number footer — applied only to content pages (not the cover).
+       Cumulative numbering across all 40 weeks (Plan D, 2026). Cover
+       pages are excluded from the count entirely; content pages 1-9 of
+       Week N have numbers (N-1)*9+1 through (N-1)*9+9, so Week 1 shows
+       1-9, Week 40 shows 352-360 (40 * 9 = 360 numbered content pages
+       total across the bound volume). The page-number divs themselves
+       are injected by parse_data.py's process_page_numbers() at fan-out
+       time so the cumulative formula has access to week_number. */
+    .page-number {
+        position: absolute;
+        bottom: 4mm;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        font-size: 0.7em;
+        color: #95a5a6;
+        letter-spacing: 0.4px;
+    }
 
     /* =========================================
        3. TABLES (Vocab & Lesson Plan)
@@ -513,6 +543,7 @@
          ========================================= -->
 <div class="page l1">
 <div class="header-bar">
+<span class="sh-badge">QTS ALIGNED</span>
 <span class="header-title">👨‍🏫 Teacher Lesson Plan</span>
 <span class="week-tag">Week 40 • Lesson 1 • Festivals &amp; Culture</span>
 </div>
@@ -581,7 +612,7 @@
 </tbody>
 </table>
 </div>
-</div>
+<div class="page-number">352</div></div>
 <!-- =========================================
          PAGE 2: STUDENT LESSON 1
          ========================================= -->
@@ -616,7 +647,7 @@
 <tbody><tr><td><strong>Festive</strong></td><td>Festival (N)</td><td><span class="vocab-cn">节日的 / 喜庆的</span></td></tr><tr><td><strong>Traditional</strong></td><td>Tradition (N)</td><td><span class="vocab-cn">传统的</span></td></tr><tr><td><strong>Meaningful</strong></td><td>Meaning (N)</td><td><span class="vocab-cn">有意义的</span></td></tr><tr><td><strong>Vibrant</strong></td><td>Vibrancy (N)</td><td><span class="vocab-cn">充满活力的</span></td></tr><tr><td><strong>Ceremonial</strong></td><td>Ceremony (N)</td><td><span class="vocab-cn">仪式的</span></td></tr><tr><td><strong>Elegant</strong> <span class="recycled-tag">Recycled</span></td><td>Elegance (N)</td><td><span class="vocab-cn">优雅的</span></td></tr><tr><td><strong>Formal</strong> <span class="recycled-tag">Recycled</span></td><td>Formality (N)</td><td><span class="vocab-cn">正式的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Paint the town red</strong></td><td>(Painted (V2))</td><td><span class="vocab-cn">狂欢</span></td></tr><tr><td><strong>Have a ball</strong></td><td>(Had (V2))</td><td><span class="vocab-cn">尽情狂欢</span></td></tr><tr><td><strong>The more the merrier</strong></td><td>(Proverb)</td><td><span class="vocab-cn">人多热闹</span></td></tr></tbody>
 </table>
 </div>
-</div>
+<div class="page-number">353</div></div>
 <!-- =========================================
          PAGE 3: STUDENT PRACTICE
          ========================================= -->
@@ -669,12 +700,13 @@
 </div>
 </div>
 </div>
-</div>
+<div class="page-number">354</div></div>
 <!-- =========================================
          PAGE 4: TEACHER LESSON PLAN L2
          ========================================= -->
 <div class="page l2">
 <div class="header-bar">
+<span class="sh-badge">QTS ALIGNED</span>
 <span class="header-title">👨‍🏫 Teacher Lesson Plan</span>
 <span class="week-tag">Week 40 • Lesson 2 • Festivals &amp; Culture (Part 3)</span>
 </div>
@@ -735,7 +767,7 @@
 </tbody>
 </table>
 </div>
-</div>
+<div class="page-number">355</div></div>
 <!-- =========================================
          PAGE 5: PART 3 INPUT (Student L2)
          ========================================= -->
@@ -779,7 +811,7 @@
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'Do young people still care about traditional festivals today?'</div>
 </div></div>
 </div>
-</div>
+<div class="page-number">356</div></div>
 <!-- =========================================
          PAGE 6: PART 3 DEEP DIVE (Q2 & Q3)
          ========================================= -->
@@ -818,7 +850,7 @@
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How do public holidays prevent workers from becoming completely exhausted?'</div>
 </div></div>
 </div>
-</div>
+<div class="page-number">357</div></div>
 <!-- =========================================
          PAGE 7: PART 3 RAPID FIRE (Q4-Q6)
          ========================================= -->
@@ -868,7 +900,7 @@
 </div></div>
 </div>
 </div>
-</div>
+<div class="page-number">358</div></div>
 <!-- =========================================
          PAGE 8: HOMEWORK
          ========================================= -->
@@ -887,7 +919,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Meaningful</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Celebratory</td></tr><tr><td style="padding: 10px 5px;">2. Ceremonial</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Customary</td></tr><tr><td style="padding: 10px 5px;">3. Vibrant</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Formal</td></tr><tr><td style="padding: 10px 5px;">4. Traditional</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Colorful</td></tr><tr><td style="padding: 10px 5px;">5. Festive</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Significant</td></tr></tbody>
+<tbody><tr><td style="padding: 10px 5px;">1. Meaningful</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Colorful</td></tr><tr><td style="padding: 10px 5px;">2. Ceremonial</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Customary</td></tr><tr><td style="padding: 10px 5px;">3. Vibrant</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Celebratory</td></tr><tr><td style="padding: 10px 5px;">4. Traditional</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Formal</td></tr><tr><td style="padding: 10px 5px;">5. Festive</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Significant</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -926,7 +958,7 @@
 </div>
 <div style="text-align:center; transform:rotate(180deg); color:#555; font-weight:bold; font-size:0.8em; margin-top:auto;">Key: 1. Meaningful-B, 2. Ceremonial-C, 3. Vibrant-D, 4. Traditional-E, 5. Festive-A | 1. Correct 2. Correct 3. my parents... 4. Correct 5. visiting...</div>
 </div>
-</div>
+<div class="page-number">359</div></div>
 <script>
     window.onload = function() {
         // Elements
@@ -1005,5 +1037,5 @@
 <strong>Polished Rewrite:</strong>
 <div class="lines" style="flex-grow:1; height:auto;"></div>
 </div>
-</div></div></body>
+</div><div class="page-number">360</div></div></body>
 </html>

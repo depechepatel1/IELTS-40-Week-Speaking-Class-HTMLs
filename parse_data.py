@@ -1169,6 +1169,39 @@ def process_homework(soup, week_number, homework_data):
     if key_div:
         key_div.string = answer_key
 
+CONTENT_PAGES_PER_WEEK = 9  # IELTS Week 1: 1 cover-page + 9 content pages
+
+
+def process_page_numbers(soup, week_number):
+    """Inject cumulative page-number divs into every content `<div class="page">`.
+
+    Skips the cover (`<div class="page cover-page">`) — covers are NOT
+    counted in the cumulative numbering. Content pages 1-9 of week N
+    receive numbers (N-1)*9+1 through (N-1)*9+9, so Week 1 → 1-9,
+    Week 40 → 352-360 (= 360 numbered pages across the bound 40-week
+    volume).
+
+    Idempotent: running parse_data.py twice produces a single
+    `<div class="page-number">` per page. We detect the existing div
+    and update its text rather than appending duplicates.
+    """
+    pages = soup.find_all('div', class_='page')
+    content_index = 0
+    for page in pages:
+        cls = page.get('class', [])
+        if 'cover-page' in cls:
+            continue  # cover skipped — no number, no count
+        content_index += 1
+        cumulative = (week_number - 1) * CONTENT_PAGES_PER_WEEK + content_index
+        existing = page.find('div', class_='page-number', recursive=False)
+        if existing:
+            existing.string = str(cumulative)
+        else:
+            new_div = soup.new_tag('div', **{'class': 'page-number'})
+            new_div.string = str(cumulative)
+            page.append(new_div)
+
+
 def main():
     print("Generating all 40 lesson plans...")
     os.makedirs('lessons', exist_ok=True)
@@ -1216,6 +1249,7 @@ def main():
             format_mind_maps(soup, week_curriculum, ai_content)
             process_student_l2(soup, week_curriculum, ai_content, week_peer_data)
             process_homework(soup, week_number, week_homework)
+            process_page_numbers(soup, week_number)  # cumulative; covers skipped
             
             # Save
             output_filename = f'lessons/Week_{week_number}_Lesson_Plan.html'
