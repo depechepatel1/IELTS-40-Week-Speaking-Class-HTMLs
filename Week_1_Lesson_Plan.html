@@ -138,28 +138,38 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 10px;                    /* space when items get tight */
+        flex-wrap: nowrap;            /* keep one line at A4 width */
         box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     }
-    
+
     .l1 .header-bar { background: linear-gradient(135deg, #2c3e50, #3498db); }
     .l2 .header-bar { background: linear-gradient(135deg, #d35400, #e67e22); }
     .hw .header-bar { background: linear-gradient(135deg, #27ae60, #2ecc71); }
 
-    .header-title { font-size: 1.0em; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
-    
-    .sh-badge { 
-        background: rgba(255,255,255,0.9); 
-        color: #333; 
-        padding: 2px 8px; 
-        border-radius: 4px; 
-        font-weight: 800; 
-        font-size: 0.8em;
-        margin-right: 10px;
+    /* Title font sizing: was 1.0em — too wide once "SPEAKING PRACTICE
+       CIRCUIT" + week-tag had to fit beside the STUDENT HANDOUT pill at
+       A4 width, causing the title to wrap to a 2nd line awkwardly. 0.85em
+       restores single-line layout for all 40 weeks' titles + week-tags. */
+    .header-title { font-size: 0.85em; font-weight: bold; text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .sh-badge {
+        background: rgba(255,255,255,0.9);
+        color: #333;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 800;
+        font-size: 0.72em;            /* was 0.8em — tighter pill */
+        margin-right: 8px;            /* was 10px */
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         vertical-align: middle;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 
-    .week-tag { font-size: 0.7em; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 20px; font-weight: 600; }
+    /* Tighter week-tag so the longest weekly topic ("A Family Member You
+       Are Proud Of (Part 3)" etc.) fits without wrapping. */
+    .week-tag { font-size: 0.62em; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 20px; font-weight: 600; white-space: nowrap; flex-shrink: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; }
     
     /* Bilibili Button */
     .bili-btn {
