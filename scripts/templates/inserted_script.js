@@ -338,44 +338,124 @@
     _playCurrentSentence(rowEl);
   };
 
+  // Markup-preserving variant of speakElement's wrapping logic. Walks the
+  // text-node descendants of `el` and replaces each text node with a
+  // fragment that splits the text into per-word <span>s (for karaoke
+  // highlighting) while LEAVING element children (e.g. <strong> for vocab,
+  // <em> for emphasis) intact. Skips Chinese-gloss / marker-badge /
+  // listen-row subtrees so wrapped spans align with what the TTS engine
+  // actually speaks.
+  //
+  // Added 2026 (issue A2): the polished-output element is plain text and
+  // the original speakElement could safely innerHTML='' it. Model-answer
+  // boxes (Section 7) contain <strong>vocab</strong> highlights and
+  // Chinese gloss spans; destroying their innerHTML would lose both.
+  // This helper provides a non-destructive wrap path for markup-rich
+  // elements. Returns { spans, offsets } with the same shape that the
+  // original wrap path produces.
+  function wrapTextNodesInElement(el) {
+    const spans = [];
+    const offsets = [];
+    let charIdx = 0;
+
+    function walk(node) {
+      if (!node) return;
+      if (node.nodeType === Node.TEXT_NODE) {
+        const t = node.textContent;
+        if (!t) return;
+        const tokens = t.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        tokens.forEach(tok => {
+          if (!tok) return;
+          if (/^\s+$/.test(tok)) {
+            frag.appendChild(document.createTextNode(tok));
+          } else {
+            const s = document.createElement('span');
+            s.textContent = tok;
+            offsets.push({ span: s, start: charIdx, end: charIdx + tok.length });
+            spans.push(s);
+            frag.appendChild(s);
+          }
+          charIdx += tok.length;
+        });
+        node.parentNode.replaceChild(frag, node);
+        return;
+      }
+      if (node.nodeType !== Node.ELEMENT_NODE) return;
+      if (isChineseGloss(node)) return;
+      if (isMarkerBadge(node)) return;
+      if (node.classList && node.classList.contains('listen-row')) return;
+      // Snapshot childNodes — we'll be replacing some during the walk.
+      Array.from(node.childNodes).forEach(walk);
+    }
+    walk(el);
+    return { spans, offsets };
+  }
+
   // speakElement / speakElementById — wrap words in <span> for karaoke,
   // split text into sentences, and play sentence 0. Subsequent transport
   // commands (replay / next / prev / slow) re-use the wrapped spans.
-  ns.speakElement = function (el, lang = 'en-GB', rate = DEFAULT_RATE) {
+  // The optional `rowElOverride` arg lets callers pin the WeakMap state
+  // to a specific .listen-row element (used by injectListenButtons so
+  // its prev/next/replay/slow buttons share state with the speaking text).
+  ns.speakElement = function (el, lang = 'en-GB', rate = DEFAULT_RATE, rowElOverride = null) {
     if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
     if (!('speechSynthesis' in window)) return;
     if (!el) return;
-    const text = el.textContent.trim();
+
+    // For markup-rich elements (model answers with <strong>/Chinese gloss),
+    // compute the readable text using extractReadableText so it matches
+    // what TTS speaks (skipping gloss). For plain-text elements (polished
+    // output) we can use textContent directly — same result, less work.
+    const hasMarkup = el.children.length > 0;
+    const text = (hasMarkup
+      ? stripChineseGloss(extractReadableText(el))
+      : el.textContent
+    ).trim();
     if (!text) return;
 
     // The polished overlay's listen-row is the natural row for el.id === 'polished-output'.
-    // For other elements, fall back to a synthetic row state keyed off the element itself
-    // (the element doubles as the WeakMap key — same lifecycle).
-    const rowEl = (el.id === 'polished-output')
-      ? document.getElementById('polished-listen-row')
-      : el;
+    // injectListenButtons passes the model-box's .listen-row as the override.
+    // For everything else, fall back to using `el` itself as the WeakMap key.
+    const rowEl = rowElOverride
+      || (el.id === 'polished-output'
+          ? document.getElementById('polished-listen-row')
+          : el);
 
     const st = getRowState(rowEl);
 
-    // Re-wrap only if text changed (e.g. after a fresh AI correction).
-    if (st.wrappedText !== text) {
-      const tokens = text.split(/(\s+)/);
-      el.innerHTML = '';
-      const spans = [];
-      const offsets = [];
-      let charIdx = 0;
-      tokens.forEach(tok => {
-        if (/^\s+$/.test(tok)) {
-          el.appendChild(document.createTextNode(tok));
-        } else if (tok.length) {
-          const s = document.createElement('span');
-          s.textContent = tok;
-          offsets.push({ span: s, start: charIdx, end: charIdx + tok.length });
-          spans.push(s);
-          el.appendChild(s);
-        }
-        charIdx += tok.length;
-      });
+    // Re-wrap only if text changed AND the element isn't already wrapped.
+    // The data-karaoke-wrapped flag stops a second click from destroying
+    // our own spans (which would be st.wrappedText !== text after a wrap
+    // reduces all whitespace runs to single spaces).
+    if (st.wrappedText !== text || !el.dataset.karaokeWrapped) {
+      let spans, offsets;
+      if (hasMarkup) {
+        // Non-destructive: preserves <strong> vocab highlights, skips gloss.
+        const result = wrapTextNodesInElement(el);
+        spans = result.spans;
+        offsets = result.offsets;
+      } else {
+        // Plain-text path (original behaviour, used for polished-output).
+        const tokens = text.split(/(\s+)/);
+        el.innerHTML = '';
+        spans = [];
+        offsets = [];
+        let charIdx = 0;
+        tokens.forEach(tok => {
+          if (/^\s+$/.test(tok)) {
+            el.appendChild(document.createTextNode(tok));
+          } else if (tok.length) {
+            const s = document.createElement('span');
+            s.textContent = tok;
+            offsets.push({ span: s, start: charIdx, end: charIdx + tok.length });
+            spans.push(s);
+            el.appendChild(s);
+          }
+          charIdx += tok.length;
+        });
+      }
+      el.dataset.karaokeWrapped = '1';
       st.wrappedText = text;
       st.spans = spans;
       st.offsets = offsets;
@@ -880,8 +960,14 @@
       const btnNext   = row.querySelector('.tts-btn.next');
       const textOf = () => stripChineseGloss(extractReadableText(box));
 
-      btnUK.onclick     = () => ns.speakText(textOf(), 'en-GB', DEFAULT_RATE, row);
-      btnUS.onclick     = () => ns.speakText(textOf(), 'en-US', DEFAULT_RATE, row);
+      // A2 2026: switched from speakText (no karaoke) to speakElement
+      // (word-by-word karaoke highlight). speakElement wraps each word
+      // of `box` in a <span> while preserving existing <strong>/<em>
+      // markup, skipping Chinese gloss subtrees. The 4th arg pins the
+      // WeakMap state to `row` so prev/next/replay/slow buttons below
+      // share state with the speaking text.
+      btnUK.onclick     = () => ns.speakElement(box, 'en-GB', DEFAULT_RATE, row);
+      btnUS.onclick     = () => ns.speakElement(box, 'en-US', DEFAULT_RATE, row);
       btnSlow.onclick   = () => ns.replaySentence(row, /* slow= */ true);
       btnPrev.onclick   = () => ns.prevSentence(row);
       btnReplay.onclick = () => ns.replaySentence(row, /* slow= */ false);

@@ -105,7 +105,11 @@ def process_cover_page(soup, week_number, week_data):
 
     # INJECT CSS OVERRIDES
     css_overrides = """
-    /* OVERRIDES FOR COVER PAGE (Page 1) */
+    /* OVERRIDES FOR COVER PAGE (Page 1) — Round 15/16 2026
+       Times New Roman + 1px 8-direction halo + reduced sizes
+       (WEEK label 3em, title 3.5em). Mirrors the canonical
+       Week 1 PDF Base / Week 1 Interactive cover styling so
+       all 40 weeks render identically. */
     @page:first {
         background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
         background-size: cover;
@@ -113,12 +117,12 @@ def process_cover_page(soup, week_number, week_data):
         margin: 0;
     }
     .cover-page {
-        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important;
         background-size: cover !important;
         position: relative;
         width: 210mm; /* A4 Width */
         height: 296mm; /* A4 Height */
-        color: black; 
+        color: black;
         padding: 0 !important;
         display: flex;
         flex-direction: column;
@@ -134,62 +138,67 @@ def process_cover_page(soup, week_number, week_data):
         align-items: flex-end;
         gap: 0px; /* Compact lines */
     }
-    .cover-title-large {
-        font-size: 6em;
-        font-weight: 900;
-        line-height: 0.9;
-        color: black;
-        -webkit-text-stroke: 2px white; /* Thin white border */
-        text-shadow: 2px 2px 0 #fff;
-        margin: 0;
-        text-transform: uppercase;
-    }
-    .cover-subtitle {
-        font-size: 1.8em;
-        font-weight: 700;
-        color: black;
-        background: transparent; /* Changed from white to transparent to show image */
-        padding: 5px 0; /* Adjusted padding */
-        margin: 10px 0 0 0;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        display: inline-block;
-        -webkit-text-stroke: 1px white; /* Thin white border */
-        text-shadow: 1px 1px 0 #fff;
-        box-shadow: none; /* Removed shadow box */
+    /* Round 15: Times New Roman + 8-direction 1px halo on every cover element. */
+    .cover-content,
+    .cover-top-label,
+    .cover-week,
+    .cover-title-large,
+    .cover-subtitle,
+    .cover-footer {
+        color: #000000 !important;
+        font-weight: 700 !important;
+        font-family: 'Times New Roman', Times, serif !important;
+        text-shadow:
+            -1px -1px 0 #fff,
+             1px -1px 0 #fff,
+            -1px  1px 0 #fff,
+             1px  1px 0 #fff,
+            -1px  0   0 #fff,
+             1px  0   0 #fff,
+             0   -1px 0 #fff,
+             0    1px 0 #fff;
+        -webkit-text-stroke: 0;
     }
     .cover-top-label {
-        font-size: 1.5em;
-        font-weight: 800;
-        color: black;
+        font-size: 1.4em;
         text-transform: uppercase;
         letter-spacing: 4px;
-        margin-bottom: 0;
-        -webkit-text-stroke: 1px white; /* Thin white border */
-        text-shadow: 1px 1px 0 #fff;
+        margin: 0 0 6px 0;
     }
     .cover-week {
-        font-size: 5em;
-        font-weight: 900;
-        color: black;
-        margin: 0;
+        font-size: 3em; /* Round 16: reduced from 4.2em */
         line-height: 1;
-        -webkit-text-stroke: 2px white; /* Thin white border */
-        text-shadow: 2px 2px 0 #fff;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin: 0;
+    }
+    .cover-title-large {
+        font-size: 3.5em; /* Round 16: reduced from 5em */
+        line-height: 1;
+        text-transform: uppercase;
+        margin: 4px 0;
+    }
+    .cover-subtitle {
+        font-size: 1.2em;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 8px 0 0 0;
+        background: transparent;
+        padding: 0;
+        display: inline-block;
+        box-shadow: none;
     }
     .cover-footer {
         position: absolute;
         bottom: 1cm;
         right: 2cm;
         font-size: 0.8em;
-        color: black;
-        font-weight: 600;
-        -webkit-text-stroke: 0.5px white; /* Very thin border */
-        text-shadow: 0.5px 0.5px 0 #fff;
+        letter-spacing: 1px;
+        text-transform: uppercase;
         opacity: 1;
     }
     /* Hide default elements we don't need */
-    .cover-box { display: none; } 
+    .cover-box { display: none; }
     """
     
     # Clean up ANY existing cover overrides (duplicates or old versions)
@@ -266,7 +275,7 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
     l1_page = soup.find('div', class_='l1')
     if l1_page:
         # Learning Objectives
-        lo_card = l1_page.find('h2', string=re.compile(r'Learning Objectives')).parent
+        lo_card = l1_page.find('h4', string=re.compile(r'Learning Objectives')).parent
         if lo_card:
             ul = lo_card.find('ul')
             if ul:
@@ -284,7 +293,7 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
                     ul.append(BeautifulSoup(f"<li>{obj_html}</li>", 'html.parser'))
         
         # Criteria
-        criteria_h2 = l1_page.find('h2', string=re.compile(r'Criteria'))
+        criteria_h2 = l1_page.find('h4', string=re.compile(r'Criteria'))
         if criteria_h2:
             criteria_div = criteria_h2.find_next_sibling('div')
             if criteria_div:
@@ -292,7 +301,7 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
                 criteria_div.append(BeautifulSoup(l1_data.get('success_criteria', ''), 'html.parser'))
                 
         # Differentiation
-        diff_card = l1_page.find('h2', string=re.compile(r'Differentiation')).parent
+        diff_card = l1_page.find('h4', string=re.compile(r'Differentiation')).parent
         if diff_card:
             b5_data = l1_data.get('differentiation', {}).get('band_5', {})
             b6_data = l1_data.get('differentiation', {}).get('band_6', {})
@@ -360,7 +369,7 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
         l2_teacher_page = l2_pages[0] # Assuming first is Teacher Plan
         
         # Learning Objectives
-        lo_card = l2_teacher_page.find('h2', string=re.compile(r'Learning Objectives')).parent
+        lo_card = l2_teacher_page.find('h4', string=re.compile(r'Learning Objectives')).parent
         if lo_card:
             ul = lo_card.find('ul')
             if ul:
@@ -377,7 +386,7 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
                     ul.append(BeautifulSoup(f"<li>{obj_html}</li>", 'html.parser'))
         
         # Criteria
-        criteria_h2 = l2_teacher_page.find('h2', string=re.compile(r'Criteria'))
+        criteria_h2 = l2_teacher_page.find('h4', string=re.compile(r'Criteria'))
         if criteria_h2:
             criteria_div = criteria_h2.find_next_sibling('div')
             if criteria_div:
@@ -385,7 +394,7 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
                 criteria_div.append(BeautifulSoup(l2_data.get('success_criteria', ''), 'html.parser'))
                 
         # Differentiation
-        diff_card = l2_teacher_page.find('h2', string=re.compile(r'Differentiation')).parent
+        diff_card = l2_teacher_page.find('h4', string=re.compile(r'Differentiation')).parent
         if diff_card:
             b5_data = l2_data.get('differentiation', {}).get('band_5', {})
             b6_data = l2_data.get('differentiation', {}).get('band_6', {})
