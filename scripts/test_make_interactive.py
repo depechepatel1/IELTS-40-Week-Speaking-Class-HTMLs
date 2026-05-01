@@ -1,6 +1,6 @@
 """Integration tests for make_interactive.py.
 
-Runs the script on the actual Week_1_Lesson_Plan.html fixture and verifies
+Runs the script on the actual Week_01.html fixture and verifies
 the three insertions, idempotency, and that originals stay untouched.
 
 Run:  python -m unittest scripts.test_make_interactive  (from repo root)
@@ -37,8 +37,8 @@ class TestMakeInteractive(unittest.TestCase):
 
     def test_week1_round_trip(self):
         out = self.tmp_path / "out"
-        _run("Week_1_Lesson_Plan.html", str(out))
-        result = out / "Week_1_Lesson_Plan.html"
+        _run("Week_01.html", str(out))
+        result = out / "Week_01.html"
         text = result.read_text(encoding="utf-8")
         # All three insertions present
         self.assertIn("<!-- AI-INTERACTIVE-V1 --> CSS */", text)
@@ -59,30 +59,30 @@ class TestMakeInteractive(unittest.TestCase):
 
     def test_idempotent(self):
         out = self.tmp_path / "out"
-        _run("Week_1_Lesson_Plan.html", str(out))
-        first = (out / "Week_1_Lesson_Plan.html").read_bytes()
-        _run("Week_1_Lesson_Plan.html", str(out))
-        second = (out / "Week_1_Lesson_Plan.html").read_bytes()
+        _run("Week_01.html", str(out))
+        first = (out / "Week_01.html").read_bytes()
+        _run("Week_01.html", str(out))
+        second = (out / "Week_01.html").read_bytes()
         self.assertEqual(first, second, "Re-running must produce byte-identical output")
 
     def test_originals_untouched(self):
-        src = REPO / "Week_1_Lesson_Plan.html"
+        src = REPO / "Week_01.html"
         before = src.read_bytes()
         out = self.tmp_path / "out"
-        _run("Week_1_Lesson_Plan.html", str(out))
+        _run("Week_01.html", str(out))
         after = src.read_bytes()
         self.assertEqual(before, after)
 
     def test_lesson_key_propagates(self):
         out = self.tmp_path / "out"
-        _run("Week_1_Lesson_Plan.html", str(out))
-        text = (out / "Week_1_Lesson_Plan.html").read_text(encoding="utf-8")
+        _run("Week_01.html", str(out))
+        text = (out / "Week_01.html").read_text(encoding="utf-8")
         # __LESSON_KEY__ should be replaced with the file stem
-        self.assertIn("Week_1_Lesson_Plan", text)
+        self.assertIn("Week_01", text)
         self.assertNotIn("__LESSON_KEY__", text)
 
     def test_skip_files_dont_match_pattern(self):
-        """The script only matches Week_*_Lesson_Plan.html; other files ignored."""
+        """The script only matches Week_*.html; other files ignored."""
         src = self.tmp_path / "src"
         src.mkdir()
         (src / "intro_packet.html").write_text("<html></html>", encoding="utf-8")

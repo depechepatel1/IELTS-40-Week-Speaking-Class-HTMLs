@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit and fix spider-leg cue labels in IELTS Week_*_Lesson_Plan.html files.
+"""Audit and fix spider-leg cue labels in IELTS Week_*.html files.
 
 Run this AFTER `parse_data.py` to catch cue-label quality issues that the
 extractor's heuristics didn't get right.
@@ -21,7 +21,7 @@ Usage:
     python audit_lesson_labels.py            # dry-run, prints findings
     python audit_lesson_labels.py --apply    # also writes fixes back
 
-Fixes are applied in-place on the matched Week_*_Lesson_Plan.html files.
+Fixes are applied in-place on the matched Week_*.html files.
 The script also reports any case it can't auto-fix with high confidence
 (rare, but flagged for human review).
 
@@ -178,7 +178,7 @@ def audit_file(
     html_path: Path,
     curriculum: dict,
 ) -> tuple[str, list[dict]]:
-    """Audit one Week_NN_Lesson_Plan.html.
+    """Audit one Week_NN.html.
 
     Returns (possibly-rewritten html, [issue_dict, ...]).
     Each issue_dict carries: week, map_idx, qkey, position, old, new,
@@ -257,7 +257,7 @@ def main() -> int:
     ap.add_argument("--apply", action="store_true",
                     help="Write fixes back to the Week_*.html files (default: dry run).")
     ap.add_argument("--root", type=Path, default=REPO_ROOT,
-                    help="Repo root (where Week_*_Lesson_Plan.html live).")
+                    help="Repo root (where Week_*.html live).")
     args = ap.parse_args()
 
     curriculum = load_curriculum()
@@ -265,9 +265,9 @@ def main() -> int:
         print("WARN: master Curiculum.json not loaded — fixes will fall back "
               "to WHAT for every bad cue (low confidence).", file=sys.stderr)
 
-    files = sorted(args.root.glob("Week_*_Lesson_Plan.html"))
+    files = sorted(args.root.glob("Week_*.html"))
     if not files:
-        print(f"No Week_*_Lesson_Plan.html files in {args.root}", file=sys.stderr)
+        print(f"No Week_*.html files in {args.root}", file=sys.stderr)
         return 2
 
     summary = {"total_cues": 0, "bad_cues": 0, "fixed_high": 0, "fixed_low": 0}

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate index.html — landing page that links to all 40 interactive lessons.
 
-Reads each Week_*_Lesson_Plan.html original to extract the week topic from
+Reads each Week_*.html original to extract the week topic from
 the `<span class="week-tag">Week N • Lesson X • Topic</span>` element, then
 emits a single index.html at repo root that visually inherits the lesson
 plans' design vocabulary (same color tokens, card pattern, Caveat hero font).
@@ -24,7 +24,7 @@ WEEK_TAG_RE = re.compile(
     r'class="week-tag">\s*(?:Week\s+\d+\s*[•\-–—•]\s*Lesson\s+\d+\s*[•\-–—•]\s*)?([^<]+)<',
     re.IGNORECASE,
 )
-WEEK_NUM_RE = re.compile(r"Week_(\d+)_Lesson_Plan\.html$")
+WEEK_NUM_RE = re.compile(r"Week_(\d+)\.html$")
 
 
 def extract_topic(html_text: str) -> str:
@@ -41,7 +41,7 @@ def extract_topic(html_text: str) -> str:
 def collect_weeks() -> list[tuple[int, str]]:
     """Return [(week_num, topic), ...] sorted by week number."""
     weeks: list[tuple[int, str]] = []
-    for p in REPO.glob("Week_*_Lesson_Plan.html"):
+    for p in REPO.glob("Week_*.html"):
         m = WEEK_NUM_RE.search(p.name)
         if not m:
             continue
@@ -60,7 +60,7 @@ def render_html(weeks: list[tuple[int, str]], bucket_base: str) -> str:
     base = bucket_base.rstrip("/")
     cards = []
     for n, topic in weeks:
-        href = f"{base}/Week_{n}_Lesson_Plan.html"
+        href = f"{base}/Week_{int(n):02d}.html"
         cards.append(
             f'    <a class="week-card" href="{html.escape(href)}">\n'
             f'      <span class="week-num">Week {n}</span>\n'
@@ -266,7 +266,7 @@ def main() -> int:
 
     weeks = collect_weeks()
     if not weeks:
-        print("error: no Week_*_Lesson_Plan.html files found at repo root", file=sys.stderr)
+        print("error: no Week_*.html files found at repo root", file=sys.stderr)
         return 2
 
     html_doc = render_html(weeks, args.bucket_base)

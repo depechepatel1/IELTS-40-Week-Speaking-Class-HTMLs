@@ -5,7 +5,7 @@
   // Substituted by make_interactive.py at build time.
   const AI_ENDPOINT = "__AI_ENDPOINT__";
   const PRONUNCIATIONS_URL = "__PRONUNCIATIONS_URL__";
-  const LESSON_KEY = "__LESSON_KEY__"; // e.g. "Week_1_Lesson_Plan"
+  const LESSON_KEY = "__LESSON_KEY__"; // e.g. "Week_01"
 
   const ns = (window.__ielts = window.__ielts || {});
 
@@ -1102,7 +1102,7 @@
 
   // IndexedDB key per container. Each .voice-recorder-container needs a
   // `data-recorder-id` attribute (e.g. "polished", "q1", "map-1") so its
-  // recording is stored at a unique key like "Week_1_Lesson_Plan:q1".
+  // recording is stored at a unique key like "Week_01:q1".
   // Falls back to "default" for backward compatibility with old widgets.
   function vrKey(container) {
     const id = (container && container.dataset && container.dataset.recorderId) || 'default';

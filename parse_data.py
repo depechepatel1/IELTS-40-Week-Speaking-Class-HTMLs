@@ -103,115 +103,13 @@ def process_cover_page(soup, week_number, week_data):
     if soup.title:
         soup.title.string = f"Week {week_number} Master Lesson Pack"
 
-    # INJECT CSS OVERRIDES
-    css_overrides = """
-    /* OVERRIDES FOR COVER PAGE (Page 1) — Round 15/16 2026
-       Times New Roman + 1px 8-direction halo + reduced sizes
-       (WEEK label 3em, title 3.5em). Mirrors the canonical
-       Week 1 PDF Base / Week 1 Interactive cover styling so
-       all 40 weeks render identically. */
-    @page:first {
-        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
-        background-size: cover;
-        background-position: center;
-        margin: 0;
-    }
-    .cover-page {
-        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important;
-        background-size: cover !important;
-        position: relative;
-        width: 210mm; /* A4 Width */
-        height: 296mm; /* A4 Height */
-        color: black;
-        padding: 0 !important;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end; /* Text at bottom */
-        align-items: flex-end; /* Text at right */
-        text-align: right;
-        padding-bottom: 2cm !important; /* Spacing from bottom */
-    }
-    .cover-content {
-        margin-right: 2cm;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 0px; /* Compact lines */
-    }
-    /* Round 15: Times New Roman + 8-direction 1px halo on every cover element. */
-    .cover-content,
-    .cover-top-label,
-    .cover-week,
-    .cover-title-large,
-    .cover-subtitle,
-    .cover-footer {
-        color: #000000 !important;
-        font-weight: 700 !important;
-        font-family: 'Times New Roman', Times, serif !important;
-        text-shadow:
-            -1px -1px 0 #fff,
-             1px -1px 0 #fff,
-            -1px  1px 0 #fff,
-             1px  1px 0 #fff,
-            -1px  0   0 #fff,
-             1px  0   0 #fff,
-             0   -1px 0 #fff,
-             0    1px 0 #fff;
-        -webkit-text-stroke: 0;
-    }
-    .cover-top-label {
-        font-size: 1.4em;
-        text-transform: uppercase;
-        letter-spacing: 4px;
-        margin: 0 0 6px 0;
-    }
-    .cover-week {
-        font-size: 3em; /* Round 16: reduced from 4.2em */
-        line-height: 1;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        margin: 0;
-    }
-    .cover-title-large {
-        font-size: 3.5em; /* Round 16: reduced from 5em */
-        line-height: 1;
-        text-transform: uppercase;
-        margin: 4px 0;
-    }
-    .cover-subtitle {
-        font-size: 1.2em;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        margin: 8px 0 0 0;
-        background: transparent;
-        padding: 0;
-        display: inline-block;
-        box-shadow: none;
-    }
-    .cover-footer {
-        position: absolute;
-        bottom: 1cm;
-        right: 2cm;
-        font-size: 0.8em;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        opacity: 1;
-    }
-    /* Hide default elements we don't need */
-    .cover-box { display: none; }
-    """
-    
-    # Clean up ANY existing cover overrides (duplicates or old versions)
-    if soup.head:
-        for tag in soup.head.find_all('style'):
-            if tag.string and "OVERRIDES FOR COVER PAGE" in tag.string:
-                tag.decompose()
-    
-    # Add fresh style tag
-    style_tag = soup.new_tag('style', id='cover-overrides')
-    style_tag.string = css_overrides
-    if soup.head:
-        soup.head.append(style_tag)
+    # NOTE (2026-05-01): cover CSS is now sourced from the canonical template
+    # (canonical/pdf-base/Week_01.html) which carries `<style id="cover-overrides">`
+    # in its head. We no longer strip-and-reinject it here — the canonical's
+    # block flows through BeautifulSoup's parse/serialize cycle unmodified, so
+    # all 40 regenerated weeks inherit the same cover CSS as Week 1.
+    # This removes the Round-5-vs-Round-15/16 footgun where this script
+    # silently re-injected stale CSS over canonical edits.
 
     # REBUILD COVER PAGE HTML
     cover_div = soup.find('div', class_='cover-page')
@@ -1223,7 +1121,7 @@ def main():
         return
 
     # Load Template (Week_1_Lesson_Plan.html)
-    with open('Week_1_Lesson_Plan.html', 'r', encoding='utf-8') as f:
+    with open('canonical/pdf-base/Week_01.html', 'r', encoding='utf-8') as f:
         template_html = f.read()
 
     success_count = 0
@@ -1261,7 +1159,7 @@ def main():
             process_page_numbers(soup, week_number)  # cumulative; covers skipped
             
             # Save
-            output_filename = f'lessons/Week_{week_number}_Lesson_Plan.html'
+            output_filename = f'lessons/Week_{week_number:02d}.html'
             with open(output_filename, 'w', encoding='utf-8') as f:
                 f.write(str(soup))
                 

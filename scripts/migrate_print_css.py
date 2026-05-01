@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Migrate print-relevant CSS from the interactive overlay layer into each
-base Week_*_Lesson_Plan.html so that printed PDFs (rendered from base files
+base Week_*.html so that printed PDFs (rendered from base files
 via Playwright in batch_convert_pdf.py) inherit the same horizontal-bullet
 + tall-Q6 layout the digital interactive HTMLs already show.
 
@@ -26,7 +26,7 @@ The script is idempotent: running with --apply twice produces no further
 changes (PRINT-LAYOUT-V1 sentinel guards Step 1, `q-tall` membership check
 guards Step 2).
 
-NOTE: This only modifies BASE Week_*_Lesson_Plan.html files in the repo
+NOTE: This only modifies BASE Week_*.html files in the repo
 ROOT. Files inside Interactive/ are not touched (those are regenerated
 fresh by make_interactive.py each run).
 """
@@ -167,9 +167,9 @@ def main() -> int:
                     help="Write changes back to disk (default: dry run).")
     args = ap.parse_args()
 
-    files = sorted(REPO_ROOT.glob("Week_*_Lesson_Plan.html"))
+    files = sorted(REPO_ROOT.glob("Week_*.html"))
     if not files:
-        print(f"No Week_*_Lesson_Plan.html files in {REPO_ROOT}",
+        print(f"No Week_*.html files in {REPO_ROOT}",
               file=sys.stderr)
         return 2
 

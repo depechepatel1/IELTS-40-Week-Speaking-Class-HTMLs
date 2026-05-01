@@ -11,7 +11,7 @@ Usage:
 Idempotent — re-running with the same args overwrites the output. Originals
 are NEVER modified; output always lands in --out.
 
-The script applies three insertions to each `Week_*_Lesson_Plan.html`:
+The script applies three insertions to each `Week_*.html`:
   1. CSS block (with embedded base64 woff2 fonts) after the `.lines {}` rule
   2. Wraps the two `.draft-page` `<div class="lines">` elements in
      `<div class="lines-overlay-host">` along with the overlay UI snippets
@@ -50,10 +50,10 @@ class SkipFile(RuntimeError):
 
 def _files_to_process(in_path: Path) -> Iterable[Path]:
     if in_path.is_file():
-        if re.fullmatch(r"Week_\d+_Lesson_Plan\.html", in_path.name):
+        if re.fullmatch(r"Week_\d{2}\.html", in_path.name):
             yield in_path
         return
-    for p in sorted(in_path.glob("Week_*_Lesson_Plan.html")):
+    for p in sorted(in_path.glob("Week_*.html")):
         yield p
 
 
@@ -317,7 +317,7 @@ def transform(orig_path: Path, endpoint: str, bucket_base: str,
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--in", dest="src", required=True, type=Path,
-                    help="Folder containing originals OR a single Week_*_Lesson_Plan.html")
+                    help="Folder containing originals OR a single Week_NN.html")
     ap.add_argument("--out", dest="dst", required=True, type=Path,
                     help="Output folder for interactive files")
     ap.add_argument("--endpoint", required=True,

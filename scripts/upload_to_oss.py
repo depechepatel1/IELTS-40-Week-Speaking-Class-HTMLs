@@ -50,7 +50,7 @@ def main() -> int:
 
     # 2. Upload 40 interactive HTMLs with Text/HTML mime.
     interactive = REPO / "Interactive"
-    htmls = sorted(interactive.glob("Week_*_Lesson_Plan.html"))
+    htmls = sorted(interactive.glob("Week_*.html"))
     print(f"\nUploading {len(htmls)} HTML files...")
     for f in htmls:
         bucket.put_object_from_file(

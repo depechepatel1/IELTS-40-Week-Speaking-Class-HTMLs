@@ -21,3 +21,37 @@ Thumbs.db
 
 # Browser smoke-test screenshots from Chrome MCP (ephemeral)
 smoke-test-*.png
+
+# Pipeline scratch outputs (regenerated; never commit)
+lessons/
+
+# Backup / version-suffix files (delete instead of commit)
+*.backup
+*.backup_*
+*_backup_*
+*_v[0-9]_*.html
+*_v[0-9][0-9]_*.html
+
+# Debug dumps + scratch files
+.bug_dump.txt
+.ielts_pages.txt
+.section6_render.txt
+.section_chunks.txt
+.recovered_curriculum/
+
+# Local-only credentials and config
+*.credentials
+*.aliyun-key
+.env
+.env.*
+
+# Editor swap files
+*.swp
+*.swo
+
+# Print test artifacts
+*_BASE_print_test.pdf
+*_print_test.pdf
+
+# Claude Code session-local config
+.claude/settings.local.json

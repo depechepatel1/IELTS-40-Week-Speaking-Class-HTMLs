@@ -215,7 +215,7 @@ def main() -> int:
     step4_request_https(ak, sk)
     print()
 
-    print(f"Done. Test:  https://{FULL_HOST}/Week_1_Lesson_Plan.html")
+    print(f"Done. Test:  https://{FULL_HOST}/Week_01.html")
     return 0
 
 
