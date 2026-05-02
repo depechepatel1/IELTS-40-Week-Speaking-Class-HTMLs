@@ -37,22 +37,23 @@
 
 ### High value, deferred until you decide
 
-**1. Compress course_pipeline images** (saves ~30 MB of CDN traffic per
-viewer; PNGs are currently 7.5 MB each)
-- Run `optipng -o7` or `pngcrush -reduce` on each image
-- Or use Squoosh / TinyPNG (web tools)
-- Target: ~1-2 MB per image (4-6× smaller)
-- After compression, re-upload via `python scripts/publish.py --skip-fanout`
-- Cache headers already 7-day so first viewer pays the cost; subsequent
-  viewers free.
+**1. ~~Compress course_pipeline images~~** ✅ DONE 2026-05-02
+- PNGs (~7.5 MB each) replaced with JPGs (~700-950 KB each, 9-11× smaller)
+- Page weight: ~24 MB → 2.8 MB (88% reduction)
+- Old PNGs deleted from OSS (37 MB freed) + local repos (135 MB freed)
 
-**2. Enable FC logging** (caught us blind during Zhipu debugging)
-- Aliyun console → Function Compute → ielts-ai-correction →
-  Configuration → Logging → enable
-- Pick an existing Log project (or create `ielts-fc-logs`)
-- Log Store: `function-logs`, retention: 30 days
-- After enabled, `s logs --tail` will work for live debugging
-- Cost: ~¥1-2/month for our log volume
+**2. ~~Enable FC logging~~** ✅ DONE 2026-05-02
+- SLS project `aischool-fc-logs` created (cn-beijing region)
+- Logstore `ielts-ai-correction` created (30-day retention, 2 shards)
+- Index configured for `s logs` query support
+- `function-compute/s.yaml` has `logConfig:` block referencing both
+- Verified: `s logs --time=N` returns FC Invoke Start/End records
+  with matching Request IDs.
+- Cost: under ¥1/month at current ~50 reqs/day (mostly storage; ingest
+  is well under 1 GB/month).
+- Usage: `cd function-compute && s logs --time=600` to see the last
+  10 minutes of FC stdout/stderr. Matches Aliyun's web console at
+  https://sls.console.aliyun.com/lognext/project/aischool-fc-logs/logsearch/ielts-ai-correction
 
 **3. Cert auto-renewal verification** (expiry late July)
 - Aliyun CDN console → each domain → HTTPS → confirm "auto-renewal"

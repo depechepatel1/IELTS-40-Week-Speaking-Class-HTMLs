@@ -19,6 +19,17 @@ resources:
       timeout: 60
       diskSize: 512
       code: ./
+      # Log Service config (added 2026-05-02). FC stdout/stderr ships
+      # to SLS so we can use `s logs --tail` for live debugging instead
+      # of having to redeploy with console.error every time. Project +
+      # logstore created via aliyun-log-python-sdk; see scripts in
+      # IELTS repo. Cost: <¥1/month at our log volume.
+      logConfig:
+        project: aischool-fc-logs
+        logstore: ielts-ai-correction
+        enableRequestMetrics: true
+        enableInstanceMetrics: true
+        logBeginRule: DefaultRegex
       environmentVariables:
         ZHIPU_API_KEY: ${env('ZHIPU_API_KEY')}
         # Model ID hardcoded 2026-05-02 to glm-4-flash. We previously read
