@@ -21,7 +21,12 @@ resources:
       code: ./
       environmentVariables:
         ZHIPU_API_KEY: ${env('ZHIPU_API_KEY')}
-        ZHIPU_MODEL_ID: ${env('ZHIPU_MODEL_ID')}
+        # Model ID hardcoded 2026-05-02 to glm-4-flash. We previously read
+        # this from a local env var which let the deployed FC drift to
+        # glm-4.7-flash (which Zhipu rate-limits aggressively during class
+        # hours, error 1305). Hardcoded here to avoid silent drift; edit
+        # this string + `s deploy` to change models.
+        ZHIPU_MODEL_ID: "glm-4-flash"
       # Concurrency cap: default per-instance is 1 (FC v3), and instance
       # concurrency cap defaults around 100. Raising both gives the function
       # headroom for start-of-class burst (~200 students hitting Correct
