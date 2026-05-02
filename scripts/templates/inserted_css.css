@@ -802,3 +802,150 @@
  * HTMLs show. Don't re-add them here — that would create two sources of
  * truth for the same visual rule. See WORKFLOW.md for the full
  * print-vs-digital CSS partitioning convention. */
+
+/* ====================================================================
+   Email Recordings button + toast (2026-05-02)
+
+   Added by `ns.emailLessonRecordings()` flow. The button is anchored
+   bottom-right of its containing card via absolute positioning; the
+   parent card needs `position: relative` (added via .has-email-btn).
+   The button is hidden by default and only shown when the body has
+   the `is-interactive` class — make_interactive.py adds that during
+   its transform pass, so PDF base files never render the button.
+   ==================================================================== */
+
+.email-recordings-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #c4b5fd;
+    background: #ede9fe;
+    color: #5b21b6;
+    font-size: 1.1em;
+    line-height: 1;
+    cursor: pointer;
+    display: none; /* hidden by default; flipped on by body.is-interactive */
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    z-index: 5;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
+.email-recordings-btn:hover {
+    background: #ddd6fe;
+    transform: scale(1.08);
+    box-shadow: 0 4px 10px rgba(91,33,182,0.18);
+}
+.email-recordings-btn:active { transform: scale(0.94); }
+.email-recordings-btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+
+/* Containers that host the email button must establish a positioning
+   context; use this opt-in class so we don't accidentally affect every
+   .floating-window or .card on the page. */
+.floating-window.has-email-btn,
+.card.has-email-btn {
+    position: relative;
+}
+
+/* Print-mode gate: the button only appears in interactive layer.
+   make_interactive.py inserts class="is-interactive" on <body> during
+   its transform; PDF-base / printable HTMLs never have it, so the
+   button stays hidden in printed PDFs. */
+body.is-interactive .email-recordings-btn {
+    display: flex;
+}
+
+/* Toast — bottom-center floating notification used after click. */
+.email-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.30);
+    font-size: 0.92em;
+    font-family: 'Lato', -apple-system, sans-serif;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    max-width: 90vw;
+    text-align: center;
+}
+.email-toast.visible {
+    opacity: 1;
+}
+
+/* Completion panel — shown after a successful email-recordings click.
+   Fallback for users whose mailto: didn't open a mail client (popup
+   blocker OR no default app). The "Re-open email" button retries the
+   mailto in a fresh user gesture; "Copy details" copies the recipient,
+   subject, and body for paste into webmail (Gmail / Outlook web). */
+.email-completion-panel {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    gap: 12px;
+    padding: 14px 18px;
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-left: 4px solid #5b21b6;
+    border-radius: 10px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.16);
+    z-index: 10001;
+    max-width: 380px;
+    font-family: 'Lato', -apple-system, sans-serif;
+    font-size: 0.88em;
+    color: #1e293b;
+    animation: ecp-slide-in 0.25s ease-out;
+}
+@keyframes ecp-slide-in {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+.ecp-icon { font-size: 1.7em; flex: 0 0 auto; line-height: 1; }
+.ecp-content { flex: 1; min-width: 0; }
+.ecp-line { margin-bottom: 4px; word-break: break-word; line-height: 1.4; }
+.ecp-mono { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.85em; color: #475569; }
+.ecp-hint {
+    color: #64748b;
+    font-size: 0.85em;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+.ecp-hint em { color: #5b21b6; font-style: normal; font-weight: 600; }
+.ecp-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.ecp-reopen {
+    background: #5b21b6;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9em;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+.ecp-reopen:hover { background: #6d28d9; }
+.ecp-copy, .ecp-close {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+.ecp-copy:hover, .ecp-close:hover { background: #e2e8f0; }

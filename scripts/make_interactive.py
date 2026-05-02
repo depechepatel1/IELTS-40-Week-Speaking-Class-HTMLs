@@ -301,6 +301,40 @@ def insertion_5_q_writing(html: str) -> str:
     return new_html
 
 
+_BODY_CLASS_RE = re.compile(r'<body\b([^>]*)>', re.IGNORECASE)
+
+
+def insertion_6_body_class(html: str) -> str:
+    """Add `is-interactive` to <body class="..."> so interactive-only CSS
+    rules (e.g. `.email-recordings-btn` visibility) can target the
+    interactive layer without affecting print/PDF output. Idempotent —
+    skip if already present.
+    """
+    m = _BODY_CLASS_RE.search(html)
+    if not m:
+        return html
+    attrs = m.group(1)
+    if 'is-interactive' in attrs:
+        return html  # already added
+    if re.search(r'\bclass\s*=', attrs, re.IGNORECASE):
+        # Append to existing class list
+        new_attrs = re.sub(
+            r'(\bclass\s*=\s*"([^"]*)")',
+            lambda mm: f'class="{mm.group(2).strip()} is-interactive"',
+            attrs, count=1, flags=re.IGNORECASE,
+        )
+        # Same fallback for single-quoted class
+        if new_attrs == attrs:
+            new_attrs = re.sub(
+                r"(\bclass\s*=\s*'([^']*)')",
+                lambda mm: f"class='{mm.group(2).strip()} is-interactive'",
+                attrs, count=1, flags=re.IGNORECASE,
+            )
+    else:
+        new_attrs = attrs + ' class="is-interactive"'
+    return html[:m.start()] + f'<body{new_attrs}>' + html[m.end():]
+
+
 def transform(orig_path: Path, endpoint: str, bucket_base: str,
               minify: bool = True) -> str:
     """Apply the five insertions and return the new HTML."""
@@ -311,6 +345,7 @@ def transform(orig_path: Path, endpoint: str, bucket_base: str,
     html = insertion_5_q_writing(html)
     html = insertion_3_script(html, endpoint, bucket_base, orig_path.stem,
                               minify=minify)
+    html = insertion_6_body_class(html)
     return html
 
 
@@ -355,6 +390,28 @@ def main() -> int:
         except Exception as e:  # unexpected — fail loudly with file context
             print(f"FATAL while processing {orig_path.name}: {e}", file=sys.stderr)
             raise
+
+    # Sync images/ alongside the generated HTMLs so relative paths like
+    # `<img src="images/foo.png">` resolve when a user opens any
+    # Interactive/Week_NN.html locally OR via OSS root deployment.
+    # Without this step, all Interactive HTMLs render with broken-image
+    # placeholders even though the canonical references are correct.
+    src_images = args.src / "images" if args.src.is_dir() else args.src.parent / "images"
+    dst_images = args.dst / "images"
+    if src_images.is_dir():
+        import shutil
+        dst_images.mkdir(exist_ok=True)
+        copied = 0
+        for img in src_images.iterdir():
+            if img.is_file() and img.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif"):
+                shutil.copy2(img, dst_images / img.name)
+                copied += 1
+        if copied:
+            print(f"Synced {copied} image(s) from {src_images} -> {dst_images}")
+    else:
+        print(f"note: no images/ folder at {src_images} — Interactive HTMLs may show "
+              f"broken-image placeholders for embedded <img> tags",
+              file=sys.stderr)
 
     print(f"Processed: {len(processed)}")
     for n in processed:

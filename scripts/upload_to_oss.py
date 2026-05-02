@@ -72,6 +72,30 @@ def main() -> int:
     else:
         print("  WARN: pronunciations.json not found at repo root", file=sys.stderr)
 
+    # 4. Upload images/*.png — required for the <img src="images/foo.png">
+    # references inside each Week_NN.html. Without this step, all weeks
+    # render with broken-image placeholders for the course pipeline diagrams.
+    # We prefer the Interactive/images/ folder (matches what was just uploaded);
+    # fall back to repo root images/ if Interactive/images/ is missing.
+    candidates = [REPO / "Interactive" / "images", REPO / "images"]
+    src_images = next((p for p in candidates if p.is_dir()), None)
+    if src_images is None:
+        print("  WARN: no images/ folder found at Interactive/images or repo root — "
+              "skipping image upload", file=sys.stderr)
+    else:
+        mime_by_ext = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
+                       ".webp": "image/webp", ".svg": "image/svg+xml", ".gif": "image/gif"}
+        img_count = 0
+        for img in sorted(src_images.iterdir()):
+            if img.is_file() and img.suffix.lower() in mime_by_ext:
+                bucket.put_object_from_file(
+                    f"images/{img.name}", str(img),
+                    headers={"Content-Type": mime_by_ext[img.suffix.lower()]},
+                )
+                print(f"  [ok] images/{img.name}")
+                img_count += 1
+        print(f"Uploaded {img_count} image(s) from {src_images}")
+
     print(f"\nPublic base URL:")
     print(f"  https://{BUCKET_NAME}.oss-cn-beijing.aliyuncs.com/")
     print(f"\nSample file:")
