@@ -58,19 +58,33 @@ export function coalesceAdjacentSameOp(segs) {
   return out;
 }
 
-/** Group adjacent (delete, insert) pairs into one of seven rendering shapes:
+/** Longest common prefix of two strings (case-sensitive). */
+function longestCommonPrefix(a, b) {
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i]) i++;
+  return a.slice(0, i);
+}
+
+/** Group adjacent (delete, insert) pairs into one of EIGHT rendering shapes:
  *
  *  A. delete           B. insert            C. replace
  *  D. suffix-add    (Y starts with X, Y!==X)   e.g. child → children   → child<ins>ren</ins>
  *  E. prefix-add    (Y ends with X, Y!==X)     e.g. go → ago           → <ins>a</ins>go
  *  F. suffix-delete (X starts with Y, X!==Y)   e.g. understanding → understand → understand<del>ing</del>
  *  G. prefix-delete (X ends with Y, X!==Y)     e.g. ago → go           → <del>a</del>go
+ *  H. stem-change   (LCP≥3 chars, both tails 1-5 chars)
+ *                                              e.g. tired → tiring     → tir<del>ed</del><ins>ing</ins>
+ *                                                   heavy → heavily    → heav<del>y</del><ins>ily</ins>
  *
- * D/E/F/G keep the surviving stem in its original style and apply red
- * marks ONLY to the changed letters — the "minimal-red-ink" pedagogy
- * spelt out in the IGCSE port spec. They take precedence over the
- * generic `replace` shape (C), which renders the whole word as a
- * strikethrough plus an above-line correction.
+ * D/E/F/G/H keep the surviving stem in its original style and apply red
+ * marks ONLY to the changed letters — the "minimal-red-ink" pedagogy.
+ * They take precedence over the generic `replace` shape (C), which
+ * renders the whole word as a strikethrough plus an above-line correction.
+ *
+ * Case H thresholds: LCP must be ≥3 (avoids false positives like
+ * good→god where "go" is meaningful overlap), and both tails must be
+ * 1–5 chars (avoids tagging non-word-form changes like
+ * category→catastrophic as stem-changes).
  */
 export function classifyPairs(segs) {
   const out = [];
@@ -91,7 +105,17 @@ export function classifyPairs(segs) {
         // G. prefix-delete — ago → go
         out.push({ op: 'prefix-delete', deleted: x.slice(0, x.length - y.length), kept: y });
       } else {
-        out.push({ op: 'replace', deleted: x, inserted: y });
+        const lcp = longestCommonPrefix(x, y);
+        const xTail = x.slice(lcp.length);
+        const yTail = y.slice(lcp.length);
+        if (lcp.length >= 3
+            && xTail.length >= 1 && xTail.length <= 5
+            && yTail.length >= 1 && yTail.length <= 5) {
+          // H. stem-change — tired→tiring, heavy→heavily, make→making
+          out.push({ op: 'stem-change', kept: lcp, deleted: xTail, inserted: yTail });
+        } else {
+          out.push({ op: 'replace', deleted: x, inserted: y });
+        }
       }
       i += 2;
     } else {
@@ -138,6 +162,14 @@ export function renderMarkup(classified) {
         break;
       case 'prefix-delete':
         parts.push(`${space}<del class="del-prefix">${escHtml(seg.deleted)}</del>${escHtml(seg.kept)}`);
+        break;
+      case 'stem-change':
+        // The kept stem stays unstruck in normal handwriting style. Just the
+        // changed letters at the end of the word are struck (in del-suffix
+        // style), and the new ending floats as a small superscript above
+        // the strike via .stem-change-pair (a positioning context — same
+        // recipe as .replace-pair).
+        parts.push(`${space}${escHtml(seg.kept)}<span class="stem-change-pair"><del class="del-suffix">${escHtml(seg.deleted)}</del><ins class="ins-above">${escHtml(seg.inserted)}</ins></span>`);
         break;
     }
   });

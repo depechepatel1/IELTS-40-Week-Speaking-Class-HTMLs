@@ -11,7 +11,7 @@ Usage:
 Idempotent — re-running with the same args overwrites the output. Originals
 are NEVER modified; output always lands in --out.
 
-The script applies three insertions to each `Week_*_Lesson_Plan.html`:
+The script applies three insertions to each `Week_*.html`:
   1. CSS block (with embedded base64 woff2 fonts) after the `.lines {}` rule
   2. Wraps the two `.draft-page` `<div class="lines">` elements in
      `<div class="lines-overlay-host">` along with the overlay UI snippets
@@ -26,6 +26,18 @@ import sys
 from pathlib import Path
 from typing import Iterable
 
+# Optional minification — saves ~40% on the JS+CSS bytes shipped per Week
+# HTML (~36 KB per file with current code). If rjsmin / rcssmin aren't
+# installed we silently fall back to unminified output (the script still
+# works, the files are just larger). Install with:
+#     pip install rjsmin rcssmin
+try:
+    import rjsmin  # type: ignore
+    import rcssmin  # type: ignore
+    _HAVE_MINIFIERS = True
+except ImportError:
+    _HAVE_MINIFIERS = False
+
 SENTINEL = "<!-- AI-INTERACTIVE-V1 -->"
 SCRIPT_DIR = Path(__file__).resolve().parent
 TEMPLATE_DIR = SCRIPT_DIR / "templates"
@@ -38,10 +50,10 @@ class SkipFile(RuntimeError):
 
 def _files_to_process(in_path: Path) -> Iterable[Path]:
     if in_path.is_file():
-        if re.fullmatch(r"Week_\d+_Lesson_Plan\.html", in_path.name):
+        if re.fullmatch(r"Week_\d{2}\.html", in_path.name):
             yield in_path
         return
-    for p in sorted(in_path.glob("Week_*_Lesson_Plan.html")):
+    for p in sorted(in_path.glob("Week_*.html")):
         yield p
 
 
@@ -69,18 +81,22 @@ def _load_fonts() -> dict[str, str]:
     return out
 
 
-def _load_inserted_css() -> str:
+def _load_inserted_css(minify: bool = True) -> str:
     css = (TEMPLATE_DIR / "inserted_css.css").read_text(encoding="utf-8")
     fonts = _load_fonts()
     for token, b64 in fonts.items():
         if token not in css:
             raise SkipFile(f"CSS template missing placeholder {token}.")
         css = css.replace(token, b64, 1)
+    if minify and _HAVE_MINIFIERS:
+        # Minify AFTER font substitution so the base64 strings are passed
+        # through verbatim (cssmin treats data: URLs correctly).
+        css = rcssmin.cssmin(css)
     return css
 
 
-def insertion_1_css(html: str) -> str:
-    css = _load_inserted_css()
+def insertion_1_css(html: str, minify: bool = True) -> str:
+    css = _load_inserted_css(minify=minify)
     block = f"\n    /* {SENTINEL} CSS */\n    {css}\n"
     # Capture the matched rule as a closure variable so the replacement is a
     # plain string concatenation, not a regex template (avoids back-reference
@@ -150,12 +166,20 @@ def insertion_2_draft_page(html: str) -> str:
 BODY_CLOSE_RE = re.compile(r"</body>", re.IGNORECASE)
 
 
-def insertion_3_script(html: str, endpoint: str, bucket_base: str, lesson_key: str) -> str:
+def insertion_3_script(html: str, endpoint: str, bucket_base: str, lesson_key: str,
+                       minify: bool = True) -> str:
     js = (TEMPLATE_DIR / "inserted_script.js").read_text(encoding="utf-8")
     pron_url = bucket_base.rstrip("/") + "/pronunciations.json"
     js = js.replace("__AI_ENDPOINT__", endpoint.rstrip("/"))
     js = js.replace("__PRONUNCIATIONS_URL__", pron_url)
     js = js.replace("__LESSON_KEY__", lesson_key)
+    if minify and _HAVE_MINIFIERS:
+        # rjsmin is whitespace+comment minification only — it does NOT
+        # rename identifiers or reorder code, so it's safe for this
+        # IIFE-wrapped script that exposes only `window.__ielts.*` from
+        # the outside. Modern syntax (async/await, template literals,
+        # arrow functions) is preserved verbatim.
+        js = rjsmin.jsmin(js)
     block = f"\n<script>\n/* {SENTINEL} SCRIPT */\n{js}\n</script>\n"
     # Use a callable replacement so Python doesn't interpret JS regex escapes
     # (e.g. `/\s+/` inside the script) as back-references.
@@ -168,26 +192,183 @@ def insertion_3_script(html: str, endpoint: str, bucket_base: str, lesson_key: s
 
 # ---------- Compose ----------
 
-def transform(orig_path: Path, endpoint: str, bucket_base: str) -> str:
-    """Apply the three insertions and return the new HTML."""
+# ---------- Insertion 4: brainstorming-map quadrants editable + recorder ----------
+
+# Each <div class="spider-leg"> becomes contenteditable so students can
+# type or scribble (iPad Scribble) their own notes in each quadrant.
+SPIDER_LEG_OPEN_RE = re.compile(
+    r'(<div class="spider-leg")(\s|>)',
+)
+# Each <div class="spider-container"> gets a small recorder widget at top-right
+# of the PARENT card (not inside the spider-container itself, since the spider
+# layout is a fixed-aspect grid that would clip absolute children at its top).
+# We inject the widget as a SIBLING immediately BEFORE the spider-container
+# opening tag — the parent card's `:has(> .voice-recorder-container.vr-inline)`
+# CSS rule promotes that card to `position: relative` so the recorder anchors
+# to the card's top-right corner.
+SPIDER_CONTAINER_OPEN_RE = re.compile(
+    r'(<div class="spider-container"[^>]*>)',
+)
+
+
+def insertion_4_brainstorming_maps(html: str) -> str:
+    """Make spider-legs contenteditable + add a unique recorder per spider-container."""
+    # Idempotency check: look for the actual SPIDER-LEG markup with the
+    # contenteditable attribute applied — NOT just the bare attribute string,
+    # which also occurs inside the injected CSS rule
+    # `.spider-leg[contenteditable="plaintext-only"] { ... }`.
+    if re.search(r'<div class="spider-leg"[^>]*\bcontenteditable\b', html):
+        return html
+
+    # 1. spider-leg → contenteditable
+    new_html, leg_count = SPIDER_LEG_OPEN_RE.subn(
+        lambda m: m.group(1) + ' contenteditable="plaintext-only"' + m.group(2),
+        html,
+    )
+    if leg_count == 0:
+        # No spider-legs at all — skip silently, this insertion is best-effort.
+        return html
+
+    # 2. spider-container → inject recorder widget with unique recorder-id
+    inline_template = (TEMPLATE_DIR / "voice_recorder_widget_inline.html").read_text(encoding="utf-8")
+    map_counter = {"n": 0}
+
+    def inject_map_recorder(m: re.Match) -> str:
+        map_counter["n"] += 1
+        recorder_id = f"map-{map_counter['n']}"
+        widget = inline_template.replace("__RECORDER_ID__", recorder_id, 1)
+        # Inject BEFORE the spider-container opening tag so the recorder is a
+        # sibling (anchored to the parent card's top-right via CSS), NOT a
+        # child of the fixed-aspect spider grid which would clip it.
+        return widget + "\n" + m.group(1)
+
+    new_html, _ = SPIDER_CONTAINER_OPEN_RE.subn(inject_map_recorder, new_html)
+    return new_html
+
+
+# ---------- Insertion 5: Q1-Q6 writing boxes — textarea overlay + recorder ----------
+
+# Each <h3>QN: ...</h3> heading marks a Q1..Q6 writing-box card. Inside that
+# card is a single empty `<div class="lines" ...></div>`. We replace it with:
+#   <div class="q-write-host">
+#     <textarea class="q-write-textarea" data-q-id="qN"></textarea>
+#     <ORIGINAL .lines></ORIGINAL>     <!-- preserved for print fallback -->
+#   </div>
+#   <recorder widget data-recorder-id="qN" />   <!-- SIBLING, not child -->
+# The recorder sits OUTSIDE .q-write-host so it can be absolute-positioned
+# against the parent green writing window's bottom-right corner without
+# fighting the textarea's `top:0; bottom:0` fill. The parent gains
+# `position: relative` via the CSS `:has(> .q-write-host)` rule.
+# Use a non-greedy regex that captures from the QN heading to the next .lines
+# div within the same card.
+Q_WRITE_RE = re.compile(
+    r'(<h3[^>]*>Q(\d+):)(.*?)(<div class="lines"[^>]*></div>)',
+    re.DOTALL,
+)
+
+
+def insertion_5_q_writing(html: str) -> str:
+    """Convert each Q1-Q6 .lines div into a textarea+recorder-host."""
+    # Idempotency check: look for an actual <div class="q-write-host"> in the
+    # body — NOT the bare class name, which also appears in the injected CSS
+    # rule `.q-write-host { ... }`.
+    if '<div class="q-write-host">' in html:
+        return html
+
+    inline_template = (TEMPLATE_DIR / "voice_recorder_widget_inline.html").read_text(encoding="utf-8")
+
+    def wrap(m: re.Match) -> str:
+        head = m.group(1)
+        n = m.group(2)
+        between = m.group(3)
+        orig_lines = m.group(4)
+        recorder_id = f"q{n}"
+        recorder = inline_template.replace("__RECORDER_ID__", recorder_id, 1)
+        # Recorder is a SIBLING of .q-write-host (both children of the green
+        # writing-window card) so the textarea can fill .q-write-host without
+        # clashing with the recorder's bottom-right anchor.
+        host = (
+            f'<div class="q-write-host">\n'
+            f'  <textarea class="q-write-textarea" data-q-id="{recorder_id}" '
+            f'spellcheck="false"></textarea>\n'
+            f'  {orig_lines}\n'
+            f'</div>\n'
+            f'{recorder}'
+        )
+        return f'{head}{between}{host}'
+
+    new_html, count = Q_WRITE_RE.subn(wrap, html)
+    return new_html
+
+
+_BODY_CLASS_RE = re.compile(r'<body\b([^>]*)>', re.IGNORECASE)
+
+
+def insertion_6_body_class(html: str) -> str:
+    """Add `is-interactive` to <body class="..."> so interactive-only CSS
+    rules (e.g. `.email-recordings-btn` visibility) can target the
+    interactive layer without affecting print/PDF output. Idempotent —
+    skip if already present.
+    """
+    m = _BODY_CLASS_RE.search(html)
+    if not m:
+        return html
+    attrs = m.group(1)
+    if 'is-interactive' in attrs:
+        return html  # already added
+    if re.search(r'\bclass\s*=', attrs, re.IGNORECASE):
+        # Append to existing class list
+        new_attrs = re.sub(
+            r'(\bclass\s*=\s*"([^"]*)")',
+            lambda mm: f'class="{mm.group(2).strip()} is-interactive"',
+            attrs, count=1, flags=re.IGNORECASE,
+        )
+        # Same fallback for single-quoted class
+        if new_attrs == attrs:
+            new_attrs = re.sub(
+                r"(\bclass\s*=\s*'([^']*)')",
+                lambda mm: f"class='{mm.group(2).strip()} is-interactive'",
+                attrs, count=1, flags=re.IGNORECASE,
+            )
+    else:
+        new_attrs = attrs + ' class="is-interactive"'
+    return html[:m.start()] + f'<body{new_attrs}>' + html[m.end():]
+
+
+def transform(orig_path: Path, endpoint: str, bucket_base: str,
+              minify: bool = True) -> str:
+    """Apply the five insertions and return the new HTML."""
     html = orig_path.read_text(encoding="utf-8")
-    html = insertion_1_css(html)
+    html = insertion_1_css(html, minify=minify)
     html = insertion_2_draft_page(html)
-    html = insertion_3_script(html, endpoint, bucket_base, orig_path.stem)
+    html = insertion_4_brainstorming_maps(html)
+    html = insertion_5_q_writing(html)
+    html = insertion_3_script(html, endpoint, bucket_base, orig_path.stem,
+                              minify=minify)
+    html = insertion_6_body_class(html)
     return html
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--in", dest="src", required=True, type=Path,
-                    help="Folder containing originals OR a single Week_*_Lesson_Plan.html")
+                    help="Folder containing originals OR a single Week_NN.html")
     ap.add_argument("--out", dest="dst", required=True, type=Path,
                     help="Output folder for interactive files")
     ap.add_argument("--endpoint", required=True,
                     help="Function Compute URL (e.g. https://abc.fcapp.run)")
     ap.add_argument("--bucket-base", required=True,
                     help="Public bucket URL prefix where pronunciations.json lives")
+    ap.add_argument("--no-minify", dest="minify", action="store_false",
+                    help="Skip JS+CSS minification (useful for debugging — produces "
+                         "readable output but ~40%% larger files).")
+    ap.set_defaults(minify=True)
     args = ap.parse_args()
+
+    if args.minify and not _HAVE_MINIFIERS:
+        print("note: rjsmin/rcssmin not installed — emitting unminified output. "
+              "Install with `pip install rjsmin rcssmin` for ~40%% smaller files.",
+              file=sys.stderr)
 
     if not args.src.exists():
         print(f"error: --in path does not exist: {args.src}", file=sys.stderr)
@@ -199,7 +380,8 @@ def main() -> int:
 
     for orig_path in _files_to_process(args.src):
         try:
-            new_html = transform(orig_path, args.endpoint, args.bucket_base)
+            new_html = transform(orig_path, args.endpoint, args.bucket_base,
+                                 minify=args.minify)
             out_path = args.dst / orig_path.name
             out_path.write_text(new_html, encoding="utf-8", newline="\n")
             processed.append(orig_path.name)
@@ -208,6 +390,28 @@ def main() -> int:
         except Exception as e:  # unexpected — fail loudly with file context
             print(f"FATAL while processing {orig_path.name}: {e}", file=sys.stderr)
             raise
+
+    # Sync images/ alongside the generated HTMLs so relative paths like
+    # `<img src="images/foo.png">` resolve when a user opens any
+    # Interactive/Week_NN.html locally OR via OSS root deployment.
+    # Without this step, all Interactive HTMLs render with broken-image
+    # placeholders even though the canonical references are correct.
+    src_images = args.src / "images" if args.src.is_dir() else args.src.parent / "images"
+    dst_images = args.dst / "images"
+    if src_images.is_dir():
+        import shutil
+        dst_images.mkdir(exist_ok=True)
+        copied = 0
+        for img in src_images.iterdir():
+            if img.is_file() and img.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif"):
+                shutil.copy2(img, dst_images / img.name)
+                copied += 1
+        if copied:
+            print(f"Synced {copied} image(s) from {src_images} -> {dst_images}")
+    else:
+        print(f"note: no images/ folder at {src_images} — Interactive HTMLs may show "
+              f"broken-image placeholders for embedded <img> tags",
+              file=sys.stderr)
 
     print(f"Processed: {len(processed)}")
     for n in processed:

@@ -30,7 +30,7 @@ def extract_words() -> set[str]:
     """
     words: set[str] = set()
     bold = re.compile(r"<strong[^>]*>([^<]+)</strong>", re.IGNORECASE)
-    for p in sorted(REPO.glob("Week_*_Lesson_Plan.html")):
+    for p in sorted(REPO.glob("Week_*.html")):
         text = p.read_text(encoding="utf-8")
         for m in bold.finditer(text):
             content = m.group(1).strip()

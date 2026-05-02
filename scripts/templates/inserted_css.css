@@ -27,10 +27,28 @@
 /* The pastel-green Draft / Polished boxes become positioning contexts so
    the absolute-positioned `.button-row` sits at THEIR top-right (next to
    the <strong>Draft:</strong> heading), NOT over the lines area. They are
-   also column flex containers so `.lines-overlay-host` can flex-grow. */
-.draft-page > div > div {
+   also column flex containers so `.lines-overlay-host` can flex-grow.
+   `:has(> .lines-overlay-host)` scopes this strictly to the actual
+   pastel-box wrapper — without it, IGCSE's flatter structure would
+   accidentally hit `.draft-page > .lines-overlay-host > .draft-markup`,
+   blockifying .replace-pair / .gap-anchor children inside .draft-markup
+   and stacking each correction onto its own full-width row. */
+.draft-page > div > div:has(> .lines-overlay-host) {
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+/* IGCSE FLAVOR: Sections 7 and 8 use `.floating-window.draft-page` directly
+   — no nested .draft-page > div > div structure like IELTS. Without an
+   explicit positioning context on the floating-window itself, the
+   .button-row's `position: absolute` would escape to the nearest
+   positioned ancestor (often the .a4-page or body), causing Section 8's
+   polished-listen-row to overlay Section 7's "Correct with AI" buttons
+   at the same absolute coordinates. Promoting the floating-window to
+   position:relative anchors each section's button-row inside its own
+   box. */
+.floating-window.draft-page {
     position: relative;
 }
 
@@ -248,6 +266,18 @@
     line-height: 1;
 }
 
+/* H. stem-change — wraps the struck tail + above-line correction so the
+   .ins-above can absolute-position centered over the strike (NOT over the
+   kept stem prefix, which sits to the left in normal flow as plain text).
+   Same `display:inline-block; position:relative; line-height:1` recipe as
+   .replace-pair so the absolute child centers naturally. */
+.draft-markup .stem-change-pair {
+    display: inline-block;
+    position: relative;
+    vertical-align: baseline;
+    line-height: 1;
+}
+
 /* Red caret rendered inline — marks the insertion point on the writing
    line. The `^` glyph sits high in its em box by default (its base at
    roughly cap-height, not baseline), so we push it down 6px so the
@@ -349,12 +379,42 @@
     border-width: 1px;
 }
 
-/* Pause-button toggles to a "Resume" play-style button when paused.
- * Visually distinct so the student knows tapping it again will resume. */
-.tts-btn.pause.paused {
-    background: #fef3c7;
-    border-color: #f59e0b;
-    color: #92400e;
+/* Sentence-paced transport buttons — Prev / Replay / Next.
+ * Distinct blue tone so the navigation cluster reads as one group;
+ * sits to the right of the accent picker + slow button. */
+.tts-btn.prev,
+.tts-btn.replay,
+.tts-btn.next {
+    background: #f0f9ff;
+    border-color: #93c5fd;
+    color: #1e40af;
+}
+.tts-btn.prev:hover:not(:disabled),
+.tts-btn.replay:hover:not(:disabled),
+.tts-btn.next:hover:not(:disabled) {
+    background: #dbeafe;
+}
+/* Replay glows during in-flight playback so the student can see which
+ * sentence the audio came from (mirrors the .speaking word highlight). */
+.tts-btn.replay.speaking {
+    background: #2563eb;
+    border-color: #1d4ed8;
+    color: white;
+}
+
+/* Sentence counter (e.g. "2/5") — sits between the slow button and the
+ * sentence-transport cluster. Pure UX feedback; no click target. */
+.sentence-counter {
+    font-family: 'Lato', monospace;
+    font-size: 0.7em;
+    font-weight: 600;
+    color: #475569;
+    padding: 0 4px;
+    min-width: 22px;
+    text-align: center;
+    user-select: none;
+    pointer-events: none;
+    line-height: 1.4;
 }
 
 /* Subtle pulsing ring on the listen-row whose audio is currently playing.
@@ -500,6 +560,36 @@
     cursor: not-allowed;
 }
 .voice-recorder-container .vr-record { color: #c0392b; border-color: #c0392b; }
+
+/* Discrete "recording exists" indicator — a small solid green dot
+ * appended to the recorder cluster whenever the student has a saved
+ * recording for this section. Toggled by vrSetState() in
+ * inserted_script.js when state transitions to 'saved'.
+ *
+ * Solid green = saved recording present; absent = no recording yet.
+ * Sits flush right of the .vr-time element inside .vr-controls flow,
+ * so it adds zero layout shift when toggling on/off (the ::after slot
+ * is just empty when there's no recording). Half-em dot keeps it
+ * discreet but immediately readable. */
+.voice-recorder-container.has-recording::after {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #27ae60;
+    margin-left: 4px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.7);
+    flex-shrink: 0;
+    align-self: center;
+}
+/* Inline-recorder variant: the cluster is more cramped, so we use a
+ * slightly smaller dot and tighter margin. */
+.voice-recorder-container.vr-inline.has-recording::after {
+    width: 6px;
+    height: 6px;
+    margin-left: 3px;
+}
 .voice-recorder-container .vr-record.recording {
     background: #c0392b; color: white;
     animation: vr-pulse 1.4s ease-in-out infinite;
@@ -535,3 +625,327 @@
 @media print {
     .voice-recorder-container { display: none !important; }
 }
+
+/* === Inline recorder (brainstorming maps + Q1-Q6 writing boxes) ===
+ * The .vr-inline variant is absolute-positioned over a corner of its
+ * parent (top-right for spider-containers, bottom-right for Q1-Q6 green
+ * inner boxes). It's smaller than the full polished-section recorder
+ * (no text label, tighter padding) so it doesn't crowd the content. */
+.voice-recorder-container.vr-inline {
+    position: absolute !important;
+    margin: 0 !important;
+    padding: 1px 3px !important;
+    background: rgba(255,255,255,0.92) !important;
+    border: 1px solid #d6dbdf !important;
+    border-radius: 6px !important;
+    z-index: 5;
+    width: auto !important;
+    gap: 3px !important;
+    font-size: 0.72em;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+.voice-recorder-container.vr-inline .vr-btn {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    flex: 0 0 18px !important;
+    font-size: 0.62em !important;
+}
+.voice-recorder-container.vr-inline .vr-time {
+    min-width: 32px !important;
+    font-size: 0.85em !important;
+}
+/* The map recorder is now a SIBLING of .spider-container (both children of
+   the parent .card), so it anchors to the card's top-right via :has(). The
+   :has() selector is supported in all evergreen browsers (Chrome 105+,
+   Safari 15.4+, Firefox 121+) — same compatibility floor we already require
+   for the rest of the AI-interactive layer. */
+.card:has(> .voice-recorder-container.vr-inline) {
+    position: relative;
+}
+.card > .voice-recorder-container.vr-inline {
+    top: 4px;
+    right: 4px;
+}
+
+/* IGCSE Section 5 / Section 6 override: the IGCSE floating-window-style
+   .card holds a substantial paragraph of model-answer text — anchoring
+   the recorder at top-right would crowd the section heading and overlap
+   the model paragraph's first line on narrow viewports. Instead, sit it
+   at the BOTTOM-right of the floating-window. The `.floating-window.card`
+   selector is specific to IGCSE — IELTS brainstorming-map cards don't
+   have `.floating-window`, so they keep the top-right placement. */
+.floating-window.card > .voice-recorder-container.vr-inline {
+    top: auto;
+    right: 8px;
+    bottom: 8px;
+}
+/* Reserve enough bottom padding inside the Section 5 / Section 6 boxes
+   that the bottom-right-anchored recorder never overlaps the model text.
+   Without this, on long model paragraphs the last line of text would sit
+   directly under the recorder buttons. 36px = 24px button height + 8px
+   bottom + 4px breathing room. */
+.floating-window.card:has(> .voice-recorder-container.vr-inline) {
+    padding-bottom: 36px;
+}
+
+/* The Q1-Q6 recorder is a SIBLING of .q-write-host (both children of the
+   inner green writing window), so it anchors to the green window's
+   bottom-right corner without competing with the textarea's `inset: 0`. */
+*:has(> .q-write-host) {
+    position: relative;
+}
+*:has(> .q-write-host) > .voice-recorder-container.vr-inline {
+    bottom: 4px;
+    right: 4px;
+}
+
+/* === Brainstorming-map quadrant editing (.spider-leg becomes contenteditable) ===
+ * iPad Apple Pencil Scribble works in any contenteditable element in
+ * Safari, so making each quadrant editable gives students the option to
+ * either type with a keyboard or handwrite with the pencil. The
+ * `plaintext-only` value prevents formatting glitches (no inline bold,
+ * italics, etc., from accidental keystrokes). */
+.spider-leg[contenteditable="plaintext-only"] {
+    cursor: text;
+    -webkit-user-select: text;
+    user-select: text;
+
+    /* Make each quadrant scroll its OWN content rather than overflowing
+       past the spider-container border. The leg already has
+       `display:flex; flex-direction:column; justify-content:center` —
+       we override justify-content to flex-start so when content
+       overflows, the scrollbar appears from the top of the box (not from
+       a vertically-centered overflow that would clip both ends).
+       `min-height: 0` is critical: without it, flex/grid auto-sizing
+       lets the leg expand to fit content rather than honouring the
+       parent grid row's bounded height, which kills scrolling. */
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+    justify-content: flex-start;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+/* Bound the spider grid rows so each .spider-leg gets a fixed slice of
+   the 160px container — without this the implicit rows auto-size to
+   content and a leg with lots of text just pushes the others smaller,
+   defeating the per-leg scroll. */
+.spider-legs:has(.spider-leg[contenteditable="plaintext-only"]) {
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+}
+.spider-leg[contenteditable="plaintext-only"]:focus {
+    outline: 2px dashed #3498db;
+    outline-offset: -2px;
+}
+/* Force the cue label and example onto separate lines without depending
+ * on the <br/> in the markup. Some Chromium versions normalise the
+ * <br/> to whitespace inside a flex+contenteditable+align-items:flex-end
+ * container, fusing "WHEN:" and "Last month" into "WLast month" in the
+ * right-aligned legs (2 and 4 of each spider grid). Promoting <strong>
+ * and the inline-styled example <span> to block layout makes each
+ * occupy its own line regardless of how the browser interprets <br/>.
+ * The <br/> in the source markup is harmless in block context. */
+.spider-leg > strong,
+.spider-leg > span {
+    display: block;
+}
+@media print {
+    .spider-leg[contenteditable] { outline: none !important; }
+}
+
+/* === Q1-Q6 writing windows: lined-paper textarea overlay ===
+ * Each Q's `.lines` div gets wrapped in a `.q-write-host` (positioning
+ * context for the textarea overlay AND for the inline recorder at
+ * bottom-right). The textarea fills the host via `inset: 0` and has the
+ * same handwriting-style ruled-paper background as the IGCSE Section 7+8
+ * (Caveat font, 32px stride, blue ink). iPad Scribble works in textarea
+ * too. */
+.q-write-host {
+    position: relative;
+    flex-grow: 1;
+    min-height: 90px;
+    overflow: hidden;
+}
+.q-write-host > .lines { display: none; }   /* hide the original print-only ruled lines */
+.q-write-textarea {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: 0;
+    padding: 4px 6px 4px 6px;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: 'Caveat', 'Bradley Hand', 'Comic Sans MS', cursive;
+    font-size: 22px;
+    color: #1a4d80;
+    line-height: 32px;
+    background: repeating-linear-gradient(transparent, transparent 31px, #95a5a6 32px);
+    background-attachment: local;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+@media print {
+    .q-write-host > .lines { display: block !important; }
+    .q-write-textarea { display: none !important; }
+}
+
+/* NOTE — horizontal scaffold-text bullets and the Q6 +20px height rule
+ * USED to live here, anchored to interactive-only markup
+ * (`:has(~ .q-write-host)`, `:has([data-q-id="q6"])`). They were migrated
+ * to the BASE template's <style> block by `scripts/migrate_print_css.py`
+ * so the printed PDFs (rendered from base files via Playwright) inherit
+ * the same horizontal-bullet / tall-Q6 layout the digital interactive
+ * HTMLs show. Don't re-add them here — that would create two sources of
+ * truth for the same visual rule. See WORKFLOW.md for the full
+ * print-vs-digital CSS partitioning convention. */
+
+/* ====================================================================
+   Email Recordings button + toast (2026-05-02)
+
+   Added by `ns.emailLessonRecordings()` flow. The button is anchored
+   bottom-right of its containing card via absolute positioning; the
+   parent card needs `position: relative` (added via .has-email-btn).
+   The button is hidden by default and only shown when the body has
+   the `is-interactive` class — make_interactive.py adds that during
+   its transform pass, so PDF base files never render the button.
+   ==================================================================== */
+
+.email-recordings-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #c4b5fd;
+    background: #ede9fe;
+    color: #5b21b6;
+    font-size: 1.1em;
+    line-height: 1;
+    cursor: pointer;
+    display: none; /* hidden by default; flipped on by body.is-interactive */
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    z-index: 5;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
+.email-recordings-btn:hover {
+    background: #ddd6fe;
+    transform: scale(1.08);
+    box-shadow: 0 4px 10px rgba(91,33,182,0.18);
+}
+.email-recordings-btn:active { transform: scale(0.94); }
+.email-recordings-btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+
+/* Containers that host the email button must establish a positioning
+   context; use this opt-in class so we don't accidentally affect every
+   .floating-window or .card on the page. */
+.floating-window.has-email-btn,
+.card.has-email-btn {
+    position: relative;
+}
+
+/* Print-mode gate: the button only appears in interactive layer.
+   make_interactive.py inserts class="is-interactive" on <body> during
+   its transform; PDF-base / printable HTMLs never have it, so the
+   button stays hidden in printed PDFs. */
+body.is-interactive .email-recordings-btn {
+    display: flex;
+}
+
+/* Toast — bottom-center floating notification used after click. */
+.email-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.30);
+    font-size: 0.92em;
+    font-family: 'Lato', -apple-system, sans-serif;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    max-width: 90vw;
+    text-align: center;
+}
+.email-toast.visible {
+    opacity: 1;
+}
+
+/* Completion panel — shown after a successful email-recordings click.
+   Fallback for users whose mailto: didn't open a mail client (popup
+   blocker OR no default app). The "Re-open email" button retries the
+   mailto in a fresh user gesture; "Copy details" copies the recipient,
+   subject, and body for paste into webmail (Gmail / Outlook web). */
+.email-completion-panel {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    gap: 12px;
+    padding: 14px 18px;
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-left: 4px solid #5b21b6;
+    border-radius: 10px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.16);
+    z-index: 10001;
+    max-width: 380px;
+    font-family: 'Lato', -apple-system, sans-serif;
+    font-size: 0.88em;
+    color: #1e293b;
+    animation: ecp-slide-in 0.25s ease-out;
+}
+@keyframes ecp-slide-in {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+.ecp-icon { font-size: 1.7em; flex: 0 0 auto; line-height: 1; }
+.ecp-content { flex: 1; min-width: 0; }
+.ecp-line { margin-bottom: 4px; word-break: break-word; line-height: 1.4; }
+.ecp-mono { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.85em; color: #475569; }
+.ecp-hint {
+    color: #64748b;
+    font-size: 0.85em;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+.ecp-hint em { color: #5b21b6; font-style: normal; font-weight: 600; }
+.ecp-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.ecp-reopen {
+    background: #5b21b6;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9em;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+.ecp-reopen:hover { background: #6d28d9; }
+.ecp-copy, .ecp-close {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+.ecp-copy:hover, .ecp-close:hover { background: #e2e8f0; }

@@ -5,7 +5,7 @@
   // Substituted by make_interactive.py at build time.
   const AI_ENDPOINT = "__AI_ENDPOINT__";
   const PRONUNCIATIONS_URL = "__PRONUNCIATIONS_URL__";
-  const LESSON_KEY = "__LESSON_KEY__"; // e.g. "Week_1_Lesson_Plan"
+  const LESSON_KEY = "__LESSON_KEY__"; // e.g. "Week_01"
 
   const ns = (window.__ielts = window.__ielts || {});
 
@@ -20,6 +20,75 @@
   const MALE_NEURAL_UK   = /Ryan|Thomas.*GB|Noah|Daniel|George|Oliver/i;
   const FEMALE_NEURAL_US = /Aria|Jenny|Ana|Michelle|Emma|Samantha|Allison|Ava|Joanna|Salli|Kendra|Kimberly|Ivy|Nora|Susan.*US|Zira/i;
   const MALE_NEURAL_US   = /Guy|Tony|Jason|Eric|Davis|Alex|Aaron|Brandon|Steffan|Roger/i;
+
+  // Speech rates. Tuned for Chinese L2 listeners — 0.85 is the comfortable
+  // default (matches what was previously the "slow" button rate); 0.72 is
+  // the new "slow" — about 15% slower than the new default, useful when a
+  // student wants to copy pronunciation word-by-word.
+  const DEFAULT_RATE = 0.85;
+  const SLOW_RATE    = 0.72;
+
+  // ====================================================================
+  // AI fetch — jitter + exponential backoff retry
+  // ====================================================================
+  // Designed for the start-of-class scenario: 200 students click "Correct
+  // with AI" within the same second. Without intervention, the FC instance
+  // pool (default ~100 concurrent) queues half the requests and Zhipu's
+  // rate limiter rejects the herd. With this helper:
+  //   - Pre-request jitter (0..500ms) spreads the herd across half a second,
+  //     enough to fit under typical FC concurrency caps.
+  //   - On 429/503/5xx or network error, retry with exponential backoff
+  //     (1s, 2s, 4s) plus per-retry jitter so retries don't re-stampede.
+  //   - Per-attempt AbortController timeout (45s) prevents a hung TCP
+  //     connection from leaving the user stuck on an infinite spinner.
+  //   - Max 3 attempts total — beyond that, we surface the error to the
+  //     user rather than retry forever (Zhipu rarely recovers within 10s+
+  //     and the student would rather know).
+  const AI_FETCH_MAX_ATTEMPTS = 3;
+  const AI_FETCH_BASE_BACKOFF_MS = 1000;
+  const AI_FETCH_JITTER_MS = 500;
+  const AI_FETCH_TIMEOUT_MS = 45000;
+
+  function _aiSleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function _aiJitter() { return Math.floor(Math.random() * AI_FETCH_JITTER_MS); }
+
+  async function aiCorrectFetchWithRetry(draftText) {
+    let lastErr = null;
+    // Pre-request jitter — spreads the start-of-class herd.
+    await _aiSleep(_aiJitter());
+
+    for (let attempt = 0; attempt < AI_FETCH_MAX_ATTEMPTS; attempt++) {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), AI_FETCH_TIMEOUT_MS);
+      try {
+        const resp = await fetch(AI_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ draft: draftText }),
+          signal: ctrl.signal,
+        });
+        clearTimeout(timer);
+        // Treat 429 (Zhipu / FC rate-limited), 503 (FC saturated), and any
+        // 5xx as retriable. 4xx other than 429 are NOT retried — they
+        // indicate a client-side problem (bad input, missing field, etc.)
+        // that won't fix itself by waiting.
+        if (resp.status === 429 || resp.status === 503 || resp.status >= 500) {
+          lastErr = new Error(`server ${resp.status}`);
+          // fall through to backoff
+        } else {
+          return resp;  // success or non-retriable error — caller handles body
+        }
+      } catch (e) {
+        clearTimeout(timer);
+        lastErr = e;
+        // Network errors (DNS, TLS, abort) are retriable.
+      }
+      // Exponential backoff with jitter: 1s, 2s, 4s + 0-500ms each.
+      const backoff = AI_FETCH_BASE_BACKOFF_MS * Math.pow(2, attempt) + _aiJitter();
+      if (attempt < AI_FETCH_MAX_ATTEMPTS - 1) await _aiSleep(backoff);
+    }
+    throw lastErr || new Error('AI fetch failed after retries');
+  }
 
   // Score-based picker: prefers high-quality engines (Edge "Online (Natural)",
   // Google network voices, macOS Premium/Enhanced) over legacy local voices.
@@ -65,197 +134,381 @@
     alert("微信浏览器不支持语音播放，请用 Safari 或 Chrome 打开本页 / WeChat browser doesn't support audio playback. Please open this page in Safari or Chrome.");
   }
 
-  // === Speech state — owned by us, NOT by the (flaky) Web Speech API ===
-  // Chrome's speechSynthesis.pause()/resume() is unreliable across long
-  // utterances and after >5s pauses. Instead of trusting it, we track text
-  // + current word offset ourselves and on "resume" we cancel + restart
-  // from the saved offset. This works reliably across all browsers.
-  let _currentText = '';
-  let _currentLang = 'en-GB';
-  let _currentRate = 1.0;
-  let _currentWordOffset = 0;
-  let _currentSourceRow = null;
-  let _currentSpans = null;     // for karaoke highlight (speakElement)
-  let _currentOffsets = null;   // for karaoke highlight (speakElement)
-  let _isPaused = false;        // OUR truth, not speechSynthesis.paused
+  // === Sentence-paced TTS state ============================================
+  //
+  // Pedagogical model: TTS plays ONE sentence at a time and auto-pauses on
+  // completion. Students press transport buttons (Replay / Prev / Next /
+  // Slow) to advance, repeat, or slow-down the current sentence. This is
+  // the standard listen-and-repeat shadowing flow used in language classes.
+  //
+  // Per-row state (sentence list + index + accent + karaoke spans) is kept
+  // in a WeakMap keyed by the .listen-row DOM element. Multiple rows on
+  // the same page each retain their own independent state — pressing Next
+  // on row A and then returning to row B picks up where row B left off.
+  //
+  // _currentRow is the SINGLE row producing audio right now (only one mic
+  // can play at a time across the whole page). It's just a pointer to
+  // whichever WeakMap entry owns the in-flight utterance.
+
+  const _rowState = new WeakMap();
+  let   _currentRow = null;
+
+  function getRowState(rowEl) {
+    if (!rowEl) return null;
+    let s = _rowState.get(rowEl);
+    if (!s) {
+      s = {
+        sentences:    [],          // string[] — one entry per sentence
+        sourceText:   '',          // original full text, pre-normalize
+        currentIndex: 0,           // 0-based index into sentences
+        lang:         'en-GB',     // 'en-GB' | 'en-US' — last-selected accent
+        rate:         DEFAULT_RATE,// inherited from initial play; overridden by 🐢
+        // Karaoke (only populated for sentence-paced playback over an
+        // element that's been word-wrapped, e.g. #polished-output):
+        targetEl:     null,
+        spans:        null,
+        offsets:      null,        // [{ span, start, end }] over wrappedText
+        wrappedText:  null,        // the text snapshot that spans correspond to
+      };
+      _rowState.set(rowEl, s);
+    }
+    return s;
+  }
+
+  // Char index where sentence i begins in the joined source. Trimmed
+  // sentences plus single-space joins matches the normalize() output of
+  // splitSentences(), so karaoke offsets line up.
+  function sentenceCharStart(sentences, i) {
+    let n = 0;
+    for (let k = 0; k < i; k++) n += sentences[k].length + 1;
+    return n;
+  }
+
+  /** Pragmatic sentence splitter — punctuation lookbehind + capital
+   *  lookahead. Imperfect on abbreviations like "Mr. Smith" or "U.S.A."
+   *  but the IELTS / IGCSE model-answer corpus rarely uses them. */
+  function splitSentences(text) {
+    const norm = String(text || '').replace(/\s+/g, ' ').trim();
+    if (!norm) return [];
+    return norm
+      .split(/(?<=[.!?])\s+(?=[A-Z"'(])/)
+      .map(s => s.trim())
+      .filter(Boolean);
+  }
+  ns.__splitSentences = splitSentences;  // exposed for tests
 
   /** Mark a single .listen-row as the one currently speaking (for the
    *  pulsing indicator). Pass `null` to clear. */
   function setSpeakingRow(rowEl) {
-    document.querySelectorAll('.listen-row.speaking-now').forEach(r => r.classList.remove('speaking-now'));
+    document.querySelectorAll('.listen-row.speaking-now, .button-row.speaking-now')
+      .forEach(r => r.classList.remove('speaking-now'));
     if (rowEl) rowEl.classList.add('speaking-now');
   }
 
-  /** Sync every .tts-btn.pause to OUR _isPaused state.
-   *  ▶ + .paused class when paused, ⏸ when speaking/idle. */
-  function updatePauseButtons() {
-    document.querySelectorAll('.tts-btn.pause').forEach(b => {
-      b.textContent = _isPaused ? '▶' : '⏸';
-      b.title = _isPaused ? 'Resume' : 'Pause';
-      b.classList.toggle('paused', _isPaused);
-    });
+  /** Sync transport-button enabled state + sentence counter for a row. */
+  function updateTransportButtons(rowEl) {
+    if (!rowEl) return;
+    const st = getRowState(rowEl);
+    const total = st.sentences ? st.sentences.length : 0;
+    const idx   = st.currentIndex || 0;
+    const prev   = rowEl.querySelector('.tts-btn.prev');
+    const next   = rowEl.querySelector('.tts-btn.next');
+    const slow   = rowEl.querySelector('.tts-btn.slow');
+    const replay = rowEl.querySelector('.tts-btn.replay');
+    const counter = rowEl.querySelector('.sentence-counter');
+    if (slow)   slow.disabled   = (total === 0);
+    if (replay) replay.disabled = (total === 0);
+    if (prev)   prev.disabled   = (idx <= 0 || total === 0);
+    if (next)   next.disabled   = (idx + 1 >= total || total === 0);
+    if (counter) counter.textContent = total > 0 ? `${idx + 1}/${total}` : '';
   }
-
-  /** Internal: launch a fresh utterance starting at `offset` characters
-   *  into _currentText. Used by both speakText/speakElement (offset=0)
-   *  and pauseSpeaking (offset=_currentWordOffset on resume). */
-  function _speakFromOffset(offset) {
-    const remaining = _currentText.slice(offset);
-    if (!remaining.trim()) return;
-    const u = new SpeechSynthesisUtterance(remaining);
-    u.lang = _currentLang;
-    u.rate = _currentRate;
-    const v = pickVoice(_currentLang);
-    if (v) u.voice = v;
-    u.onstart = () => { setSpeakingRow(_currentSourceRow); };
-    u.onboundary = (ev) => {
-      if (ev.name && ev.name !== 'word') return;
-      _currentWordOffset = offset + ev.charIndex;
-      // Karaoke highlight if spans were registered (speakElement path).
-      if (_currentSpans && _currentOffsets) {
-        _currentSpans.forEach(s => s.classList.remove('speaking'));
-        const hit = _currentOffsets.find(o => _currentWordOffset >= o.start && _currentWordOffset < o.end);
-        if (hit) hit.span.classList.add('speaking');
-      }
-    };
-    u.onend = () => {
-      // Natural end (NOT a user-initiated pause). Reset state.
-      if (_isPaused) return;
-      _currentText = '';
-      _currentWordOffset = 0;
-      if (_currentSpans) _currentSpans.forEach(s => s.classList.remove('speaking'));
-      _currentSpans = null;
-      _currentOffsets = null;
-      setSpeakingRow(null);
-      updatePauseButtons();
-    };
-    window.speechSynthesis.speak(u);
-  }
-
-  ns.stopSpeaking = function () {
-    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-    if (_currentSpans) _currentSpans.forEach(s => s.classList.remove('speaking'));
-    _currentSpans = null;
-    _currentOffsets = null;
-    _currentText = '';
-    _currentWordOffset = 0;
-    _currentSourceRow = null;
-    _isPaused = false;
-    setSpeakingRow(null);
-    updatePauseButtons();
-  };
-
-  // Toggle pause/resume. Pause = cancel + remember offset; Resume =
-  // restart utterance from the saved offset (avoids Chrome resume bug).
-  ns.pauseSpeaking = function () {
-    if (!('speechSynthesis' in window)) return;
-    if (_isPaused) {
-      _isPaused = false;
-      updatePauseButtons();
-      _speakFromOffset(_currentWordOffset);
-    } else if (_currentText && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
-      _isPaused = true;
-      window.speechSynthesis.cancel();
-      // Keep _currentText and _currentWordOffset so resume works.
-      updatePauseButtons();
-    }
-  };
-
-  // Tracks the last accent the student picked on each listen-row. Slow
-  // playback uses this so it matches whichever voice is currently selected.
-  // Map<rowEl, 'en-GB' | 'en-US'>.
-  const _lastLangByRow = new WeakMap();
 
   function setActiveAccent(rowEl, lang) {
     if (!rowEl) return;
-    _lastLangByRow.set(rowEl, lang);
     rowEl.querySelectorAll('.tts-btn.uk, .tts-btn.us').forEach(b => b.classList.remove('active'));
     const sel = lang === 'en-US' ? '.tts-btn.us' : '.tts-btn.uk';
     const btn = rowEl.querySelector(sel);
     if (btn) btn.classList.add('active');
   }
 
-  function lastLangFor(rowEl) {
-    return _lastLangByRow.get(rowEl) || 'en-GB';
+  /** Internal: speak the current sentence of the row. On end, do NOT
+   *  advance — the student decides what comes next. */
+  function _playCurrentSentence(rowEl, rateOverride) {
+    if (!rowEl) return;
+    const st = getRowState(rowEl);
+    if (!st.sentences || !st.sentences.length) return;
+    if (st.currentIndex < 0) st.currentIndex = 0;
+    if (st.currentIndex >= st.sentences.length) return;
+
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+    _currentRow = rowEl;
+    setSpeakingRow(rowEl);
+
+    const sentence      = st.sentences[st.currentIndex];
+    const sentenceStart = sentenceCharStart(st.sentences, st.currentIndex);
+
+    const u = new SpeechSynthesisUtterance(sentence);
+    u.lang = st.lang;
+    u.rate = rateOverride || st.rate || DEFAULT_RATE;
+    const v = pickVoice(st.lang);
+    if (v) u.voice = v;
+
+    // Karaoke: only when this row owns word-wrapped spans (polished-output path).
+    const activeOffsets = (st.spans && st.offsets)
+      ? st.offsets.filter(o => o.start >= sentenceStart && o.end <= sentenceStart + sentence.length)
+      : null;
+
+    u.onstart = () => setSpeakingRow(rowEl);
+    u.onboundary = (ev) => {
+      if (ev.name && ev.name !== 'word') return;
+      if (!activeOffsets) return;
+      activeOffsets.forEach(o => o.span.classList.remove('speaking'));
+      const globalIdx = sentenceStart + ev.charIndex;
+      const hit = activeOffsets.find(o => globalIdx >= o.start && globalIdx < o.end);
+      if (hit) hit.span.classList.add('speaking');
+    };
+    u.onend = () => {
+      if (activeOffsets) activeOffsets.forEach(o => o.span.classList.remove('speaking'));
+      // Auto-pause: leave currentIndex where it is; clear pulse; refresh buttons.
+      if (_currentRow === rowEl) _currentRow = null;
+      setSpeakingRow(null);
+      updateTransportButtons(rowEl);
+    };
+
+    speechSynthesis.speak(u);
+    updateTransportButtons(rowEl);
   }
 
-  /** Centralised handler for the polished-output Listen buttons.
-   *  Tracks the selected accent on #polished-listen-row so the slow button
-   *  uses whichever accent was last picked. */
-  ns.listenPolished = function (which) {
-    const row = document.getElementById('polished-listen-row');
-    if (which === 'en-GB' || which === 'en-US') {
-      setActiveAccent(row, which);
-      ns.speakElementById('polished-output', which, 1.0);
-    } else if (which === 'slow') {
-      ns.speakElementById('polished-output', lastLangFor(row), 0.85);
-    }
-  };
-
-  ns.speakText = function (text, lang = 'en-GB', rate = 1.0, sourceRow = null) {
-    // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
+  ns.speakText = function (text, lang = 'en-GB', rate = DEFAULT_RATE, rowEl = null) {
     if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
     if (!('speechSynthesis' in window)) return;
     if (!text || !String(text).trim()) return;
-    ns.stopSpeaking();
-    _currentText = String(text);
-    _currentLang = lang;
-    _currentRate = rate;
-    _currentWordOffset = 0;
-    _currentSourceRow = sourceRow;
-    _currentSpans = null;
-    _currentOffsets = null;
-    _isPaused = false;
-    updatePauseButtons();
-    _speakFromOffset(0);
+
+    // No row → vocab-click / single-shot path. Speak as one utterance,
+    // no sentence pacing, no row state. Matches old behaviour for
+    // attachWordClicks().
+    if (!rowEl) {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(String(text));
+      u.lang = lang;
+      u.rate = rate;
+      const v = pickVoice(lang);
+      if (v) u.voice = v;
+      speechSynthesis.speak(u);
+      return;
+    }
+
+    // Row-bound → split into sentences, store state, play sentence 0.
+    const st = getRowState(rowEl);
+    st.sentences   = splitSentences(text);
+    st.sourceText  = String(text);
+    st.currentIndex = 0;
+    st.lang  = lang;
+    st.rate  = rate || DEFAULT_RATE;
+    st.targetEl    = null;
+    st.spans       = null;
+    st.offsets     = null;
+    st.wrappedText = null;
+    setActiveAccent(rowEl, lang);
+    _playCurrentSentence(rowEl);
   };
 
-  // Wraps each word in <span> for karaoke highlighting on `boundary` events.
-  ns.speakElement = function (el, lang = 'en-GB', rate = 1.0) {
-    // WeChat exposes speechSynthesis but speak() silently no-ops. Detect first.
-    if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
-    if (!('speechSynthesis' in window)) return;
-    if (!el) return;
-    const text = el.textContent.trim();
-    if (!text) return;
+  /** Replay the current sentence. `slow=true` → SLOW_RATE for this one
+   *  utterance only; the row's stored rate is unchanged. */
+  ns.replaySentence = function (rowEl, slow) {
+    if (!rowEl) return;
+    const st = getRowState(rowEl);
+    if (!st.sentences || !st.sentences.length) return;
+    _playCurrentSentence(rowEl, slow ? SLOW_RATE : st.rate);
+  };
 
-    // Re-wrap text in per-word spans so we can highlight by character offset.
-    const tokens = text.split(/(\s+)/);
-    el.innerHTML = '';
+  ns.nextSentence = function (rowEl) {
+    if (!rowEl) return;
+    const st = getRowState(rowEl);
+    if (!st.sentences || st.currentIndex + 1 >= st.sentences.length) return;
+    st.currentIndex++;
+    _playCurrentSentence(rowEl);
+  };
+
+  ns.prevSentence = function (rowEl) {
+    if (!rowEl) return;
+    const st = getRowState(rowEl);
+    if (!st.sentences || st.currentIndex <= 0) return;
+    st.currentIndex--;
+    _playCurrentSentence(rowEl);
+  };
+
+  // Markup-preserving variant of speakElement's wrapping logic. Walks the
+  // text-node descendants of `el` and replaces each text node with a
+  // fragment that splits the text into per-word <span>s (for karaoke
+  // highlighting) while LEAVING element children (e.g. <strong> for vocab,
+  // <em> for emphasis) intact. Skips Chinese-gloss / marker-badge /
+  // listen-row subtrees so wrapped spans align with what the TTS engine
+  // actually speaks.
+  //
+  // Added 2026 (issue A2): the polished-output element is plain text and
+  // the original speakElement could safely innerHTML='' it. Model-answer
+  // boxes (Section 7) contain <strong>vocab</strong> highlights and
+  // Chinese gloss spans; destroying their innerHTML would lose both.
+  // This helper provides a non-destructive wrap path for markup-rich
+  // elements. Returns { spans, offsets } with the same shape that the
+  // original wrap path produces.
+  function wrapTextNodesInElement(el) {
     const spans = [];
     const offsets = [];
     let charIdx = 0;
-    tokens.forEach(tok => {
-      if (/^\s+$/.test(tok)) {
-        el.appendChild(document.createTextNode(tok));
-      } else if (tok.length) {
-        const s = document.createElement('span');
-        s.textContent = tok;
-        offsets.push({ span: s, start: charIdx, end: charIdx + tok.length });
-        spans.push(s);
-        el.appendChild(s);
-      }
-      charIdx += tok.length;
-    });
 
-    ns.stopSpeaking();
-    _currentText = text;
-    _currentLang = lang;
-    _currentRate = rate;
-    _currentWordOffset = 0;
-    _currentSourceRow = (el.id === 'polished-output')
-      ? document.getElementById('polished-listen-row')
-      : null;
-    _currentSpans = spans;
-    _currentOffsets = offsets;
-    _isPaused = false;
-    updatePauseButtons();
-    _speakFromOffset(0);
+    function walk(node) {
+      if (!node) return;
+      if (node.nodeType === Node.TEXT_NODE) {
+        const t = node.textContent;
+        if (!t) return;
+        const tokens = t.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        tokens.forEach(tok => {
+          if (!tok) return;
+          if (/^\s+$/.test(tok)) {
+            frag.appendChild(document.createTextNode(tok));
+          } else {
+            const s = document.createElement('span');
+            s.textContent = tok;
+            offsets.push({ span: s, start: charIdx, end: charIdx + tok.length });
+            spans.push(s);
+            frag.appendChild(s);
+          }
+          charIdx += tok.length;
+        });
+        node.parentNode.replaceChild(frag, node);
+        return;
+      }
+      if (node.nodeType !== Node.ELEMENT_NODE) return;
+      if (isChineseGloss(node)) return;
+      if (isMarkerBadge(node)) return;
+      if (node.classList && node.classList.contains('listen-row')) return;
+      // Snapshot childNodes — we'll be replacing some during the walk.
+      Array.from(node.childNodes).forEach(walk);
+    }
+    walk(el);
+    return { spans, offsets };
+  }
+
+  // speakElement / speakElementById — wrap words in <span> for karaoke,
+  // split text into sentences, and play sentence 0. Subsequent transport
+  // commands (replay / next / prev / slow) re-use the wrapped spans.
+  // The optional `rowElOverride` arg lets callers pin the WeakMap state
+  // to a specific .listen-row element (used by injectListenButtons so
+  // its prev/next/replay/slow buttons share state with the speaking text).
+  ns.speakElement = function (el, lang = 'en-GB', rate = DEFAULT_RATE, rowElOverride = null) {
+    if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
+    if (!('speechSynthesis' in window)) return;
+    if (!el) return;
+
+    // For markup-rich elements (model answers with <strong>/Chinese gloss),
+    // compute the readable text using extractReadableText so it matches
+    // what TTS speaks (skipping gloss). For plain-text elements (polished
+    // output) we can use textContent directly — same result, less work.
+    const hasMarkup = el.children.length > 0;
+    const text = (hasMarkup
+      ? stripChineseGloss(extractReadableText(el))
+      : el.textContent
+    ).trim();
+    if (!text) return;
+
+    // The polished overlay's listen-row is the natural row for el.id === 'polished-output'.
+    // injectListenButtons passes the model-box's .listen-row as the override.
+    // For everything else, fall back to using `el` itself as the WeakMap key.
+    const rowEl = rowElOverride
+      || (el.id === 'polished-output'
+          ? document.getElementById('polished-listen-row')
+          : el);
+
+    const st = getRowState(rowEl);
+
+    // Re-wrap only if text changed AND the element isn't already wrapped.
+    // The data-karaoke-wrapped flag stops a second click from destroying
+    // our own spans (which would be st.wrappedText !== text after a wrap
+    // reduces all whitespace runs to single spaces).
+    if (st.wrappedText !== text || !el.dataset.karaokeWrapped) {
+      let spans, offsets;
+      if (hasMarkup) {
+        // Non-destructive: preserves <strong> vocab highlights, skips gloss.
+        const result = wrapTextNodesInElement(el);
+        spans = result.spans;
+        offsets = result.offsets;
+      } else {
+        // Plain-text path (original behaviour, used for polished-output).
+        const tokens = text.split(/(\s+)/);
+        el.innerHTML = '';
+        spans = [];
+        offsets = [];
+        let charIdx = 0;
+        tokens.forEach(tok => {
+          if (/^\s+$/.test(tok)) {
+            el.appendChild(document.createTextNode(tok));
+          } else if (tok.length) {
+            const s = document.createElement('span');
+            s.textContent = tok;
+            offsets.push({ span: s, start: charIdx, end: charIdx + tok.length });
+            spans.push(s);
+            el.appendChild(s);
+          }
+          charIdx += tok.length;
+        });
+      }
+      el.dataset.karaokeWrapped = '1';
+      st.wrappedText = text;
+      st.spans = spans;
+      st.offsets = offsets;
+      st.sentences = splitSentences(text);
+    } else {
+      // Same text — just re-split in case the splitter logic was upgraded.
+      st.sentences = splitSentences(text);
+    }
+    st.sourceText  = text;
+    st.targetEl    = el;
+    st.currentIndex = 0;
+    st.lang = lang;
+    st.rate = rate || DEFAULT_RATE;
+    setActiveAccent(rowEl, lang);
+    _playCurrentSentence(rowEl);
   };
 
-  ns.speakElementById = function (id, lang = 'en-GB', rate = 1.0) {
+  ns.speakElementById = function (id, lang = 'en-GB', rate = DEFAULT_RATE) {
     const el = document.getElementById(id);
     if (el) ns.speakElement(el, lang, rate);
+  };
+
+  /** Polished-output button router. Six modes: en-GB / en-US (start over
+   *  in chosen accent), slow / replay (re-speak current sentence), prev /
+   *  next (sentence navigation). */
+  ns.listenPolished = function (which) {
+    const row = document.getElementById('polished-listen-row');
+    if (!row) return;
+    switch (which) {
+      case 'en-GB':
+      case 'en-US':
+        ns.speakElementById('polished-output', which, DEFAULT_RATE);
+        break;
+      case 'slow':   ns.replaySentence(row, true);  break;
+      case 'replay': ns.replaySentence(row, false); break;
+      case 'prev':   ns.prevSentence(row);          break;
+      case 'next':   ns.nextSentence(row);          break;
+    }
+  };
+
+  // Compat stubs — nothing in the new UI calls these, but preserving them
+  // keeps any older injected snippet, browser-extension shortcut, or
+  // user script from throwing if it references the old API.
+  ns.stopSpeaking = function () {
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+    document.querySelectorAll('.speaking').forEach(s => s.classList.remove('speaking'));
+    _currentRow = null;
+    setSpeakingRow(null);
+  };
+  ns.pauseSpeaking = function () {
+    // No-op in sentence-paced mode (sentences auto-pause). Provided for
+    // backwards compatibility with anything that still references it.
+    ns.stopSpeaking();
   };
 
   // Voice list loads asynchronously on Chrome. Touching it here primes the cache
@@ -416,6 +669,14 @@
     return out;
   }
 
+  // Longest common prefix of two strings (case-sensitive). Used by Case H
+  // (stem-change) to detect word-form transformations like tired→tiring.
+  function longestCommonPrefix(a, b) {
+    let i = 0;
+    while (i < a.length && i < b.length && a[i] === b[i]) i++;
+    return a.slice(0, i);
+  }
+
   function classifyPairs(segs) {
     const out = [];
     let i = 0;
@@ -435,7 +696,17 @@
           // G. prefix-delete — ago → go
           out.push({ op: 'prefix-delete', deleted: x.slice(0, x.length - y.length), kept: y });
         } else {
-          out.push({ op: 'replace', deleted: x, inserted: y });
+          const lcp = longestCommonPrefix(x, y);
+          const xTail = x.slice(lcp.length);
+          const yTail = y.slice(lcp.length);
+          if (lcp.length >= 3
+              && xTail.length >= 1 && xTail.length <= 5
+              && yTail.length >= 1 && yTail.length <= 5) {
+            // H. stem-change — tired→tiring, heavy→heavily, make→making
+            out.push({ op: 'stem-change', kept: lcp, deleted: xTail, inserted: yTail });
+          } else {
+            out.push({ op: 'replace', deleted: x, inserted: y });
+          }
         }
         i += 2;
       } else {
@@ -471,6 +742,8 @@
           parts.push(`${space}${escHtml(seg.kept)}<del class="del-suffix">${escHtml(seg.deleted)}</del>`); break;
         case 'prefix-delete':
           parts.push(`${space}<del class="del-prefix">${escHtml(seg.deleted)}</del>${escHtml(seg.kept)}`); break;
+        case 'stem-change':
+          parts.push(`${space}${escHtml(seg.kept)}<span class="stem-change-pair"><del class="del-suffix">${escHtml(seg.deleted)}</del><ins class="ins-above">${escHtml(seg.inserted)}</ins></span>`); break;
       }
     });
     return parts.join('');
@@ -514,11 +787,7 @@
 
     let resp;
     try {
-      resp = await fetch(AI_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ draft: text })
-      });
+      resp = await aiCorrectFetchWithRetry(text);
     } catch (e) {
       setStatus('网络错误 / Network error. ' + (e && e.message ? e.message : ''), 'error');
       correctBtn.disabled = false;
@@ -533,7 +802,16 @@
       return;
     }
 
-    const corrected = (body && body.corrected) || '';
+    // Defense-in-depth markdown stripper. The FC sanitises Zhipu's
+    // response before sending, but old cached HTMLs or any other code
+    // path that injects into `body.corrected` could still contain
+    // markdown leakage like `**However,**` for transitions. Treat the
+    // boundary between FC and renderer as untrusted-w.r.t.-markdown.
+    const corrected = String((body && body.corrected) || '')
+        .replace(/\*\*([^*]+)\*\*/g, '$1')   // **bold** -> bold
+        .replace(/(^|\s)\*\*(\s|$)/g, '$1$2')// stray paired ** at boundaries
+        .replace(/\*\*/g, '')                // any remaining lone **
+        .trim();
     polished.classList.remove('empty');
     polished.textContent = corrected;
     enablePolishedListenButtons();
@@ -663,24 +941,37 @@
 
       const row = document.createElement('div');
       row.className = 'listen-row';
+      // Six-button sentence-paced transport — pedagogical listen-and-repeat.
+      // Layout: [accent picker | slow] [sentence counter] [prev | replay | next]
       row.innerHTML = `
-        <button class="tts-btn uk active" title="UK voice">🇬🇧</button>
-        <button class="tts-btn us" title="US voice">🇺🇸</button>
-        <button class="tts-btn slow" title="Slow (uses selected accent)">🐢</button>
-        <button class="tts-btn pause" title="Pause / resume">⏸</button>
-        <button class="tts-btn stop" title="Stop">⏹</button>
+        <button class="tts-btn uk active" title="UK voice / 英音">🇬🇧</button>
+        <button class="tts-btn us"        title="US voice / 美音">🇺🇸</button>
+        <button class="tts-btn slow"      title="Slow replay / 慢速重播本句" disabled>🐢</button>
+        <span    class="sentence-counter" title="Current sentence / 当前句"></span>
+        <button class="tts-btn prev"      title="Previous sentence / 上一句" disabled>⏮</button>
+        <button class="tts-btn replay"    title="Replay this sentence / 重播本句" disabled>▶</button>
+        <button class="tts-btn next"      title="Next sentence / 下一句" disabled>⏭</button>
       `;
-      const [btnUK, btnUS, btnSlow, btnPause, btnStop] = row.children;
+      const btnUK     = row.querySelector('.tts-btn.uk');
+      const btnUS     = row.querySelector('.tts-btn.us');
+      const btnSlow   = row.querySelector('.tts-btn.slow');
+      const btnPrev   = row.querySelector('.tts-btn.prev');
+      const btnReplay = row.querySelector('.tts-btn.replay');
+      const btnNext   = row.querySelector('.tts-btn.next');
       const textOf = () => stripChineseGloss(extractReadableText(box));
 
-      // Default accent is UK (matches the .active class in markup above).
-      _lastLangByRow.set(row, 'en-GB');
-
-      btnUK.onclick    = () => { setActiveAccent(row, 'en-GB'); ns.speakText(textOf(), 'en-GB', 1.0, row); };
-      btnUS.onclick    = () => { setActiveAccent(row, 'en-US'); ns.speakText(textOf(), 'en-US', 1.0, row); };
-      btnSlow.onclick  = () => ns.speakText(textOf(), lastLangFor(row), 0.85, row);
-      btnPause.onclick = () => ns.pauseSpeaking();
-      btnStop.onclick  = () => ns.stopSpeaking();
+      // A2 2026: switched from speakText (no karaoke) to speakElement
+      // (word-by-word karaoke highlight). speakElement wraps each word
+      // of `box` in a <span> while preserving existing <strong>/<em>
+      // markup, skipping Chinese gloss subtrees. The 4th arg pins the
+      // WeakMap state to `row` so prev/next/replay/slow buttons below
+      // share state with the speaking text.
+      btnUK.onclick     = () => ns.speakElement(box, 'en-GB', DEFAULT_RATE, row);
+      btnUS.onclick     = () => ns.speakElement(box, 'en-US', DEFAULT_RATE, row);
+      btnSlow.onclick   = () => ns.replaySentence(row, /* slow= */ true);
+      btnPrev.onclick   = () => ns.prevSentence(row);
+      btnReplay.onclick = () => ns.replaySentence(row, /* slow= */ false);
+      btnNext.onclick   = () => ns.nextSentence(row);
 
       // Find the heading (h1-h4) immediately preceding this .model-box in
       // the .card. Walk back through siblings until we hit one or run out.
@@ -792,6 +1083,10 @@
   const VR_DB_NAME    = 'ielts-recordings';
   const VR_STORE      = 'recordings';
   const VR_MAX_MS     = 3 * 60 * 1000;
+
+  // Singleton recording state — only one mic recording at a time.
+  // `_activeContainer` tracks WHICH container is currently recording so we
+  // know where to save the blob and update the UI on stop.
   let _vrMediaRecorder = null;
   let _vrChunks        = [];
   let _vrStartedAt     = 0;
@@ -799,7 +1094,20 @@
   let _vrPausedAt      = 0;
   let _vrTimerId       = 0;
   let _vrStream        = null;
-  let _vrSavedBlobUrl  = null;
+  let _activeContainer = null;
+
+  // Per-container blob URL for playback (keep separate per widget so
+  // pressing ▶ on Q1 plays Q1's recording, not whichever was last loaded).
+  const _vrSavedBlobUrls = new WeakMap();
+
+  // IndexedDB key per container. Each .voice-recorder-container needs a
+  // `data-recorder-id` attribute (e.g. "polished", "q1", "map-1") so its
+  // recording is stored at a unique key like "Week_01:q1".
+  // Falls back to "default" for backward compatibility with old widgets.
+  function vrKey(container) {
+    const id = (container && container.dataset && container.dataset.recorderId) || 'default';
+    return `${LESSON_KEY}:${id}`;
+  }
 
   function vrOpenDB() {
     return new Promise((resolve, reject) => {
@@ -809,29 +1117,143 @@
       req.onerror = () => reject(req.error);
     });
   }
-  async function vrSaveBlob(blob, durationMs) {
-    const db = await vrOpenDB();
+
+  // === Quota management — one-and-done LRU eviction ============================
+  // Goal: never blow past the browser's IndexedDB quota even if a viral cohort
+  // of students records 3-min answers in every recorder of every Week. Two
+  // belt-and-suspenders mechanisms run together:
+  //
+  //  1. Persistent storage request: tells the browser "don't auto-evict our
+  //     data when disk fills up." Granted automatically in most cases on
+  //     desktop Chrome; iOS Safari ignores it but it's still cheap to ask.
+  //  2. LRU eviction: enforced via TWO ceilings — a HARD COUNT cap (always
+  //     in effect) and a SOFT QUOTA cap (kicks in when the browser tells us
+  //     usage is approaching its quota). On iOS Safari (~1 GB origin cap),
+  //     the quota ceiling protects against the cap; on Chrome desktop (~60%
+  //     of disk), the count cap keeps things tidy regardless.
+  //
+  // Eviction is FIFO by `createdAt` (oldest recording removed first). The
+  // student never sees an error — recordings just silently disappear in age
+  // order, which is the right UX for a long-running classroom course.
+  const VR_MAX_RECORDINGS = 60;          // hard cap — never exceed this regardless of free quota
+  const VR_QUOTA_HEADROOM = 0.20;        // start evicting when free quota < 20% of usable
+  let _vrPersistRequested = false;
+
+  async function vrRequestPersistentStorage() {
+    if (_vrPersistRequested) return;
+    _vrPersistRequested = true;
+    try {
+      if (navigator.storage && typeof navigator.storage.persist === 'function') {
+        await navigator.storage.persist();
+      }
+    } catch (e) {
+      // Older Safari / Firefox quirks — ignore, we have LRU as the safety net.
+    }
+  }
+
+  // Walk every entry in the store and return [{key, createdAt}, ...] sorted
+  // ascending so index 0 is the OLDEST recording (first to evict).
+  async function vrListEntriesByAge(db) {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(VR_STORE, 'readonly');
+      const req = tx.objectStore(VR_STORE).openCursor();
+      const out = [];
+      req.onsuccess = () => {
+        const cur = req.result;
+        if (cur) {
+          const v = cur.value || {};
+          out.push({ key: cur.key, createdAt: v.createdAt || 0 });
+          cur.continue();
+        } else {
+          out.sort((a, b) => a.createdAt - b.createdAt);
+          resolve(out);
+        }
+      };
+      req.onerror = () => reject(req.error);
+    });
+  }
+
+  async function vrDeleteByKey(db, key) {
     return new Promise((resolve, reject) => {
       const tx = db.transaction(VR_STORE, 'readwrite');
-      tx.objectStore(VR_STORE).put({ blob, duration: durationMs, createdAt: Date.now() }, LESSON_KEY);
+      tx.objectStore(VR_STORE).delete(key);
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
   }
-  async function vrLoadBlob() {
+
+  // Returns a number 0..1 representing fraction of quota currently in use,
+  // or null if the API isn't available (fallback: rely solely on count cap).
+  async function vrQuotaUsageRatio() {
+    try {
+      if (navigator.storage && typeof navigator.storage.estimate === 'function') {
+        const { usage, quota } = await navigator.storage.estimate();
+        if (quota && quota > 0) return usage / quota;
+      }
+    } catch (e) { /* ignore */ }
+    return null;
+  }
+
+  // Run BEFORE saving a new recording. Evicts oldest recordings until BOTH
+  // the hard count cap and the soft quota cap are satisfied. Skips the
+  // currently-active container's existing key (which the upcoming put() will
+  // overwrite anyway — no point evicting it just to write it).
+  async function vrEvictIfNeeded(db, exemptKey) {
+    let entries = await vrListEntriesByAge(db);
+    let evicted = 0;
+
+    // Pass 1 — hard count cap.
+    while (entries.length > VR_MAX_RECORDINGS) {
+      const oldest = entries.shift();
+      if (oldest.key === exemptKey) continue;
+      await vrDeleteByKey(db, oldest.key);
+      evicted++;
+    }
+
+    // Pass 2 — soft quota cap (only if API tells us we're tight).
+    let ratio = await vrQuotaUsageRatio();
+    while (ratio !== null && ratio > (1 - VR_QUOTA_HEADROOM) && entries.length > 1) {
+      const oldest = entries.shift();
+      if (oldest.key === exemptKey) continue;
+      await vrDeleteByKey(db, oldest.key);
+      evicted++;
+      ratio = await vrQuotaUsageRatio();
+    }
+
+    if (evicted > 0) {
+      try { console.info(`[recorder] LRU evicted ${evicted} oldest recording(s) to stay under quota.`); } catch {}
+    }
+  }
+
+  // Kick off persistent-storage request once at module load — non-blocking.
+  vrRequestPersistentStorage();
+  // ============================================================================
+
+  async function vrSaveBlob(container, blob, durationMs) {
+    const db = await vrOpenDB();
+    // Evict before write so a near-full quota doesn't reject our put().
+    try { await vrEvictIfNeeded(db, vrKey(container)); } catch (e) { console.warn('vrEvict', e); }
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(VR_STORE, 'readwrite');
+      tx.objectStore(VR_STORE).put({ blob, duration: durationMs, createdAt: Date.now() }, vrKey(container));
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  }
+  async function vrLoadBlob(container) {
     const db = await vrOpenDB();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(VR_STORE, 'readonly');
-      const req = tx.objectStore(VR_STORE).get(LESSON_KEY);
+      const req = tx.objectStore(VR_STORE).get(vrKey(container));
       req.onsuccess = () => resolve(req.result || null);
       req.onerror = () => reject(req.error);
     });
   }
-  async function vrDeleteBlob() {
+  async function vrDeleteBlob(container) {
     const db = await vrOpenDB();
     return new Promise((resolve, reject) => {
       const tx = db.transaction(VR_STORE, 'readwrite');
-      tx.objectStore(VR_STORE).delete(LESSON_KEY);
+      tx.objectStore(VR_STORE).delete(vrKey(container));
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
@@ -849,61 +1271,72 @@
     const btnStop   = $('.vr-stop');
     const btnPlay   = $('.vr-play');
     const btnDelete = $('.vr-delete');
-    const label    = $('.vr-label');
+    const label    = $('.vr-label');  // optional — inline widgets omit it
+
+    // `has-recording` is a discrete visual indicator (small green dot via
+    // CSS ::after) showing students at-a-glance whether a saved recording
+    // exists for this section. Toggled here so every state transition
+    // updates the indicator atomically.
+    container.classList.toggle('has-recording', state === 'saved');
 
     [btnRec, btnPause, btnStop, btnPlay, btnDelete].forEach(b => b && (b.hidden = true));
-    btnRec.classList.remove('recording');
-    btnPause.classList.remove('paused');
-    label.classList.remove('error');
+    if (btnRec) btnRec.classList.remove('recording');
+    if (btnPause) btnPause.classList.remove('paused');
+    if (label) label.classList.remove('error');
 
     if (state === 'idle') {
-      btnRec.hidden = false;
-      label.textContent = 'Click ⏺ to record (3:00 max)';
+      if (btnRec) { btnRec.hidden = false; btnRec.disabled = false; }
+      if (label) label.textContent = 'Click ⏺ to record (3:00 max)';
     } else if (state === 'recording') {
-      btnRec.hidden = false; btnRec.classList.add('recording');
-      btnPause.hidden = false; btnStop.hidden = false;
-      btnRec.disabled = true;
-      label.textContent = 'Recording…';
+      if (btnRec) { btnRec.hidden = false; btnRec.classList.add('recording'); btnRec.disabled = true; }
+      if (btnPause) btnPause.hidden = false;
+      if (btnStop) btnStop.hidden = false;
+      if (label) label.textContent = 'Recording…';
     } else if (state === 'paused') {
-      btnRec.hidden = false; btnRec.classList.add('recording');
-      btnPause.hidden = false; btnPause.classList.add('paused');
-      btnStop.hidden = false;
-      btnRec.disabled = true;
-      btnPause.title = 'Resume';
-      btnPause.textContent = '▶';
-      label.textContent = 'Paused — tap ▶ to resume';
+      if (btnRec) { btnRec.hidden = false; btnRec.classList.add('recording'); btnRec.disabled = true; }
+      if (btnPause) { btnPause.hidden = false; btnPause.classList.add('paused'); btnPause.title = 'Resume'; btnPause.textContent = '▶'; }
+      if (btnStop) btnStop.hidden = false;
+      if (label) label.textContent = 'Paused — tap ▶ to resume';
     } else if (state === 'saved') {
-      btnPlay.hidden = false; btnDelete.hidden = false;
-      btnRec.disabled = false;
-      label.textContent = 'Saved — tap ▶ to play, 🗑 to re-record';
-      btnPause.textContent = '⏸';
-      btnPause.title = 'Pause / resume';
+      if (btnRec) { btnRec.hidden = false; btnRec.disabled = false; }
+      if (btnPlay) btnPlay.hidden = false;
+      if (btnDelete) btnDelete.hidden = false;
+      if (btnPause) { btnPause.textContent = '⏸'; btnPause.title = 'Pause / resume'; }
+      if (label) label.textContent = 'Saved — tap ▶ to play, 🗑 to re-record';
     } else if (state === 'error') {
-      btnRec.hidden = false; btnRec.disabled = true;
-      label.classList.add('error');
+      if (btnRec) { btnRec.hidden = false; btnRec.disabled = true; }
+      if (label) label.classList.add('error');
     }
   }
 
   function vrUpdateTimer(container) {
+    if (_activeContainer !== container) return;
     const elapsed = Date.now() - _vrStartedAt - _vrPausedTotal -
                     (_vrPausedAt ? (Date.now() - _vrPausedAt) : 0);
     const timeEl = container.querySelector('.vr-time');
-    timeEl.textContent = `${vrFormatTime(elapsed)} / 3:00`;
+    if (timeEl) timeEl.textContent = `${vrFormatTime(elapsed)} / 3:00`;
     if (elapsed >= VR_MAX_MS) {
-      timeEl.classList.add('over');
+      if (timeEl) timeEl.classList.add('over');
       vrStop(container);
     }
   }
 
   async function vrStart(container) {
+    // If another widget is recording, stop it first so we don't get two
+    // active MediaRecorder instances (the browser only allows one anyway).
+    if (_activeContainer && _activeContainer !== container && _vrMediaRecorder
+        && _vrMediaRecorder.state !== 'inactive') {
+      _vrMediaRecorder.stop();
+    }
     try {
       _vrStream = await navigator.mediaDevices.getUserMedia({ audio: true });
     } catch (err) {
       const label = container.querySelector('.vr-label');
-      label.textContent = 'Microphone permission denied / 麦克风权限被拒绝';
+      if (label) label.textContent = 'Microphone permission denied / 麦克风权限被拒绝';
       vrSetState(container, 'error');
       return;
     }
+    _activeContainer = container;
     _vrChunks = [];
     _vrStartedAt = Date.now();
     _vrPausedTotal = 0;
@@ -913,9 +1346,10 @@
     _vrMediaRecorder.onstop = async () => {
       const blob = new Blob(_vrChunks, { type: _vrMediaRecorder.mimeType || 'audio/webm' });
       const elapsed = Date.now() - _vrStartedAt - _vrPausedTotal;
-      try { await vrSaveBlob(blob, elapsed); } catch (e) { console.error('vrSave', e); }
+      try { await vrSaveBlob(container, blob, elapsed); } catch (e) { console.error('vrSave', e); }
       if (_vrStream) { _vrStream.getTracks().forEach(t => t.stop()); _vrStream = null; }
       clearInterval(_vrTimerId); _vrTimerId = 0;
+      _activeContainer = null;
       vrLoadIntoUi(container);
     };
     _vrMediaRecorder.start();
@@ -924,7 +1358,7 @@
   }
 
   function vrPauseToggle(container) {
-    if (!_vrMediaRecorder) return;
+    if (!_vrMediaRecorder || _activeContainer !== container) return;
     if (_vrMediaRecorder.state === 'recording') {
       _vrMediaRecorder.pause();
       _vrPausedAt = Date.now();
@@ -938,33 +1372,41 @@
   }
 
   function vrStop(container) {
-    if (!_vrMediaRecorder) return;
+    if (!_vrMediaRecorder || _activeContainer !== container) return;
     if (_vrMediaRecorder.state !== 'inactive') _vrMediaRecorder.stop();
   }
 
   async function vrLoadIntoUi(container) {
-    const rec = await vrLoadBlob();
+    const rec = await vrLoadBlob(container);
     const audioEl = container.querySelector('audio');
-    if (_vrSavedBlobUrl) { URL.revokeObjectURL(_vrSavedBlobUrl); _vrSavedBlobUrl = null; }
+    // Per-widget blob URL — revoke ONLY this container's old URL.
+    const oldUrl = _vrSavedBlobUrls.get(container);
+    if (oldUrl) { URL.revokeObjectURL(oldUrl); _vrSavedBlobUrls.delete(container); }
     if (rec && rec.blob) {
-      _vrSavedBlobUrl = URL.createObjectURL(rec.blob);
-      if (audioEl) audioEl.src = _vrSavedBlobUrl;
+      const url = URL.createObjectURL(rec.blob);
+      _vrSavedBlobUrls.set(container, url);
+      if (audioEl) audioEl.src = url;
       const timeEl = container.querySelector('.vr-time');
-      timeEl.textContent = vrFormatTime(rec.duration || 0);
-      timeEl.classList.remove('over');
+      if (timeEl) {
+        timeEl.textContent = vrFormatTime(rec.duration || 0);
+        timeEl.classList.remove('over');
+      }
       vrSetState(container, 'saved');
     } else {
       const timeEl = container.querySelector('.vr-time');
-      timeEl.textContent = '--:--';
-      timeEl.classList.remove('over');
+      if (timeEl) {
+        timeEl.textContent = '--:--';
+        timeEl.classList.remove('over');
+      }
       vrSetState(container, 'idle');
     }
   }
 
   async function vrDelete(container) {
     if (!confirm('Delete recording? / 删除录音？')) return;
-    await vrDeleteBlob();
-    if (_vrSavedBlobUrl) { URL.revokeObjectURL(_vrSavedBlobUrl); _vrSavedBlobUrl = null; }
+    await vrDeleteBlob(container);
+    const oldUrl = _vrSavedBlobUrls.get(container);
+    if (oldUrl) { URL.revokeObjectURL(oldUrl); _vrSavedBlobUrls.delete(container); }
     vrLoadIntoUi(container);
   }
 
@@ -976,14 +1418,369 @@
   function initVoiceRecorder() {
     if (!('mediaDevices' in navigator) || !window.MediaRecorder) return;
     document.querySelectorAll('.voice-recorder-container').forEach((container) => {
-      container.querySelector('.vr-record').onclick = () => vrStart(container);
-      container.querySelector('.vr-pause').onclick  = () => vrPauseToggle(container);
-      container.querySelector('.vr-stop').onclick   = () => vrStop(container);
-      container.querySelector('.vr-play').onclick   = () => vrPlay(container);
-      container.querySelector('.vr-delete').onclick = () => vrDelete(container);
+      const q = (sel) => container.querySelector(sel);
+      const onIf = (sel, handler) => { const el = q(sel); if (el) el.onclick = handler; };
+      onIf('.vr-record', () => vrStart(container));
+      onIf('.vr-pause',  () => vrPauseToggle(container));
+      onIf('.vr-stop',   () => vrStop(container));
+      onIf('.vr-play',   () => vrPlay(container));
+      onIf('.vr-delete', () => vrDelete(container));
       vrLoadIntoUi(container);
     });
   }
+
+  // ====================================================================
+  // EMAIL RECORDINGS — gather all IndexedDB recordings for THIS lesson,
+  // ZIP them client-side, trigger a download, and open the user's email
+  // client via mailto: with a pre-filled subject + body. Student attaches
+  // the zip manually in their mail client.
+  //
+  // Public API: ns.emailLessonRecordings()
+  // No backend / no network. All client-side.
+  // ====================================================================
+
+  const _EMAIL_LS_KEY = 'lessonEmailRecipient';
+  const _EMAIL_VALID_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Pretty week number from LESSON_KEY (e.g. "Week_05" -> 5).
+  function _emailWeekNumber() {
+    const m = /^Week_?(\d+)/i.exec(LESSON_KEY || '');
+    return m ? parseInt(m[1], 10) : null;
+  }
+
+  // Course label for subject line — IELTS vs IGCSE based on hostname.
+  function _emailCourseLabel() {
+    const host = (location && location.hostname) || '';
+    if (host.indexOf('igcse') !== -1) return 'IGCSE';
+    return 'IELTS';
+  }
+
+  // Walk all IndexedDB recordings for THIS lesson (keys "Week_NN:<id>")
+  // and return [{recorderId, blob, createdAt}] sorted by createdAt asc.
+  async function _emailEnumerateRecordings() {
+    const db = await vrOpenDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(VR_STORE, 'readonly');
+      const store = tx.objectStore(VR_STORE);
+      const req = store.openCursor();
+      const out = [];
+      const prefix = `${LESSON_KEY}:`;
+      req.onsuccess = () => {
+        const cur = req.result;
+        if (cur) {
+          const key = String(cur.key || '');
+          if (key.startsWith(prefix)) {
+            const v = cur.value || {};
+            if (v.blob) {
+              out.push({
+                recorderId: key.slice(prefix.length),
+                blob: v.blob,
+                createdAt: v.createdAt || 0,
+              });
+            }
+          }
+          cur.continue();
+        } else {
+          out.sort((a, b) => a.createdAt - b.createdAt);
+          resolve(out);
+        }
+      };
+      req.onerror = () => reject(req.error);
+    });
+  }
+
+  // Filename: <LESSON_KEY>_<recorderId>_YYYY-MM-DD.webm
+  // Sanitizes recorderId so weird chars don't break filesystems.
+  function _emailFilenameFor(rec) {
+    const d = new Date(rec.createdAt || Date.now());
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const safeId = String(rec.recorderId || 'unknown').replace(/[^a-zA-Z0-9_-]/g, '_');
+    return `${LESSON_KEY}_${safeId}_${yyyy}-${mm}-${dd}.webm`;
+  }
+
+  // Get recipient: first call prompts; subsequent reads from localStorage.
+  // Returns null if user cancels.
+  function _emailGetRecipient() {
+    let saved = '';
+    try { saved = localStorage.getItem(_EMAIL_LS_KEY) || ''; } catch (_) { /* private mode */ }
+    if (saved && _EMAIL_VALID_RE.test(saved)) return saved;
+    let attempts = 0;
+    while (attempts++ < 3) {
+      const msg = attempts === 1
+        ? "Enter the email address to send your recordings to:"
+        : "That doesn't look like a valid email. Please try again (or Cancel to abort):";
+      const entry = window.prompt(msg, saved);
+      if (entry === null) return null; // user cancelled
+      const trimmed = entry.trim();
+      if (_EMAIL_VALID_RE.test(trimmed)) {
+        try { localStorage.setItem(_EMAIL_LS_KEY, trimmed); } catch (_) {}
+        return trimmed;
+      }
+      saved = trimmed; // keep for next prompt
+    }
+    return null;
+  }
+
+  // ----- ZIP encoder (STORED-mode, no compression) -----
+  // Audio is already Opus-compressed; DEFLATE adds ~1-2%, not worth the
+  // 95KB JSZip dependency. Format ref: PKWARE APPNOTE.TXT 4.5.
+
+  let _crcTable = null;
+  function _ensureCrcTable() {
+    if (_crcTable) return _crcTable;
+    const t = new Uint32Array(256);
+    for (let n = 0; n < 256; n++) {
+      let c = n;
+      for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      t[n] = c >>> 0;
+    }
+    _crcTable = t;
+    return t;
+  }
+  function _crc32(bytes) {
+    const t = _ensureCrcTable();
+    let crc = 0xFFFFFFFF;
+    for (let i = 0; i < bytes.length; i++) {
+      crc = (t[(crc ^ bytes[i]) & 0xFF] ^ (crc >>> 8)) >>> 0;
+    }
+    return (crc ^ 0xFFFFFFFF) >>> 0;
+  }
+
+  // entries: [{name: string, data: Uint8Array}] -> Blob('application/zip')
+  async function _emailBuildZip(entries) {
+    const enc = new TextEncoder();
+    const parts = [];
+    const central = [];
+    let offset = 0;
+
+    const now = new Date();
+    const dosTime = ((now.getHours() & 0x1F) << 11)
+                  | ((now.getMinutes() & 0x3F) << 5)
+                  | ((now.getSeconds() >> 1) & 0x1F);
+    const dosDate = (((now.getFullYear() - 1980) & 0x7F) << 9)
+                  | (((now.getMonth() + 1) & 0x0F) << 5)
+                  | (now.getDate() & 0x1F);
+
+    for (const e of entries) {
+      const nameBytes = enc.encode(e.name);
+      const data = e.data;
+      const crc = _crc32(data);
+      const sz = data.length;
+
+      // Local file header
+      const lfh = new Uint8Array(30 + nameBytes.length);
+      const lv = new DataView(lfh.buffer);
+      lv.setUint32(0, 0x04034b50, true);
+      lv.setUint16(4, 20, true);
+      lv.setUint16(6, 0, true);
+      lv.setUint16(8, 0, true);  // STORED
+      lv.setUint16(10, dosTime, true);
+      lv.setUint16(12, dosDate, true);
+      lv.setUint32(14, crc, true);
+      lv.setUint32(18, sz, true);
+      lv.setUint32(22, sz, true);
+      lv.setUint16(26, nameBytes.length, true);
+      lv.setUint16(28, 0, true);
+      lfh.set(nameBytes, 30);
+      parts.push(lfh, data);
+
+      // Central directory entry
+      const cdh = new Uint8Array(46 + nameBytes.length);
+      const cv = new DataView(cdh.buffer);
+      cv.setUint32(0, 0x02014b50, true);
+      cv.setUint16(4, 20, true);
+      cv.setUint16(6, 20, true);
+      cv.setUint16(8, 0, true);
+      cv.setUint16(10, 0, true);
+      cv.setUint16(12, dosTime, true);
+      cv.setUint16(14, dosDate, true);
+      cv.setUint32(16, crc, true);
+      cv.setUint32(20, sz, true);
+      cv.setUint32(24, sz, true);
+      cv.setUint16(28, nameBytes.length, true);
+      cv.setUint16(30, 0, true);
+      cv.setUint16(32, 0, true);
+      cv.setUint16(34, 0, true);
+      cv.setUint16(36, 0, true);
+      cv.setUint32(38, 0, true);
+      cv.setUint32(42, offset, true);
+      cdh.set(nameBytes, 46);
+      central.push(cdh);
+
+      offset += lfh.length + sz;
+    }
+
+    const cdSize = central.reduce((s, c) => s + c.length, 0);
+    const cdOffset = offset;
+    const eocd = new Uint8Array(22);
+    const ev = new DataView(eocd.buffer);
+    ev.setUint32(0, 0x06054b50, true);
+    ev.setUint16(4, 0, true);
+    ev.setUint16(6, 0, true);
+    ev.setUint16(8, entries.length, true);
+    ev.setUint16(10, entries.length, true);
+    ev.setUint32(12, cdSize, true);
+    ev.setUint32(16, cdOffset, true);
+    ev.setUint16(20, 0, true);
+
+    return new Blob([...parts, ...central, eocd], { type: 'application/zip' });
+  }
+
+  // Programmatic <a download> click — works without a permission prompt
+  // because we're inside a user-gesture handler (the button click).
+  function _emailDownloadBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      try { document.body.removeChild(a); } catch (_) {}
+      URL.revokeObjectURL(url);
+    }, 1000);
+  }
+
+  // Open mailto: via a synchronous <a>.click() so the OS protocol handler
+  // intercepts before navigation. Avoids window.open() (which the popup
+  // blocker can silently kill if any setTimeout has broken the
+  // user-gesture chain). The current page does NOT navigate — the mail
+  // client just opens. If there's no registered mail client, the click
+  // is a no-op (the completion panel below provides a re-open button).
+  function _emailOpenMailto(url) {
+    const a = document.createElement('a');
+    a.href = url;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { try { document.body.removeChild(a); } catch (_) {} }, 200);
+  }
+
+  // Completion panel — shown after successful download + mailto trigger.
+  // Acts as a fallback for: (1) browsers that blocked the mailto, (2) users
+  // with no default mail client (very common — they use webmail). The
+  // "Re-open email" button retries the mailto in a fresh user gesture.
+  function _showEmailCompletionPanel(recipient, zipName, mailtoUrl) {
+    const existing = document.querySelector('.email-completion-panel');
+    if (existing) existing.remove();
+    const panel = document.createElement('div');
+    panel.className = 'email-completion-panel';
+    panel.innerHTML = ''
+      + '<div class="ecp-icon">✉️</div>'
+      + '<div class="ecp-content">'
+      +   '<div class="ecp-line"><strong>Downloaded:</strong> <span class="ecp-mono">' + _emailEsc(zipName) + '</span></div>'
+      +   '<div class="ecp-line"><strong>Send to:</strong> ' + _emailEsc(recipient) + '</div>'
+      +   '<div class="ecp-hint">Your email program should have opened. If not, click <em>Re-open email</em> below — or copy the details and paste into Gmail / Outlook web.</div>'
+      +   '<div class="ecp-actions">'
+      +     '<button class="ecp-reopen" type="button">Re-open email</button>'
+      +     '<button class="ecp-copy"   type="button">Copy details</button>'
+      +     '<button class="ecp-close"  type="button">Close</button>'
+      +   '</div>'
+      + '</div>';
+    document.body.appendChild(panel);
+    panel.querySelector('.ecp-close').onclick = () => panel.remove();
+    panel.querySelector('.ecp-reopen').onclick = () => _emailOpenMailto(mailtoUrl);
+    panel.querySelector('.ecp-copy').onclick = async (ev) => {
+      // Decode the mailto URL into copy-friendly text
+      const u = new URL(mailtoUrl);
+      const subject = decodeURIComponent((u.search.match(/[?&]subject=([^&]*)/) || [,''])[1]);
+      const body = decodeURIComponent((u.search.match(/[?&]body=([^&]*)/) || [,''])[1]);
+      const text = `To: ${recipient}\nSubject: ${subject}\n\n${body}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        const btn = ev.currentTarget;
+        const orig = btn.textContent;
+        btn.textContent = '✓ Copied';
+        setTimeout(() => { btn.textContent = orig; }, 1600);
+      } catch (e) {
+        _showEmailToast('Copy failed — your browser blocked clipboard access.');
+      }
+    };
+    // Auto-dismiss after 90s in case the student forgets it's there
+    setTimeout(() => { if (panel.parentNode) panel.remove(); }, 90000);
+  }
+
+  function _emailEsc(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[c]);
+  }
+
+  function _emailComposeMailto(recipient, recordings, weekNum) {
+    const course = _emailCourseLabel();
+    const subject = `${course} Week ${weekNum} Speaking Recordings`;
+    const today = new Date().toISOString().slice(0, 10);
+    const lines = [
+      `Hi,`,
+      ``,
+      `Please find my Week ${weekNum} ${course} speaking recordings.`,
+      ``,
+      `Attached: ${LESSON_KEY}_recordings_${today}.zip (${recordings.length} recording${recordings.length === 1 ? '' : 's'})`,
+      ``,
+      `Filenames inside the zip:`,
+    ];
+    for (const r of recordings) lines.push(`  • ${_emailFilenameFor(r)}`);
+    lines.push('', '(Please attach the downloaded zip — your email program should have started a new message.)');
+    let body = lines.join('\n');
+    if (body.length > 1500) body = body.slice(0, 1500) + '\n…';
+    return `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  // Floating bottom-center toast.
+  function _showEmailToast(text, ms = 3000) {
+    let toast = document.querySelector('.email-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.className = 'email-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = text;
+    requestAnimationFrame(() => toast.classList.add('visible'));
+    clearTimeout(toast._dismissTimer);
+    toast._dismissTimer = setTimeout(() => toast.classList.remove('visible'), ms);
+  }
+
+  ns.emailLessonRecordings = async function () {
+    let recordings;
+    try {
+      recordings = await _emailEnumerateRecordings();
+    } catch (e) {
+      console.error('emailLessonRecordings: enumerate failed', e);
+      _showEmailToast('Could not read recordings (browser storage error).');
+      return;
+    }
+    if (!recordings || recordings.length === 0) {
+      _showEmailToast('No recordings saved yet for this week.');
+      return;
+    }
+    const recipient = _emailGetRecipient();
+    if (!recipient) return;
+
+    const entries = [];
+    for (const r of recordings) {
+      const ab = await r.blob.arrayBuffer();
+      entries.push({ name: _emailFilenameFor(r), data: new Uint8Array(ab) });
+    }
+
+    const zipBlob = await _emailBuildZip(entries);
+    const today = new Date().toISOString().slice(0, 10);
+    const zipName = `${LESSON_KEY}_recordings_${today}.zip`;
+    _emailDownloadBlob(zipBlob, zipName);
+
+    const weekNum = _emailWeekNumber();
+    const mailtoUrl = _emailComposeMailto(recipient, recordings, weekNum);
+    // Synchronous <a>.click() in the same user-gesture frame — no popup blocker.
+    _emailOpenMailto(mailtoUrl);
+    // Show completion panel with "Re-open email" + "Copy details" fallbacks
+    // for students whose Windows machine has no default mail client.
+    _showEmailCompletionPanel(recipient, zipName, mailtoUrl);
+  };
+
+  // Test hooks (only used by Playwright/Node smoke tests)
+  ns.__emailBuildZip = _emailBuildZip;
+  ns.__emailFilenameFor = _emailFilenameFor;
 
   document.addEventListener('DOMContentLoaded', () => {
     if (typeof ns.__init === 'function') ns.__init();

@@ -22,6 +22,14 @@ resources:
       environmentVariables:
         ZHIPU_API_KEY: ${env('ZHIPU_API_KEY')}
         ZHIPU_MODEL_ID: ${env('ZHIPU_MODEL_ID')}
+      # Concurrency cap: default per-instance is 1 (FC v3), and instance
+      # concurrency cap defaults around 100. Raising both gives the function
+      # headroom for start-of-class burst (~200 students hitting Correct
+      # within the same minute). The client-side jitter+retry in
+      # inserted_script.js already softens the first wave; this raises the
+      # ceiling so retries succeed instead of just delaying failure.
+      instanceConcurrency: 10  # 10 concurrent requests per warm instance
+      # asyncConfiguration left default — corrections are sync POSTs.
       triggers:
         - triggerName: http
           triggerType: http
@@ -31,3 +39,16 @@ resources:
               - POST
               - OPTIONS
               - GET
+        # Scheduled warmup: GET /health every 5 min between 06:50 and 22:55
+        # Beijing time. Keeps at least one instance hot through the school
+        # day so the first student of each session avoids the 1-3s cold
+        # start. ~192 invocations/day × 365 days ≈ 70k/year, well within
+        # FC free tier. Cron format: seconds minutes hours day-of-month
+        # month day-of-week. Aliyun cron uses Beijing time when
+        # `cronExpression` doesn't include a TZ.
+        - triggerName: warmup
+          triggerType: timer
+          triggerConfig:
+            cronExpression: "0 */5 6-23 * * *"
+            enable: true
+            payload: '{"rawPath": "/health", "requestContext": {"http": {"method": "GET", "path": "/health"}}, "headers": {}, "body": ""}'

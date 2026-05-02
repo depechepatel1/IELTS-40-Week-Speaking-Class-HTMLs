@@ -1,0 +1,42 @@
+# IELTS 40-Week Speaking Class — pipeline configuration
+# Single source of truth for all scripts. Edit here, not in script CLI args.
+
+course:
+  name: "IELTS 40-Week Speaking Masterclass"
+  short_name: "ielts"
+
+paths:
+  canonical_pdf_base: "canonical/pdf-base/Week_01.html"
+  canonical_interactive: "canonical/interactive/Week_01.html"
+  pdf_base_dir: "."                              # Week_NN.html × 40 (regenerated)
+  interactive_dir: "Interactive"                 # Interactive/Week_NN.html × 40
+  master_curriculum: "master Curiculum.json"
+  pronunciations: "pronunciations.json"
+  images_dir: "images"
+  scripts_dir: "scripts"
+  templates_dir: "scripts/templates"
+  fonts_dir: "scripts/fonts"
+  filename_pattern: "Week_{week:02d}.html"       # Week_01.html, Week_05.html, ..., Week_40.html
+
+oss:
+  bucket: "aischool-ielts-bj"
+  region: "cn-beijing"
+  endpoint: "oss-cn-beijing.aliyuncs.com"
+  prefix: ""                                     # files at bucket root, no prefix
+  block_public_access: true                      # private; CDN reads via origin-pull
+
+cdn:
+  domain: "ielts.aischool.studio"                # public URL students hit
+  bucket_base: "https://ielts.aischool.studio"   # baked into Interactive HTMLs
+  cert_id: "24643392"                            # Aliyun CDN free DV
+  cert_expires: "2026-07-24"
+  auto_renew: true
+
+function_compute:
+  endpoint: "https://ielts-ai-correct-exuelhswhc.cn-beijing.fcapp.run"
+  service_name: "ielts-ai-correction"
+
+dns:
+  domain: "aischool.studio"
+  subdomain: "ielts"                             # ielts.aischool.studio
+  cname_target: "igcse.aischool.studio.w.kunlunaq.com"  # CDN edge (TBD on subdomain rename)

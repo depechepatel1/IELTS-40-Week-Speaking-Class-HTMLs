@@ -23,12 +23,42 @@ Fix:
 - Wrong word choice ONLY when a word is genuinely incorrect (mistranslation,
   wrong sense, non-existent word)
 
+Word-form preference: when fixing a word form, prefer the correction that
+shares the most letters with the student's original word. For example:
+"tired" used as adjective → "tiring" (NOT "exhausting"); "smooth" used
+adverbially → "smoothly" (NOT "in a smooth manner"); "heavy" used
+adverbially → "heavily" (NOT "intensely"). Stem-preserving corrections
+look like minimal teacher edits.
+
 Do NOT:
 - Replace words that are already correct, even if simple or basic
 - Add new ideas, examples, details, opinions, or sentences not in the student's draft
 - Delete the student's ideas
 - Restructure sentences unless grammar requires it
-- Change length by more than 10 words from the student's original
+- Change length by more than 20 words from the student's original
+
+Two STRUCTURAL requirements every corrected draft must satisfy. If the
+student's draft already meets a requirement, leave it untouched.
+
+1. AT LEAST ONE complex sentence with a subordinating conjunction OTHER
+   than "because". If the corrected draft has none, JOIN two adjacent
+   simple sentences (with a logical relationship) by:
+     - Replace the period+space between them with ", " + the most fitting
+       subordinating conjunction from this list + " ":
+       while, although, even though, since, after, as soon as, before,
+       until, whenever, if, even if, unless, provided that, so that,
+       in order that, in order to
+     - Lowercase the first letter of the second sentence after the join
+   DO NOT rewrite the sentences themselves. Only the period→conjunction
+   substitution + lowercasing.
+
+2. AT LEAST TWO transition phrases (e.g. "However,", "In addition,",
+   "Therefore,", "For example,", "Moreover,", "Finally,", "In conclusion,",
+   "Nevertheless,", "As a result,", "Meanwhile,", "On the other hand,").
+   If the corrected draft has fewer than 2, prepend a fitting transition
+   to the start of a suitable existing sentence — format: "Transition, "
+   followed by the lowercased first letter of that sentence.
+   DO NOT rewrite the sentence itself. Only insert at sentence starts.
 
 Return ONLY the corrected text as plain prose. No preamble, no markdown,
 no commentary, no quotes, no bullet points.`;
@@ -37,6 +67,68 @@ no commentary, no quotes, no bullet points.`;
 let _zhipuFetcher = (url, opts) => fetch(url, opts);
 export function __setZhipuFetcher(fn) { _zhipuFetcher = fn; }
 export function __resetZhipuFetcher() { _zhipuFetcher = (url, opts) => fetch(url, opts); }
+
+// === AI correction cache (in-memory LRU) =====================================
+// At start-of-class scale (200+ students within minutes), many drafts collide
+// on common errors ("I am go to school", "He don't like…", canned shadowing
+// phrases). Caching the corrected output keyed by hash(normalized_draft)
+// short-circuits the Zhipu round-trip entirely on a hit (~2-3s saved + 1
+// Zhipu API call avoided).
+//
+// Why in-memory and not Redis/OSS: FC instances stay warm during traffic
+// spikes, which is the exact window where cache hit-rate matters most. When
+// the instance recycles after idle, the cache resets — that's fine, the
+// next class will warm it up again. No external service to provision, no
+// extra latency, no extra ops surface.
+//
+// LRU via JS Map insertion-order: on hit we delete + re-set so the key
+// lands at the end (most-recent). When size cap reached, delete the first
+// entry (oldest). O(1) per op.
+//
+// Privacy note: cache keys are the normalized draft text itself. Two
+// students typing literally identical 50-300-word drafts is vanishingly
+// rare in practice; in the unlikely event it happens, the second student
+// receives the same grammar correction the first received. No personal
+// information flows between students because the cached value is just
+// the corrected sentence the second student would have received anyway.
+const AI_CACHE_MAX = 1000;
+const _aiCache = new Map();
+
+import { createHash } from 'node:crypto';
+
+function _normalizeForCache(draft) {
+  return draft.trim().replace(/\s+/g, ' ').toLowerCase();
+}
+
+function _aiCacheKey(draft) {
+  return createHash('sha256').update(_normalizeForCache(draft)).digest('hex');
+}
+
+function aiCacheGet(draft) {
+  const k = _aiCacheKey(draft);
+  if (!_aiCache.has(k)) return null;
+  const v = _aiCache.get(k);
+  // Bump to most-recent.
+  _aiCache.delete(k);
+  _aiCache.set(k, v);
+  return v;
+}
+
+function aiCacheSet(draft, corrected) {
+  const k = _aiCacheKey(draft);
+  if (_aiCache.has(k)) _aiCache.delete(k);
+  _aiCache.set(k, corrected);
+  // Evict oldest until under cap.
+  while (_aiCache.size > AI_CACHE_MAX) {
+    const firstKey = _aiCache.keys().next().value;
+    _aiCache.delete(firstKey);
+  }
+}
+
+// Test hooks — allow unit tests to inspect / reset the cache.
+export function __resetAICache() { _aiCache.clear(); }
+export function __aiCacheSize() { return _aiCache.size; }
+// =============================================================================
 
 function isZhipuQuotaError(parsed) {
   if (!parsed) return false;
@@ -101,7 +193,25 @@ async function callZhipu(draft) {
   if (typeof content !== 'string' || !content.trim()) {
     return { ok: false, status: 500, error: 'AI 返回了意外的响应 / AI returned an unexpected response.' };
   }
-  return { ok: true, corrected: content.trim() };
+  // Strip markdown leakage. Despite the system prompt saying "no markdown",
+  // Zhipu sometimes wraps transition phrases in **bold** (e.g.
+  // "**However,** the food was great"). The diff engine treats `**` as
+  // literal characters and renders them as garbage in the corrected output.
+  // Sanitise here so cached responses also get the clean version.
+  const sanitised = content
+    .trim()
+    // Bold: **text** -> text (greedy match within asterisks)
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    // Stray paired asterisks at sentence boundaries (rare but seen)
+    .replace(/(^|\s)\*\*(\s|$)/g, '$1$2')
+    // Any remaining lone ** (defensive; should be 0 after the above)
+    .replace(/\*\*/g, '')
+    // Italic: *text* -> text (only when wrapping a word, avoid arithmetic)
+    .replace(/(^|\s)\*([^\s*][^*]*[^\s*]|[^\s*])\*(\s|$|[.,!?;:])/g, '$1$2$3')
+    // Markdown headings / list bullets at line starts (defensive)
+    .replace(/^[#\-*]\s+/gm, '')
+    .trim();
+  return { ok: true, corrected: sanitised };
 }
 
 // In-memory rate limiter — Map<ip, { count, windowStart }>.
@@ -208,10 +318,21 @@ export async function processRequest({ method, path, headers, body, clientIP }) 
     });
   }
 
+  // Cache check BEFORE Zhipu — if another student (or this same student
+  // re-clicking Correct) submitted the same draft recently, return the
+  // cached result instantly. Saves ~2-3s + 1 Zhipu API call per hit.
+  const cached = aiCacheGet(draft);
+  if (cached !== null) {
+    return respond(200, { corrected: cached, cached: true });
+  }
+
   const result = await callZhipu(draft);
   if (!result.ok) {
     return respond(result.status, { error: result.error });
   }
+  // Populate cache on success only — never cache error responses (those
+  // might be transient: rate limits, quota exhausted, network blips).
+  aiCacheSet(draft, result.corrected);
   return respond(200, { corrected: result.corrected });
 }
 

@@ -103,106 +103,13 @@ def process_cover_page(soup, week_number, week_data):
     if soup.title:
         soup.title.string = f"Week {week_number} Master Lesson Pack"
 
-    # INJECT CSS OVERRIDES
-    css_overrides = """
-    /* OVERRIDES FOR COVER PAGE (Page 1) */
-    @page:first {
-        background-image: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg');
-        background-size: cover;
-        background-position: center;
-        margin: 0;
-    }
-    .cover-page {
-        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
-        background-size: cover !important;
-        position: relative;
-        width: 210mm; /* A4 Width */
-        height: 296mm; /* A4 Height */
-        color: black; 
-        padding: 0 !important;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end; /* Text at bottom */
-        align-items: flex-end; /* Text at right */
-        text-align: right;
-        padding-bottom: 2cm !important; /* Spacing from bottom */
-    }
-    .cover-content {
-        margin-right: 2cm;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 0px; /* Compact lines */
-    }
-    .cover-title-large {
-        font-size: 6em;
-        font-weight: 900;
-        line-height: 0.9;
-        color: black;
-        -webkit-text-stroke: 2px white; /* Thin white border */
-        text-shadow: 2px 2px 0 #fff;
-        margin: 0;
-        text-transform: uppercase;
-    }
-    .cover-subtitle {
-        font-size: 1.8em;
-        font-weight: 700;
-        color: black;
-        background: transparent; /* Changed from white to transparent to show image */
-        padding: 5px 0; /* Adjusted padding */
-        margin: 10px 0 0 0;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        display: inline-block;
-        -webkit-text-stroke: 1px white; /* Thin white border */
-        text-shadow: 1px 1px 0 #fff;
-        box-shadow: none; /* Removed shadow box */
-    }
-    .cover-top-label {
-        font-size: 1.5em;
-        font-weight: 800;
-        color: black;
-        text-transform: uppercase;
-        letter-spacing: 4px;
-        margin-bottom: 0;
-        -webkit-text-stroke: 1px white; /* Thin white border */
-        text-shadow: 1px 1px 0 #fff;
-    }
-    .cover-week {
-        font-size: 5em;
-        font-weight: 900;
-        color: black;
-        margin: 0;
-        line-height: 1;
-        -webkit-text-stroke: 2px white; /* Thin white border */
-        text-shadow: 2px 2px 0 #fff;
-    }
-    .cover-footer {
-        position: absolute;
-        bottom: 1cm;
-        right: 2cm;
-        font-size: 0.8em;
-        color: black;
-        font-weight: 600;
-        -webkit-text-stroke: 0.5px white; /* Very thin border */
-        text-shadow: 0.5px 0.5px 0 #fff;
-        opacity: 1;
-    }
-    /* Hide default elements we don't need */
-    .cover-box { display: none; } 
-    """
-    
-    # Clean up ANY existing cover overrides (duplicates or old versions)
-    if soup.head:
-        for tag in soup.head.find_all('style'):
-            if tag.string and "OVERRIDES FOR COVER PAGE" in tag.string:
-                tag.decompose()
-    
-    # Add fresh style tag
-    style_tag = soup.new_tag('style', id='cover-overrides')
-    style_tag.string = css_overrides
-    if soup.head:
-        soup.head.append(style_tag)
+    # NOTE (2026-05-01): cover CSS is now sourced from the canonical template
+    # (canonical/pdf-base/Week_01.html) which carries `<style id="cover-overrides">`
+    # in its head. We no longer strip-and-reinject it here — the canonical's
+    # block flows through BeautifulSoup's parse/serialize cycle unmodified, so
+    # all 40 regenerated weeks inherit the same cover CSS as Week 1.
+    # This removes the Round-5-vs-Round-15/16 footgun where this script
+    # silently re-injected stale CSS over canonical edits.
 
     # REBUILD COVER PAGE HTML
     cover_div = soup.find('div', class_='cover-page')
@@ -266,7 +173,7 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
     l1_page = soup.find('div', class_='l1')
     if l1_page:
         # Learning Objectives
-        lo_card = l1_page.find('h2', string=re.compile(r'Learning Objectives')).parent
+        lo_card = l1_page.find('h4', string=re.compile(r'Learning Objectives')).parent
         if lo_card:
             ul = lo_card.find('ul')
             if ul:
@@ -284,7 +191,7 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
                     ul.append(BeautifulSoup(f"<li>{obj_html}</li>", 'html.parser'))
         
         # Criteria
-        criteria_h2 = l1_page.find('h2', string=re.compile(r'Criteria'))
+        criteria_h2 = l1_page.find('h4', string=re.compile(r'Criteria'))
         if criteria_h2:
             criteria_div = criteria_h2.find_next_sibling('div')
             if criteria_div:
@@ -292,7 +199,7 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
                 criteria_div.append(BeautifulSoup(l1_data.get('success_criteria', ''), 'html.parser'))
                 
         # Differentiation
-        diff_card = l1_page.find('h2', string=re.compile(r'Differentiation')).parent
+        diff_card = l1_page.find('h4', string=re.compile(r'Differentiation')).parent
         if diff_card:
             b5_data = l1_data.get('differentiation', {}).get('band_5', {})
             b6_data = l1_data.get('differentiation', {}).get('band_6', {})
@@ -360,7 +267,7 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
         l2_teacher_page = l2_pages[0] # Assuming first is Teacher Plan
         
         # Learning Objectives
-        lo_card = l2_teacher_page.find('h2', string=re.compile(r'Learning Objectives')).parent
+        lo_card = l2_teacher_page.find('h4', string=re.compile(r'Learning Objectives')).parent
         if lo_card:
             ul = lo_card.find('ul')
             if ul:
@@ -377,7 +284,7 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
                     ul.append(BeautifulSoup(f"<li>{obj_html}</li>", 'html.parser'))
         
         # Criteria
-        criteria_h2 = l2_teacher_page.find('h2', string=re.compile(r'Criteria'))
+        criteria_h2 = l2_teacher_page.find('h4', string=re.compile(r'Criteria'))
         if criteria_h2:
             criteria_div = criteria_h2.find_next_sibling('div')
             if criteria_div:
@@ -385,7 +292,7 @@ def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_d
                 criteria_div.append(BeautifulSoup(l2_data.get('success_criteria', ''), 'html.parser'))
                 
         # Differentiation
-        diff_card = l2_teacher_page.find('h2', string=re.compile(r'Differentiation')).parent
+        diff_card = l2_teacher_page.find('h4', string=re.compile(r'Differentiation')).parent
         if diff_card:
             b5_data = l2_data.get('differentiation', {}).get('band_5', {})
             b6_data = l2_data.get('differentiation', {}).get('band_6', {})
@@ -741,12 +648,179 @@ def extract_keyword(text):
 
     return "TOPIC"
 
+# Valid IELTS Part 2 cue interrogatives. Anything outside this set in the
+# extracted cue means the bullet started with a low-content word (article,
+# preposition, etc.) — extract_cue_words walks past those to find a real
+# interrogative. Mirrored in audit_lesson_labels.py's VALID_CUES set.
+_VALID_CUES = {
+    "WHO", "WHAT", "WHEN", "WHERE", "WHY", "HOW", "WHICH", "WHOSE", "WHOM",
+    "WHETHER",
+}
+_LOW_CONTENT_WORDS = {
+    # Articles
+    "THE", "A", "AN",
+    # Prepositions
+    "TO", "ON", "IN", "AT", "FOR", "BY", "WITH", "FROM", "OF", "ABOUT",
+    "AROUND", "DURING", "AFTER", "BEFORE", "INTO", "ONTO", "OUT", "OVER",
+    "UNDER", "THROUGH", "WITHIN",
+    # Pronouns / determiners
+    "I", "YOU", "IT", "HE", "SHE", "WE", "THEY", "THIS", "THAT", "THESE",
+    "THOSE", "MY", "YOUR", "HIS", "HER", "ITS", "OUR", "THEIR",
+    # Connectors / conjunctions (not used as cue words)
+    "BUT", "OR", "SO", "YET",
+    # Low-content verbs
+    "IS", "WAS", "ARE", "WERE", "BE", "BEEN", "BEING", "DO", "DID", "DOES",
+}
+
+
+def _cue_from_bullet_text(text):
+    """Extract the cue interrogative from a single bullet's text.
+
+    Walks word-by-word: skip low-content leading words (articles,
+    prepositions, pronouns), return the first cue interrogative we hit.
+    Falls back to the literal first word if neither rule fires (caller
+    will validate via _VALID_CUES and may further repair).
+    """
+    if not text:
+        return None
+    words = re.findall(r'[A-Za-z/]+', text)  # /-aware so HOW/WHERE survives
+    for raw in words:
+        upper = raw.upper().rstrip('.,:;')
+        # Compound cue (e.g. HOW/WHERE) — accept if every segment is valid.
+        segments = upper.split('/')
+        if segments and all(s in _VALID_CUES for s in segments):
+            return upper
+        if upper in _LOW_CONTENT_WORDS:
+            continue
+        # Hit a content word that isn't an interrogative (noun/verb/adj).
+        # IELTS bullets don't bury cues that deep — return what we have.
+        return upper  # caller will see this fail _VALID_CUES check
+    return None
+
+
+def extract_cue_words(prompt_html):
+    """Extract 4 cue words from a Part 2 prompt's bullet structure.
+
+    Cue words live as PLAIN TEXT in the source data — they're not wrapped
+    in <strong> tags until format_bullet_text() runs later in the
+    pipeline. We mirror format_bullet_text()'s own splitting algorithm so
+    we read the cues directly from the bullet lines, then apply the
+    smarter "skip low-content leading words" rule so prompts like
+    "On what occasion ..." correctly resolve to WHAT (not ON).
+
+    Source-data prompt shape:
+
+        <p>Describe X. You should say:<br>
+        Where you would like to go<br>
+        What kind of work you want to do<br>
+        When you would like to go<br>
+        And explain why you want to work in that place</p>
+
+    The 4th cue is almost always "And" (connector); we substitute it
+    with the interrogative from the trailing "explain (why|how|...)"
+    phrase. Falls back to "WHY" if no pattern matches.
+
+    Output cues are validated against _VALID_CUES; any cue outside the
+    allowlist is left as the extracted token (downstream audit will
+    flag and repair via audit_lesson_labels.py).
+
+    NOTE: q1.html in the source data contains BOTH the cue-card prompt
+    <p> AND the model-answer <p> (with vocabulary words bolded as
+    <strong> for highlighting). Iterating <p> tags and selecting the
+    one that contains "You should say:" sidesteps that ambiguity.
+
+    Returns a 4-element uppercase list, or None if the structure
+    doesn't match.
+    """
+    if not prompt_html:
+        return None
+    soup = BeautifulSoup(prompt_html, 'html.parser')
+
+    prompt_p = None
+    for p in soup.find_all('p'):
+        if "You should say" in p.get_text():
+            prompt_p = p
+            break
+    if not prompt_p:
+        return None
+
+    p_content = prompt_p.decode_contents()
+    if "You should say:" not in p_content:
+        return None
+    after = p_content.split("You should say:", 1)[1]
+    bullet_lines = re.split(r'<br\s*/?>', after)
+
+    bullet_texts = []
+    for line in bullet_lines:
+        text = BeautifulSoup(line, 'html.parser').get_text().strip()
+        if text:
+            bullet_texts.append(text)
+        if len(bullet_texts) == 4:
+            break
+    if len(bullet_texts) < 4:
+        return None
+
+    cues = []
+    for text in bullet_texts:
+        cue = _cue_from_bullet_text(text)
+        cues.append(cue if cue else 'WHAT')
+
+    # Resolve "AND" connector to the trailing interrogative.
+    if cues[3] == 'AND':
+        cues[3] = 'WHY'  # safe fallback
+        for text in bullet_texts:
+            if text.upper().startswith('AND '):
+                m = re.match(
+                    r'and\s+explain\s+(why|how|what|when|where|who|whom|whose|which|whether)\b',
+                    text, flags=re.IGNORECASE,
+                )
+                if m:
+                    cues[3] = m.group(1).upper()
+                break
+    return cues
+
+
+def _apply_cue_labels_and_hints(legs, cue_words, hints):
+    """Update each spider-leg's <strong>N. CUE:</strong> + <span>example</span>.
+
+    Used by all 3 mind maps (Q1, Q2, Q3). Idempotent: legs without a
+    <strong>/<span> structure fall back to a no-op for the missing piece,
+    so legacy templates aren't broken if this function is called against
+    them. Legs that pre-date the span structure (bare-text + .lines) get
+    converted: we replace any leading text node with the new hint AND
+    leave the .lines in place for student writing.
+    """
+    for i, leg in enumerate(legs):
+        # Update label inside the <strong> tag (e.g. "2. WHEN:").
+        if cue_words and i < len(cue_words):
+            strong = leg.find('strong')
+            if strong:
+                strong.string = f"{i + 1}. {cue_words[i]}:"
+        # Update example content inside the <span>.
+        if hints and i < len(hints):
+            span = leg.find('span')
+            if span:
+                span.string = hints[i]
+            else:
+                # Backwards-compat for any leg still in pre-span form.
+                if leg.contents:
+                    leg.contents[0].replace_with(hints[i])
+
+
 def format_mind_maps(soup, week_data, ai_content):
     """Updates Mind Maps on Page 3."""
     l1_data = week_data.get('lesson_1_part_2', {})
     q1 = l1_data.get('q1', {})
     q2 = l1_data.get('q2', {})
     q3 = l1_data.get('q3', {})
+
+    # Per-prompt cue words → spider-leg labels. Each Q's prompt has 4
+    # <strong> cue words (Who/Where/What/When/How/Which + the 4th
+    # resolved from "And explain X"). These replace the hardcoded labels
+    # in the template so each week's labels track each week's prompt.
+    cue_words_q1 = extract_cue_words(q1.get('html', ''))
+    cue_words_q2 = extract_cue_words(q2.get('html', ''))
+    cue_words_q3 = extract_cue_words(q3.get('html', ''))
     
     # 1. Main Brainstorming Map
     q1_html = q1.get('html', '')
@@ -774,19 +848,12 @@ def format_mind_maps(soup, week_data, ai_content):
                     prompt_div.clear()
                     prompt_div.append(BeautifulSoup(fmt_html, 'html.parser'))
 
-    # Update Legs
+    # Update Legs (Q1 / Map 1) — labels from prompt cues + hints from data.
     hints = q1.get('spider_diagram_hints', ["", "", "", ""])
     spider_legs = soup.find_all('div', class_='spider-legs')
     if len(spider_legs) > 0:
         legs = spider_legs[0].find_all('div', class_='spider-leg')
-        for i, leg in enumerate(legs):
-            if i < len(hints):
-                # We need to preserve the bolding structure if possible, or just replace content
-                # Template: <strong>1. WHO:</strong><br/><span style="color:#777;">Older sister</span>
-                # We update the span.
-                span = leg.find('span')
-                if span:
-                    span.string = hints[i]
+        _apply_cue_labels_and_hints(legs, cue_words_q1, hints)
 
     # 2. Topic A (Q2) -> Part 2: Q2
     topic_a_card = soup.find('h3', string=re.compile(r'Part 2: Q2'))
@@ -813,10 +880,7 @@ def format_mind_maps(soup, week_data, ai_content):
                 
             q2_hints = q2.get('spider_diagram_hints', [])
             legs = spider_container.find_all('div', class_='spider-leg')
-            for i, leg in enumerate(legs):
-                # These legs are simpler: Text<div class="lines"></div>
-                if i < len(q2_hints):
-                    leg.contents[0].replace_with(q2_hints[i])
+            _apply_cue_labels_and_hints(legs, cue_words_q2, q2_hints)
 
     # 3. Topic B (Q3) -> Part 2: Q3
     topic_b_card = soup.find('h3', string=re.compile(r'Part 2: Q3'))
@@ -843,9 +907,7 @@ def format_mind_maps(soup, week_data, ai_content):
             
             q3_hints = q3.get('spider_diagram_hints', [])
             legs = spider_container.find_all('div', class_='spider-leg')
-            for i, leg in enumerate(legs):
-                if i < len(q3_hints):
-                    leg.contents[0].replace_with(q3_hints[i])
+            _apply_cue_labels_and_hints(legs, cue_words_q3, q3_hints)
 
 def process_student_l2(soup, week_data, ai_content, week_peer_data):
     """Updates Student Lesson 2 (Part 3) Q1-Q6."""
@@ -1014,6 +1076,39 @@ def process_homework(soup, week_number, homework_data):
     if key_div:
         key_div.string = answer_key
 
+CONTENT_PAGES_PER_WEEK = 9  # IELTS Week 1: 1 cover-page + 9 content pages
+
+
+def process_page_numbers(soup, week_number):
+    """Inject cumulative page-number divs into every content `<div class="page">`.
+
+    Skips the cover (`<div class="page cover-page">`) — covers are NOT
+    counted in the cumulative numbering. Content pages 1-9 of week N
+    receive numbers (N-1)*9+1 through (N-1)*9+9, so Week 1 → 1-9,
+    Week 40 → 352-360 (= 360 numbered pages across the bound 40-week
+    volume).
+
+    Idempotent: running parse_data.py twice produces a single
+    `<div class="page-number">` per page. We detect the existing div
+    and update its text rather than appending duplicates.
+    """
+    pages = soup.find_all('div', class_='page')
+    content_index = 0
+    for page in pages:
+        cls = page.get('class', [])
+        if 'cover-page' in cls:
+            continue  # cover skipped — no number, no count
+        content_index += 1
+        cumulative = (week_number - 1) * CONTENT_PAGES_PER_WEEK + content_index
+        existing = page.find('div', class_='page-number', recursive=False)
+        if existing:
+            existing.string = str(cumulative)
+        else:
+            new_div = soup.new_tag('div', **{'class': 'page-number'})
+            new_div.string = str(cumulative)
+            page.append(new_div)
+
+
 def main():
     print("Generating all 40 lesson plans...")
     os.makedirs('lessons', exist_ok=True)
@@ -1026,7 +1121,7 @@ def main():
         return
 
     # Load Template (Week_1_Lesson_Plan.html)
-    with open('Week_1_Lesson_Plan.html', 'r', encoding='utf-8') as f:
+    with open('canonical/pdf-base/Week_01.html', 'r', encoding='utf-8') as f:
         template_html = f.read()
 
     success_count = 0
@@ -1061,9 +1156,10 @@ def main():
             format_mind_maps(soup, week_curriculum, ai_content)
             process_student_l2(soup, week_curriculum, ai_content, week_peer_data)
             process_homework(soup, week_number, week_homework)
+            process_page_numbers(soup, week_number)  # cumulative; covers skipped
             
             # Save
-            output_filename = f'lessons/Week_{week_number}_Lesson_Plan.html'
+            output_filename = f'lessons/Week_{week_number:02d}.html'
             with open(output_filename, 'w', encoding='utf-8') as f:
                 f.write(str(soup))
                 
@@ -1082,7 +1178,7 @@ def main():
     if errors:
         print(f"Failed Weeks: {errors}")
     else:
-        print("🎉 All weeks generated successfully!")
+        print("All weeks generated successfully!")
     print("="*30)
 
 if __name__ == "__main__":

@@ -1,6 +1,17 @@
-import { test } from 'node:test';
+import { test, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
-import { handler, fc, __resetRateLimit, __setZhipuFetcher, __resetZhipuFetcher } from '../index.js';
+import { handler, fc, __resetRateLimit, __setZhipuFetcher, __resetZhipuFetcher,
+         __resetAICache } from '../index.js';
+
+// The AI correction cache (added for cost optimization) lives across
+// requests for the lifetime of the FC instance — great in production, but
+// tests assume each call goes through the Zhipu fetcher. Reset before
+// every test so cache hits don't mask what the tests are verifying.
+// The rate limiter is also instance-scoped — reset for the same reason.
+beforeEach(() => {
+  __resetAICache();
+  __resetRateLimit();
+});
 
 // Build a mock FC v3 HTTP-trigger event (AWS-Lambda-HTTPv2-shaped).
 function fcEvent(method, path = '/', body = null, extraHeaders = {}) {
@@ -312,4 +323,116 @@ test('Zhipu request shape: posts JSON with system+user messages, model, temp 0.3
   assert.equal(body.messages[0].role, 'system');
   assert.match(body.messages[0].content, /minimum changes needed/i);
   assert.equal(body.messages[1].role, 'user');
+});
+
+// ============================================================================
+// AI correction cache (added for cost optimization at scale)
+// ============================================================================
+
+function fiftyWordDraft(seed = 0) {
+  // Generate a unique-but-fixed-length draft so we can submit multiple times
+  // and verify cache hits/misses without tripping the 50-word minimum.
+  const base = 'one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twentyone twentytwo twentythree twentyfour twentyfive twentysix twentyseven twentyeight twentynine thirty thirtyone thirtytwo thirtythree thirtyfour thirtyfive thirtysix thirtyseven thirtyeight thirtynine forty fortyone fortytwo fortythree fortyfour fortyfive fortysix fortyseven fortyeight fortynine fifty';
+  return seed === 0 ? base : `${base} extra-token-${seed}`;
+}
+
+test('AI cache: identical drafts hit cache, Zhipu called once', async () => {
+  process.env.ZHIPU_API_KEY = 'test';
+  let zhipuCalls = 0;
+  __setZhipuFetcher(async () => {
+    zhipuCalls++;
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: 'CORRECTED' } }] }) };
+  });
+  const draft = fiftyWordDraft();
+  const r1 = await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft }), headers: {}, clientIP: '203.0.113.10' });
+  const r2 = await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft }), headers: {}, clientIP: '203.0.113.11' });
+  const r3 = await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft }), headers: {}, clientIP: '203.0.113.12' });
+  assert.equal(zhipuCalls, 1, 'Zhipu called exactly once across 3 identical-draft requests');
+  assert.equal(r1.statusCode, 200);
+  assert.equal(r2.statusCode, 200);
+  assert.equal(r3.statusCode, 200);
+  assert.equal(JSON.parse(r1.body).cached, undefined, 'first response is not flagged cached');
+  assert.equal(JSON.parse(r2.body).cached, true,      'second response IS flagged cached');
+  assert.equal(JSON.parse(r3.body).cached, true,      'third response IS flagged cached');
+  __resetZhipuFetcher();
+});
+
+test('AI cache: distinct drafts each hit Zhipu (no false positives)', async () => {
+  process.env.ZHIPU_API_KEY = 'test';
+  let zhipuCalls = 0;
+  __setZhipuFetcher(async () => {
+    zhipuCalls++;
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: 'CORRECTED' } }] }) };
+  });
+  await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft: fiftyWordDraft(1) }), headers: {}, clientIP: '203.0.113.20' });
+  await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft: fiftyWordDraft(2) }), headers: {}, clientIP: '203.0.113.21' });
+  await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft: fiftyWordDraft(3) }), headers: {}, clientIP: '203.0.113.22' });
+  assert.equal(zhipuCalls, 3, 'three distinct drafts → three Zhipu calls');
+  __resetZhipuFetcher();
+});
+
+test('AI cache: errored responses are NOT cached (transient quota recovers)', async () => {
+  process.env.ZHIPU_API_KEY = 'test';
+  let zhipuCalls = 0;
+  __setZhipuFetcher(async () => {
+    zhipuCalls++;
+    if (zhipuCalls === 1) {
+      // First call: simulate Zhipu quota error (NOT a network error — those retry inside callZhipu)
+      return { ok: false, status: 429, json: async () => ({ error: { code: 1113, message: 'quota exhausted' } }) };
+    }
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: 'CORRECTED' } }] }) };
+  });
+  const draft = fiftyWordDraft();
+  const r1 = await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft }), headers: {}, clientIP: '203.0.113.30' });
+  assert.equal(r1.statusCode, 503, 'first call surfaces quota error');
+  // Second call with same draft — should retry Zhipu (cache should NOT hold the error response).
+  const r2 = await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft }), headers: {}, clientIP: '203.0.113.31' });
+  assert.equal(r2.statusCode, 200, 'second call succeeds (cache did not poison)');
+  assert.equal(JSON.parse(r2.body).cached, undefined, 'second call is NOT cached (it just hit Zhipu fresh)');
+  assert.equal(zhipuCalls, 2, 'Zhipu called twice — error response was not cached');
+  __resetZhipuFetcher();
+});
+
+// ============================================================================
+// Markdown sanitization — Zhipu sometimes returns **bold** transitions
+// despite the system prompt saying "no markdown". The handler must strip
+// these before returning, otherwise the diff renderer treats `**` as
+// literal characters and shows asterisks in the corrected output.
+// ============================================================================
+
+function fiftyWordDraftSan() {
+  return 'one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twentyone twentytwo twentythree twentyfour twentyfive twentysix twentyseven twentyeight twentynine thirty thirtyone thirtytwo thirtythree thirtyfour thirtyfive thirtysix thirtyseven thirtyeight thirtynine forty fortyone fortytwo fortythree fortyfour fortyfive fortysix fortyseven fortyeight fortynine fifty';
+}
+
+test('sanitise: strips **bold** wrappers from Zhipu output', async () => {
+  process.env.ZHIPU_API_KEY = 'test';
+  __setZhipuFetcher(makeZhipuOk('I went to school. **However,** the food was great. **In addition,** I learned a lot.'));
+  const r = await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft: fiftyWordDraftSan() }), headers: {}, clientIP: '203.0.113.40' });
+  assert.equal(r.statusCode, 200);
+  const body = JSON.parse(r.body);
+  assert.ok(!body.corrected.includes('**'), `expected no '**' in corrected, got: ${body.corrected}`);
+  assert.ok(body.corrected.includes('However,'), 'expected the transition word itself to remain');
+  assert.ok(body.corrected.includes('In addition,'), 'expected the second transition to remain');
+  __resetZhipuFetcher();
+});
+
+test('sanitise: strips lone ** with no content between (defensive)', async () => {
+  process.env.ZHIPU_API_KEY = 'test';
+  __setZhipuFetcher(makeZhipuOk('Sentence one. ** Sentence two with stray pair. **'));
+  const r = await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft: fiftyWordDraftSan() }), headers: {}, clientIP: '203.0.113.41' });
+  assert.equal(r.statusCode, 200);
+  const body = JSON.parse(r.body);
+  assert.ok(!body.corrected.includes('**'), `expected no '**' remaining, got: ${body.corrected}`);
+  __resetZhipuFetcher();
+});
+
+test('sanitise: leaves clean prose untouched (no false positives)', async () => {
+  process.env.ZHIPU_API_KEY = 'test';
+  const clean = 'I went to school. The food was great. I learned a lot. However, my friend was sick.';
+  __setZhipuFetcher(makeZhipuOk(clean));
+  const r = await handler({ httpMethod: 'POST', path: '/', body: JSON.stringify({ draft: fiftyWordDraftSan() }), headers: {}, clientIP: '203.0.113.42' });
+  assert.equal(r.statusCode, 200);
+  const body = JSON.parse(r.body);
+  assert.equal(body.corrected, clean, 'clean prose should pass through identical');
+  __resetZhipuFetcher();
 });
