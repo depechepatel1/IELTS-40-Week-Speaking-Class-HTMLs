@@ -50,7 +50,7 @@ python parse_data.py                                        # canonical → Week
 cp lessons/Week_*.html . && rm -rf lessons                  # promote to root
 python scripts/make_interactive.py \
     --in . --out Interactive \
-    --endpoint https://ielts-ai-correct-exuelhswhc.cn-beijing.fcapp.run \
+    --endpoint https://ielts-arrection-nafrghqpzj.cn-beijing.fcapp.run \
     --bucket-base https://ielts.aischool.studio
 python scripts/upload_to_oss.py                             # to aischool-ielts-bj at bucket root
 ```
