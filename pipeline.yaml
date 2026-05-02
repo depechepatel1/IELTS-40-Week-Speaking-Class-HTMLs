@@ -26,9 +26,11 @@ oss:
   block_public_access: true                      # private; CDN reads via origin-pull
 
 cdn:
-  domain: "ielts.aischool.studio"                # public URL students hit
-  bucket_base: "https://ielts.aischool.studio"   # baked into Interactive HTMLs
-  cert_id: "24643392"                            # Aliyun CDN free DV
+  # Current production domain. Subdomain rename to ielts.aischool.studio
+  # is in the backlog (REORG_STATE.md) but not yet executed.
+  domain: "lessons.aischool.studio"
+  bucket_base: "https://lessons.aischool.studio"
+  cert_id: "24643392"
   cert_expires: "2026-07-24"
   auto_renew: true
 

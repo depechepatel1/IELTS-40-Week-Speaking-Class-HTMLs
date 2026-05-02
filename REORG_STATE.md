@@ -55,11 +55,26 @@
   10 minutes of FC stdout/stderr. Matches Aliyun's web console at
   https://sls.console.aliyun.com/lognext/project/aischool-fc-logs/logsearch/ielts-ai-correction
 
-**3. Cert auto-renewal verification** (expiry late July)
-- Aliyun CDN console → each domain → HTTPS → confirm "auto-renewal"
-  toggle is ON
-- Set calendar reminder for July 1 to re-check
-- `python scripts/check_cert_expiry.py` reports days remaining
+**3. ~~Cert auto-renewal verification~~** ✅ DONE 2026-05-02
+- Both certs verified valid via direct TLS probe:
+  - `lessons.aischool.studio`: cert id `24643392`, expires **2026-07-24** (83 days)
+  - `igcse.aischool.studio`:   cert id `24762111`, expires **2026-07-29** (88 days)
+- Both are Aliyun **system-managed free DV certs** (`source="cas"`,
+  cert NOT in user's CAS account → it's loaned by Aliyun's CDN free-cert
+  program). These auto-renew ~30 days before expiry as long as DNS still
+  points at the CDN edge endpoint, which it does (verified).
+- `scripts/check_cert_expiry.py` upgraded to check BOTH production
+  domains in one run (previously only checked own repo's domain). Now
+  wired into `scripts/publish.py` step 6: every full deploy ends with
+  a cert expiry summary so you'll see "<30 days remaining" warnings
+  automatically.
+- Belt-and-suspenders: set a calendar reminder for **July 1, 2026** (3
+  weeks before earliest expiry) to manually run `check_cert_expiry.py`
+  and confirm Aliyun's auto-renewal kicked in. If not, paste the cowork
+  prompt at the end of this file's "Cert renewal recovery" section.
+- Aliyun also sends auto-renewal status emails to the registered
+  account address (depechepatel1@gmail.com) — watch for those late June
+  / early July.
 
 ### Medium value
 
@@ -90,6 +105,37 @@
 **7. Documentation consolidation** — `CLAUDE.md`, `REORG_STATE.md`,
 `pipeline.yaml` cover overlapping ground. Could reduce to 1 doc plus
 the YAML config.
+
+## Cert renewal recovery (use only if auto-renewal didn't fire)
+
+If `check_cert_expiry.py` reports <30 days and Aliyun hasn't renewed
+automatically (rare — happens if DNS was misconfigured during the
+renewal window), use this Claude cowork prompt:
+
+```
+TASK: Manually trigger free DV cert renewal for two Aliyun CDN domains.
+
+Domains: lessons.aischool.studio AND igcse.aischool.studio
+Account: depechepatel1@gmail.com (signed in via browser)
+
+For each domain:
+1. Navigate to https://cdn.console.aliyun.com/domain/list
+2. Click the domain → HTTPS tab
+3. Look for "Certificate" section. If "Auto Renew" toggle exists, check
+   that it's ON; if OFF, turn it ON.
+4. Click "Renew Now" / "立即续费" if available — this triggers immediate
+   renewal via the free DV cert pool.
+5. Take a screenshot showing the new expiry date.
+
+If "Renew Now" button is unavailable:
+- Click "Edit Certificate"
+- Pick "Free DV cert from Aliyun" / "免费证书"
+- Re-issue (it generates a new free cert with fresh 12 months)
+
+Report back with:
+- Each domain's new expiry date (should be ~12 months from now)
+- Screenshots of both domain HTTPS pages post-renewal
+```
 
 ## Quick-reference commands
 

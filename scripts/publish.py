@@ -122,6 +122,17 @@ def main() -> int:
           [sys.executable, str(SCRIPTS / "upload_to_oss.py")],
           quiet=args.quiet)
 
+    # 6. Cert expiry sanity check — non-fatal, warn-only.
+    print(f"\n{'-' * 60}")
+    print(f">> Post-publish: cert expiry check")
+    print(f"{'-' * 60}")
+    cert_result = subprocess.run(
+        [sys.executable, str(SCRIPTS / "check_cert_expiry.py")],
+        cwd=str(REPO),
+    )
+    if cert_result.returncode != 0:
+        print(f"  (non-fatal: cert check returned {cert_result.returncode})")
+
     print(f"\n{'=' * 60}")
     print(f"  PUBLISH COMPLETE — students can hit {BUCKET_BASE}/")
     print(f"{'=' * 60}\n")
