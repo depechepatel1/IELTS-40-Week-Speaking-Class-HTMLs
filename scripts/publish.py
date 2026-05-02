@@ -29,6 +29,15 @@ import sys
 import time
 from pathlib import Path
 
+# Windows console defaults to cp1252; force UTF-8 so Unicode arrows/dashes
+# in our step labels don't blow up.
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 REPO = Path(__file__).resolve().parent.parent
 SCRIPTS = REPO / "scripts"
 
@@ -40,10 +49,10 @@ FC_ENDPOINT = "https://ielts-arrection-nafrghqpzj.cn-beijing.fcapp.run"
 
 
 def _step(label: str, cmd: list, *, quiet: bool, cwd: Path = REPO) -> None:
-    print(f"\n{'─' * 60}")
-    print(f"▶ {label}")
+    print(f"\n{'-' * 60}")
+    print(f">> {label}")
     print(f"  $ {' '.join(str(c) for c in cmd)}")
-    print(f"{'─' * 60}")
+    print(f"{'-' * 60}")
     t0 = time.time()
     result = subprocess.run(
         cmd,
@@ -53,7 +62,7 @@ def _step(label: str, cmd: list, *, quiet: bool, cwd: Path = REPO) -> None:
     )
     elapsed = time.time() - t0
     if result.returncode != 0:
-        print(f"\n✗ FAILED after {elapsed:.1f}s")
+        print(f"\n[FAIL] after {elapsed:.1f}s")
         if quiet and result.stdout:
             print("--- stdout ---")
             print(result.stdout[-2000:])
@@ -61,7 +70,7 @@ def _step(label: str, cmd: list, *, quiet: bool, cwd: Path = REPO) -> None:
             print("--- stderr ---")
             print(result.stderr[-2000:])
         sys.exit(result.returncode)
-    print(f"\n✓ done in {elapsed:.1f}s")
+    print(f"\n[ok] done in {elapsed:.1f}s")
 
 
 def main() -> int:
@@ -73,9 +82,9 @@ def main() -> int:
                     help="Skip parse_data + make_interactive; only upload existing files")
     args = ap.parse_args()
 
-    print(f"\n{'━' * 60}")
+    print(f"\n{'=' * 60}")
     print(f"  IELTS PUBLISH — full deploy to {BUCKET_BASE}")
-    print(f"{'━' * 60}")
+    print(f"{'=' * 60}")
 
     if not args.skip_fanout:
         # 1. Regenerate Weeks 2-40 from canonical
@@ -85,7 +94,7 @@ def main() -> int:
         # 2. Promote lessons/ → root + cleanup
         lessons_dir = REPO / "lessons"
         if lessons_dir.is_dir():
-            print(f"\n{'─' * 60}")
+            print(f"\n{'-' * 60}")
             print(f"▶ 2/5  Promote lessons/ → repo root")
             for f in sorted(lessons_dir.glob("Week_*.html")):
                 shutil.copy2(f, REPO / f.name)
@@ -113,9 +122,9 @@ def main() -> int:
           [sys.executable, str(SCRIPTS / "upload_to_oss.py")],
           quiet=args.quiet)
 
-    print(f"\n{'━' * 60}")
+    print(f"\n{'=' * 60}")
     print(f"  PUBLISH COMPLETE — students can hit {BUCKET_BASE}/")
-    print(f"{'━' * 60}\n")
+    print(f"{'=' * 60}\n")
     return 0
 
 
