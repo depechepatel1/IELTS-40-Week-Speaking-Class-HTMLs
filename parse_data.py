@@ -143,9 +143,11 @@ def process_cover_page(soup, week_number, week_data):
         
         cover_div.append(content_div)
         
-        # Footer
+        # Footer — left empty so the curriculum is school-neutral and other
+        # institutions can add their own branding here. The .cover-footer div
+        # is preserved (with positioning CSS) so a school can drop in their
+        # own text without restructuring the cover.
         footer_div = soup.new_tag('div', attrs={'class': 'cover-footer'})
-        footer_div.string = "© Jinhua New Oriental Academy English Department Curriculum"
         cover_div.append(footer_div)
 
 def process_teacher_plan(soup, week_number, week_data, teacher_content, phrase_data):
