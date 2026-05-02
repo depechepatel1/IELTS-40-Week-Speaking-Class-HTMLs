@@ -1,150 +1,133 @@
-# Reorg state — Batch B + email-button work COMPLETE 2026-05-02
+# Production state + improvement backlog (2026-05-02)
 
-Path A executed: committed local state first, then resumed Batch B
-Steps 2-5 cleanly. The reorg-paused state is now fully reconciled with
-the email-button feature added during the pause.
+## What's live now
 
-## Current state (post Path A)
-
-### Local repos
-- IELTS HEAD: `feat/brainstorming-q-recorders` `afab7fb`
-  ("Add email-recordings button + finalize Batch B local state")
-- IGCSE HEAD: `feat/igcse-interactive` `d16a9a4`
-  ("Add email-recordings button + finalize Batch B local state")
-
-### OSS bucket layout (final)
-
-```
-aischool-ielts-bj/                        aischool-igcse-bj/
-  Week_01.html ... Week_40.html (40)        Week_01.html ... Week_40.html (40)
-  pronunciations.json                       images/course_pipeline.png
-  images/course_pipeline.png                  (single image, no version suffix)
-  images/course_pipeline_v2.png
-  images/course_pipeline_v3.png
-  images/course_pipeline_v4.png
-  index.html  (landing page — needs regen with new URLs; see Out-of-scope)
-```
-
-### What's deployed publicly NOW
-
-```
-https://lessons.aischool.studio/Week_NN.html      ← IELTS, 40 files, 200 OK via CDN
-https://lessons.aischool.studio/pronunciations.json
-https://lessons.aischool.studio/images/...
-https://igcse.aischool.studio/Week_NN.html        ← IGCSE, 40 files, 200 OK via CDN
-https://igcse.aischool.studio/images/...
-```
-
-The CDN serves all of these at HTTPS via the existing DigiCert DV certs:
-- IELTS cert: `24643392` (lessons.aischool.studio) — expires 2026-07-24
-- IGCSE cert: `24762111` (igcse.aischool.studio) — expires 2026-07-29
-
-Both have CDN auto-renewal enabled (verify in Aliyun console).
-
-### Email button (✉️) is live everywhere
-
-- **IELTS**: bottom-right of "🎙️ 4. Recording Challenge" card on the
-  homework page. All 40 weeks.
-- **IGCSE**: bottom-right of "Section 13. Before Next Week's Lesson"
-  floating window. All 40 weeks.
-- Click → enumerate IndexedDB recordings for this week's `LESSON_KEY` →
-  build a STORED-mode .zip in browser → download → open mailto: with
-  pre-filled subject + body (filenames listed) → completion panel
-  appears with "Re-open email" + "Copy details" fallback buttons.
-- No backend dependency. No PII transit. Audio stays in the student's
-  browser until they manually attach the zip in their mail client.
-
-## Steps completed
-
-| # | Step | Result |
+| Surface | URL | Status |
 |---|---|---|
-| 1 | IGCSE PDF base regen + Interactive rebuild + post-merge | ✅ Done as part of email-button rebuild |
-| 2 | IELTS upload to bucket root | ✅ 40 weeks + pronunciations.json + 4 images uploaded |
-| 3 | IGCSE upload to bucket root | ✅ 40 weeks + 1 image uploaded; upload script fixed (PREFIX="", canonical override removed) |
-| 4 | Delete legacy prefix files in OSS | ✅ 40 IELTS `ielts-interactive/*` + 44 IGCSE `igcse-interactive/*` (incl. 4 v6/v7/v8/v9 backups) + 40 IELTS root-level `Week_<N>_Lesson_Plan.html` legacy orphans |
-| 5 | Unbind orphan OSS CNAMEs | ✅ `lessons.aischool.studio` and `igcse.aischool.studio` unbound from their respective buckets; CDN still serves traffic (verified 200 OK on multiple paths) |
-| 6 | Commit Batch B | ✅ Single commit per repo: `afab7fb` (IELTS) + `d16a9a4` (IGCSE) |
+| IELTS landing page | https://lessons.aischool.studio/ | ✅ live, cache-control=300s |
+| IGCSE landing page | https://igcse.aischool.studio/ | ✅ live, cache-control=300s |
+| IELTS Week pages × 40 | https://lessons.aischool.studio/Week_NN.html | ✅ live, AI correction works |
+| IGCSE Week pages × 40 | https://igcse.aischool.studio/Week_NN.html | ✅ live, AI correction works |
+| Function Compute | https://ielts-arrection-nafrghqpzj.cn-beijing.fcapp.run | ✅ live, glm-4-flash, 7s avg |
+| Cert (IELTS) | DigiCert DV id `24643392` | expires 2026-07-24 (83 days) |
+| Cert (IGCSE) | DigiCert DV id `24762111` | expires 2026-07-29 (88 days) |
 
-## Steps deferred
+## What changed in this round (2026-05-02)
 
-### Step 7 — Subdomain rename `lessons.aischool.studio` → `ielts.aischool.studio`
+- **Skip-unchanged uploads**: `upload_to_oss.py` compares local MD5 +
+  expected Cache-Control vs OSS state, skips files that match. Saves
+  bandwidth + speeds up fan-outs from ~2 min → ~10 sec when nothing
+  changed.
+- **CDN caching enabled**: Cache-Control headers now propagate
+  (HTML 5 min, JSON 1 hr, images 7 days). Verified `TCP_MEM_HIT` on
+  CDN edge — students hitting same Week page within 5 min reuse
+  cached copy.
+- **URL drift detection**: `upload_to_oss.py` aborts if
+  `function-compute/DEPLOYED_URL.txt` doesn't match the AI_ENDPOINT
+  baked into Interactive/Week_*.html files. Catches the failure mode
+  that bit us earlier in this session.
+- **Single-command publish**: `python scripts/publish.py` runs the
+  full pipeline (parse → fan-out → make_interactive → landing page →
+  upload) in one go. `--quiet` and `--skip-fanout` flags available.
+- **Zhipu model switched** from glm-4.7-flash (rate-limited) to
+  glm-4-flash (stable, fast, free-tier). Hardcoded in s.yaml so it
+  can't drift via local-env mismatch.
 
-For symmetric naming with `igcse.aischool.studio`. **NOT urgent** — the
-existing `lessons.aischool.studio` works fine and serves the
-post-reorg content correctly. Symbolic improvement only.
+## Deferred / open items (in priority order)
 
-When ready: paste this prompt into Claude cowork:
+### High value, deferred until you decide
 
-```
-TASK: Add `ielts.aischool.studio` as a new CDN domain on Aliyun CDN
-with origin = `aischool-ielts-bj.oss-cn-beijing.aliyuncs.com`.
-Provision a free DV cert (mirror what was done for `igcse.aischool.studio`
-and the existing `lessons.aischool.studio`). Add DNS CNAME via Alidns
-API from `ielts.aischool.studio` to the CDN edge endpoint. After
-verification (HTTPS + content load), DECOMMISSION
-`lessons.aischool.studio` (delete CDN domain config + delete DNS
-records). ICP filing 浙ICP备2026026030号-1 covers all aischool.studio
-subdomains. Bucket `aischool-ielts-bj` is public-read. Credentials in
-env: ALIYUN_ACCESS_KEY_ID, ALIYUN_ACCESS_KEY_SECRET. Pipeline config
-in `IELTS-40-Week-Speaking-Class-HTMLs/pipeline.yaml`.
-```
+**1. Compress course_pipeline images** (saves ~30 MB of CDN traffic per
+viewer; PNGs are currently 7.5 MB each)
+- Run `optipng -o7` or `pngcrush -reduce` on each image
+- Or use Squoosh / TinyPNG (web tools)
+- Target: ~1-2 MB per image (4-6× smaller)
+- After compression, re-upload via `python scripts/publish.py --skip-fanout`
+- Cache headers already 7-day so first viewer pays the cost; subsequent
+  viewers free.
 
-After cowork completes Step 7, we'll need to:
-- Re-run `make_interactive.py` with `--bucket-base https://ielts.aischool.studio`
-  (already that value — but re-bake so any cert refs update)
-- Re-upload Interactive files to the bucket
-- Update `pipeline.yaml` `cdn.domain` field from `lessons.aischool.studio`
-  to `ielts.aischool.studio`
-- Run `python scripts/check_cert_expiry.py` for the new cert
+**2. Enable FC logging** (caught us blind during Zhipu debugging)
+- Aliyun console → Function Compute → ielts-ai-correction →
+  Configuration → Logging → enable
+- Pick an existing Log project (or create `ielts-fc-logs`)
+- Log Store: `function-logs`, retention: 30 days
+- After enabled, `s logs --tail` will work for live debugging
+- Cost: ~¥1-2/month for our log volume
 
-### Step 8 — Bucket → private + CDN origin-pull auth
+**3. Cert auto-renewal verification** (expiry late July)
+- Aliyun CDN console → each domain → HTTPS → confirm "auto-renewal"
+  toggle is ON
+- Set calendar reminder for July 1 to re-check
+- `python scripts/check_cert_expiry.py` reports days remaining
 
-Architectural correctness improvement; non-blocking. Currently both
-buckets have `block_public_access: false` (IELTS) and `false` (IGCSE
-after we toggled it for the upload). For maximum security, both should
-be `true` with CDN configured to read via RAM-based origin-pull auth.
+### Medium value
 
-This is complex via API — recommend doing via Aliyun console:
-1. CDN console → each domain → Origin → enable origin-pull authentication
-   (RAM-based, scope to bucket-read-only)
-2. OSS console → each bucket → Block Public Access ON
-3. Verify CDN still serves (CDN hits origin via authenticated request)
+**4. Bucket → private + CDN origin-pull auth** (security hardening)
+- Aliyun OSS console → each bucket → Block Public Access → ON
+- CDN console → each domain → Origin → enable RAM origin auth
+- Tradeoff: students CAN currently hit OSS direct URL bypassing CDN
+  (no CORS issue but means OSS pays for traffic CDN should). Hardening
+  forces all traffic through CDN.
 
-### Step 9 (new, low priority) — Regenerate IELTS landing page
+**5. Subdomain rename `lessons.aischool.studio` → `ielts.aischool.studio`**
+- Symmetric with `igcse.aischool.studio` for future-proofing
+- Cost: a few hours of cowork-Claude work (DNS + new CDN domain + cert)
+- Old subdomain stays working until decommission
+- Low urgency — current name works fine
 
-`https://lessons.aischool.studio/index.html` exists and links to the
-old `Week_<N>_Lesson_Plan.html` filenames. Those files are now deleted,
-so the landing-page links 404. Either:
-- Run `python scripts/build_landing_page.py` to regenerate with new
-  `Week_NN.html` URL pattern, then re-upload
-- OR delete `index.html` if no one navigates to the bucket root
+### Low value
 
-Lowest priority — students don't access the landing page in normal
-flow. Can be deferred to next session.
+**6. Repo cleanup** — these files are gitignored or stale:
+- IELTS: `Latest IELTS Course PDFs 30th March 2026/` (PDFs from 30 Mar)
+- IELTS: `intro_packet.html` (unused?)
+- IGCSE: `Old PDFs/`, `Update IGCSE Course March 30th 2026/`
+- IGCSE: `Batch Prompts/`, `IGCSE Shadowing Chunking Instructions/`
+- Some are reference materials worth keeping; others (PDF folders) are
+  large and could be moved to a separate "archive" repo or deleted
+  after confirming we don't need them for re-extraction.
 
-## Quick verification commands
+**7. Documentation consolidation** — `CLAUDE.md`, `REORG_STATE.md`,
+`pipeline.yaml` cover overlapping ground. Could reduce to 1 doc plus
+the YAML config.
+
+## Quick-reference commands
 
 ```bash
-# Confirm latest commits
-cd "IELTS-40-Week-Speaking-Class-HTMLs" && git log --oneline -1
-cd "IGCSE Github Files" && git log --oneline -1
+# Full publish (regen + upload)
+cd "IELTS-..." && python scripts/publish.py
+cd "IGCSE..." && python scripts/publish.py
 
-# Confirm CDN serves new content
-curl -sI https://lessons.aischool.studio/Week_05.html | head -1
-curl -sI https://igcse.aischool.studio/Week_05.html | head -1
+# Upload only (no regen)
+python scripts/publish.py --skip-fanout
 
-# Confirm legacy paths DON'T serve
-curl -sI https://lessons.aischool.studio/ielts-interactive/Week_05_Lesson_Plan.html | head -1   # expect 404
-curl -sI https://igcse.aischool.studio/igcse-interactive/Week_05.html | head -1                  # expect 404
-
-# Smoke test cert expiry
+# Check cert expiry
 python scripts/check_cert_expiry.py
+
+# Verify production health
+curl -I https://lessons.aischool.studio/Week_05.html  # expect Cache-Control
+curl -I https://igcse.aischool.studio/Week_05.html
+curl -X POST https://ielts-arrection-nafrghqpzj.cn-beijing.fcapp.run/ \
+  -H 'Content-Type: application/json' \
+  -d '{"draft":"<60-word draft>"}'  # expect 200 with corrected text
+
+# FC redeploy if URL drifts (catch via URL drift check on next upload)
+cd function-compute && s deploy --use-local --assume-yes
+# Then update pipeline.yaml + canonical/interactive/Week_01.html
+# Then python scripts/publish.py
 ```
 
-## Ports of call after each session restart
+## Cost estimate (monthly, 200 students)
 
-When resuming work later:
-1. `git log --oneline -3` in both repos to confirm HEAD
-2. `git status --short | wc -l` should be 0 (or just gitignored noise)
-3. HTTP HEAD a sample CDN URL to confirm production health
-4. Read CLAUDE.md to refresh on architecture
+| Component | Cost | Notes |
+|---|---|---|
+| OSS storage | ~¥0.01 | 64 MB total |
+| CDN traffic | ~¥5-15 | depends on cache-hit rate; 7-day image cache helps |
+| Function Compute | ~¥1-3 | tiny instances; warmup cron is the main spend |
+| Zhipu API | ¥0 | glm-4-flash is free-tier |
+| Aliyun DNS | ~¥1 | covered by domain reg |
+| Cert | ¥0 | free DV via CDN |
+| **Total** | **~¥10-20/month** | for 200-student steady state |
+
+For 2,000 students (10× scale), CDN bill would scale ~linearly;
+everything else stays flat. Cache-control TTLs help linearly with
+scale (more hits = better hit ratio).
