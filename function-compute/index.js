@@ -136,6 +136,227 @@ export function __resetAICache() { _aiCache.clear(); }
 export function __aiCacheSize() { return _aiCache.size; }
 // =============================================================================
 
+
+// === Admin password rotation (Round 29 — 2026-05-03) =========================
+//
+// The Interactive Week_*.html files on both ielts.aischool.studio and
+// igcse.aischool.studio gate their content behind a SHA-256 hash fetched
+// from `/_pwhash.json` at the bucket root. Rotating that hash (a) lets a
+// teacher deny access after sharing a leak, and (b) auto-invalidates
+// students' localStorage on next page load.
+//
+// This block adds three FC routes the static admin UI talks to:
+//
+//   POST /admin/login         { hash }                  -> { token } | 401
+//   POST /admin/set-password  { hash } + Bearer token   -> { ok, rotated_at } | 401
+//   POST /admin/status                  + Bearer token  -> { rotated_at } | 401
+//
+// Authentication: a single permanent admin password whose SHA-256 lives in
+// ADMIN_PASSWORD_HASH env var. Sessions issued as a homemade signed token
+// (no JWT library — just HMAC-SHA256 on a string) with 8h expiry. Plaintext
+// passwords NEVER cross the wire — the admin UI hashes them client-side and
+// posts only the hex digest.
+//
+// On set-password, the FC writes _pwhash.json to BOTH bucket roots
+// (aischool-ielts-bj + aischool-igcse-bj) so the same shared password
+// covers both courses. Failure on the second write triggers a rollback of
+// the first (best-effort) so we never leave the buckets out of sync.
+
+import { createHmac, timingSafeEqual } from 'node:crypto';
+
+const ADMIN_TOKEN_TTL_S = 8 * 3600;   // 8 hours
+const ADMIN_HASH_HEX_LEN = 64;        // SHA-256 hex
+const ADMIN_RATE_LIMIT_MAX = 10;      // Per-IP login attempts per hour
+
+// Per-IP login throttle. Same lifetime semantics as the AI rate limiter.
+const ADMIN_RATE_LIMIT = new Map();
+export function __resetAdminRateLimit() { ADMIN_RATE_LIMIT.clear(); }
+
+function checkAdminRateLimit(ip) {
+  const now = Date.now();
+  const entry = ADMIN_RATE_LIMIT.get(ip);
+  if (!entry || now - entry.windowStart > 60 * 60 * 1000) {
+    ADMIN_RATE_LIMIT.set(ip, { count: 1, windowStart: now });
+    return { ok: true };
+  }
+  if (entry.count >= ADMIN_RATE_LIMIT_MAX) return { ok: false };
+  entry.count += 1;
+  return { ok: true };
+}
+
+function adminTokenSign(expSeconds) {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) throw new Error('JWT_SECRET not configured');
+  const payload = String(expSeconds);
+  const sig = createHmac('sha256', secret).update(payload).digest('hex');
+  return payload + '.' + sig;
+}
+
+function adminTokenVerify(token) {
+  if (typeof token !== 'string') return null;
+  const dot = token.indexOf('.');
+  if (dot < 0) return null;
+  const payload = token.slice(0, dot);
+  const sigHex = token.slice(dot + 1);
+  if (!/^\d+$/.test(payload) || !/^[0-9a-f]{64}$/.test(sigHex)) return null;
+  const secret = process.env.JWT_SECRET;
+  if (!secret) return null;
+  const expected = createHmac('sha256', secret).update(payload).digest();
+  let received;
+  try { received = Buffer.from(sigHex, 'hex'); } catch { return null; }
+  if (received.length !== expected.length) return null;
+  if (!timingSafeEqual(expected, received)) return null;
+  const exp = Number(payload);
+  if (!Number.isFinite(exp) || exp <= Math.floor(Date.now() / 1000)) return null;
+  return { exp };
+}
+
+function readBearerToken(headers) {
+  if (!headers) return null;
+  // FC v3 lowercases header keys.
+  const auth = headers.authorization || headers.Authorization || '';
+  if (!auth.toLowerCase().startsWith('bearer ')) return null;
+  return auth.slice(7).trim();
+}
+
+function isValidHashHex(s) {
+  return typeof s === 'string' && s.length === ADMIN_HASH_HEX_LEN && /^[0-9a-f]+$/i.test(s);
+}
+
+// OSS write — kept lazy so a route that doesn't touch OSS doesn't pay the
+// import cost on cold start. We import inside the function so dependency
+// failures surface with a clear error rather than blowing up module init.
+async function _ossClient(bucket) {
+  const region   = process.env.ALIYUN_OSS_REGION || 'oss-cn-beijing';
+  const id       = process.env.ALIYUN_OSS_ACCESS_KEY_ID;
+  const secret   = process.env.ALIYUN_OSS_ACCESS_KEY_SECRET;
+  if (!id || !secret) throw new Error('OSS credentials not configured');
+  const { default: OSS } = await import('ali-oss');
+  return new OSS({ region, accessKeyId: id, accessKeySecret: secret, bucket });
+}
+
+const PWHASH_KEY = '_pwhash.json';
+const PWHASH_HEADERS = {
+  'Content-Type': 'application/json',
+  'Cache-Control': 'no-cache, no-store, must-revalidate',
+};
+
+async function _readPwhash(bucket) {
+  const client = await _ossClient(bucket);
+  try {
+    const r = await client.get(PWHASH_KEY);
+    return JSON.parse(r.content.toString('utf8'));
+  } catch (e) {
+    if (e.code === 'NoSuchKey') return null;
+    throw e;
+  }
+}
+
+async function _writePwhash(bucket, payload) {
+  const client = await _ossClient(bucket);
+  await client.put(
+    PWHASH_KEY,
+    Buffer.from(JSON.stringify(payload), 'utf8'),
+    { headers: PWHASH_HEADERS },
+  );
+}
+
+async function handleAdminLogin(parsed, ip) {
+  const rl = checkAdminRateLimit(ip);
+  if (!rl.ok) {
+    return respond(429, { error: 'Too many login attempts. Try again later.' });
+  }
+  const expected = process.env.ADMIN_PASSWORD_HASH;
+  if (!expected || !isValidHashHex(expected)) {
+    return respond(503, { error: 'Admin login is not configured.' });
+  }
+  const supplied = parsed.hash;
+  if (!isValidHashHex(supplied)) {
+    return respond(400, { error: 'Invalid request body.' });
+  }
+  const a = Buffer.from(expected.toLowerCase(), 'hex');
+  const b = Buffer.from(supplied.toLowerCase(), 'hex');
+  if (a.length !== b.length || !timingSafeEqual(a, b)) {
+    return respond(401, { error: 'Wrong admin password.' });
+  }
+  const exp = Math.floor(Date.now() / 1000) + ADMIN_TOKEN_TTL_S;
+  let token;
+  try { token = adminTokenSign(exp); }
+  catch (e) { return respond(503, { error: 'Admin login is not configured.' }); }
+  return respond(200, { token, exp });
+}
+
+async function handleAdminSetPassword(parsed, headers) {
+  const tok = readBearerToken(headers);
+  const claims = adminTokenVerify(tok);
+  if (!claims) return respond(401, { error: 'Session expired. Please sign in again.' });
+
+  const supplied = parsed.hash;
+  if (!isValidHashHex(supplied)) {
+    return respond(400, { error: 'Invalid request body.' });
+  }
+
+  const ielts = process.env.IELTS_BUCKET;
+  const igcse = process.env.IGCSE_BUCKET;
+  if (!ielts || !igcse) {
+    return respond(503, { error: 'OSS buckets not configured.' });
+  }
+
+  // Snapshot current state so we can roll the IELTS bucket back if the
+  // IGCSE write fails. Keeps the two buckets in sync even on partial failure.
+  let prevIelts = null;
+  try { prevIelts = await _readPwhash(ielts); } catch (e) { /* read failure is non-fatal */ }
+
+  const payload = {
+    hash: supplied.toLowerCase(),
+    rotated_at: new Date().toISOString(),
+  };
+
+  try {
+    await _writePwhash(ielts, payload);
+  } catch (e) {
+    return respond(500, { error: 'Failed to update IELTS bucket: ' + (e.message || 'unknown') });
+  }
+
+  try {
+    await _writePwhash(igcse, payload);
+  } catch (e) {
+    // Best-effort rollback of the IELTS write so the two buckets don't
+    // drift. If rollback also fails, surface both errors so an admin can
+    // intervene manually.
+    let rollbackMsg = '';
+    if (prevIelts) {
+      try { await _writePwhash(ielts, prevIelts); }
+      catch (re) { rollbackMsg = ' (rollback also failed: ' + (re.message || 're') + ')'; }
+    }
+    return respond(500, {
+      error: 'Failed to update IGCSE bucket: ' + (e.message || 'unknown') + rollbackMsg,
+    });
+  }
+
+  return respond(200, { ok: true, rotated_at: payload.rotated_at });
+}
+
+async function handleAdminStatus(headers) {
+  const tok = readBearerToken(headers);
+  const claims = adminTokenVerify(tok);
+  if (!claims) return respond(401, { error: 'Session expired. Please sign in again.' });
+
+  const ielts = process.env.IELTS_BUCKET;
+  if (!ielts) return respond(503, { error: 'OSS bucket not configured.' });
+
+  let cur = null;
+  try { cur = await _readPwhash(ielts); }
+  catch (e) { return respond(500, { error: 'Could not read current password state.' }); }
+
+  return respond(200, {
+    rotated_at: cur && cur.rotated_at ? cur.rotated_at : null,
+    has_password: !!(cur && cur.hash),
+  });
+}
+
+// =============================================================================
+
 function isZhipuQuotaError(parsed) {
   if (!parsed) return false;
   const code = parsed.error?.code;
@@ -314,6 +535,22 @@ export async function processRequest({ method, path, headers, body, clientIP }) 
   } catch {
     return respond(400, { error: '请求格式错误 / Invalid request format.' });
   }
+
+  // ----- Admin password rotation routes (Round 29) -------------------------
+  // These come BEFORE the AI-correction handler so the `parsed.draft`
+  // type-check below doesn't reject admin POST bodies (which carry
+  // `parsed.hash` instead).
+  if (p === '/admin/login') {
+    const ip = getClientIP({ headers, clientIP });
+    return await handleAdminLogin(parsed, ip);
+  }
+  if (p === '/admin/set-password') {
+    return await handleAdminSetPassword(parsed, headers);
+  }
+  if (p === '/admin/status') {
+    return await handleAdminStatus(headers);
+  }
+  // ----- end admin -----
 
   const draft = parsed.draft;
   if (typeof draft !== 'string') {

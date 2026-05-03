@@ -38,6 +38,32 @@ resources:
         # hours, error 1305). Hardcoded here to avoid silent drift; edit
         # this string + `s deploy` to change models.
         ZHIPU_MODEL_ID: "glm-4-flash"
+        # === Admin password rotation (Round 29 — 2026-05-03) ===========
+        # See scripts/admin/index.html and the /admin/* routes in index.js.
+        # All four vars MUST be set before `s deploy` or admin routes 503.
+        # Recovery if the admin password is forgotten: edit
+        # ADMIN_PASSWORD_HASH below and re-deploy.
+        #
+        # ADMIN_PASSWORD_HASH: SHA-256 hex (lowercase) of the chosen
+        # permanent admin password. Generate with:
+        #   echo -n "your-admin-pw" | openssl dgst -sha256 -hex | awk '{print $2}'
+        # OR:
+        #   python -c "import hashlib; print(hashlib.sha256(b'your-admin-pw').hexdigest())"
+        ADMIN_PASSWORD_HASH: ${env('ADMIN_PASSWORD_HASH')}
+        # JWT_SECRET: 32+ random bytes (hex). Used to HMAC the admin
+        # session token. Generate with:
+        #   python -c "import secrets; print(secrets.token_hex(32))"
+        JWT_SECRET: ${env('JWT_SECRET')}
+        # OSS write credentials — RAM user with PutObject on both buckets
+        # only. NOT the same keys as upload_to_oss.py (which uses your
+        # personal aliyun keys); create a dedicated RAM user for FC.
+        ALIYUN_OSS_REGION: "oss-cn-beijing"
+        ALIYUN_OSS_ACCESS_KEY_ID: ${env('ALIYUN_OSS_ACCESS_KEY_ID')}
+        ALIYUN_OSS_ACCESS_KEY_SECRET: ${env('ALIYUN_OSS_ACCESS_KEY_SECRET')}
+        # Bucket names — admin /admin/set-password writes _pwhash.json to
+        # both, keeping IELTS + IGCSE in lockstep.
+        IELTS_BUCKET: "aischool-ielts-bj"
+        IGCSE_BUCKET: "aischool-igcse-bj"
       # Concurrency cap: default per-instance is 1 (FC v3), and instance
       # concurrency cap defaults around 100. Raising both gives the function
       # headroom for start-of-class burst (~200 students hitting Correct

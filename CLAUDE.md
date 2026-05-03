@@ -111,6 +111,89 @@ https://ielts.aischool.studio/images/*.png              ← course pipeline imag
 
 OSS bucket `aischool-ielts-bj` is **private** (Block Public Access enabled). Only the CDN can read it via origin-pull authentication. There is **no** prefix path (`/ielts-interactive/` is gone) and **no** legacy direct-OSS URL.
 
+## Rotating-password gate + admin console (Round 29 — 2026-05-03)
+
+Every Interactive `Week_*.html` is gated by a SHA-256 password the
+teacher rotates whenever desired. **Same password** unlocks both
+`ielts.aischool.studio` and `igcse.aischool.studio` (shared cohort).
+Threat model is casual link-sharing only — view-source bypass is
+acceptable. Implementation: `scripts/templates/password_gate.html`
++ `insertion_7_password_gate` in `make_interactive.py`.
+
+**Admin console (rotate from any browser):**
+- URL: <https://ielts.aischool.studio/admin/> (or the IGCSE equivalent — both work, same UI, same FC backend)
+- Login: the **permanent admin password** (set as `ADMIN_PASSWORD_HASH` env var on the FC; SHA-256 hex of the chosen plaintext)
+- Then enter the new student password + confirm → click **Save new password** → the FC writes `_pwhash.json` to BOTH bucket roots → students see the gate again on next page load
+- Distribute the new student password via WeChat / class group
+
+**Initial setup (one-time, before first deploy):**
+
+```bash
+# 1. Pick a permanent admin password and hash it
+python -c "import hashlib; print(hashlib.sha256(b'YOUR-ADMIN-PASSWORD-HERE').hexdigest())"
+
+# 2. Generate a JWT secret (any 32+ random hex bytes)
+python -c "import secrets; print(secrets.token_hex(32))"
+
+# 3. Create a RAM user with PutObject on aischool-ielts-bj + aischool-igcse-bj only
+#    (Aliyun Console → RAM → Users → Create) and capture its keys.
+
+# 4. Set FC env vars in your shell BEFORE `s deploy`:
+$env:ADMIN_PASSWORD_HASH = "<from step 1>"
+$env:JWT_SECRET = "<from step 2>"
+$env:ALIYUN_OSS_ACCESS_KEY_ID = "<RAM user id>"
+$env:ALIYUN_OSS_ACCESS_KEY_SECRET = "<RAM user secret>"
+# (ZHIPU_API_KEY is already set if you've deployed before.)
+
+# 5. Deploy FC with the new env vars + ali-oss dep
+cd function-compute
+s deploy --use-local --assume-yes
+
+# 6. Publish HTMLs (which now bake in the gate snippet) + admin page
+cd ..
+python scripts/publish.py
+
+# 7. Open https://ielts.aischool.studio/admin/, sign in, set the
+#    initial student password (e.g. "spicy-river-19"), submit. Done.
+```
+
+**To rotate the student password:** open the admin URL, sign in, type
+the new password, submit. No `s deploy`, no `publish.py`, no terminal.
+
+**To rotate the admin password:** edit `function-compute/s.yaml`'s
+`ADMIN_PASSWORD_HASH` (or the env var the deploy reads), then
+`s deploy --use-local --assume-yes`. Forgetting it requires the same.
+
+**Recovery if locked out completely:** all auth state lives in FC env
+vars; redeploy with new values resets the system. Buckets are
+unaffected.
+
+## function-compute/node_modules/ lives on D:\ (not OneDrive)
+
+OneDrive cannot sync deep `node_modules/` trees (some packages contain
+files OneDrive's policy refuses to mirror, e.g.
+`jstoxml/.github/workflows/unit-tests.yml`). To work around this,
+`function-compute/node_modules/` is a Windows directory junction
+pointing to **`D:\aischool-fc-node_modules`** — the actual package
+files live there, never in OneDrive.
+
+If `npm install` is rerun and the junction is broken or missing,
+recreate it:
+
+```bash
+cd "C:/Users/depec/OneDrive/Desktop/IELTS 40 Week Speaking Class HTMLs/IELTS-40-Week-Speaking-Class-HTMLs/function-compute"
+# If a real node_modules dir exists, move its contents to D:\ first:
+mkdir -p /d/aischool-fc-node_modules
+mv node_modules/* /d/aischool-fc-node_modules/ 2>/dev/null || true
+mv node_modules/.* /d/aischool-fc-node_modules/ 2>/dev/null || true
+rmdir node_modules
+# Re-create the junction:
+cmd //c "mklink /J node_modules D:\\aischool-fc-node_modules"
+```
+
+`s deploy` works transparently through the junction (verified
+2026-05-03 deploy `ielts-arrection-nafrghqpzj`).
+
 ## Cert renewal
 
 **Wildcard cert** `*.aischool.studio` (cert id `24792685`, Wosign DV, expires **2026-11-17**, auto-renewing) covers `ielts.aischool.studio`, `igcse.aischool.studio`, and `lessons.aischool.studio` (legacy). Subscription-style: Aliyun rotates the cert mid-cycle automatically; only the subscription itself needs manual renewal (next: 2027-04-03 for the 2027-05-03 expiry). Verify health any time via `python scripts/check_cert_expiry.py`. To bind to a NEW subdomain in future, see the snippet in REORG_STATE.md.

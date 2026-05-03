@@ -301,6 +301,105 @@ def insertion_5_q_writing(html: str) -> str:
     return new_html
 
 
+# ---------- Insertion 7: rotating-password gate ----------
+#
+# Round 29 (2026-05-03). Gates every Interactive Week_*.html behind a
+# shared rotating password. Threat model is casual link-sharing only —
+# view-source bypass is acceptable. Hash lives in `_pwhash.json` at the
+# bucket root and is fetched at page-load by the inline script (so the
+# teacher can rotate the password from the admin console without
+# re-running publish.py — the HTML never changes when the password
+# rotates).
+#
+# Template format: scripts/templates/password_gate.html contains two
+# delimited sections (HEAD + BODY). HEAD inserts before </head>; BODY
+# inserts immediately after the <body ...> opening tag. Substitution
+# tokens: __PWHASH_URL__ (bucket-base + "/_pwhash.json") and
+# __GATE_TITLE__ (course display name).
+HEAD_CLOSE_RE = re.compile(r"</head>", re.IGNORECASE)
+# Anchor on `</head>...<body>` together, NOT just `<body`, because the inserted
+# CSS contains a documentation comment with the literal text
+# `<body class="is-interactive">`. Matching the body-open tag in isolation
+# would inject the gate into that CSS comment, invisible to the parser.
+# Requiring the immediately-preceding `</head>` guarantees we only match the
+# real document body.
+HEAD_TO_BODY_RE = re.compile(r"(</head>\s*<body\b[^>]*>)", re.IGNORECASE)
+
+_PWGATE_HEAD_RE = re.compile(
+    r"<!--\s*=====\s*PWGATE_HEAD_BEGIN\s*=====\s*-->(.+?)<!--\s*=====\s*PWGATE_HEAD_END\s*=====\s*-->",
+    re.DOTALL,
+)
+_PWGATE_BODY_RE = re.compile(
+    r"<!--\s*=====\s*PWGATE_BODY_BEGIN\s*=====\s*-->(.+?)<!--\s*=====\s*PWGATE_BODY_END\s*=====\s*-->",
+    re.DOTALL,
+)
+
+
+def _load_password_gate_chunks(pwhash_url: str, gate_title: str) -> tuple[str, str]:
+    """Read password_gate.html, split into HEAD + BODY chunks, substitute tokens."""
+    template = (TEMPLATE_DIR / "password_gate.html").read_text(encoding="utf-8")
+
+    head_m = _PWGATE_HEAD_RE.search(template)
+    body_m = _PWGATE_BODY_RE.search(template)
+    if not head_m or not body_m:
+        raise SkipFile(
+            "password_gate.html is missing PWGATE_HEAD_BEGIN/END or "
+            "PWGATE_BODY_BEGIN/END delimiter comments."
+        )
+
+    head_chunk = head_m.group(1)
+    body_chunk = body_m.group(1)
+
+    for chunk in (head_chunk, body_chunk):
+        # Cheap defensive escaping: gate_title is rendered into HTML, never
+        # into JS — but keep it harmless even if someone passes "<script>".
+        pass
+
+    safe_title = (gate_title.replace("&", "&amp;")
+                            .replace("<", "&lt;")
+                            .replace(">", "&gt;"))
+
+    head_chunk = head_chunk.replace("__PWHASH_URL__", pwhash_url)
+    head_chunk = head_chunk.replace("__GATE_TITLE__", safe_title)
+    body_chunk = body_chunk.replace("__PWHASH_URL__", pwhash_url)
+    body_chunk = body_chunk.replace("__GATE_TITLE__", safe_title)
+
+    return head_chunk.strip() + "\n", body_chunk.strip() + "\n"
+
+
+def insertion_7_password_gate(html: str, bucket_base: str, gate_title: str) -> str:
+    """Inject the rotating-password gate's HEAD chunk before </head> and BODY
+    chunk immediately after the <body ...> opening tag. Idempotent — skips if
+    already inserted (detected by the gate's stable element id)."""
+    # Idempotency: the gate adds a uniquely-id'd <style> and <div>. Either
+    # presence means we already ran (re-running would double-insert + break
+    # the body data-attribute logic).
+    if 'id="aischool-pwgate-style"' in html or 'id="aischool-pwgate"' in html:
+        return html
+
+    pwhash_url = bucket_base.rstrip("/") + "/_pwhash.json"
+    head_chunk, body_chunk = _load_password_gate_chunks(pwhash_url, gate_title)
+
+    # Insert head chunk just before </head>.
+    new_html, head_count = HEAD_CLOSE_RE.subn(
+        lambda _m: f"\n<!-- pwgate (head) -->\n{head_chunk}</head>",
+        html, count=1,
+    )
+    if head_count != 1:
+        raise SkipFile("Could not find </head> closing tag for password gate.")
+
+    # Insert body chunk immediately after the real <body ...> opening tag
+    # (the one that follows </head>, not any CSS-comment ghost match).
+    new_html, body_count = HEAD_TO_BODY_RE.subn(
+        lambda m: m.group(1) + f"\n<!-- pwgate (body) -->\n{body_chunk}",
+        new_html, count=1,
+    )
+    if body_count != 1:
+        raise SkipFile("Could not find </head><body> anchor for password gate.")
+
+    return new_html
+
+
 _BODY_CLASS_RE = re.compile(r'<body\b([^>]*)>', re.IGNORECASE)
 
 
@@ -336,8 +435,8 @@ def insertion_6_body_class(html: str) -> str:
 
 
 def transform(orig_path: Path, endpoint: str, bucket_base: str,
-              minify: bool = True) -> str:
-    """Apply the five insertions and return the new HTML."""
+              gate_title: str, minify: bool = True) -> str:
+    """Apply the seven insertions and return the new HTML."""
     html = orig_path.read_text(encoding="utf-8")
     html = insertion_1_css(html, minify=minify)
     html = insertion_2_draft_page(html)
@@ -346,6 +445,7 @@ def transform(orig_path: Path, endpoint: str, bucket_base: str,
     html = insertion_3_script(html, endpoint, bucket_base, orig_path.stem,
                               minify=minify)
     html = insertion_6_body_class(html)
+    html = insertion_7_password_gate(html, bucket_base, gate_title)
     return html
 
 
@@ -359,6 +459,10 @@ def main() -> int:
                     help="Function Compute URL (e.g. https://abc.fcapp.run)")
     ap.add_argument("--bucket-base", required=True,
                     help="Public bucket URL prefix where pronunciations.json lives")
+    ap.add_argument("--gate-title", default="IELTS Speaking Course",
+                    help="Display name shown on the rotating-password gate "
+                         "(Round 29). Defaults to IELTS branding; pass e.g. "
+                         "'IGCSE Speaking Course' for the other repo.")
     ap.add_argument("--no-minify", dest="minify", action="store_false",
                     help="Skip JS+CSS minification (useful for debugging — produces "
                          "readable output but ~40%% larger files).")
@@ -381,6 +485,7 @@ def main() -> int:
     for orig_path in _files_to_process(args.src):
         try:
             new_html = transform(orig_path, args.endpoint, args.bucket_base,
+                                 gate_title=args.gate_title,
                                  minify=args.minify)
             out_path = args.dst / orig_path.name
             out_path.write_text(new_html, encoding="utf-8", newline="\n")

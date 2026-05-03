@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>aischool admin · rotate student password</title>
+<!--
+  Self-service admin console for rotating the student-facing password
+  across both IELTS + IGCSE courses (Round 29 - 2026-05-03).
+
+  Single page, two states:
+    1. Login   - admin password -> POST /admin/login -> 8h JWT
+    2. Rotate  - new student password -> POST /admin/set-password ->
+                 FC writes hash to BOTH bucket roots (_pwhash.json)
+
+  All hashing happens client-side via Web Crypto SHA-256, so plaintext
+  passwords never cross the wire. The FC only sees hex hashes.
+
+  Build-time substitutions (handled by upload_to_oss.py):
+    __FC_ENDPOINT__   - Function Compute base URL
+                        (e.g. https://ielts-arrection-nafrghqpzj.cn-beijing.fcapp.run)
+-->
+<style>
+  :root {
+    --bg: #f5f7fa;
+    --card: #fff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --primary: #2c3e50;
+    --primary-hover: #1f2c3a;
+    --error: #b91c1c;
+    --success: #047857;
+    --border: #cbd5e1;
+    --focus: #2563eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh;
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+  }
+  .card {
+    background: var(--card); padding: 36px 32px; border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(15, 23, 42, 0.10);
+    width: min(420px, 100%);
+  }
+  h1 {
+    margin: 0 0 6px; font-size: 20px; font-weight: 700;
+    text-align: center; letter-spacing: 0.2px;
+  }
+  .subtitle {
+    margin: 0 0 22px; font-size: 13px; color: var(--muted);
+    text-align: center; line-height: 1.4;
+  }
+  label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  input {
+    width: 100%; padding: 12px 14px; margin-bottom: 14px;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-size: 16px; color: var(--text); outline: none;
+    transition: border-color 0.15s;
+  }
+  input:focus {
+    border-color: var(--focus);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  }
+  button {
+    width: 100%; background: var(--primary); color: #fff;
+    padding: 12px 18px; border: none; border-radius: 8px;
+    cursor: pointer; font-size: 15px; font-weight: 600;
+    letter-spacing: 0.3px; transition: background 0.15s;
+  }
+  button:hover { background: var(--primary-hover); }
+  button:disabled { background: #94a3b8; cursor: not-allowed; }
+  .msg { margin-top: 14px; font-size: 13px; min-height: 18px; text-align: center; }
+  .msg.error { color: var(--error); }
+  .msg.success { color: var(--success); }
+  .hidden { display: none; }
+  .meta {
+    margin-top: 18px; padding-top: 14px; border-top: 1px solid #e2e8f0;
+    font-size: 12px; color: var(--muted); text-align: center;
+  }
+  .meta a { color: var(--muted); text-decoration: underline; cursor: pointer; }
+  .meta a:hover { color: var(--text); }
+  .pw-strength {
+    margin-top: -6px; margin-bottom: 14px;
+    font-size: 12px; color: var(--muted); min-height: 14px;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ===== State 1: Login ===== -->
+  <section id="login-view">
+    <h1>aischool admin</h1>
+    <p class="subtitle">Sign in to rotate the student password.</p>
+    <label for="admin-pw">Admin password</label>
+    <input id="admin-pw" type="password" autocomplete="current-password" autofocus />
+    <button id="admin-login-btn" type="button">Sign in</button>
+    <div class="msg" id="login-msg"></div>
+  </section>
+
+  <!-- ===== State 2: Rotate student password ===== -->
+  <section id="rotate-view" class="hidden">
+    <h1>Rotate student password</h1>
+    <p class="subtitle">
+      Sets the new password for both <strong>ielts.aischool.studio</strong>
+      and <strong>igcse.aischool.studio</strong>. Students will be re-prompted
+      on their next page load.
+    </p>
+    <label for="new-pw">New student password</label>
+    <input id="new-pw" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
+    <div class="pw-strength" id="new-pw-strength">&nbsp;</div>
+    <label for="confirm-pw">Confirm</label>
+    <input id="confirm-pw" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
+    <button id="rotate-btn" type="button">Save new password</button>
+    <div class="msg" id="rotate-msg"></div>
+    <div class="meta">
+      Last rotated: <span id="last-rotated">checking…</span>
+      &nbsp;·&nbsp; <a id="logout-link">Sign out</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+"use strict";
+
+const FC_ENDPOINT = "__FC_ENDPOINT__".replace(/\/+$/, "");
+const TOKEN_KEY   = "aischool_admin_token";
+
+// ----- helpers ---------------------------------------------------------------
+
+async function sha256Hex(text) {
+  const buf = new TextEncoder().encode(text);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", buf);
+  const bytes = new Uint8Array(hashBuffer);
+  let hex = "";
+  for (let i = 0; i < bytes.length; i++) {
+    hex += bytes[i].toString(16).padStart(2, "0");
+  }
+  return hex;
+}
+
+async function postJSON(path, body, token) {
+  const headers = { "Content-Type": "application/json" };
+  if (token) headers["Authorization"] = "Bearer " + token;
+  const res = await fetch(FC_ENDPOINT + path, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+  });
+  let data = null;
+  try { data = await res.json(); } catch (e) {}
+  return { ok: res.ok, status: res.status, data };
+}
+
+function setMsg(el, text, kind) {
+  el.textContent = text || "";
+  el.classList.remove("error", "success");
+  if (kind) el.classList.add(kind);
+}
+
+function showView(name) {
+  document.getElementById("login-view").classList.toggle("hidden", name !== "login");
+  document.getElementById("rotate-view").classList.toggle("hidden", name !== "rotate");
+}
+
+function getToken() {
+  try { return localStorage.getItem(TOKEN_KEY); }
+  catch (e) { return null; }
+}
+
+function setToken(t) {
+  try { localStorage.setItem(TOKEN_KEY, t); }
+  catch (e) {}
+}
+
+function clearToken() {
+  try { localStorage.removeItem(TOKEN_KEY); }
+  catch (e) {}
+}
+
+// ----- login flow ------------------------------------------------------------
+
+const adminPwInput = document.getElementById("admin-pw");
+const loginBtn     = document.getElementById("admin-login-btn");
+const loginMsg     = document.getElementById("login-msg");
+
+async function attemptLogin() {
+  const pw = adminPwInput.value;
+  if (!pw) { adminPwInput.focus(); return; }
+  loginBtn.disabled = true;
+  loginBtn.textContent = "Signing in…";
+  setMsg(loginMsg, "");
+  let hash;
+  try { hash = await sha256Hex(pw); }
+  catch (e) {
+    loginBtn.disabled = false; loginBtn.textContent = "Sign in";
+    setMsg(loginMsg, "Browser does not support secure hashing.", "error");
+    return;
+  }
+  const r = await postJSON("/admin/login", { hash }).catch(e => ({ ok: false, status: 0, data: { error: String(e) } }));
+  loginBtn.disabled = false; loginBtn.textContent = "Sign in";
+  if (r.ok && r.data && r.data.token) {
+    setToken(r.data.token);
+    adminPwInput.value = "";
+    showView("rotate");
+    refreshStatus();
+  } else {
+    const err = (r.data && r.data.error) || ("Login failed (" + r.status + ")");
+    setMsg(loginMsg, err, "error");
+    adminPwInput.focus(); adminPwInput.select();
+  }
+}
+
+loginBtn.addEventListener("click", attemptLogin);
+adminPwInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") { e.preventDefault(); attemptLogin(); }
+});
+
+// ----- rotate flow -----------------------------------------------------------
+
+const newPwInput     = document.getElementById("new-pw");
+const confirmPwInput = document.getElementById("confirm-pw");
+const rotateBtn      = document.getElementById("rotate-btn");
+const rotateMsg      = document.getElementById("rotate-msg");
+const pwStrength     = document.getElementById("new-pw-strength");
+const lastRotatedEl  = document.getElementById("last-rotated");
+const logoutLink     = document.getElementById("logout-link");
+
+function pwStrengthLabel(pw) {
+  if (!pw) return "";
+  if (pw.length < 6) return "Too short — use at least 6 characters.";
+  if (pw.length < 10) return "OK. Longer is better.";
+  return "Good.";
+}
+
+newPwInput.addEventListener("input", () => {
+  pwStrength.textContent = pwStrengthLabel(newPwInput.value) || " ";
+});
+
+async function attemptRotate() {
+  const pw = newPwInput.value;
+  const confirm = confirmPwInput.value;
+  setMsg(rotateMsg, "");
+  if (!pw || pw.length < 6) {
+    setMsg(rotateMsg, "Password must be at least 6 characters.", "error");
+    newPwInput.focus(); return;
+  }
+  if (pw !== confirm) {
+    setMsg(rotateMsg, "Passwords don't match.", "error");
+    confirmPwInput.focus(); return;
+  }
+  rotateBtn.disabled = true; rotateBtn.textContent = "Saving…";
+  let hash;
+  try { hash = await sha256Hex(pw); }
+  catch (e) {
+    rotateBtn.disabled = false; rotateBtn.textContent = "Save new password";
+    setMsg(rotateMsg, "Browser does not support secure hashing.", "error");
+    return;
+  }
+  const token = getToken();
+  const r = await postJSON("/admin/set-password", { hash }, token)
+    .catch(e => ({ ok: false, status: 0, data: { error: String(e) } }));
+  rotateBtn.disabled = false; rotateBtn.textContent = "Save new password";
+  if (r.ok) {
+    setMsg(rotateMsg,
+      "Password updated. Distribute the new password to students.",
+      "success");
+    newPwInput.value = ""; confirmPwInput.value = "";
+    pwStrength.textContent = " ";
+    refreshStatus();
+  } else if (r.status === 401) {
+    clearToken();
+    showView("login");
+    setMsg(loginMsg, "Session expired. Please sign in again.", "error");
+  } else {
+    const err = (r.data && r.data.error) || ("Save failed (" + r.status + ")");
+    setMsg(rotateMsg, err, "error");
+  }
+}
+
+rotateBtn.addEventListener("click", attemptRotate);
+confirmPwInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") { e.preventDefault(); attemptRotate(); }
+});
+
+logoutLink.addEventListener("click", () => {
+  clearToken();
+  showView("login");
+  adminPwInput.focus();
+});
+
+async function refreshStatus() {
+  const token = getToken();
+  if (!token) return;
+  const r = await postJSON("/admin/status", {}, token)
+    .catch(e => ({ ok: false }));
+  if (r.ok && r.data && r.data.rotated_at) {
+    try {
+      const d = new Date(r.data.rotated_at);
+      lastRotatedEl.textContent = d.toLocaleString();
+    } catch (e) {
+      lastRotatedEl.textContent = r.data.rotated_at;
+    }
+  } else if (r.status === 401) {
+    clearToken();
+    showView("login");
+  } else {
+    lastRotatedEl.textContent = "—";
+  }
+}
+
+// ----- bootstrap -------------------------------------------------------------
+
+(function init() {
+  const token = getToken();
+  if (token) {
+    // Optimistic — show rotate view, status fetch will bounce us if expired.
+    showView("rotate");
+    refreshStatus();
+  } else {
+    showView("login");
+    adminPwInput.focus();
+  }
+})();
+</script>
+</body>
+</html>
