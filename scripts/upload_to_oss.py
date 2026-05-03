@@ -39,6 +39,19 @@ CACHE_CONTROL = {
     ".gif":  "public, max-age=604800",
 }
 
+# Round 29 (2026-05-03): admin console + rotating-password gate config.
+# admin/index.html and _pwhash.json are NOT cached at the CDN — admin
+# changes (password rotation) must propagate immediately, and the admin
+# UI itself should always be the latest deployed version.
+_NO_CACHE = "no-cache, no-store, must-revalidate"
+ADMIN_KEY = "admin/index.html"
+PWHASH_KEY = "_pwhash.json"
+
+# Fallback FC endpoint if DEPLOYED_URL.txt is missing (e.g. when IGCSE
+# uploads the admin page even though FC lives in the IELTS repo).
+# Keep in sync with pipeline.yaml's `function_compute.endpoint`.
+_FC_ENDPOINT_FALLBACK = "https://ielts-arrection-nafrghqpzj.cn-beijing.fcapp.run"
+
 
 def _file_md5(path: Path) -> str:
     h = hashlib.md5()
@@ -208,8 +221,43 @@ def main() -> int:
         if img_count:
             print(f"Processed {img_count} image(s) from {src_images}")
 
+    # 5. Upload the admin console (Round 29). Reads scripts/admin/index.html,
+    #    substitutes __FC_ENDPOINT__ at upload time, and pushes to OSS at
+    #    key `admin/index.html` with no-cache headers so admin tweaks land
+    #    immediately. Idempotent — skip-unchanged based on (substituted)
+    #    body MD5.
+    admin_src = REPO / "scripts" / "admin" / "index.html"
+    if admin_src.exists():
+        deployed_url_file = REPO / "function-compute" / "DEPLOYED_URL.txt"
+        fc_endpoint = (deployed_url_file.read_text().strip()
+                       if deployed_url_file.exists() else _FC_ENDPOINT_FALLBACK)
+        admin_html = admin_src.read_text(encoding="utf-8").replace(
+            "__FC_ENDPOINT__", fc_endpoint.rstrip("/")
+        )
+        # Skip-unchanged: hash the SUBSTITUTED body, not the source file.
+        admin_md5 = hashlib.md5(admin_html.encode("utf-8")).hexdigest()
+        existing_md5, existing_cc = _oss_object_state(bucket, ADMIN_KEY)
+        if existing_md5 == admin_md5 and (existing_cc or "").strip() == _NO_CACHE:
+            print(f"  [skip] {ADMIN_KEY}")
+            skip += 1
+        else:
+            bucket.put_object(
+                ADMIN_KEY,
+                admin_html.encode("utf-8"),
+                headers={
+                    "Content-Type": "text/html; charset=utf-8",
+                    "Cache-Control": _NO_CACHE,
+                },
+            )
+            print(f"  [ok] {ADMIN_KEY}  (FC endpoint: {fc_endpoint})")
+            ok += 1
+    else:
+        print(f"  WARN: scripts/admin/index.html not found — admin console not uploaded",
+              file=sys.stderr)
+
     print(f"\nResult: {ok} uploaded, {skip} skipped (already up-to-date)")
     print(f"Public landing page: https://ielts.aischool.studio/")
+    print(f"Admin console:       https://ielts.aischool.studio/admin/")
     return 0
 
 

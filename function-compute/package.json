@@ -2,11 +2,14 @@
   "name": "ielts-ai-correction-fc",
   "version": "1.0.0",
   "type": "module",
-  "description": "Aliyun Function Compute endpoint: Zhipu-backed minimum-correction AI for IELTS interactive HTMLs",
+  "description": "Aliyun Function Compute endpoint: Zhipu-backed minimum-correction AI for IELTS interactive HTMLs + admin password rotation for both courses",
   "main": "index.js",
   "engines": { "node": ">=18.0.0" },
   "scripts": {
     "test": "node --test test/"
+  },
+  "dependencies": {
+    "ali-oss": "^6.20.0"
   },
   "license": "UNLICENSED",
   "private": true

@@ -656,8 +656,239 @@
     }
     /* Hide default elements we don't need */
     .cover-box { display: none; }
-    </style></head>
+    </style>
+<!-- pwgate (head) -->
+<style id="aischool-pwgate-style">
+  /* When body is locked, hide everything inside it EXCEPT the gate UI. */
+  body[data-aischool-locked="1"] > *:not(#aischool-pwgate) {
+    display: none !important;
+  }
+  body[data-aischool-locked="1"] {
+    overflow: hidden;
+  }
+  #aischool-pwgate {
+    position: fixed; inset: 0; z-index: 999999;
+    background: #f5f7fa;
+    display: none;
+    align-items: center; justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    padding: 16px;
+  }
+  body[data-aischool-locked="1"] #aischool-pwgate { display: flex; }
+  #aischool-pwgate .card {
+    background: #fff;
+    padding: 32px 28px;
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(15, 23, 42, 0.10);
+    width: min(380px, 100%);
+    text-align: center;
+  }
+  #aischool-pwgate h2 {
+    margin: 0 0 6px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: 0.2px;
+  }
+  #aischool-pwgate .subtitle {
+    margin: 0 0 22px;
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.4;
+  }
+  #aischool-pwgate input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 14px;
+    margin: 0 0 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #0f172a;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  #aischool-pwgate input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  }
+  #aischool-pwgate button {
+    width: 100%;
+    background: #2c3e50;
+    color: #fff;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: background 0.15s;
+  }
+  #aischool-pwgate button:hover { background: #1f2c3a; }
+  #aischool-pwgate button:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+  }
+  #aischool-pwgate .error {
+    color: #b91c1c;
+    font-size: 13px;
+    margin: 14px 0 0;
+    display: none;
+    min-height: 18px;
+  }
+  #aischool-pwgate .error[data-visible="1"] { display: block; }
+  /* Don't render the gate when printing — pure online artifact. */
+  @media print {
+    #aischool-pwgate { display: none !important; }
+    body[data-aischool-locked="1"] > * { display: revert !important; }
+  }
+</style>
+<script id="aischool-pwgate-prelock">
+  // Run before <body> renders so the page never flashes content.
+  // If localStorage has any stored hash we OPTIMISTICALLY unlock and verify
+  // asynchronously below. If not, lock immediately.
+  (function () {
+    var stored = null;
+    try { stored = window.localStorage.getItem("aischool_pw_hash"); }
+    catch (e) { /* private mode — ignore */ }
+    if (!stored) {
+      document.documentElement.setAttribute("data-aischool-locked", "1");
+    }
+    window.__aischoolStoredHash = stored;
+  })();
+</script>
+</head>
 <body class="is-interactive">
+<!-- pwgate (body) -->
+<script id="aischool-pwgate-applylock">
+  // Carry the lock state from <html> over to <body> so the CSS rule applies.
+  if (document.documentElement.getAttribute("data-aischool-locked") === "1") {
+    document.body.setAttribute("data-aischool-locked", "1");
+  }
+</script>
+<div id="aischool-pwgate" role="dialog" aria-modal="true" aria-labelledby="aischool-pwgate-title">
+  <div class="card">
+    <h2 id="aischool-pwgate-title">IELTS Speaking Course</h2>
+    <p class="subtitle" id="aischool-pwgate-subtitle">Enter this week&rsquo;s password to access the lesson.</p>
+    <input type="password" id="aischool-pwinput" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
+    <button id="aischool-pwbtn" type="button" disabled>Loading&hellip;</button>
+    <div class="error" id="aischool-pwerr"></div>
+  </div>
+</div>
+<script id="aischool-pwgate-runtime">
+  (function () {
+    var PWHASH_URL = "https://ielts.aischool.studio/_pwhash.json";
+    var gate     = document.getElementById("aischool-pwgate");
+    var input    = document.getElementById("aischool-pwinput");
+    var btn      = document.getElementById("aischool-pwbtn");
+    var err      = document.getElementById("aischool-pwerr");
+    var subtitle = document.getElementById("aischool-pwgate-subtitle");
+
+    function showError(msg) {
+      err.textContent = msg;
+      err.setAttribute("data-visible", "1");
+    }
+    function clearError() {
+      err.removeAttribute("data-visible");
+      err.textContent = "";
+    }
+    function lock() {
+      document.body.setAttribute("data-aischool-locked", "1");
+      input.focus();
+    }
+    function unlock() {
+      document.body.removeAttribute("data-aischool-locked");
+      document.documentElement.removeAttribute("data-aischool-locked");
+    }
+
+    async function sha256Hex(text) {
+      var enc = new TextEncoder().encode(text);
+      var hashBuffer = await crypto.subtle.digest("SHA-256", enc);
+      var bytes = new Uint8Array(hashBuffer);
+      var hex = "";
+      for (var i = 0; i < bytes.length; i++) {
+        hex += bytes[i].toString(16).padStart(2, "0");
+      }
+      return hex;
+    }
+
+    var fetchedHash = null;
+
+    async function loadCurrentHash() {
+      try {
+        // Cache-buster on URL + no-store header so we never serve stale.
+        var url = PWHASH_URL + (PWHASH_URL.indexOf("?") === -1 ? "?" : "&") + "_=" + Date.now();
+        var res = await fetch(url, { cache: "no-store", credentials: "omit" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        var data = await res.json();
+        if (typeof data.hash !== "string" || data.hash.length !== 64) {
+          throw new Error("malformed _pwhash.json");
+        }
+        fetchedHash = data.hash;
+      } catch (e) {
+        // Fail closed: lock and surface a clear message.
+        lock();
+        btn.disabled = true;
+        btn.textContent = "Unavailable";
+        showError("Cannot verify password right now. Please refresh.");
+        return;
+      }
+
+      // Reconcile against the optimistic-unlock state set in <head>.
+      var stored = window.__aischoolStoredHash;
+      if (stored === fetchedHash) {
+        // Already unlocked & verified — keep page visible.
+        unlock();
+      } else {
+        if (stored) {
+          // Stored hash exists but is stale (password rotated).
+          subtitle.textContent = "The password has been updated. Please enter the new one.";
+          try { window.localStorage.removeItem("aischool_pw_hash"); } catch (e) {}
+        }
+        lock();
+      }
+
+      btn.disabled = false;
+      btn.textContent = "Unlock";
+    }
+
+    async function tryUnlock() {
+      if (!fetchedHash) return;
+      var typed = input.value;
+      if (!typed) { input.focus(); return; }
+      btn.disabled = true; btn.textContent = "Checking…";
+      var hex;
+      try { hex = await sha256Hex(typed); }
+      catch (e) {
+        btn.disabled = false; btn.textContent = "Unlock";
+        showError("Browser does not support secure hashing. Try a newer browser.");
+        return;
+      }
+      if (hex === fetchedHash) {
+        try { window.localStorage.setItem("aischool_pw_hash", hex); } catch (e) {}
+        clearError();
+        unlock();
+      } else {
+        btn.disabled = false; btn.textContent = "Unlock";
+        showError("Wrong password — try again.");
+        input.value = ""; input.focus();
+      }
+    }
+
+    btn.addEventListener("click", tryUnlock);
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); tryUnlock(); }
+      else { clearError(); }
+    });
+
+    // Kick off hash fetch immediately. If we were optimistically unlocked
+    // and the stored hash matches, the page stays visible; if not, we lock.
+    loadCurrentHash();
+  })();
+</script>
+
 <!-- =========================================
          PAGE 1: COVER PAGE
          ========================================= -->
@@ -1285,7 +1516,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td>1. Classic</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) E. Traditional</td></tr><tr><td>2. Memorable</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) D. Instructive</td></tr><tr><td>3. Thought-provoking</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) C. Fascinating</td></tr><tr><td>4. Captivating</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) A. Unforgettable</td></tr><tr><td>5. Educational</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) B. Inspiring</td></tr></tbody>
+<tbody><tr><td>1. Classic</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) C. Fascinating</td></tr><tr><td>2. Memorable</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) B. Inspiring</td></tr><tr><td>3. Thought-provoking</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) A. Unforgettable</td></tr><tr><td>4. Captivating</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) D. Instructive</td></tr><tr><td>5. Educational</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) E. Traditional</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
