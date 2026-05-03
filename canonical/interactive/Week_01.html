@@ -206,6 +206,16 @@
     .l2 .header-bar { background: linear-gradient(135deg, #d35400, #e67e22); }
     .hw .header-bar { background: linear-gradient(135deg, #27ae60, #2ecc71); }
 
+    /* Round 23 + 24 (2026-05-03): tighter spacing on the homework page so
+     * per-week content variation can't push the upside-down answer-key footer
+     * off the bottom of the A4 page. Mirrors canonical/pdf-base. See also:
+     * scripts/verify_homework_data.py for shape-validation. */
+    .hw .card { padding: 8px 14px; }
+    .hw .card h3 { margin: 4px 0; }
+    .hw .grammar-sent + .grammar-sent { margin-top: 0; }
+    .hw .vocab-table td { padding: 4px 5px; }
+    .hw .grammar-sent { padding: 3px 0; }
+
     /* Title font sizing: was 1.0em — too wide once "SPEAKING PRACTICE
        CIRCUIT" + week-tag had to fit beside the STUDENT HANDOUT pill at
        A4 width, causing the title to wrap to a 2nd line awkwardly. 0.85em
@@ -376,10 +386,10 @@
     .l1 .spider-center { background: var(--l1-accent); }
     
     .spider-legs {
-        width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 10px; box-sizing: border-box;
+        width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 6px; box-sizing: border-box;
     }
     .spider-leg {
-        border: 1px solid #ddd; background: rgba(255,255,255,0.5); padding: 5px; border-radius: 8px; position: relative;
+        border: 1px solid #ddd; background: rgba(255,255,255,0.5); padding: 4px; border-radius: 8px; position: relative;
         display: flex; flex-direction: column; justify-content: center; font-size: 0.75em;
     }
     .spider-legs .spider-leg:nth-child(2),
@@ -567,20 +577,22 @@
         -webkit-text-stroke: 0; /* override any stroke inherited from older rounds */
     }
     .cover-top-label {
-        font-size: 1.4em;
-        text-transform: uppercase;
+        font-size: 4em; /* Round 17 (2026-05-02): largest cover element */
+        line-height: 0.95;        /* Round 18 (2026-05-02): tighten gap if it wraps to 2 lines */
         letter-spacing: 4px;
         margin: 0 0 6px 0;
+        /* Round 18: text is now "IELTS Speaking Course" — full caps removed so
+           keep text-transform OFF (was uppercase). */
     }
     .cover-week {
-        font-size: 3em; /* Round 16: reduced from 4.2em — user feedback "too large" */
+        font-size: 2em; /* Round 18: bumped from 1.2em — sits between course title and subtitle */
         line-height: 1;
         letter-spacing: 2px;
         text-transform: uppercase;
         margin: 0;
     }
     .cover-title-large {
-        font-size: 3.5em; /* Round 16: reduced from 5em — user feedback "too large" */
+        font-size: 2em; /* Round 18: bumped from 1.2em — sits between course title and subtitle */
         line-height: 1;
         text-transform: uppercase;
         margin: 4px 0;
@@ -606,12 +618,51 @@
     }
     /* Hide default elements we don't need */
     .cover-box { display: none; }
-    </style></head>
-<body>
+    </style>
+<style id="email-btn-canonical-css">
+/* Email recording button (Round 20/21) — self-contained CSS so this
+   canonical/interactive file renders the yellow pill correctly when
+   opened directly. The same rules also live in
+   scripts/templates/inserted_css.css and are injected by
+   make_interactive.py at build time for the production Interactive
+   layer; this inline copy keeps the canonical reference self-rendering. */
+.email-recordings-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px 4px 8px;
+    border-radius: 999px;
+    border: 1px solid #f9a825;
+    background: #fffde7;
+    color: #4a3500;
+    font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.7em;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    z-index: 5;
+    text-align: left;
+    white-space: nowrap;
+}
+.email-recordings-btn:hover { background: #fff9c4; transform: scale(1.02); box-shadow: 0 2px 6px rgba(249,168,37,0.20); }
+.email-recordings-btn:active { transform: scale(0.98); }
+.email-recordings-btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+.email-recordings-btn .email-icon { width: 14px; height: 14px; flex-shrink: 0; fill: #ffc107; }
+.email-recordings-btn .email-btn-label { font-weight: 600; letter-spacing: 0.1px; }
+.floating-window.has-email-btn,
+.card.has-email-btn { position: relative; padding-bottom: 40px !important; }
+body.is-interactive .email-recordings-btn { display: inline-flex; }
+</style>
+</head>
+<body class="is-interactive">
 <!-- =========================================
          PAGE 1: COVER PAGE
          ========================================= -->
-<div class="page cover-page"><div class="cover-content"><div class="cover-top-label">IELTS SPEAKING MASTERCLASS</div><h1 class="cover-week">WEEK 1</h1><h2 class="cover-title-large">People</h2><div class="cover-subtitle">A Family Member You Are Proud Of</div></div><div class="cover-footer">© Jinhua New Oriental Academy English Department Curriculum</div></div>
+<div class="page cover-page"><div class="cover-content"><div class="cover-top-label">IELTS Speaking Course</div><h1 class="cover-week">WEEK 1</h1><h2 class="cover-title-large">People</h2><div class="cover-subtitle">A Family Member You Are Proud Of</div></div><div class="cover-footer"></div></div>
 <!-- =========================================
          PAGE 2: BLANK PAGE (For Collation)
          ========================================= -->
@@ -693,11 +744,11 @@
 </div>
 <!-- Round 12 2026: course-pipeline illustration banner inserted at
      the bottom of this page just before the page-number footer.
-     Image lives at images/course_pipeline_v3.png; relative path resolves
+     Image lives at images/course_pipeline_v3.jpg; relative path resolves
      correctly in both root-served and canonical-folder views.
      width:100% scales to the content area; height:auto preserves
      aspect ratio. -->
-<img src="images/course_pipeline_v3.png" alt="Course workflow pipeline" style="display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 8px;">
+<img src="images/course_pipeline_v3.jpg" alt="Course workflow pipeline" style="display: block; width: 100%; height: auto; margin-top: auto; border-radius: 8px;">
 <div class="page-number">1</div></div>
 <!-- =========================================
          PAGE 2: STUDENT LESSON 1
@@ -740,11 +791,11 @@
 </div>
 <!-- Round 12 2026: course-pipeline illustration banner inserted at
      the bottom of this page just before the page-number footer.
-     Image lives at images/course_pipeline_v4.png; relative path resolves
+     Image lives at images/course_pipeline_v4.jpg; relative path resolves
      correctly in both root-served and canonical-folder views.
      width:100% scales to the content area; height:auto preserves
      aspect ratio. -->
-<img src="images/course_pipeline_v4.png" alt="Course workflow pipeline" style="display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 8px;">
+<img src="images/course_pipeline_v4.jpg" alt="Course workflow pipeline" style="display: block; width: 100%; height: auto; margin-top: auto; border-radius: 8px;">
 <div class="page-number">2</div></div>
 <!-- =========================================
          PAGE 3: STUDENT PRACTICE
@@ -756,7 +807,7 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h4>🧠 Brainstorming Map</h4>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a family member who you are proud of. You should say: <strong>Who</strong> this person is, <strong>When</strong> this happened, <strong>What</strong> this person did, <strong>And</strong> explain why you felt proud.</div>
+<div style="font-size:0.9em; margin-bottom:4px; padding-left:15px; color:#444;">Describe a family member who you are proud of. You should say: <strong>Who</strong> this person is, <strong>When</strong> this happened, <strong>What</strong> this person did, <strong>And</strong> explain why you felt proud.</div>
 <!-- AI-INTERACTIVE-V1 inline voice-recorder widget — used for the
      brainstorming-map (top-right) and Q1-Q6 writing boxes (bottom-right).
      Each instance MUST have a unique data-recorder-id so its recordings
@@ -794,7 +845,7 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a teacher who has helped you learn something important. You should say: <strong>Who</strong> this teacher is, <strong>What</strong> subject they teach, <strong>What</strong> important thing you learned from them, <strong>And</strong> explain why this teacher is special to you.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:4px; padding-left:10px; line-height:1.3;">Describe a teacher who has helped you learn something important. You should say: <strong>Who</strong> this teacher is, <strong>What</strong> subject they teach, <strong>What</strong> important thing you learned from them, <strong>And</strong> explain why this teacher is special to you.</div>
 <!-- AI-INTERACTIVE-V1 inline voice-recorder widget — used for the
      brainstorming-map (top-right) and Q1-Q6 writing boxes (bottom-right).
      Each instance MUST have a unique data-recorder-id so its recordings
@@ -828,7 +879,7 @@
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a neighbor or family friend who is a good person. You should say: <strong>Who</strong> this person is, <strong>How</strong> long you have known them, <strong>What</strong> kind things they do for others, <strong>And</strong> explain why you think they are a good person.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:4px; padding-left:10px; line-height:1.3;">Describe a neighbor or family friend who is a good person. You should say: <strong>Who</strong> this person is, <strong>How</strong> long you have known them, <strong>What</strong> kind things they do for others, <strong>And</strong> explain why you think they are a good person.</div>
 <!-- AI-INTERACTIVE-V1 inline voice-recorder widget — used for the
      brainstorming-map (top-right) and Q1-Q6 writing boxes (bottom-right).
      Each instance MUST have a unique data-recorder-id so its recordings
@@ -932,11 +983,11 @@
 </div>
 <!-- Round 12 2026: course-pipeline illustration banner inserted at
      the bottom of this page just before the page-number footer.
-     Image lives at images/course_pipeline_v2.png; relative path resolves
+     Image lives at images/course_pipeline_v2.jpg; relative path resolves
      correctly in both root-served and canonical-folder views.
      width:100% scales to the content area; height:auto preserves
      aspect ratio. -->
-<img src="images/course_pipeline_v2.png" alt="Course workflow pipeline" style="display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 8px;">
+<img src="images/course_pipeline_v2.jpg" alt="Course workflow pipeline" style="display: block; width: 100%; height: auto; margin-top: auto; border-radius: 8px;">
 <div class="page-number">4</div></div>
 <!-- =========================================
          PAGE 5: PART 3 INPUT (Student L2)
@@ -1100,12 +1151,11 @@
 <!-- 2026 fix #4: page-level gap was 0 — removed all spacing between
      the (continued) banner and Q4 below it. Bumped to 12px (matches
      --card-padding) so the banner has breathing room above Q4. -->
-<div class="page l2" style="gap:12px !important; padding-top:5mm !important;">
+<div class="page l2">
 <div class="header-bar">
 <div style="white-space:nowrap;"><span class="sh-badge">STUDENT HANDOUT</span> <span class="header-title" style="font-size:0.8em; letter-spacing:0;">Part 3: Rapid Fire Discussion <span style="font-size:0.8em; text-transform:none;">(continued)</span></span></div>
 <span class="week-tag">Week 1 • Lesson 2 • A Family Member You Are Proud Of (Part 3)</span>
 </div>
-<div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
 <h3>Q4: When was the last time that you felt proud of yourself?</h3>
@@ -1217,7 +1267,6 @@
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
-</div>
 <div class="page-number">7</div></div>
 <!-- =========================================
          PAGE 8: HOMEWORK
@@ -1237,7 +1286,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Diligent</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Hard-working</td></tr><tr><td style="padding: 10px 5px;">2. Inspiring</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Encouraging</td></tr><tr><td style="padding: 10px 5px;">3. Selfless</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Thoughtful</td></tr><tr><td style="padding: 10px 5px;">4. Accomplished</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Altruistic</td></tr><tr><td style="padding: 10px 5px;">5. Considerate</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Successful</td></tr></tbody>
+<tbody><tr><td>1. Diligent</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) C. Hard-working</td></tr><tr><td>2. Inspiring</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) D. Encouraging</td></tr><tr><td>3. Selfless</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) B. Thoughtful</td></tr><tr><td>4. Accomplished</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) E. Altruistic</td></tr><tr><td>5. Considerate</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) A. Successful</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -1259,7 +1308,7 @@
 </ol>
 </div>
 </div>
-<div class="card has-email-btn" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<div class="card has-email-btn" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px;">
 <h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
@@ -1274,8 +1323,13 @@
 <strong style="color:#e74c3c;">IELTS Band 7 Challenge:</strong> Do additional shadowing free practice to perfect your pronunciation faster.
                 </div>
 <button class="email-recordings-btn" type="button"
-        title="Email all this week's recordings"
-        onclick="window.__ielts.emailLessonRecordings()">✉️</button>
+        title="Zip and Email or WeChat all this week's recordings to teacher"
+        onclick="window.__ielts.emailLessonRecordings()">
+  <svg class="email-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+  <span class="email-btn-label">Zip and Email or WeChat all recordings to teacher</span>
+</button>
 </div>
 <div style="text-align:center; transform:rotate(180deg); color:#555; font-weight:bold; font-size:0.8em; margin-top:auto;">Key: 1. Diligent-C, 2. Inspiring-D, 3. Selfless-E, 4. Accomplished-A, 5. Considerate-B | 1. She is a very... 2. I admire... 3. heart of gold... 4. have been friends... 5. encourages me...</div>
 </div>
@@ -1426,7 +1480,7 @@
 </div><div class="page-number">9</div></div>
 <script>
 /* <!-- AI-INTERACTIVE-V1 --> SCRIPT */
-(function(){'use strict';const AI_ENDPOINT="https://ielts-ai-correct-exuelhswhc.cn-beijing.fcapp.run";const PRONUNCIATIONS_URL="https://aischool-ielts-bj.oss-cn-beijing.aliyuncs.com/ielts-interactive/pronunciations.json";const LESSON_KEY="Week_1_Lesson_Plan";const ns=(window.__ielts=window.__ielts||{});const FEMALE_NEURAL_UK=/Sonia|Libby|Mia|Maisie|Kate|Serena|Sienna|Tessa|Karen|Hazel|Susan|Stephanie/i;const MALE_NEURAL_UK=/Ryan|Thomas.*GB|Noah|Daniel|George|Oliver/i;const FEMALE_NEURAL_US=/Aria|Jenny|Ana|Michelle|Emma|Samantha|Allison|Ava|Joanna|Salli|Kendra|Kimberly|Ivy|Nora|Susan.*US|Zira/i;const MALE_NEURAL_US=/Guy|Tony|Jason|Eric|Davis|Alex|Aaron|Brandon|Steffan|Roger/i;const DEFAULT_RATE=0.85;const SLOW_RATE=0.72;const AI_FETCH_MAX_ATTEMPTS=3;const AI_FETCH_BASE_BACKOFF_MS=1000;const AI_FETCH_JITTER_MS=500;const AI_FETCH_TIMEOUT_MS=45000;function _aiSleep(ms){return new Promise(r=>setTimeout(r,ms));}
+(function(){'use strict';const AI_ENDPOINT="https://ielts-arrection-nafrghqpzj.cn-beijing.fcapp.run";const PRONUNCIATIONS_URL="https://aischool-ielts-bj.oss-cn-beijing.aliyuncs.com/ielts-interactive/pronunciations.json";const LESSON_KEY="Week_1_Lesson_Plan";const ns=(window.__ielts=window.__ielts||{});const FEMALE_NEURAL_UK=/Sonia|Libby|Mia|Maisie|Kate|Serena|Sienna|Tessa|Karen|Hazel|Susan|Stephanie/i;const MALE_NEURAL_UK=/Ryan|Thomas.*GB|Noah|Daniel|George|Oliver/i;const FEMALE_NEURAL_US=/Aria|Jenny|Ana|Michelle|Emma|Samantha|Allison|Ava|Joanna|Salli|Kendra|Kimberly|Ivy|Nora|Susan.*US|Zira/i;const MALE_NEURAL_US=/Guy|Tony|Jason|Eric|Davis|Alex|Aaron|Brandon|Steffan|Roger/i;const DEFAULT_RATE=0.85;const SLOW_RATE=0.72;const AI_FETCH_MAX_ATTEMPTS=3;const AI_FETCH_BASE_BACKOFF_MS=1000;const AI_FETCH_JITTER_MS=500;const AI_FETCH_TIMEOUT_MS=45000;function _aiSleep(ms){return new Promise(r=>setTimeout(r,ms));}
 function _aiJitter(){return Math.floor(Math.random()*AI_FETCH_JITTER_MS);}
 async function aiCorrectFetchWithRetry(draftText){let lastErr=null;await _aiSleep(_aiJitter());for(let attempt=0;attempt<AI_FETCH_MAX_ATTEMPTS;attempt++){const ctrl=new AbortController();const timer=setTimeout(()=>ctrl.abort(),AI_FETCH_TIMEOUT_MS);try{const resp=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({draft:draftText}),signal:ctrl.signal,});clearTimeout(timer);if(resp.status===429||resp.status===503||resp.status>=500){lastErr=new Error(`server ${resp.status}`);}else{return resp;}}catch(e){clearTimeout(timer);lastErr=e;}
 const backoff=AI_FETCH_BASE_BACKOFF_MS*Math.pow(2,attempt)+_aiJitter();if(attempt<AI_FETCH_MAX_ATTEMPTS-1)await _aiSleep(backoff);}

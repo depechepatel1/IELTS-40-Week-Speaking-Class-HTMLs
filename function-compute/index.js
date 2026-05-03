@@ -8,7 +8,13 @@ const CORS_HEADERS = {
 };
 
 // Zhipu integration — model resolved at deploy time per spec §5.8.1.
-const ZHIPU_MODEL_ID = process.env.ZHIPU_MODEL_ID || 'glm-4.7-flash';
+// Default switched 2026-05-02 from glm-4.7-flash to glm-4-flash:
+// glm-4.7-flash hit Zhipu's per-model rate limit (error code 1305
+// "该模型当前访问量过大 / model traffic too high") during class hours.
+// glm-4-flash is older + free-tier and has higher throughput — same
+// grammar-correction quality for the minimum-edit task we're using
+// it for, with zero throttle errors observed in our tests.
+const ZHIPU_MODEL_ID = process.env.ZHIPU_MODEL_ID || 'glm-4-flash';
 const ZHIPU_URL = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
 const SYSTEM_PROMPT = `You are a careful English teacher correcting a 14-16 year old Chinese student's
 short written answer (50-300 words) for an IELTS speaking lesson.
@@ -133,9 +139,22 @@ export function __aiCacheSize() { return _aiCache.size; }
 function isZhipuQuotaError(parsed) {
   if (!parsed) return false;
   const code = parsed.error?.code;
+  // 1113: daily account quota exhausted
+  // 1301: account-level quota
   if (code === 1113 || code === 1301) return true;
   const msg = (parsed.error?.message || '').toLowerCase();
   return msg.includes('quota') || msg.includes('limit') || msg.includes('余额');
+}
+
+// Per-model rate-limit (transient — clears in seconds, not days).
+// 1305: 该模型当前访问量过大 — too many concurrent requests on this model.
+// We treat this as a soft-fail and ask the client to retry; the
+// `inserted_script.js` AI_FETCH_MAX_ATTEMPTS=3 + jittered backoff
+// gives ~6-15s of wall-clock retry which usually clears the throttle.
+function isZhipuTransientThrottle(parsed) {
+  if (!parsed) return false;
+  const code = String(parsed.error?.code || '');
+  return code === '1305' || code === '1306';
 }
 
 async function callZhipu(draft) {
@@ -185,6 +204,11 @@ async function callZhipu(draft) {
   if (!upstream.ok) {
     if (isZhipuQuotaError(parsed)) {
       return { ok: false, status: 503, error: 'AI 今日额度已用完，请明天再试 / AI quota exhausted today. Try again tomorrow.' };
+    }
+    if (isZhipuTransientThrottle(parsed)) {
+      // Tell the client this is transient — JS retries up to 3× w/ backoff.
+      // Status 429 cues the browser-side retry path more clearly than 503.
+      return { ok: false, status: 429, error: 'AI 当前繁忙，请稍后重试 / AI is busy right now. Please try again in a moment.' };
     }
     return { ok: false, status: 503, error: 'AI 服务出错，请稍后再试 / AI service error. Please try later.' };
   }

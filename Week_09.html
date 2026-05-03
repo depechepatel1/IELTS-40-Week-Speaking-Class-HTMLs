@@ -206,6 +206,49 @@
     .l2 .header-bar { background: linear-gradient(135deg, #d35400, #e67e22); }
     .hw .header-bar { background: linear-gradient(135deg, #27ae60, #2ecc71); }
 
+    /* Round 23 (2026-05-03): tighter card padding on the HOMEWORK page only.
+     * Defense against per-week content variation pushing the upside-down
+     * answer-key footer off the bottom of the A4 page (Week 2 bug —
+     * see also: scripts/verify_homework_data.py for shape-validation).
+     * Default --card-padding is 12px; on the homework page we use 8px 14px
+     * so the four cards can absorb ~24px of extra height before overflow.
+     * Other pages (l1/l2) keep the default for visual consistency. */
+    .hw .card { padding: 8px 14px; }
+    .hw .card h3 { margin: 4px 0; }
+    /* Tighten the Card 2 (Error Correction) item gap so 5 grammar sentences
+     * fit comfortably even when one wraps to 2 lines. Was gap:5px + margin-top:10px. */
+    .hw .grammar-sent + .grammar-sent { margin-top: 0; }
+
+    /* Round 24 (2026-05-03): tighten WITHIN-card item padding on Cards 1 + 2.
+     * Round 23 only addressed card-level padding; the dominant per-row cost
+     * was actually inline `padding: 10px 5px` on each vocab <td> (100px page-
+     * vertical for 5 rows) and `.grammar-sent { padding: 6px 0 }` (60px for 5
+     * items). Together these reductions reclaim ~90px — enough headroom for
+     * any week's content + the rotated answer-key footer.
+     *
+     * Inline TD padding was hardcoded by parse_data.py (line 1056) — that's
+     * been removed at source so this CSS rule actually wins. */
+    .hw .vocab-table td { padding: 4px 5px; }
+    .hw .grammar-sent { padding: 3px 0; }
+
+    /* Round 25 (2026-05-03): hide the email-recordings button in PDF base.
+     * The button is meant for the interactive web layer only — hard-copy
+     * PDFs shouldn't show it.
+     *
+     * Why this rule lives here (canonical pdf-base) and not in inserted_css.css:
+     * - inserted_css.css is INJECTED at build time by make_interactive.py
+     *   ONLY for the Interactive layer output.
+     * - PDF generation (batch_convert_pdf.py via Playwright) reads root
+     *   Week_*.html (which == this canonical's structure post-fan-out) and
+     *   never sees inserted_css.css. Without a default-state rule, the SVG
+     *   icon renders at browser-default size (huge, black) inside the PDF.
+     *
+     * The Interactive layer is unaffected: inserted_css.css carries
+     * `body.is-interactive .email-recordings-btn { display: inline-flex; }`
+     * which, by virtue of higher specificity (and `is-interactive` body class
+     * added by make_interactive.py), wins over this default-hide rule. */
+    .email-recordings-btn { display: none; }
+
     /* Title font sizing: was 1.0em — too wide once "SPEAKING PRACTICE
        CIRCUIT" + week-tag had to fit beside the STUDENT HANDOUT pill at
        A4 width, causing the title to wrap to a 2nd line awkwardly. 0.85em
@@ -375,11 +418,16 @@
     /* Unified Mind Map Styles */
     .l1 .spider-center { background: var(--l1-accent); }
     
+    /* Round 26 (2026-05-03): tighter spider-leg + spider-legs padding so the
+     * inner mind-map content doesn't get pushed out of its parent card when
+     * the question text above wraps (per-week question length variation). The
+     * spider-container has fixed/constrained height; reducing internal padding
+     * gives the inner WHO/WHAT/HOW boxes more vertical breathing room. */
     .spider-legs {
-        width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 10px; box-sizing: border-box;
+        width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 6px; box-sizing: border-box;
     }
     .spider-leg {
-        border: 1px solid #ddd; background: rgba(255,255,255,0.5); padding: 5px; border-radius: 8px; position: relative;
+        border: 1px solid #ddd; background: rgba(255,255,255,0.5); padding: 4px; border-radius: 8px; position: relative;
         display: flex; flex-direction: column; justify-content: center; font-size: 0.75em;
     }
     .spider-legs .spider-leg:nth-child(2),
@@ -564,20 +612,22 @@
         -webkit-text-stroke: 0; /* override any stroke inherited from older rounds */
     }
     .cover-top-label {
-        font-size: 1.4em;
-        text-transform: uppercase;
+        font-size: 4em; /* Round 17 (2026-05-02): largest cover element */
+        line-height: 0.95;        /* Round 18 (2026-05-02): tighten gap if it wraps to 2 lines */
         letter-spacing: 4px;
         margin: 0 0 6px 0;
+        /* Round 18: text is now "IELTS Speaking Course" — full caps removed so
+           keep text-transform OFF (was uppercase). */
     }
     .cover-week {
-        font-size: 3em; /* Round 16: reduced from 4.2em — user feedback "too large" */
+        font-size: 2em; /* Round 18: bumped from 1.2em — sits between course title and subtitle */
         line-height: 1;
         letter-spacing: 2px;
         text-transform: uppercase;
         margin: 0;
     }
     .cover-title-large {
-        font-size: 3.5em; /* Round 16: reduced from 5em — user feedback "too large" */
+        font-size: 2em; /* Round 18: bumped from 1.2em — sits between course title and subtitle */
         line-height: 1;
         text-transform: uppercase;
         margin: 4px 0;
@@ -608,7 +658,7 @@
 <!-- =========================================
          PAGE 1: COVER PAGE
          ========================================= -->
-<div class="page cover-page"><div class="cover-content"><div class="cover-top-label">IELTS SPEAKING MASTERCLASS</div><h1 class="cover-week">WEEK 9</h1><h2 class="cover-title-large">People</h2><div class="cover-subtitle">A Child Who Enjoys Art</div></div><div class="cover-footer">© Jinhua New Oriental Academy English Department Curriculum</div></div>
+<div class="page cover-page"><div class="cover-content"><div class="cover-top-label">IELTS Speaking Course</div><h1 class="cover-week">WEEK 9</h1><h2 class="cover-title-large">People</h2><div class="cover-subtitle">A Child Who Enjoys Art</div></div><div class="cover-footer"></div></div>
 <!-- =========================================
          PAGE 2: BLANK PAGE (For Collation)
          ========================================= -->
@@ -690,11 +740,11 @@
 </div>
 <!-- Round 12 2026: course-pipeline illustration banner inserted at
      the bottom of this page just before the page-number footer.
-     Image lives at images/course_pipeline_v3.png; relative path resolves
+     Image lives at images/course_pipeline_v3.jpg; relative path resolves
      correctly in both root-served and canonical-folder views.
      width:100% scales to the content area; height:auto preserves
      aspect ratio. -->
-<img alt="Course workflow pipeline" src="images/course_pipeline_v3.png" style="display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 8px;"/>
+<img alt="Course workflow pipeline" src="images/course_pipeline_v3.jpg" style="display: block; width: 100%; height: auto; margin-top: auto; border-radius: 8px;"/>
 <div class="page-number">73</div></div>
 <!-- =========================================
          PAGE 2: STUDENT LESSON 1
@@ -732,16 +782,16 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Imaginative</strong></td><td>Imagine (V) - Imagination (N)</td><td><span class="vocab-cn">富于想象力的</span></td></tr><tr><td><strong>Gifted</strong></td><td>Gift (N)</td><td><span class="vocab-cn">有天赋的</span></td></tr><tr><td><strong>Expressive</strong></td><td>Express (V) - Expression (N)</td><td><span class="vocab-cn">表现力强的</span></td></tr><tr><td><strong>Observant</strong></td><td>Observe (V) - Observation (N)</td><td><span class="vocab-cn">观察力敏锐的</span></td></tr><tr><td><strong>Messy</strong></td><td>Mess (N)</td><td><span class="vocab-cn">凌乱的</span></td></tr><tr><td><strong>Reluctant</strong> <span class="recycled-tag">Recycled</span></td><td>Reluctance (N)</td><td><span class="vocab-cn">不情愿的</span></td></tr><tr><td><strong>Grateful</strong> <span class="recycled-tag">Recycled</span></td><td>Gratitude (N)</td><td><span class="vocab-cn">感激的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Think outside the box</strong></td><td>(Thought (V2))</td><td><span class="vocab-cn">打破常规</span></td></tr><tr><td><strong>In one's element</strong></td><td>(Fixed Phrase)</td><td><span class="vocab-cn">如鱼得水</span></td></tr><tr><td><strong>A hidden talent</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">潜能</span></td></tr></tbody>
+<tbody><tr><td><strong>Imaginative</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Imagine (V) - Imagination (N)</td><td><span class="vocab-cn">富于想象力的</span></td></tr><tr><td><strong>Gifted</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Gift (N)</td><td><span class="vocab-cn">有天赋的</span></td></tr><tr><td><strong>Expressive</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Express (V) - Expression (N)</td><td><span class="vocab-cn">表现力强的</span></td></tr><tr><td><strong>Observant</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Observe (V) - Observation (N)</td><td><span class="vocab-cn">观察力敏锐的</span></td></tr><tr><td><strong>Messy</strong></td><td>Mess (N)</td><td><span class="vocab-cn">凌乱的</span></td></tr><tr><td><strong>Reluctant</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span> <span class="recycled-tag">Recycled</span></td><td>Reluctance (N)</td><td><span class="vocab-cn">不情愿的</span></td></tr><tr><td><strong>Grateful</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span> <span class="recycled-tag">Recycled</span></td><td>Gratitude (N)</td><td><span class="vocab-cn">感激的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Think outside the box</strong></td><td>(Thought (V2))</td><td><span class="vocab-cn">打破常规</span></td></tr><tr><td><strong>In one's element</strong></td><td>(Fixed Phrase)</td><td><span class="vocab-cn">如鱼得水</span></td></tr><tr><td><strong>A hidden talent</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">潜能</span></td></tr></tbody>
 </table>
 </div>
 <!-- Round 12 2026: course-pipeline illustration banner inserted at
      the bottom of this page just before the page-number footer.
-     Image lives at images/course_pipeline_v4.png; relative path resolves
+     Image lives at images/course_pipeline_v4.jpg; relative path resolves
      correctly in both root-served and canonical-folder views.
      width:100% scales to the content area; height:auto preserves
      aspect ratio. -->
-<img alt="Course workflow pipeline" src="images/course_pipeline_v4.png" style="display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 8px;"/>
+<img alt="Course workflow pipeline" src="images/course_pipeline_v4.jpg" style="display: block; width: 100%; height: auto; margin-top: auto; border-radius: 8px;"/>
 <div class="page-number">74</div></div>
 <!-- =========================================
          PAGE 3: STUDENT PRACTICE
@@ -753,7 +803,7 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h4>🧠 Brainstorming Map</h4>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a child who enjoys drawing/painting. You should say: <strong>How</strong> you know this child, <strong>How</strong> often he/she draws, <strong>What</strong> he/she likes to draw or paint, <strong>And</strong> explain why you think he/she likes drawing/painting.</div>
+<div style="font-size:0.9em; margin-bottom:4px; padding-left:15px; color:#444;">Describe a child who enjoys drawing/painting. You should say: <strong>How</strong> you know this child, <strong>How</strong> often he/she draws, <strong>What</strong> he/she likes to draw or paint, <strong>And</strong> explain why you think he/she likes drawing/painting.</div>
 <div class="spider-container" style="height:180px;">
 <div class="spider-center">CHILD</div>
 <div class="spider-legs">
@@ -770,7 +820,7 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a young person who is good at playing a musical instrument. You should say: <strong>Who</strong> this person is, <strong>What</strong> instrument they play, <strong>How</strong> they learned to play, <strong>And</strong> explain why you think they are talented.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:4px; padding-left:10px; line-height:1.3;">Describe a young person who is good at playing a musical instrument. You should say: <strong>Who</strong> this person is, <strong>What</strong> instrument they play, <strong>How</strong> they learned to play, <strong>And</strong> explain why you think they are talented.</div>
 <div class="spider-container" style="flex-grow:1;">
 <div class="spider-center">YOUNG<br/>PERSON</div>
 <div class="spider-legs">
@@ -783,7 +833,7 @@
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a child you know who is very active and full of energy. You should say: <strong>Who</strong> this child is, <strong>What</strong> activities they enjoy, <strong>How</strong> they behave around others, <strong>And</strong> explain why you think this child is special.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:4px; padding-left:10px; line-height:1.3;">Describe a child you know who is very active and full of energy. You should say: <strong>Who</strong> this child is, <strong>What</strong> activities they enjoy, <strong>How</strong> they behave around others, <strong>And</strong> explain why you think this child is special.</div>
 <div class="spider-container" style="flex-grow:1;">
 <div class="spider-center">CHILD<br/>KNOW</div>
 <div class="spider-legs">
@@ -866,11 +916,11 @@
 </div>
 <!-- Round 12 2026: course-pipeline illustration banner inserted at
      the bottom of this page just before the page-number footer.
-     Image lives at images/course_pipeline_v2.png; relative path resolves
+     Image lives at images/course_pipeline_v2.jpg; relative path resolves
      correctly in both root-served and canonical-folder views.
      width:100% scales to the content area; height:auto preserves
      aspect ratio. -->
-<img alt="Course workflow pipeline" src="images/course_pipeline_v2.png" style="display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 8px;"/>
+<img alt="Course workflow pipeline" src="images/course_pipeline_v2.jpg" style="display: block; width: 100%; height: auto; margin-top: auto; border-radius: 8px;"/>
 <div class="page-number">76</div></div>
 <!-- =========================================
          PAGE 5: PART 3 INPUT (Student L2)
@@ -894,7 +944,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Inspiration</strong></td><td>Inspire (V) - Inspirational (Adj)</td><td><span class="vocab-cn">灵感</span></td></tr><tr><td><strong>Masterpiece</strong></td><td>Masterpieces (Pl)</td><td><span class="vocab-cn">杰作</span></td></tr><tr><td><strong>Aesthetic</strong></td><td>Aesthetics (N)</td><td><span class="vocab-cn">审美的 / 美学的</span></td></tr><tr><td><strong>Cognitive</strong></td><td>Cognition (N)</td><td><span class="vocab-cn">认知的</span></td></tr><tr><td><strong>Appreciation</strong></td><td>Appreciate (V)</td><td><span class="vocab-cn">欣赏 / 鉴赏</span></td></tr><tr><td><strong>Wisdom</strong></td><td>Wise (Adj)</td><td><span class="vocab-cn">智慧</span></td></tr><tr><td><strong>Objective</strong></td><td>Objectivity (N)</td><td><span class="vocab-cn">客观的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Beauty is in the eye of the beholder</strong></td><td>(Proverb)</td><td><span class="vocab-cn">各花入各眼</span></td></tr><tr><td><strong>Down to earth</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">脚踏实地</span></td></tr><tr><td><strong>Paint a picture</strong></td><td>(Painted (V2))</td><td><span class="vocab-cn">绘声绘色</span></td></tr></tbody>
+<tbody><tr><td><strong>Inspiration</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Inspire (V) - Inspirational (Adj)</td><td><span class="vocab-cn">灵感</span></td></tr><tr><td><strong>Masterpiece</strong></td><td>Masterpieces (Pl)</td><td><span class="vocab-cn">杰作</span></td></tr><tr><td><strong>Aesthetic</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Aesthetics (N)</td><td><span class="vocab-cn">审美的 / 美学的</span></td></tr><tr><td><strong>Cognitive</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Cognition (N)</td><td><span class="vocab-cn">认知的</span></td></tr><tr><td><strong>Appreciation</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Appreciate (V)</td><td><span class="vocab-cn">欣赏 / 鉴赏</span></td></tr><tr><td><strong>Wisdom</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Wise (Adj)</td><td><span class="vocab-cn">智慧</span></td></tr><tr><td><strong>Objective</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Objectivity (N)</td><td><span class="vocab-cn">客观的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Beauty is in the eye of the beholder</strong></td><td>(Proverb)</td><td><span class="vocab-cn">各花入各眼</span></td></tr><tr><td><strong>Down to earth</strong></td><td>(Adjective Phrase)</td><td><span class="vocab-cn">脚踏实地</span></td></tr><tr><td><strong>Paint a picture</strong></td><td>(Painted (V2))</td><td><span class="vocab-cn">绘声绘色</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -962,12 +1012,11 @@
 <!-- 2026 fix #4: page-level gap was 0 — removed all spacing between
      the (continued) banner and Q4 below it. Bumped to 12px (matches
      --card-padding) so the banner has breathing room above Q4. -->
-<div class="page l2" style="gap:12px !important; padding-top:5mm !important;">
+<div class="page l2">
 <div class="header-bar">
 <div style="white-space:nowrap;"><span class="sh-badge">STUDENT HANDOUT</span> <span class="header-title" style="font-size:0.8em; letter-spacing:0;">Part 3: Rapid Fire Discussion <span style="font-size:0.8em; text-transform:none;">(continued)</span></span></div>
 <span class="week-tag">Week 9 • Lesson 2 • A Child Who Enjoys Art (Part 3)</span>
 </div>
-<div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
 <h3>Q4: When was the last time that you felt proud of yourself?</h3>
@@ -1007,7 +1056,6 @@
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
-</div>
 <div class="page-number">79</div></div>
 <!-- =========================================
          PAGE 8: HOMEWORK
@@ -1027,7 +1075,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Observant</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Creative</td></tr><tr><td style="padding: 10px 5px;">2. Gifted</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Emotional</td></tr><tr><td style="padding: 10px 5px;">3. Imaginative</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Untidy</td></tr><tr><td style="padding: 10px 5px;">4. Expressive</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Attentive</td></tr><tr><td style="padding: 10px 5px;">5. Messy</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Talented</td></tr></tbody>
+<tbody><tr><td>1. Observant</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) E. Creative</td></tr><tr><td>2. Gifted</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) D. Talented</td></tr><tr><td>3. Imaginative</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) A. Emotional</td></tr><tr><td>4. Expressive</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) C. Attentive</td></tr><tr><td>5. Messy</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) B. Untidy</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -1049,7 +1097,7 @@
 </ol>
 </div>
 </div>
-<div class="card has-email-btn" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<div class="card has-email-btn" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px;">
 <h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
@@ -1063,7 +1111,12 @@
                     Use complex sentences, transition phrases and this week's vocabulary and idioms.<br/><br/>
 <strong style="color:#e74c3c;">IELTS Band 7 Challenge:</strong> Do additional shadowing free practice to perfect your pronunciation faster.
                 </div>
-<button class="email-recordings-btn" onclick="window.__ielts.emailLessonRecordings()" title="Email all this week's recordings" type="button">✉️</button>
+<button class="email-recordings-btn" onclick="window.__ielts.emailLessonRecordings()" title="Zip and Email or WeChat all this week's recordings to teacher" type="button">
+<svg aria-hidden="true" class="email-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
+</svg>
+<span class="email-btn-label">Zip and Email or WeChat all recordings to teacher</span>
+</button>
 </div>
 <div style="text-align:center; transform:rotate(180deg); color:#555; font-weight:bold; font-size:0.8em; margin-top:auto;">Key: 1. Observant-C, 2. Gifted-D, 3. Imaginative-E, 4. Expressive-A, 5. Messy-B | 1. good at... 2. drawing... 3. talent for... 4. amazing... 5. 5-year-old...</div>
 </div>
@@ -1137,13 +1190,9 @@
         elC.style.height = heightC + "px";
     };
 </script>
-<div class="page draft-page"><div style="background: #fdf2e9; border: 1px solid rgba(0,0,0,0.05); border-left: 6px solid #e67e22; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); text-align: left;"><h1 style="margin: 0; padding: 0; border: none; font-size: 1.2em; font-weight: 700; color: #d35400; text-transform: uppercase; letter-spacing: 1px;">Writing Homework: Draft &amp; Polished Rewrite</h1></div><div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;">
-<div style="border:1px solid #eee; padding:10px; border-radius:6px; background:var(--bg-pastel-green); flex:1; display:flex; flex-direction:column;; box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; border: none !important;">
-<strong>Draft:</strong>
-<div class="lines" style="flex-grow:1; height:auto;"></div>
-</div>
-<div style="border:1px solid #eee; padding:10px; border-radius:6px; background:var(--bg-pastel-green); flex:1; display:flex; flex-direction:column;; box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; border: none !important;">
-<strong>Polished Rewrite:</strong>
+<div class="page draft-page"><div style="background: #fdf2e9; border: 1px solid rgba(0,0,0,0.05); border-left: 6px solid #e67e22; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); text-align: left;"><h1 style="margin: 0; padding: 0; border: none; font-size: 1.2em; font-weight: 700; color: #d35400; text-transform: uppercase; letter-spacing: 1px;">Writing Homework: AI corrected</h1></div><div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;">
+<div style="border:1px solid #eee; padding:10px; border-radius:6px; background:var(--bg-pastel-green); flex:1; display:flex; flex-direction:column; box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; border: none !important;">
+<strong>AI corrected:</strong>
 <div class="lines" style="flex-grow:1; height:auto;"></div>
 </div>
 </div><div class="page-number">81</div></div></body>

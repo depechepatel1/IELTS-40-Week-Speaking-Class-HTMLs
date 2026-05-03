@@ -11,7 +11,9 @@ Run:  python scripts/upload_to_oss.py
 Reads AccessKey from env: ALIYUN_ACCESS_KEY_ID, ALIYUN_ACCESS_KEY_SECRET.
 """
 from __future__ import annotations
+import hashlib
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -20,6 +22,93 @@ import oss2
 REPO = Path(__file__).resolve().parents[1]
 BUCKET_NAME = "aischool-ielts-bj"
 ENDPOINT = "https://oss-cn-beijing.aliyuncs.com"
+
+# Cache-Control header policy. CDN caches per these durations; clients
+# (browsers) cache for max-age. Values balance "students see fresh
+# content" vs "every page-view doesn't slam origin":
+#   HTMLs:  5 min   — fresh enough for last-minute curriculum tweaks
+#   JSON:   1 hour  — pronunciations.json is essentially static
+#   Images: 7 days  — course pipeline PNGs change rarely
+CACHE_CONTROL = {
+    ".html": "public, max-age=300, must-revalidate",
+    ".json": "public, max-age=3600",
+    ".png":  "public, max-age=604800",
+    ".jpg":  "public, max-age=604800",
+    ".webp": "public, max-age=604800",
+    ".svg":  "public, max-age=604800",
+    ".gif":  "public, max-age=604800",
+}
+
+
+def _file_md5(path: Path) -> str:
+    h = hashlib.md5()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(65536), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _oss_object_state(bucket, key: str) -> tuple[str | None, str | None]:
+    """Return (md5, cache_control) for an OSS object, or (None, None) if absent.
+    Used to decide whether to skip the upload — we re-upload if either
+    the body changed OR the cache-control header is missing/stale."""
+    try:
+        meta = bucket.head_object(key)
+        etag = (meta.etag or "").strip('"').lower()
+        if "-" in etag:  # multipart upload — ETag isn't the MD5
+            return (None, None)
+        # Cache-Control is in headers, lower-cased by HTTP convention
+        cc = meta.headers.get("cache-control") or meta.headers.get("Cache-Control")
+        return (etag, cc)
+    except oss2.exceptions.NoSuchKey:
+        return (None, None)
+    except Exception:
+        return (None, None)
+
+
+def _smart_upload(bucket, key: str, src: Path, content_type: str) -> tuple[str, int]:
+    """Upload `src` to `key` with appropriate Cache-Control header. Skip
+    if local MD5 matches OSS ETag AND cache-control header matches.
+    The cache-control check ensures objects backfilled with new header
+    policy on a subsequent run instead of staying stuck on old metadata.
+    Returns (status_str, bytes_uploaded). status_str in {ok, skip, fail}."""
+    ext = src.suffix.lower()
+    expected_cc = CACHE_CONTROL.get(ext, "")
+    headers = {"Content-Type": content_type}
+    if expected_cc:
+        headers["Cache-Control"] = expected_cc
+    local_md5 = _file_md5(src)
+    remote_md5, remote_cc = _oss_object_state(bucket, key)
+    body_match = local_md5 == remote_md5
+    header_match = (remote_cc or "").strip() == expected_cc.strip()
+    if body_match and header_match:
+        return ("skip", 0)
+    bucket.put_object_from_file(key, str(src), headers=headers)
+    return ("ok", src.stat().st_size)
+
+
+def _check_fc_url_drift(repo: Path) -> None:
+    """Warn if the FC URL in DEPLOYED_URL.txt doesn't match what's baked
+    into the Interactive HTMLs. This catches the failure mode that bit us
+    on 2026-05-02 (HTMLs were referencing a dead URL after FC redeploy)."""
+    deployed_url_file = repo / "function-compute" / "DEPLOYED_URL.txt"
+    if not deployed_url_file.exists():
+        return  # no FC in this repo (e.g. IGCSE — shared FC lives in IELTS)
+    deployed = deployed_url_file.read_text().strip()
+    sample = next(iter((repo / "Interactive").glob("Week_*.html")), None)
+    if not sample:
+        return
+    content = sample.read_text(encoding="utf-8")
+    m = re.search(r'AI_ENDPOINT\s*=\s*["\']([^"\']+)["\']', content)
+    if m and m.group(1) != deployed:
+        print(f"WARN: FC URL drift detected!", file=sys.stderr)
+        print(f"  DEPLOYED_URL.txt: {deployed}", file=sys.stderr)
+        print(f"  Baked in HTMLs:   {m.group(1)}", file=sys.stderr)
+        print(f"  Re-bake before uploading:", file=sys.stderr)
+        print(f"    python scripts/make_interactive.py --in . --out Interactive \\", file=sys.stderr)
+        print(f"      --endpoint {deployed} --bucket-base https://ielts.aischool.studio", file=sys.stderr)
+        print(f"  Aborting upload to prevent deploying stale URL.", file=sys.stderr)
+        sys.exit(7)
 
 
 def main() -> int:
@@ -32,6 +121,11 @@ def main() -> int:
 
     auth = oss2.Auth(ak, sk)
     service = oss2.Service(auth, ENDPOINT)
+
+    # 0. Sanity check: warn if the FC URL drifted between DEPLOYED_URL.txt
+    # and what's baked into Interactive HTMLs. This catches the failure
+    # mode that bit us on 2026-05-02.
+    _check_fc_url_drift(REPO)
 
     # 1. Check if bucket exists; create if absent with public-read ACL.
     existing = [b.name for b in oss2.BucketIterator(service)]
@@ -48,58 +142,74 @@ def main() -> int:
         bucket.create_bucket(oss2.BUCKET_ACL_PUBLIC_READ)
         print(f"Created bucket '{BUCKET_NAME}' with public-read ACL in cn-beijing.")
 
-    # 2. Upload 40 interactive HTMLs with Text/HTML mime.
+    ok = skip = 0
+
+    # 2. Upload 40 interactive HTMLs with Text/HTML mime + cache headers.
     interactive = REPO / "Interactive"
     htmls = sorted(interactive.glob("Week_*.html"))
-    print(f"\nUploading {len(htmls)} HTML files...")
+    print(f"\nUploading {len(htmls)} HTML files (skip-unchanged enabled)...")
     for f in htmls:
-        bucket.put_object_from_file(
-            f.name,
-            str(f),
-            headers={"Content-Type": "Text/HTML; charset=utf-8"},
-        )
-        print(f"  [ok] {f.name}")
+        status, _ = _smart_upload(bucket, f.name, f, "Text/HTML; charset=utf-8")
+        if status == "ok":   ok += 1
+        elif status == "skip": skip += 1
+        # Less verbose: only print uploaded ones; skipped ones suppressed
+        if status == "ok":
+            print(f"  [ok] {f.name}")
 
     # 3. Upload pronunciations.json.
     pron = REPO / "pronunciations.json"
     if pron.exists():
-        bucket.put_object_from_file(
-            "pronunciations.json",
-            str(pron),
-            headers={"Content-Type": "application/json; charset=utf-8"},
-        )
-        print(f"  [ok] pronunciations.json")
+        status, _ = _smart_upload(bucket, "pronunciations.json", pron, "application/json; charset=utf-8")
+        if status == "ok":   ok += 1
+        elif status == "skip": skip += 1
+        print(f"  [{status}] pronunciations.json")
     else:
         print("  WARN: pronunciations.json not found at repo root", file=sys.stderr)
 
-    # 4. Upload images/*.png — required for the <img src="images/foo.png">
-    # references inside each Week_NN.html. Without this step, all weeks
-    # render with broken-image placeholders for the course pipeline diagrams.
-    # We prefer the Interactive/images/ folder (matches what was just uploaded);
-    # fall back to repo root images/ if Interactive/images/ is missing.
+    # 3b. Auto-regenerate index.html if stale, then upload.
+    index_path = REPO / "index.html"
+    needs_rebuild = not index_path.exists()
+    if not needs_rebuild:
+        index_mtime = index_path.stat().st_mtime
+        for w in REPO.glob("Week_*.html"):
+            if w.stat().st_mtime > index_mtime:
+                needs_rebuild = True
+                break
+    if needs_rebuild:
+        import subprocess
+        print(f"  [info] index.html stale or missing — regenerating via build_landing_page.py")
+        subprocess.run([sys.executable, str(REPO / "scripts" / "build_landing_page.py")],
+                       check=True, cwd=str(REPO))
+    if index_path.exists():
+        status, _ = _smart_upload(bucket, "index.html", index_path, "text/html; charset=utf-8")
+        if status == "ok":   ok += 1
+        elif status == "skip": skip += 1
+        print(f"  [{status}] index.html")
+    else:
+        print("  WARN: index.html not found and build_landing_page.py failed", file=sys.stderr)
+
+    # 4. Upload images/*.png with long cache TTL.
     candidates = [REPO / "Interactive" / "images", REPO / "images"]
     src_images = next((p for p in candidates if p.is_dir()), None)
     if src_images is None:
-        print("  WARN: no images/ folder found at Interactive/images or repo root — "
-              "skipping image upload", file=sys.stderr)
+        print("  WARN: no images/ folder found", file=sys.stderr)
     else:
         mime_by_ext = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
                        ".webp": "image/webp", ".svg": "image/svg+xml", ".gif": "image/gif"}
         img_count = 0
         for img in sorted(src_images.iterdir()):
             if img.is_file() and img.suffix.lower() in mime_by_ext:
-                bucket.put_object_from_file(
-                    f"images/{img.name}", str(img),
-                    headers={"Content-Type": mime_by_ext[img.suffix.lower()]},
-                )
-                print(f"  [ok] images/{img.name}")
+                status, _ = _smart_upload(bucket, f"images/{img.name}", img,
+                                          mime_by_ext[img.suffix.lower()])
+                if status == "ok":   ok += 1
+                elif status == "skip": skip += 1
+                print(f"  [{status}] images/{img.name}")
                 img_count += 1
-        print(f"Uploaded {img_count} image(s) from {src_images}")
+        if img_count:
+            print(f"Processed {img_count} image(s) from {src_images}")
 
-    print(f"\nPublic base URL:")
-    print(f"  https://{BUCKET_NAME}.oss-cn-beijing.aliyuncs.com/")
-    print(f"\nSample file:")
-    print(f"  https://{BUCKET_NAME}.oss-cn-beijing.aliyuncs.com/Week_1_Lesson_Plan.html")
+    print(f"\nResult: {ok} uploaded, {skip} skipped (already up-to-date)")
+    print(f"Public landing page: https://ielts.aischool.studio/")
     return 0
 
 

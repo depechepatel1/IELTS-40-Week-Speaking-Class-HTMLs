@@ -55,3 +55,10 @@ lessons/
 
 # Claude Code session-local config
 .claude/settings.local.json
+
+# Final consolidated print PDF — regenerated from Week_NN.pdf + intro_packet.pdf
+# via scripts/combine_pdfs.py. ~258 MB, exceeds GitHub's 100 MB file-size limit.
+IELTS_Speaking_Course_Complete.pdf
+
+# Local Preview/ scratch dir (intermediate edits never meant for the repo)
+Preview/

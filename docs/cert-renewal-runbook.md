@@ -1,83 +1,117 @@
-# SSL Cert Renewal Runbook — `lessons.aischool.studio`
+# SSL Cert Runbook — `*.aischool.studio` (wildcard)
 
 ## Why this exists
 
-The current SSL cert for `lessons.aischool.studio` is a **free DV cert** from Aliyun's "Personal Test Certificate" tier. It's free, but **does not auto-renew** and is valid for only **90 days**. You need to manually issue a new cert before the current one expires, or HTTPS at `https://lessons.aischool.studio/...` will start showing browser warnings.
+Cert lifecycle for the school's CDN domains. As of **2026-05-03**, all three
+public subdomains (`ielts.aischool.studio`, `igcse.aischool.studio`,
+`lessons.aischool.studio`) share a single **wildcard cert**, which auto-renews
+mid-cycle. Adding a new subdomain (e.g. `app.`, `api.`, `www.`) just needs a
+small SDK call — no new cert purchase.
 
-## Current cert (as of issuance)
+## Current cert (as of 2026-05-03)
 
 | Field | Value |
 |---|---|
-| Cert instance ID | `cert-7u7ojx` |
-| Subscription ID | `cas_dv-cn-wjd4r9x5o01p` |
-| Brand / algorithm | DigiCert RSA_2048 |
-| Type | DV single-domain |
-| Domain | `lessons.aischool.studio` |
-| Issued | 2026-04-26 |
-| **Expires** | **2026-07-24** |
-| Renewal reminder | **2026-07-17** (1 week before) |
-| Free quota used | 1 of 20 / year |
+| Cert ID | `24792685` |
+| Brand | Wosign DV |
+| Type | Wildcard `*.aischool.studio` |
+| Issued | 2026-05-03 |
+| **Expires** | **2026-11-17** |
+| Auto-renew | Yes (Aliyun rotates the cert mid-cycle) |
+| Subscription expires | 2027-05-03 |
+| Subscription manual renewal reminder | **2027-04-03** (~30 days early) |
+| Bound CDN domains | `ielts.aischool.studio`, `igcse.aischool.studio`, `lessons.aischool.studio` |
 
-## Renewal procedure (every ~90 days)
+## Health check (run anytime)
 
-⚠️ The Aliyun OSS console has a misleading "Apply for Free Cert" button that now routes to the paid ¥2498 tier. **Do not use that path.** Use the SSL Certificate Service console directly (instructions below).
+```bash
+python scripts/check_cert_expiry.py
+```
 
-### 1. Order a new free cert
+Should report `OK: <domain> cert valid for ~180+ more days`. Exit code 0 = clean,
+1 = warning (<30 days), 2 = critical/unreachable.
 
-1. Open <https://yundun.console.aliyun.com/?p=cas> (Aliyun SSL Certificate Service).
-2. Click **个人测试证书 (原免费证书)** / *Personal Test Certificate (formerly Free Certificate)*.
-3. Click **立即购买** (Buy Now). The cost is ¥0 — Aliyun routes everything through the unified order flow.
-4. Check the agreement box, click **立即购买**.
+## Cert auto-renewal — how it works
 
-### 2. Apply / issue the cert
+Aliyun runs a subscription-style cert: the underlying cert is reissued every
+~6 months mid-subscription, and the subscription itself runs ~12 months. The
+CDN auto-binds new revisions of the wildcard. **No human action needed
+between subscription renewals.**
 
-5. Go back to the SSL Certificate console. Find the new cert (status: **待签发** / Pending Issuance).
-6. Click **申请证书** / Apply.
-7. Domain: `lessons.aischool.studio`
-8. Validation method: **DNS validation** (DNS 验证)
-9. CSR: **System-generated** (系统生成 CSR)
-10. Aliyun shows a TXT record to add at `_dnsauth.lessons.aischool.studio`.
-11. Add it via Aliyun DNS console (or run the helper script in step 13):
-    - Open <https://dns.console.aliyun.com/> → `aischool.studio`
-    - Add Record: Type=TXT, Host=`_dnsauth.lessons`, Value=*(the value Aliyun showed)*, TTL=600
-    - **Note:** there's already an OSS-binding TXT at the same host. DNS allows multiple TXT values — add the new one alongside, do NOT delete the old one.
-12. Wait 1-30 min. Cert status → **已签发** (Issued).
+The only manual step is **renewing the subscription** before 2027-05-03.
+Calendar reminder is set for 2027-04-03 (30 days early).
 
-### 3. Bind the new cert to OSS
+## Adding a NEW subdomain (e.g. `api.aischool.studio`)
 
-13. Open <https://oss.console.aliyun.com/> → bucket `aischool-ielts-bj` → 传输管理 → 域名管理.
-14. Find `lessons.aischool.studio` → click **证书管理** (Certificate Management).
-15. Choose **选择已购买证书** (Select existing cert) → pick the cert from step 12.
-16. Save. Aliyun says ≤15 min to propagate; usually live in seconds.
+Don't buy a new cert — bind the existing wildcard.
 
-### 4. Verify
+```python
+import os
+from alibabacloud_cdn20180510.client import Client as CdnClient
+from alibabacloud_cdn20180510 import models as cdn_models
+from alibabacloud_tea_openapi import models as open_api_models
 
-17. Open `https://lessons.aischool.studio/Week_1_Lesson_Plan.html` in a fresh tab.
-18. Confirm: padlock icon, no "Not Secure" warning, page renders normally.
-19. Click the padlock → certificate → check expiry date is now ~90 days out.
+ak = os.environ['ALIYUN_ACCESS_KEY_ID']
+sk = os.environ['ALIYUN_ACCESS_KEY_SECRET']
+client = CdnClient(open_api_models.Config(
+    access_key_id=ak, access_key_secret=sk, endpoint='cdn.aliyuncs.com'))
 
-### 5. Cleanup
+# 1. Bind the wildcard cert to the new CDN domain
+client.set_cdn_domain_sslcertificate(
+    cdn_models.SetCdnDomainSSLCertificateRequest(
+        domain_name='<new-subdomain>.aischool.studio',
+        sslprotocol='on',
+        cert_type='cas',
+        cert_id='24792685',
+        cert_region='cn-hangzhou',
+    )
+)
 
-20. **Optional:** delete the old expired cert from the SSL Certificate console to keep the list clean. Doesn't affect anything (OSS is now bound to the new cert).
-21. **Optional:** delete the old TXT validation record from DNS (the new one supersedes it).
+# 2. Force HTTPS redirect (matches the other subdomains)
+import json
+client.batch_set_cdn_domain_config(
+    cdn_models.BatchSetCdnDomainConfigRequest(
+        domain_names='<new-subdomain>.aischool.studio',
+        functions=json.dumps([{
+            'functionName': 'https_force',
+            'functionArgs': [{'argName': 'enable', 'argValue': 'on'}],
+        }]),
+    )
+)
+```
 
-## When you might want to switch to a paid cert
+Prerequisite: the new CDN domain must already exist (use `AddCdnDomain` first;
+see `scripts/bind_custom_domain.py` for DNS + bucket binding pattern).
 
-Manual renewal every 90 days is annoying. If that becomes a real burden, Aliyun's paid SSL tier supports **auto-renewal**. Cost:
-- DV (Domain Validation): ~¥218/year for a 1-domain cert (auto-renewed, 1-year validity)
-- That's ~¥18/month for never having to think about this again
+## Subscription renewal (2027-04-03)
 
-For 1 domain serving free educational content to ~40 students, the free 90-day-manual path is fine. Bump to paid the first time you forget and HTTPS goes down for a day.
+When the calendar reminder fires:
 
-## Future automation idea
+1. Open <https://yundun.console.aliyun.com/?p=cas> (Aliyun SSL Certificate
+   Service console).
+2. Find the cert `24792685` / subscription. Click **续费** (Renew).
+3. Confirm the order. Aliyun re-issues a new wildcard cert under the same
+   subscription; bound CDN domains pick it up automatically.
+4. Run `python scripts/check_cert_expiry.py` to confirm the new expiry date.
 
-A `scripts/renew_cert.py` could automate steps 1-3 by chaining Aliyun's
-- `cas:CreateCertificateForPackageRequest` (order)
-- `cas:DescribeCertificateApplyRequest` (poll for issuance)
-- Aliyun DNS `AddDomainRecord` (the TXT, similar to `bind_custom_domain.py`)
-- `oss:PutBucketCname` (bind to OSS)
+If for some reason you missed the renewal and the subscription expired:
+- Fall back to ordering a new wildcard cert (the same Wosign DV product)
+- Bind to all three CDN domains via the `set_cdn_domain_sslcertificate`
+  snippet above (with the NEW cert_id)
+- Update `pipeline.yaml` `cdn.cert_id` and the Cert Renewal section in
+  `CLAUDE.md` for both repos.
 
-The reason it doesn't exist yet: writing it requires installing the Aliyun
-CAS SDK and Aliyun's free-cert "purchase" REST API path that's primarily
-documented in Chinese. Worth doing when the first renewal comes around if
-the manual flow above proves painful.
+## Other certs in the account
+
+- `db.aischool.studio` — single-domain cert id `24239187` (GeoTrust, expires
+  2026-10-15). Not on the wildcard. Non-urgent; can be migrated to the
+  wildcard later by re-binding via the same snippet above.
+
+## What NOT to do
+
+- ❌ Don't buy new free DV certs from Aliyun's "Personal Test Certificate"
+  pool — quota is exhausted on this account.
+- ❌ Don't manually rebind the cert in OSS — the CDN handles it now.
+- ❌ Don't change DNS away from the CDN edge endpoint
+  (`<subdomain>.aischool.studio.w.kunlunaq.com`); the cert auto-rotation
+  expects DNS pointing at the CDN.
