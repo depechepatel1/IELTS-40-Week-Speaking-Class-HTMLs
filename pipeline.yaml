@@ -28,10 +28,10 @@ oss:
 cdn:
   # Current production domain. Subdomain rename to ielts.aischool.studio
   # is in the backlog (REORG_STATE.md) but not yet executed.
-  domain: "lessons.aischool.studio"
-  bucket_base: "https://lessons.aischool.studio"
-  cert_id: "24643392"
-  cert_expires: "2026-07-24"
+  domain: "ielts.aischool.studio"
+  bucket_base: "https://ielts.aischool.studio"
+  cert_id: "24792685"                              # Wildcard *.aischool.studio (Wosign DV, auto-renewing)
+  cert_expires: "2026-11-17"                       # Aliyun rotates mid-cycle; subscription renews 2027-05-03
   auto_renew: true
 
 function_compute:

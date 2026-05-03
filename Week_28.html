@@ -206,6 +206,49 @@
     .l2 .header-bar { background: linear-gradient(135deg, #d35400, #e67e22); }
     .hw .header-bar { background: linear-gradient(135deg, #27ae60, #2ecc71); }
 
+    /* Round 23 (2026-05-03): tighter card padding on the HOMEWORK page only.
+     * Defense against per-week content variation pushing the upside-down
+     * answer-key footer off the bottom of the A4 page (Week 2 bug —
+     * see also: scripts/verify_homework_data.py for shape-validation).
+     * Default --card-padding is 12px; on the homework page we use 8px 14px
+     * so the four cards can absorb ~24px of extra height before overflow.
+     * Other pages (l1/l2) keep the default for visual consistency. */
+    .hw .card { padding: 8px 14px; }
+    .hw .card h3 { margin: 4px 0; }
+    /* Tighten the Card 2 (Error Correction) item gap so 5 grammar sentences
+     * fit comfortably even when one wraps to 2 lines. Was gap:5px + margin-top:10px. */
+    .hw .grammar-sent + .grammar-sent { margin-top: 0; }
+
+    /* Round 24 (2026-05-03): tighten WITHIN-card item padding on Cards 1 + 2.
+     * Round 23 only addressed card-level padding; the dominant per-row cost
+     * was actually inline `padding: 10px 5px` on each vocab <td> (100px page-
+     * vertical for 5 rows) and `.grammar-sent { padding: 6px 0 }` (60px for 5
+     * items). Together these reductions reclaim ~90px — enough headroom for
+     * any week's content + the rotated answer-key footer.
+     *
+     * Inline TD padding was hardcoded by parse_data.py (line 1056) — that's
+     * been removed at source so this CSS rule actually wins. */
+    .hw .vocab-table td { padding: 4px 5px; }
+    .hw .grammar-sent { padding: 3px 0; }
+
+    /* Round 25 (2026-05-03): hide the email-recordings button in PDF base.
+     * The button is meant for the interactive web layer only — hard-copy
+     * PDFs shouldn't show it.
+     *
+     * Why this rule lives here (canonical pdf-base) and not in inserted_css.css:
+     * - inserted_css.css is INJECTED at build time by make_interactive.py
+     *   ONLY for the Interactive layer output.
+     * - PDF generation (batch_convert_pdf.py via Playwright) reads root
+     *   Week_*.html (which == this canonical's structure post-fan-out) and
+     *   never sees inserted_css.css. Without a default-state rule, the SVG
+     *   icon renders at browser-default size (huge, black) inside the PDF.
+     *
+     * The Interactive layer is unaffected: inserted_css.css carries
+     * `body.is-interactive .email-recordings-btn { display: inline-flex; }`
+     * which, by virtue of higher specificity (and `is-interactive` body class
+     * added by make_interactive.py), wins over this default-hide rule. */
+    .email-recordings-btn { display: none; }
+
     /* Title font sizing: was 1.0em — too wide once "SPEAKING PRACTICE
        CIRCUIT" + week-tag had to fit beside the STUDENT HANDOUT pill at
        A4 width, causing the title to wrap to a 2nd line awkwardly. 0.85em
@@ -375,11 +418,16 @@
     /* Unified Mind Map Styles */
     .l1 .spider-center { background: var(--l1-accent); }
     
+    /* Round 26 (2026-05-03): tighter spider-leg + spider-legs padding so the
+     * inner mind-map content doesn't get pushed out of its parent card when
+     * the question text above wraps (per-week question length variation). The
+     * spider-container has fixed/constrained height; reducing internal padding
+     * gives the inner WHO/WHAT/HOW boxes more vertical breathing room. */
     .spider-legs {
-        width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 10px; box-sizing: border-box;
+        width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 6px; box-sizing: border-box;
     }
     .spider-leg {
-        border: 1px solid #ddd; background: rgba(255,255,255,0.5); padding: 5px; border-radius: 8px; position: relative;
+        border: 1px solid #ddd; background: rgba(255,255,255,0.5); padding: 4px; border-radius: 8px; position: relative;
         display: flex; flex-direction: column; justify-content: center; font-size: 0.75em;
     }
     .spider-legs .spider-leg:nth-child(2),
@@ -564,20 +612,22 @@
         -webkit-text-stroke: 0; /* override any stroke inherited from older rounds */
     }
     .cover-top-label {
-        font-size: 1.4em;
-        text-transform: uppercase;
+        font-size: 4em; /* Round 17 (2026-05-02): largest cover element */
+        line-height: 0.95;        /* Round 18 (2026-05-02): tighten gap if it wraps to 2 lines */
         letter-spacing: 4px;
         margin: 0 0 6px 0;
+        /* Round 18: text is now "IELTS Speaking Course" — full caps removed so
+           keep text-transform OFF (was uppercase). */
     }
     .cover-week {
-        font-size: 3em; /* Round 16: reduced from 4.2em — user feedback "too large" */
+        font-size: 2em; /* Round 18: bumped from 1.2em — sits between course title and subtitle */
         line-height: 1;
         letter-spacing: 2px;
         text-transform: uppercase;
         margin: 0;
     }
     .cover-title-large {
-        font-size: 3.5em; /* Round 16: reduced from 5em — user feedback "too large" */
+        font-size: 2em; /* Round 18: bumped from 1.2em — sits between course title and subtitle */
         line-height: 1;
         text-transform: uppercase;
         margin: 4px 0;
@@ -608,7 +658,7 @@
 <!-- =========================================
          PAGE 1: COVER PAGE
          ========================================= -->
-<div class="page cover-page"><div class="cover-content"><div class="cover-top-label">IELTS SPEAKING MASTERCLASS</div><h1 class="cover-week">WEEK 28</h1><h2 class="cover-title-large">Events</h2><div class="cover-subtitle">Social Outings</div></div><div class="cover-footer"></div></div>
+<div class="page cover-page"><div class="cover-content"><div class="cover-top-label">IELTS Speaking Course</div><h1 class="cover-week">WEEK 28</h1><h2 class="cover-title-large">Events</h2><div class="cover-subtitle">Social Outings</div></div><div class="cover-footer"></div></div>
 <!-- =========================================
          PAGE 2: BLANK PAGE (For Collation)
          ========================================= -->
@@ -694,7 +744,7 @@
      correctly in both root-served and canonical-folder views.
      width:100% scales to the content area; height:auto preserves
      aspect ratio. -->
-<img alt="Course workflow pipeline" src="images/course_pipeline_v3.jpg" style="display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 8px;"/>
+<img alt="Course workflow pipeline" src="images/course_pipeline_v3.jpg" style="display: block; width: 100%; height: auto; margin-top: auto; border-radius: 8px;"/>
 <div class="page-number">244</div></div>
 <!-- =========================================
          PAGE 2: STUDENT LESSON 1
@@ -732,7 +782,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Lively</strong></td><td>Liveliness (N)</td><td><span class="vocab-cn">热闹的</span></td></tr><tr><td><strong>Delicious</strong></td><td>Delicacy (N)</td><td><span class="vocab-cn">美味的</span></td></tr><tr><td><strong>Memorable</strong></td><td>Memory (N)</td><td><span class="vocab-cn">难忘的</span></td></tr><tr><td><strong>Sociable</strong></td><td>Society (N)</td><td><span class="vocab-cn">善于交际的</span></td></tr><tr><td><strong>Awkward</strong></td><td>Awkwardness (N)</td><td><span class="vocab-cn">尴尬的</span></td></tr><tr><td><strong>Entertaining</strong> <span class="recycled-tag">Recycled</span></td><td>Entertainment (N)</td><td><span class="vocab-cn">有趣的</span></td></tr><tr><td><strong>Engaging</strong> <span class="recycled-tag">Recycled</span></td><td>Engage (V)</td><td><span class="vocab-cn">吸引人的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Break the ice</strong></td><td>(Broke (V2))</td><td><span class="vocab-cn">破冰</span></td></tr><tr><td><strong>Life of the party</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">活跃气氛的人</span></td></tr><tr><td><strong>Have a blast</strong></td><td>(Had (V2))</td><td><span class="vocab-cn">玩得尽兴</span></td></tr></tbody>
+<tbody><tr><td><strong>Lively</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adv)</span></td><td>Liveliness (N)</td><td><span class="vocab-cn">热闹的</span></td></tr><tr><td><strong>Delicious</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Delicacy (N)</td><td><span class="vocab-cn">美味的</span></td></tr><tr><td><strong>Memorable</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Memory (N)</td><td><span class="vocab-cn">难忘的</span></td></tr><tr><td><strong>Sociable</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Society (N)</td><td><span class="vocab-cn">善于交际的</span></td></tr><tr><td><strong>Awkward</strong></td><td>Awkwardness (N)</td><td><span class="vocab-cn">尴尬的</span></td></tr><tr><td><strong>Entertaining</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span> <span class="recycled-tag">Recycled</span></td><td>Entertainment (N)</td><td><span class="vocab-cn">有趣的</span></td></tr><tr><td><strong>Engaging</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span> <span class="recycled-tag">Recycled</span></td><td>Engage (V)</td><td><span class="vocab-cn">吸引人的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Break the ice</strong></td><td>(Broke (V2))</td><td><span class="vocab-cn">破冰</span></td></tr><tr><td><strong>Life of the party</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">活跃气氛的人</span></td></tr><tr><td><strong>Have a blast</strong></td><td>(Had (V2))</td><td><span class="vocab-cn">玩得尽兴</span></td></tr></tbody>
 </table>
 </div>
 <!-- Round 12 2026: course-pipeline illustration banner inserted at
@@ -741,7 +791,7 @@
      correctly in both root-served and canonical-folder views.
      width:100% scales to the content area; height:auto preserves
      aspect ratio. -->
-<img alt="Course workflow pipeline" src="images/course_pipeline_v4.jpg" style="display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 8px;"/>
+<img alt="Course workflow pipeline" src="images/course_pipeline_v4.jpg" style="display: block; width: 100%; height: auto; margin-top: auto; border-radius: 8px;"/>
 <div class="page-number">245</div></div>
 <!-- =========================================
          PAGE 3: STUDENT PRACTICE
@@ -753,7 +803,7 @@
 </div>
 <div class="card" style="background: var(--bg-pastel-blue);">
 <h4>🧠 Brainstorming Map</h4>
-<div style="font-size:0.9em; margin-bottom:8px; padding-left:15px; color:#444;">Describe a time when you had dinner together with your friend. You should say: <strong>When</strong> it was, <strong>What</strong> you ate, <strong>What</strong> you talked about, <strong>And</strong> explain how you felt about it.</div>
+<div style="font-size:0.9em; margin-bottom:4px; padding-left:15px; color:#444;">Describe a time when you had dinner together with your friend. You should say: <strong>When</strong> it was, <strong>What</strong> you ate, <strong>What</strong> you talked about, <strong>And</strong> explain how you felt about it.</div>
 <div class="spider-container" style="height:180px;">
 <div class="spider-center">DINNER<br/>TOGETHER</div>
 <div class="spider-legs">
@@ -770,7 +820,7 @@
 <div style="display:flex; flex-direction:column; gap:15px; flex-grow:1;">
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q2</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a birthday party you attended that was fun. You should say: <strong>Whose</strong> birthday it was, <strong>Where</strong> the party was held, <strong>What</strong> happened at the party, <strong>And</strong> explain why you enjoyed it.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:4px; padding-left:10px; line-height:1.3;">Describe a birthday party you attended that was fun. You should say: <strong>Whose</strong> birthday it was, <strong>Where</strong> the party was held, <strong>What</strong> happened at the party, <strong>And</strong> explain why you enjoyed it.</div>
 <div class="spider-container" style="flex-grow:1;">
 <div class="spider-center">BIRTHDAY<br/>PARTY</div>
 <div class="spider-legs">
@@ -783,7 +833,7 @@
 </div>
 <div class="card" style="flex:1; display:flex; flex-direction:column; background: var(--bg-pastel-blue);">
 <h3>Part 2: Q3</h3>
-<div style="font-size:0.85em; color:#444; margin-bottom:8px; padding-left:10px; line-height:1.3;">Describe a family gathering you remember well. You should say: <strong>When</strong> the gathering took place, <strong>Where</strong> your family met, <strong>What</strong> you did during the gathering, <strong>And</strong> explain what made it special.</div>
+<div style="font-size:0.85em; color:#444; margin-bottom:4px; padding-left:10px; line-height:1.3;">Describe a family gathering you remember well. You should say: <strong>When</strong> the gathering took place, <strong>Where</strong> your family met, <strong>What</strong> you did during the gathering, <strong>And</strong> explain what made it special.</div>
 <div class="spider-container" style="flex-grow:1;">
 <div class="spider-center">FAMILY<br/>GATHERING</div>
 <div class="spider-legs">
@@ -870,7 +920,7 @@
      correctly in both root-served and canonical-folder views.
      width:100% scales to the content area; height:auto preserves
      aspect ratio. -->
-<img alt="Course workflow pipeline" src="images/course_pipeline_v2.jpg" style="display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 8px;"/>
+<img alt="Course workflow pipeline" src="images/course_pipeline_v2.jpg" style="display: block; width: 100%; height: auto; margin-top: auto; border-radius: 8px;"/>
 <div class="page-number">247</div></div>
 <!-- =========================================
          PAGE 5: PART 3 INPUT (Student L2)
@@ -894,7 +944,7 @@
 <thead>
 <tr><th width="30%">Word</th><th width="45%">Word Forms</th><th width="25%">Meaning (Chinese)</th></tr>
 </thead>
-<tbody><tr><td><strong>Tradition</strong></td><td>Traditional (Adj)</td><td><span class="vocab-cn">传统</span></td></tr><tr><td><strong>Community</strong></td><td>Communal (Adj)</td><td><span class="vocab-cn">社区 / 群体</span></td></tr><tr><td><strong>Celebration</strong></td><td>Celebrate (V)</td><td><span class="vocab-cn">庆祝</span></td></tr><tr><td><strong>Isolation</strong></td><td>Isolate (V)</td><td><span class="vocab-cn">孤立</span></td></tr><tr><td><strong>Etiquette</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">礼节</span></td></tr><tr><td><strong>Connectivity</strong></td><td>Connect (V)</td><td><span class="vocab-cn">联系</span></td></tr><tr><td><strong>Mainstream</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">主流的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Let one's hair down</strong></td><td>(Let (V2))</td><td><span class="vocab-cn">尽情放松</span></td></tr><tr><td><strong>Quality time</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">黄金时间</span></td></tr><tr><td><strong>The more the merrier</strong></td><td>(Proverb)</td><td><span class="vocab-cn">多多益善</span></td></tr></tbody>
+<tbody><tr><td><strong>Tradition</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Traditional (Adj)</td><td><span class="vocab-cn">传统</span></td></tr><tr><td><strong>Community</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Communal (Adj)</td><td><span class="vocab-cn">社区 / 群体</span></td></tr><tr><td><strong>Celebration</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Celebrate (V)</td><td><span class="vocab-cn">庆祝</span></td></tr><tr><td><strong>Isolation</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Isolate (V)</td><td><span class="vocab-cn">孤立</span></td></tr><tr><td><strong>Etiquette</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Noun</td><td><span class="vocab-cn">礼节</span></td></tr><tr><td><strong>Connectivity</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(N)</span></td><td>Connect (V)</td><td><span class="vocab-cn">联系</span></td></tr><tr><td><strong>Mainstream</strong> <span style="font-weight:normal; font-style:italic; font-size:0.9em;">(Adj)</span></td><td>Adjective</td><td><span class="vocab-cn">主流的</span></td></tr><tr><td colspan="3" style="background:#eee; font-weight:bold; color:#555;">🐎 Idioms</td></tr><tr><td><strong>Let one's hair down</strong></td><td>(Let (V2))</td><td><span class="vocab-cn">尽情放松</span></td></tr><tr><td><strong>Quality time</strong></td><td>(Noun Phrase)</td><td><span class="vocab-cn">黄金时间</span></td></tr><tr><td><strong>The more the merrier</strong></td><td>(Proverb)</td><td><span class="vocab-cn">多多益善</span></td></tr></tbody>
 </table>
 </div>
 <!-- ORE Banner -->
@@ -962,12 +1012,11 @@
 <!-- 2026 fix #4: page-level gap was 0 — removed all spacing between
      the (continued) banner and Q4 below it. Bumped to 12px (matches
      --card-padding) so the banner has breathing room above Q4. -->
-<div class="page l2" style="gap:12px !important; padding-top:5mm !important;">
+<div class="page l2">
 <div class="header-bar">
 <div style="white-space:nowrap;"><span class="sh-badge">STUDENT HANDOUT</span> <span class="header-title" style="font-size:0.8em; letter-spacing:0;">Part 3: Rapid Fire Discussion <span style="font-size:0.8em; text-transform:none;">(continued)</span></span></div>
 <span class="week-tag">Week 28 • Lesson 2 • Social Outings (Part 3)</span>
 </div>
-<div style="display:flex; flex-direction:column; gap:15px; flex-grow:1; height:100%; overflow:hidden; padding: 0 15px 20px 15px;">
 <!-- Q4 -->
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
 <h3>Q4: When was the last time that you felt proud of yourself?</h3>
@@ -1007,7 +1056,6 @@
 <div style="font-size:0.7em; color:#7f8c8d; margin-bottom:0;">📈 <strong>Band 6 Peer Check:</strong> Ask: 'How will 'success' change in the future?'</div>
 </div></div>
 </div>
-</div>
 <div class="page-number">250</div></div>
 <!-- =========================================
          PAGE 8: HOMEWORK
@@ -1027,7 +1075,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td style="padding: 10px 5px;">1. Delicious</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) B. Tasty</td></tr><tr><td style="padding: 10px 5px;">2. Lively</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) D. Friendly</td></tr><tr><td style="padding: 10px 5px;">3. Sociable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) E. Uncomfortable</td></tr><tr><td style="padding: 10px 5px;">4. Awkward</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) C. Energetic</td></tr><tr><td style="padding: 10px 5px;">5. Memorable</td><td style="border-bottom:1px solid #eee;"></td><td style="padding: 10px 5px;">(       ) A. Unforgettable</td></tr></tbody>
+<tbody><tr><td>1. Delicious</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) E. Uncomfortable</td></tr><tr><td>2. Lively</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) A. Unforgettable</td></tr><tr><td>3. Sociable</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) B. Tasty</td></tr><tr><td>4. Awkward</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) D. Friendly</td></tr><tr><td>5. Memorable</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) C. Energetic</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
@@ -1049,7 +1097,7 @@
 </ol>
 </div>
 </div>
-<div class="card has-email-btn" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+<div class="card has-email-btn" style="background:#e8f8f5; border: 1px solid rgba(0,0,0,0.05); border-left: 5px solid #1abc9c; padding: 15px; border-radius: 8px; margin-top: 10px;">
 <h3 style="color:#1abc9c; margin:0;">🎙️ 4. Recording Challenge</h3>
 <div style="font-size:0.9em; text-align:left; margin-top:10px;">
 <strong>Part 1: AI Shadow Reading (20 mins)</strong><br/>
@@ -1063,7 +1111,12 @@
                     Use complex sentences, transition phrases and this week's vocabulary and idioms.<br/><br/>
 <strong style="color:#e74c3c;">IELTS Band 7 Challenge:</strong> Do additional shadowing free practice to perfect your pronunciation faster.
                 </div>
-<button class="email-recordings-btn" onclick="window.__ielts.emailLessonRecordings()" title="Email all this week's recordings" type="button">✉️</button>
+<button class="email-recordings-btn" onclick="window.__ielts.emailLessonRecordings()" title="Zip and Email or WeChat all this week's recordings to teacher" type="button">
+<svg aria-hidden="true" class="email-icon" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
+</svg>
+<span class="email-btn-label">Zip and Email or WeChat all recordings to teacher</span>
+</button>
 </div>
 <div style="text-align:center; transform:rotate(180deg); color:#555; font-weight:bold; font-size:0.8em; margin-top:auto;">Key: 1. Delicious-B, 2. Lively-C, 3. Sociable-D, 4. Awkward-E, 5. Memorable-A | 1. Correct 2. bad... 3. Correct 4. Correct 5. Correct</div>
 </div>
@@ -1137,13 +1190,9 @@
         elC.style.height = heightC + "px";
     };
 </script>
-<div class="page draft-page"><div style="background: #fdf2e9; border: 1px solid rgba(0,0,0,0.05); border-left: 6px solid #e67e22; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); text-align: left;"><h1 style="margin: 0; padding: 0; border: none; font-size: 1.2em; font-weight: 700; color: #d35400; text-transform: uppercase; letter-spacing: 1px;">Writing Homework: Draft &amp; Polished Rewrite</h1></div><div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;">
-<div style="border:1px solid #eee; padding:10px; border-radius:6px; background:var(--bg-pastel-green); flex:1; display:flex; flex-direction:column;; box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; border: none !important;">
-<strong>Draft:</strong>
-<div class="lines" style="flex-grow:1; height:auto;"></div>
-</div>
-<div style="border:1px solid #eee; padding:10px; border-radius:6px; background:var(--bg-pastel-green); flex:1; display:flex; flex-direction:column;; box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; border: none !important;">
-<strong>Polished Rewrite:</strong>
+<div class="page draft-page"><div style="background: #fdf2e9; border: 1px solid rgba(0,0,0,0.05); border-left: 6px solid #e67e22; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); text-align: left;"><h1 style="margin: 0; padding: 0; border: none; font-size: 1.2em; font-weight: 700; color: #d35400; text-transform: uppercase; letter-spacing: 1px;">Writing Homework: AI corrected</h1></div><div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;; flex-grow:1; display:flex; flex-direction:column;">
+<div style="border:1px solid #eee; padding:10px; border-radius:6px; background:var(--bg-pastel-green); flex:1; display:flex; flex-direction:column; box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; border: none !important;">
+<strong>AI corrected:</strong>
 <div class="lines" style="flex-grow:1; height:auto;"></div>
 </div>
 </div><div class="page-number">252</div></div></body>

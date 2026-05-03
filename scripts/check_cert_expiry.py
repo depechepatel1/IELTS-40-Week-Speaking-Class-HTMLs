@@ -20,7 +20,7 @@ from pathlib import Path
 # All production domains the school's certs cover. Adding a new course?
 # Add its public subdomain here so the cert check covers it.
 ALL_PRODUCTION_DOMAINS = [
-    "lessons.aischool.studio",   # IELTS course
+    "ielts.aischool.studio",   # IELTS course
     "igcse.aischool.studio",     # IGCSE course
 ]
 

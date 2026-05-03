@@ -571,24 +571,37 @@
  * so it adds zero layout shift when toggling on/off (the ::after slot
  * is just empty when there's no recording). Half-em dot keeps it
  * discreet but immediately readable. */
+/* Round 22 (2026-05-03): bumped the saved-recording indicator from a 7px
+ * green dot to a labeled pill. Students complained the dot was too discreet
+ * to notice — they'd hit the email button without realising stale recordings
+ * from prior sessions were still in IndexedDB and would be zipped too.
+ * The pill explicitly says "✓ saved" so it's impossible to miss. */
 .voice-recorder-container.has-recording::after {
-    content: "";
-    display: inline-block;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
+    content: "✓ saved";
+    display: inline-flex;
+    align-items: center;
+    color: white;
     background: #27ae60;
-    margin-left: 4px;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.7);
+    font-size: 0.72em;
+    font-weight: 700;
+    padding: 1px 8px 2px 7px;
+    border-radius: 999px;
+    margin-left: 6px;
+    line-height: 1.4;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
     flex-shrink: 0;
     align-self: center;
+    letter-spacing: 0.2px;
+    text-transform: none;
 }
-/* Inline-recorder variant: the cluster is more cramped, so we use a
- * slightly smaller dot and tighter margin. */
+/* Inline-recorder variant (q1-q6, brainstorming maps): cramped layout, so
+ * just a checkmark glyph — no "saved" text — to save horizontal space. */
 .voice-recorder-container.vr-inline.has-recording::after {
-    width: 6px;
-    height: 6px;
-    margin-left: 3px;
+    content: "✓";
+    font-size: 0.85em;
+    padding: 0 5px 1px 5px;
+    line-height: 1.2;
+    margin-left: 4px;
 }
 .voice-recorder-container .vr-record.recording {
     background: #c0392b; color: white;
@@ -814,34 +827,48 @@
    its transform pass, so PDF base files never render the button.
    ==================================================================== */
 
+/* Round 20 (2026-05-02): discreet single-line pill — yellow envelope SVG +
+   short label, ~22px tall. Previous version (Round 19) at 0.78em with 8/14
+   padding was too prominent; user wanted it noticeable but unobtrusive. */
 .email-recordings-btn {
     position: absolute;
     bottom: 8px;
     right: 10px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid #c4b5fd;
-    background: #ede9fe;
-    color: #5b21b6;
-    font-size: 1.1em;
-    line-height: 1;
-    cursor: pointer;
     display: none; /* hidden by default; flipped on by body.is-interactive */
     align-items: center;
-    justify-content: center;
-    padding: 0;
+    gap: 6px;
+    padding: 4px 10px 4px 8px;
+    border-radius: 999px;          /* fully-rounded pill */
+    border: 1px solid #f9a825;     /* warm amber edge */
+    background: #fffde7;           /* very pale yellow fill */
+    color: #4a3500;                /* dark amber text for contrast */
+    font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.7em;
+    line-height: 1;
+    cursor: pointer;
     transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     z-index: 5;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    text-align: left;
+    white-space: nowrap;            /* keep on one line; pill stays small */
 }
 .email-recordings-btn:hover {
-    background: #ddd6fe;
-    transform: scale(1.08);
-    box-shadow: 0 4px 10px rgba(91,33,182,0.18);
+    background: #fff9c4;
+    transform: scale(1.02);
+    box-shadow: 0 2px 6px rgba(249,168,37,0.20);
 }
-.email-recordings-btn:active { transform: scale(0.94); }
+.email-recordings-btn:active { transform: scale(0.98); }
 .email-recordings-btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+.email-recordings-btn .email-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    fill: #ffc107; /* Material amber 500 — postal-envelope yellow */
+}
+.email-recordings-btn .email-btn-label {
+    font-weight: 600;
+    letter-spacing: 0.1px;
+}
 
 /* Containers that host the email button must establish a positioning
    context; use this opt-in class so we don't accidentally affect every
@@ -849,6 +876,7 @@
 .floating-window.has-email-btn,
 .card.has-email-btn {
     position: relative;
+    padding-bottom: 40px !important; /* reserve space below text for the absolutely-positioned email pill */
 }
 
 /* Print-mode gate: the button only appears in interactive layer.
@@ -856,7 +884,7 @@
    its transform; PDF-base / printable HTMLs never have it, so the
    button stays hidden in printed PDFs. */
 body.is-interactive .email-recordings-btn {
-    display: flex;
+    display: inline-flex;
 }
 
 /* Toast — bottom-center floating notification used after click. */
@@ -882,6 +910,100 @@ body.is-interactive .email-recordings-btn {
 .email-toast.visible {
     opacity: 1;
 }
+
+/* Round 22 (2026-05-03) — preflight panel shown BEFORE the email zip
+   downloads. Lists every recording that's about to be sent so users can
+   confirm or cancel. Addresses the "I made 1 recording but 3 were zipped"
+   confusion when stale recordings from previous sessions are still in
+   IndexedDB. Centered modal with amber accent (matches the email pill). */
+.email-preflight-panel {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-left: 4px solid #f9a825;
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.20);
+    z-index: 10002;
+    max-width: 480px;
+    width: 90vw;
+    font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1e293b;
+    animation: epp-fade-in 0.18s ease-out;
+}
+@keyframes epp-fade-in {
+    from { opacity: 0; transform: translate(-50%, -45%); }
+    to   { opacity: 1; transform: translate(-50%, -50%); }
+}
+.epp-heading {
+    font-size: 1em;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1e293b;
+}
+.epp-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px 0;
+    max-height: 240px;
+    overflow-y: auto;
+}
+.epp-list li {
+    padding: 6px 2px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.92em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.epp-list li:last-child { border-bottom: none; }
+.epp-tick {
+    color: #27ae60;
+    font-weight: 700;
+    font-size: 1.05em;
+}
+.epp-date {
+    color: #64748b;
+    font-size: 0.85em;
+    margin-left: auto;
+}
+.epp-hint {
+    font-size: 0.85em;
+    color: #64748b;
+    margin: 12px 0 16px 0;
+    line-height: 1.4;
+    padding: 8px 10px;
+    background: #f8fafc;
+    border-radius: 6px;
+}
+.epp-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+.epp-send, .epp-cancel {
+    padding: 8px 18px;
+    font-size: 0.92em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    font-family: inherit;
+}
+.epp-send {
+    background: #f9a825;
+    color: white;
+    border: 1px solid #f57f17;
+}
+.epp-send:hover { background: #ef6c00; transform: scale(1.02); }
+.epp-cancel {
+    background: white;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+}
+.epp-cancel:hover { background: #f1f5f9; }
 
 /* Completion panel — shown after a successful email-recordings click.
    Fallback for users whose mailto: didn't open a mail client (popup

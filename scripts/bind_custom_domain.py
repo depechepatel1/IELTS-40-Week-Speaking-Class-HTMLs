@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Bind a custom domain to the aischool-ielts-bj OSS bucket.
 
-1. Adds a DNS CNAME record (lessons.aischool.studio -> bucket OSS endpoint)
+1. Adds a DNS CNAME record (ielts.aischool.studio -> bucket OSS endpoint)
    via Aliyun Alidns API.
 2. Binds the custom domain to the bucket via OSS PutCname.
 3. Requests Aliyun's free DV cert for HTTPS.
@@ -27,7 +27,7 @@ from aliyunsdkalidns.request.v20150109 import (
 )
 
 DOMAIN = "aischool.studio"
-SUBDOMAIN_RR = "lessons"  # full host: lessons.aischool.studio
+SUBDOMAIN_RR = "ielts"  # full host: ielts.aischool.studio (renamed from "lessons" 2026-05-02)
 FULL_HOST = f"{SUBDOMAIN_RR}.{DOMAIN}"
 BUCKET = "aischool-ielts-bj"
 REGION = "cn-beijing"

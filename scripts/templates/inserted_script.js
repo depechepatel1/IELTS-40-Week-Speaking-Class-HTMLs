@@ -1346,7 +1346,18 @@
     _vrMediaRecorder.onstop = async () => {
       const blob = new Blob(_vrChunks, { type: _vrMediaRecorder.mimeType || 'audio/webm' });
       const elapsed = Date.now() - _vrStartedAt - _vrPausedTotal;
-      try { await vrSaveBlob(container, blob, elapsed); } catch (e) { console.error('vrSave', e); }
+      // Round 22 (2026-05-03): show explicit save-confirmation toast.
+      // Previously the save was silent; users couldn't tell whether ⏹
+      // had actually persisted the recording before they navigated away.
+      let saved = false;
+      try {
+        await vrSaveBlob(container, blob, elapsed);
+        saved = true;
+      } catch (e) {
+        console.error('vrSave', e);
+        _showEmailToast('⚠ Save failed — check browser storage', 3500);
+      }
+      if (saved) _showEmailToast('Recording saved ✓', 1800);
       if (_vrStream) { _vrStream.getTracks().forEach(t => t.stop()); _vrStream = null; }
       clearInterval(_vrTimerId); _vrTimerId = 0;
       _activeContainer = null;
@@ -1459,12 +1470,17 @@
   // and return [{recorderId, blob, createdAt}] sorted by createdAt asc.
   async function _emailEnumerateRecordings() {
     const db = await vrOpenDB();
+    const prefix = `${LESSON_KEY}:`;
+    // Round 22 (2026-05-03): debug logging — surfaces what the email
+    // function actually sees in IndexedDB. Open DevTools → Console
+    // before clicking the email button to see what's matched/skipped.
+    console.info('[email] enumerate: LESSON_KEY=%s prefix=%s', LESSON_KEY, prefix);
     return new Promise((resolve, reject) => {
       const tx = db.transaction(VR_STORE, 'readonly');
       const store = tx.objectStore(VR_STORE);
       const req = store.openCursor();
       const out = [];
-      const prefix = `${LESSON_KEY}:`;
+      const skipped = [];
       req.onsuccess = () => {
         const cur = req.result;
         if (cur) {
@@ -1478,10 +1494,19 @@
                 createdAt: v.createdAt || 0,
               });
             }
+          } else {
+            skipped.push(key);
           }
           cur.continue();
         } else {
           out.sort((a, b) => a.createdAt - b.createdAt);
+          console.info('[email] enumerate: matched %d recording(s):',
+            out.length,
+            out.map(r => `${r.recorderId} (${new Date(r.createdAt).toISOString().slice(0,10)})`));
+          if (skipped.length) {
+            console.info('[email] enumerate: skipped %d non-matching key(s) (other lessons):',
+              skipped.length, skipped);
+          }
           resolve(out);
         }
       };
@@ -1742,6 +1767,71 @@
     toast._dismissTimer = setTimeout(() => toast.classList.remove('visible'), ms);
   }
 
+  // Round 22 (2026-05-03): preflight confirmation before zipping. Lists
+  // every recording that's about to be sent so users can spot stale ones
+  // from prior sessions BEFORE the zip download fires. Returns a Promise
+  // that resolves to true if user clicked Send, false if Cancel.
+  function _showEmailPreflightPanel(recordings) {
+    return new Promise((resolve) => {
+      // Remove any existing preflight panel
+      const existing = document.querySelector('.email-preflight-panel');
+      if (existing) existing.remove();
+
+      const panel = document.createElement('div');
+      panel.className = 'email-preflight-panel';
+
+      const heading = document.createElement('div');
+      heading.className = 'epp-heading';
+      const n = recordings.length;
+      heading.textContent = `Found ${n} recording${n === 1 ? '' : 's'} for this week:`;
+      panel.appendChild(heading);
+
+      const list = document.createElement('ul');
+      list.className = 'epp-list';
+      for (const r of recordings) {
+        const li = document.createElement('li');
+        const tick = document.createElement('span');
+        tick.className = 'epp-tick';
+        tick.textContent = '✓';
+        const id = document.createElement('strong');
+        id.textContent = r.recorderId;
+        const date = document.createElement('span');
+        date.className = 'epp-date';
+        const d = new Date(r.createdAt || Date.now());
+        date.textContent = `recorded ${d.toLocaleDateString(undefined, {month: 'short', day: 'numeric'})}`;
+        li.appendChild(tick);
+        li.appendChild(id);
+        li.appendChild(date);
+        list.appendChild(li);
+      }
+      panel.appendChild(list);
+
+      const hint = document.createElement('div');
+      hint.className = 'epp-hint';
+      hint.textContent = 'To remove an old recording: close this and use the 🗑 button on its widget.';
+      panel.appendChild(hint);
+
+      const actions = document.createElement('div');
+      actions.className = 'epp-actions';
+      const cancelBtn = document.createElement('button');
+      cancelBtn.type = 'button';
+      cancelBtn.className = 'epp-cancel';
+      cancelBtn.textContent = 'Cancel';
+      cancelBtn.onclick = () => { panel.remove(); resolve(false); };
+      const sendBtn = document.createElement('button');
+      sendBtn.type = 'button';
+      sendBtn.className = 'epp-send';
+      sendBtn.textContent = `Send all ${n}`;
+      sendBtn.onclick = () => { panel.remove(); resolve(true); };
+      actions.appendChild(cancelBtn);
+      actions.appendChild(sendBtn);
+      panel.appendChild(actions);
+
+      document.body.appendChild(panel);
+      sendBtn.focus();
+    });
+  }
+
   ns.emailLessonRecordings = async function () {
     let recordings;
     try {
@@ -1755,6 +1845,13 @@
       _showEmailToast('No recordings saved yet for this week.');
       return;
     }
+
+    // Round 22: preflight panel — let user see what's about to be sent
+    // (avoids the "I made 1 recording but 3 zipped" confusion when stale
+    // recordings from prior sessions are still in IndexedDB).
+    const proceed = await _showEmailPreflightPanel(recordings);
+    if (!proceed) return;
+
     const recipient = _emailGetRecipient();
     if (!recipient) return;
 

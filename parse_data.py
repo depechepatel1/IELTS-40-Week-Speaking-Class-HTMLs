@@ -119,9 +119,12 @@ def process_cover_page(soup, week_number, week_data):
         # Container
         content_div = soup.new_tag('div', attrs={'class': 'cover-content'})
         
-        # 1. Top Label
+        # 1. Top Label — Round 18 (2026-05-02): mixed-case "IELTS Speaking
+        #    Course". Was "IELTS SPEAKING MASTERCLASS" (all caps + uppercase
+        #    via CSS). The cover-overrides CSS removed text-transform:uppercase
+        #    on .cover-top-label so this renders verbatim.
         top_label = soup.new_tag('div', attrs={'class': 'cover-top-label'})
-        top_label.string = "IELTS SPEAKING MASTERCLASS"
+        top_label.string = "IELTS Speaking Course"
         content_div.append(top_label)
         
         # 2. Week Number
@@ -388,16 +391,55 @@ def process_vocabulary(soup, week_number, vocab_data):
                 meaning = word_item.get('meaning', '')
                 recycled = word_item.get('recycled', False)
                 
-                # If POS missing, infer from 'forms' if it's a simple label
+                # If POS missing, infer from headword's morphological suffix.
+                # Round 27 (2026-05-03): Round 26 extracted the first paren
+                # from `forms`, but that turned out to be wrong 58% of the
+                # time. The forms field describes RELATED morphological forms
+                # (e.g. word="Entrepreneurial" + forms="Entrepreneur (N)" —
+                # the (N) refers to the noun cousin, NOT the adjective
+                # headword). Suffix-based inference on the headword itself
+                # is structurally correct and far more reliable.
                 if not pos:
-                    forms_lower = forms.lower()
-                    if forms_lower == "adjective" or forms_lower == "adj":
+                    wl = word.lower().strip()
+                    # Adverb (most specific — check first)
+                    if wl.endswith('ly') and not wl.endswith('ily'):
+                        pos = "Adv"
+                    # Strong adjective suffixes
+                    elif wl.endswith(('ous', 'able', 'ible', 'ical', 'ial',
+                                      'ish', 'ive', 'ful', 'less', 'ent',
+                                      'ant', 'ate', 'ic')):
                         pos = "Adj"
-                    elif forms_lower == "noun" or forms_lower == "n":
-                        pos = "N"
-                    elif forms_lower == "verb" or forms_lower == "v":
+                    # -ing / -ed: in IELTS vocab tables these are nearly
+                    # always taught as adjectival forms ("inspiring teacher",
+                    # "devoted parent"), not as gerunds/past tenses.
+                    elif wl.endswith(('ing', 'ed')):
+                        pos = "Adj"
+                    # -al that isn't -ial/-ical (caught above): "formal",
+                    # "traditional", "cultural" → Adj. Rare exceptions like
+                    # "arrival" / "approval" are nouns but the heuristic is
+                    # still right >90% of the time for IELTS vocab.
+                    elif wl.endswith('al'):
+                        pos = "Adj"
+                    # Verb-only suffixes
+                    elif wl.endswith(('ize', 'ise', 'ify')):
                         pos = "V"
-                    elif forms_lower == "adverb" or forms_lower == "adv":
+                    # Noun-only suffixes
+                    elif wl.endswith(('tion', 'sion', 'ment', 'ity', 'ance',
+                                      'ence', 'ness', 'ship', 'dom', 'ist',
+                                      'ism')):
+                        pos = "N"
+
+                if not pos:
+                    # Fallback for the rare row where forms is bare like
+                    # "Adjective" with no parens.
+                    forms_lower = forms.lower().strip()
+                    if forms_lower in ("adjective", "adj"):
+                        pos = "Adj"
+                    elif forms_lower in ("noun", "n"):
+                        pos = "N"
+                    elif forms_lower in ("verb", "v"):
+                        pos = "V"
+                    elif forms_lower in ("adverb", "adv"):
                         pos = "Adv"
                     elif "noun phrase" in forms_lower:
                         pos = "Noun Phrase"
@@ -464,15 +506,40 @@ def process_vocabulary(soup, week_number, vocab_data):
                 forms = word_item.get('forms', word_item.get('Word Forms', ''))
                 meaning = word_item.get('meaning', '')
                 
+                # Round 27 (2026-05-03): suffix-based POS inference on the
+                # headword. See the L1 block above for the rationale.
                 if not pos:
-                    forms_lower = forms.lower()
-                    if forms_lower == "adjective" or forms_lower == "adj":
-                        pos = "Adj"
-                    elif forms_lower == "noun" or forms_lower == "n":
-                        pos = "N"
-                    elif forms_lower == "verb" or forms_lower == "v":
+                    wl = word.lower().strip()
+                    # Order matters: check longer/more-specific noun suffixes
+                    # BEFORE shorter adjective suffixes. "Government" ends in
+                    # -ent (Adj-ish) but really it's a -ment noun; "performance"
+                    # ends in -ance (N) before -nt (Adj-ish), etc.
+                    if wl.endswith('ly') and not wl.endswith('ily'):
+                        pos = "Adv"
+                    elif wl.endswith(('ize', 'ise', 'ify')):
                         pos = "V"
-                    elif forms_lower == "adverb" or forms_lower == "adv":
+                    elif wl.endswith(('tion', 'sion', 'ment', 'ity', 'ance',
+                                      'ence', 'ness', 'ship', 'dom', 'ist',
+                                      'ism')):
+                        pos = "N"
+                    elif wl.endswith(('ous', 'able', 'ible', 'ical', 'ial',
+                                      'ish', 'ive', 'ful', 'less', 'ent',
+                                      'ant', 'ate', 'ic')):
+                        pos = "Adj"
+                    elif wl.endswith(('ing', 'ed')):
+                        pos = "Adj"
+                    elif wl.endswith('al'):
+                        pos = "Adj"
+
+                if not pos:
+                    forms_lower = forms.lower().strip()
+                    if forms_lower in ("adjective", "adj"):
+                        pos = "Adj"
+                    elif forms_lower in ("noun", "n"):
+                        pos = "N"
+                    elif forms_lower in ("verb", "v"):
+                        pos = "V"
+                    elif forms_lower in ("adverb", "adv"):
                         pos = "Adv"
                     elif "noun phrase" in forms_lower:
                         pos = "Noun Phrase"
@@ -1049,8 +1116,14 @@ def process_homework(soup, week_number, homework_data):
                     option = "?"
                     synonym = "?"
                 
-                # Added padding style to TD for increased spacing
-                row_html = f"<td style='padding: 10px 5px;'>{i+1}. {word}</td><td style='border-bottom:1px solid #eee;'></td><td style='padding: 10px 5px;'>( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) {option}. {synonym}</td>"
+                # Round 24 (2026-05-03): inline `padding: 10px 5px` removed —
+                # the `.hw .vocab-table td { padding: 4px 5px }` CSS rule in
+                # canonical Week 1 now controls cell spacing. Inline styles
+                # here would override the CSS without specificity escape and
+                # block per-page tuning. Middle TD keeps the inline border
+                # because it's a per-cell visual treatment (the "blank line"
+                # student writes Chinese translation on), not pure layout.
+                row_html = f"<td>{i+1}. {word}</td><td style='border-bottom:1px solid #eee;'></td><td>( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) {option}. {synonym}</td>"
                 tr = soup.new_tag('tr')
                 tr.append(BeautifulSoup(row_html, 'html.parser'))
                 tbody.append(tr)

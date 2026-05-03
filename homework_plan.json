@@ -99,11 +99,6 @@
         "key": "Correct"
       },
       {
-        "error": "Wait, simpler error: I enjoy to travel.",
-        "correction": "I enjoy traveling.",
-        "key": "enjoy traveling"
-      },
-      {
         "error": "Although it is hard, but I will try.",
         "correction": "Although it is hard, I will try.",
         "key": "hard, I will..."
@@ -120,7 +115,7 @@
       }
     ],
     "writing_task": "Why do you want to work abroad? (Write 50 words)",
-    "answer_key": "Key: 1. Lucrative-D, 2. Barrier-E, 3. Immerse-A, 4. Adaptable-B, 5. Cosmopolitan-C | 1. go abroad... 2. Correct 3. enjoy traveling... 4. hard, I will... 5. job... 6. culture shock..."
+    "answer_key": "Key: 1. Lucrative-D, 2. Barrier-E, 3. Immerse-A, 4. Adaptable-B, 5. Cosmopolitan-C | 1. go abroad... 2. Correct 3. hard, I will... 4. job... 5. culture shock..."
   },
   {
     "week": 3,

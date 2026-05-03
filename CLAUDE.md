@@ -43,7 +43,39 @@ Last reorg: **2026-05-01** (canonical-folder workflow + filename standardization
 | Per-week content (cue cards, model answers, vocab, idioms) | `master Curiculum.json` |
 | Cover background image | `canonical/pdf-base/Week_01.html`'s `<style id="cover-overrides">` block |
 
-## Fan-out workflow (only when user says "fan out" or "publish")
+## Editing Week 1 → fan-out workflow (next-year curriculum updates)
+
+The pipeline is **drift-free by design**: `parse_data.py` uses BeautifulSoup to
+mutate ONLY per-week data nodes (cover heading, week-tag spans, vocab tables,
+cue cards, model answers, Part 3 questions). Everything else — cover CSS,
+embedded fonts, footer, page-numbering rules, body styling — flows through
+the parse/serialize cycle unchanged. So a single canonical edit propagates
+to all 40 weeks on next fan-out.
+
+For visual / structural changes:
+
+1. Edit `canonical/pdf-base/Week_01.html` for the print-mode change.
+2. Mirror the change in `canonical/interactive/Week_01.html` if it affects
+   shared layout (cover CSS, fonts, headings, footers, etc.).
+3. From repo root: `python scripts/publish.py`
+   This single command runs all 7 pipeline steps (parse → promote → bake
+   interactive → landing page → upload → cert check → drift verification).
+4. Confirm the post-publish drift summary reads `[OK] Week_05.html — 0 drift`
+   (and same for Week_22, Week_38). If drift shows, investigate before
+   considering the change live.
+5. Smoke-test: open `https://ielts.aischool.studio/Week_05.html` in browser.
+
+For per-week curriculum data changes (Part 2 / Part 3 questions, vocab,
+homework, themes), edit `master Curiculum.json` (or the per-week JSONs
+in repo root) and rerun publish.py — no canonical edit needed.
+
+To verify drift independently (e.g., after a manual edit you're unsure about):
+`python scripts/verify_no_drift.py` — exit 0 = clean, exit 1 = drift detected.
+
+## Fan-out workflow — manual fallback
+
+`scripts/publish.py` is the master command above. If you need to run steps
+individually (debugging, partial fan-out):
 
 ```bash
 python parse_data.py                                        # canonical → Weeks 2-40 PDF base
@@ -53,6 +85,7 @@ python scripts/make_interactive.py \
     --endpoint https://ielts-arrection-nafrghqpzj.cn-beijing.fcapp.run \
     --bucket-base https://ielts.aischool.studio
 python scripts/upload_to_oss.py                             # to aischool-ielts-bj at bucket root
+python scripts/verify_no_drift.py                           # confirm 0 drift in sampled weeks
 ```
 
 The `--bucket-base` value is critical: it's baked into every Interactive HTML as the URL prefix for `pronunciations.json` and other resources. Must match the public CDN domain (no path prefix).
@@ -80,7 +113,7 @@ OSS bucket `aischool-ielts-bj` is **private** (Block Public Access enabled). Onl
 
 ## Cert renewal
 
-DigiCert DV cert (id `24643392`, issued via Aliyun CDN's free DV) expires **2026-07-24**. CDN auto-renewal is enabled — but verify ~30 days out via `python scripts/check_cert_expiry.py`. Calendar reminder set for July 1.
+**Wildcard cert** `*.aischool.studio` (cert id `24792685`, Wosign DV, expires **2026-11-17**, auto-renewing) covers `ielts.aischool.studio`, `igcse.aischool.studio`, and `lessons.aischool.studio` (legacy). Subscription-style: Aliyun rotates the cert mid-cycle automatically; only the subscription itself needs manual renewal (next: 2027-04-03 for the 2027-05-03 expiry). Verify health any time via `python scripts/check_cert_expiry.py`. To bind to a NEW subdomain in future, see the snippet in REORG_STATE.md.
 
 ## Iteration workflow rules
 
@@ -88,6 +121,14 @@ DigiCert DV cert (id `24643392`, issued via Aliyun CDN's free DV) expires **2026
 - **Don't run `parse_data.py` for Week 1 alone.** Edit `canonical/pdf-base/Week_01.html` directly.
 - **Don't edit root-level `Week_NN.html` files directly** (they get overwritten on next fan-out). Edit canonical instead.
 - **Work in small, testable steps**. Verify Week 1 visually before fan-out.
+
+## Bug-fix preference (user-stated 2026-05-03)
+
+When a bug is found, scan the code carefully and identify the **root cause in the source** — fix it there. Do NOT apply a patch on top of the symptom. This codebase will be handed off to a developer; clean source fixes are easier to identify and work with than layered patches.
+
+Examples of doing it right (recent precedent):
+- Week 2 grammar overflow → root cause was a stray editor draft in `homework_plan.json` (6 items vs expected 5). Fix: clean the data + add `verify_homework_data.py` validation. Did NOT add `max-height + overflow:auto` CSS (which would have hidden the symptom while keeping the broken data).
+- Cover text "MASTERCLASS" appearing in fanned-out weeks despite Round 18 canonical change → root cause was hardcoded string at `parse_data.py:124`. Fix: update the string in source. Did NOT post-process generated HTMLs.
 
 ## CSS architecture notes
 

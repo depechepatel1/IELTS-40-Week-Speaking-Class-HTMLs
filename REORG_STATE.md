@@ -4,13 +4,12 @@
 
 | Surface | URL | Status |
 |---|---|---|
-| IELTS landing page | https://lessons.aischool.studio/ | ✅ live, cache-control=300s |
+| IELTS landing page | https://ielts.aischool.studio/ | ✅ live, cache-control=300s |
 | IGCSE landing page | https://igcse.aischool.studio/ | ✅ live, cache-control=300s |
-| IELTS Week pages × 40 | https://lessons.aischool.studio/Week_NN.html | ✅ live, AI correction works |
+| IELTS Week pages × 40 | https://ielts.aischool.studio/Week_NN.html | ✅ live, AI correction works |
 | IGCSE Week pages × 40 | https://igcse.aischool.studio/Week_NN.html | ✅ live, AI correction works |
 | Function Compute | https://ielts-arrection-nafrghqpzj.cn-beijing.fcapp.run | ✅ live, glm-4-flash, 7s avg |
-| Cert (IELTS) | DigiCert DV id `24643392` | expires 2026-07-24 (83 days) |
-| Cert (IGCSE) | DigiCert DV id `24762111` | expires 2026-07-29 (88 days) |
+| Cert (wildcard) | Wosign DV `*.aischool.studio` id `24792685` | expires 2026-11-17 (auto-renewing; subscription renews 2027-05-03) |
 
 ## What changed in this round (2026-05-02)
 
@@ -56,13 +55,16 @@
   https://sls.console.aliyun.com/lognext/project/aischool-fc-logs/logsearch/ielts-ai-correction
 
 **3. ~~Cert auto-renewal verification~~** ✅ DONE 2026-05-02
-- Both certs verified valid via direct TLS probe:
-  - `lessons.aischool.studio`: cert id `24643392`, expires **2026-07-24** (83 days)
-  - `igcse.aischool.studio`:   cert id `24762111`, expires **2026-07-29** (88 days)
-- Both are Aliyun **system-managed free DV certs** (`source="cas"`,
-  cert NOT in user's CAS account → it's loaned by Aliyun's CDN free-cert
-  program). These auto-renew ~30 days before expiry as long as DNS still
-  points at the CDN edge endpoint, which it does (verified).
+- **2026-05-03 cert consolidation** (cowork session):
+  - Both `ielts.aischool.studio` and `igcse.aischool.studio` now share wildcard
+    cert id `24792685` (`*.aischool.studio`, Wosign DV), expires **2026-11-17**.
+  - Auto-renewing subscription — Aliyun rotates the cert mid-cycle automatically;
+    only the SUBSCRIPTION needs manual renewal (next: 2027-04-03 for 2027-05-03).
+  - `lessons.aischool.studio` (legacy) also rebound to the wildcard for safety.
+  - `db.aischool.studio` is the only remaining subdomain still on a single-domain
+    cert (`24239187`, GeoTrust, expires 2026-10-15) — non-urgent.
+  - Old single-domain certs `24643392` (lessons) and `24762111` (igcse) are
+    superseded by the wildcard.
 - `scripts/check_cert_expiry.py` upgraded to check BOTH production
   domains in one run (previously only checked own repo's domain). Now
   wired into `scripts/publish.py` step 6: every full deploy ends with
@@ -85,7 +87,7 @@
   (no CORS issue but means OSS pays for traffic CDN should). Hardening
   forces all traffic through CDN.
 
-**5. Subdomain rename `lessons.aischool.studio` → `ielts.aischool.studio`**
+**5. Subdomain rename `ielts.aischool.studio` → `ielts.aischool.studio`**
 - Symmetric with `igcse.aischool.studio` for future-proofing
 - Cost: a few hours of cowork-Claude work (DNS + new CDN domain + cert)
 - Old subdomain stays working until decommission
@@ -115,7 +117,7 @@ renewal window), use this Claude cowork prompt:
 ```
 TASK: Manually trigger free DV cert renewal for two Aliyun CDN domains.
 
-Domains: lessons.aischool.studio AND igcse.aischool.studio
+Domains: ielts.aischool.studio AND igcse.aischool.studio
 Account: depechepatel1@gmail.com (signed in via browser)
 
 For each domain:
@@ -151,7 +153,7 @@ python scripts/publish.py --skip-fanout
 python scripts/check_cert_expiry.py
 
 # Verify production health
-curl -I https://lessons.aischool.studio/Week_05.html  # expect Cache-Control
+curl -I https://ielts.aischool.studio/Week_05.html  # expect Cache-Control
 curl -I https://igcse.aischool.studio/Week_05.html
 curl -X POST https://ielts-arrection-nafrghqpzj.cn-beijing.fcapp.run/ \
   -H 'Content-Type: application/json' \

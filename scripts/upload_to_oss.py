@@ -106,7 +106,7 @@ def _check_fc_url_drift(repo: Path) -> None:
         print(f"  Baked in HTMLs:   {m.group(1)}", file=sys.stderr)
         print(f"  Re-bake before uploading:", file=sys.stderr)
         print(f"    python scripts/make_interactive.py --in . --out Interactive \\", file=sys.stderr)
-        print(f"      --endpoint {deployed} --bucket-base https://lessons.aischool.studio", file=sys.stderr)
+        print(f"      --endpoint {deployed} --bucket-base https://ielts.aischool.studio", file=sys.stderr)
         print(f"  Aborting upload to prevent deploying stale URL.", file=sys.stderr)
         sys.exit(7)
 
@@ -209,7 +209,7 @@ def main() -> int:
             print(f"Processed {img_count} image(s) from {src_images}")
 
     print(f"\nResult: {ok} uploaded, {skip} skipped (already up-to-date)")
-    print(f"Public landing page: https://lessons.aischool.studio/")
+    print(f"Public landing page: https://ielts.aischool.studio/")
     return 0
 
 

@@ -8,7 +8,7 @@ plans' pastel-floating-window design vocabulary (same color tokens,
 rotating pastel card backgrounds, Caveat hero font, multi-layer drop
 shadows, animated hover lift).
 
-Run:  python scripts/build_landing_page.py [--bucket-base https://lessons.aischool.studio]
+Run:  python scripts/build_landing_page.py [--bucket-base https://ielts.aischool.studio]
 """
 from __future__ import annotations
 
@@ -305,7 +305,7 @@ def render_html(weeks: list[tuple[int, str]], bucket_base: str) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--bucket-base", default="https://lessons.aischool.studio")
+    ap.add_argument("--bucket-base", default="https://ielts.aischool.studio")
     ap.add_argument("--out", default=str(REPO / "index.html"))
     args = ap.parse_args()
 
