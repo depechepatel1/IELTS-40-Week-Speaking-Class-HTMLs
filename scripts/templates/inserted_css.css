@@ -617,6 +617,26 @@
     0%, 100% { box-shadow: 0 0 0 0 rgba(192,57,43,0.55); }
     50%      { box-shadow: 0 0 0 5px rgba(192,57,43,0); }
 }
+
+/* Round 34 (2026-05-06) — stronger pulse on inline widgets (18px buttons),
+   where the default 5px ring blends into the surrounding card. Doubled
+   ring radius + a deeper-saturation 50% keyframe makes the recording
+   state unmistakable on the small widgets. Also gives the button itself
+   a slow brightness wobble so even a glance from across the classroom
+   reveals which Q card is currently being recorded. */
+.voice-recorder-container.vr-inline .vr-record.recording {
+    animation: vr-pulse-inline 1.2s ease-in-out infinite;
+}
+@keyframes vr-pulse-inline {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.85);
+        filter: brightness(1.0);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(192, 57, 43, 0);
+        filter: brightness(1.18);
+    }
+}
 .voice-recorder-container .vr-pause.paused {
     background: #fef3c7; border-color: #f59e0b; color: #92400e;
 }
@@ -640,6 +660,55 @@
     text-overflow: ellipsis;
 }
 .voice-recorder-container .vr-label.error { color: #c0392b; font-weight: 600; }
+
+/* Round 34 (2026-05-06) — compact status label for INLINE recorders.
+   The inline widget originally omitted the label "to save space" but
+   that left students with no on-screen feedback ("Recording…",
+   "Saved — tap ▶ to play, 🗑 to re-record"). Solution: ship the label
+   in the inline template too, then HIDE it on idle (preserving compact
+   density when nothing's happening) and SHOW it on every active state
+   so the widget self-explains as soon as the student interacts.
+   Uses :has() — already a hard requirement elsewhere in this file. */
+.voice-recorder-container.vr-inline .vr-label-compact {
+    display: none;
+    font-size: 0.85em !important;
+    line-height: 1 !important;
+    flex: 0 1 auto !important;
+    max-width: 16ch;
+    color: #475569;
+}
+.voice-recorder-container.vr-inline:has(.vr-record.recording) .vr-label-compact,
+.voice-recorder-container.vr-inline.has-recording                .vr-label-compact,
+.voice-recorder-container.vr-inline                              .vr-label-compact.error {
+    display: inline;
+}
+.voice-recorder-container.vr-inline .vr-label-compact.error {
+    color: #c0392b;
+    font-weight: 600;
+}
+
+/* Round 34 (2026-05-06) — hint text for the empty polished-output box.
+   Without this, the polished button cluster (UK / US / slow / gender /
+   prev / replay / next) sits visibly disabled at the top-right of the
+   green Polished Rewrite card with no explanation — students click it,
+   nothing happens, conclude "broken". The hint surfaces the workflow
+   dependency: AI correction must run before playback is available.
+   Disappears the moment AI correction populates the box (the .empty
+   class is removed by ns.correctEssay's success path). */
+#polished-output.empty {
+    min-height: 3em;
+    position: relative;
+}
+#polished-output.empty::before {
+    content: "👉  Click 'Correct with AI' below to populate the corrected version, then the playback controls above will activate. / 点击下方 “Correct with AI” 后，上方播放按钮才会启用。";
+    display: block;
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 0.92em;
+    line-height: 1.45;
+    padding: 12px 14px;
+    pointer-events: none;
+}
 
 @media print {
     .voice-recorder-container { display: none !important; }
