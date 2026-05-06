@@ -79,6 +79,34 @@ def _oss_object_state(bucket, key: str) -> tuple[str | None, str | None]:
         return (None, None)
 
 
+def _put_with_retry(bucket, key: str, src: Path, headers: dict, max_attempts: int = 3) -> None:
+    """Round 35 (2026-05-06) — retry-on-503 wrapper around put_object_from_file.
+    Aliyun OSS occasionally returns transient 503 ServerErrors mid-upload
+    (~1 in 40 files at this region), and each retry hits a DIFFERENT random
+    file, so this is server-side flakiness — not per-file. Without retry,
+    every IELTS publish would intermittently report `[FAIL]` from upload_to_oss
+    even though most files succeeded. Three attempts with exponential backoff
+    (1s, 2s) eliminates this."""
+    import time as _time
+    last = None
+    for attempt in range(max_attempts):
+        try:
+            bucket.put_object_from_file(key, str(src), headers=headers)
+            if attempt > 0:
+                print(f"        (recovered after {attempt + 1} attempts)")
+            return
+        except oss2.exceptions.ServerError as e:
+            last = e
+            if e.status not in (500, 502, 503, 504) or attempt == max_attempts - 1:
+                raise
+            wait_s = 2 ** attempt
+            print(f"        OSS {e.status}, retrying {key} in {wait_s}s "
+                  f"(attempt {attempt + 1}/{max_attempts})")
+            _time.sleep(wait_s)
+    if last:
+        raise last
+
+
 def _smart_upload(bucket, key: str, src: Path, content_type: str) -> tuple[str, int]:
     """Upload `src` to `key` with appropriate Cache-Control header. Skip
     if local MD5 matches OSS ETag AND cache-control header matches.
@@ -96,7 +124,7 @@ def _smart_upload(bucket, key: str, src: Path, content_type: str) -> tuple[str, 
     header_match = (remote_cc or "").strip() == expected_cc.strip()
     if body_match and header_match:
         return ("skip", 0)
-    bucket.put_object_from_file(key, str(src), headers=headers)
+    _put_with_retry(bucket, key, src, headers)
     return ("ok", src.stat().st_size)
 
 
