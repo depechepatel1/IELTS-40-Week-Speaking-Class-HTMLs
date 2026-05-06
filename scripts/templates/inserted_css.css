@@ -687,28 +687,13 @@
     font-weight: 600;
 }
 
-/* Round 34 (2026-05-06) — hint text for the empty polished-output box.
-   Without this, the polished button cluster (UK / US / slow / gender /
-   prev / replay / next) sits visibly disabled at the top-right of the
-   green Polished Rewrite card with no explanation — students click it,
-   nothing happens, conclude "broken". The hint surfaces the workflow
-   dependency: AI correction must run before playback is available.
-   Disappears the moment AI correction populates the box (the .empty
-   class is removed by ns.correctEssay's success path). */
-#polished-output.empty {
-    min-height: 3em;
-    position: relative;
-}
-#polished-output.empty::before {
-    content: "👉  Click 'Correct with AI' below to populate the corrected version, then the playback controls above will activate. / 点击下方 “Correct with AI” 后，上方播放按钮才会启用。";
-    display: block;
-    color: #94a3b8;
-    font-style: italic;
-    font-size: 0.92em;
-    line-height: 1.45;
-    padding: 12px 14px;
-    pointer-events: none;
-}
+/* Round 36 (2026-05-06) — REVERTED Round 34's P3 polished-output hint.
+   The bilingual instruction text inside #polished-output.empty was
+   visually noisy, broke the writing-lines layout (took up vertical
+   space the .lines background was using), and was redundant with
+   the existing "Correct with AI" button label. The polished cluster
+   buttons sit disabled until AI correction runs anyway, which is a
+   sufficient gating signal on its own. */
 
 @media print {
     .voice-recorder-container { display: none !important; }
