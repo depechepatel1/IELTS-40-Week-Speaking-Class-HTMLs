@@ -28,6 +28,15 @@
   const DEFAULT_RATE = 0.85;
   const SLOW_RATE    = 0.72;
 
+  // Round 31 (2026-05-06) — sticky "current teaching accent". Updated
+  // every time `speakElement` runs (which is what UK/US buttons trigger
+  // via listenPolished + injectListenButtons). Read by attachWordClicks
+  // so single-word vocab/model-answer clicks play in the same accent the
+  // teacher is currently using for the model-answer karaoke. Resets to
+  // 'en-GB' on first page load so initial vocab clicks (before any
+  // model-answer button is pressed) keep the historical default.
+  let _userPreferredLang = 'en-GB';
+
   // ====================================================================
   // AI fetch — jitter + exponential backoff retry
   // ====================================================================
@@ -244,6 +253,16 @@
     _currentRow = rowEl;
     setSpeakingRow(rowEl);
 
+    // Round 32 (2026-05-06) — defensive clear of EVERY karaoke span on
+    // this row before starting a new sentence. Previously the cleanup
+    // operated on `activeOffsets` (current sentence only), which left a
+    // span permanently lit if it ever got `.speaking` outside the current
+    // sentence's char range — e.g. when a stale boundary event fired
+    // after speechSynthesis.cancel() but before the new utterance
+    // overrode handlers. Clearing ALL spans on entry guarantees no
+    // leftover survives a sentence transition.
+    if (st.spans) st.spans.forEach(s => s.classList.remove('speaking'));
+
     const sentence      = st.sentences[st.currentIndex];
     const sentenceStart = sentenceCharStart(st.sentences, st.currentIndex);
 
@@ -262,13 +281,19 @@
     u.onboundary = (ev) => {
       if (ev.name && ev.name !== 'word') return;
       if (!activeOffsets) return;
-      activeOffsets.forEach(o => o.span.classList.remove('speaking'));
+      // Round 32 — clear ALL spans on the row, not just activeOffsets,
+      // so any stuck-from-prior-sentence highlight is cleaned up on
+      // every word boundary as a belt-and-braces reset.
+      if (st.spans) st.spans.forEach(s => s.classList.remove('speaking'));
       const globalIdx = sentenceStart + ev.charIndex;
       const hit = activeOffsets.find(o => globalIdx >= o.start && globalIdx < o.end);
       if (hit) hit.span.classList.add('speaking');
     };
     u.onend = () => {
-      if (activeOffsets) activeOffsets.forEach(o => o.span.classList.remove('speaking'));
+      // Round 32 — clear ALL row spans, not just activeOffsets, so the
+      // last word of every sentence (including end-of-utterance) gets
+      // unhighlighted regardless of which sentence's range it fell into.
+      if (st.spans) st.spans.forEach(s => s.classList.remove('speaking'));
       // Auto-pause: leave currentIndex where it is; clear pulse; refresh buttons.
       if (_currentRow === rowEl) _currentRow = null;
       setSpeakingRow(null);
@@ -544,6 +569,11 @@
     }
     st.lang = lang;
     st.rate = rate || DEFAULT_RATE;
+    // Round 31 — record the user's most recent explicit accent choice
+    // so single-word vocab clicks (attachWordClicks) play in the same
+    // accent. UK/US buttons all route through this function, so this
+    // stays in sync with whatever the teacher is currently teaching.
+    _userPreferredLang = lang;
     setActiveAccent(rowEl, lang);
     _playCurrentSentence(rowEl);
   };
@@ -1084,7 +1114,11 @@
         // Strip any inline CJK gloss like "accomplished (有造诣的 / 成功的)" → "accomplished"
         const word = stripChineseGloss(el.textContent);
         if (!word) return;
-        ns.speakText(word, 'en-GB');
+        // Round 31 — follow the teacher's current accent (set by the
+        // last UK/US button click anywhere on the page). Falls back to
+        // 'en-GB' on first page load before any model-answer button
+        // has been pressed.
+        ns.speakText(word, _userPreferredLang);
         showIpaTooltip(word, ev.pageX, ev.pageY);
       });
     });
