@@ -183,6 +183,12 @@
 .tts-btn.slow  { background: #faf5ff; border-color: #d8b4fe; color: #6b21a8; }
 .tts-btn.pause { background: #fffbeb; border-color: #fcd34d; color: #b45309; }
 .tts-btn.stop  { background: #fafafa; border-color: #d4d4d4; color: #525252; }
+/* Round 33 (2026-05-06) — Male/Female toggle. Pink for female (default),
+   teal for male; visually distinct from the UK/US accent picker so the
+   teacher can tell at a glance which gender is active. The button label
+   itself flips between 👩 and 👨, so colour acts as a secondary cue. */
+.tts-btn.gender.female { background: #fdf2f8; border-color: #f9a8d4; color: #9d174d; }
+.tts-btn.gender.male   { background: #ecfdf5; border-color: #6ee7b7; color: #065f46; }
 .tts-btn:hover { filter: brightness(0.97); }
 
 /* Highlighted accent — when user picks UK or US, that button stays

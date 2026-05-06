@@ -17,9 +17,13 @@
   // and Android system voices. The regex covers both modern Edge "Natural"
   // voices and legacy macOS / iOS / Android voices known to sound natural.
   const FEMALE_NEURAL_UK = /Sonia|Libby|Mia|Maisie|Kate|Serena|Sienna|Tessa|Karen|Hazel|Susan|Stephanie/i;
-  const MALE_NEURAL_UK   = /Ryan|Thomas.*GB|Noah|Daniel|George|Oliver/i;
+  // Round 33 (2026-05-06) — added "Christopher" so Edge's Microsoft Christopher
+  // Online (Natural) en-GB voice ranks correctly when the user selects the
+  // male toggle. Christopher was the highest-quality Microsoft natural-male
+  // voice missing from the list.
+  const MALE_NEURAL_UK   = /Ryan|Thomas.*GB|Christopher|Noah|Daniel|George|Oliver/i;
   const FEMALE_NEURAL_US = /Aria|Jenny|Ana|Michelle|Emma|Samantha|Allison|Ava|Joanna|Salli|Kendra|Kimberly|Ivy|Nora|Susan.*US|Zira/i;
-  const MALE_NEURAL_US   = /Guy|Tony|Jason|Eric|Davis|Alex|Aaron|Brandon|Steffan|Roger/i;
+  const MALE_NEURAL_US   = /Christopher|Guy|Tony|Jason|Eric|Davis|Alex|Aaron|Brandon|Steffan|Roger/i;
 
   // Speech rates. Tuned for Chinese L2 listeners — 0.85 is the comfortable
   // default (matches what was previously the "slow" button rate); 0.72 is
@@ -36,6 +40,43 @@
   // 'en-GB' on first page load so initial vocab clicks (before any
   // model-answer button is pressed) keep the historical default.
   let _userPreferredLang = 'en-GB';
+
+  // Round 33 (2026-05-06) — sticky "current teaching gender". Same
+  // pattern as _userPreferredLang. Toggled via the new Male/Female
+  // button in the listen-row clusters; read by pickVoice() so that
+  // every TTS surface (model-answer karaoke, polished-output, vocab
+  // single-word clicks) speaks in whichever gender the teacher has
+  // active. 'female' default keeps the historical voice on first load.
+  let _userPreferredGender = 'female';
+
+  // Round 33 — warmup flag. The first speak() call after page load
+  // sometimes plays in the system default ("robotic") voice on Edge /
+  // Chrome / Windows because the requested voice hasn't fully loaded
+  // yet. Workaround: queue a silent (volume:0) priming utterance with
+  // the same voice config BEFORE the real one. The real utterance then
+  // plays with the correct voice. We only do this once per page load
+  // since subsequent speak() calls reuse a primed engine.
+  let _ttsWarmedUp = false;
+  function ensureTtsWarmup(voice, lang) {
+    if (_ttsWarmedUp) return;
+    if (!('speechSynthesis' in window)) return;
+    try {
+      // Single space, normal rate, zero volume — silently primes the
+      // engine + voice cache. Queues ahead of the real utterance via
+      // Web Speech API's natural FIFO ordering.
+      const w = new SpeechSynthesisUtterance(' ');
+      w.lang = lang || 'en-GB';
+      w.volume = 0;
+      w.rate = 1;
+      if (voice) w.voice = voice;
+      window.speechSynthesis.speak(w);
+      _ttsWarmedUp = true;
+    } catch (_) {
+      // Some browsers throw if speak() fires before any user gesture
+      // (autoplay policy). Ignore — the next user-initiated click will
+      // try again.
+    }
+  }
 
   // ====================================================================
   // AI fetch — jitter + exponential backoff retry
@@ -105,7 +146,13 @@
   // "Microsoft Hazel" (low-quality concatenative) ahead of "Microsoft Sonia
   // Online (Natural)" — and Array.find() would return Hazel even though both
   // names match the female regex.
-  function pickVoice(lang) {
+  //
+  // Round 33 (2026-05-06): added optional `gender` parameter. When 'male' is
+  // passed, the +25 bonus that previously locked female-named voices to the
+  // top is flipped onto the male regex instead. Falls back to female if
+  // omitted to preserve historical default behavior across all callers that
+  // haven't been updated yet (none should remain after Round 33, but defensive).
+  function pickVoice(lang, gender) {
     if (!('speechSynthesis' in window)) return null;
     const all = window.speechSynthesis.getVoices();
     if (!all.length) return null;
@@ -117,6 +164,7 @@
 
     const female = lang === 'en-GB' ? FEMALE_NEURAL_UK : FEMALE_NEURAL_US;
     const male   = lang === 'en-GB' ? MALE_NEURAL_UK   : MALE_NEURAL_US;
+    const wantMale = gender === 'male';
 
     const score = (v) => {
       const tag = (v.name || '') + ' ' + (v.voiceURI || '');
@@ -126,8 +174,18 @@
       if (/Google/i.test(tag))            s +=  60;  // Google network voices
       if (/Premium|Enhanced/i.test(tag))  s +=  50;  // macOS / iOS premium
       if (!v.localService)                s +=  30;  // network > local generally
-      if (female.test(v.name))            s +=  25;  // female preference
-      else if (male.test(v.name))         s +=   5;  // male as fallback
+      // Round 33 — gender preference. Whichever gender is requested gets the
+      // +25 ranking bonus; the other gender gets the +5 fallback bonus so that
+      // if no requested-gender voice exists in the pool we still pick a
+      // sensible alternative rather than randomly returning the lowest-scored
+      // voice.
+      if (wantMale) {
+        if (male.test(v.name))            s +=  25;
+        else if (female.test(v.name))     s +=   5;
+      } else {
+        if (female.test(v.name))          s +=  25;
+        else if (male.test(v.name))       s +=   5;
+      }
       if (v.lang === langPrefix)          s +=  10;  // exact lang > prefix match
       return s;
     };
@@ -269,8 +327,14 @@
     const u = new SpeechSynthesisUtterance(sentence);
     u.lang = st.lang;
     u.rate = rateOverride || st.rate || DEFAULT_RATE;
-    const v = pickVoice(st.lang);
+    const v = pickVoice(st.lang, _userPreferredGender);  // Round 33
     if (v) u.voice = v;
+    // Round 33 — warm the engine + voice cache on FIRST speak() of the page
+    // session. The silent (volume:0) priming utterance queues ahead of the
+    // real one and prevents the "robotic default voice" fallback that
+    // sometimes happens before Edge/Chrome finishes loading the requested
+    // voice.
+    ensureTtsWarmup(v, st.lang);
 
     // Karaoke: only when this row owns word-wrapped spans (polished-output path).
     const activeOffsets = (st.spans && st.offsets)
@@ -317,8 +381,9 @@
       const u = new SpeechSynthesisUtterance(String(text));
       u.lang = lang;
       u.rate = rate;
-      const v = pickVoice(lang);
+      const v = pickVoice(lang, _userPreferredGender);  // Round 33
       if (v) u.voice = v;
+      ensureTtsWarmup(v, lang);  // Round 33 — silent prime on first vocab click
       speechSynthesis.speak(u);
       return;
     }
@@ -583,9 +648,10 @@
     if (el) ns.speakElement(el, lang, rate);
   };
 
-  /** Polished-output button router. Six modes: en-GB / en-US (start over
-   *  in chosen accent), slow / replay (re-speak current sentence), prev /
-   *  next (sentence navigation). */
+  /** Polished-output button router. Round 33 added the 'gender' mode for the
+   *  Male/Female toggle button. Other modes: en-GB / en-US (start over in
+   *  chosen accent), slow / replay (re-speak current sentence), prev / next
+   *  (sentence navigation). */
   ns.listenPolished = function (which) {
     const row = document.getElementById('polished-listen-row');
     if (!row) return;
@@ -598,6 +664,23 @@
       case 'replay': ns.replaySentence(row, false); break;
       case 'prev':   ns.prevSentence(row);          break;
       case 'next':   ns.nextSentence(row);          break;
+      case 'gender': {
+        // Round 33 — flip the global gender preference, refresh ALL visible
+        // gender buttons on the page so they stay in sync, then replay the
+        // current sentence with the new voice for immediate feedback.
+        _userPreferredGender = _userPreferredGender === 'male' ? 'female' : 'male';
+        document.querySelectorAll('.tts-btn.gender').forEach(b => {
+          const isMale = _userPreferredGender === 'male';
+          b.classList.toggle('male',   isMale);
+          b.classList.toggle('female', !isMale);
+          b.textContent = isMale ? '👨' : '👩';
+        });
+        const st = getRowState(row);
+        if (st && st.sentences && st.sentences.length) {
+          ns.replaySentence(row, /* slow= */ false);
+        }
+        break;
+      }
     }
   };
 
@@ -1046,9 +1129,14 @@
 
       const row = document.createElement('div');
       row.className = 'listen-row';
-      // Six-button sentence-paced transport — pedagogical listen-and-repeat.
-      // Layout: [accent picker | slow] [sentence counter] [prev | replay | next]
+      // Round 33 — seven-button sentence-paced transport. New leading
+      // Male/Female toggle (👩 / 👨) selects the natural-voice gender
+      // for whichever accent is currently active. The label flips on
+      // every click and a global `_userPreferredGender` drives every
+      // pickVoice() call across the page.
+      // Layout: [gender | UK | US | slow] [sentence counter] [prev | replay | next]
       row.innerHTML = `
+        <button class="tts-btn gender female" title="Toggle voice gender / 切换男女声">👩</button>
         <button class="tts-btn uk active" title="UK voice / 英音">🇬🇧</button>
         <button class="tts-btn us"        title="US voice / 美音">🇺🇸</button>
         <button class="tts-btn slow"      title="Slow replay / 慢速重播本句" disabled>🐢</button>
@@ -1057,6 +1145,7 @@
         <button class="tts-btn replay"    title="Replay this sentence / 重播本句" disabled>▶</button>
         <button class="tts-btn next"      title="Next sentence / 下一句" disabled>⏭</button>
       `;
+      const btnGender = row.querySelector('.tts-btn.gender');
       const btnUK     = row.querySelector('.tts-btn.uk');
       const btnUS     = row.querySelector('.tts-btn.us');
       const btnSlow   = row.querySelector('.tts-btn.slow');
@@ -1064,6 +1153,16 @@
       const btnReplay = row.querySelector('.tts-btn.replay');
       const btnNext   = row.querySelector('.tts-btn.next');
       const textOf = () => stripChineseGloss(extractReadableText(box));
+
+      // Mirror the global gender state onto a freshly-injected button so it
+      // matches whichever toggle the teacher set on a sibling card earlier.
+      function refreshGenderBtn() {
+        const isMale = _userPreferredGender === 'male';
+        btnGender.classList.toggle('male',   isMale);
+        btnGender.classList.toggle('female', !isMale);
+        btnGender.textContent = isMale ? '👨' : '👩';
+      }
+      refreshGenderBtn();
 
       // A2 2026: switched from speakText (no karaoke) to speakElement
       // (word-by-word karaoke highlight). speakElement wraps each word
@@ -1077,6 +1176,27 @@
       btnPrev.onclick   = () => ns.prevSentence(row);
       btnReplay.onclick = () => ns.replaySentence(row, /* slow= */ false);
       btnNext.onclick   = () => ns.nextSentence(row);
+      // Round 33 — gender toggle. Flips global state, refreshes EVERY visible
+      // gender button on the page (so all cards stay in sync), and replays
+      // the current sentence so the teacher hears the new voice immediately.
+      // If the row hasn't started speaking yet, just toggle silently — the
+      // next UK/US click will pick up the new gender.
+      btnGender.onclick = () => {
+        _userPreferredGender = _userPreferredGender === 'male' ? 'female' : 'male';
+        document.querySelectorAll('.tts-btn.gender').forEach(b => {
+          const isMale = _userPreferredGender === 'male';
+          b.classList.toggle('male',   isMale);
+          b.classList.toggle('female', !isMale);
+          b.textContent = isMale ? '👨' : '👩';
+        });
+        // If a sentence has been queued/played on this row, replay it with
+        // the new voice for instant feedback. ns.replaySentence is a no-op
+        // when the row has no st.sentences yet.
+        const st = getRowState(row);
+        if (st && st.sentences && st.sentences.length) {
+          ns.replaySentence(row, /* slow= */ false);
+        }
+      };
 
       // Find the heading (h1-h4) immediately preceding this .model-box in
       // the .card. Walk back through siblings until we hit one or run out.

@@ -1,13 +1,18 @@
 <!-- AI-INTERACTIVE-V1: polished section overlay (button-row sits at the
      green box's top-right via CSS; the placeholder inside
      .lines-overlay-host is replaced at runtime). -->
-<!-- Six-button sentence-paced transport — pedagogical listen-and-repeat.
-     Layout: [accent picker | slow] [sentence counter] [prev | replay | next].
+<!-- Round 33 (2026-05-06) — seven-button sentence-paced transport.
+     New leading Male/Female toggle (👩 / 👨) selects the natural-voice
+     gender; emoji and class flip via the `gender` case in
+     ns.listenPolished. Layout:
+     [gender | UK | US | slow] [sentence counter] [prev | replay | next].
      All start disabled — `enablePolishedListenButtons()` flips them after
      a successful AI correction populates the polished output. The active
      row's transport state then rides on per-row state (managed by the
      TTS subsystem in inserted_script.js). -->
 <div class="button-row" id="polished-listen-row">
+  <button class="tts-btn gender female" disabled title="Toggle voice gender / 切换男女声"
+          onclick="window.__ielts.listenPolished('gender')">👩</button>
   <button class="tts-btn uk active" disabled title="UK voice / 英音"
           onclick="window.__ielts.listenPolished('en-GB')">🇬🇧</button>
   <button class="tts-btn us" disabled title="US voice / 美音"
