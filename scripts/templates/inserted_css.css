@@ -695,6 +695,43 @@
    buttons sit disabled until AI correction runs anyway, which is a
    sufficient gating signal on its own. */
 
+/* Round 37 (2026-05-07) — IGCSE Section 7 + Section 8 floating-windows
+   use the class `.section-writing` (NOT `.draft-page` like the IELTS
+   structure). The lined-paper overlay model's positioning rules at
+   the top of this file are scoped to `.draft-page` ancestors only,
+   so on IGCSE the `.lines-overlay-host` had no `position: relative`
+   and no `overflow: hidden`. Result: the `position: absolute`
+   `#polished-output` escaped to `.a4-page`, filling the entire page
+   (794×1123 px) with the repeating-linear-gradient writing lines AND
+   the `.writing-output.empty::before` placeholder text "AI 修改后的版本
+   会显示在这里…" — both rendering OUTSIDE the green Polished Rewrite
+   floating-window box and pushing the banner off the page bottom.
+   Mirroring the same scoping rules onto `.section-writing` contains
+   the overlay properly inside its floating-window parent. */
+.floating-window.section-writing {
+    position: relative;
+}
+.section-writing .lines-overlay-host {
+    position: relative;
+    flex-grow: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+.section-writing .lines { display: none; }
+
+/* Round 37 — Tighten banner spacing so it doesn't overflow the page
+   bottom on content-heavy pages. Round 28's `margin-top: auto` (set
+   inline on the <img>) anchors the banner at the page bottom for
+   visual consistency, but on pages where the cards above have grown
+   (recorders, gender button, P1 labels, etc.), the auto margin
+   resolves to 0 and the banner spills off the page bottom because
+   total content > A4 page height. Override to a small fixed margin
+   so the banner sits close to the previous card with predictable
+   spacing rather than auto-stretching the layout. */
+img[src*="course_pipeline"] {
+    margin-top: 8px !important;
+}
+
 @media print {
     .voice-recorder-container { display: none !important; }
 }
