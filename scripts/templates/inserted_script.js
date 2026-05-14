@@ -536,7 +536,7 @@
     updateTransportButtons(rowEl);
   }
 
-  ns.speakText = function (text, lang = 'en-GB', rate = DEFAULT_RATE, rowEl = null) {
+  ns.speakText = function (text, lang = 'en-GB', rate = DEFAULT_RATE, rowEl = null, onDone = null) {
     if (isWeChatBrowser()) { wechatFallbackAlert(); return; }
     if (!('speechSynthesis' in window)) return;
     if (!text || !String(text).trim()) return;
@@ -553,6 +553,14 @@
       const v = pickVoice(lang, _userPreferredGender);  // Round 33
       if (v) u.voice = v;
       ensureTtsWarmup(v, lang);  // Round 33 — silent prime on first vocab click
+      // Round 52 — optional completion callback so the word-click handler
+      // can clear its .speaking flash exactly when speech ends. onerror
+      // fires it too (e.g. an interrupted utterance) so the flash never
+      // gets stuck on. Row-bound callers pass nothing and are unaffected.
+      if (typeof onDone === 'function') {
+        u.onend = onDone;
+        u.onerror = onDone;
+      }
       speechSynthesis.speak(u);
       return;
     }
@@ -713,6 +721,26 @@
     return { spans, offsets };
   }
 
+  // Round 52 — module-level cache for ensureWordsWrapped(). Keyed by the
+  // wrapped element so the click-to-speak feature (attachWordClicks) and
+  // the karaoke feature (speakElement) reuse ONE set of per-word
+  // <span class="tts-word"> elements instead of each wrapping the DOM
+  // independently and clobbering the other's spans.
+  const _wordWrapCache = new WeakMap();
+
+  // Round 52 — idempotent, cached wrapper around wrapTextNodesInElement().
+  // First call on `el`: wraps every text node into <span class="tts-word">,
+  // caches and returns {spans, offsets}. Repeat calls: returns the cache
+  // untouched. This is the SINGLE place DOM word-wrapping happens.
+  function ensureWordsWrapped(el) {
+    const cached = _wordWrapCache.get(el);
+    if (cached) return cached;
+    const result = wrapTextNodesInElement(el);
+    result.spans.forEach((s) => s.classList.add('tts-word'));
+    _wordWrapCache.set(el, result);
+    return result;
+  }
+
   // speakElement / speakElementById — wrap words in <span> for karaoke,
   // split text into sentences, and play sentence 0. Subsequent transport
   // commands (replay / next / prev / slow) re-use the wrapped spans.
@@ -753,8 +781,10 @@
     if (isFreshWrap) {
       let spans, offsets;
       if (hasMarkup) {
-        // Non-destructive: preserves <strong> vocab highlights, skips gloss.
-        const result = wrapTextNodesInElement(el);
+        // Round 52 — go through ensureWordsWrapped() so karaoke highlights
+        // the SAME .tts-word spans attachWordClicks() already made
+        // clickable (instead of re-wrapping and orphaning them).
+        const result = ensureWordsWrapped(el);
         spans = result.spans;
         offsets = result.offsets;
       } else {
@@ -1446,34 +1476,64 @@
     });
   }
 
+  // Round 52 — in-scope selector for word-level click-to-speak. ONE
+  // hardcoded string, byte-identical in both repos (inserted_script.js is
+  // a mirror). It is the UNION of IGCSE + IELTS selectors; each repo
+  // simply has no DOM matching the other's selectors, so they are
+  // harmless no-ops (same pattern the `.sec-2` selector relied on).
+  //   .model-box .......................... model answers + shadowing (both repos)
+  //   .sec-4 .item-text, .sec-10 .item-text  IGCSE Warm-Up + Fast Finisher questions
+  //   .section-prompt-and-model > p:not(.model-box)  IGCSE Section 6 circuit prompt
+  //   .q-prompt ........................... IELTS cue card + Part 3 question <h3>s + brainstorming prompts
+  const WORD_CLICK_SCOPE =
+    '.model-box, .sec-4 .item-text, .sec-10 .item-text, ' +
+    '.section-prompt-and-model > p:not(.model-box), .q-prompt';
+
   function attachWordClicks() {
-    // Round 51 — `.sec-2 .item-text strong` added so IGCSE Section 2
-    // (Weekly Pronunciation Point) example words are click-to-hear, the
-    // same as vocab-table / model-box words. (`.sec-2` is IGCSE-only, so
-    // this selector is a harmless no-op in the IELTS build.)
-    document.querySelectorAll('.vocab-table strong, .model-box strong, .sec-2 .item-text strong').forEach((el) => {
-      // Round 42 — idempotency guard. attachWordClicks is currently called
-      // once from __init() on DOMContentLoaded, but any future code that
-      // re-runs __init (dynamically inserted content, hot reload, etc.)
-      // would otherwise double-bind every <strong> and the click would
-      // fire speakText N times in a row.
+    // ---- Part 1: in-scope containers — EVERY word is click-to-speak ----
+    // Round 52 — eagerly wrap each in-scope container's words into
+    // <span class="tts-word"> via ensureWordsWrapped() (so the karaoke
+    // path reuses the same spans), then attach ONE delegated click
+    // listener per container.
+    document.querySelectorAll(WORD_CLICK_SCOPE).forEach((container) => {
+      // Idempotency guard — mirrors the legacy data-wordClickBound flag.
+      if (container.dataset.wordClicksDelegated === '1') return;
+      ensureWordsWrapped(container);
+      container.dataset.wordClicksDelegated = '1';
+      container.addEventListener('click', (ev) => {
+        const span = ev.target.closest('.tts-word');
+        if (!span || !container.contains(span)) return;
+        ev.stopPropagation();
+        // No stripChineseGloss here — wrapTextNodesInElement already keeps
+        // Chinese gloss OUT of .tts-word spans, so textContent is a clean
+        // single English token.
+        const word = span.textContent;
+        if (!word || !word.trim()) return;
+        // Defensive: clear any flash still on from a previous rapid click.
+        document.querySelectorAll('.tts-word.speaking')
+          .forEach((s) => s.classList.remove('speaking'));
+        span.classList.add('speaking');
+        const clearFlash = () => span.classList.remove('speaking');
+        ns.speakText(word, _userPreferredLang, DEFAULT_RATE, null, clearFlash);
+        showIpaTooltip(word, ev.pageX, ev.pageY);
+      });
+    });
+
+    // ---- Part 2: legacy <strong>-only clicks (vocab table + Section 2) ----
+    // UNCHANGED behaviour — these areas are OUT of the Round-52 scope, so
+    // they keep today's per-<strong> click, the dotted underline, and NO
+    // speaking flash. `.model-box strong` is intentionally NOT here any
+    // more: model boxes are fully covered by Part 1 above.
+    document.querySelectorAll('.vocab-table strong, .sec-2 .item-text strong').forEach((el) => {
       if (el.dataset.wordClickBound === '1') return;
-      // Skip <strong> inside any Chinese-gloss ancestor.
       let p = el.parentElement;
       while (p) { if (isChineseGloss(p)) return; p = p.parentElement; }
-      // Skip <strong> inside the listen-row buttons or marker badges.
       if (el.closest('.listen-row') || el.closest('.badge-ore')) return;
-
       el.dataset.wordClickBound = '1';
       el.addEventListener('click', (ev) => {
         ev.stopPropagation();
-        // Strip any inline CJK gloss like "accomplished (有造诣的 / 成功的)" → "accomplished"
         const word = stripChineseGloss(el.textContent);
         if (!word) return;
-        // Round 31 — follow the teacher's current accent (set by the
-        // last UK/US button click anywhere on the page). Falls back to
-        // 'en-GB' on first page load before any model-answer button
-        // has been pressed.
         ns.speakText(word, _userPreferredLang);
         showIpaTooltip(word, ev.pageX, ev.pageY);
       });

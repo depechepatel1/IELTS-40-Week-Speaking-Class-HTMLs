@@ -636,6 +636,17 @@ def format_bullet_text(html_content):
     
     return f"{main_text} {', '.join(formatted_bullets)}"
 
+def _add_q_prompt_class(el):
+    """Round 52 — tag a question / cue / prompt element with the `q-prompt`
+    class so the interactive word-level click-to-speak JS can target it.
+    Idempotent; no-op on None. BeautifulSoup stores `class` as a list."""
+    if el is None:
+        return
+    classes = el.get('class', [])
+    if 'q-prompt' not in classes:
+        el['class'] = classes + ['q-prompt']
+
+
 def process_student_l1(soup, week_data):
     """Updates Student Lesson 1 (Page 2) content."""
     l1_data = week_data.get('lesson_1_part_2', {})
@@ -651,6 +662,7 @@ def process_student_l1(soup, week_data):
     cue_card_div = soup.find('div', style=lambda x: x and 'border-left:5px solid #fbc02d' in x)
     if cue_card_div:
         h3 = cue_card_div.find('h3')
+        _add_q_prompt_class(h3)  # Round 52 — cue-card prompt is word-clickable
         q1_html = q1_data.get('html', '')
         q1_soup = BeautifulSoup(q1_html, 'html.parser')
         prompt_p = q1_soup.find('p')
@@ -933,6 +945,7 @@ def format_mind_maps(soup, week_data, ai_content):
         if brainstorm_card:
             prompt_div = brainstorm_card.find('div', style=lambda x: x and 'color:#444' in x)
             if prompt_div:
+                _add_q_prompt_class(prompt_div)  # Round 52 — brainstorming prompt is word-clickable
                 q1_prompt_p = q1_soup.find('p')
                 if q1_prompt_p:
                     fmt_html = format_bullet_text(q1_prompt_p.decode_contents())
@@ -955,6 +968,7 @@ def format_mind_maps(soup, week_data, ai_content):
         
         prompt_div = topic_a_card.find_next_sibling('div')
         if prompt_div:
+            _add_q_prompt_class(prompt_div)  # Round 52 — brainstorming prompt is word-clickable
             q2_prompt_p = q2_soup.find('p')
             if q2_prompt_p:
                 fmt_html = format_bullet_text(q2_prompt_p.decode_contents())
@@ -982,6 +996,7 @@ def format_mind_maps(soup, week_data, ai_content):
         
         prompt_div = topic_b_card.find_next_sibling('div')
         if prompt_div:
+            _add_q_prompt_class(prompt_div)  # Round 52 — brainstorming prompt is word-clickable
             q3_prompt_p = q3_soup.find('p')
             if q3_prompt_p:
                 fmt_html = format_bullet_text(q3_prompt_p.decode_contents())
@@ -1028,6 +1043,7 @@ def process_student_l2(soup, week_data, ai_content, week_peer_data):
             
         if card:
             h3 = card.find('h3')
+            _add_q_prompt_class(h3)  # Round 52 — Part 3 question is word-clickable
             if h3: h3.string = q_text
             
             mbox = card.find('div', class_='model-box')

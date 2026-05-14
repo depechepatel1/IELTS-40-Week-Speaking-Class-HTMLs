@@ -473,20 +473,30 @@
     50%      { box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18); }
 }
 
-/* Clickable bolded words in vocab tables and model boxes. */
+/* Legacy <strong>-only click path — vocab tables + IGCSE Section 2.
+   Round 52: `.model-box strong` removed from here. Model-answer words are
+   now handled by the word-level `.tts-word` path below, which carries no
+   underline (per teacher request); the vocab table + Section 2 keep the
+   dotted-underline cue because they are reference lists, not prose. */
 .vocab-table strong,
-.model-box strong,
 .sec-2 .item-text strong {
-    /* Round 51 — IGCSE Section 2 (Weekly Pronunciation Point) example
-       words are now click-to-hear, same as the vocab-table words. */
     cursor: pointer;
     border-bottom: 1px dotted #2c3e50;
 }
 .vocab-table strong:hover,
-.model-box strong:hover,
 .sec-2 .item-text strong:hover {
     background: #fff9c4;
 }
+
+/* Round 52 — word-level click-to-speak. Every word in model answers,
+   question lists, and prompts is wrapped in <span class="tts-word"> and is
+   individually click-to-hear. No underline: discoverability is the pointer
+   cursor + hover tint on PC, and the brief `.speaking` flash confirms a
+   tap on iPad (where there is no hover). Colours reuse the existing
+   palette (#fff9c4 = today's vocab-hover tint). */
+.tts-word { cursor: pointer; }
+.tts-word:hover    { background: #fff9c4; border-radius: 3px; }
+.tts-word.speaking { background: #ffe08a; border-radius: 3px; }
 
 /* IPA tooltip (lazy-loaded from bucket on first vocab click). */
 .ipa-tooltip {
