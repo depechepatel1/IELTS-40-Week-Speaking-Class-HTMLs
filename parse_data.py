@@ -115,7 +115,29 @@ def process_cover_page(soup, week_number, week_data):
     cover_div = soup.find('div', class_='cover-page')
     if cover_div:
         cover_div.clear()
-        
+
+        # Round 48 (2026-05-13) — animated webm cover background.
+        # The <video> element must be re-injected here because
+        # cover_div.clear() above wipes every child of .cover-page,
+        # so the canonical's video tag doesn't survive parse_data.py
+        # fan-out otherwise. JPG poster keeps the cover visible on
+        # slow networks; CSS @media print hides the video for PDF.
+        video_tag = soup.new_tag('video', attrs={
+            'class': 'cover-video',
+            'autoplay': '',
+            'muted': '',
+            'loop': '',
+            'playsinline': '',
+            'preload': 'auto',
+            'poster': 'https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg',
+        })
+        source_tag = soup.new_tag('source', attrs={
+            'src': 'https://ielts.aischool.studio/videos/cover_spinning.webm',
+            'type': 'video/webm',
+        })
+        video_tag.append(source_tag)
+        cover_div.append(video_tag)
+
         # Container
         content_div = soup.new_tag('div', attrs={'class': 'cover-content'})
         

@@ -22,8 +22,46 @@
   // male toggle. Christopher was the highest-quality Microsoft natural-male
   // voice missing from the list.
   const MALE_NEURAL_UK   = /Ryan|Thomas.*GB|Christopher|Noah|Daniel|George|Oliver/i;
-  const FEMALE_NEURAL_US = /Aria|Jenny|Ana|Michelle|Emma|Samantha|Allison|Ava|Joanna|Salli|Kendra|Kimberly|Ivy|Nora|Susan.*US|Zira/i;
-  const MALE_NEURAL_US   = /Christopher|Guy|Tony|Jason|Eric|Davis|Alex|Aaron|Brandon|Steffan|Roger/i;
+  // Round 45 (2026-05-13) — added Helena (Windows SAPI en-US female) so the
+  // female toggle still wins on Windows installs lacking Edge neural voices.
+  const FEMALE_NEURAL_US = /Aria|Jenny|Ana|Michelle|Emma|Samantha|Allison|Ava|Joanna|Salli|Kendra|Kimberly|Ivy|Nora|Susan.*US|Zira|Helena|Heather/i;
+  // Round 45 — added David, Mark, Paul, James (Windows SAPI en-US male
+  // names) so the male toggle correctly selects a male voice on systems
+  // without Edge neural voices. Previously David/Mark were unknown to the
+  // regex and the male toggle silently lost — Zira (female) would still
+  // win via the +5 cross-gender fallback bonus because no voice scored
+  // the +25 male match.
+  const MALE_NEURAL_US   = /Christopher|Guy|Tony|Jason|Eric|Davis|Alex|Aaron|Brandon|Steffan|Roger|David\b|Mark\b|Paul\b|James\b/i;
+  // iPad / iOS Siri-tier voice names. Apple ships these unmarked but they
+  // are the higher-quality "Siri-style" voices on iOS. "Premium" / "Enhanced"
+  // tags only appear once the user has manually downloaded the larger voice
+  // file via Settings → Accessibility → Spoken Content → Voices.
+  const IOS_PREMIUM_NAMES =
+    /Ava|Aaron|Nicky|Evan|Joelle|Noelle|Zoe|Catherine|Serena|Stephanie|Daniel|Arthur|Oliver|Martha/i;
+
+  // Round 45 (2026-05-13) — cross-dialect gender regexes. Used by pickVoice
+  // ONLY when the exact-dialect pool is empty and we've fallen back to
+  // "any en-*" voices. Previously the gender scoring used the UK regex on a
+  // US-only fallback pool (or vice versa); since the UK female list (Sonia,
+  // Karen, Hazel…) doesn't include US female names (Zira, Aria, Samantha…),
+  // every voice scored 0 on gender and the first-in-insertion-order voice
+  // won — which on a Windows install with only en-US voices meant David
+  // (male) could win an en-GB+female request. Unifying the regexes in the
+  // fallback path restores deterministic gender selection.
+  const FEMALE_NEURAL_ANY = new RegExp(
+    FEMALE_NEURAL_UK.source + "|" + FEMALE_NEURAL_US.source, "i"
+  );
+  const MALE_NEURAL_ANY = new RegExp(
+    MALE_NEURAL_UK.source + "|" + MALE_NEURAL_US.source, "i"
+  );
+
+  // Round 46 (2026-05-13) — TTS voice cache keyed by "lang|gender".
+  // Guarantees both vocab-click (speakText) and model-answer
+  // (_playCurrentSentence) paths reuse the SAME voice for any given
+  // (lang, gender) combination. The cache is invalidated on the
+  // onvoiceschanged event so async-loaded Edge neural voices upgrade
+  // the cache as soon as they arrive.
+  const _voiceCache = new Map();
 
   // Speech rates. Tuned for Chinese L2 listeners — 0.85 is the comfortable
   // default (matches what was previously the "slow" button rate); 0.72 is
@@ -48,6 +86,15 @@
   // single-word clicks) speaks in whichever gender the teacher has
   // active. 'female' default keeps the historical voice on first load.
   let _userPreferredGender = 'female';
+
+  // Round 39 (2026-05-11) — persistent slow-mode toggle. Replaces the
+  // old "play this one sentence slowly, then snap back to normal"
+  // behaviour. When true, EVERY TTS surface plays at SLOW_RATE: model
+  // answers, vocabulary clicks, prev/next/replay, polished-output —
+  // anywhere a rate is consulted, _userPreferredSlow wins. The slow
+  // button (🐢) becomes a sticky on/off switch; its .active CSS class
+  // is the user-visible "currently slow" indicator.
+  let _userPreferredSlow = false;
 
   // Round 33 — warmup flag. The first speak() call after page load
   // sometimes plays in the system default ("robotic") voice on Edge /
@@ -152,33 +199,138 @@
   // top is flipped onto the male regex instead. Falls back to female if
   // omitted to preserve historical default behavior across all callers that
   // haven't been updated yet (none should remain after Round 33, but defensive).
+  // True for iPhone, iPod, and iPadOS 13+. iPadOS 13+ reports as "MacIntel"
+  // — the maxTouchPoints check is the only reliable signal that distinguishes
+  // an iPad from a desktop Mac (desktop Macs return 0 touch points).
+  // Note: every iPad browser uses Apple's WebKit engine (Apple App Store
+  // policy), so this single check covers iPad Safari, iPad Chrome, AND
+  // iPad Microsoft Edge — they all share Apple's voice catalog.
+  function isIOS() {
+    const ua = navigator.userAgent || '';
+    if (/iPhone|iPod|iPad/.test(ua)) return true;
+    return navigator.platform === 'MacIntel'
+        && (navigator.maxTouchPoints || 0) > 1;
+  }
+
+  // ────────────────────────────────────────────────────────────────────
+  // TTS ARCHITECTURAL NOTE (Round 47, 2026-05-13)
+  //
+  // Edge presents TWO distinct categories of voices via getVoices(),
+  // only one of which is actually "built into the browser":
+  //
+  //   1. Local SAPI / system voices (Microsoft Zira, David, Mark,
+  //      Hazel, George) — synthesis happens on-device, instant
+  //      playback, lower neural quality. localService === true.
+  //
+  //   2. "Online (Natural)" voices (Microsoft Sonia / Aria /
+  //      Christopher / Ryan / Libby / Mia / Guy etc.) — synthesis
+  //      happens on Microsoft's TTS servers; every speak() call
+  //      POSTs the text and streams back ~100–300 KB of audio.
+  //      ~250 ms to several seconds of per-utterance latency
+  //      depending on network. localService === false.
+  //
+  // Our scoring below gives Online (Natural) voices +100 / +80
+  // bonuses so the picker PREFERS them for accent training —
+  // pedagogically Sonia is a much better UK voice than Hazel. The
+  // trade-off is per-click network roundtrip.
+  //
+  // The Round 46 voice cache (see _voiceCache below) caches the
+  // SpeechSynthesisVoice OBJECT REFERENCE so vocab clicks and
+  // model-answer playback agree on which voice to use. It does NOT
+  // and CANNOT cache the AUDIO BYTES — those are opaque to
+  // JavaScript, owned internally by Edge and the Microsoft TTS
+  // service.
+  //
+  // If a future maintainer is investigating "why is there a delay
+  // between voice selection and audio playback?" — that delay is
+  // inherent to the Online (Natural) voices' network roundtrip,
+  // NOT a code-level inefficiency in our voice selection. The
+  // only ways to eliminate it are:
+  //
+  //   (a) Use only local SAPI voices (loses neural quality) —
+  //       Round 47 explicitly rejected this.
+  //   (b) Pre-render audio to MP3 server-side and host on OSS —
+  //       Round 47 explicitly rejected this.
+  //   (c) Service Worker proxying the TTS HTTPS calls — infeasible
+  //       because Edge uses native APIs, not fetchable network
+  //       requests that JS can intercept.
+  //
+  // Accept the latency. Don't optimize unless one of (a) / (b) /
+  // (c) becomes acceptable.
+  // ────────────────────────────────────────────────────────────────────
   function pickVoice(lang, gender) {
     if (!('speechSynthesis' in window)) return null;
     const all = window.speechSynthesis.getVoices();
     if (!all.length) return null;
 
     const langPrefix = lang === 'en-GB' ? 'en-GB' : 'en-US';
+
+    // Round 46 — cache hit. The cache is invalidated by onvoiceschanged
+    // so any cached entry is guaranteed to reference a voice from the
+    // current voice list (a voice object kept across getVoices() calls
+    // remains valid until the underlying list mutates).
+    const cacheKey = langPrefix + '|' + (gender === 'male' ? 'male' : 'female');
+    if (_voiceCache.has(cacheKey)) {
+      const cached = _voiceCache.get(cacheKey);
+      try {
+        console.info(
+          `[TTS] cache HIT  key=${cacheKey}  → ${cached ? cached.name : 'null'}`
+        );
+      } catch (_) {}
+      return cached;
+    }
+
     let pool = all.filter(v => v.lang === langPrefix);
+    const exactDialectMatch = pool.length > 0;
     if (!pool.length) pool = all.filter(v => v.lang && v.lang.startsWith('en'));
     if (!pool.length) return all[0];
 
-    const female = lang === 'en-GB' ? FEMALE_NEURAL_UK : FEMALE_NEURAL_US;
-    const male   = lang === 'en-GB' ? MALE_NEURAL_UK   : MALE_NEURAL_US;
+    // Round 45 — gender regex tracks the POOL's actual dialect, not the
+    // original request. If we fell back to a cross-dialect pool (e.g. user
+    // requested en-GB but the system only has en-US voices), use the
+    // unified regex covering BOTH dialects so gender scoring still works.
+    // Otherwise gender preference silently fails on cross-dialect fallbacks.
+    const female = exactDialectMatch
+      ? (lang === 'en-GB' ? FEMALE_NEURAL_UK : FEMALE_NEURAL_US)
+      : FEMALE_NEURAL_ANY;
+    const male = exactDialectMatch
+      ? (lang === 'en-GB' ? MALE_NEURAL_UK   : MALE_NEURAL_US)
+      : MALE_NEURAL_ANY;
     const wantMale = gender === 'male';
 
+    const onIOS = isIOS();
     const score = (v) => {
       const tag = (v.name || '') + ' ' + (v.voiceURI || '');
       let s = 0;
-      if (/Natural/i.test(tag))           s += 100;  // Edge neural voices (best)
-      if (/Online/i.test(tag))            s +=  80;  // Microsoft cloud voices
-      if (/Google/i.test(tag))            s +=  60;  // Google network voices
-      if (/Premium|Enhanced/i.test(tag))  s +=  50;  // macOS / iOS premium
-      if (!v.localService)                s +=  30;  // network > local generally
+      if (onIOS) {
+        // iOS / iPadOS path. Apple's WebKit hides network voices and never
+        // tags voices "Natural" / "Online" / "Google", so the desktop tier
+        // bonuses below would all score zero and effectively pick at random.
+        // Instead, weight by Apple's own quality markers and a curated list
+        // of unmarked-but-Siri-tier voice names.
+        // Round 51 — on iPad/iPhone the built-in Siri voices are the
+        // explicit FIRST CHOICE (per teacher request). Siri now scores
+        // ABOVE user-downloaded Premium/Enhanced voices, so a device with
+        // the default Siri UK/US male+female voices always uses them.
+        if (/Siri/i.test(tag))               s += 130;  // iOS 16+ Siri voices — first choice
+        if (/Premium/i.test(tag))            s += 100;  // user-downloaded best
+        if (/Enhanced/i.test(tag))           s +=  80;  // user-downloaded medium
+        if (IOS_PREMIUM_NAMES.test(v.name))  s +=  40;  // unmarked Siri-tier
+        // Do NOT add the !localService bonus on iOS — WebKit reports every
+        // voice as local, so the bonus would be a constant and meaningless.
+      } else {
+        // Desktop / Android — original Round-33 scoring, unchanged.
+        if (/Natural/i.test(tag))            s += 100;  // Edge neural voices
+        if (/Online/i.test(tag))             s +=  80;  // Microsoft cloud voices
+        if (/Google/i.test(tag))             s +=  60;  // Google network voices
+        if (/Premium|Enhanced/i.test(tag))   s +=  50;  // macOS / iOS premium
+        if (!v.localService)                 s +=  30;  // network > local generally
+      }
       // Round 33 — gender preference. Whichever gender is requested gets the
       // +25 ranking bonus; the other gender gets the +5 fallback bonus so that
       // if no requested-gender voice exists in the pool we still pick a
       // sensible alternative rather than randomly returning the lowest-scored
-      // voice.
+      // voice. Identical for iOS and desktop branches.
       if (wantMale) {
         if (male.test(v.name))            s +=  25;
         else if (female.test(v.name))     s +=   5;
@@ -190,7 +342,18 @@
       return s;
     };
 
-    return pool.slice().sort((a, b) => score(b) - score(a))[0];
+    // Round 46 — resolve, cache, log.
+    const winner = pool.slice().sort((a, b) => score(b) - score(a))[0];
+    if (winner) _voiceCache.set(cacheKey, winner);
+    try {
+      console.info(
+        `[TTS] cache MISS key=${cacheKey}  → ` +
+        `${winner ? winner.name : 'null'}` +
+        ` (voice.lang=${winner ? winner.lang : '-'}; pool=${pool.length}; ` +
+        `exact-dialect=${exactDialectMatch}; iOS=${onIOS})`
+      );
+    } catch (_) {}
+    return winner;
   }
 
   function isWeChatBrowser() {
@@ -326,7 +489,12 @@
 
     const u = new SpeechSynthesisUtterance(sentence);
     u.lang = st.lang;
-    u.rate = rateOverride || st.rate || DEFAULT_RATE;
+    // Round 39 — global slow-mode toggle always wins over whatever rate
+    // the caller passed in. When the 🐢 button is active, every sentence
+    // plays at SLOW_RATE regardless of which TTS entry point was used.
+    u.rate = _userPreferredSlow
+           ? SLOW_RATE
+           : (rateOverride || st.rate || DEFAULT_RATE);
     const v = pickVoice(st.lang, _userPreferredGender);  // Round 33
     if (v) u.voice = v;
     // Round 33 — warm the engine + voice cache on FIRST speak() of the page
@@ -380,7 +548,8 @@
       speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(String(text));
       u.lang = lang;
-      u.rate = rate;
+      // Round 39 — vocab single-clicks also respect the global slow toggle.
+      u.rate = _userPreferredSlow ? SLOW_RATE : rate;
       const v = pickVoice(lang, _userPreferredGender);  // Round 33
       if (v) u.voice = v;
       ensureTtsWarmup(v, lang);  // Round 33 — silent prime on first vocab click
@@ -660,7 +829,26 @@
       case 'en-US':
         ns.speakElementById('polished-output', which, DEFAULT_RATE);
         break;
-      case 'slow':   ns.replaySentence(row, true);  break;
+      case 'slow': {
+        // Round 42 (2026-05-12) — bring the polished-output 🐢 button into
+        // line with the model-answer card behaviour from Round 39: this is
+        // now a sticky GLOBAL toggle, not a one-shot "force slow this once".
+        // Mirror the broadcast pattern from injectListenButtons → btnSlow.
+        _userPreferredSlow = !_userPreferredSlow;
+        document.querySelectorAll('.tts-btn.slow').forEach(b => {
+          b.classList.toggle('active', _userPreferredSlow);
+          b.title = _userPreferredSlow
+            ? 'Slow mode: ON (0.72×) — click for normal speed / 慢速模式：开'
+            : 'Slow mode: OFF (0.85×) — click for slow speed / 慢速模式：关';
+        });
+        // If a sentence has already been queued on this row, replay it at
+        // the new rate so the teacher hears the change immediately.
+        const _st = getRowState(row);
+        if (_st && _st.sentences && _st.sentences.length) {
+          ns.replaySentence(row, /* slow= */ false);
+        }
+        break;
+      }
       case 'replay': ns.replaySentence(row, false); break;
       case 'prev':   ns.prevSentence(row);          break;
       case 'next':   ns.nextSentence(row);          break;
@@ -699,11 +887,31 @@
     ns.stopSpeaking();
   };
 
-  // Voice list loads asynchronously on Chrome. Touching it here primes the cache
-  // so the first user click already has voices available.
+  // Voice list loads asynchronously on Chrome and especially on iOS Safari /
+  // WebKit, where the first getVoices() call commonly returns []. Touching it
+  // here primes the cache; the onvoiceschanged handler below picks up the
+  // real list when WebKit publishes it. We also clear the warmup flag so the
+  // next TTS click re-warms with the upgraded voice (the warmup utterance is
+  // silent — no audible glitch).
   if ('speechSynthesis' in window) {
     window.speechSynthesis.getVoices();
-    window.speechSynthesis.onvoiceschanged = () => { /* lazy refresh on demand */ };
+    window.speechSynthesis.onvoiceschanged = () => {
+      window.speechSynthesis.getVoices();
+      // Round 46 — invalidate the voice cache so subsequent pickVoice
+      // calls re-resolve against the now-upgraded voice list. Edge's
+      // "Online (Natural)" neural voices arrive after this event fires;
+      // without cache invalidation, the cache would stick with the
+      // initial SAPI fallback (Zira/David/Mark) for the rest of the
+      // session.
+      _voiceCache.clear();
+      _ttsWarmedUp = false;
+      try {
+        console.info(
+          `[TTS] voices changed; cache cleared; voices=` +
+          (window.speechSynthesis.getVoices() || []).length
+        );
+      } catch (_) {}
+    };
   }
 
   // ====================================================================
@@ -1164,6 +1372,15 @@
       }
       refreshGenderBtn();
 
+      // Round 39 — same mirror pattern for the persistent slow toggle.
+      // If the teacher enabled slow mode earlier (e.g. on the previous
+      // card before this row was injected by lazy scroll), this fresh
+      // button must visibly show the active state from first render.
+      btnSlow.classList.toggle('active', _userPreferredSlow);
+      btnSlow.title = _userPreferredSlow
+        ? 'Slow mode: ON (0.72×) — click for normal speed / 慢速模式：开'
+        : 'Slow mode: OFF (0.85×) — click for slow speed / 慢速模式：关';
+
       // A2 2026: switched from speakText (no karaoke) to speakElement
       // (word-by-word karaoke highlight). speakElement wraps each word
       // of `box` in a <span> while preserving existing <strong>/<em>
@@ -1172,7 +1389,25 @@
       // share state with the speaking text.
       btnUK.onclick     = () => ns.speakElement(box, 'en-GB', DEFAULT_RATE, row);
       btnUS.onclick     = () => ns.speakElement(box, 'en-US', DEFAULT_RATE, row);
-      btnSlow.onclick   = () => ns.replaySentence(row, /* slow= */ true);
+      // Round 39 — 🐢 is now a STICKY GLOBAL TOGGLE, not a one-shot replay.
+      // Flipping it broadcasts the new state to every visible slow button
+      // on the page so all cards show the same on/off indicator. Title
+      // attribute updates to make the current state explicit. If a sentence
+      // is already loaded on this row, replay it so the teacher hears the
+      // new rate immediately.
+      btnSlow.onclick   = () => {
+        _userPreferredSlow = !_userPreferredSlow;
+        document.querySelectorAll('.tts-btn.slow').forEach(b => {
+          b.classList.toggle('active', _userPreferredSlow);
+          b.title = _userPreferredSlow
+            ? 'Slow mode: ON (0.72×) — click for normal speed / 慢速模式：开'
+            : 'Slow mode: OFF (0.85×) — click for slow speed / 慢速模式：关';
+        });
+        const st = getRowState(row);
+        if (st && st.sentences && st.sentences.length) {
+          ns.replaySentence(row, /* slow= */ false);
+        }
+      };
       btnPrev.onclick   = () => ns.prevSentence(row);
       btnReplay.onclick = () => ns.replaySentence(row, /* slow= */ false);
       btnNext.onclick   = () => ns.nextSentence(row);
@@ -1198,37 +1433,38 @@
         }
       };
 
-      // Find the heading (h1-h4) immediately preceding this .model-box in
-      // the .card. Walk back through siblings until we hit one or run out.
-      let heading = box.previousElementSibling;
-      while (heading && !/^H[1-6]$/.test(heading.tagName)) {
-        heading = heading.previousElementSibling;
-      }
-
-      if (heading) {
-        // Wrap heading + listen-row in a flex container so the row sits at
-        // the bottom-right of the heading area (right above the .model-box),
-        // regardless of whether the heading wraps to 1 or N lines.
-        const wrapper = document.createElement('div');
-        wrapper.className = 'listen-row-wrapper';
-        card.insertBefore(wrapper, heading);
-        wrapper.appendChild(heading);
-        wrapper.appendChild(row);
-      } else {
-        // No heading — fall back to inserting just before the .model-box.
-        box.parentElement.insertBefore(row, box);
-      }
+      // Round 49d — insert the listen-row as a direct child of the .card.
+      // CSS (`.card > .listen-row`) positions it absolutely in the card's
+      // top-right corner, so it occupies ZERO vertical space. Previously the
+      // row was flex-wrapped together with the section heading inside a
+      // `.listen-row-wrapper`; on cards with a long section title (e.g. IGCSE
+      // Section 6 "Circuit Prompt & Model Answer") the wrapper squeezed the
+      // heading, forcing the title onto a 2nd line — the extra height pushed
+      // page-4's bottom banner off the page. Absolute positioning keeps the
+      // buttons in the available top-right space with no layout reflow.
+      card.insertBefore(row, card.firstChild);
     });
   }
 
   function attachWordClicks() {
-    document.querySelectorAll('.vocab-table strong, .model-box strong').forEach((el) => {
+    // Round 51 — `.sec-2 .item-text strong` added so IGCSE Section 2
+    // (Weekly Pronunciation Point) example words are click-to-hear, the
+    // same as vocab-table / model-box words. (`.sec-2` is IGCSE-only, so
+    // this selector is a harmless no-op in the IELTS build.)
+    document.querySelectorAll('.vocab-table strong, .model-box strong, .sec-2 .item-text strong').forEach((el) => {
+      // Round 42 — idempotency guard. attachWordClicks is currently called
+      // once from __init() on DOMContentLoaded, but any future code that
+      // re-runs __init (dynamically inserted content, hot reload, etc.)
+      // would otherwise double-bind every <strong> and the click would
+      // fire speakText N times in a row.
+      if (el.dataset.wordClickBound === '1') return;
       // Skip <strong> inside any Chinese-gloss ancestor.
       let p = el.parentElement;
       while (p) { if (isChineseGloss(p)) return; p = p.parentElement; }
       // Skip <strong> inside the listen-row buttons or marker badges.
       if (el.closest('.listen-row') || el.closest('.badge-ore')) return;
 
+      el.dataset.wordClickBound = '1';
       el.addEventListener('click', (ev) => {
         ev.stopPropagation();
         // Strip any inline CJK gloss like "accomplished (有造诣的 / 成功的)" → "accomplished"
@@ -1304,12 +1540,19 @@
   // Voice recorder — feature-flagged by .voice-recorder-container presence
   // in DOM. Records via MediaRecorder, persists Blob to IndexedDB keyed by
   // lesson, supports record/pause/resume/stop/play/re-record with a 3-min
-  // hard cap. The IELTS DB name is "ielts-recordings"; the IGCSE port uses
-  // "igcse-recordings" — different DBs so the two courses can coexist on
-  // the same browser origin without colliding.
+  // hard cap. Round 42 (2026-05-12): the DB name is now hostname-driven
+  // so the IGCSE site uses "igcse-recordings" and the IELTS site uses
+  // "ielts-recordings". Previously a single hardcoded constant in this
+  // mirrored file gave both sites the same DB name; harmless across the
+  // two production origins (per-origin IndexedDB) but broke if both
+  // sites were ever loaded from the same local origin during dev/testing.
+  // Falls through to "ielts-recordings" for local file:// or unknown hosts,
+  // preserving the legacy default.
   // ====================================================================
 
-  const VR_DB_NAME    = 'ielts-recordings';
+  const VR_DB_NAME    = /igcse/i.test(window.location.hostname || '')
+                          ? 'igcse-recordings'
+                          : 'ielts-recordings';
   const VR_STORE      = 'recordings';
   const VR_MAX_MS     = 3 * 60 * 1000;
 
@@ -1324,6 +1567,12 @@
   let _vrTimerId       = 0;
   let _vrStream        = null;
   let _activeContainer = null;
+  // Round 42 — handle on the previous recorder's onstop so a re-entrant
+  // vrStart() can await the prior save fully before overwriting the
+  // shared chunk/timing globals. Without this, a fast tap on widget B
+  // while widget A is still recording could race the new vrStart against
+  // A's onstop, losing A's blob to an empty _vrChunks array.
+  let _vrStopPromise   = null;
 
   // Per-container blob URL for playback (keep separate per widget so
   // pressing ▶ on Q1 plays Q1's recording, not whichever was last loaded).
@@ -1428,24 +1677,37 @@
   // currently-active container's existing key (which the upcoming put() will
   // overwrite anyway — no point evicting it just to write it).
   async function vrEvictIfNeeded(db, exemptKey) {
-    let entries = await vrListEntriesByAge(db);
+    const allEntries = await vrListEntriesByAge(db);
+    // Round 42 — pre-filter out the just-recorded entry instead of using
+    // `continue` to skip it inside the loop. Previously, when the exempt
+    // entry was among the oldest, `entries.shift()` already removed it from
+    // the in-memory array before `continue` ran, so `entries.length` could
+    // drop below cap while the exempt entry stayed in IndexedDB — using up
+    // a slot that should have been evicted from elsewhere. Filtering up
+    // front keeps the slot accounting correct.
+    const candidates = allEntries.filter(e => e.key !== exemptKey);
+    // remaining = total entries currently on disk (exempt + candidates).
+    // We evict candidates until remaining drops to / below the cap.
+    let remaining = allEntries.length;
     let evicted = 0;
 
     // Pass 1 — hard count cap.
-    while (entries.length > VR_MAX_RECORDINGS) {
-      const oldest = entries.shift();
-      if (oldest.key === exemptKey) continue;
+    while (remaining > VR_MAX_RECORDINGS && candidates.length > 0) {
+      const oldest = candidates.shift();
       await vrDeleteByKey(db, oldest.key);
       evicted++;
+      remaining--;
     }
 
     // Pass 2 — soft quota cap (only if API tells us we're tight).
+    // Stop with at least the exempt + 1 candidate so the user keeps SOME
+    // history rather than scorching the whole DB on a tight-quota device.
     let ratio = await vrQuotaUsageRatio();
-    while (ratio !== null && ratio > (1 - VR_QUOTA_HEADROOM) && entries.length > 1) {
-      const oldest = entries.shift();
-      if (oldest.key === exemptKey) continue;
+    while (ratio !== null && ratio > (1 - VR_QUOTA_HEADROOM) && candidates.length > 0 && remaining > 1) {
+      const oldest = candidates.shift();
       await vrDeleteByKey(db, oldest.key);
       evicted++;
+      remaining--;
       ratio = await vrQuotaUsageRatio();
     }
 
@@ -1551,11 +1813,21 @@
   }
 
   async function vrStart(container) {
-    // If another widget is recording, stop it first so we don't get two
-    // active MediaRecorder instances (the browser only allows one anyway).
+    // If another widget is recording, stop it first AND wait for its
+    // onstop to fully drain. Round 42: previously vrStart reassigned
+    // _vrChunks / _vrStartedAt / _vrPausedTotal immediately after .stop(),
+    // racing against the previous recorder's async onstop (which reads
+    // those same globals to build its Blob). The result was a lost blob
+    // or chunks mixed across recordings. The promise below is set inside
+    // the onstop wrapper farther down and resolves only after the prior
+    // recording is fully saved.
     if (_activeContainer && _activeContainer !== container && _vrMediaRecorder
         && _vrMediaRecorder.state !== 'inactive') {
       _vrMediaRecorder.stop();
+      if (_vrStopPromise) {
+        try { await _vrStopPromise; }
+        catch (e) { /* prior save errored; we still want to start the new one */ }
+      }
     }
     try {
       _vrStream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -1572,26 +1844,36 @@
     _vrPausedAt = 0;
     _vrMediaRecorder = new MediaRecorder(_vrStream);
     _vrMediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) _vrChunks.push(e.data); };
-    _vrMediaRecorder.onstop = async () => {
-      const blob = new Blob(_vrChunks, { type: _vrMediaRecorder.mimeType || 'audio/webm' });
-      const elapsed = Date.now() - _vrStartedAt - _vrPausedTotal;
-      // Round 22 (2026-05-03): show explicit save-confirmation toast.
-      // Previously the save was silent; users couldn't tell whether ⏹
-      // had actually persisted the recording before they navigated away.
-      let saved = false;
-      try {
-        await vrSaveBlob(container, blob, elapsed);
-        saved = true;
-      } catch (e) {
-        console.error('vrSave', e);
-        _showEmailToast('⚠ Save failed — check browser storage', 3500);
-      }
-      if (saved) _showEmailToast('Recording saved ✓', 1800);
-      if (_vrStream) { _vrStream.getTracks().forEach(t => t.stop()); _vrStream = null; }
-      clearInterval(_vrTimerId); _vrTimerId = 0;
-      _activeContainer = null;
-      vrLoadIntoUi(container);
-    };
+    // Round 42 — wrap onstop in a Promise so the next vrStart() can await
+    // the prior save's completion. The Promise resolves in a `finally` so
+    // even a save failure unblocks the next recording start (we'd rather
+    // surface the toast and let the user continue than deadlock the UI).
+    _vrStopPromise = new Promise((resolve) => {
+      _vrMediaRecorder.onstop = async () => {
+        try {
+          const blob = new Blob(_vrChunks, { type: _vrMediaRecorder.mimeType || 'audio/webm' });
+          const elapsed = Date.now() - _vrStartedAt - _vrPausedTotal;
+          // Round 22 (2026-05-03): show explicit save-confirmation toast.
+          // Previously the save was silent; users couldn't tell whether ⏹
+          // had actually persisted the recording before they navigated away.
+          let saved = false;
+          try {
+            await vrSaveBlob(container, blob, elapsed);
+            saved = true;
+          } catch (e) {
+            console.error('vrSave', e);
+            _showEmailToast('⚠ Save failed — check browser storage', 3500);
+          }
+          if (saved) _showEmailToast('Recording saved ✓', 1800);
+          if (_vrStream) { _vrStream.getTracks().forEach(t => t.stop()); _vrStream = null; }
+          clearInterval(_vrTimerId); _vrTimerId = 0;
+          _activeContainer = null;
+          vrLoadIntoUi(container);
+        } finally {
+          resolve();
+        }
+      };
+    });
     _vrMediaRecorder.start();
     _vrTimerId = setInterval(() => vrUpdateTimer(container), 250);
     vrSetState(container, 'recording');

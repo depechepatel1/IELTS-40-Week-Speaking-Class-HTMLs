@@ -23,6 +23,7 @@ import argparse
 import base64
 import re
 import sys
+import time
 from pathlib import Path
 from typing import Iterable
 
@@ -57,12 +58,49 @@ def _files_to_process(in_path: Path) -> Iterable[Path]:
         yield p
 
 
-# ---------- Insertion 1: CSS block after the `.lines {}` rule ----------
+def _write_text_with_retry(path: Path, text: str, *, max_attempts: int = 5) -> None:
+    """Write `text` to `path`, riding through transient OneDrive sync locks.
 
-LINES_RULE_RE = re.compile(
-    r"(\.lines\s*\{[^}]*\})",
-    re.DOTALL,
-)
+    The repo lives inside a OneDrive folder. When the pipeline writes all
+    40 Interactive/Week_*.html files back-to-back, OneDrive's sync filter
+    driver is still settling a freshly-written file when the next
+    CreateFile arrives — Windows then rejects the open with EINVAL
+    (errno 22) or, less often, EACCES (errno 13). It is a pure race: the
+    same write succeeds in isolation and fails on a different week each
+    run.
+
+    Same retry-with-backoff shape as upload_to_oss.py's put_with_retry —
+    retry only the known-transient errnos, re-raise everything else
+    (ENOENT, ENOSPC, ...) immediately so real bugs still surface.
+    """
+    TRANSIENT_ERRNOS = {22, 13}  # EINVAL, EACCES — OneDrive sync-filter races
+    for attempt in range(max_attempts):
+        try:
+            path.write_text(text, encoding="utf-8", newline="\n")
+            if attempt > 0:
+                print(f"    (write recovered after {attempt + 1} attempts: {path.name})")
+            return
+        except OSError as e:
+            if e.errno not in TRANSIENT_ERRNOS or attempt == max_attempts - 1:
+                raise
+            wait_s = 0.3 * (2 ** attempt)  # 0.3, 0.6, 1.2, 2.4 s
+            print(f"    OneDrive lock on {path.name} (errno {e.errno}), "
+                  f"retrying in {wait_s:.1f}s (attempt {attempt + 1}/{max_attempts})")
+            time.sleep(wait_s)
+
+
+# ---------- Insertion 1: CSS block injected just before </style> ----------
+#
+# Round 43 (2026-05-12) — switched anchor from `.lines { … }` to `</style>`.
+# The previous anchor was a single-brace regex via DOTALL that would
+# silently SkipFile (and drop the entire week from the bake) if anyone
+# added a /* comment */ inside .lines{}, a nested selector, or split the
+# rule across lines. Anchoring on </style> (one per template) is robust
+# to all of those harmless template edits. Side benefit: our injected
+# rules now win source-order cascade ties over the template's defaults,
+# which is what inserted_css.css is intended to do.
+
+STYLE_CLOSE_RE = re.compile(r"(</style>)", re.IGNORECASE)
 
 
 def _load_fonts() -> dict[str, str]:
@@ -98,24 +136,39 @@ def _load_inserted_css(minify: bool = True) -> str:
 def insertion_1_css(html: str, minify: bool = True) -> str:
     css = _load_inserted_css(minify=minify)
     block = f"\n    /* {SENTINEL} CSS */\n    {css}\n"
-    # Capture the matched rule as a closure variable so the replacement is a
-    # plain string concatenation, not a regex template (avoids back-reference
-    # interpretation of `\s` etc. inside the embedded base64 fonts).
-    new_html, count = LINES_RULE_RE.subn(lambda m: m.group(1) + block, html, count=1)
+    # Round 43 — insert the block BEFORE </style> so our CSS lives inside
+    # the existing <style> element. Closure-based replacement avoids
+    # back-reference interpretation of `\s` etc. inside the embedded
+    # base64 fonts (which would otherwise corrupt the data: URLs).
+    new_html, count = STYLE_CLOSE_RE.subn(lambda m: block + m.group(1), html, count=1)
     if count != 1:
-        raise SkipFile("Could not find `.lines { … }` rule for CSS insertion.")
+        raise SkipFile(
+            "Could not find </style> closing tag to anchor CSS insertion. "
+            "Template structure may have changed unexpectedly."
+        )
     return new_html
 
 
 # ---------- Insertion 2: wrap original .lines inside .lines-overlay-host ----------
 
+# Round 43 (2026-05-12) — anchor on <!-- DRAFT_BOX_BEGIN --> and
+# <!-- POLISHED_BOX_BEGIN --> sentinel comments rather than on the literal
+# "<strong>Draft:</strong>" / "<strong>Polished Rewrite:</strong>" text.
+# The sentinel is captured INSIDE group(1) so the substitution callback
+# (which emits group(1) + overlay) preserves it for re-bake idempotency.
 DRAFT_LINES_RE = re.compile(
-    r"(<strong>Draft:</strong>)\s*(<div class=\"lines\"[^>]*></div>)",
-    re.IGNORECASE,
+    r'(<!--\s*DRAFT_BOX_BEGIN\b[^>]*-->\s*'
+    r'<div style="border:1px solid #eee;[^"]*">\s*'
+    r'<strong>[^<]*</strong>)\s*'                     # group 1: sentinel + outer-div + <strong>label
+    r'(<div class="lines"[^>]*></div>)',              # group 2: the lines div
+    re.DOTALL,
 )
 POLISHED_LINES_RE = re.compile(
-    r"(<strong>Polished Rewrite:</strong>)\s*(<div class=\"lines\"[^>]*></div>)",
-    re.IGNORECASE,
+    r'(<!--\s*POLISHED_BOX_BEGIN\b[^>]*-->\s*'
+    r'<div style="border:1px solid #eee;[^"]*">\s*'
+    r'<strong>[^<]*</strong>)\s*'                     # group 1: sentinel + outer-div + <strong>label
+    r'(<div class="lines"[^>]*></div>)',              # group 2: the lines div
+    re.DOTALL,
 )
 
 
@@ -197,7 +250,12 @@ def insertion_3_script(html: str, endpoint: str, bucket_base: str, lesson_key: s
 # Each <div class="spider-leg"> becomes contenteditable so students can
 # type or scribble (iPad Scribble) their own notes in each quadrant.
 SPIDER_LEG_OPEN_RE = re.compile(
-    r'(<div class="spider-leg")(\s|>)',
+    # Round 43 Tier-2 — match any <div> whose class list contains the
+    # word "spider-leg", regardless of attribute order or additional
+    # classes. Captures the full opening tag minus the trailing
+    # whitespace/`>` (which is captured separately so the substitution
+    # can insert the contenteditable attribute between them).
+    r'(<div\s+[^>]*?\bclass="[^"]*\bspider-leg\b[^"]*")(\s|>)',
 )
 # Each <div class="spider-container"> gets a small recorder widget at top-right
 # of the PARENT card (not inside the spider-container itself, since the spider
@@ -207,17 +265,19 @@ SPIDER_LEG_OPEN_RE = re.compile(
 # CSS rule promotes that card to `position: relative` so the recorder anchors
 # to the card's top-right corner.
 SPIDER_CONTAINER_OPEN_RE = re.compile(
-    r'(<div class="spider-container"[^>]*>)',
+    # Round 43 Tier-2 — permissive on attribute order + additional classes.
+    # Matches any <div> whose class list contains "spider-container".
+    r'(<div\s+[^>]*?\bclass="[^"]*\bspider-container\b[^"]*"[^>]*>)',
 )
 
 
 def insertion_4_brainstorming_maps(html: str) -> str:
     """Make spider-legs contenteditable + add a unique recorder per spider-container."""
-    # Idempotency check: look for the actual SPIDER-LEG markup with the
-    # contenteditable attribute applied — NOT just the bare attribute string,
-    # which also occurs inside the injected CSS rule
-    # `.spider-leg[contenteditable="plaintext-only"] { ... }`.
-    if re.search(r'<div class="spider-leg"[^>]*\bcontenteditable\b', html):
+    # Idempotency check: look for a SPIDER-LEG <div> that already has the
+    # contenteditable attribute applied. Round 43 Tier-2 — permissive on
+    # attribute order + additional classes so a re-bake correctly detects
+    # the prior pass regardless of how attributes ended up being ordered.
+    if re.search(r'<div\s+[^>]*?\bclass="[^"]*\bspider-leg\b[^"]*"[^>]*\bcontenteditable\b', html):
         return html
 
     # 1. spider-leg → contenteditable
@@ -262,7 +322,15 @@ def insertion_4_brainstorming_maps(html: str) -> str:
 # Use a non-greedy regex that captures from the QN heading to the next .lines
 # div within the same card.
 Q_WRITE_RE = re.compile(
-    r'(<h3[^>]*>Q(\d+):)(.*?)(<div class="lines"[^>]*></div>)',
+    # Round 43 Tier-2 — permissive Q-prefix matcher. The original anchor
+    # required exactly "Q\d+:" inside an <h3>; harmless author edits like
+    # "Q1." (period), "Q 1:" (space), "Question 1:", or "Q.1:" silently
+    # skipped every question, leaving the recorder + textarea uninjected.
+    # New pattern accepts: Q1: / Q1. / Q1) / Q1- / Q 1: / Q.1: / Question 1:
+    # The digit is still captured (group 2) for the recorder id; the rest
+    # of the prefix string is captured (group 1) and re-emitted verbatim so
+    # visible heading text is unchanged.
+    r'(<h3[^>]*>\s*Q(?:uestion)?\.?\s*(\d+)\s*[:\.\)\-]?)(.*?)(<div class="lines"[^>]*></div>)',
     re.DOTALL,
 )
 
@@ -488,7 +556,7 @@ def main() -> int:
                                  gate_title=args.gate_title,
                                  minify=args.minify)
             out_path = args.dst / orig_path.name
-            out_path.write_text(new_html, encoding="utf-8", newline="\n")
+            _write_text_with_retry(out_path, new_html)
             processed.append(orig_path.name)
         except SkipFile as e:
             skipped.append((orig_path.name, str(e)))
@@ -522,9 +590,16 @@ def main() -> int:
     for n in processed:
         print(f"  [ok] {n}")
     if skipped:
+        # Round 43 — emit to BOTH stdout AND stderr so the failure is
+        # impossible to miss in publish.py's quiet capture-output mode.
+        total = len(processed) + len(skipped)
+        banner = f"[FAIL] {len(skipped)} of {total} weeks SKIPPED — pipeline must NOT proceed to upload"
+        print(banner, file=sys.stderr)
         print(f"Skipped: {len(skipped)}")
         for n, why in skipped:
-            print(f"  [skip] {n} -- {why}")
+            line = f"  [skip] {n} -- {why}"
+            print(line)
+            print(line, file=sys.stderr)
     return 0 if not skipped else 1
 
 

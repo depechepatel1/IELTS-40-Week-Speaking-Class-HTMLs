@@ -196,6 +196,19 @@
 .tts-btn.uk.active { background: #2563eb; color: white; border-color: #1d4ed8; }
 .tts-btn.us.active { background: #dc2626; color: white; border-color: #b91c1c; }
 
+/* Round 39 — persistent slow-mode toggle.
+   OFF state (no .active): the pale purple inactive look from line 183.
+   ON state (.active): solid purple fill + white turtle, mirroring the
+   UK/US active visual style. A subtle box-shadow ring makes the on-state
+   unambiguous from across the room — students should see "slow mode is
+   on" at a glance, not just by reading the title attribute. */
+.tts-btn.slow.active {
+    background: #7c3aed;
+    color: white;
+    border-color: #6d28d9;
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.25);
+}
+
 .tts-btn:disabled, .correct-btn:disabled, .ai-only:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -365,7 +378,13 @@
 .card .listen-row-wrapper > h1,
 .card .listen-row-wrapper > h2,
 .card .listen-row-wrapper > h3,
-.card .listen-row-wrapper > h4 {
+.card .listen-row-wrapper > h4,
+.card .listen-row-wrapper > .section-header-bar {
+    /* Round 49b — IGCSE replaced <h4> section heading with a div
+       `.section-header-bar` (badge + title + time). It plays the same
+       structural role inside .listen-row-wrapper: shrink-to-fit on the
+       left, listen-row pinned to the right via the parent's
+       `justify-content: space-between`. */
     margin: 0 !important;
     flex: 1 1 auto;
     min-width: 0;
@@ -383,6 +402,25 @@
     line-height: 1.3;
     border-radius: 6px;
     border-width: 1px;
+}
+
+/* Round 49d — the listen-row is now absolutely positioned in the card's
+   TOP-RIGHT corner so it adds ZERO vertical space. injectListenButtons()
+   inserts it as a direct .card child (no more `.listen-row-wrapper` flex
+   wrap, which squeezed long section titles onto a 2nd line and pushed
+   page content off the bottom of the page). */
+.card:has(> .listen-row) {
+    position: relative;
+}
+.card > .listen-row {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+}
+/* Reserve right-side space in the section heading so a long title never
+   runs underneath the absolutely-positioned listen-row buttons. */
+.card:has(> .listen-row) .section-header-bar {
+    padding-right: 215px;
 }
 
 /* Sentence-paced transport buttons — Prev / Replay / Next.
@@ -437,12 +475,16 @@
 
 /* Clickable bolded words in vocab tables and model boxes. */
 .vocab-table strong,
-.model-box strong {
+.model-box strong,
+.sec-2 .item-text strong {
+    /* Round 51 — IGCSE Section 2 (Weekly Pronunciation Point) example
+       words are now click-to-hear, same as the vocab-table words. */
     cursor: pointer;
     border-bottom: 1px dotted #2c3e50;
 }
 .vocab-table strong:hover,
-.model-box strong:hover {
+.model-box strong:hover,
+.sec-2 .item-text strong:hover {
     background: #fff9c4;
 }
 
@@ -729,7 +771,38 @@
    so the banner sits close to the previous card with predictable
    spacing rather than auto-stretching the layout. */
 img[src*="course_pipeline"] {
-    margin-top: 8px !important;
+    margin-top: 0 !important;
+}
+
+/* Round 38 (2026-05-07) — Hide the redundant <hr>-based writing-lines-
+   container in the IGCSE Interactive layer. The HTML carries this
+   element for PDF print mode (where the textarea is hidden and
+   students hand-write on visible <hr> lines), but in interactive
+   view the textarea's own background-gradient already provides the
+   ruled lines, so the <hr>s render as a SECOND set of lines stacked
+   inside the green box — visible to the student as a duplicate
+   layer. The hide rule existed in canonical/interactive/Week_01.html
+   but never reached the live site because generate_course.py builds
+   from template.html, which doesn't carry that <style> block.
+   Putting it in inserted_css.css ensures every Interactive Week_*.html
+   gets the rule via make_interactive.py's CSS injection. */
+.lines-overlay-host > .writing-lines-container {
+    display: none !important;
+}
+
+/* Round 38 — Also remove the placeholder text + writing-line gradient
+   on the empty polished-output box. The bilingual placeholder
+   "AI 修改后的版本会显示在这里 / The AI-corrected version will appear
+   here." inside `.writing-output.empty::before` looked like a duplicate
+   message inside Section 8's green box, and the repeating-linear-
+   gradient background made it appear as a second set of lines. The
+   box stays present (still receives AI-corrected text on success);
+   just no visible content while empty. */
+.writing-output.empty {
+    background: none !important;
+}
+.writing-output.empty::before {
+    content: none !important;
 }
 
 @media print {

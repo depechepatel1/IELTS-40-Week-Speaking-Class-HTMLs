@@ -184,6 +184,60 @@
   footer a { color: var(--accent-color); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
 
+  /* === iPad / iOS one-time hint: "install Enhanced voices" === */
+  /* Round 40 — shown ONLY when (a) device is iOS, (b) no Premium/Enhanced
+     voice is already installed, and (c) the user hasn't dismissed it.
+     Hidden by default; the inline script at end-of-body reveals it. */
+  #ios-voice-hint {
+    max-width: 1140px;
+    margin: 0 auto 28px auto;
+    background: #e8f8f5;
+    border-left: 5px solid #1abc9c;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-card);
+    display: none;
+  }
+  #ios-voice-hint.is-visible { display: block; }
+  .ios-hint-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 24px;
+  }
+  .ios-hint-icon {
+    font-size: 2em;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .ios-hint-text { flex: 1; min-width: 0; }
+  .ios-hint-text strong {
+    color: #16a085;
+    font-size: 1em;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .ios-hint-text p {
+    margin: 4px 0;
+    color: var(--primary-color);
+    font-size: 0.92em;
+    line-height: 1.45;
+  }
+  .ios-hint-text p.cn {
+    color: #7f8c8d;
+    font-size: 0.88em;
+  }
+  #ios-voice-hint-dismiss {
+    background: transparent;
+    border: none;
+    font-size: 1.6em;
+    color: #7f8c8d;
+    cursor: pointer;
+    padding: 0 8px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  #ios-voice-hint-dismiss:hover { color: #16a085; }
+
   /* === Responsive === */
   @media (max-width: 720px) {
     body { padding: 20px 14px 40px; }
@@ -212,6 +266,30 @@
     storage erases them. Email yourself the zip after each session.
   </div>
 </header>
+
+<!-- Round 40 — one-time iPad / iOS voice-quality hint. Hidden by default;
+     the script at end-of-body reveals it only when the device is iOS,
+     no Enhanced/Premium voice is installed, and the user hasn't
+     dismissed it before. -->
+<aside id="ios-voice-hint" role="status" aria-live="polite">
+  <div class="ios-hint-content">
+    <div class="ios-hint-icon" aria-hidden="true">🐢</div>
+    <div class="ios-hint-text">
+      <strong>iPad users — install Enhanced voices for natural speech</strong>
+      <p>For the best speaking-practice experience on iPad, install a
+      higher-quality English voice: <em>Settings → Accessibility →
+      Spoken Content → Voices → English</em>. Tap a voice with a
+      download arrow (Ava, Daniel, Serena are excellent). Free,
+      ~50&nbsp;MB. Every lesson page will automatically use the new
+      voice once it's downloaded.</p>
+      <p class="cn">iPad 用户 — 为获得更自然的英语朗读，请在
+      <em>设置 → 辅助功能 → 朗读内容 → 语音 → 英语</em>
+      中下载带箭头的高品质语音（如 Ava、Daniel、Serena）。免费，约 50&nbsp;MB。</p>
+    </div>
+    <button id="ios-voice-hint-dismiss" type="button"
+            aria-label="Dismiss this notice / 关闭此提示">&times;</button>
+  </div>
+</aside>
 
 <main class="weeks" aria-label="Lesson list">
   <a class="week-card" href="https://ielts.aischool.studio/Week_01.html">
@@ -419,6 +497,60 @@
 <footer>
   Hosted on Aliyun OSS · 40 weeks · Last updated automatically by build_landing_page.py
 </footer>
+
+<script>
+  // Round 40 — iPad / iOS one-time voice-quality hint.
+  // Show only if (a) device is iOS / iPadOS, (b) the Web Speech API
+  // is present but no Premium/Enhanced/Siri voice is installed, and
+  // (c) the user has not dismissed the hint in a previous visit.
+  (function () {
+    function isIOS() {
+      var ua = navigator.userAgent || '';
+      if (/iPhone|iPod|iPad/.test(ua)) return true;
+      // iPadOS 13+ masquerades as MacIntel; the touch-points check is
+      // the only reliable way to tell it apart from a desktop Mac.
+      return navigator.platform === 'MacIntel'
+          && (navigator.maxTouchPoints || 0) > 1;
+    }
+    if (!isIOS()) return;
+    if (!('speechSynthesis' in window)) return;
+
+    var STORAGE_KEY = 'aischool:ios-voice-hint-seen';
+    try {
+      if (localStorage.getItem(STORAGE_KEY) === '1') return;
+    } catch (e) { /* private mode — proceed and just won't persist dismiss */ }
+
+    var banner  = document.getElementById('ios-voice-hint');
+    var dismiss = document.getElementById('ios-voice-hint-dismiss');
+    if (!banner || !dismiss) return;
+
+    function hasHighQualityVoice() {
+      var voices = window.speechSynthesis.getVoices() || [];
+      return voices.some(function (v) {
+        var tag = (v.name || '') + ' ' + (v.voiceURI || '');
+        return /Premium|Enhanced|Siri/i.test(tag);
+      });
+    }
+
+    function reveal() {
+      if (hasHighQualityVoice()) return;   // user already installed one — silent
+      banner.classList.add('is-visible');
+    }
+
+    // iOS Safari populates voices asynchronously. Try once now in case
+    // they're already cached, then again on the voiceschanged event.
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.addEventListener('voiceschanged', reveal);
+    // Defensive: also try after a short delay in case voiceschanged
+    // never fires (some WebKit builds skip it when voices are local-only).
+    setTimeout(reveal, 700);
+
+    dismiss.addEventListener('click', function () {
+      banner.classList.remove('is-visible');
+      try { localStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
+    });
+  })();
+</script>
 
 </body>
 </html>

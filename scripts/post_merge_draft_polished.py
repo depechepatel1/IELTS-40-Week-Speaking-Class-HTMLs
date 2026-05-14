@@ -77,10 +77,17 @@ BANNER_NEW = "Writing Homework: AI corrected"
 # The combined replacement keeps the same outer styling but uses ONE box
 # with one `.lines` div (which fills the flex space => bigger writing area).
 DRAFT_POLISHED_RE = re.compile(
+    # Round 43 (2026-05-12) — allow optional <!-- … --> comments BEFORE
+    # the Draft block AND between Draft and Polished blocks. This is so
+    # the sentinel anchors DRAFT_BOX_BEGIN and POLISHED_BOX_BEGIN
+    # (added in canonical/pdf-base/Week_01.html to harden make_interactive
+    # against title-text edits) don't break this post-merge match.
+    r'(?:<!--[^>]*-->\s*)?'                           # optional DRAFT_BOX_BEGIN
     r'<div style="border:1px solid #eee;[^"]*">\s*'
     r'<strong>Draft:</strong>\s*'
     r'<div class="lines"[^>]*></div>\s*'
     r'</div>\s*'
+    r'(?:<!--[^>]*-->\s*)?'                           # optional POLISHED_BOX_BEGIN
     r'<div style="border:1px solid #eee;[^"]*">\s*'
     r'<strong>Polished Rewrite:</strong>\s*'
     r'<div class="lines"[^>]*></div>\s*'

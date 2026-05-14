@@ -160,7 +160,7 @@
         height: 296mm;
         background: white;
         margin: 20px auto;
-        padding: 10mm;
+        padding: 5mm;
         box-sizing: border-box;
         position: relative;
         overflow: hidden;
@@ -366,7 +366,7 @@
         background: #fafafa;
         border-left: 5px solid #555;
         padding: 12px;
-        border-radius: 0 8px 8px 0;
+        border-radius: 8px;
         font-size: 0.9em;
         line-height: 1.6;
         text-align: justify;
@@ -562,12 +562,12 @@
         margin: 0;
     }
     .cover-page {
-        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important; 
+        background: url('https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg') no-repeat center center !important;
         background-size: cover !important;
         position: relative;
         width: 210mm; /* A4 Width */
         height: 296mm; /* A4 Height */
-        color: black; 
+        color: black;
         padding: 0 !important;
         display: flex;
         flex-direction: column;
@@ -575,6 +575,26 @@
         align-items: flex-end; /* Text at right */
         text-align: right;
         padding-bottom: 2cm !important; /* Spacing from bottom */
+        overflow: hidden; /* Belt-and-braces: clip any 1-px video bleed */
+    }
+    /* Round 48 — animated webm overlay on the cover. The JPG above
+       remains the print background AND the slow-network fallback (via
+       the <video poster=...> attribute on the element). */
+    .cover-video {
+        display: none; /* Round 49d — PDF base shows the static jpg cover; only body.is-interactive plays the video. */
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: fill; /* Stretch to A4 portrait — accepts ~10% horizontal squeeze (see plan R48) */
+        z-index: 0;
+        pointer-events: none;
+    }
+    body.is-interactive .cover-video {
+        display: block; /* Round 49d — only the Interactive layer shows the animated cover. */
+    }
+    @media print {
+        .cover-video { display: none !important; }
     }
     .cover-content {
         margin-right: 2cm;
@@ -582,6 +602,8 @@
         flex-direction: column;
         align-items: flex-end;
         gap: 0px; /* Compact lines */
+        position: relative; /* Stacking context for z-index */
+        z-index: 1;         /* Keep cover text above .cover-video */
     }
     /* ============================================================
        Round 15 2026 — Times New Roman cover typography (1px halo).
@@ -650,6 +672,7 @@
         letter-spacing: 1px;
         text-transform: uppercase;
         opacity: 1;
+        z-index: 1; /* Round 48: keep above .cover-video */
     }
     /* Hide default elements we don't need */
     .cover-box { display: none; }
@@ -658,7 +681,7 @@
 <!-- =========================================
          PAGE 1: COVER PAGE
          ========================================= -->
-<div class="page cover-page"><div class="cover-content"><div class="cover-top-label">IELTS Speaking Course</div><h1 class="cover-week">WEEK 15</h1><h2 class="cover-title-large">Items</h2><div class="cover-subtitle">Books and Stories</div></div><div class="cover-footer"></div></div>
+<div class="page cover-page"><video autoplay="" class="cover-video" loop="" muted="" playsinline="" poster="https://res.cloudinary.com/daujjfaqg/image/upload/v1771567490/Textbook_Cover_usinxj.jpg" preload="auto"><source src="https://ielts.aischool.studio/videos/cover_spinning.webm" type="video/webm"/></video><div class="cover-content"><div class="cover-top-label">IELTS Speaking Course</div><h1 class="cover-week">WEEK 15</h1><h2 class="cover-title-large">Items</h2><div class="cover-subtitle">Books and Stories</div></div><div class="cover-footer"></div></div>
 <!-- =========================================
          PAGE 2: BLANK PAGE (For Collation)
          ========================================= -->
@@ -1021,7 +1044,7 @@
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
 <h3>Q4: When was the last time that you felt proud of yourself?</h3>
 <div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">To be specific,</span> I felt incredibly proud last month when I helped bridge a <strong>generation gap (代沟)</strong> between my grandfather and me.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">This was significant because,</span> younger people and older relatives often struggle to comprehend (理解) each other. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">As an illustration,</span> I taught him how to use a smartphone, which greatly improved our daily conversations.</div>
-<div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
+<div style="margin-top:5px; border-top:1px dashed transparent; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
 <ul class="scaffold-text"><li>Finished tough project</li><li>Required late nights</li><li>School science fair</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
@@ -1034,7 +1057,7 @@
 <div class="card compact" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
 <h3>Q5: How does family pride contribute to the stability of a society?</h3>
 <div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">It is widely acknowledged that,</span> family pride creates a strong foundation, which ultimately leads to a more stable community.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">The core reason is that,</span> people naturally want to protect and support their own <strong>flesh and blood (骨肉 / 亲人)</strong>. <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">For instance,</span> families that respect each other are far less likely to commit crimes (犯罪) in public areas.</div>
-<div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
+<div style="margin-top:5px; border-top:1px dashed transparent; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
 <ul class="scaffold-text"><li>Encourages mutual support</li><li>Reduces poverty levels</li><li>Sharing financial burdens</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
@@ -1047,7 +1070,7 @@
 <div class="card compact q-tall" style="flex:1; display:flex; flex-direction:column; min-height:0; margin-bottom:0; overflow:visible;">
 <h3>Q6: Do you think the definition of "success" within families has changed between the past and the present?</h3>
 <div class="model-box"><span class="badge-ore bg-o">Op</span> <mark class="highlight-3clause"><span class="highlight-transition">Undeniably,</span> the definition of success has evolved (演变), as modern families value personal happiness over just financial wealth.</mark> <span class="badge-ore bg-r">Re</span> <span class="highlight-transition">In the past,</span> success simply meant being the main <strong>breadwinner (养家糊口的人)</strong> to provide basic necessities (必需品). <span class="badge-ore bg-e">Ex</span> <span class="highlight-transition">Today, however,</span> achieving a healthy work-life balance and pursuing individual passions are seen as equally important.</div>
-<div style="margin-top:5px; border-top:1px dashed #ccc; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
+<div style="margin-top:5px; border-top:1px dashed transparent; padding:8px; border-radius:8px; background:var(--bg-pastel-green); flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; position:relative;">
 <ul class="scaffold-text"><li>Yes significantly shifted</li><li>More dual incomes</li><li>Mothers working globally</li></ul>
 <span class="write-prompt" style="position:absolute; top:3px; right:5px; font-size:0.7em; background:transparent;">Your Bullet Point Notes:</span>
 <div class="lines" style="height:100%;"></div>
@@ -1075,7 +1098,7 @@
 <thead>
 <tr><th>Word</th><th>Chinese</th><th>Synonym</th></tr>
 </thead>
-<tbody><tr><td>1. Classic</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) B. Inspiring</td></tr><tr><td>2. Memorable</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) D. Instructive</td></tr><tr><td>3. Thought-provoking</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) A. Unforgettable</td></tr><tr><td>4. Captivating</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) E. Traditional</td></tr><tr><td>5. Educational</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) C. Fascinating</td></tr></tbody>
+<tbody><tr><td>1. Classic</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) A. Unforgettable</td></tr><tr><td>2. Memorable</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) C. Fascinating</td></tr><tr><td>3. Thought-provoking</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) D. Instructive</td></tr><tr><td>4. Captivating</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) B. Inspiring</td></tr><tr><td>5. Educational</td><td style="border-bottom:1px solid #eee;"></td><td>(       ) E. Traditional</td></tr></tbody>
 </table>
 </div>
 <!-- Grammar -->
