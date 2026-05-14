@@ -81,6 +81,49 @@ def _step(label: str, cmd: list, *, quiet: bool, cwd: Path = REPO) -> None:
     print(f"\n[ok] done in {elapsed:.1f}s")
 
 
+def _commit_and_push(*, quiet: bool) -> None:
+    """Round 52 — post-publish guardrail: commit the just-published state
+    and push it, so git history + GitHub never drift behind what's live
+    (before Round 51 the repo had ~13 rounds of uncommitted, already-live
+    work). Runs AFTER the fan-out, so it captures the regenerated
+    Week_*.html / Interactive/Week_*.html output — the actual deployed
+    bytes. `.claude/` is excluded: machine-local tooling, and it holds an
+    embedded worktree git repo. Commit is skipped when the tree is already
+    clean. Push failure is a loud WARNING, not fatal — the deploy already
+    succeeded and the local commit is the safety net; the next publish
+    retries the push.
+    """
+    print(f"\n{'-' * 60}")
+    print(f">> Post-publish: commit + push (keeps git + GitHub in sync with live)")
+    print(f"{'-' * 60}")
+    try:
+        # Stage everything, then unstage machine-local tooling.
+        subprocess.run(["git", "add", "-A"], cwd=str(REPO), check=True)
+        subprocess.run(["git", "reset", "-q", "--", ".claude"], cwd=str(REPO))
+        has_staged = subprocess.run(
+            ["git", "diff", "--cached", "--quiet"], cwd=str(REPO)
+        ).returncode != 0
+        if has_staged:
+            stamp = time.strftime("%Y-%m-%d %H:%M")
+            msg = f"Publish fan-out — regenerated output ({stamp})"
+            subprocess.run(["git", "commit", "-m", msg], cwd=str(REPO), check=True)
+            print(f"  committed: {msg}")
+        else:
+            print("  working tree clean — nothing new to commit")
+        push = subprocess.run(
+            ["git", "push"], cwd=str(REPO), capture_output=True, text=True
+        )
+        if push.returncode == 0:
+            print("  pushed to origin")
+        else:
+            print("  [WARN] git push failed (NON-FATAL — the local commit is the "
+                  "safety net; the next publish will retry the push):")
+            for line in (push.stderr or push.stdout or "").strip().splitlines():
+                print(f"    {line}")
+    except Exception as e:
+        print(f"  [WARN] commit/push step error (non-fatal): {type(e).__name__}: {e}")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -93,6 +136,18 @@ def main() -> int:
     print(f"\n{'=' * 60}")
     print(f"  IELTS PUBLISH — full deploy to {BUCKET_BASE}")
     print(f"{'=' * 60}")
+
+    # Round 52 — friendly notice if the tree is dirty going in. The
+    # post-publish commit+push step captures everything regardless, but a
+    # descriptive source commit BEFORE publishing keeps history readable.
+    _dirty = subprocess.run(["git", "status", "--porcelain"], cwd=str(REPO),
+                            capture_output=True, text=True)
+    _dirty_lines = [ln for ln in _dirty.stdout.splitlines()
+                    if ln.strip() and ".claude/" not in ln]
+    if _dirty_lines:
+        print(f"\n  note: {len(_dirty_lines)} uncommitted change(s) present — they'll be")
+        print(f"        captured by the post-publish commit+push step. For cleaner")
+        print(f"        history, commit source changes with a descriptive message first.")
 
     if not args.skip_fanout:
         # 0. Preflight: validate homework_plan.json shape (warn-only).
@@ -187,6 +242,10 @@ def main() -> int:
     )
     if drift_result.returncode != 0:
         print(f"  (non-fatal: drift check returned {drift_result.returncode})")
+
+    # Round 52 — commit + push the just-published state (git stays in sync
+    # with live; see CLAUDE.md "Commit & publish discipline").
+    _commit_and_push(quiet=args.quiet)
 
     print(f"\n{'=' * 60}")
     print(f"  PUBLISH COMPLETE — students can hit {BUCKET_BASE}/")

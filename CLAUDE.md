@@ -205,6 +205,16 @@ cmd //c "mklink /J node_modules D:\\aischool-fc-node_modules"
 - **Don't edit root-level `Week_NN.html` files directly** (they get overwritten on next fan-out). Edit canonical instead.
 - **Work in small, testable steps**. Verify Week 1 visually before fan-out.
 
+## Commit & publish discipline (Round 52 — 2026-05-14)
+
+Git history and GitHub must never drift behind what's live. (Before Round 51 this repo had ~13 rounds of uncommitted, already-published work.)
+
+- **Never publish a state you haven't committed.** Commit before running `scripts/publish.py`.
+- **At the end of each round, and at each implementation-plan checkpoint**: commit the work with a descriptive message (`Round NN: <what changed>`) **and push** (`git push`). This is automatic — don't wait to be asked.
+- `scripts/publish.py` enforces a backstop: after the fan-out it auto-commits the regenerated output (generic `Publish fan-out — …` message) and auto-pushes. So git == live even if a descriptive source commit was missed — but make the descriptive **source** commit first so history stays readable.
+- **Exclude `.claude/` from commits** — machine-local tooling; it also contains an embedded worktree git repo that must never be staged.
+- Pushes go to the repo's current branch (currently `feat/brainstorming-q-recorders` — merge to `main` when that feature line is done).
+
 ## Bug-fix preference (user-stated 2026-05-03)
 
 When a bug is found, scan the code carefully and identify the **root cause in the source** — fix it there. Do NOT apply a patch on top of the symptom. This codebase will be handed off to a developer; clean source fixes are easier to identify and work with than layered patches.
