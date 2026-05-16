@@ -512,10 +512,20 @@ def insertion_6_body_class(html: str) -> str:
 # the interactive HTML are unaffected. Same single clip per page slot,
 # reused across all 40 weeks (same hosting/caching model as Round 48's
 # cover_spinning.webm). Videos live at https://ielts.aischool.studio/videos/.
+#
+# Page numbering: the user's reference treats the COVER as page 1. The cover
+# in this codebase is `<div class="page cover-page">` and has no internal
+# `<div class="page-number">` div. The first `<div class="page-number">1</div>`
+# corresponds to the user's page 2. So:
+#   user's page 2 -> page-number "1" -> video1
+#   user's page 3 -> page-number "2" -> video3
+#   user's page 5 -> page-number "4" -> video2
+# This map's keys are the page-number div text values (NOT the user's
+# page numbers).
 _PAGE_VIDEO_PATH_BY_PAGE_NUMBER = {
-    "2": "videos/video1.mp4",
-    "3": "videos/video3.mp4",
-    "5": "videos/video2.mp4",
+    "1": "videos/video1.mp4",
+    "2": "videos/video3.mp4",
+    "4": "videos/video2.mp4",
 }
 
 _PAGE_BOTTOM_VIDEO_CSS = (
