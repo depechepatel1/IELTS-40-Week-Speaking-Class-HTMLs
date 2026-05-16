@@ -65,14 +65,15 @@
         ? 'Slow mode: ON (0.72×) — click for normal speed / 慢速模式：开'
         : 'Slow mode: OFF (0.85×) — click for slow speed / 慢速模式：关';
 
-      // A2 2026: switched from speakText (no karaoke) to speakElement
-      // (word-by-word karaoke highlight). speakElement wraps each word
-      // of `box` in a <span> while preserving existing <strong>/<em>
-      // markup, skipping Chinese gloss subtrees. The 4th arg pins the
-      // WeakMap state to `row` so prev/next/replay/slow buttons below
-      // share state with the speaking text.
-      btnUK.onclick     = () => ns.speakElement(box, 'en-GB', DEFAULT_RATE, row);
-      btnUS.onclick     = () => ns.speakElement(box, 'en-US', DEFAULT_RATE, row);
+      // Round 55 (2026-05-17): UK / US accent buttons are now selector-only.
+      // Previously they called speakElement which both set _prefs.lang AND
+      // started playback. Per user feedback the accent picker should
+      // configure the next playback, not trigger one. setActiveAccent
+      // updates the .active class on this row's buttons so the choice is
+      // visible; _prefs.lang is the global preference read by every
+      // subsequent speakElement / speakText / replaySentence call.
+      btnUK.onclick = () => { _prefs.lang = 'en-GB'; setActiveAccent(row, 'en-GB'); };
+      btnUS.onclick = () => { _prefs.lang = 'en-US'; setActiveAccent(row, 'en-US'); };
       // Round 39 — 🐢 is now a STICKY GLOBAL TOGGLE, not a one-shot replay.
       // Flipping it broadcasts the new state to every visible slow button
       // on the page so all cards show the same on/off indicator. Title

@@ -31,14 +31,14 @@
   //   - btnGender.onclick inside injectListenButtons
   //   - refreshGenderBtn() inside injectListenButtons
   function _toggleGender(rowEl) {
+    // Round 55 (2026-05-17): selector-only — does NOT replay. Previously
+    // this auto-replayed the current sentence so the teacher could hear
+    // the voice change immediately, but per user feedback the gender
+    // button (and accent / slow buttons) should configure the next
+    // playback only. The next ▶ replay / next / prev tap will use the
+    // new voice. _rowEl_ retained as a parameter for callers; unused.
     _prefs.gender = _prefs.gender === 'male' ? 'female' : 'male';
     _syncGenderButtons();
-    if (rowEl) {
-      const st = getRowState(rowEl);
-      if (st && st.sentences && st.sentences.length) {
-        ns.replaySentence(rowEl, false);
-      }
-    }
   }
 
   function _syncGenderButtons() {
@@ -54,14 +54,12 @@
   //   - listenPolished's 'slow' case
   //   - btnSlow.onclick inside injectListenButtons
   function _toggleSlow(rowEl) {
+    // Round 55 (2026-05-17): selector-only — does NOT replay. Same
+    // rationale as _toggleGender: the speed selector configures the next
+    // playback only, never triggers playback itself. _rowEl_ retained
+    // as a parameter for callers; unused.
     _prefs.slow = !_prefs.slow;
     _syncSlowButtons();
-    if (rowEl) {
-      const st = getRowState(rowEl);
-      if (st && st.sentences && st.sentences.length) {
-        ns.replaySentence(rowEl, false);
-      }
-    }
   }
 
   function _syncSlowButtons() {
@@ -423,7 +421,12 @@
     switch (which) {
       case 'en-GB':
       case 'en-US':
-        ns.speakElementById('polished-output', which, DEFAULT_RATE);
+        // Round 55 (2026-05-17): selector-only — does NOT play. Previously
+        // calling speakElementById here started a fresh playback. Per user
+        // feedback the accent picker just updates the preference; the next
+        // ▶ replay tap will use the chosen accent.
+        _prefs.lang = which;
+        setActiveAccent(row, which);
         break;
       case 'slow': {
         _toggleSlow(row);
