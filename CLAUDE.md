@@ -30,7 +30,7 @@ Last reorg: **2026-05-01** (canonical-folder workflow + filename standardization
     ├── build_landing_page.py       ← generate course-index landing page
     ├── check_cert_expiry.py        ← weekly cron: warn at <30 days to cert expiry
     ├── fonts/                      ← woff2 sources for embedded base64 @font-face
-    └── templates/                  ← inserted_script.js, inserted_css.css, polished_section_overlay.html
+    └── templates/                  ← inserted_script_modules/ (dir of ~14 module files; modularized Round 53), inserted_css.css, polished_section_overlay.html
 ```
 
 ## When to edit what
@@ -39,7 +39,7 @@ Last reorg: **2026-05-01** (canonical-folder workflow + filename standardization
 |---|---|
 | Week 1 visual / structural change (cover, banner, layout, content) | `canonical/pdf-base/Week_01.html` AND `canonical/interactive/Week_01.html` |
 | Interactive-only change (TTS button, AI correction overlay, recorder) | `canonical/interactive/Week_01.html` only |
-| Pipeline-wide CSS or JS change | `scripts/templates/inserted_css.css` / `inserted_script.js` |
+| Pipeline-wide CSS or JS change | `scripts/templates/inserted_css.css` / `inserted_script_modules/*.js` (the JS was split into ~14 numbered modules + `_header.js`/`_footer.js`/`_manifest.txt` in Round 53; pick the module by subsystem — see `_manifest.txt` for the full list) |
 | Per-week content (cue cards, model answers, vocab, idioms) | `master Curiculum.json` |
 | Cover background image | `canonical/pdf-base/Week_01.html`'s `<style id="cover-overrides">` block |
 
