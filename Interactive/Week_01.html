@@ -784,17 +784,18 @@
 </script>
 <style id="page-bottom-video-css">
 /* Bug 3 — looping decorative video strips at the bottom of pages 2, 3,
-   5. Web-only; print hides them. Absolutely-positioned within .page
-   (which is position:relative) so the 5mm bottom gap is exact and
-   independent of the flex content above. Aligned horizontally with the
-   page padding (5mm each side) so the video lines up with the rest of
-   the page content area. */
+   5 (user reference, where cover=1). Web-only; print hides them.
+   Absolutely-positioned within .page (which is position:relative).
+   width: calc(100% - 10mm) explicitly sizes the video to (page_width
+   - 5mm left margin - 5mm right margin); we cannot rely on the
+   left/right shorthand because <video> is a replaced element and
+   width:auto falls back to the video\'s intrinsic pixel width.
+   height: auto preserves the natural aspect ratio of each clip. */
 .page-bottom-video {
   position: absolute;
   bottom: 5mm;
   left: 5mm;
-  right: 5mm;
-  width: auto;
+  width: calc(100% - 10mm);
   height: auto;
   display: block;
   border-radius: 8px;
