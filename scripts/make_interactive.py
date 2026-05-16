@@ -221,7 +221,11 @@ BODY_CLOSE_RE = re.compile(r"</body>", re.IGNORECASE)
 
 def insertion_3_script(html: str, endpoint: str, bucket_base: str, lesson_key: str,
                        minify: bool = True) -> str:
-    js = (TEMPLATE_DIR / "inserted_script.js").read_text(encoding="utf-8")
+    modules_dir = TEMPLATE_DIR / "inserted_script_modules"
+    manifest = [line.strip() for line in
+                (modules_dir / "_manifest.txt").read_text(encoding="utf-8").splitlines()
+                if line.strip() and not line.startswith("#")]
+    js = "\n".join((modules_dir / fname).read_text(encoding="utf-8") for fname in manifest)
     pron_url = bucket_base.rstrip("/") + "/pronunciations.json"
     js = js.replace("__AI_ENDPOINT__", endpoint.rstrip("/"))
     js = js.replace("__PRONUNCIATIONS_URL__", pron_url)

@@ -1,0 +1,19 @@
+# Round 53 manifest - concatenation order for inserted_script_modules/
+# Format: one filename per line; blank lines and #-prefixed lines ignored.
+# Order MUST respect closure-state dependencies (declarations before uses).
+
+_header.js
+01_state.js
+02_dom_helpers.js
+03_tts_voice.js
+04_tts_playback.js
+05_word_wrap.js
+06_word_click.js
+07_ipa_tooltip.js
+08_draft_persistence.js
+09_diff_markup.js
+10_ai_correction.js
+11_voice_recorder.js
+12_email_recordings.js
+13_init.js
+_footer.js
