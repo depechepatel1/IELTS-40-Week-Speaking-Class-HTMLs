@@ -432,7 +432,21 @@
         _toggleSlow(row);
         break;
       }
-      case 'replay': ns.replaySentence(row, false); break;
+      case 'replay': {
+        // Round 55 (2026-05-17) — fix companion to Batch C: same as the
+        // model-box listen-row's btnReplay (see 06_word_click.js). If the
+        // polished-output row's sentence list is empty (because UK/US no
+        // longer initialise state), auto-initialise via speakElementById
+        // so the first ▶ click plays sentence 0. Subsequent ▶ clicks
+        // replay the current sentence.
+        const st = getRowState(row);
+        if (!st.sentences || !st.sentences.length) {
+          ns.speakElementById('polished-output', _prefs.lang || 'en-GB', DEFAULT_RATE);
+        } else {
+          ns.replaySentence(row, false);
+        }
+        break;
+      }
       case 'prev':   ns.prevSentence(row);          break;
       case 'next':   ns.nextSentence(row);          break;
       case 'gender': {

@@ -82,7 +82,21 @@
       // new rate immediately.
       btnSlow.onclick   = () => _toggleSlow(row);
       btnPrev.onclick   = () => ns.prevSentence(row);
-      btnReplay.onclick = () => ns.replaySentence(row, /* slow= */ false);
+      btnReplay.onclick = () => {
+        // Round 55 (2026-05-17) — fix companion to Batch C: when the accent
+        // buttons (UK/US) became selector-only, they stopped initialising
+        // the row's sentence state. That meant clicking ▶ replay before
+        // any UK/US click would find an empty sentence list and bail out
+        // (no audio). Auto-initialise here so ▶ alone is enough to play
+        // sentence 0 the first time, and subsequent ▶ taps replay the
+        // current sentence via the usual replaySentence path.
+        const st = getRowState(row);
+        if (!st.sentences || !st.sentences.length) {
+          ns.speakElement(box, _prefs.lang || 'en-GB', DEFAULT_RATE, row);
+        } else {
+          ns.replaySentence(row, /* slow= */ false);
+        }
+      };
       btnNext.onclick   = () => ns.nextSentence(row);
       // Round 33 — gender toggle. Flips global state, refreshes EVERY visible
       // gender button on the page (so all cards stay in sync), and replays
