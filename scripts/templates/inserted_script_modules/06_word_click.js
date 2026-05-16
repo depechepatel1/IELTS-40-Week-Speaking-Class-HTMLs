@@ -60,9 +60,13 @@
       const btnNext   = row.querySelector('.tts-btn.next');
       const textOf = () => stripChineseGloss(extractReadableText(box));
 
-      // Mirror the global gender state onto a freshly-injected button so it
-      // matches whichever toggle the teacher set on a sibling card earlier.
+      // Mirror the global gender / accent / slow state onto a freshly-
+      // injected row so it matches whichever toggles the teacher set on a
+      // sibling card earlier. Without these the new row would show its
+      // template defaults (👩 / UK active / slow off) even if the user is
+      // currently on Male / US / slow on.
       _syncGenderButtons();
+      _syncAccentButtons();
 
       // Round 39 — same mirror pattern for the persistent slow toggle.
       // If the teacher enabled slow mode earlier (e.g. on the previous
@@ -76,12 +80,12 @@
       // Round 55 (2026-05-17): UK / US accent buttons are now selector-only.
       // Previously they called speakElement which both set _prefs.lang AND
       // started playback. Per user feedback the accent picker should
-      // configure the next playback, not trigger one. setActiveAccent
-      // updates the .active class on this row's buttons so the choice is
-      // visible; _prefs.lang is the global preference read by every
-      // subsequent speakElement / speakText / replaySentence call.
-      btnUK.onclick = () => { _prefs.lang = 'en-GB'; setActiveAccent(row, 'en-GB'); };
-      btnUS.onclick = () => { _prefs.lang = 'en-US'; setActiveAccent(row, 'en-US'); };
+      // configure the next playback, not trigger one. _syncAccentButtons
+      // propagates the .active class to EVERY UK/US button across the page
+      // (not just this row), so the choice is visible on every card — same
+      // pattern as _syncGenderButtons / _syncSlowButtons.
+      btnUK.onclick = () => { _prefs.lang = 'en-GB'; _syncAccentButtons(); };
+      btnUS.onclick = () => { _prefs.lang = 'en-US'; _syncAccentButtons(); };
       // Round 39 — 🐢 is now a STICKY GLOBAL TOGGLE, not a one-shot replay.
       // Flipping it broadcasts the new state to every visible slow button
       // on the page so all cards show the same on/off indicator. Title

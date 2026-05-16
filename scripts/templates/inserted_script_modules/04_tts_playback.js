@@ -71,6 +71,18 @@
     });
   }
 
+  // Round 55 (2026-05-17) — accent selection (UK/US) is a global preference,
+  // but until now the .active visual state was only flipped on the row that
+  // got clicked. Other cards kept showing their stale .active state, so the
+  // teacher couldn't tell at a glance which accent was selected anywhere.
+  // This helper syncs EVERY .tts-btn.uk / .tts-btn.us across the page from
+  // _prefs.lang — same pattern as _syncGenderButtons / _syncSlowButtons.
+  function _syncAccentButtons() {
+    const wantUS = _prefs.lang === 'en-US';
+    document.querySelectorAll('.tts-btn.uk').forEach(b => b.classList.toggle('active', !wantUS));
+    document.querySelectorAll('.tts-btn.us').forEach(b => b.classList.toggle('active',  wantUS));
+  }
+
   // === Sentence-paced TTS state ============================================
   //
   // Pedagogical model: TTS plays ONE sentence at a time and auto-pauses on
@@ -425,8 +437,12 @@
         // calling speakElementById here started a fresh playback. Per user
         // feedback the accent picker just updates the preference; the next
         // ▶ replay tap will use the chosen accent.
+        // 2026-05-17 follow-up: also propagate the .active state to EVERY
+        // UK/US button across the page (not just this row), so the
+        // selection is visible on every card. _syncAccentButtons mirrors
+        // the _syncGenderButtons / _syncSlowButtons pattern.
         _prefs.lang = which;
-        setActiveAccent(row, which);
+        _syncAccentButtons();
         break;
       case 'slow': {
         _toggleSlow(row);
