@@ -103,6 +103,20 @@ def _put_with_retry(bucket, key: str, src: Path, headers: dict, max_attempts: in
             print(f"        OSS {e.status}, retrying {key} in {wait_s}s "
                   f"(attempt {attempt + 1}/{max_attempts})")
             _time.sleep(wait_s)
+        except oss2.exceptions.RequestError as e:
+            # Round 53 — also retry on network-level errors (ReadTimeoutError,
+            # DNS failure, TLS abort). These surface as RequestError with
+            # status -2, not a 5xx HTTP code, so the ServerError branch above
+            # doesn't catch them. Without this, a single 60-second read-timeout
+            # on (say) file 36 of 41 aborts the entire publish (real failure
+            # observed in Round 53 — Aliyun OSS network was unstable that day).
+            last = e
+            if attempt == max_attempts - 1:
+                raise
+            wait_s = 2 ** attempt
+            print(f"        OSS network error, retrying {key} in {wait_s}s "
+                  f"(attempt {attempt + 1}/{max_attempts}): {e}")
+            _time.sleep(wait_s)
     if last:
         raise last
 
