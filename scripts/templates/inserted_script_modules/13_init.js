@@ -44,6 +44,45 @@
   }
 
   // ====================================================================
+  // Q-prompt typography enhancer (Round 55 design pass — 2026-05-17)
+  //
+  // The canonical cue-card prompt — e.g. "Describe a family member who
+  // you are proud of. You should say: Who… When… What… And…" —
+  // historically rendered as one flat run of text, with no visual
+  // distinction between the MAIN question and the sub-prompts. This
+  // function inspects each .q-prompt and, when it matches the cue-card
+  // pattern, splits the content into <span class="q-main"> (the topic
+  // sentence) and <span class="q-subs"> (the "You should say:" line).
+  // CSS in inserted_css.css then styles them at heading weight vs.
+  // small-text, restoring the visual hierarchy a printed cue card has.
+  //
+  // Runs BEFORE attachWordClicks so the word-wrap walker descends into
+  // the newly-split spans and wraps their words for click-to-speak.
+  // ====================================================================
+
+  function enhanceQPrompts() {
+    // Match: "First sentence ending in period.  You should say: ..."
+    // The first group is lazy so it stops at the FIRST period — protects
+    // against multi-sentence topic descriptions misaligning the split.
+    const splitRe = /^([^.<>]+?\.)\s+(You should say:[\s\S]*)$/i;
+    document.querySelectorAll('.q-prompt').forEach((el) => {
+      if (el.dataset.qPromptEnhanced === '1') return;
+      const inner = el.innerHTML.trim();
+      const m = splitRe.exec(inner);
+      if (!m) return;  // not the cue-card pattern; leave untouched
+      el.innerHTML = `<span class="q-main">${m[1]}</span><span class="q-subs">${m[2]}</span>`;
+      // Strip legacy inline overrides so the new .q-main / .q-subs CSS
+      // rules can take effect. The canonical brainstorming-map div
+      // carries inline `font-size:0.9em; color:#444; padding-left:15px`
+      // which collapses the new hierarchy.
+      el.style.fontSize  = '';
+      el.style.color     = '';
+      el.style.paddingLeft = '';
+      el.dataset.qPromptEnhanced = '1';
+    });
+  }
+
+  // ====================================================================
   // __init — wires everything together on DOMContentLoaded
   // ====================================================================
 
@@ -57,6 +96,7 @@
     }
     ns.updateWordCount();
     loadDraft();          // restore previous session before adding behavior
+    enhanceQPrompts();    // Round 55 — split cue-card prompts BEFORE word-wrap
     injectListenButtons();
     attachWordClicks();
     checkHealth();

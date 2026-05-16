@@ -17,6 +17,120 @@
     src: url(data:font/woff2;base64,__INDIE_FLOWER_400_BASE64__) format('woff2');
 }
 
+/* ============================================================
+   === TYPOGRAPHY (Round 55 design pass — 2026-05-17) ==========
+   ============================================================
+   Replaces the previous ad-hoc font-size sprawl (25+ arbitrary
+   em values) with a coherent ~1.2-ratio (minor third) scale.
+   Body font unified to Lato (already woff2-embedded); the prior
+   Segoe UI / Helvetica Neue / Montserrat mix is collapsed.
+   CJK glyphs scoped to .vocab-cn / [lang="zh"] so Windows can't
+   bleed Microsoft YaHei onto Latin body text.
+
+   Source order: this <style> block is concatenated INSIDE the
+   existing canonical <style>, AFTER the inline body{} / h3{} /
+   h4{} declarations. Same selector + later position = wins by
+   the cascade. No !important needed.
+   ============================================================ */
+
+/* Type-scale tokens. Use these instead of arbitrary em values. */
+:root {
+    --ts-h1:      1.6em;
+    --ts-h2:      1.25em;
+    --ts-h3:      1.05em;
+    --ts-body:    1.0em;
+    --ts-small:   0.85em;
+    --ts-caption: 0.72em;
+}
+
+/* Unify body font to Lato. Note: per-element font-family inheriting from
+   body covers most prose; cover-page Playfair Display titles are scoped
+   to .cover-title-large and unaffected. */
+body {
+    font-family: 'Lato', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+}
+
+/* Heading hierarchy fix: canonical inline <style> had h3 (0.9em) smaller
+   than h4 (1.0em) — semantically wrong. Both now sit at --ts-h3 (1.05em);
+   differentiated by colour, not size, since they fill complementary roles
+   (h3 = main heading, h4 = sub-heading inside cards). */
+.card h3,
+.card .h3 {
+    font-size: var(--ts-h3);
+    font-weight: 700;
+    color: #2c3e50;
+    font-family: inherit;
+}
+.card h4,
+.card .h4 {
+    font-size: var(--ts-h3);
+    font-weight: 700;
+    color: #455971;
+    font-family: inherit;
+}
+
+/* Q-prompt visual hierarchy. The brainstorming-map cue card and the
+   Q1-Q6 cards both use .q-prompt. The 13_init.js enhanceQPrompts() walker
+   splits "First sentence. You should say: ..." into .q-main + .q-subs so
+   we can style them distinctly here. q-prompts that don't match the
+   cue-card pattern (e.g. Q2-Q6 "What did you do..." prompts) are left
+   alone and inherit the base .q-prompt rule below. */
+.q-prompt {
+    /* Strip the legacy 15px indent that the canonical inline style baked
+       in — the prompt should align with the rest of the card content,
+       not look like a continuation of something above. */
+    padding-left: 0;
+    color: #2c3e50;
+}
+.q-prompt .q-main {
+    display: block;
+    font-size: var(--ts-h3);
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    letter-spacing: -0.005em;
+}
+.q-prompt .q-subs {
+    display: block;
+    font-size: var(--ts-small);
+    color: #475569;
+    line-height: 1.4;
+}
+.q-prompt .q-subs strong {
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+/* Model-answer body text bumped from the historical 0.9em -> --ts-body.
+   This is the primary reading content of the lesson and deserves full
+   body size. */
+.model-box {
+    font-size: var(--ts-body);
+    line-height: 1.6;
+}
+
+/* Scaffold-text was 0.65em — below the comfort threshold for A4 print at
+   the typical 13px root. Bumped to --ts-caption with a slight
+   line-height bump to prevent cramping on horizontal scaffold rows. */
+.scaffold-text {
+    font-size: var(--ts-caption);
+    line-height: 1.4;
+}
+
+/* CJK font scope. Keep Microsoft YaHei / Noto Sans SC / PingFang SC on
+   Chinese-only spans and elements explicitly marked [lang="zh"]. Without
+   this scope, Windows can fall back to YaHei for Latin body glyphs (which
+   YaHei renders with awkward proportions / weight). */
+.vocab-cn,
+[lang="zh"] {
+    font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC",
+                 'Lato', sans-serif;
+}
+
+/* === END TYPOGRAPHY (Round 55) ============================== */
+
 /* === Lined-paper overlay model === */
 
 /* Hide the original .lines divs only inside .draft-page; they remain in
