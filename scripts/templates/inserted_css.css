@@ -418,8 +418,12 @@
     right: 10px;
 }
 /* Reserve right-side space in the section heading so a long title never
-   runs underneath the absolutely-positioned listen-row buttons. */
-.card:has(> .listen-row) .section-header-bar {
+   runs underneath the absolutely-positioned listen-row buttons.
+   `.q-prompt` (IELTS Q1-Q6 cards) also needs this reservation — without it,
+   long Part 3 questions on Q6 page 7 wrap UNDER the listen-row buttons
+   (Bug 3 / 2026-05-17 — Issue 1 of widget feedback batch). */
+.card:has(> .listen-row) .section-header-bar,
+.card:has(> .listen-row) .q-prompt {
     padding-right: 215px;
 }
 
