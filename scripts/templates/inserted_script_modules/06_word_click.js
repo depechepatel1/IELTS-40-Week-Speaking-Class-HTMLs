@@ -40,9 +40,17 @@
         <button class="tts-btn slow"      title="Slow replay / 慢速重播本句" disabled>🐢</button>
         <span    class="sentence-counter" title="Current sentence / 当前句"></span>
         <button class="tts-btn prev"      title="Previous sentence / 上一句" disabled>⏮</button>
-        <button class="tts-btn replay"    title="Replay this sentence / 重播本句" disabled>▶</button>
+        <button class="tts-btn replay"    title="Play / 播放">▶</button>
         <button class="tts-btn next"      title="Next sentence / 下一句" disabled>⏭</button>
       `;
+      // Round 55 (2026-05-17) fix #2 — ▶ replay is the ENTRY POINT for
+      // first-time play. Previously injected with `disabled`, which
+      // suppressed the onclick handler (browser blocks events on disabled
+      // buttons). With Batch C making UK/US selector-only, ▶ had to
+      // start enabled OR users could never play anything. Prev / Next /
+      // Slow stay disabled-by-default because they legitimately can't
+      // operate without an existing sentence list; setRowTransport-
+      // ButtonStates flips them on once speakElement populates st.sentences.
       const btnGender = row.querySelector('.tts-btn.gender');
       const btnUK     = row.querySelector('.tts-btn.uk');
       const btnUS     = row.querySelector('.tts-btn.us');
