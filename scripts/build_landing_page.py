@@ -467,6 +467,10 @@ def render_html(weeks: list[tuple[int, str]], bucket_base: str) -> str:
     transform: translateY(0);
   }}
   .week-card:hover {{
+    /* Reset the entrance stagger so hover response is instant on every card.
+       Without this, late cards inherit a 1+ second transition-delay from
+       the per-card --card-index stagger and feel sluggish on hover. */
+    transition-delay: 0s;
     border-color: var(--card-hover);
     box-shadow: 0 8px 32px rgba(27, 42, 74, 0.08);
     transform: translateY(-4px);
