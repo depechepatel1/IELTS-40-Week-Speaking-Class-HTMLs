@@ -170,26 +170,57 @@
 .ai-only:hover { background: #f1f5f9; }
 
 /* TTS buttons — distinct subtle color per accent / function */
+/* Round 55 (2026-05-17) — premium button visual refresh per user
+   feedback. The .tts-btn (speaking widget) and .vr-btn (recorder
+   widget) buttons get a subtle gradient base, inner-highlight + drop-
+   shadow combo for depth, a smooth hover lift, a pressed-in active
+   state, and a visible focus-ring for keyboard accessibility. All
+   colour variants (UK/US/slow/pause/stop/gender) keep their colour
+   hints but inherit the new depth. No size changes — the listen-row
+   sits absolutely-positioned in the .card top-right corner; resizing
+   would overlap the .q-prompt text we just made wrap. */
 .tts-btn {
-    background: white;
-    border-color: #cbd5e1;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid #cbd5e1;
     color: #475569;
     padding: 1px 6px;
     font-size: 0.85em;
     border-radius: 8px;
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
+                background 0.12s ease-out, filter 0.12s ease-out;
+    cursor: pointer;
 }
-.tts-btn.uk    { background: #eff6ff; border-color: #93c5fd; color: #1e40af; }
-.tts-btn.us    { background: #fef2f2; border-color: #fca5a5; color: #b91c1c; }
-.tts-btn.slow  { background: #faf5ff; border-color: #d8b4fe; color: #6b21a8; }
-.tts-btn.pause { background: #fffbeb; border-color: #fcd34d; color: #b45309; }
-.tts-btn.stop  { background: #fafafa; border-color: #d4d4d4; color: #525252; }
+.tts-btn.uk    { background: linear-gradient(180deg, #f5f9ff 0%, #e6effd 100%); border-color: #93c5fd; color: #1e40af; }
+.tts-btn.us    { background: linear-gradient(180deg, #fff5f5 0%, #ffe6e6 100%); border-color: #fca5a5; color: #b91c1c; }
+.tts-btn.slow  { background: linear-gradient(180deg, #fbf7ff 0%, #f0e6fa 100%); border-color: #d8b4fe; color: #6b21a8; }
+.tts-btn.pause { background: linear-gradient(180deg, #fffcf0 0%, #fff4d6 100%); border-color: #fcd34d; color: #b45309; }
+.tts-btn.stop  { background: linear-gradient(180deg, #fbfbfb 0%, #f0f0f0 100%); border-color: #d4d4d4; color: #525252; }
 /* Round 33 (2026-05-06) — Male/Female toggle. Pink for female (default),
    teal for male; visually distinct from the UK/US accent picker so the
    teacher can tell at a glance which gender is active. The button label
    itself flips between 👩 and 👨, so colour acts as a secondary cue. */
-.tts-btn.gender.female { background: #fdf2f8; border-color: #f9a8d4; color: #9d174d; }
-.tts-btn.gender.male   { background: #ecfdf5; border-color: #6ee7b7; color: #065f46; }
-.tts-btn:hover { filter: brightness(0.97); }
+.tts-btn.gender.female { background: linear-gradient(180deg, #fef5f9 0%, #fbe5ef 100%); border-color: #f9a8d4; color: #9d174d; }
+.tts-btn.gender.male   { background: linear-gradient(180deg, #f3fdf7 0%, #def7ea 100%); border-color: #6ee7b7; color: #065f46; }
+.tts-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow:
+        0 3px 6px rgba(15, 23, 42, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    filter: brightness(1.02);
+}
+.tts-btn:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow:
+        0 1px 1px rgba(15, 23, 42, 0.04),
+        inset 0 1px 2px rgba(15, 23, 42, 0.10);
+}
+.tts-btn:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
 
 /* Highlighted accent — when user picks UK or US, that button stays
    highlighted to indicate which voice the Slow button will use. */
@@ -498,9 +529,67 @@
    cursor + hover tint on PC, and the brief `.speaking` flash confirms a
    tap on iPad (where there is no hover). Colours reuse the existing
    palette (#fff9c4 = today's vocab-hover tint). */
-.tts-word { cursor: pointer; }
-.tts-word:hover    { background: #fff9c4; border-radius: 3px; }
-.tts-word.speaking { background: #ffe08a; border-radius: 3px; }
+.tts-word {
+    cursor: pointer;
+    /* Round 55 (2026-05-17): inline-block so the .speaking state can apply
+       transform: scale() without breaking the surrounding text flow. */
+    display: inline-block;
+    transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+                background 0.15s ease-out,
+                box-shadow 0.15s ease-out,
+                color 0.15s ease-out,
+                padding 0.15s ease-out;
+}
+.tts-word:hover {
+    background: #fff9c4;
+    border-radius: 3px;
+}
+/* Round 55 (2026-05-17) — Premium karaoke highlight upgrade per user
+   feedback ("higher quality word highlighting graphic … size increase
+   + lighting + glow animation"). The currently-speaking word grows
+   ~12 %, gains a warm amber→gold gradient with a soft golden glow ring,
+   and pulses gently. Visual reference: professional karaoke apps
+   (Smule, KaraFun) and premium language-learning readers (Glossika,
+   LingQ). All effects are pure CSS — no external library needed.
+   Replaces the previous flat #ffe08a background, which students
+   reported as low-contrast and unclear during fast playback. */
+.tts-word.speaking {
+    background: linear-gradient(135deg, #ffe896 0%, #ffd66d 50%, #ffc933 100%);
+    color: #2c1810;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 0 4px;
+    margin: 0 1px;
+    transform: scale(1.12);
+    position: relative;
+    z-index: 2;
+    box-shadow:
+        0 0 12px rgba(255, 195, 51, 0.55),
+        0 2px 6px rgba(184, 134, 11, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
+    animation: tts-word-pulse 0.85s ease-in-out infinite;
+}
+@keyframes tts-word-pulse {
+    0%, 100% {
+        box-shadow:
+            0 0 12px rgba(255, 195, 51, 0.55),
+            0 2px 6px rgba(184, 134, 11, 0.20),
+            inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    }
+    50% {
+        box-shadow:
+            0 0 22px rgba(255, 195, 51, 0.88),
+            0 3px 10px rgba(184, 134, 11, 0.32),
+            inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    }
+}
+/* Respect the OS accessibility setting — skip the pulse animation for
+   users who've opted into reduced motion. The static glow + scale still
+   provide clear visual feedback. */
+@media (prefers-reduced-motion: reduce) {
+    .tts-word.speaking { animation: none; }
+}
 
 /* IPA tooltip (lazy-loaded from bucket on first vocab click). */
 .ipa-tooltip {
@@ -601,21 +690,42 @@
     flex: 0 0 18px !important;
     border-radius: 50% !important;
     border: 1px solid #95a5a6;
-    background: white;
-    color: #475569;
+    /* Round 55 (2026-05-17) — premium round button. Subtle vertical
+       gradient + drop shadow + inner highlight gives a tactile,
+       glossy feel without changing the (small) footprint. Press
+       feedback via :active scale + flattened shadow. */
+    background: linear-gradient(180deg, #ffffff 0%, #eef2f6 100%);
+    color: #334155;
     cursor: pointer;
     font-size: 0.65em;
     line-height: 1;
     padding: 0 !important;
+    box-shadow:
+        0 1.5px 3px rgba(15, 23, 42, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
     margin: 0 !important;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    transition: background 0.12s ease, transform 0.08s ease;
+    transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
+                background 0.12s ease-out;
 }
 .voice-recorder-container .vr-btn:hover:not(:disabled) {
-    background: #f1f5f9;
-    transform: scale(1.08);
+    background: linear-gradient(180deg, #fbfdff 0%, #e2e8f0 100%);
+    transform: scale(1.10);
+    box-shadow:
+        0 3px 6px rgba(15, 23, 42, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+.voice-recorder-container .vr-btn:active:not(:disabled) {
+    transform: scale(0.94);
+    box-shadow:
+        0 0.5px 1px rgba(15, 23, 42, 0.08),
+        inset 0 1px 2px rgba(15, 23, 42, 0.12);
+}
+.voice-recorder-container .vr-btn:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
 }
 .voice-recorder-container .vr-btn:disabled {
     opacity: 0.35;
