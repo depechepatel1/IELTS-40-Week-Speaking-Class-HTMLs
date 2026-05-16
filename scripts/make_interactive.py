@@ -547,17 +547,16 @@ _PAGE_BOTTOM_VIDEO_CSS = (
 # emitted by parse_data.py, which uses no whitespace around the digit.
 _PAGE_NUMBER_DIV_RE = re.compile(r'(<div class="page-number">(\d+)</div>)')
 
-# Strip the existing course-pipeline jpg banner that sits immediately above
-# a target page-number (2, 3, or 5). On the canonical structure today, only
-# page 2 has such a banner (course_pipeline_v4.jpg); pages 3 and 5 currently
-# have no banner so this is a no-op there. The user wants the video to
-# REPLACE the jpg, not display alongside it. Permissive with trailing
-# whitespace / newlines between the img and the page-number div.
-# Matches both Unix (`/`) and Windows (`\`) directory separators in src,
-# since parse_data.py output can use either depending on platform.
-_COURSE_PIPELINE_BANNER_BEFORE_TARGET_PAGE_RE = re.compile(
-    r'<img\s+alt="Course workflow pipeline"[^>]*/>\s*'
-    r'(<div class="page-number">(?:2|3|5)</div>)',
+# Strip the existing course-pipeline jpg banners from EVERY page of the
+# interactive HTML. User directive (2026-05-16): jpgs apply to pdf-base
+# output only; the interactive layer should have no static course-pipeline
+# banners. Today three pages (1, 2, 4) have such banners in the canonical
+# layout; pages 2 gets video1 added below (the video replaces the jpg),
+# and pages 1, 4 are left with nothing at the bottom (no video assigned
+# to those pages — outside Bug 3 scope). Eats any trailing whitespace
+# left behind so we don't pollute the output with blank lines.
+_COURSE_PIPELINE_BANNER_RE = re.compile(
+    r'<img\s+alt="Course workflow pipeline"[^>]*/>\s*',
     re.IGNORECASE,
 )
 
@@ -584,12 +583,11 @@ def insertion_8_page_videos(html: str, bucket_base: str) -> str:
     if "</head>" in html:
         html = html.replace("</head>", _PAGE_BOTTOM_VIDEO_CSS + "\n</head>", 1)
 
-    # 2. Strip the course-pipeline banner that immediately precedes the
-    # page-number on pages 2/3/5 (the user wants the video to REPLACE the
-    # jpg, not display alongside it). Today only page 2 has such a banner
-    # in the canonical layout, but the regex covers 3 and 5 too in case
-    # those pages later acquire one.
-    html = _COURSE_PIPELINE_BANNER_BEFORE_TARGET_PAGE_RE.sub(r"\1", html)
+    # 2. Strip ALL course-pipeline jpg banners from every page (user
+    # directive: jpgs apply to pdf-base output only; interactive should
+    # have no static banners). The pdf-base flow is untouched by this
+    # insertion, so the pdf-base output keeps its jpgs.
+    html = _COURSE_PIPELINE_BANNER_RE.sub("", html)
 
     # 3. Inject <video> elements after each target page-number div. With
     # absolute positioning (above), the video lives inside the .page
