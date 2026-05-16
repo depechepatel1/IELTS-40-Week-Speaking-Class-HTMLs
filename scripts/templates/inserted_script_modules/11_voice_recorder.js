@@ -224,37 +224,54 @@
     // `has-recording` is a discrete visual indicator (small green dot via
     // CSS ::after) showing students at-a-glance whether a saved recording
     // exists for this section. Toggled here so every state transition
-    // updates the indicator atomically.
-    container.classList.toggle('has-recording', state === 'saved');
+    // updates the indicator atomically. Round 55 (2026-05-17): playback
+    // also keeps the indicator on, since the saved recording still exists.
+    container.classList.toggle('has-recording', state === 'saved' || state === 'playing');
 
     [btnRec, btnPause, btnStop, btnPlay, btnDelete].forEach(b => b && (b.hidden = true));
     if (btnRec) btnRec.classList.remove('recording');
     if (btnPause) btnPause.classList.remove('paused');
+    if (btnPlay) btnPlay.classList.remove('playing');
     if (label) label.classList.remove('error');
 
     if (state === 'idle') {
-      if (btnRec) { btnRec.hidden = false; btnRec.disabled = false; }
+      if (btnRec) { btnRec.hidden = false; btnRec.disabled = false; btnRec.title = 'Record / 录音'; }
       if (label) label.textContent = 'Click ⏺ to record (3:00 max)';
     } else if (state === 'recording') {
-      if (btnRec) { btnRec.hidden = false; btnRec.classList.add('recording'); btnRec.disabled = true; }
+      // Round 55 (2026-05-17): record button stays enabled and clicking it
+      // STOPS the recording — replaces the previous flow that required
+      // students to find the separate ⏹ stop button. The stop button is
+      // now reserved exclusively for stopping PLAYBACK and is hidden
+      // here. Pause stays available for mid-recording breaks.
+      if (btnRec) { btnRec.hidden = false; btnRec.classList.add('recording'); btnRec.disabled = false; btnRec.title = 'Stop recording / 停止录音'; }
       if (btnPause) btnPause.hidden = false;
-      if (btnStop) btnStop.hidden = false;
-      if (label) label.textContent = 'Recording…';
+      if (label) label.textContent = 'Recording… (tap ⏺ to stop)';
     } else if (state === 'paused') {
-      if (btnRec) { btnRec.hidden = false; btnRec.classList.add('recording'); btnRec.disabled = true; }
-      if (btnPause) { btnPause.hidden = false; btnPause.classList.add('paused'); btnPause.title = 'Resume'; btnPause.textContent = '▶'; }
-      if (btnStop) btnStop.hidden = false;
-      if (label) label.textContent = 'Paused — tap ▶ to resume';
+      if (btnRec) { btnRec.hidden = false; btnRec.classList.add('recording'); btnRec.disabled = false; btnRec.title = 'Stop recording / 停止录音'; }
+      if (btnPause) { btnPause.hidden = false; btnPause.classList.add('paused'); btnPause.title = 'Resume / 恢复'; btnPause.textContent = '▶'; }
+      if (label) label.textContent = 'Paused — tap ⏸ to resume or ⏺ to stop';
     } else if (state === 'saved') {
-      if (btnRec) { btnRec.hidden = false; btnRec.disabled = false; }
+      if (btnRec) { btnRec.hidden = false; btnRec.disabled = false; btnRec.title = 'Re-record / 重录'; }
       if (btnPlay) btnPlay.hidden = false;
       if (btnDelete) btnDelete.hidden = false;
-      if (btnPause) { btnPause.textContent = '⏸'; btnPause.title = 'Pause / resume'; }
+      if (btnPause) { btnPause.textContent = '⏸'; btnPause.title = 'Pause / 暂停'; }
       if (label) label.textContent = 'Saved — tap ▶ to play, 🗑 to re-record';
+    } else if (state === 'playing') {
+      // Round 55 (2026-05-17): new 'playing' state for audio playback.
+      // The stop button (⏹) is what halts playback — it does NOT stop
+      // recording per the new role separation. Keep delete visible so
+      // the student can discard mid-listen without an extra tap. Record
+      // is hidden during playback to avoid mid-play confusion.
+      if (btnStop) btnStop.hidden = false;
+      if (btnPlay) { btnPlay.hidden = false; btnPlay.classList.add('playing'); btnPlay.disabled = true; }
+      if (btnDelete) btnDelete.hidden = false;
+      if (label) label.textContent = 'Playing… (tap ⏹ to stop)';
     } else if (state === 'error') {
       if (btnRec) { btnRec.hidden = false; btnRec.disabled = true; }
       if (label) label.classList.add('error');
     }
+    // Round 55 (2026-05-17): re-enable play button after leaving 'playing'.
+    if (btnPlay && state !== 'playing') btnPlay.disabled = false;
   }
 
   function vrUpdateTimer(container) {
@@ -265,11 +282,20 @@
     if (timeEl) timeEl.textContent = `${vrFormatTime(elapsed)} / 3:00`;
     if (elapsed >= VR_MAX_MS) {
       if (timeEl) timeEl.classList.add('over');
-      vrStop(container);
+      vrStopRecording(container);
     }
   }
 
   async function vrStart(container) {
+    // Round 55 (2026-05-17): same-widget toggle. If THIS container is
+    // already recording (or paused), the record button is now the stop
+    // control — call .stop() and let the onstop handler save the blob
+    // and transition to 'saved'. Don't start a new recording.
+    if (_activeContainer === container && _vrMediaRecorder
+        && _vrMediaRecorder.state !== 'inactive') {
+      _vrMediaRecorder.stop();
+      return;
+    }
     // If another widget is recording, stop it first AND wait for its
     // onstop to fully drain. Round 42: previously vrStart reassigned
     // _vrChunks / _vrStartedAt / _vrPausedTotal immediately after .stop(),
@@ -350,9 +376,22 @@
     }
   }
 
-  function vrStop(container) {
+  // Round 55 (2026-05-17): renamed from vrStop. Still called internally
+  // by vrUpdateTimer when the 3:00 hard cap fires. The ⏹ button no longer
+  // wires to this — its click handler now calls vrStopPlayback instead.
+  function vrStopRecording(container) {
     if (!_vrMediaRecorder || _activeContainer !== container) return;
     if (_vrMediaRecorder.state !== 'inactive') _vrMediaRecorder.stop();
+  }
+
+  // Round 55 (2026-05-17): the ⏹ button's new role — halt audio playback.
+  // Called from the .vr-stop click binding in initVoiceRecorder().
+  function vrStopPlayback(container) {
+    const audioEl = container.querySelector('audio');
+    if (!audioEl) return;
+    if (!audioEl.paused) audioEl.pause();
+    try { audioEl.currentTime = 0; } catch (e) { /* some browsers can't seek before metadata */ }
+    vrSetState(container, 'saved');
   }
 
   async function vrLoadIntoUi(container) {
@@ -391,7 +430,27 @@
 
   function vrPlay(container) {
     const audioEl = container.querySelector('audio');
-    if (audioEl && audioEl.src) audioEl.play();
+    if (!audioEl || !audioEl.src) return;
+    // Round 55 (2026-05-17): playback now has a discrete 'playing' state
+    // so the ⏹ stop button can be exposed (it halts playback). When
+    // playback ends naturally (or our stopPlayback handler pauses it),
+    // transition back to 'saved'. The onpause handler covers both
+    // explicit stops and end-of-stream pauses that some browsers
+    // surface as 'pause' rather than 'ended'.
+    audioEl.onended = () => vrSetState(container, 'saved');
+    audioEl.onpause = () => {
+      if (audioEl.ended || audioEl.currentTime === 0 ||
+          (audioEl.duration && audioEl.currentTime >= audioEl.duration - 0.05)) {
+        vrSetState(container, 'saved');
+      }
+    };
+    const p = audioEl.play();
+    if (p && typeof p.then === 'function') {
+      p.then(() => vrSetState(container, 'playing'))
+       .catch(() => vrSetState(container, 'saved'));
+    } else {
+      vrSetState(container, 'playing');
+    }
   }
 
   function initVoiceRecorder() {
@@ -401,7 +460,10 @@
       const onIf = (sel, handler) => { const el = q(sel); if (el) el.onclick = handler; };
       onIf('.vr-record', () => vrStart(container));
       onIf('.vr-pause',  () => vrPauseToggle(container));
-      onIf('.vr-stop',   () => vrStop(container));
+      // Round 55 (2026-05-17): ⏹ now stops PLAYBACK, not recording. To
+      // stop a recording mid-take, tap the pulsing ⏺ record button —
+      // see vrStart's same-widget toggle branch.
+      onIf('.vr-stop',   () => vrStopPlayback(container));
       onIf('.vr-play',   () => vrPlay(container));
       onIf('.vr-delete', () => vrDelete(container));
       vrLoadIntoUi(container);
