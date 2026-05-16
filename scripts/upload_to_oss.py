@@ -252,13 +252,18 @@ def main() -> int:
         mime_by_ext = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
                        ".webp": "image/webp", ".svg": "image/svg+xml", ".gif": "image/gif"}
         img_count = 0
-        for img in sorted(src_images.iterdir()):
+        # Round 54: recurse subdirs (e.g. images/landing/) so landing-page
+        # topic images upload with their subpath as the OSS key (not just
+        # the basename). Top-level images keep their original OSS keys
+        # because their relative path has no subdir component.
+        for img in sorted(src_images.rglob("*")):
             if img.is_file() and img.suffix.lower() in mime_by_ext:
-                status, _ = _smart_upload(bucket, f"images/{img.name}", img,
+                key = "images/" + img.relative_to(src_images).as_posix()
+                status, _ = _smart_upload(bucket, key, img,
                                           mime_by_ext[img.suffix.lower()])
                 if status == "ok":   ok += 1
                 elif status == "skip": skip += 1
-                print(f"  [{status}] images/{img.name}")
+                print(f"  [{status}] {key}")
                 img_count += 1
         if img_count:
             print(f"Processed {img_count} image(s) from {src_images}")

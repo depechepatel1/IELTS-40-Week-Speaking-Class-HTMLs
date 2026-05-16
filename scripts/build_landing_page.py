@@ -1,32 +1,55 @@
 #!/usr/bin/env python3
 """Generate index.html — landing page that links to all 40 IELTS lessons.
 
-Reads each Week_*.html original to extract the week topic from
-`<span class="week-tag">Week N • Lesson X • Topic</span>`, then
-emits a single index.html at repo root that visually mirrors the lesson
-plans' pastel-floating-window design vocabulary (same color tokens,
-rotating pastel card backgrounds, Caveat hero font, multi-layer drop
-shadows, animated hover lift).
+Round 54 redesign — Kimi's hero+grid layout with:
+  * Full-viewport hero featuring a looping cover video (videos/cover_spinning.webm)
+  * Fixed transparent topbar that solidifies on scroll
+  * 5-column lesson library card grid with 16:9 landing images per week
+  * iOS voice-quality hint banner (ported from the previous landing page)
+
+Reads each Week_NN.html original to extract the topic from
+`<span class="week-tag">Week N • Lesson X • Topic</span>`. The topic-extraction
+regex and the iOS voice-hint JS logic are preserved verbatim from the previous
+build_landing_page.py.
 
 Run:  python scripts/build_landing_page.py [--bucket-base https://ielts.aischool.studio]
 """
 from __future__ import annotations
 
 import argparse
-import base64
 import html
 import re
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-FONT_DIR = REPO / "scripts" / "fonts"
 
+# === Topic-extraction regex (preserved verbatim from previous version) =======
+# IELTS week-tag format: <span class="week-tag">Week N • Lesson X • Topic</span>
+# The regex strips the "Week N • Lesson X • " prefix and captures only the topic.
 WEEK_TAG_RE = re.compile(
     r'class="week-tag">\s*(?:Week\s+\d+\s*[•\-–—•]\s*Lesson\s+\d+\s*[•\-–—•]\s*)?([^<]+)<',
     re.IGNORECASE,
 )
 WEEK_NUM_RE = re.compile(r"Week_(\d+)\.html$")
+
+
+# === Landing-image filenames (40 entries, in week order) =====================
+# Each filename corresponds to images/landing/{name}.jpg and is paired with
+# the same-index Week_NN.html during HTML generation. Validated at runtime
+# by an assertion in main().
+IELTS_IMAGES = [
+    "w01-family.jpg", "w02-abroad.jpg", "w03-dreamjob.jpg", "w04-movie.jpg",
+    "w05-nature.jpg", "w06-trees.jpg", "w07-app.jpg", "w08-advice.jpg",
+    "w09-art.jpg", "w10-building.jpg", "w11-tech.jpg", "w12-lost.jpg",
+    "w13-famous.jpg", "w14-shopping.jpg", "w15-books.jpg", "w16-laughter.jpg",
+    "w17-friends.jpg", "w18-housing.jpg", "w19-objects.jpg", "w20-journeys.jpg",
+    "w21-talent.jpg", "w22-familybiz.jpg", "w23-toys.jpg", "w24-technical.jpg",
+    "w25-mentor.jpg", "w26-service.jpg", "w27-digital.jpg", "w28-social.jpg",
+    "w29-ethics.jpg", "w30-wildlife.jpg", "w31-science.jpg", "w32-learning.jpg",
+    "w33-habits.jpg", "w34-restricted.jpg", "w35-planning.jpg", "w36-competition.jpg",
+    "w37-neighbors.jpg", "w38-water.jpg", "w39-fashion.jpg", "w40-festival.jpg",
+]
 
 
 def extract_topic(html_text: str) -> str:
@@ -51,227 +74,284 @@ def collect_weeks() -> list[tuple[int, str]]:
     return weeks
 
 
-def caveat_b64() -> str:
-    p = FONT_DIR / "Caveat-400.woff2"
-    if not p.exists():
-        return ""
-    return base64.b64encode(p.read_bytes()).decode("ascii")
+def build_card(n: int, topic: str, image_filename: str, card_index: int, bucket_base: str) -> str:
+    """Render a single .week-card <article> with image, badge, and title."""
+    href = f"{bucket_base}/Week_{n:02d}.html"
+    img_src = f"images/landing/{image_filename}"
+    safe_topic = html.escape(topic)
+    safe_href = html.escape(href)
+    safe_img = html.escape(img_src)
+    return (
+        f'      <article class="week-card" style="--card-index: {card_index};">\n'
+        f'        <a class="week-card-link" href="{safe_href}">\n'
+        f'          <div class="week-card-image">\n'
+        f'            <img loading="lazy" src="{safe_img}" alt="{safe_topic}">\n'
+        f'            <span class="week-badge">Week {n}</span>\n'
+        f'          </div>\n'
+        f'          <div class="week-card-body">\n'
+        f'            <h3 class="week-card-title">{safe_topic}</h3>\n'
+        f'            <span class="week-card-arrow" aria-hidden="true">&rarr;</span>\n'
+        f'          </div>\n'
+        f'        </a>\n'
+        f'      </article>'
+    )
 
 
 def render_html(weeks: list[tuple[int, str]], bucket_base: str) -> str:
     base = bucket_base.rstrip("/")
-    cards = []
-    for n, topic in weeks:
-        href = f"{base}/Week_{int(n):02d}.html"
-        cards.append(
-            f'  <a class="week-card" href="{html.escape(href)}">\n'
-            f'    <span class="week-num">Week {n}</span>\n'
-            f'    <span class="week-topic">{html.escape(topic)}</span>\n'
-            f'    <span class="week-arrow" aria-hidden="true">→</span>\n'
-            f'  </a>'
-        )
-    cards_html = "\n".join(cards)
-    caveat = caveat_b64()
-    caveat_face = (
-        f"@font-face {{\n"
-        f"  font-family: 'Caveat'; font-style: normal; font-weight: 400;\n"
-        f"  font-display: swap;\n"
-        f"  src: url(data:font/woff2;base64,{caveat}) format('woff2');\n"
-        f"}}\n"
-    ) if caveat else ""
 
+    # Build the 40 lesson cards.
+    cards = []
+    for i, (n, topic) in enumerate(weeks):
+        cards.append(build_card(n, topic, IELTS_IMAGES[i], i, base))
+    cards_html = "\n".join(cards)
+
+    video_url = f"{base}/videos/cover_spinning.webm"
+
+    # ------------------------------------------------------------------
+    # The full HTML document. Triple-quoted f-string — every literal CSS
+    # curly brace is doubled ({{ }}). Variable interpolations use single
+    # braces with a {name} placeholder.
+    # ------------------------------------------------------------------
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>IELTS 40-Week Speaking Class — Lesson Library</title>
+<title>IELTS Speaking &mdash; 40-Week Course | AI School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet"/>
 <style>
-  {caveat_face}
-
-  /* === Design tokens lifted from the lesson HTMLs === */
+  /* === Kimi design tokens ============================================== */
   :root {{
-    --primary-color: #2c3e50;
-    --accent-color:  #3498db;
-    --highlight-color: #e74c3c;
-    --bg-color: #eef2f5;
-    --text-color: #333333;
-    --border-radius: 14px;
-    --shadow-card: 0 4px 10px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.05);
-    --shadow-hover: 0 14px 30px rgba(52,152,219,0.18), 0 4px 8px rgba(0,0,0,0.08);
-    --shadow-hero: 0 14px 40px rgba(44,62,80,0.18), 0 4px 12px rgba(0,0,0,0.08);
+    --primary:     #0D9488;   /* teal */
+    --accent:      #E85D4C;   /* coral */
+    --gold:        #D4A853;   /* gold */
+    --bg:          #FAF7F2;   /* cream */
+    --text:        #1B2A4A;   /* navy */
+    --muted:       #5C6B7F;
+    --light:       #8B95A5;
+    --card-border: #E8E2D9;
+    --card-hover:  #D4A853;
   }}
 
-  * {{ box-sizing: border-box; }}
+  *, *::before, *::after {{ box-sizing: border-box; }}
   html {{ scroll-behavior: smooth; }}
   body {{
     margin: 0;
-    padding: 36px 24px 60px 24px;
-    font-family: 'Lato', 'Segoe UI', Tahoma, Verdana, sans-serif;
-    color: var(--text-color);
-    background:
-      radial-gradient(circle at 10% 0%, rgba(52,152,219,0.06) 0%, transparent 50%),
-      radial-gradient(circle at 90% 100%, rgba(155,89,182,0.05) 0%, transparent 50%),
-      var(--bg-color);
-    line-height: 1.5;
-    min-height: 100vh;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Verdana, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }}
+  img {{ max-width: 100%; display: block; }}
+  a {{ color: inherit; text-decoration: none; }}
 
-  /* === Hero floating window === */
-  .hero {{
-    max-width: 1140px;
-    margin: 0 auto 36px auto;
-    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-    color: white;
-    border-radius: var(--border-radius);
-    padding: 44px 40px 36px 40px;
-    box-shadow: var(--shadow-hero);
-    position: relative;
-    overflow: hidden;
+  /* === Topbar / navigation ============================================ */
+  .topbar {{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 64px;
+    z-index: 100;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
   }}
-  .hero::before {{
-    /* Decorative pastel circle, floats top-right */
-    content: '';
-    position: absolute;
-    top: -80px; right: -80px;
-    width: 240px; height: 240px;
-    background: radial-gradient(circle, rgba(255,234,167,0.18) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
+  .topbar.scrolled {{
+    background: rgba(250, 247, 242, 0.95);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom-color: rgba(27, 42, 74, 0.08);
   }}
-  .hero h1 {{
-    font-family: 'Caveat', 'Bradley Hand', cursive;
-    font-size: 3.4em;
-    margin: 0;
-    letter-spacing: 0.01em;
-    line-height: 1.05;
-    position: relative;
-  }}
-  .hero .subtitle {{
-    font-size: 1.15em;
-    opacity: 0.95;
-    margin: 10px 0 4px 0;
-    font-weight: 300;
-    position: relative;
-  }}
-  .hero .cn {{
-    font-size: 0.95em;
-    opacity: 0.85;
-    margin: 0;
-    position: relative;
-  }}
-  .hero .meta {{
-    margin-top: 22px;
-    padding: 14px 18px;
-    background: rgba(255,255,255,0.10);
-    border-left: 3px solid #ffeaa7;
-    border-radius: 8px;
-    font-size: 0.92em;
-    line-height: 1.65;
-    position: relative;
-  }}
-  .hero .meta strong {{ color: #ffeaa7; }}
-
-  /* === Week grid === */
-  .weeks {{
-    max-width: 1140px;
+  .topbar-inner {{
+    max-width: 1280px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-    gap: 16px;
+    height: 100%;
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }}
+  .topbar-brand {{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    transition: color 0.3s ease;
+  }}
+  .topbar.scrolled .topbar-brand {{ color: var(--text); }}
+  .topbar-brand-mark {{
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }}
+  .topbar-brand-name {{
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.01em;
+  }}
+  .topbar-nav {{
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }}
+  .topbar-link {{
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.92);
+    transition: color 0.3s ease, opacity 0.2s ease;
+  }}
+  .topbar.scrolled .topbar-link {{ color: var(--text); }}
+  .topbar-link:hover {{ opacity: 0.75; }}
+  .topbar-cta {{
+    display: inline-flex;
+    align-items: center;
+    background: var(--accent);
+    color: #ffffff !important;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 999px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 2px 8px rgba(232, 93, 76, 0.25);
+  }}
+  .topbar-cta:hover {{
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(232, 93, 76, 0.35);
+    background: #d54a3a;
   }}
 
-  .week-card {{
-    background: var(--bg-card);
-    color: var(--primary-color);
-    text-decoration: none;
-    border-radius: var(--border-radius);
-    padding: 16px 18px 14px 18px;
-    box-shadow: var(--shadow-card);
-    border: 1px solid rgba(0,0,0,0.04);
-    border-left: 5px solid var(--accent-card);
-    transition:
-      transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
-      box-shadow 0.18s ease,
-      border-color 0.18s ease;
+  /* === Hero =========================================================== */
+  .hero {{
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    width: 100%;
+    overflow: hidden;
+    /* CSS fallback gradient — visible if the video tag fails to load. */
+    background: linear-gradient(135deg, #0D9488 0%, #1B2A4A 100%);
+  }}
+  .hero-video {{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }}
+  .hero-overlay {{
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%),
+      linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.55) 100%);
+  }}
+  .hero-content {{
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    min-height: 122px;
-    position: relative;
-  }}
-  .week-card:hover {{
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: var(--shadow-hover);
-    border-left-color: var(--accent-card);
-  }}
-  .week-card:focus-visible {{
-    outline: 3px solid var(--accent-card);
-    outline-offset: 3px;
-  }}
-
-  .week-num {{
-    font-family: 'Caveat', cursive;
-    font-size: 1.85em;
-    color: var(--accent-card);
-    line-height: 1;
-    font-weight: 700;
-  }}
-  .week-topic {{
-    font-size: 0.95em;
-    color: var(--primary-color);
-    font-weight: 500;
-    line-height: 1.35;
-    flex-grow: 1;
-  }}
-  .week-arrow {{
-    align-self: flex-end;
-    font-size: 1.3em;
-    color: var(--accent-card);
-    opacity: 0.5;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-  }}
-  .week-card:hover .week-arrow {{
-    opacity: 1;
-    transform: translateX(4px);
-  }}
-
-  /* === Pastel rotation across cards (8 themes, cycle by :nth-child) === */
-  .week-card:nth-child(8n + 1) {{ --bg-card: #e8f8f5; --accent-card: #1abc9c; }}  /* mint  / teal   */
-  .week-card:nth-child(8n + 2) {{ --bg-card: #ebf5fb; --accent-card: #3498db; }}  /* sky   / blue   */
-  .week-card:nth-child(8n + 3) {{ --bg-card: #fef9e7; --accent-card: #f39c12; }}  /* cream / amber  */
-  .week-card:nth-child(8n + 4) {{ --bg-card: #f5eef8; --accent-card: #9b59b6; }}  /* lavender/purple*/
-  .week-card:nth-child(8n + 5) {{ --bg-card: #fdedec; --accent-card: #e74c3c; }}  /* peach / red    */
-  .week-card:nth-child(8n + 6) {{ --bg-card: #fef5e7; --accent-card: #e67e22; }}  /* apricot/orange */
-  .week-card:nth-child(8n + 7) {{ --bg-card: #fff0f5; --accent-card: #e06688; }}  /* blush / pink   */
-  .week-card:nth-child(8n + 0) {{ --bg-card: #eaf2f8; --accent-card: #34495e; }}  /* slate / charcoal*/
-
-  /* === Footer === */
-  footer {{
-    max-width: 1140px;
-    margin: 40px auto 0 auto;
-    padding: 18px 24px;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    color: #7f8c8d;
-    font-size: 0.85em;
-    background: white;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-card);
+    color: #ffffff;
   }}
-  footer a {{ color: var(--accent-color); text-decoration: none; }}
-  footer a:hover {{ text-decoration: underline; }}
+  .hero-overline,
+  .hero-title,
+  .hero-subtitle,
+  .hero-cn {{
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }}
+  .hero-overline {{
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 24px 0;
+    animation-delay: 0s;
+  }}
+  .hero-title {{
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 84px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px 0;
+    color: #ffffff;
+    animation-delay: 0.2s;
+  }}
+  .hero-subtitle {{
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.55;
+    max-width: 760px;
+    margin: 0 0 16px 0;
+    color: rgba(255, 255, 255, 0.92);
+    animation-delay: 0.5s;
+  }}
+  .hero-cn {{
+    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.78);
+    animation-delay: 0.7s;
+  }}
+  .hero-scroll-indicator {{
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: bounce 2s ease-in-out infinite;
+    transition: color 0.2s ease;
+  }}
+  .hero-scroll-indicator:hover {{ color: #ffffff; }}
+  .hero-scroll-indicator svg {{ width: 28px; height: 28px; }}
 
-  /* === iPad / iOS one-time hint: "install Enhanced voices" === */
-  /* Round 40 — shown ONLY when (a) device is iOS, (b) no Premium/Enhanced
-     voice is already installed, and (c) the user hasn't dismissed it.
-     Hidden by default; the inline script at end-of-body reveals it. */
+  @keyframes fadeUp {{
+    from {{ opacity: 0; transform: translateY(20px); }}
+    to   {{ opacity: 1; transform: translateY(0); }}
+  }}
+  @keyframes bounce {{
+    0%, 100% {{ transform: translateX(-50%) translateY(0); }}
+    50%      {{ transform: translateX(-50%) translateY(10px); }}
+  }}
+
+  /* === iOS voice-hint banner ========================================== */
+  /* Hidden by default; the inline script at end-of-body reveals it only
+     when the device is iOS, no Premium/Enhanced voice is installed, and
+     the user hasn't dismissed it on a previous visit. */
   #ios-voice-hint {{
-    max-width: 1140px;
-    margin: 0 auto 28px auto;
-    background: #e8f8f5;
-    border-left: 5px solid #1abc9c;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-card);
+    max-width: 1280px;
+    margin: 32px auto 0 auto;
+    background: var(--bg);
+    border-left: 4px solid var(--gold);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(27, 42, 74, 0.06);
     display: none;
   }}
   #ios-voice-hint.is-visible {{ display: block; }}
@@ -279,88 +359,374 @@ def render_html(weeks: list[tuple[int, str]], bucket_base: str) -> str:
     display: flex;
     align-items: flex-start;
     gap: 16px;
-    padding: 18px 24px;
+    padding: 20px 28px;
   }}
   .ios-hint-icon {{
-    font-size: 2em;
+    font-size: 28px;
     line-height: 1;
     flex-shrink: 0;
   }}
   .ios-hint-text {{ flex: 1; min-width: 0; }}
   .ios-hint-text strong {{
-    color: #16a085;
-    font-size: 1em;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }}
   .ios-hint-text p {{
     margin: 4px 0;
-    color: var(--primary-color);
-    font-size: 0.92em;
-    line-height: 1.45;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.55;
   }}
   .ios-hint-text p.cn {{
-    color: #7f8c8d;
-    font-size: 0.88em;
+    color: var(--light);
+    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
   }}
   #ios-voice-hint-dismiss {{
     background: transparent;
     border: none;
-    font-size: 1.6em;
-    color: #7f8c8d;
+    font-size: 28px;
+    color: var(--light);
     cursor: pointer;
     padding: 0 8px;
     line-height: 1;
     flex-shrink: 0;
+    transition: color 0.2s ease;
   }}
-  #ios-voice-hint-dismiss:hover {{ color: #16a085; }}
+  #ios-voice-hint-dismiss:hover {{ color: var(--accent); }}
 
-  /* === Responsive === */
-  @media (max-width: 720px) {{
-    body {{ padding: 20px 14px 40px; }}
-    .hero {{ padding: 30px 22px 26px; }}
-    .hero h1 {{ font-size: 2.4em; }}
-    .hero .subtitle {{ font-size: 1em; }}
-    .weeks {{ grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }}
-    .week-card {{ min-height: 108px; padding: 14px; }}
-    .week-num {{ font-size: 1.6em; }}
+  /* === Lesson library section ========================================= */
+  .lesson-library {{
+    background: var(--bg);
+    padding: 120px 48px;
+  }}
+  .lesson-library-inner {{
+    max-width: 1280px;
+    margin: 0 auto;
+  }}
+  .lesson-library-header {{
+    margin-bottom: 64px;
+    max-width: 760px;
+  }}
+  .lesson-library-header h2 {{
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 24px 0;
+    color: var(--text);
+  }}
+  .lesson-library-header p.lesson-library-desc {{
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--muted);
+    margin: 0 0 28px 0;
+  }}
+  .lesson-library-tip {{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(232, 93, 76, 0.08);
+    border: 1px solid rgba(232, 93, 76, 0.2);
+    color: var(--accent);
+    padding: 12px 20px;
+    border-radius: 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+  }}
+
+  /* === Card grid ====================================================== */
+  .card-grid {{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+  }}
+  .week-card {{
+    background: #ffffff;
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition:
+      border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(20px);
+    transition-delay: calc(var(--card-index) * 0.03s);
+  }}
+  .week-card.visible {{
+    opacity: 1;
+    transform: translateY(0);
+  }}
+  .week-card:hover {{
+    border-color: var(--card-hover);
+    box-shadow: 0 8px 32px rgba(27, 42, 74, 0.08);
+    transform: translateY(-4px);
+  }}
+  .week-card-link {{
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    height: 100%;
+  }}
+  .week-card-image {{
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;  /* 16:9 */
+    overflow: hidden;
+    background: #ECE6DC;
+  }}
+  .week-card-image img {{
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }}
+  .week-card:hover .week-card-image img {{
+    transform: scale(1.04);
+  }}
+  .week-badge {{
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: var(--text);
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 12px;
+  }}
+  .week-card-body {{
+    position: relative;
+    padding: 20px 22px 48px 22px;
+    min-height: 110px;
+  }}
+  .week-card-title {{
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.3;
+    margin: 0;
+    color: var(--text);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }}
+  .week-card-arrow {{
+    position: absolute;
+    right: 22px;
+    bottom: 18px;
+    font-size: 18px;
+    color: var(--light);
+    transition: color 0.3s ease, transform 0.3s ease;
+  }}
+  .week-card:hover .week-card-arrow {{
+    color: var(--accent);
+    transform: translateX(4px);
+  }}
+
+  /* === Footer ========================================================= */
+  footer.site-footer {{
+    background: var(--text);
+    color: #ffffff;
+  }}
+  .site-footer-inner {{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 64px 48px;
+    text-align: center;
+  }}
+  .site-footer-brand {{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+  }}
+  .site-footer-brand svg {{
+    width: 32px;
+    height: 32px;
+    color: #ffffff;
+  }}
+  .site-footer-brand span {{
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 24px;
+  }}
+  .site-footer-tagline {{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 16px 0 0 0;
+  }}
+  .site-footer-divider {{
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 32px auto;
+    max-width: 480px;
+  }}
+  .site-footer-copy {{
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+  }}
+
+  /* === Responsive ===================================================== */
+  /* Tablet (768-1023px): 4 columns */
+  @media (max-width: 1023px) {{
+    .card-grid {{ grid-template-columns: repeat(4, 1fr); gap: 20px; }}
+    .topbar-inner {{ padding: 0 32px; }}
+    .lesson-library {{ padding: 100px 32px; }}
+    .hero-content {{ padding: 0 32px; }}
+    .hero-title {{ font-size: 68px; }}
+    .lesson-library-header h2 {{ font-size: 48px; }}
+    .site-footer-inner {{ padding: 56px 32px; }}
+  }}
+
+  /* Mobile (<768px): 2 columns */
+  @media (max-width: 767px) {{
+    .card-grid {{ grid-template-columns: repeat(2, 1fr); gap: 16px; }}
+    .topbar {{ height: 56px; }}
+    .topbar-inner {{ padding: 0 20px; }}
+    .topbar-nav {{ gap: 16px; }}
+    .topbar-link:not(.topbar-cta) {{ display: none; }}
+    .topbar-cta {{ padding: 8px 16px; font-size: 13px; }}
+    .lesson-library {{ padding: 72px 20px; }}
+    .lesson-library-header {{ margin-bottom: 40px; }}
+    .lesson-library-header h2 {{ font-size: 36px; }}
+    .lesson-library-header p.lesson-library-desc {{ font-size: 16px; }}
+    .hero-content {{ padding: 0 20px; }}
+    .hero-overline {{ font-size: 11px; margin-bottom: 18px; }}
+    .hero-title {{ font-size: 52px; margin-bottom: 20px; }}
+    .hero-subtitle {{ font-size: 16px; }}
+    .hero-cn {{ font-size: 14px; }}
+    .week-card-body {{ padding: 16px 18px 44px 18px; min-height: 96px; }}
+    .week-card-title {{ font-size: 17px; }}
+    .week-card-arrow {{ right: 18px; bottom: 14px; }}
+    .ios-hint-content {{ padding: 16px 20px; }}
+    .site-footer-inner {{ padding: 48px 20px; }}
+  }}
+
+  /* === Print stylesheet =============================================== */
+  /* When printed, strip out everything decorative and produce a clean
+     plain-text list of "Week N — Topic". */
+  @media print {{
+    .topbar,
+    .hero,
+    .hero-video,
+    .hero-overlay,
+    .hero-scroll-indicator,
+    #ios-voice-hint,
+    footer.site-footer {{
+      display: none !important;
+    }}
+    body {{ background: #ffffff; color: #000000; }}
+    .lesson-library {{ padding: 24px; }}
+    .card-grid {{
+      display: block !important;
+      grid-template-columns: none !important;
+    }}
+    .week-card {{
+      opacity: 1 !important;
+      transform: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      page-break-inside: avoid;
+      margin: 0 0 6px 0;
+    }}
+    .week-card-image {{ display: none !important; }}
+    .week-card-body {{
+      padding: 0 !important;
+      min-height: 0 !important;
+    }}
+    .week-card-title {{
+      font-family: serif;
+      font-size: 12pt;
+      -webkit-line-clamp: unset;
+      display: block;
+      overflow: visible;
+    }}
+    .week-card-title::before {{
+      content: "Week " counter(week-counter) " \\2014  ";
+      counter-increment: week-counter;
+      font-weight: 700;
+    }}
+    .card-grid {{ counter-reset: week-counter; }}
+    .week-card-arrow {{ display: none !important; }}
   }}
 </style>
 </head>
 <body>
 
-<header class="hero">
-  <h1>IELTS 40-Week Speaking Class</h1>
-  <p class="subtitle">Interactive lesson library — record your answers, get AI feedback, listen to model answers.</p>
-  <p class="cn">雅思口语 40 周课程 · 互动式课堂讲义</p>
-  <div class="meta">
-    Click any week to open the lesson. Each lesson includes voice-recorder
-    widgets for shadowing practice, an AI-correct draft section, click-to-hear
-    model answers, and an <strong>✉️ email button</strong> on the homework page
-    that zips up all your week's recordings for sending to your teacher.
-    <br/>
-    <strong>Tip:</strong> recordings are saved on this device only — clear browser
-    storage erases them. Email yourself the zip after each session.
+<!-- ================ Fixed top navigation =============================== -->
+<nav class="topbar" id="topbar" aria-label="Primary">
+  <div class="topbar-inner">
+    <a class="topbar-brand" href="#top" aria-label="AI School home">
+      <svg class="topbar-brand-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M16 3 L28 11 L28 21 L16 29 L4 21 L4 11 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+        <path d="M11 20 L16 11 L21 20 M13 17 L19 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span class="topbar-brand-name">AI School</span>
+    </a>
+    <div class="topbar-nav">
+      <a class="topbar-link" href="#lessons">Lessons</a>
+      <a class="topbar-link" href="#contact">Contact</a>
+      <a class="topbar-link topbar-cta" href="#lessons">Start Learning</a>
+    </div>
   </div>
-</header>
+</nav>
 
-<!-- Round 40 — one-time iPad / iOS voice-quality hint. Hidden by default;
-     the script at end-of-body reveals it only when the device is iOS,
-     no Enhanced/Premium voice is installed, and the user hasn't
-     dismissed it before. -->
+<!-- ================ Hero =============================================== -->
+<section class="hero" id="top">
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+    <source src="{video_url}" type="video/webm"/>
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-overline">AI School &mdash; 40-Week IELTS Speaking Course</p>
+    <h1 class="hero-title">IELTS Speaking<br/>40-Week Course</h1>
+    <p class="hero-subtitle">Interactive lesson library &mdash; record your answers, get AI feedback, listen to model answers.</p>
+    <p class="hero-cn">雅思口语 40 周课程 · 互动式课堂讲义</p>
+  </div>
+  <a class="hero-scroll-indicator" href="#lessons" aria-label="Scroll to lessons">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M6 9 L12 15 L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</section>
+
+<!-- ================ iOS voice-hint banner (hidden by default) ========== -->
+<!-- Round 40 port — shown ONLY when (a) device is iOS, (b) no Premium /
+     Enhanced voice is already installed, and (c) the user hasn't
+     dismissed it. The script at end-of-body reveals it. -->
 <aside id="ios-voice-hint" role="status" aria-live="polite">
   <div class="ios-hint-content">
     <div class="ios-hint-icon" aria-hidden="true">🐢</div>
     <div class="ios-hint-text">
-      <strong>iPad users — install Enhanced voices for natural speech</strong>
+      <strong>iPad users &mdash; install Enhanced voices for natural speech</strong>
       <p>For the best speaking-practice experience on iPad, install a
-      higher-quality English voice: <em>Settings → Accessibility →
-      Spoken Content → Voices → English</em>. Tap a voice with a
+      higher-quality English voice: <em>Settings &rarr; Accessibility &rarr;
+      Spoken Content &rarr; Voices &rarr; English</em>. Tap a voice with a
       download arrow (Ava, Daniel, Serena are excellent). Free,
       ~50&nbsp;MB. Every lesson page will automatically use the new
       voice once it's downloaded.</p>
-      <p class="cn">iPad 用户 — 为获得更自然的英语朗读，请在
-      <em>设置 → 辅助功能 → 朗读内容 → 语音 → 英语</em>
+      <p class="cn">iPad 用户 &mdash; 为获得更自然的英语朗读，请在
+      <em>设置 &rarr; 辅助功能 &rarr; 朗读内容 &rarr; 语音 &rarr; 英语</em>
       中下载带箭头的高品质语音（如 Ava、Daniel、Serena）。免费，约 50&nbsp;MB。</p>
     </div>
     <button id="ios-voice-hint-dismiss" type="button"
@@ -368,19 +734,88 @@ def render_html(weeks: list[tuple[int, str]], bucket_base: str) -> str:
   </div>
 </aside>
 
-<main class="weeks" aria-label="Lesson list">
+<!-- ================ Lesson Library ===================================== -->
+<section class="lesson-library" id="lessons">
+  <div class="lesson-library-inner">
+    <header class="lesson-library-header">
+      <h2>Lesson Library</h2>
+      <p class="lesson-library-desc">Forty interactive IELTS speaking lessons &mdash; Parts 1, 2, and 3 across all topics. Each lesson includes voice-recorder widgets, AI-corrected drafts, click-to-hear model answers, and an email button that zips up your recordings.</p>
+      <span class="lesson-library-tip">💡 Recordings are saved on this device only &mdash; clearing the browser storage erases them. Email your teacher the recordings zip file after each session.</span>
+    </header>
+    <div class="card-grid" id="card-grid">
 {cards_html}
-</main>
+    </div>
+  </div>
+</section>
 
-<footer>
-  Hosted on Aliyun OSS · {len(weeks)} weeks · Last updated automatically by build_landing_page.py
+<!-- ================ Footer ============================================= -->
+<footer class="site-footer" id="contact">
+  <div class="site-footer-inner">
+    <div class="site-footer-brand">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M16 3 L28 11 L28 21 L16 29 L4 21 L4 11 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+        <path d="M11 20 L16 11 L21 20 M13 17 L19 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span>AI School</span>
+    </div>
+    <p class="site-footer-tagline">40 weeks to speaking confidence</p>
+    <hr class="site-footer-divider"/>
+    <p class="site-footer-copy">&copy; 2026 AI School. All rights reserved.</p>
+  </div>
 </footer>
 
+<!-- ================ Scripts ============================================ -->
 <script>
-  // Round 40 — iPad / iOS one-time voice-quality hint.
-  // Show only if (a) device is iOS / iPadOS, (b) the Web Speech API
-  // is present but no Premium/Enhanced/Siri voice is installed, and
-  // (c) the user has not dismissed the hint in a previous visit.
+  // --------------------------------------------------------------------
+  // 1) Topbar scroll-state: solidify nav background after a few pixels
+  //    of scroll so it stays legible once the user leaves the hero.
+  // --------------------------------------------------------------------
+  (function () {{
+    var topbar = document.getElementById('topbar');
+    if (!topbar) return;
+    function onScroll() {{
+      if (window.scrollY > 24) {{
+        topbar.classList.add('scrolled');
+      }} else {{
+        topbar.classList.remove('scrolled');
+      }}
+    }}
+    onScroll();
+    window.addEventListener('scroll', onScroll, {{ passive: true }});
+  }})();
+
+  // --------------------------------------------------------------------
+  // 2) Lesson-card entrance animation. Each card has --card-index set
+  //    inline so its transition-delay staggers nicely. We use an
+  //    IntersectionObserver so the cards animate in only when they
+  //    scroll into view.
+  // --------------------------------------------------------------------
+  (function () {{
+    var cards = document.querySelectorAll('.week-card');
+    if (!cards.length) return;
+    if (!('IntersectionObserver' in window)) {{
+      // No IO support — just reveal everything immediately.
+      cards.forEach(function (c) {{ c.classList.add('visible'); }});
+      return;
+    }}
+    var observer = new IntersectionObserver(function (entries) {{
+      entries.forEach(function (entry) {{
+        if (entry.isIntersecting) {{
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }}
+      }});
+    }}, {{ threshold: 0.1, rootMargin: '0px 0px -50px 0px' }});
+    cards.forEach(function (c) {{ observer.observe(c); }});
+  }})();
+
+  // --------------------------------------------------------------------
+  // 3) Round 40 — iPad / iOS one-time voice-quality hint.
+  //    Show only if (a) device is iOS / iPadOS, (b) the Web Speech API
+  //    is present but no Premium/Enhanced/Siri voice is installed, and
+  //    (c) the user has not dismissed the hint in a previous visit.
+  //    Logic preserved verbatim from the previous landing page.
+  // --------------------------------------------------------------------
   (function () {{
     function isIOS() {{
       var ua = navigator.userAgent || '';
@@ -446,11 +881,32 @@ def main() -> int:
         print("error: no Week_*.html files found at repo root", file=sys.stderr)
         return 2
 
+    # --- Validate IELTS_IMAGES against discovered weeks + actual files -----
+    if len(IELTS_IMAGES) != len(weeks) or len(weeks) != 40:
+        print(
+            f"error: IELTS_IMAGES has {len(IELTS_IMAGES)} entries but found "
+            f"{len(weeks)} weeks; expected 40 of each.",
+            file=sys.stderr,
+        )
+        return 2
+    missing: list[str] = []
+    for fname in IELTS_IMAGES:
+        p = REPO / "images" / "landing" / fname
+        if not p.exists():
+            missing.append(fname)
+    if missing:
+        print(
+            "error: missing landing images under images/landing/:\n  "
+            + "\n  ".join(missing),
+            file=sys.stderr,
+        )
+        return 2
+
     html_doc = render_html(weeks, args.bucket_base)
     out_path = Path(args.out)
     out_path.write_text(html_doc, encoding="utf-8")
     print(f"Wrote {out_path} ({out_path.stat().st_size:,} bytes, {len(weeks)} week cards)")
-    print(f"Sample weeks:")
+    print("Sample weeks:")
     for n, topic in weeks[:3]:
         print(f"  Week {n}: {topic}")
     print("  ...")

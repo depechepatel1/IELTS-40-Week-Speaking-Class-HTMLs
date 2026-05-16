@@ -579,9 +579,16 @@ def main() -> int:
         import shutil
         dst_images.mkdir(exist_ok=True)
         copied = 0
-        for img in src_images.iterdir():
+        # Recurse so subdirs (e.g. images/landing/ for the Round 54
+        # landing-page topic images) are mirrored into Interactive/images/.
+        # upload_to_oss.py prefers Interactive/images/ over the repo-root
+        # images/ when both exist, so this recursion is required for those
+        # subdir assets to reach OSS on publish.
+        for img in src_images.rglob("*"):
             if img.is_file() and img.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif"):
-                shutil.copy2(img, dst_images / img.name)
+                dest = dst_images / img.relative_to(src_images)
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(img, dest)
                 copied += 1
         if copied:
             print(f"Synced {copied} image(s) from {src_images} -> {dst_images}")
