@@ -179,43 +179,52 @@
    hints but inherit the new depth. No size changes — the listen-row
    sits absolutely-positioned in the .card top-right corner; resizing
    would overlap the .q-prompt text we just made wrap. */
+/* Round 55 v2 (2026-05-17) — VISIBLY premium: real gradient contrast,
+   stronger drop shadow, bigger hover lift. v1's #ffffff→#f8fafc was too
+   subtle to perceive (4% brightness delta); v2 uses #ffffff→#d6e0ec
+   (~15% delta) and stronger shadow opacity so the depth is obvious at
+   a glance. Hover lifts 2px (was 1px) with a bigger glow. */
 .tts-btn {
-    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-    border: 1px solid #cbd5e1;
-    color: #475569;
-    padding: 1px 6px;
+    background: linear-gradient(180deg, #ffffff 0%, #d6e0ec 100%);
+    border: 1px solid #94a3b8;
+    color: #334155;
+    padding: 2px 8px;
     font-size: 0.85em;
-    border-radius: 8px;
+    border-radius: 9px;
+    font-weight: 500;
     box-shadow:
-        0 1px 2px rgba(15, 23, 42, 0.06),
-        inset 0 1px 0 rgba(255, 255, 255, 0.85);
-    transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
-                background 0.12s ease-out, filter 0.12s ease-out;
+        0 2px 4px rgba(15, 23, 42, 0.14),
+        0 1px 1px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    transition: transform 0.14s ease-out, box-shadow 0.14s ease-out,
+                background 0.14s ease-out, filter 0.14s ease-out;
     cursor: pointer;
 }
-.tts-btn.uk    { background: linear-gradient(180deg, #f5f9ff 0%, #e6effd 100%); border-color: #93c5fd; color: #1e40af; }
-.tts-btn.us    { background: linear-gradient(180deg, #fff5f5 0%, #ffe6e6 100%); border-color: #fca5a5; color: #b91c1c; }
-.tts-btn.slow  { background: linear-gradient(180deg, #fbf7ff 0%, #f0e6fa 100%); border-color: #d8b4fe; color: #6b21a8; }
-.tts-btn.pause { background: linear-gradient(180deg, #fffcf0 0%, #fff4d6 100%); border-color: #fcd34d; color: #b45309; }
-.tts-btn.stop  { background: linear-gradient(180deg, #fbfbfb 0%, #f0f0f0 100%); border-color: #d4d4d4; color: #525252; }
+.tts-btn.uk    { background: linear-gradient(180deg, #dbeafe 0%, #93c5fd 100%); border-color: #2563eb; color: #1e3a8a; }
+.tts-btn.us    { background: linear-gradient(180deg, #fee2e2 0%, #fca5a5 100%); border-color: #dc2626; color: #7f1d1d; }
+.tts-btn.slow  { background: linear-gradient(180deg, #ede9fe 0%, #c4b5fd 100%); border-color: #7c3aed; color: #4c1d95; }
+.tts-btn.pause { background: linear-gradient(180deg, #fef3c7 0%, #fcd34d 100%); border-color: #d97706; color: #78350f; }
+.tts-btn.stop  { background: linear-gradient(180deg, #f1f5f9 0%, #cbd5e1 100%); border-color: #64748b; color: #1e293b; }
 /* Round 33 (2026-05-06) — Male/Female toggle. Pink for female (default),
    teal for male; visually distinct from the UK/US accent picker so the
    teacher can tell at a glance which gender is active. The button label
    itself flips between 👩 and 👨, so colour acts as a secondary cue. */
-.tts-btn.gender.female { background: linear-gradient(180deg, #fef5f9 0%, #fbe5ef 100%); border-color: #f9a8d4; color: #9d174d; }
-.tts-btn.gender.male   { background: linear-gradient(180deg, #f3fdf7 0%, #def7ea 100%); border-color: #6ee7b7; color: #065f46; }
+.tts-btn.gender.female { background: linear-gradient(180deg, #fce7f3 0%, #f9a8d4 100%); border-color: #db2777; color: #831843; }
+.tts-btn.gender.male   { background: linear-gradient(180deg, #d1fae5 0%, #6ee7b7 100%); border-color: #059669; color: #064e3b; }
 .tts-btn:hover:not(:disabled) {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     box-shadow:
-        0 3px 6px rgba(15, 23, 42, 0.10),
-        inset 0 1px 0 rgba(255, 255, 255, 0.95);
-    filter: brightness(1.02);
+        0 6px 12px rgba(15, 23, 42, 0.18),
+        0 2px 4px rgba(15, 23, 42, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+    filter: brightness(1.05);
 }
 .tts-btn:active:not(:disabled) {
     transform: translateY(0);
     box-shadow:
-        0 1px 1px rgba(15, 23, 42, 0.04),
-        inset 0 1px 2px rgba(15, 23, 42, 0.10);
+        0 0 0 rgba(15, 23, 42, 0),
+        inset 0 2px 4px rgba(15, 23, 42, 0.18);
+    filter: brightness(0.96);
 }
 .tts-btn:focus-visible {
     outline: 2px solid #2563eb;
@@ -224,8 +233,24 @@
 
 /* Highlighted accent — when user picks UK or US, that button stays
    highlighted to indicate which voice the Slow button will use. */
-.tts-btn.uk.active { background: #2563eb; color: white; border-color: #1d4ed8; }
-.tts-btn.us.active { background: #dc2626; color: white; border-color: #b91c1c; }
+/* Round 55 v2 — active state gets a vibrant gradient + stronger inner glow
+   so the selected accent is obvious from the listen-row at a glance. */
+.tts-btn.uk.active {
+    background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border-color: #1e3a8a;
+    box-shadow:
+        0 3px 6px rgba(29, 78, 216, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.tts-btn.us.active {
+    background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+    color: white;
+    border-color: #7f1d1d;
+    box-shadow:
+        0 3px 6px rgba(185, 28, 28, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
 
 /* Round 39 — persistent slow-mode toggle.
    OFF state (no .active): the pale purple inactive look from line 183.
@@ -234,10 +259,14 @@
    unambiguous from across the room — students should see "slow mode is
    on" at a glance, not just by reading the title attribute. */
 .tts-btn.slow.active {
-    background: #7c3aed;
+    /* Round 55 v2 — vibrant gradient + glow for ON state */
+    background: linear-gradient(180deg, #8b5cf6 0%, #6d28d9 100%);
     color: white;
-    border-color: #6d28d9;
-    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.25);
+    border-color: #4c1d95;
+    box-shadow:
+        0 0 0 2px rgba(124, 58, 237, 0.30),
+        0 3px 6px rgba(124, 58, 237, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .tts-btn:disabled, .correct-btn:disabled, .ai-only:disabled {
@@ -459,26 +488,41 @@
 }
 
 /* Sentence-paced transport buttons — Prev / Replay / Next.
- * Distinct blue tone so the navigation cluster reads as one group;
- * sits to the right of the accent picker + slow button. */
+ * Round 55 v2 — vibrant blue gradient so the play cluster is obviously
+ * a tactile interactive element, not flat decoration. The .replay
+ * button is the primary CTA (user's directive: this is THE play button)
+ * and gets a stronger emerald-green treatment to stand out from prev/next. */
 .tts-btn.prev,
-.tts-btn.replay,
 .tts-btn.next {
-    background: #f0f9ff;
-    border-color: #93c5fd;
-    color: #1e40af;
+    background: linear-gradient(180deg, #dbeafe 0%, #93c5fd 100%);
+    border-color: #2563eb;
+    color: #1e3a8a;
+}
+.tts-btn.replay {
+    background: linear-gradient(180deg, #34d399 0%, #059669 100%);
+    border-color: #065f46;
+    color: white;
+    font-weight: 600;
+    box-shadow:
+        0 2px 4px rgba(5, 150, 105, 0.30),
+        0 1px 1px rgba(5, 150, 105, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 .tts-btn.prev:hover:not(:disabled),
-.tts-btn.replay:hover:not(:disabled),
 .tts-btn.next:hover:not(:disabled) {
-    background: #dbeafe;
+    background: linear-gradient(180deg, #bfdbfe 0%, #60a5fa 100%);
 }
-/* Replay glows during in-flight playback so the student can see which
+.tts-btn.replay:hover:not(:disabled) {
+    background: linear-gradient(180deg, #10b981 0%, #047857 100%);
+    filter: brightness(1.05);
+}
+/* Replay pulses during in-flight playback so the student can see which
  * sentence the audio came from (mirrors the .speaking word highlight). */
 .tts-btn.replay.speaking {
-    background: #2563eb;
-    border-color: #1d4ed8;
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+    border-color: #1e3a8a;
     color: white;
+    animation: tts-word-pulse 0.85s ease-in-out infinite;
 }
 
 /* Sentence counter (e.g. "2/5") — sits between the slow button and the
@@ -684,38 +728,41 @@
     align-items: center !important;
 }
 .voice-recorder-container .vr-btn {
-    width: 18px !important;
-    height: 18px !important;
-    min-width: 18px !important;
-    flex: 0 0 18px !important;
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 22px !important;
+    flex: 0 0 22px !important;
     border-radius: 50% !important;
-    border: 1px solid #95a5a6;
-    /* Round 55 (2026-05-17) — premium round button. Subtle vertical
-       gradient + drop shadow + inner highlight gives a tactile,
-       glossy feel without changing the (small) footprint. Press
-       feedback via :active scale + flattened shadow. */
-    background: linear-gradient(180deg, #ffffff 0%, #eef2f6 100%);
-    color: #334155;
+    border: 1px solid #64748b;
+    /* Round 55 v2 (2026-05-17) — premium round button with REAL contrast.
+       Vertical gradient #ffffff -> #cbd5e1 (visible, ~20% delta) +
+       stronger shadow makes the button obviously tactile. Width bumped
+       from 18 -> 22px for better tap target and visible premium feel. */
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+    color: #1e293b;
     cursor: pointer;
-    font-size: 0.65em;
+    font-size: 0.75em;
+    font-weight: 600;
     line-height: 1;
     padding: 0 !important;
     box-shadow:
-        0 1.5px 3px rgba(15, 23, 42, 0.10),
-        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+        0 2px 5px rgba(15, 23, 42, 0.18),
+        0 1px 1px rgba(15, 23, 42, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
     margin: 0 !important;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
-                background 0.12s ease-out;
+    transition: transform 0.14s ease-out, box-shadow 0.14s ease-out,
+                background 0.14s ease-out;
 }
 .voice-recorder-container .vr-btn:hover:not(:disabled) {
-    background: linear-gradient(180deg, #fbfdff 0%, #e2e8f0 100%);
-    transform: scale(1.10);
+    background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
+    transform: scale(1.15);
     box-shadow:
-        0 3px 6px rgba(15, 23, 42, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+        0 5px 12px rgba(15, 23, 42, 0.25),
+        0 2px 4px rgba(15, 23, 42, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 .voice-recorder-container .vr-btn:active:not(:disabled) {
     transform: scale(0.94);
