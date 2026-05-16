@@ -521,15 +521,21 @@ _PAGE_VIDEO_PATH_BY_PAGE_NUMBER = {
 _PAGE_BOTTOM_VIDEO_CSS = (
     '<style id="page-bottom-video-css">\n'
     '/* Bug 3 — looping decorative video strips at the bottom of pages 2, 3,\n'
-    '   5. Web-only; print hides them. width:100% fills the page content area\n'
-    '   (200mm inside the page padding); height:auto preserves the natural\n'
-    '   aspect of each clip. Sits as the LAST flex child of .page, so the\n'
-    '   page-padding-bottom: 5mm yields the requested 5mm gap to page edge. */\n'
+    '   5. Web-only; print hides them. Absolutely-positioned within .page\n'
+    '   (which is position:relative) so the 5mm bottom gap is exact and\n'
+    '   independent of the flex content above. Aligned horizontally with the\n'
+    '   page padding (5mm each side) so the video lines up with the rest of\n'
+    '   the page content area. */\n'
     '.page-bottom-video {\n'
-    '  width: 100%;\n'
+    '  position: absolute;\n'
+    '  bottom: 5mm;\n'
+    '  left: 5mm;\n'
+    '  right: 5mm;\n'
+    '  width: auto;\n'
     '  height: auto;\n'
     '  display: block;\n'
     '  border-radius: 8px;\n'
+    '  z-index: 1;\n'
     '}\n'
     '@media print { .page-bottom-video { display: none !important; } }\n'
     '</style>'
@@ -541,12 +547,29 @@ _PAGE_BOTTOM_VIDEO_CSS = (
 # emitted by parse_data.py, which uses no whitespace around the digit.
 _PAGE_NUMBER_DIV_RE = re.compile(r'(<div class="page-number">(\d+)</div>)')
 
+# Strip the existing course-pipeline jpg banner that sits immediately above
+# a target page-number (2, 3, or 5). On the canonical structure today, only
+# page 2 has such a banner (course_pipeline_v4.jpg); pages 3 and 5 currently
+# have no banner so this is a no-op there. The user wants the video to
+# REPLACE the jpg, not display alongside it. Permissive with trailing
+# whitespace / newlines between the img and the page-number div.
+# Matches both Unix (`/`) and Windows (`\`) directory separators in src,
+# since parse_data.py output can use either depending on platform.
+_COURSE_PIPELINE_BANNER_BEFORE_TARGET_PAGE_RE = re.compile(
+    r'<img\s+alt="Course workflow pipeline"[^>]*/>\s*'
+    r'(<div class="page-number">(?:2|3|5)</div>)',
+    re.IGNORECASE,
+)
+
 
 def insertion_8_page_videos(html: str, bucket_base: str) -> str:
-    """Inject looping background videos at the bottom of pages 2, 3, 5.
+    """Inject looping background videos at the bottom of pages 2, 3, 5 and
+    strip the existing course-pipeline jpg banner from page 2 (since the
+    video replaces it).
 
     Web-only — this insertion runs only in make_interactive.py, so pdf-base
-    output (root Week_NN.html) is untouched. The print stylesheet hides the
+    output (root Week_NN.html) is untouched. The pdf-base flow keeps the
+    static course_pipeline_*.jpg banners. The print stylesheet hides the
     videos so a print-from-browser of the interactive HTML still produces
     a clean PDF.
 
@@ -561,9 +584,16 @@ def insertion_8_page_videos(html: str, bucket_base: str) -> str:
     if "</head>" in html:
         html = html.replace("</head>", _PAGE_BOTTOM_VIDEO_CSS + "\n</head>", 1)
 
-    # 2. Inject <video> elements after each target page-number div. The video
-    # ends up between the page-number's </div> and the surrounding .page
-    # wrapper's </div>, making it the LAST flex child of .page.
+    # 2. Strip the course-pipeline banner that immediately precedes the
+    # page-number on pages 2/3/5 (the user wants the video to REPLACE the
+    # jpg, not display alongside it). Today only page 2 has such a banner
+    # in the canonical layout, but the regex covers 3 and 5 too in case
+    # those pages later acquire one.
+    html = _COURSE_PIPELINE_BANNER_BEFORE_TARGET_PAGE_RE.sub(r"\1", html)
+
+    # 3. Inject <video> elements after each target page-number div. With
+    # absolute positioning (above), the video lives inside the .page
+    # wrapper but is positioned relative to it — out of flex flow.
     def repl(m: re.Match) -> str:
         full = m.group(1)
         page_num = m.group(2)

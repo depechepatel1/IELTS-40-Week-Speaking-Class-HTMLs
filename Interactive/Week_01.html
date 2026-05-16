@@ -784,15 +784,21 @@
 </script>
 <style id="page-bottom-video-css">
 /* Bug 3 — looping decorative video strips at the bottom of pages 2, 3,
-   5. Web-only; print hides them. width:100% fills the page content area
-   (200mm inside the page padding); height:auto preserves the natural
-   aspect of each clip. Sits as the LAST flex child of .page, so the
-   page-padding-bottom: 5mm yields the requested 5mm gap to page edge. */
+   5. Web-only; print hides them. Absolutely-positioned within .page
+   (which is position:relative) so the 5mm bottom gap is exact and
+   independent of the flex content above. Aligned horizontally with the
+   page padding (5mm each side) so the video lines up with the rest of
+   the page content area. */
 .page-bottom-video {
-  width: 100%;
+  position: absolute;
+  bottom: 5mm;
+  left: 5mm;
+  right: 5mm;
+  width: auto;
   height: auto;
   display: block;
   border-radius: 8px;
+  z-index: 1;
 }
 @media print { .page-bottom-video { display: none !important; } }
 </style>
@@ -1062,7 +1068,6 @@
      correctly in both root-served and canonical-folder views.
      width:100% scales to the content area; height:auto preserves
      aspect ratio. -->
-<img alt="Course workflow pipeline" src="images/course_pipeline_v4.jpg" style="display: block; width: 100%; height: auto; margin-top: auto; border-radius: 8px;"/>
 <div class="page-number">2</div>
 <video class="page-bottom-video" autoplay muted loop playsinline preload="metadata">
   <source src="https://ielts.aischool.studio/videos/video1.mp4" type="video/mp4"/>
