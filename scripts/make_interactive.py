@@ -506,9 +506,84 @@ def insertion_6_body_class(html: str) -> str:
     return html[:m.start()] + f'<body{new_attrs}>' + html[m.end():]
 
 
+# Bug 3 (2026-05-16) — page-bottom looping videos. Web-only (interactive
+# layer only); pdf-base output keeps the existing static course_pipeline_*.jpg
+# banners untouched. Print stylesheet hides the videos so PDF exports from
+# the interactive HTML are unaffected. Same single clip per page slot,
+# reused across all 40 weeks (same hosting/caching model as Round 48's
+# cover_spinning.webm). Videos live at https://ielts.aischool.studio/videos/.
+_PAGE_VIDEO_PATH_BY_PAGE_NUMBER = {
+    "2": "videos/video1.mp4",
+    "3": "videos/video3.mp4",
+    "5": "videos/video2.mp4",
+}
+
+_PAGE_BOTTOM_VIDEO_CSS = (
+    '<style id="page-bottom-video-css">\n'
+    '/* Bug 3 — looping decorative video strips at the bottom of pages 2, 3,\n'
+    '   5. Web-only; print hides them. width:100% fills the page content area\n'
+    '   (200mm inside the page padding); height:auto preserves the natural\n'
+    '   aspect of each clip. Sits as the LAST flex child of .page, so the\n'
+    '   page-padding-bottom: 5mm yields the requested 5mm gap to page edge. */\n'
+    '.page-bottom-video {\n'
+    '  width: 100%;\n'
+    '  height: auto;\n'
+    '  display: block;\n'
+    '  border-radius: 8px;\n'
+    '}\n'
+    '@media print { .page-bottom-video { display: none !important; } }\n'
+    '</style>'
+)
+
+# Match `<div class="page-number">N</div>` and capture the page number so we
+# can decide whether this is one of pages 2/3/5 (gets a video) or another
+# page (no change). The pattern is anchored to the exact bake-time HTML
+# emitted by parse_data.py, which uses no whitespace around the digit.
+_PAGE_NUMBER_DIV_RE = re.compile(r'(<div class="page-number">(\d+)</div>)')
+
+
+def insertion_8_page_videos(html: str, bucket_base: str) -> str:
+    """Inject looping background videos at the bottom of pages 2, 3, 5.
+
+    Web-only — this insertion runs only in make_interactive.py, so pdf-base
+    output (root Week_NN.html) is untouched. The print stylesheet hides the
+    videos so a print-from-browser of the interactive HTML still produces
+    a clean PDF.
+
+    Idempotent: skip if the marker class is already present in the HTML.
+    """
+    if 'class="page-bottom-video"' in html:
+        return html  # already injected
+
+    base = bucket_base.rstrip("/")
+
+    # 1. Inject CSS before </head>. Idempotency-safe via the id check above.
+    if "</head>" in html:
+        html = html.replace("</head>", _PAGE_BOTTOM_VIDEO_CSS + "\n</head>", 1)
+
+    # 2. Inject <video> elements after each target page-number div. The video
+    # ends up between the page-number's </div> and the surrounding .page
+    # wrapper's </div>, making it the LAST flex child of .page.
+    def repl(m: re.Match) -> str:
+        full = m.group(1)
+        page_num = m.group(2)
+        path = _PAGE_VIDEO_PATH_BY_PAGE_NUMBER.get(page_num)
+        if path is None:
+            return full
+        video_tag = (
+            '\n<video class="page-bottom-video" autoplay muted loop playsinline '
+            'preload="metadata">'
+            f'\n  <source src="{base}/{path}" type="video/mp4"/>'
+            '\n</video>'
+        )
+        return full + video_tag
+
+    return _PAGE_NUMBER_DIV_RE.sub(repl, html)
+
+
 def transform(orig_path: Path, endpoint: str, bucket_base: str,
               gate_title: str, minify: bool = True) -> str:
-    """Apply the seven insertions and return the new HTML."""
+    """Apply the eight insertions and return the new HTML."""
     html = orig_path.read_text(encoding="utf-8")
     html = insertion_1_css(html, minify=minify)
     html = insertion_2_draft_page(html)
@@ -518,6 +593,7 @@ def transform(orig_path: Path, endpoint: str, bucket_base: str,
                               minify=minify)
     html = insertion_6_body_class(html)
     html = insertion_7_password_gate(html, bucket_base, gate_title)
+    html = insertion_8_page_videos(html, bucket_base)  # Bug 3 (2026-05-16)
     return html
 
 
