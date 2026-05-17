@@ -124,6 +124,37 @@ BUG3_IELTS_MARKERS = {
     "Bug 3 .page-bottom-video class":  "page-bottom-video",
 }
 
+# Section 7+8 / Draft+Polished asymmetric merge state.
+#
+# PDF-base output (root Week_*.html) should have these MERGED into a
+# single writing area. Interactive output keeps them separate so
+# make_interactive.py can inject the AI-correction overlay into the
+# polished half.
+#
+# IGCSE: merged label is "Section 7 &amp; 8" (one combined .floating-
+# window block); unmerged shows separate <div class="section-badge">
+# Section 7</div> and <div class="section-badge">Section 8</div>.
+# IELTS: merged label is "Writing Homework: AI corrected"; unmerged
+# shows "Writing Homework: Draft &amp; Polished Rewrite" + separate
+# <strong>Draft:</strong> and <strong>Polished Rewrite:</strong>
+# anchors.
+IGCSE_PDF_MERGE_MARKERS = {
+    "Sec 7 & 8 merged badge (PDF should have this)":
+        "Section 7 &amp; 8",
+}
+IGCSE_INT_SEPARATE_MARKERS = {
+    "Sec 7 badge present (Interactive should have this)":
+        '<div class="section-badge">Section 7</div>',
+    "Sec 8 badge present (Interactive should have this)":
+        '<div class="section-badge">Section 8</div>',
+}
+IELTS_PDF_MERGE_MARKERS = {
+    "Writing Homework: AI corrected banner (PDF should have this)":
+        "Writing Homework: AI corrected",
+    "&lt;strong&gt;AI corrected:&lt;/strong&gt; single anchor":
+        "<strong>AI corrected:</strong>",
+}
+
 
 # ============================================================
 # Helpers
@@ -209,6 +240,18 @@ def audit_one(path: Path, kind: str, strict: bool) -> dict:
         result["widget_css"] = check_markers(html, WIDGET_CSS_MARKERS)
         if "IELTS" in str(path):
             result["bug3"] = check_markers(html, BUG3_IELTS_MARKERS)
+        # Interactive should keep Sec 7/8 separate (for AI overlay). Track
+        # this for the IGCSE side; IELTS uses Draft/Polished anchors
+        # which are part of the make_interactive.py contract checked
+        # implicitly by the widget_js markers.
+        if "IGCSE" in str(path):
+            result["sec78_separate"] = check_markers(html, IGCSE_INT_SEPARATE_MARKERS)
+    else:
+        # PDF-base — should have the merged form.
+        if "IGCSE" in str(path):
+            result["sec78_merged"] = check_markers(html, IGCSE_PDF_MERGE_MARKERS)
+        elif "IELTS" in str(path):
+            result["sec78_merged"] = check_markers(html, IELTS_PDF_MERGE_MARKERS)
     return result
 
 
@@ -300,6 +343,24 @@ def render_text_report(mirror: dict, audits: list[dict], strict: bool) -> tuple[
                     add(f"    BUG3  {status:<14s} {marker_key}")
                     if count < n:
                         drift += (n - count)
+            # IGCSE Interactive: should keep Sec 7/8 SEPARATE for AI overlay.
+            if not is_ielts:
+                for marker_key in IGCSE_INT_SEPARATE_MARKERS:
+                    count = sum(1 for a in items if a.get("sec78_separate", {}).get(marker_key, False))
+                    status = _status_label(count, n)
+                    add(f"    SEC78 {status:<14s} {marker_key}")
+                    if count < n:
+                        drift += (n - count)
+        else:
+            # PDF-base: Section 7 & 8 / Draft + Polished should be MERGED.
+            merge_markers = (IGCSE_PDF_MERGE_MARKERS if not is_ielts
+                             else IELTS_PDF_MERGE_MARKERS)
+            for marker_key in merge_markers:
+                count = sum(1 for a in items if a.get("sec78_merged", {}).get(marker_key, False))
+                status = _status_label(count, n)
+                add(f"    MERGE {status:<14s} {marker_key}")
+                if count < n:
+                    drift += (n - count)
         add("")
 
     # === Summary ===
