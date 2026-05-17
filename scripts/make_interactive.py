@@ -522,10 +522,20 @@ def insertion_6_body_class(html: str) -> str:
 #   user's page 5 -> page-number "4" -> video2
 # This map's keys are the page-number div text values (NOT the user's
 # page numbers).
-_PAGE_VIDEO_PATH_BY_PAGE_NUMBER = {
-    "1": "videos/video1.mp4",
-    "2": "videos/video3.mp4",
-    "4": "videos/video2.mp4",
+# Round 56 (2026-05-17) — switch from absolute page-number values to
+# ordinal position. Per IGCSE CLAUDE.md page-numbering convention,
+# page-numbers are CUMULATIVE across all 40 weeks ((week-1)*5+N for
+# IGCSE, similar for IELTS). So Week_05.html's page-numbers start at
+# 37, Week_40.html's start at 196 — they're NOT 1/2/3/4/5 for every
+# week. My original "match page-number 1/2/4" logic only hit on
+# Week_01 and silently passed through Weeks 2-40. Fix: index videos
+# by ORDINAL position (1st/2nd/4th page-number div within the file)
+# so each week's first content page gets video1, second gets video3,
+# fourth gets video2 — independent of the actual page-number value.
+_PAGE_VIDEO_PATH_BY_ORDINAL = {
+    0: "videos/video1.mp4",  # 1st page-number div in the file (= user-page 2)
+    1: "videos/video3.mp4",  # 2nd (= user-page 3)
+    3: "videos/video2.mp4",  # 4th (= user-page 5)
 }
 
 _PAGE_BOTTOM_VIDEO_CSS = (
@@ -600,24 +610,29 @@ def insertion_8_page_videos(html: str, bucket_base: str) -> str:
     # insertion, so the pdf-base output keeps its jpgs.
     html = _COURSE_PIPELINE_BANNER_RE.sub("", html)
 
-    # 3. Inject <video> elements after each target page-number div. With
-    # absolute positioning (above), the video lives inside the .page
-    # wrapper but is positioned relative to it — out of flex flow.
-    def repl(m: re.Match) -> str:
-        full = m.group(1)
-        page_num = m.group(2)
-        path = _PAGE_VIDEO_PATH_BY_PAGE_NUMBER.get(page_num)
+    # 3. Inject <video> elements after the Nth page-number div per the
+    # ordinal map above. Each Week_NN.html file contains the page-number
+    # divs for ONE week's content pages (typically 5-9 of them), so the
+    # 1st/2nd/4th occurrences correspond to that week's user-page 2/3/5.
+    # We walk matches in REVERSE so each insertion doesn't shift the
+    # offsets of later matches.
+    matches = list(_PAGE_NUMBER_DIV_RE.finditer(html))
+    pieces: list[tuple[int, str]] = []  # (insert_position, text_to_insert)
+    for ordinal, m in enumerate(matches):
+        path = _PAGE_VIDEO_PATH_BY_ORDINAL.get(ordinal)
         if path is None:
-            return full
+            continue
         video_tag = (
             '\n<video class="page-bottom-video" autoplay muted loop playsinline '
             'preload="metadata">'
             f'\n  <source src="{base}/{path}" type="video/mp4"/>'
             '\n</video>'
         )
-        return full + video_tag
-
-    return _PAGE_NUMBER_DIV_RE.sub(repl, html)
+        pieces.append((m.end(), video_tag))
+    # Apply insertions back-to-front so earlier-position offsets stay valid.
+    for pos, tag in reversed(pieces):
+        html = html[:pos] + tag + html[pos:]
+    return html
 
 
 def transform(orig_path: Path, endpoint: str, bucket_base: str,
