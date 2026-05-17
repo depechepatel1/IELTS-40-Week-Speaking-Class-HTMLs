@@ -1,6 +1,6 @@
 # CLAUDE.md — IELTS 40-Week Speaking Class
 
-Last reorg: **2026-05-01** (canonical-folder workflow + filename standardization + CDN-only public surface).
+Last reorg: **2026-05-17** (Round 56 — output files moved into five dedicated subfolders; pipeline scripts resolve them via `scripts/_paths.py`). Previous: 2026-05-01 (canonical-folder workflow + filename standardization + CDN-only public surface).
 
 ## TL;DR
 
@@ -11,27 +11,46 @@ Last reorg: **2026-05-01** (canonical-folder workflow + filename standardization
 
 ## Directory layout
 
+Source-of-truth files (canonical/, parse_data.py, scripts/, function-compute/, images/, Curriculum 19.txt, JSON content files) stay at their historical locations. Output files (per-week HTML, per-week PDFs, combined PDF, landing page) live in five dedicated subfolders after Round 56:
+
 ```
 .
-├── canonical/                  ← Source of truth for Week 1
-│   ├── pdf-base/Week_01.html       (printable PDF base)
-│   └── interactive/Week_01.html    (with TTS / AI / recording widgets)
-├── Week_01.html ... Week_40.html   ← PDF base × 40, regenerated from canonical
-├── Interactive/Week_01.html ... Week_40.html  ← Interactive × 40, regenerated
-├── parse_data.py                   ← canonical PDF base → Week_NN.html × 40
-├── master Curiculum.json           ← per-week content (cue cards, model answers, vocab)
-├── pronunciations.json             ← IPA tooltips data (uploaded to OSS)
-├── images/                         ← course_pipeline_v2/v3/v4.png used in Week pages
+├── canonical/                          ← Source of truth for Week 1
+│   ├── pdf-base/Week_01.html               (printable PDF base)
+│   └── interactive/Week_01.html            (with TTS / AI / recording widgets)
+├── parse_data.py                       ← canonical PDF base → 40 PDF-base HTMLs
+├── master Curiculum.json               ← per-week content (cue cards, model answers, vocab)
+├── pronunciations.json                 ← IPA tooltips data (uploaded to OSS)
+├── batch_convert_pdf.py                ← Playwright HTML → PDF for the 40 PDF-base HTMLs
+├── images/                             ← course_pipeline_v2/v3/v4.png used in Week pages
+│
+├── IELTS PDF Base HTMLS/               ← Round 56 — printable-side outputs
+│   ├── HTMLs/Week_NN.html                  (40 files, produced by parse_data.py via lessons/)
+│   ├── Converted PDFs/Week_NN.pdf          (40 files, produced by batch_convert_pdf.py)
+│   └── Combined PDF/IELTS_Speaking_Course_Complete.pdf  (single book; built by combine_pdfs.py)
+├── IELTS Interactive HTMLS/            ← Round 56 — web-side outputs (40 Week_NN.html)
+├── Landing Page/index.html             ← Round 56 — landing page (built by build_landing_page.py)
+├── Old Versions/                       ← Archive of pre-reorg files (read-only history)
+│
 └── scripts/
-    ├── make_interactive.py         ← Week_NN.html → Interactive/Week_NN.html
-    ├── upload_to_oss.py            ← upload to aischool-ielts-bj at bucket root
-    ├── bind_custom_domain.py       ← DNS + OSS CNAME + cert provisioning
-    ├── build_pronunciations.py     ← regenerate pronunciations.json from corpus
-    ├── build_landing_page.py       ← generate course-index landing page
-    ├── check_cert_expiry.py        ← weekly cron: warn at <30 days to cert expiry
-    ├── fonts/                      ← woff2 sources for embedded base64 @font-face
-    └── templates/                  ← inserted_script_modules/ (dir of ~14 module files; modularized Round 53), inserted_css.css, polished_section_overlay.html
+    ├── _paths.py                       ← Round 56 — central resolver for the 5 folders above
+    ├── make_interactive.py             ← PDF-base Week_NN.html → IELTS Interactive HTMLS/Week_NN.html
+    ├── post_merge_draft_polished.py    ← PDF-base only: merge Draft + Polished into single AI-corrected area
+    ├── upload_to_oss.py                ← upload Interactive + Landing Page to aischool-ielts-bj
+    ├── build_landing_page.py           ← regenerate Landing Page/index.html from per-week metadata
+    ├── combine_pdfs.py                 ← assemble Combined PDF/*.pdf from the 40 per-week PDFs
+    ├── audit_html_consistency.py       ← cross-repo + cross-marker drift audit (mirror w/ IGCSE)
+    ├── verify_homework_data.py         ← preflight schema check for per-week content
+    ├── verify_no_drift.py              ← post-publish drift check (Week_05/22/38 vs canonical)
+    ├── publish.py                      ← orchestrator: runs all of the above in order
+    ├── bind_custom_domain.py           ← DNS + OSS CNAME + cert provisioning
+    ├── build_pronunciations.py         ← regenerate pronunciations.json from corpus
+    ├── check_cert_expiry.py            ← weekly cron: warn at <30 days to cert expiry
+    ├── fonts/                          ← woff2 sources for embedded base64 @font-face
+    └── templates/                      ← inserted_script_modules/ (~14 numbered modules + _header/_footer/_manifest.txt, modularized Round 53), inserted_css.css, polished_section_overlay.html
 ```
+
+**Path resolver:** every script that reads or writes output files goes through `scripts/_paths.py` (`resolve_pdf_base_html_dir`, `resolve_interactive_dir`, `resolve_pdf_converted_dir`, `resolve_pdf_combined_dir`, `resolve_landing_dir`). To rename or relocate one of the five folders, change the resolver in one place — no script edits needed.
 
 ## When to edit what
 
@@ -78,17 +97,27 @@ To verify drift independently (e.g., after a manual edit you're unsure about):
 individually (debugging, partial fan-out):
 
 ```bash
-python parse_data.py                                        # canonical → Weeks 2-40 PDF base
-cp lessons/Week_*.html . && rm -rf lessons                  # promote to root
+python parse_data.py                                        # canonical → lessons/Week_NN.html × 40 (PDF base)
+# (publish.py's promote step copies lessons/ → IELTS PDF Base HTMLS/HTMLs/ and removes lessons/)
 python scripts/make_interactive.py \
-    --in . --out Interactive \
+    --in  "IELTS PDF Base HTMLS/HTMLs" \
+    --out "IELTS Interactive HTMLS" \
     --endpoint https://ielts-arrection-nafrghqpzj.cn-beijing.fcapp.run \
     --bucket-base https://ielts.aischool.studio
-python scripts/upload_to_oss.py                             # to aischool-ielts-bj at bucket root
-python scripts/verify_no_drift.py                           # confirm 0 drift in sampled weeks
+python scripts/post_merge_draft_polished.py                 # PDF base only: merge Draft + Polished into single AI-corrected area
+python scripts/build_landing_page.py                        # regenerate Landing Page/index.html
+python scripts/upload_to_oss.py                             # push Interactive + Landing Page to aischool-ielts-bj
+python scripts/verify_no_drift.py                           # confirm 0 drift in sampled weeks (Week_05/22/38)
 ```
 
 The `--bucket-base` value is critical: it's baked into every Interactive HTML as the URL prefix for `pronunciations.json` and other resources. Must match the public CDN domain (no path prefix).
+
+**To regenerate the combined printable PDF** (rare — for hand-off to print shop):
+
+```bash
+python batch_convert_pdf.py                                 # 40 IELTS PDF Base HTMLS/HTMLs/Week_NN.html → Converted PDFs/Week_NN.pdf
+python scripts/combine_pdfs.py                              # 40 Converted PDFs/*.pdf → Combined PDF/IELTS_Speaking_Course_Complete.pdf
+```
 
 ## Embedded fonts (Plan F, 2026-05-01)
 
@@ -202,7 +231,7 @@ cmd //c "mklink /J node_modules D:\\aischool-fc-node_modules"
 
 - **NEVER regenerate all 40 weeks during iteration.** Canonical files in `canonical/` are the editing surface. Fan-out only when user says "fan out" or "publish".
 - **Don't run `parse_data.py` for Week 1 alone.** Edit `canonical/pdf-base/Week_01.html` directly.
-- **Don't edit root-level `Week_NN.html` files directly** (they get overwritten on next fan-out). Edit canonical instead.
+- **Don't edit generated files directly** — files under `IELTS PDF Base HTMLS/HTMLs/Week_NN.html` and `IELTS Interactive HTMLS/Week_NN.html` get overwritten on every fan-out. Edit `canonical/` and re-publish.
 - **Work in small, testable steps**. Verify Week 1 visually before fan-out.
 
 ## Commit & publish discipline (Round 52 — 2026-05-14)
