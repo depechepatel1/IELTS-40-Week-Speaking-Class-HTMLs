@@ -131,6 +131,59 @@ body {
 
 /* === END TYPOGRAPHY (Round 55) ============================== */
 
+/* ============================================================
+   === EXIT TICKET PILL LAYOUT (Round 55c — 2026-05-17) =======
+   ============================================================
+   Mirrors the pill CSS in template.html so the IGCSE Interactive
+   layer renders Section 11's numbered exercises identically to its
+   PDF-base output. The transformation that produces the
+   <div class="q-pills-row"><span class="q-pill">N. text.</span>…</div>
+   markup runs in generate_course.py at build time, so PDF base
+   and Interactive both inherit the pill structure — these rules
+   simply style the existing markup on both surfaces.
+   IELTS doesn't currently use Exit Ticket pills, so these
+   selectors are unused there (harmless dead CSS).
+   ============================================================ */
+.q-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 6px 0 10px 0;
+    align-items: stretch;
+}
+.q-pills-row .q-pill {
+    flex: 1 1 0;
+    min-width: 110px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(44, 62, 80, 0.20);
+    border-radius: 999px;
+    font-size: var(--ts-small);
+    color: #2c3e50;
+    line-height: 1.35;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+.q-prompt + .q-pills-row {
+    margin-top: 4px;
+}
+.exit-content-wrapper .q-prompt {
+    font-size: var(--ts-h3);
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.3;
+    margin: 0 0 6px 0;
+}
+.exit-content-wrapper .q-prompt strong:first-child {
+    font-weight: inherit;
+}
+/* === END EXIT TICKET PILL LAYOUT ============================ */
+
 /* === Lined-paper overlay model === */
 
 /* Hide the original .lines divs only inside .draft-page; they remain in
