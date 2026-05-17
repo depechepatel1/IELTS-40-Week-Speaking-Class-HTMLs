@@ -26,7 +26,12 @@ def batch_convert(input_dir="."):
             
             try:
                 page = context.new_page()
-                page.goto(f"file://{os.path.abspath(html_path)}", wait_until="networkidle")
+                # Round 56 (2026-05-17) — switched from "networkidle" to
+                # "load" so external/CDN asset fetches (Cloudinary cover,
+                # OSS-hosted videos) don't trigger Playwright's default
+                # 30s networkidle timeout. (Same fix applied to IGCSE's
+                # batch_convert_pdf.py.)
+                page.goto(f"file://{os.path.abspath(html_path)}", wait_until="load")
                 
                 page.pdf(
                     path=pdf_path,

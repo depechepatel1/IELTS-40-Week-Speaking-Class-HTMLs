@@ -38,16 +38,17 @@ def main() -> int:
         print("FATAL: no Week_NN.pdf files found at repo root.")
         print("Run `python batch_convert_pdf.py` first.")
         return 1
-    if not INTRO.exists():
-        print(f"FATAL: {INTRO.name} not found at repo root.")
-        print("Run `python convert_intro_pdf.py` first.")
-        return 1
-
-    sources = [INTRO] + weeks
+    # Round 56 (2026-05-17) — INTRO is now optional. User plans to create
+    # a new intro packet separately; until then the combined PDF just
+    # starts at Week_01.pdf. Previously this hard-failed when
+    # intro_packet.pdf was missing, blocking combined-PDF generation
+    # entirely. (Same fix applied to IGCSE's combine_pdfs.py.)
+    sources = ([INTRO] + weeks) if INTRO.exists() else weeks
     print(f"Combining {len(sources)} PDFs:")
-    print(f"  - {INTRO.name}")
-    for w in weeks:
-        print(f"  - {w.name}")
+    if not INTRO.exists():
+        print(f"  (intro_packet.pdf not present — combined PDF starts with Week_01)")
+    for src in sources:
+        print(f"  - {src.name}")
 
     writer = PdfWriter()
     total_pages = 0
