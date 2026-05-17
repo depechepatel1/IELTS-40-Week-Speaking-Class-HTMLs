@@ -247,11 +247,17 @@ def audit_one(path: Path, kind: str, strict: bool) -> dict:
         if "IGCSE" in str(path):
             result["sec78_separate"] = check_markers(html, IGCSE_INT_SEPARATE_MARKERS)
     else:
-        # PDF-base — should have the merged form.
-        if "IGCSE" in str(path):
-            result["sec78_merged"] = check_markers(html, IGCSE_PDF_MERGE_MARKERS)
-        elif "IELTS" in str(path):
-            result["sec78_merged"] = check_markers(html, IELTS_PDF_MERGE_MARKERS)
+        # PDF-base — should have the merged form. Canonical templates are
+        # the intentionally-unmerged source-of-truth (post_merge_*.py
+        # transforms them at fan-out time), so skip the merge check for
+        # those files — flagging them as drift would be a false positive.
+        path_str = str(path).replace("\\", "/")
+        is_canonical = "/canonical/" in path_str or path_str.endswith("/template.html")
+        if not is_canonical:
+            if "IGCSE" in path_str:
+                result["sec78_merged"] = check_markers(html, IGCSE_PDF_MERGE_MARKERS)
+            elif "IELTS" in path_str:
+                result["sec78_merged"] = check_markers(html, IELTS_PDF_MERGE_MARKERS)
     return result
 
 
