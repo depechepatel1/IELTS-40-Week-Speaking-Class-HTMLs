@@ -1,14 +1,28 @@
 import os
 import sys
+from pathlib import Path
 from playwright.sync_api import sync_playwright
 
-def batch_convert(input_dir="."):
+# Round 56 — Phase 1 path-fallback support.
+_REPO = Path(__file__).resolve().parent
+sys.path.insert(0, str(_REPO / "scripts"))
+from _paths import resolve_pdf_base_html_dir, resolve_pdf_converted_dir  # noqa: E402
+
+
+def batch_convert(input_dir=None, output_dir=None):
     """
     Finds all Week_*.html files and converts them to PDF.
+    `input_dir` defaults to the resolved PDF-base HTML dir; `output_dir`
+    defaults to the resolved Converted PDFs dir.
     """
+    if input_dir is None:
+        input_dir = str(resolve_pdf_base_html_dir(_REPO))
+    if output_dir is None:
+        output_dir = str(resolve_pdf_converted_dir(_REPO))
+        Path(output_dir).mkdir(parents=True, exist_ok=True)
     html_files = [f for f in os.listdir(input_dir) if f.startswith("Week_") and f.endswith(".html")]
     html_files.sort() # Process in order
-    
+
     if not html_files:
         print("No HTML files found.")
         return
@@ -16,11 +30,11 @@ def batch_convert(input_dir="."):
     with sync_playwright() as p:
         browser = p.chromium.launch()
         context = browser.new_context()
-        
+
         for html_file in html_files:
             pdf_file = html_file.replace(".html", ".pdf")
             html_path = os.path.join(input_dir, html_file)
-            pdf_path = os.path.join(input_dir, pdf_file)
+            pdf_path = os.path.join(output_dir, pdf_file)
             
             print(f"Converting {html_file} -> {pdf_file}...")
             

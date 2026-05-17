@@ -24,6 +24,10 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 
+# Round 56 — Phase 1 path-fallback support.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _paths import resolve_pdf_base_html_dir, resolve_landing_dir  # noqa: E402
+
 # === Topic-extraction regex (preserved verbatim from previous version) =======
 # IELTS week-tag format: <span class="week-tag">Week N • Lesson X • Topic</span>
 # The regex strips the "Week N • Lesson X • " prefix and captures only the topic.
@@ -63,7 +67,8 @@ def extract_topic(html_text: str) -> str:
 
 def collect_weeks() -> list[tuple[int, str]]:
     weeks: list[tuple[int, str]] = []
-    for p in REPO.glob("Week_*.html"):
+    pdf_base_dir = resolve_pdf_base_html_dir(REPO)  # Round 56 — fallback resolver
+    for p in pdf_base_dir.glob("Week_*.html"):
         m = WEEK_NUM_RE.search(p.name)
         if not m:
             continue
@@ -877,7 +882,12 @@ def render_html(weeks: list[tuple[int, str]], bucket_base: str) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--bucket-base", default="https://ielts.aischool.studio")
-    ap.add_argument("--out", default=str(REPO / "index.html"))
+    # Round 56 — Phase 1: index.html goes into the resolved Landing Page
+    # dir (new `Landing Page/` if migrated, else repo root). mkdir is a
+    # safety-net for the new-folder path.
+    landing_dir = resolve_landing_dir(REPO)
+    landing_dir.mkdir(parents=True, exist_ok=True)
+    ap.add_argument("--out", default=str(landing_dir / "index.html"))
     args = ap.parse_args()
 
     weeks = collect_weeks()

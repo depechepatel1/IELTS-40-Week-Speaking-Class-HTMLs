@@ -169,13 +169,21 @@ def main() -> int:
         _step("1/5  parse_data.py — fan out canonical → Weeks 2-40",
               [sys.executable, "parse_data.py"], quiet=args.quiet)
 
-        # 2. Promote lessons/ → root + cleanup
+        # 2. Promote lessons/ → resolved PDF-base dir + cleanup
+        # Round 56 — Phase 1: copy destination is the resolved PDF-base
+        # HTMLs dir (new `IELTS PDF Base HTMLS/HTMLs/` if migrated, else
+        # repo root). Ensures the rest of the pipeline reads from the
+        # correct location.
+        sys.path.insert(0, str(SCRIPTS))
+        from _paths import resolve_pdf_base_html_dir
+        pdf_base_dst = resolve_pdf_base_html_dir(REPO)
+        pdf_base_dst.mkdir(parents=True, exist_ok=True)
         lessons_dir = REPO / "lessons"
         if lessons_dir.is_dir():
             print(f"\n{'-' * 60}")
-            print(f"▶ 2/5  Promote lessons/ → repo root")
+            print(f"▶ 2/5  Promote lessons/ → {pdf_base_dst.relative_to(REPO)}")
             for f in sorted(lessons_dir.glob("Week_*.html")):
-                shutil.copy2(f, REPO / f.name)
+                shutil.copy2(f, pdf_base_dst / f.name)
             # Round 28b (2026-05-03): on Windows + OneDrive the directory
             # often holds a file-system lock for a few seconds after the
             # last file inside it is copied/moved, causing
@@ -186,14 +194,21 @@ def main() -> int:
             # transient lock; if it's a real issue (read-only mount),
             # the next step will surface it.
             shutil.rmtree(lessons_dir, ignore_errors=True)
-            print(f"  Copied {len(list(REPO.glob('Week_*.html')))} weeks; "
+            print(f"  Copied {len(list(pdf_base_dst.glob('Week_*.html')))} weeks; "
                   f"lessons/ removed={'no (file lock)' if lessons_dir.exists() else 'yes'}")
             print(f"✓ done")
 
         # 3. Build Interactive layer
+        # Round 56 — Phase 1: --in resolves to PDF-base dir, --out to
+        # the resolved Interactive dir.
+        from _paths import resolve_interactive_dir
+        in_dir = str(resolve_pdf_base_html_dir(REPO))
+        out_dir = str(resolve_interactive_dir(REPO))
+        from pathlib import Path as _Path
+        _Path(out_dir).mkdir(parents=True, exist_ok=True)
         _step("3/6  make_interactive.py — bake Interactive/Week_*.html",
               [sys.executable, str(SCRIPTS / "make_interactive.py"),
-               "--in", ".", "--out", "Interactive",
+               "--in", in_dir, "--out", out_dir,
                "--endpoint", FC_ENDPOINT,
                "--bucket-base", BUCKET_BASE],
               quiet=args.quiet)

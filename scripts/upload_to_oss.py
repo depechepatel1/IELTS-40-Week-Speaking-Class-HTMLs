@@ -23,6 +23,10 @@ REPO = Path(__file__).resolve().parents[1]
 BUCKET_NAME = "aischool-ielts-bj"
 ENDPOINT = "https://oss-cn-beijing.aliyuncs.com"
 
+# Round 56 — Phase 1 path-fallback support.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _paths import resolve_interactive_dir, resolve_landing_dir, resolve_pdf_base_html_dir  # noqa: E402
+
 # Cache-Control header policy. CDN caches per these durations; clients
 # (browsers) cache for max-age. Values balance "students see fresh
 # content" vs "every page-view doesn't slam origin":
@@ -200,7 +204,7 @@ def main() -> int:
     ok = skip = 0
 
     # 2. Upload 40 interactive HTMLs with Text/HTML mime + cache headers.
-    interactive = REPO / "Interactive"
+    interactive = resolve_interactive_dir(REPO)  # Round 56 — fallback resolver
     htmls = sorted(interactive.glob("Week_*.html"))
     print(f"\nUploading {len(htmls)} HTML files (skip-unchanged enabled)...")
     for f in htmls:
@@ -222,11 +226,15 @@ def main() -> int:
         print("  WARN: pronunciations.json not found at repo root", file=sys.stderr)
 
     # 3b. Auto-regenerate index.html if stale, then upload.
-    index_path = REPO / "index.html"
+    # Round 56 — index lives in resolved Landing dir; week sources in
+    # resolved PDF-base dir. Both fall back to repo root when not migrated.
+    landing_dir = resolve_landing_dir(REPO)
+    pdf_base_dir = resolve_pdf_base_html_dir(REPO)
+    index_path = landing_dir / "index.html"
     needs_rebuild = not index_path.exists()
     if not needs_rebuild:
         index_mtime = index_path.stat().st_mtime
-        for w in REPO.glob("Week_*.html"):
+        for w in pdf_base_dir.glob("Week_*.html"):
             if w.stat().st_mtime > index_mtime:
                 needs_rebuild = True
                 break

@@ -56,6 +56,10 @@ if hasattr(sys.stdout, "reconfigure"):
 
 REPO = Path(__file__).resolve().parent.parent
 
+# Round 56 — Phase 1 path-fallback support.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _paths import resolve_pdf_base_html_dir  # noqa: E402
+
 # Banner heading on the writing-homework page.
 BANNER_OLD = "Writing Homework: Draft &amp; Polished Rewrite"
 BANNER_NEW = "Writing Homework: AI corrected"
@@ -119,7 +123,8 @@ def merge_one(html: str) -> tuple[str, str]:
 
 
 def main() -> int:
-    week_files = sorted(REPO.glob("Week_*.html"))
+    pdf_base_dir = resolve_pdf_base_html_dir(REPO)
+    week_files = sorted(pdf_base_dir.glob("Week_*.html"))
     if not week_files:
         print(f"FATAL: no Week_*.html files at {REPO}")
         return 1

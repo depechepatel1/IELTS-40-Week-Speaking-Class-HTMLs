@@ -187,24 +187,40 @@ def collect_mirror_status() -> dict:
     return out
 
 
+def _resolve_dir(repo: Path, new_subpath: str, old_subpath: str) -> Path:
+    """Round 56 — Phase 1 path-fallback. Match the resolver pattern in
+    scripts/_paths.py without importing it (audit script lives in both
+    repos and has no setup dependency)."""
+    new = repo / new_subpath
+    return new if new.is_dir() else (repo / old_subpath)
+
+
 def collect_htmls() -> list[tuple[Path, str, str]]:
     """Return (path, kind, label) tuples for every HTML to audit.
 
     kind is 'pdf-base' or 'interactive'.
     label is a human-readable group name for the report.
+
+    Round 56 — paths resolve to the new five-folder structure if Phase 2
+    file moves have run; otherwise fall back to the old root/Interactive
+    layout so the audit works during the transition.
     """
     out: list[tuple[Path, str, str]] = []
 
-    # Per-week PDF-base HTMLs (root)
-    for p in sorted((IGCSE_REPO).glob("Week_*.html")):
-        out.append((p, "pdf-base", "IGCSE PDF-base (root)"))
-    for p in sorted((IELTS_REPO).glob("Week_*.html")):
-        out.append((p, "pdf-base", "IELTS PDF-base (root)"))
+    # Per-week PDF-base HTMLs — resolved (new folder if migrated, else root)
+    igcse_pdf = _resolve_dir(IGCSE_REPO, "IGCSE PDF Base HTMLS/HTMLs", ".")
+    ielts_pdf = _resolve_dir(IELTS_REPO, "IELTS PDF Base HTMLS/HTMLs", ".")
+    for p in sorted(igcse_pdf.glob("Week_*.html")):
+        out.append((p, "pdf-base", "IGCSE PDF-base"))
+    for p in sorted(ielts_pdf.glob("Week_*.html")):
+        out.append((p, "pdf-base", "IELTS PDF-base"))
 
-    # Per-week Interactive HTMLs
-    for p in sorted((IGCSE_REPO / "Interactive").glob("Week_*.html")):
+    # Per-week Interactive HTMLs — resolved
+    igcse_int = _resolve_dir(IGCSE_REPO, "IGCSE Interactive HTMLS", "Interactive")
+    ielts_int = _resolve_dir(IELTS_REPO, "IELTS Interactive HTMLS", "Interactive")
+    for p in sorted(igcse_int.glob("Week_*.html")):
         out.append((p, "interactive", "IGCSE Interactive"))
-    for p in sorted((IELTS_REPO / "Interactive").glob("Week_*.html")):
+    for p in sorted(ielts_int.glob("Week_*.html")):
         out.append((p, "interactive", "IELTS Interactive"))
 
     # Canonical templates (the source-of-truth pre-fan-out files)

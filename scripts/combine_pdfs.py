@@ -28,12 +28,20 @@ if hasattr(sys.stdout, "reconfigure"):
 from pypdf import PdfReader, PdfWriter
 
 REPO = Path(__file__).resolve().parent.parent
-INTRO = REPO / "intro_packet.pdf"
-OUT = REPO / "IELTS_Speaking_Course_Complete.pdf"
+
+# Round 56 — Phase 1 path-fallback support.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _paths import resolve_pdf_converted_dir, resolve_pdf_combined_dir  # noqa: E402
+
+INTRO = REPO / "intro_packet.pdf"  # user creating new intro; stays at root
 
 
 def main() -> int:
-    weeks = sorted(REPO.glob("Week_[0-9][0-9].pdf"))
+    converted_dir = resolve_pdf_converted_dir(REPO)
+    combined_dir = resolve_pdf_combined_dir(REPO)
+    combined_dir.mkdir(parents=True, exist_ok=True)
+    OUT = combined_dir / "IELTS_Speaking_Course_Complete.pdf"
+    weeks = sorted(converted_dir.glob("Week_[0-9][0-9].pdf"))
     if not weeks:
         print("FATAL: no Week_NN.pdf files found at repo root.")
         print("Run `python batch_convert_pdf.py` first.")
