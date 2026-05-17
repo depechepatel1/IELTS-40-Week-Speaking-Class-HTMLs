@@ -601,6 +601,62 @@ body {
     padding-right: 215px;
 }
 
+/* Round 55b (2026-05-17) — when the listen-row is wrapped INSIDE a
+   .q-prompt-row flex container (per 06_word_click.js injectListenButtons
+   placement (B)), it's no longer absolutely positioned in the card top-
+   right corner. The q-prompt + listen-row are flex siblings instead, so
+   the q-prompt doesn't need the 215px padding-right reservation that
+   protects the absolute layout. Undo it here. */
+.card:has(> .q-prompt-row) .q-prompt {
+    padding-right: 0;
+}
+
+/* The flex wrapper itself. align-items: flex-end pins the listen-row to
+   the BOTTOM of the q-prompt — so on a 2-line question, the widget sits
+   alongside the 2nd line rather than the 1st. This visually balances
+   the prompt block and frees vertical real-estate further down the card
+   for the follow-up peer-check rows. */
+.card > .q-prompt-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 12px;
+    margin: 0 0 6px 0;
+}
+.card > .q-prompt-row > .q-prompt {
+    flex: 1 1 auto;
+    min-width: 0;
+    /* Tighter line-height when alongside a listen-row in this flex layout.
+       Default .q-prompt is comfortable but a multi-line wrap with the
+       widget alongside benefits from less vertical sprawl. */
+    line-height: 1.3;
+    margin: 0;
+}
+.card > .q-prompt-row > .q-prompt .q-main {
+    /* Even tighter on the heading-weight main question — it's already
+       letter-spacing-adjusted at 1.05em / weight 700 / dark slate. */
+    line-height: 1.22;
+}
+.card > .q-prompt-row > .listen-row {
+    /* Override the `.card > .listen-row` absolute positioning — inside
+       this flex container the listen-row is a sibling flex item, not a
+       corner-pinned element. */
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    flex-shrink: 0;
+    /* Tiny baseline lift so the small-font tts-btn icons line up with
+       the cap-height of the q-prompt's last text line, not its descender. */
+    margin-bottom: 2px;
+}
+
+/* Trim the card top padding when a .q-prompt-row wrapper is in use —
+   the wrapper handles its own internal spacing, so the default card
+   top padding can shrink. ~4-6px clawed back here. */
+.card:has(> .q-prompt-row) {
+    padding-top: 10px;
+}
+
 /* Sentence-paced transport buttons — Prev / Replay / Next.
  * Round 55 v2 — vibrant blue gradient so the play cluster is obviously
  * a tactile interactive element, not flat decoration. The .replay

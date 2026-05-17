@@ -117,16 +117,39 @@
       // next UK/US click will pick up the new gender.
       btnGender.onclick = () => _toggleGender(row);
 
-      // Round 49d — insert the listen-row as a direct child of the .card.
-      // CSS (`.card > .listen-row`) positions it absolutely in the card's
-      // top-right corner, so it occupies ZERO vertical space. Previously the
-      // row was flex-wrapped together with the section heading inside a
-      // `.listen-row-wrapper`; on cards with a long section title (e.g. IGCSE
-      // Section 6 "Circuit Prompt & Model Answer") the wrapper squeezed the
-      // heading, forcing the title onto a 2nd line — the extra height pushed
-      // page-4's bottom banner off the page. Absolute positioning keeps the
-      // buttons in the available top-right space with no layout reflow.
-      card.insertBefore(row, card.firstChild);
+      // Placement: how the listen-row sits in the card.
+      //
+      // (A) Round 49d default: insert as a DIRECT CHILD of .card. CSS
+      //     (`.card > .listen-row`) positions it absolutely top-right so
+      //     it occupies ZERO vertical space. Used for cards whose first
+      //     visible block is a section heading or model-box (no q-prompt).
+      //     The previous `.listen-row-wrapper` flex approach squeezed long
+      //     section titles onto a 2nd line, pushing the bottom banner off
+      //     IGCSE page 4.
+      //
+      // (B) Round 55b (2026-05-17): when the card has a `.q-prompt` (the
+      //     IELTS Q2-Q6 Part-3 question cards), wrap q-prompt + listen-row
+      //     in a `.q-prompt-row` flex container with `align-items:
+      //     flex-end`. The listen-row then sits at the BOTTOM of the
+      //     q-prompt's last text line — not at the card top corner. A
+      //     2-line question pushes the widget down by one line so it
+      //     visually balances; a 1-line question keeps the widget at the
+      //     same level as today. The wrapper also drops the 215px right
+      //     padding the absolute layout needed, recovering ~25% of the
+      //     q-prompt's writeable width for the actual question.
+      //     Together with the .card top-padding trim in inserted_css.css,
+      //     this claws back enough vertical space that the follow-up
+      //     peer-check rows fit inside the card on long-Q6-style pages.
+      const qPrompt = card.querySelector(':scope > .q-prompt');
+      if (qPrompt) {
+        const qPromptRow = document.createElement('div');
+        qPromptRow.className = 'q-prompt-row';
+        qPrompt.parentNode.insertBefore(qPromptRow, qPrompt);
+        qPromptRow.appendChild(qPrompt);
+        qPromptRow.appendChild(row);
+      } else {
+        card.insertBefore(row, card.firstChild);
+      }
     });
   }
 
