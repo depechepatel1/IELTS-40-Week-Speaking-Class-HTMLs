@@ -154,7 +154,11 @@ def _check_fc_url_drift(repo: Path) -> None:
     if not deployed_url_file.exists():
         return  # no FC in this repo (e.g. IGCSE — shared FC lives in IELTS)
     deployed = deployed_url_file.read_text().strip()
-    sample = next(iter((repo / "Interactive").glob("Week_*.html")), None)
+    # Round 56 — use resolved Interactive dir (Phase 2 reorg moved
+    # Interactive/ → IELTS Interactive HTMLS/). Without this fix the
+    # FC-URL drift check silently no-ops in the new layout. Tight glob
+    # matches canonical Week_NN.html only (skip stray *_preview.html).
+    sample = next(iter(resolve_interactive_dir(repo).glob("Week_[0-9][0-9].html")), None)
     if not sample:
         return
     content = sample.read_text(encoding="utf-8")
@@ -204,8 +208,13 @@ def main() -> int:
     ok = skip = 0
 
     # 2. Upload 40 interactive HTMLs with Text/HTML mime + cache headers.
+    # Tight glob — only canonical Week_NN.html (zero-padded two-digit). Pre-
+    # Round-56 this used "Week_*.html" which also caught Week_01_preview.html
+    # (a leftover preview file swept into IELTS Interactive HTMLS/ by Phase 2
+    # reorg), leaking it to OSS. Strict glob matches the production canonical
+    # naming per CLAUDE.md filename convention.
     interactive = resolve_interactive_dir(REPO)  # Round 56 — fallback resolver
-    htmls = sorted(interactive.glob("Week_*.html"))
+    htmls = sorted(interactive.glob("Week_[0-9][0-9].html"))
     print(f"\nUploading {len(htmls)} HTML files (skip-unchanged enabled)...")
     for f in htmls:
         status, _ = _smart_upload(bucket, f.name, f, "Text/HTML; charset=utf-8")
