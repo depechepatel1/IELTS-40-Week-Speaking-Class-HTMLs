@@ -359,14 +359,21 @@ def render_text_report(mirror: dict, audits: list[dict], strict: bool) -> tuple[
                         drift += (n - count)
         else:
             # PDF-base: Section 7 & 8 / Draft + Polished should be MERGED.
-            merge_markers = (IGCSE_PDF_MERGE_MARKERS if not is_ielts
-                             else IELTS_PDF_MERGE_MARKERS)
-            for marker_key in merge_markers:
-                count = sum(1 for a in items if a.get("sec78_merged", {}).get(marker_key, False))
-                status = _status_label(count, n)
-                add(f"    MERGE {status:<14s} {marker_key}")
-                if count < n:
-                    drift += (n - count)
+            # Canonical templates intentionally don't have sec78_merged
+            # populated (audit_one skips the check for them) — so if no
+            # item in this group has sec78_merged data, this is the
+            # unmerged-by-design canonical group and we skip the row
+            # entirely. Avoids a false-positive "MISSING (0/1)" line.
+            has_merge_data = any("sec78_merged" in a for a in items)
+            if has_merge_data:
+                merge_markers = (IGCSE_PDF_MERGE_MARKERS if not is_ielts
+                                 else IELTS_PDF_MERGE_MARKERS)
+                for marker_key in merge_markers:
+                    count = sum(1 for a in items if a.get("sec78_merged", {}).get(marker_key, False))
+                    status = _status_label(count, n)
+                    add(f"    MERGE {status:<14s} {marker_key}")
+                    if count < n:
+                        drift += (n - count)
         add("")
 
     # === Summary ===
