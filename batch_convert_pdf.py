@@ -31,8 +31,22 @@ def batch_convert(input_dir="."):
                 # OSS-hosted videos) don't trigger Playwright's default
                 # 30s networkidle timeout. (Same fix applied to IGCSE's
                 # batch_convert_pdf.py.)
-                page.goto(f"file://{os.path.abspath(html_path)}", wait_until="load")
-                
+                #
+                # Round 56 follow-up: even "load" still times out on a
+                # subset of weeks (1-3 of IELTS) that have particularly
+                # heavy initial loads. Fall back to "domcontentloaded"
+                # with a longer 90s timeout + a 2s settle window for
+                # images. This catches the long tail without sacrificing
+                # the fast happy-path.
+                try:
+                    page.goto(f"file://{os.path.abspath(html_path)}",
+                              wait_until="load", timeout=30000)
+                except Exception:
+                    print(f"  (load timeout — retrying with domcontentloaded + 90s)")
+                    page.goto(f"file://{os.path.abspath(html_path)}",
+                              wait_until="domcontentloaded", timeout=90000)
+                    page.wait_for_timeout(2000)  # let images start
+
                 page.pdf(
                     path=pdf_path,
                     format="A4",
