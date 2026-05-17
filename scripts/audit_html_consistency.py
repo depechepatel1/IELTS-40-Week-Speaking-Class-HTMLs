@@ -210,17 +210,20 @@ def collect_htmls() -> list[tuple[Path, str, str]]:
     # Per-week PDF-base HTMLs — resolved (new folder if migrated, else root)
     igcse_pdf = _resolve_dir(IGCSE_REPO, "IGCSE PDF Base HTMLS/HTMLs", ".")
     ielts_pdf = _resolve_dir(IELTS_REPO, "IELTS PDF Base HTMLS/HTMLs", ".")
-    for p in sorted(igcse_pdf.glob("Week_*.html")):
+    # Tight glob — only canonical Week_NN.html (zero-padded two-digit), so
+    # stray *_preview.html or other ad-hoc files don't get audited as
+    # production output. CLAUDE.md filename convention: Week_NN.html.
+    for p in sorted(igcse_pdf.glob("Week_[0-9][0-9].html")):
         out.append((p, "pdf-base", "IGCSE PDF-base"))
-    for p in sorted(ielts_pdf.glob("Week_*.html")):
+    for p in sorted(ielts_pdf.glob("Week_[0-9][0-9].html")):
         out.append((p, "pdf-base", "IELTS PDF-base"))
 
     # Per-week Interactive HTMLs — resolved
     igcse_int = _resolve_dir(IGCSE_REPO, "IGCSE Interactive HTMLS", "Interactive")
     ielts_int = _resolve_dir(IELTS_REPO, "IELTS Interactive HTMLS", "Interactive")
-    for p in sorted(igcse_int.glob("Week_*.html")):
+    for p in sorted(igcse_int.glob("Week_[0-9][0-9].html")):
         out.append((p, "interactive", "IGCSE Interactive"))
-    for p in sorted(ielts_int.glob("Week_*.html")):
+    for p in sorted(ielts_int.glob("Week_[0-9][0-9].html")):
         out.append((p, "interactive", "IELTS Interactive"))
 
     # Canonical templates (the source-of-truth pre-fan-out files)
@@ -331,6 +334,14 @@ def render_text_report(mirror: dict, audits: list[dict], strict: bool) -> tuple[
     for label, items in sorted(groups.items()):
         is_interactive = items[0]["kind"] == "interactive"
         is_ielts = "IELTS" in label
+        # Canonical interactive (e.g., IELTS canonical/interactive/Week_01.html)
+        # is the PRE-BAKE source template. Typography + widget markers get
+        # injected by make_interactive.py from inserted_css.css +
+        # inserted_script_modules at bake time, so the canonical file does
+        # not (and should not) carry them. Skip the group entirely to avoid
+        # flagging legitimate pre-bake state as drift.
+        if is_interactive and "canonical" in label.lower():
+            continue
         n = len(items)
         add(f"  --- {label} ({n} files) ---")
 

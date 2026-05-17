@@ -33,6 +33,13 @@ REPO = Path(__file__).resolve().parent.parent
 CANONICAL = REPO / "canonical" / "pdf-base" / "Week_01.html"
 SAMPLE_WEEKS = ["Week_05.html", "Week_22.html", "Week_38.html"]
 
+# Round 56 — Phase 1 path-fallback support. Fanned-out Week_NN.html
+# now lives under "IELTS PDF Base HTMLS/HTMLs/" (with fallback to repo
+# root for pre-migration state).
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _paths import resolve_pdf_base_html_dir  # noqa: E402
+PDF_BASE_DIR = resolve_pdf_base_html_dir(REPO)
+
 # (label, compiled-regex). All run with re.DOTALL — patterns may span lines.
 # Brace-counting note: @font-face / .cover-footer / .page-number rules don't
 # contain nested braces, so a simple `\{[^}]*\}` body match is safe.
@@ -91,7 +98,7 @@ def main() -> int:
 
     any_drift = False
     for week_name in SAMPLE_WEEKS:
-        drifts = compare(canonical_blocks, REPO / week_name)
+        drifts = compare(canonical_blocks, PDF_BASE_DIR / week_name)
         if not drifts:
             print(f"[OK]    {week_name} - 0 drift")
         else:
